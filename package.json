@@ -9,6 +9,10 @@
     "test": "vitest",
     "lint": "node_modules/.bin/eslint . --max-warnings=0 --ext .tsx,.ts"
   },
+  "engines": {
+    "npm": ">=6.0.0 <7.0.0",
+    "node": ">=14.0.0 <15.0.0"
+  },
   "main": "dist/index.js",
   "types": "types/src/index.d.ts",
   "files": [
