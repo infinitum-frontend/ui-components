@@ -1,0 +1,72 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "standard-with-typescript"
+  ],
+  "overrides": [
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": [
+      "tsconfig.eslint.json"
+    ]
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-wrap-multilines": [
+      "warn",
+      {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-tag-spacing": [
+      "warn",
+      {
+        "beforeClosing": "never",
+        "beforeSelfClosing": "always"
+      }
+    ],
+    "react/jsx-indent": [
+      "warn",
+      2
+    ],
+    "react/jsx-indent-props": [
+      "warn",
+      "first"
+    ],
+    "react/jsx-max-props-per-line": [
+      "warn",
+      {
+        "maximum": {
+          "single": 2,
+          "multi": 1
+        }
+      }
+    ],
+    "react/jsx-closing-tag-location": "warn",
+    "react/jsx-props-no-multi-spaces": "warn",
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "@typescript-eslint/space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "@typescript-eslint/prefer-nullish-coalescing": 0
+  }
+}
