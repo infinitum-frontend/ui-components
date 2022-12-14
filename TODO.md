@@ -1,0 +1,2 @@
+ - plugin to remove test attrs from production build. Ref https://github.com/l-mbert/vite-plugin-react-remove-attributes
+ - husky precommit
