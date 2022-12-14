@@ -3,7 +3,7 @@ import { ReactElement, ReactNode } from 'react';
 export interface IButtonProps {
     children?: ReactElement | ReactNode;
     variant?: keyof typeof ButtonVariants;
-    onClick?: <T>() => T;
+    onClick?: () => void;
 }
 export declare enum ButtonVariants {
     red = "red",
