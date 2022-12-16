@@ -1,0 +1,10 @@
+.inf-select {
+  position: relative;
+
+  &__items {
+    list-style-type: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+  }
+}

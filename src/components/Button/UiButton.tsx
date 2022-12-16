@@ -1,12 +1,12 @@
 import './index.scss'
-import React, { ReactNode } from 'react'
+import React, { MouseEventHandler, ReactElement, ReactNode } from 'react'
 import { TestSelectors } from '../../../test/selectors'
 
 export interface IButtonProps {
   children?: ReactNode
   /* Цветовая тема */
   variant?: keyof typeof ButtonVariants
-  onClick?: () => void
+  onClick?: MouseEventHandler
 }
 
 export enum ButtonVariants {
@@ -14,7 +14,7 @@ export enum ButtonVariants {
   blue = 'blue'
 }
 
-const UiButton = (props: IButtonProps): ReactNode => {
+const UiButton = (props: IButtonProps): ReactElement => {
   const { children, variant = ButtonVariants.red, onClick } = props
 
   return (

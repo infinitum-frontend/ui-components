@@ -1,1 +1,1 @@
-export { default as UiInput } from './UiInput'
+export { default as InfInput } from './InfInput'
