@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-import themes from '../base'
+import themes from '../test'
 import { stripIndent } from 'common-tags'
 import prepareDir, { THEMES_DIR } from './helpers/prepareDir'
 

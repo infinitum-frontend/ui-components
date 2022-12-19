@@ -1,9 +1,9 @@
 import './index.scss';
-import { ReactElement, ReactNode } from 'react';
+import { MouseEventHandler, ReactElement, ReactNode } from 'react';
 export interface IButtonProps {
     children?: ReactNode;
     variant?: keyof typeof ButtonVariants;
-    onClick?: () => void;
+    onClick?: MouseEventHandler;
 }
 export declare enum ButtonVariants {
     red = "red",
