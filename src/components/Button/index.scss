@@ -1,4 +1,4 @@
-.ui-button {
+.inf-button {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 18px;
@@ -20,10 +20,18 @@
   -moz-appearance: none;
   appearance: none;
   border-radius: 50px; // button-border-radius
-  transition: all .3s ease-in;
+  transition: .2s;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+
+  &:active {
+    filter: brightness(90%);
+  }
 
   &--variant-primary {
-    background-color: #e52737;
+    background-color: var(--inf-color-primary);
     color: #fff;
   }
 
