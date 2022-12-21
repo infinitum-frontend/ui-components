@@ -1,0 +1,29 @@
+:root {
+  --inf-color-brand: hsl(355, 79%, 53%);
+  --inf-color-primary: var(--inf-color-brand);
+  --inf-color-text: #000;
+  --inf-color-text-secondary: #666;
+  --inf-color-bg: #fff;
+  --inf-color-bg-secondary: #ddd;
+  --inf-color-icon: #000;
+  --inf-color-link: blue;
+  --inf-color-success: green;
+  --inf-color-danger: red;
+  --inf-control-height: 50px;
+
+  --inf-color-text-primary: black;
+  --inf-color-text-secondary: #333;
+  --inf-color-text-tertiary: #666;
+  --inf-color-text-error: #666;
+  --inf-color-text-success: #666;
+  --inf-color-text-warning: #666;
+  --inf-color-text-link: blue;
+  --inf-color-surface-base: white;
+  --inf-color-surface-0: white;
+  --inf-color-surface-100: white;
+  --inf-color-surface-200: white;
+  --inf-color-control-secondary: lightgray;
+  --inf-color-control-secondary: lightgray;
+  --inf-color-border-default: lightgray;
+  --inf-color-border-selected: lightgray;
+}
