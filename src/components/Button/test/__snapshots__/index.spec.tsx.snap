@@ -6,19 +6,25 @@ exports[`hello world > matchSnapshot 1`] = `
   "baseElement": <body>
     <div>
       <button
-        class="ui-button ui-button--red"
-        data-testid="ui-button"
+        class="ui-button ui-button--variant-red"
+        data-testid="button"
       >
         Button
+        <p>
+          hello
+        </p>
       </button>
     </div>
   </body>,
   "container": <div>
     <button
-      class="ui-button ui-button--red"
-      data-testid="ui-button"
+      class="ui-button ui-button--variant-red"
+      data-testid="button"
     >
       Button
+      <p>
+        hello
+      </p>
     </button>
   </div>,
   "debug": [Function],

@@ -1,0 +1,57 @@
+// Vitest Snapshot v1
+
+exports[`input > matches snapshop 1`] = `
+<span
+  class="inf-input"
+  data-testid="wrapper"
+>
+  <input
+    class="inf-input__input"
+    data-testid="input"
+    placeholder=""
+    value=""
+  />
+</span>
+`;
+
+exports[`prefix and postfix > postfix renders > postfix 1`] = `
+<span
+  class="inf-input"
+  data-testid="wrapper"
+>
+  <input
+    class="inf-input__input"
+    data-testid="input"
+    placeholder=""
+    value=""
+  />
+  <span
+    class="inf-input__postfix postfix-class"
+    data-testid="postfix"
+  >
+    <span>
+      postfix
+    </span>
+  </span>
+</span>
+`;
+
+exports[`prefix and postfix > prefix renders > prefix 1`] = `
+<span
+  class="inf-input"
+  data-testid="wrapper"
+>
+  <span
+    class="inf-input__prefix prefix-class"
+    data-testid="prefix"
+  >
+    prefix
+  </span>
+  <input
+    class="inf-input__input"
+    data-testid="input"
+    placeholder=""
+    value=""
+  />
+</span>
+`;

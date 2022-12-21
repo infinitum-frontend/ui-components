@@ -29,7 +29,7 @@ export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement
   /** Элемент постфикс */
   postfix?: ReactNode
   /** Кастомный класс постфикса */
-  postfixClass?: 'string'
+  postfixClass?: string
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
   /** Наличие границ */
