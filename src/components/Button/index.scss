@@ -1,4 +1,55 @@
-.ui-button {
-  border-radius: 8px;
-  height: 50px;
+.inf-button {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: -webkit-max-content;
+  width: max-content;
+  padding: 0 25px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  border: 1px solid transparent;
+  box-shadow: 0 0 0 2px transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 50px; // button-border-radius
+  transition: .2s;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+
+  &:active {
+    filter: brightness(90%);
+  }
+
+  &--variant-primary {
+    background-color: var(--inf-color-primary);
+    color: #fff;
+  }
+
+  &--variant-secondary {
+    background: #f6f7f8;
+    color: #646a89;
+  }
+
+  &--size-small {
+    height: 35px;
+    font-size: 14px;
+  }
+
+  &--size-medium {
+    height: 50px;
+  }
+
+  &--size-large {
+    height: 60px;
+  }
 }
