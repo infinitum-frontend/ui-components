@@ -3,6 +3,10 @@ export const TestSelectors = {
     root: 'button'
   },
   input: {
-    root: 'input'
+    wrapper: 'wrapper',
+    inputEl: 'input',
+    prefix: 'prefix',
+    postfix: 'postfix',
+    allowClear: 'allowClear'
   }
 }

@@ -6,6 +6,7 @@ import React, {
 import classNames from 'classnames'
 import './index.scss'
 import { InfInputProps, InputRefHandler } from './interface'
+import { TestSelectors } from '../../../test/selectors'
 
 const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   value = '',
@@ -118,6 +119,7 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
 
     return (
       <span onClick={handleClear}
+            data-testid={TestSelectors.input.allowClear}
             className={classNames('inf-input__clear-button',
               {
                 'inf-input__clear-button--hidden': !value
@@ -128,11 +130,12 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   }
 
   return (
-    <span className={getClassNames()}>
+    <span className={getClassNames()} data-testid={TestSelectors.input.wrapper}>
 
-      {prefix && <span className={classNames('inf-input__prefix', prefixClass)}>{prefix}</span>}
+      {prefix && <span className={classNames('inf-input__prefix', prefixClass)} data-testid={TestSelectors.input.prefix}>{prefix}</span>}
 
       <input className={'inf-input__input'}
+             data-testid={TestSelectors.input.inputEl}
              value={getFormattedValue()}
              placeholder={placeholder}
              disabled={disabled}
@@ -143,7 +146,7 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
              ref={inputRef} />
 
       {allowClear && getClearIcon()}
-      {postfix && <span className={classNames('inf-input__postfix', postfixClass)}>{postfix}</span>}
+      {postfix && <span className={classNames('inf-input__postfix', postfixClass)} data-testid={TestSelectors.input.postfix}>{postfix}</span>}
     </span>
   )
 })
