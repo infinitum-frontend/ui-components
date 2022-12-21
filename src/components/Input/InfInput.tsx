@@ -1,42 +1,13 @@
 import React, {
   FocusEventHandler,
   FormEventHandler,
-  ForwardedRef, InputHTMLAttributes,
-  ReactElement, ReactNode, useState
+  ReactElement, ReactNode, useImperativeHandle, useState, useRef, Ref
 } from 'react'
 import classNames from 'classnames'
 import './index.scss'
+import { InfInputProps, InputRefHandler } from './interface'
 
-// перезаписываем некоторые HTML аттрибуты, для своих реализаций
-export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'onInput'> {
-  value?: string
-  /**
-   * Функция, применяющаяся для форматирования значения
-   * @param value {string}
-   * @return {string}
-   */
-  formatter?: (value: string) => string
-  /** Кастомный css-класс */
-  className?: string
-  /** placeholder */
-  placeholder?: string
-  /**
-   * Размер скруглений
-   * @default unset
-   */
-  borderRadius?: 'unset' | 'regular' | 'medium'
-  /** Состояние недоступности */
-  disabled?: boolean
-  /** Состояние (ошибка, предупреждение) */
-  status?: 'error' | 'warning'
-  /** Элемент префикс */
-  prefix?: ReactNode
-  onFocus?: FocusEventHandler<HTMLInputElement>
-  onInput?: (value: string) => void
-  onBlur?: FocusEventHandler<HTMLInputElement>
-}
-
-const InfInput = React.forwardRef<HTMLInputElement, InfInputProps>(({
+const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   value = '',
   formatter,
   className = '',
@@ -48,10 +19,26 @@ const InfInput = React.forwardRef<HTMLInputElement, InfInputProps>(({
   onFocus,
   onBlur,
   prefix,
+  prefixClass = '',
+  postfix,
+  postfixClass = '',
+  allowClear = false,
+  noBorder = false,
+  collapseBottom = false,
   ...restProps
-}: InfInputProps, ref: ForwardedRef<HTMLInputElement>): ReactElement => {
+}, ref: Ref<InputRefHandler>): ReactElement => {
   // обработка состояния
   const [isFocused, setFocus] = useState(false)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useImperativeHandle(ref,
+    () => ({
+      input: inputRef.current,
+      focus: () => inputRef.current?.focus(),
+      blur: () => inputRef.current?.blur()
+    })
+  )
 
   // обработка событий
   const handleInput: FormEventHandler = (e) => {
@@ -62,13 +49,20 @@ const InfInput = React.forwardRef<HTMLInputElement, InfInputProps>(({
   }
 
   const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
-    setFocus(!isFocused)
+    setFocus(true)
     onFocus?.(e)
   }
 
   const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
     setFocus(false)
     onBlur?.(e)
+  }
+
+  const handleClear: () => void = () => {
+    if (onInput !== undefined) {
+      onInput('')
+      inputRef.current?.focus()
+    }
   }
 
   // хелперы
@@ -87,15 +81,57 @@ const InfInput = React.forwardRef<HTMLInputElement, InfInputProps>(({
       {
         'inf-input--disabled': disabled,
         'inf-input--focused': isFocused,
+        'inf-input--no-border': noBorder,
+        'inf-input--collapse-bottom': collapseBottom,
         [`inf-input--br-${borderRadius}`]: borderRadius !== 'unset',
         [`inf-input--status-${status as string}`]: status
       }
     )
   }
 
+  const getClearIcon: () => ReactNode = () => {
+    if (!allowClear) {
+      return null
+    }
+
+    const iconNode = typeof allowClear === 'object' && allowClear.icon
+      ? allowClear.icon
+      : (
+        <svg width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             style={{ color: 'currentColor' }}
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round" />
+          <path d="M6 6L18 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round" />
+        </svg>
+        )
+
+    return (
+      <span onClick={handleClear}
+            className={classNames('inf-input__clear-button',
+              {
+                'inf-input__clear-button--hidden': !value
+              })}>
+        {iconNode}
+      </span>
+    )
+  }
+
   return (
     <span className={getClassNames()}>
-      { prefix && <span className={'inf-input__prefix'}>{prefix}</span> }
+
+      {prefix && <span className={classNames('inf-input__prefix', prefixClass)}>{prefix}</span>}
+
       <input className={'inf-input__input'}
              value={getFormattedValue()}
              placeholder={placeholder}
@@ -104,7 +140,10 @@ const InfInput = React.forwardRef<HTMLInputElement, InfInputProps>(({
              onBlur={handleBlur}
              onInput={handleInput}
              {...restProps}
-             ref={ref} />
+             ref={inputRef} />
+
+      {allowClear && getClearIcon()}
+      {postfix && <span className={classNames('inf-input__postfix', postfixClass)}>{postfix}</span>}
     </span>
   )
 })

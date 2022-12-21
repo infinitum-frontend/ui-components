@@ -2,11 +2,12 @@ import { FocusEventHandler, ReactElement, Ref } from 'react'
 import './index.scss'
 import classNames from 'classnames'
 import InfInput from '../Input/InfInput'
+import { InputRefHandler } from '../Input/interface'
 
 export interface InfSelectProps {
   items: Array<Record<string, any>>
   className?: string
-  inputRef?: Ref<HTMLInputElement>
+  inputRef?: Ref<InputRefHandler>
 }
 
 const InfSelect = (props: InfSelectProps): ReactElement => {
