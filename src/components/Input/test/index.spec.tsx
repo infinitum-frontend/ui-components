@@ -1,10 +1,9 @@
-import { describe, expectTypeOf, it, vi } from 'vitest'
+import { describe, expectTypeOf, it, vi, expect } from 'vitest'
 import { fireEvent, render } from '@testing-library/react'
 import { InfInput } from '../index'
 import { TestSelectors } from '../../../../test/selectors'
 import { InfInputProps } from '../interface'
 import { ReactNode } from 'react'
-import { forceReRender } from '@storybook/react'
 
 const renderComponent: (args?: InfInputProps) => Record<string, HTMLElement> = (args) => {
   const reactEl = render(<InfInput {...args} />)
@@ -87,12 +86,12 @@ describe('clear-button', () => {
 
   it('hidden on empty input', () => {
     const { allowClear } = renderComponent({ allowClear: true })
+    expect(allowClear).toHaveStyle('visibility: hidden')
     expect(allowClear.className).toContain('inf-input__clear-button--hidden')
   })
 
   it('render default icon', () => {
     const { allowClear } = renderComponent({ allowClear: true })
-    console.log(allowClear.firstChild)
     expect(allowClear.firstChild).toBeDefined()
   })
 })
