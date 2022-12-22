@@ -25,10 +25,26 @@
     text-transform: uppercase;
   }
 
+  &--italic {
+    font-style: italic;
+  }
+
   &--truncated {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  &--align-center {
+    text-align: center;
+  }
+
+  &--align-left {
+    text-align: left;
+  }
+
+  &--align-right {
+    text-align: right;
   }
 
   &--weight-light {

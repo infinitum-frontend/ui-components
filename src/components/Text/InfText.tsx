@@ -10,8 +10,10 @@ export interface InfTextProps {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
   weight?: 'light' | 'normal' | 'bold'
   tone?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'danger' | 'warning'
+  alignment?: 'left' | 'center' | 'right'
   isTruncated?: boolean
   isUppercase?: boolean
+  isItalic?: boolean
 }
 
 const InfText: React.FunctionComponent<InfTextProps> = ({
@@ -20,8 +22,10 @@ const InfText: React.FunctionComponent<InfTextProps> = ({
   size = 'medium',
   weight = 'normal',
   tone = 'primary',
+  alignment = 'left',
   isTruncated = false,
-  isUppercase = false
+  isUppercase = false,
+  isItalic = false
 }) => {
   const getClassNames: () => string = () => {
     return classNames(
@@ -32,7 +36,9 @@ const InfText: React.FunctionComponent<InfTextProps> = ({
       `inf-text--tone-${tone}`,
       {
         'inf-text--uppercase': isUppercase,
-        'inf-text--truncated': isTruncated
+        'inf-text--truncated': isTruncated,
+        'inf-text--italic': isItalic,
+        [`inf-text--align-${alignment}`]: alignment !== 'left'
       }
     )
   }
