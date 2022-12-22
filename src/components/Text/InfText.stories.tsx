@@ -3,7 +3,7 @@ import { InfText } from './index'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 const Meta: ComponentMeta<typeof InfText> = {
-  title: 'Text',
+  title: 'Typography/Text',
   component: InfText,
   argTypes: {
     children: {

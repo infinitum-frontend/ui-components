@@ -1,1 +1,1 @@
-export { default as InfHeading, ButtonVariants } from './InfHeading'
+export { default as InfHeading } from './InfHeading'

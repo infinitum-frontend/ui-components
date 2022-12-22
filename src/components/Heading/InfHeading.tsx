@@ -1,29 +1,57 @@
-import React, { ReactNode } from 'react'
+import './index.scss'
+import React, {
+  ReactNode
+} from 'react'
+import classNames from 'classnames'
 
-export interface IHeadingProps {
+export interface InfHeadingProps {
   children?: ReactNode
-  level?: number
-  as?: ReactNode
-  onClick?: () => void
+  className?: string
+  level?: 1 | 2 | 3 | 4 | 5 | 6
+  weight?: 'light' | 'normal' | 'bold'
+  isTruncated?: boolean
+  isUppercase?: boolean
 }
 
-// type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
+const InfHeading: React.FunctionComponent<InfHeadingProps> = ({
+  children = '',
+  className = '',
+  level = 1,
+  weight = 'bold',
+  isTruncated = false,
+  isUppercase = false
+}) => {
+  const getClassNames: () => string = () => {
+    return classNames(
+      'inf-heading',
+      className,
+      `inf-heading--level-${level}`,
+      `inf-heading--weight-${weight}`,
+      {
+        'inf-heading--uppercase': isUppercase,
+        'inf-heading--truncated': isTruncated
+      }
+    )
+  }
 
-const Heading: React.FunctionComponent<IHeadingProps> = props => {
-  const {
-    children,
-    level = 1,
-    as,
-    onClick
-  } = props
+  const LEVEL_MAP: { 1: 'h1', 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' } = {
+    1: 'h1',
+    2: 'h2',
+    3: 'h3',
+    4: 'h4',
+    5: 'h5',
+    6: 'h6'
+  }
 
-  const Component = 'h1'
-  
+  const Component = LEVEL_MAP[level]
+
   return (
-    <Component onClick={onClick}
-               className={`inf-button ui-button--level-${level}`}>{children}
+    <Component className={getClassNames()}>
+      {children}
     </Component>
   )
 }
 
-export default Heading
+InfHeading.displayName = 'InfHeading'
+
+export default InfHeading
