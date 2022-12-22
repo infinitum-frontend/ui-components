@@ -10,8 +10,8 @@
     "lint": "node_modules/.bin/eslint . --max-warnings=0 --ext .tsx,.ts"
   },
   "engines": {
-    "npm": ">=6.0.0 <7.0.0",
-    "node": ">=14.0.0 <15.0.0"
+    "npm": ">=8.0.0 <9.0.0",
+    "node": ">=16.0.0 <17.0.0"
   },
   "main": "dist/index.js",
   "types": "types/src/index.d.ts",
@@ -20,9 +20,9 @@
     "types/src"
   ],
   "dependencies": {
-    "classnames": "^2.3.2",
     "@storybook/addon-a11y": "^6.5.14",
     "@storybook/preset-scss": "^1.0.3",
+    "classnames": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.56.1"
@@ -53,6 +53,7 @@
     "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.31.11",
+    "html-webpack-plugin": "^5.5.0",
     "jsdom": "^20.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.6.4",
