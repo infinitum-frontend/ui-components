@@ -9,6 +9,7 @@ export interface InfHeadingProps {
   className?: string
   level?: 1 | 2 | 3 | 4 | 5 | 6
   weight?: 'light' | 'normal' | 'bold'
+  alignment?: 'left' | 'center' | 'right'
   isTruncated?: boolean
   isUppercase?: boolean
 }
@@ -18,6 +19,7 @@ const InfHeading: React.FunctionComponent<InfHeadingProps> = ({
   className = '',
   level = 1,
   weight = 'bold',
+  alignment = 'left',
   isTruncated = false,
   isUppercase = false
 }) => {
@@ -29,7 +31,8 @@ const InfHeading: React.FunctionComponent<InfHeadingProps> = ({
       `inf-heading--weight-${weight}`,
       {
         'inf-heading--uppercase': isUppercase,
-        'inf-heading--truncated': isTruncated
+        'inf-heading--truncated': isTruncated,
+        [`inf-heading--align-${alignment}`]: alignment !== 'left'
       }
     )
   }
