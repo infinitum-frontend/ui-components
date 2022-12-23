@@ -23,14 +23,18 @@
   /* --inf-color-border-selected: lightgray; */
 
   --inf-font-family-base: Arial, sans-serif;
+
   --inf-font-weight-light: 300;
   --inf-font-weight-normal: 400;
+  --inf-font-weight-medium: 500;
   --inf-font-weight-bold: 600;
+
   --inf-text-size-medium: 16px;
   --inf-text-size-small: 14px;
   --inf-text-size-xsmall: 12px;
   --inf-text-size-large: 18px;
   --inf-text-size-xlarge: 20px;
+
   --inf-heading-level-1-size: 40px;
   --inf-heading-level-2-size: 30px;
   --inf-heading-level-3-size: 24px;
@@ -38,5 +42,7 @@
   --inf-heading-level-5-size: 18px;
   --inf-heading-level-6-size: 16px;
 
-  --inf-control-height: 50px;
+  --inf-control-height-medium: 50px;
+  --inf-control-height-small: 35px;
+  --inf-control-height-large: 60px;
 }

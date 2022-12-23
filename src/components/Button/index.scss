@@ -41,15 +41,15 @@
   }
 
   &--size-small {
-    height: 35px;
+    height: var(--inf-control-height-small);
     font-size: 14px;
   }
 
   &--size-medium {
-    height: 50px;
+    height: var(--inf-control-height-medium);
   }
 
   &--size-large {
-    height: 60px;
+    height: var(--inf-control-height-large);
   }
 }
