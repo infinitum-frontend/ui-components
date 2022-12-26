@@ -30,3 +30,19 @@ export default defineConfig({
     }
   }
 })
+
+// НА будущее
+// import path, {resolve} from 'path'
+// const getIcons = () => {
+//   const pathToIcons = path.resolve(__dirname, '/src/components/Icon')
+//   const result = {}
+//   const files = fs.readdirSync(pathToIcons)
+//   const resultFiles = files.filter(file => (file.startsWith('Icon') || file.startsWith('index')) && !file.match('stories'))
+//
+//   resultFiles.forEach(file => {
+//     console.log(resolve(pathToIcons, file))
+//     result[`${file.slice(0, file.endsWith('ts') ? -3 : -4)}`] = resolve(pathToIcons + '/' + file)
+//   })
+//
+//   return resultFiles.map(file => resolve(pathToIcons, file))
+// }

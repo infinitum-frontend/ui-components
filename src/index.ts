@@ -1,8 +1,7 @@
-import { UiButton, ButtonVariants } from './components/Button'
+import { InfButton } from './components/Button'
 import { InfInput } from './components/Input'
 
 export {
-  UiButton,
-  ButtonVariants,
+  InfButton,
   InfInput
 }
