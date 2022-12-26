@@ -1,10 +1,29 @@
 .inf-select {
   position: relative;
+  background-color: var(--inf-color-background-base);
 
   &__items {
     list-style-type: none;
     position: absolute;
     margin: 0;
     padding: 0;
+    border: 1px solid var(--inf-color-primary);
+    border-top: none;
+    background-color: inherit;
+    width: 100%;
+  }
+
+  &__input {
+    cursor: pointer;
+  }
+
+  &__item {
+    display: flex;
+
+    &:hover {
+      color: var(--inf-color-text-contrast);
+      background-color: var(--inf-select-element-background-hover);
+      cursor: pointer;
+    }
   }
 }

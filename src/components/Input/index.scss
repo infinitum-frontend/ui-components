@@ -2,16 +2,28 @@
   box-sizing: border-box;
   outline: none;
 
+  width: 100%;
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--inf--color_border--base, darkred);
+  border: 1px solid var(--inf-color-primary);
   background-color: var(--inf--color_input_background, unset);
-  padding: var(--inf--input_padding_vertical--regular, 12px) var(--inf--input_padding_horizontal--regular, 12px);
   transition: border-color var(--inf-transition_duration);
-  line-height: var(--inf--typography_line_height--base, 24px);
   font-family: var(--inf--typography_font_family--base, 'Times New Roman');
-  font-size: var(--inf--typography_font_size--base, 16px);
   font-weight: var(--inf--typography_font_weight--base, 400);
+
+  &--size-small {
+    height: var(--inf-control-height-small, 35px);
+    font-size: var(--inf-text-size-small, 14px);
+    line-height: var(--inf--typography_line_height--base, 20px);
+    padding: var(--inf--input_padding_vertical--regular, 8px) var(--inf--input_padding_horizontal--regular, 8px);
+  }
+
+  &--size-medium {
+    height: var(--inf-control-height-medium, 50px);
+    font-size: var(--inf-text-size-medium, 16px);
+    line-height: var(--inf--typography_line_height--base, 24px);
+    padding: var(--inf--input_padding_vertical--regular, 12px) var(--inf--input_padding_horizontal--regular, 12px);
+  }
 
   &__input {
     // reset styles
@@ -23,6 +35,8 @@
     font-size: inherit;
     font-weight: inherit;
     background-color: inherit;
+    cursor: inherit;
+    width: 100%;
 
     -webkit-appearance: none;
     /* Chrome, Safari, Edge, Opera */

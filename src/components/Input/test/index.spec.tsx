@@ -42,6 +42,13 @@ describe('input', () => {
   })
 })
 
+describe('size', () => {
+  it('should render correct size', () => {
+    const { wrapper } = renderComponent()
+    expect(wrapper.className).toContain('inf-input--size-medium')
+  })
+})
+
 describe('border', () => {
   it('applies border', () => {
     const { wrapper } = renderComponent({ borderRadius: 'regular' })

@@ -1,16 +1,24 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { InfInput } from './index'
 import { action } from '@storybook/addon-actions'
+// Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
+// @ts-expect-error
 import { useArgs } from '@storybook/client-api'
 
-const Meta: ComponentMeta<typeof InfInput> = {
+const meta: Meta<typeof InfInput> = {
   title: 'Input',
   component: InfInput,
+  args: {
+    placeholder: 'Введите значение',
+    borderRadius: 'regular',
+    size: 'medium'
+  },
   argTypes: {
     ref: {
       description: 'Cсылка на нативный элемент<br /><code>Ref< InputRefHandler ></code>'
     },
     onInput: {
+      action: 'input',
       control: false
     },
     onFocus: {
@@ -21,16 +29,22 @@ const Meta: ComponentMeta<typeof InfInput> = {
     },
     formatter: {
       control: false
+    },
+    prefix: {
+      control: 'text'
+    },
+    postfix: {
+      control: 'text'
     }
   }
 }
-export default Meta
+export default meta
 
-const Template: ComponentStory<typeof InfInput> = ({ ...args }) => {
+const Template: StoryFn<typeof InfInput> = ({ ...args }) => {
   const [{ value }, updateArgs] = useArgs()
 
   const handleInput: (val: string) => void = (val) => {
-    // экшен не работает. Он работает только если в шаблоне вызывать
+  //   // экшен не работает. Он работает только если в шаблоне вызывать
     action('input')
     updateArgs({ value: val })
   }
@@ -45,57 +59,44 @@ const Template: ComponentStory<typeof InfInput> = ({ ...args }) => {
   )
 }
 
-Template.args = {
-  placeholder: 'Введите значение',
-  borderRadius: 'regular'
-}
-
 export const Playground = Template.bind({})
 Playground.args = {
-  ...Template.args,
   className: 'custom-class',
   value: ''
 }
 
 export const Disabled = Template.bind({})
 Disabled.args = {
-  ...Template.args,
   disabled: true
 }
 
 export const NoBorder = Template.bind({})
 NoBorder.args = {
-  ...Template.args,
   noBorder: true
 }
 
 export const CollapseBottom = Template.bind({})
 CollapseBottom.args = {
-  ...Template.args,
   collapseBottom: true
 }
 
 export const WithPrefix = Template.bind({})
 WithPrefix.args = {
-  ...Template.args,
   prefix: <span style={{ color: 'darkred' }}>INF</span>
 }
 
 export const WithPostfix = Template.bind({})
 WithPostfix.args = {
-  ...Template.args,
   postfix: <span style={{ color: 'darkred' }}>INF</span>
 }
 
 export const WithClearButton = Template.bind({})
 WithClearButton.args = {
-  ...Template.args,
   allowClear: true
 }
 
 export const WithClearButtonAndPostfix = Template.bind({})
 WithClearButtonAndPostfix.args = {
-  ...Template.args,
   allowClear: true,
   postfix: <span style={{ color: 'darkred' }}>INF</span>
 }

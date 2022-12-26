@@ -1,8 +1,13 @@
-import {FocusEventHandler, ForwardedRef, InputHTMLAttributes, ReactNode, Ref} from 'react'
+import { FocusEventHandler, InputHTMLAttributes, ReactNode } from 'react'
 
 // перезаписываем некоторые HTML аттрибуты, для своих реализаций
-export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'onInput'> {
+export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'onInput' | 'size'> {
   value?: string
+  /**
+   * Размер
+   * @default medium
+   */
+  size?: 'small' | 'medium'
   /**
    * Функция, применяющаяся для форматирования значения
    * @param value {string}

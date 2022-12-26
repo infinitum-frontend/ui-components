@@ -1,22 +1,29 @@
 import * as React from 'react'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { InfSelect } from './index'
+import { InfBox } from '../Box'
 
-const Meta: ComponentMeta<typeof InfSelect> = {
+const meta: Meta<typeof InfSelect> = {
   title: 'Select',
   component: InfSelect
 }
 
-export default Meta
+export default meta
 
-const Template: ComponentStory<typeof InfSelect> = (args) => <InfSelect {...args} />
+const Template: StoryFn<typeof InfSelect> = (args) => {
+  return (
+    <InfBox style={{ width: '300px' }}>
+      <InfSelect {...args} />
+    </InfBox>
+  )
+}
 
 export const Playground = Template.bind({})
 
 Playground.args = {
   items: [
-    { text: 'Первый элемент', id: 0, subtext: 'Дополнительный' },
-    { text: 'Второй элемент', id: 1, subtext: 'Дополнительный текст' },
-    { text: 'Третий элемент', id: 2, subtext: 'Дополнительный текст' }
+    { text: 'Первый элемент', value: 0, subtext: 'Дополнительный' },
+    { text: 'Второй элемент', value: 1, subtext: 'Дополнительный текст' },
+    { text: 'Третий элемент', value: 2, subtext: 'Дополнительный текст' }
   ]
 }

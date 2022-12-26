@@ -45,4 +45,7 @@
   --inf-control-height-medium: 50px;
   --inf-control-height-small: 35px;
   --inf-control-height-large: 60px;
+
+  /*  Select*/
+  --inf-select-element-background-hover: darkred;
 }

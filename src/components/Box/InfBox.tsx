@@ -1,10 +1,11 @@
 import './index.scss'
 import React, {
+  HTMLAttributes,
   ReactNode
 } from 'react'
 import classNames from 'classnames'
 
-export interface InfBoxProps {
+export interface InfBoxProps extends HTMLAttributes<any> {
   children?: ReactNode
   className?: string
   as?: React.ElementType<any>
@@ -15,7 +16,8 @@ export interface InfBoxProps {
 const InfBox: React.FunctionComponent<InfBoxProps> = ({
   children = '',
   className = '',
-  as = 'div'
+  as = 'div',
+  ...restProps
 }) => {
   const getClassNames: () => string = () => {
     return classNames(
@@ -27,7 +29,7 @@ const InfBox: React.FunctionComponent<InfBoxProps> = ({
   const Component = as
 
   return (
-    <Component className={getClassNames()}>
+    <Component className={getClassNames()} {...restProps}>
       {children}
     </Component>
   )

@@ -11,6 +11,7 @@ import { TestSelectors } from '../../../test/selectors'
 const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   value = '',
   formatter,
+  size = 'medium',
   className = '',
   placeholder = '',
   borderRadius = 'unset',
@@ -27,7 +28,7 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   noBorder = false,
   collapseBottom = false,
   ...restProps
-}, ref: Ref<InputRefHandler>): ReactElement => {
+}: InfInputProps, ref: Ref<InputRefHandler>): ReactElement => {
   // обработка состояния
   const [isFocused, setFocus] = useState(false)
 
@@ -78,6 +79,7 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   const getClassNames: () => string = () => {
     return classNames(
       'inf-input',
+      `inf-input--size-${size}`,
       className,
       {
         'inf-input--disabled': disabled,
