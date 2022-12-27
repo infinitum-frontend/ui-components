@@ -4,12 +4,11 @@
 
   &__items {
     list-style-type: none;
-    position: absolute;
     margin: 0;
     padding: 0;
-    border: 1px solid var(--inf-color-primary);
+    border: 1px solid var(--inf-select-element-background-hover);
     border-top: none;
-    background-color: inherit;
+    background-color: var(--inf-color-background-base);
     width: 100%;
   }
 
@@ -20,7 +19,7 @@
   &__item {
     display: flex;
 
-    &:hover {
+    &--active {
       color: var(--inf-color-text-contrast);
       background-color: var(--inf-select-element-background-hover);
       cursor: pointer;

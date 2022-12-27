@@ -4,6 +4,8 @@ import { action } from '@storybook/addon-actions'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 // @ts-expect-error
 import { useArgs } from '@storybook/client-api'
+import {Ref, useRef} from 'react'
+import { InputRefHandler } from './interface'
 
 const meta: Meta<typeof InfInput> = {
   title: 'Input',

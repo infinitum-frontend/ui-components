@@ -2,6 +2,9 @@ import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import { InfSelect } from './index'
 import { InfBox } from '../Box'
+import { StandardizedListItem } from './interface'
+import { useRef } from 'react'
+import { InputRefHandler } from '../Input/interface'
 
 const meta: Meta<typeof InfSelect> = {
   title: 'Select',
@@ -11,9 +14,17 @@ const meta: Meta<typeof InfSelect> = {
 export default meta
 
 const Template: StoryFn<typeof InfSelect> = (args) => {
+  const handleSubmit: (item: StandardizedListItem<Record<string, any>>) => void = (item) => {
+    console.log(item)
+  }
+
+  const ref = useRef<InputRefHandler>(null)
+
   return (
     <InfBox style={{ width: '300px' }}>
-      <InfSelect {...args} />
+      <InfSelect {...args}
+                 onSubmit={handleSubmit}
+                 inputRef={ref} />
     </InfBox>
   )
 }

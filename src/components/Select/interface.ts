@@ -1,4 +1,4 @@
-import { Ref } from 'react'
+import {Ref, RefObject} from 'react'
 import { InputRefHandler } from '../Input/interface'
 
 type ArrayElementConstraints<T> = Record<string, T[keyof T]>
@@ -40,5 +40,6 @@ export interface InfSelectProps {
   items: Array<StandardizedListItem<Record<string, any>>>
   size?: 'small' | 'medium'
   className?: string
-  inputRef?: Ref<InputRefHandler>
+  inputRef?: RefObject<InputRefHandler>
+  onSubmit?: (item: StandardizedListItem<Record<string, any>>) => void
 }
