@@ -9,7 +9,13 @@ import {
 import InfPortal from '../Portal/InfPortal'
 
 export interface InfPositioningProps extends ComponentPropsWithoutRef<any> {
+  /**
+   * функция, возвращающая элемент, относительно которого необходимо спозиционировать переданный контент
+   */
   getElementToAttach?: () => HTMLElement | null
+  /**
+   * Контент, подлежащий абсолютному позиционированию. Строго 1 обертка - ограничение createPortal
+   */
   children: JSX.Element
   /**
    * Вариант позиционирования
@@ -19,7 +25,7 @@ export interface InfPositioningProps extends ComponentPropsWithoutRef<any> {
 // TODO: offset, placement. Подумать над еще 1 оберткой, которая будет учитывать триггер (click/hover)
 
 /**
- * Компонент, предназначенный для абсолютного позиционирования контента относительно HTML-элемента. Контент рендерится в ко
+ * Компонент, предназначенный для абсолютного позиционирования контента относительно HTML-элемента. Контент рендерится в конце тега body
  */
 const InfPositioning = ({ getElementToAttach, children, placement = 'bottom' }: InfPositioningProps): ReactElement => {
   const [styles, setStyles] = useState<CSSProperties>({})
