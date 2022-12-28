@@ -4,8 +4,6 @@ import { action } from '@storybook/addon-actions'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 // @ts-expect-error
 import { useArgs } from '@storybook/client-api'
-import {Ref, useRef} from 'react'
-import { InputRefHandler } from './interface'
 
 const meta: Meta<typeof InfInput> = {
   title: 'Input',
@@ -46,7 +44,7 @@ const Template: StoryFn<typeof InfInput> = ({ ...args }) => {
   const [{ value }, updateArgs] = useArgs()
 
   const handleInput: (val: string) => void = (val) => {
-  //   // экшен не работает. Он работает только если в шаблоне вызывать
+    // экшен не работает. Он работает только если в шаблоне вызывать
     action('input')
     updateArgs({ value: val })
   }
@@ -94,11 +92,32 @@ WithPostfix.args = {
 
 export const WithClearButton = Template.bind({})
 WithClearButton.args = {
+  value: 'Инфинитум',
   allowClear: true
 }
 
 export const WithClearButtonAndPostfix = Template.bind({})
 WithClearButtonAndPostfix.args = {
+  value: 'Инфинитум',
   allowClear: true,
   postfix: <span style={{ color: 'darkred' }}>INF</span>
+}
+
+export const Debounced: StoryFn<typeof InfInput> = (args) => {
+  const [{ value }, updateArgs] = useArgs()
+
+  const handleInput: (val: string) => void = (val) => {
+    updateArgs({ value: val })
+  }
+  return (
+    <div>
+      <InfInput {...args}
+                onInput={handleInput} />
+      <span style={{ color: 'darkred', marginTop: '6px' }}>Значение: {value}</span>
+    </div>
+  )
+}
+
+Debounced.args = {
+  debounce: 1000
 }

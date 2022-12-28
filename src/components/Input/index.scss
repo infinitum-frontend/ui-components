@@ -15,14 +15,14 @@
     height: var(--inf-control-height-small, 35px);
     font-size: var(--inf-text-size-small, 14px);
     line-height: var(--inf--typography_line_height--base, 20px);
-    padding: var(--inf--input_padding_vertical--regular, 8px) var(--inf--input_padding_horizontal--regular, 8px);
+    padding: var(--inf--input_padding_vertical--regular, 8px) var(--inf--input_padding_horizontal--regular, 12px);
   }
 
   &--size-medium {
     height: var(--inf-control-height-medium, 50px);
     font-size: var(--inf-text-size-medium, 16px);
     line-height: var(--inf--typography_line_height--base, 24px);
-    padding: var(--inf--input_padding_vertical--regular, 12px) var(--inf--input_padding_horizontal--regular, 12px);
+    padding: var(--inf--input_padding_vertical--regular, 12px) var(--inf--input_padding_horizontal--regular, 16px);
   }
 
   &__input {

@@ -3,7 +3,7 @@
 exports[`input > matches snapshop 1`] = `
 <span
   class="inf-input inf-input--size-medium"
-  data-testid="wrapper"
+  data-testid="inputWrapper"
 >
   <input
     class="inf-input__input"
@@ -17,7 +17,7 @@ exports[`input > matches snapshop 1`] = `
 exports[`prefix and postfix > postfix renders > postfix 1`] = `
 <span
   class="inf-input inf-input--size-medium"
-  data-testid="wrapper"
+  data-testid="inputWrapper"
 >
   <input
     class="inf-input__input"
@@ -27,7 +27,7 @@ exports[`prefix and postfix > postfix renders > postfix 1`] = `
   />
   <span
     class="inf-input__postfix postfix-class"
-    data-testid="postfix"
+    data-testid="inputPostfix"
   >
     <span>
       postfix
@@ -39,11 +39,11 @@ exports[`prefix and postfix > postfix renders > postfix 1`] = `
 exports[`prefix and postfix > prefix renders > prefix 1`] = `
 <span
   class="inf-input inf-input--size-medium"
-  data-testid="wrapper"
+  data-testid="inputWrapper"
 >
   <span
     class="inf-input__prefix prefix-class"
-    data-testid="prefix"
+    data-testid="inputPrefix"
   >
     prefix
   </span>

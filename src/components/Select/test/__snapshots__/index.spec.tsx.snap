@@ -1,0 +1,21 @@
+// Vitest Snapshot v1
+
+exports[`select > should match snapshop 1`] = `
+<div
+  class="inf-select"
+  data-testid="selectWrapper"
+>
+  <span
+    class="inf-input inf-input--size-medium inf-select__input"
+    data-testid="inputWrapper"
+  >
+    <input
+      class="inf-input__input"
+      data-testid="input"
+      placeholder=""
+      readonly=""
+      value="Первый элемент"
+    />
+  </span>
+</div>
+`;

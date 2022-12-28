@@ -1,13 +1,18 @@
 import React, {
   FocusEventHandler,
   FormEventHandler,
-  ReactElement, ReactNode, useImperativeHandle, useState, useRef, Ref
+  ReactElement, ReactNode, useImperativeHandle, useState, useRef, Ref, useEffect, useCallback
 } from 'react'
 import classNames from 'classnames'
 import './index.scss'
 import { InfInputProps, InputRefHandler } from './interface'
 import { TestSelectors } from '../../../test/selectors'
+// eslint-disable-next-line import/no-named-default
+import { default as debounceFn } from 'lodash.debounce'
 
+/**
+ * Компонент поля ввода
+ */
 const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   value = '',
   formatter,
@@ -27,12 +32,18 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   allowClear = false,
   noBorder = false,
   collapseBottom = false,
+  debounce = 0,
   ...restProps
 }: InfInputProps, ref: Ref<InputRefHandler>): ReactElement => {
   // обработка состояния
   const [isFocused, setFocus] = useState(false)
+  const [localValue, setLocalValue] = useState('')
 
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setLocalValue(value)
+  }, [value])
 
   useImperativeHandle(ref,
     () => ({
@@ -42,12 +53,24 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
     })
   )
 
+  const debouncedInput = useCallback(debounceFn((val) => {
+    if (onInput) {
+      onInput(val)
+    }
+  }
+  , debounce), [debounce])
+
   // обработка событий
   const handleInput: FormEventHandler = (e) => {
     if (onInput !== undefined) {
       const target = e.target as HTMLInputElement
-      onInput(target.value)
+      setLocalValue(target.value)
+      debouncedInput(target.value)
     }
+  }
+
+  const handleWrapperClick = (): void => {
+    inputRef.current?.focus()
   }
 
   const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
@@ -70,10 +93,10 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   // хелперы
   const getFormattedValue: () => string = () => {
     if (formatter !== undefined) {
-      return formatter(value)
+      return formatter(localValue)
     }
 
-    return value
+    return localValue
   }
 
   const getClassNames: () => string = () => {
@@ -132,7 +155,9 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   }
 
   return (
-    <span className={getClassNames()} data-testid={TestSelectors.input.wrapper}>
+    <span className={getClassNames()}
+          data-testid={TestSelectors.input.wrapper}
+          onClick={handleWrapperClick}>
 
       {prefix && <span className={classNames('inf-input__prefix', prefixClass)} data-testid={TestSelectors.input.prefix}>{prefix}</span>}
 

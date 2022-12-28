@@ -1,15 +1,19 @@
 .inf-select {
   position: relative;
   background-color: var(--inf-color-background-base);
+  height: max-content;
 
   &__items {
     list-style-type: none;
     margin: 0;
     padding: 0;
     border: 1px solid var(--inf-select-element-background-hover);
-    border-top: none;
     background-color: var(--inf-color-background-base);
     width: 100%;
+
+    &--variant-split {
+      border-top: none;
+    }
   }
 
   &__input {
@@ -18,6 +22,19 @@
 
   &__item {
     display: flex;
+    border-radius: 3px;
+
+    &--size-small {
+      font-size: 14px;
+      line-height: 18px;
+      padding: 3px;
+    }
+
+    &--size-medium {
+      font-size: 16px;
+      padding: 4px 6px;
+      line-height: 21px;
+    }
 
     &--active {
       color: var(--inf-color-text-contrast);

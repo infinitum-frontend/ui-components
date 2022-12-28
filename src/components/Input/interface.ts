@@ -37,10 +37,15 @@ export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement
   postfixClass?: string
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
-  /** Наличие границ */
+  /** Отсутствие границ */
   noBorder?: boolean
   /** Убрать границу снизу */
   collapseBottom?: boolean
+  /**
+   * Количество миллисекунд для отложенного вызова onInput
+   * @type number
+   */
+  debounce?: number
   onFocus?: FocusEventHandler<HTMLInputElement>
   onInput?: (value: string) => void
   onBlur?: FocusEventHandler<HTMLInputElement>
