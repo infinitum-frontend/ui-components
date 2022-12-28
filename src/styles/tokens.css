@@ -46,6 +46,9 @@
   --inf-control-height-small: 35px;
   --inf-control-height-large: 60px;
 
-  /*  Select*/
+  /*  Select */
   --inf-select-element-background-hover: darkred;
+
+  /* Modal */
+  --inf-modal-backdrop: rgba(0, 0, 0, 0.3)
 }

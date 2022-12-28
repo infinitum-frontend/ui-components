@@ -30,6 +30,10 @@
     filter: brightness(90%);
   }
 
+  &:focus-visible {
+    outline: none;
+  }
+
   &--variant-primary {
     background-color: var(--inf-color-primary);
     color: #fff;

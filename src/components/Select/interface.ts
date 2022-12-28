@@ -43,5 +43,6 @@ export interface InfSelectProps {
   className?: string
   inputRef?: RefObject<InputRefHandler>
   onSubmit?: (item: StandardizedListItem<Record<string, any>>) => void
-  forceFocus?: boolean
+  autoFocus?: boolean
+  disabled?: boolean
 }

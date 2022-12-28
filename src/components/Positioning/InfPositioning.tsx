@@ -13,7 +13,7 @@ export interface InfPositioningProps extends ComponentPropsWithoutRef<any> {
    */
   getElementToAttach?: () => HTMLElement | null
   /**
-   * Контент, подлежащий абсолютному позиционированию. Строго 1 обертка - ограничение createPortal
+   * Контент, подлежащий абсолютному позиционированию
    */
   children: JSX.Element
   /**

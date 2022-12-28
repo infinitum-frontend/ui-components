@@ -36,24 +36,41 @@ export const Playground = Template.bind({})
 
 export const AllSizes: StoryFn<typeof InfSelect> = (args) => {
   return (
-    <InfBox style={{ width: '500px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
-      <InfSelect {...args}
-                 size={'small'} />
-      <InfSelect {...args} />
+    <InfBox style={{ width: '500px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'start', padding: '12px' }}>
+      <div>
+        <code style={{ color: 'darkred' }}>small</code>
+        <InfSelect {...args}
+                   size={'small'} />
+      </div>
+      <div>
+        <code style={{ color: 'darkred' }}>medium</code>
+        <InfSelect {...args} />
+      </div>
     </InfBox>
   )
 }
 
 export const AllVariants: StoryFn<typeof InfSelect> = (args) => {
   return (
-    <InfBox style={{ width: '500px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
-      <InfSelect {...args} />
-      <InfSelect {...args} variant={'stuck'} />
+    <InfBox style={{ width: '500px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', padding: '12px' }}>
+      <div>
+        <code style={{ color: 'darkred' }}>split</code>
+        <InfSelect {...args} />
+      </div>
+      <div>
+        <code style={{ color: 'darkred' }}>stuck</code>
+        <InfSelect {...args} variant={'stuck'} />
+      </div>
     </InfBox>
   )
 }
 
-export const ForceFocus = Template.bind({})
-ForceFocus.args = {
-  forceFocus: true
+export const AutoFocus = Template.bind({})
+AutoFocus.args = {
+  autoFocus: true
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  disabled: true
 }

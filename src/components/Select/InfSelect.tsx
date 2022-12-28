@@ -3,7 +3,7 @@ import './index.scss'
 import classNames from 'classnames'
 import InfInput from '../Input/InfInput'
 import { InfSelectProps } from './interface'
-import InfPositioning from '../InfPositioning/InfPositioning'
+import InfPositioning from '../Positioning/InfPositioning'
 import { InputRefHandler } from '../Input/interface'
 import { TestSelectors } from '../../../test/selectors'
 
@@ -16,7 +16,8 @@ const InfSelect = ({
   onSubmit,
   inputRef,
   variant = 'split',
-  forceFocus = false
+  autoFocus = false,
+  disabled = false
 }: InfSelectProps): ReactElement => {
   const [isFocused, setFocused] = useState<boolean>(false)
   const [activeItem, setActiveItem] = useState<number>(0)
@@ -28,11 +29,11 @@ const InfSelect = ({
   const composedRef = inputRef || internalInputRef
 
   useEffect(() => {
-    if (forceFocus) {
+    if (autoFocus) {
       setFocused(true)
       composedRef.current?.focus()
     }
-  }, [forceFocus])
+  }, [autoFocus])
 
   const handleInputFocus: FocusEventHandler<HTMLInputElement> = (e) => {
     setFocused(true)
@@ -115,6 +116,7 @@ const InfSelect = ({
                   value={items[activeItem].text}
                   ref={composedRef}
                   size={size}
+                  disabled={disabled}
                   readOnly={true}
                   collapseBottom={isFocused && variant === 'split'}
                   onBlur={handleInputBlur}
