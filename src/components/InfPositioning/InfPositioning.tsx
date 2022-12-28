@@ -39,11 +39,11 @@ const InfPositioning = ({ getElementToAttach, children, placement = 'bottom', of
     if (getElementToAttach) {
       const el = getElementToAttach()
       if (el) {
-        const { bottom, left, top, right, width } = el.getBoundingClientRect()
+        const { left, top, width, bottom } = el.getBoundingClientRect()
 
         if (placement === 'bottom') {
           result.left = left ? `${left}px` : 0
-          result.top = bottom ? `${bottom + offsetTop}px` : 0
+          result.top = top ? `${bottom + window.scrollY + offsetTop}px` : 0
         }
 
         result.width = width ? `${width}px` : '100%'
