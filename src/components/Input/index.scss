@@ -12,17 +12,17 @@
   font-weight: var(--inf--typography_font_weight--base, 400);
 
   &--size-small {
+    line-height: 20px;
     height: var(--inf-control-height-small, 35px);
-    font-size: var(--inf-text-size-small, 14px);
-    line-height: var(--inf--typography_line_height--base, 20px);
-    padding: var(--inf--input_padding_vertical--regular, 8px) var(--inf--input_padding_horizontal--regular, 12px);
+    font-size: var(--inf-text-size-small);
+    padding: var(--inf-input-padding-vertical-small) var(--inf-input-padding-horizontal-small);
   }
 
   &--size-medium {
+    line-height: 24px;
     height: var(--inf-control-height-medium, 50px);
-    font-size: var(--inf-text-size-medium, 16px);
-    line-height: var(--inf--typography_line_height--base, 24px);
-    padding: var(--inf--input_padding_vertical--regular, 12px) var(--inf--input_padding_horizontal--regular, 16px);
+    font-size: var(--inf-text-size-medium);
+    padding: var(--inf-input-padding-vertical-medium) var(--inf-input-padding-horizontal-medium);
   }
 
   &__input {
@@ -74,11 +74,11 @@
   }
 
   &--br-regular {
-    border-radius: var(--inf--size_border_radius--regular, 3px);
+    border-radius: var(--inf-border-radius-regular);
   }
 
   &--br-medium {
-    border-radius: var(--inf--size_border_radius--medium, 8px);
+    border-radius: var(--inf-border-radius-medium);
   }
 
   &--no-border {
@@ -105,6 +105,7 @@
   }
 
   &__prefix, &__postfix, &__clear-button {
+    user-select: none;
     display: inline-flex;
     align-items: center;
   }

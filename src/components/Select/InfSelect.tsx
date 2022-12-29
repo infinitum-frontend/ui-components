@@ -1,4 +1,4 @@
-import { CSSProperties, FocusEventHandler, KeyboardEventHandler, ReactElement, useEffect, useRef, useState } from 'react'
+import { FocusEventHandler, KeyboardEventHandler, ReactElement, useEffect, useRef, useState } from 'react'
 import './index.scss'
 import classNames from 'classnames'
 import InfInput from '../Input/InfInput'
@@ -15,19 +15,20 @@ const InfSelect = ({
   size = 'medium',
   onSubmit,
   inputRef,
-  variant = 'split',
+  variant = 'stuck',
   autoFocus = false,
   disabled = false
 }: InfSelectProps): ReactElement => {
+  // state
   const [isFocused, setFocused] = useState<boolean>(false)
   const [activeItem, setActiveItem] = useState<number>(0)
 
+  // refs
   const ref = useRef<HTMLDivElement>(null)
-
   const internalInputRef = useRef<InputRefHandler>(null)
-
   const composedRef = inputRef || internalInputRef
 
+  // effects
   useEffect(() => {
     if (autoFocus) {
       setFocused(true)
@@ -35,10 +36,11 @@ const InfSelect = ({
     }
   }, [autoFocus])
 
+  // handlers
   const handleInputFocus: FocusEventHandler<HTMLInputElement> = (e) => {
     setFocused(true)
   }
-  const handleInputBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+  const handleInputBlur = (): void => {
     setFocused(false)
   }
 
@@ -79,6 +81,11 @@ const InfSelect = ({
     submit()
   }
 
+  const handleItemMouseOver = (index: number): void => {
+    setActiveItem(index)
+  }
+
+  // helpers
   const submit = (): void => {
     onSubmit?.(items[activeItem])
     blur()
@@ -88,19 +95,7 @@ const InfSelect = ({
     composedRef.current?.blur()
     setFocused(false)
   }
-
-  const handleItemMouseOver = (index: number): void => {
-    setActiveItem(index)
-  }
-
-  const calculateOffsetTop = (): number => variant === 'split' ? 0 : 6
-
-  const calculateListStyles = (): CSSProperties => {
-    return {
-      height: `${(items.length * (size === 'small' ? 24 : 27)) + (size === 'small' ? 12 : 24)}px`,
-      padding: size === 'small' ? '6px 9px' : '12px'
-    }
-  }
+  const calculateOffsetTop = (): number => variant === 'split' ? 0 : 2
 
   return (
     <>
@@ -110,15 +105,18 @@ const InfSelect = ({
       onKeyDown={handleKeyDown}
       className={classNames(
         'inf-select',
+        { 'inf-select--collapse-bottom': isFocused && variant === 'split' },
         className
       )}>
         <InfInput className={'inf-select__input'}
                   value={items[activeItem].text}
                   ref={composedRef}
+                  borderRadius={'regular'}
                   size={size}
                   disabled={disabled}
                   readOnly={true}
                   collapseBottom={isFocused && variant === 'split'}
+                  postfix={<span>▼</span>}
                   onBlur={handleInputBlur}
                   onFocus={handleInputFocus} />
       </div>
@@ -129,14 +127,14 @@ const InfSelect = ({
                         placement={'bottom'}>
           <ul className={classNames(
             'inf-select__items',
+            `inf-select__items--size-${size}`,
             { 'inf-select__items--variant-split': variant === 'split' }
           )}
-              data-testid={TestSelectors.select.list}
-              style={calculateListStyles()}>
+              data-testid={TestSelectors.select.list}>
             {Boolean(items.length) && items.map((item, index) => (
               <li key={item.value}
                   onMouseOver={() => handleItemMouseOver(index)}
-                  onClick={e => handleItemSelect(index)}
+                  onClick={() => handleItemSelect(index)}
                   className={
                     classNames(
                       'inf-select__item',

@@ -5,9 +5,9 @@ import { InfBox } from '../Box'
 import { StandardizedListItem } from './interface'
 
 const mockItems = [
-  { text: 'Первый элемент', value: 0, subtext: 'Дополнительный' },
-  { text: 'Второй элемент', value: 1, subtext: 'Дополнительный текст' },
-  { text: 'Третий элемент', value: 2, subtext: 'Дополнительный текст' }
+  { text: 'Депозитарные услуги', value: 0, subtext: 'Дополнительный' },
+  { text: 'Спецдепозитарные услуги', value: 1, subtext: 'Дополнительный текст' },
+  { text: 'Консалтинг и аутсорсинг', value: 2, subtext: 'Дополнительный текст' }
 ]
 
 const meta: Meta<typeof InfSelect> = {
@@ -26,7 +26,7 @@ const Template: StoryFn<typeof InfSelect> = (args) => {
   }
 
   return (
-    <InfBox style={{ width: '300px' }}>
+    <InfBox style={{ width: '300px', height: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <InfSelect {...args} onSubmit={handleSubmit} />
     </InfBox>
   )
@@ -36,7 +36,7 @@ export const Playground = Template.bind({})
 
 export const AllSizes: StoryFn<typeof InfSelect> = (args) => {
   return (
-    <InfBox style={{ width: '500px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'start', padding: '12px' }}>
+    <InfBox style={{ width: '600px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'start', padding: '12px' }}>
       <div>
         <code style={{ color: 'darkred' }}>small</code>
         <InfSelect {...args}
@@ -52,10 +52,10 @@ export const AllSizes: StoryFn<typeof InfSelect> = (args) => {
 
 export const AllVariants: StoryFn<typeof InfSelect> = (args) => {
   return (
-    <InfBox style={{ width: '500px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', padding: '12px' }}>
+    <InfBox style={{ width: '600px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', padding: '12px' }}>
       <div>
         <code style={{ color: 'darkred' }}>split</code>
-        <InfSelect {...args} />
+        <InfSelect {...args} variant={'split'} />
       </div>
       <div>
         <code style={{ color: 'darkred' }}>stuck</code>

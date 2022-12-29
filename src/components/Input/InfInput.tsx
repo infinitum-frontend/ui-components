@@ -1,7 +1,7 @@
 import React, {
   FocusEventHandler,
   FormEventHandler,
-  ReactElement, ReactNode, useImperativeHandle, useState, useRef, Ref, useEffect, useCallback
+  ReactElement, ReactNode, useImperativeHandle, useState, useRef, Ref, useEffect, useCallback, MouseEventHandler
 } from 'react'
 import classNames from 'classnames'
 import './index.scss'
@@ -9,6 +9,7 @@ import { InfInputProps, InputRefHandler } from './interface'
 import { TestSelectors } from '../../../test/selectors'
 // eslint-disable-next-line import/no-named-default
 import { default as debounceFn } from 'lodash.debounce'
+import { useClickOutside } from '../../hooks/useClickOutside'
 
 /**
  * Компонент поля ввода
@@ -40,6 +41,9 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   const [localValue, setLocalValue] = useState('')
 
   const inputRef = useRef<HTMLInputElement>(null)
+  const wrapperRef = useRef<HTMLSpanElement>(null)
+
+  const clickOutside = useClickOutside(wrapperRef)
 
   useEffect(() => {
     setLocalValue(value)
@@ -69,8 +73,18 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
     }
   }
 
-  const handleWrapperClick = (): void => {
-    inputRef.current?.focus()
+  const handleWrapperClick: MouseEventHandler<HTMLSpanElement> = (e): void => {
+    if ((e.target as HTMLElement)?.tagName === 'INPUT') {
+      return
+    }
+
+    if (isFocused) {
+      setFocus(false)
+      onBlur?.(e)
+    } else {
+      setFocus(true)
+      inputRef.current?.focus()
+    }
   }
 
   const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
@@ -79,8 +93,10 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   }
 
   const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
-    setFocus(false)
-    onBlur?.(e)
+    if (clickOutside) {
+      setFocus(false)
+      onBlur?.(e)
+    }
   }
 
   const handleClear: () => void = () => {
@@ -156,8 +172,9 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
 
   return (
     <span className={getClassNames()}
-          data-testid={TestSelectors.input.wrapper}
-          onClick={handleWrapperClick}>
+          ref={wrapperRef}
+          onClick={handleWrapperClick}
+          data-testid={TestSelectors.input.wrapper}>
 
       {prefix && <span className={classNames('inf-input__prefix', prefixClass)} data-testid={TestSelectors.input.prefix}>{prefix}</span>}
 

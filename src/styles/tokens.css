@@ -46,9 +46,26 @@
   --inf-control-height-small: 35px;
   --inf-control-height-large: 60px;
 
+  /* Border radius */
+  --inf-border-radius-regular: 4px;
+  --inf-border-radius-medium: 8px;
+
+  /* Input */
+  --inf-input-padding-horizontal-small: 9px;
+  --inf-input-padding-horizontal-medium: 15px;
+  --inf-input-padding-vertical-small: 6px;
+  --inf-input-padding-vertical-medium: 12px;
+
   /*  Select */
-  --inf-select-element-background-hover: darkred;
+  --inf-select-items-border-radius-regular: var(--inf-border-radius-regular);
+  --inf-select-items-padding-horizontal-small: 6px;
+  --inf-select-items-padding-horizontal-medium: 0px;
+  --inf-select-items-padding-vertical-small: 3px;
+  --inf-select-items-padding-vertical-medium: 8px;
+  --inf-select-item-background-hover: darkred;
+  --inf-select-item-border-radius: var(--inf-border-radius-regular);
+  --inf-select-item-space: 4px;
 
   /* Modal */
-  --inf-modal-backdrop: rgba(0, 0, 0, 0.3)
+  --inf-modal-backdrop-background: rgba(0, 0, 0, 0.3)
 }
