@@ -1,4 +1,4 @@
-import { FocusEventHandler, InputHTMLAttributes, ReactNode } from 'react'
+import { FocusEvent, MouseEvent, FocusEventHandler, InputHTMLAttributes, ReactNode } from 'react'
 
 // перезаписываем некоторые HTML аттрибуты, для своих реализаций
 export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'onInput' | 'size' | 'onBlur'> {
@@ -48,7 +48,7 @@ export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement
   debounce?: number
   onFocus?: FocusEventHandler<HTMLInputElement>
   onInput?: (value: string) => void
-  onBlur?: (e?: FocusEvent | MouseEvent) => void
+  onBlur?: (e?: FocusEvent<HTMLInputElement> | MouseEvent<HTMLSpanElement>) => void
 }
 
 export interface InputRefHandler {

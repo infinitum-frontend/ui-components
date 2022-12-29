@@ -19,8 +19,8 @@
   --inf-color-background-contrast: black;
   /* --inf-color-control-secondary: lightgray; */
   /* --inf-color-control-secondary: lightgray; */
-  /* --inf-color-border-default: lightgray; */
-  /* --inf-color-border-selected: lightgray; */
+   --inf-color-border-default: #C8CACC;
+   --inf-color-border-selected: lightgray;
 
   --inf-font-family-base: Arial, sans-serif;
 
@@ -47,6 +47,7 @@
   --inf-control-height-large: 60px;
 
   /* Border radius */
+  --inf-border-radius-small: 3px;
   --inf-border-radius-regular: 4px;
   --inf-border-radius-medium: 8px;
 
@@ -65,6 +66,20 @@
   --inf-select-item-background-hover: darkred;
   --inf-select-item-border-radius: var(--inf-border-radius-regular);
   --inf-select-item-space: 4px;
+
+  /* Checkbox */
+  --inf-checkbox-color-border: #C8CACC;
+  --inf-checkbox-color-border-hover: #738F99;
+  --inf-checkbox-color-border-active: #738F99;
+
+  --inf-checkbox-color-background: white;
+  --inf-checkbox-color-background-active: #B8D1D9;
+  --inf-checkbox-color-background-disabled: #F2F4F5;
+
+  --inf-checkbox-checked-color-background: #F53A50;
+  --inf-checkbox-checked-color-background-hover: #FF6673;
+  --inf-checkbox-checked-color-background-active: #CC2D32;
+  --inf-checkbox-checked-color-background-disabled: #C8CACC;
 
   /* Modal */
   --inf-modal-backdrop-background: rgba(0, 0, 0, 0.3)
