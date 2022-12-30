@@ -36,7 +36,12 @@ export const Sizes: ComponentStory<typeof InfButton> = (args) => (
   </div>
 )
 
-export const LinkButton: ComponentStory<typeof InfButton> = (args) => <InfButton href="https://ya.ru" target="_blank" {...args} />
+export const LinkButton: ComponentStory<typeof InfButton> = (args) => (
+  <InfButton
+    href="https://ya.ru"
+    target="_blank"
+    {...args} />
+)
 LinkButton.args = {
   as: 'a',
   children: 'Кнопка-ссылка'

@@ -17,9 +17,10 @@ const Template: StoryFn<typeof InfModal> = (args) => {
   return (
     <div>
       <InfButton onClick={() => setIsOpened(true)} />
-      <InfModal {...args}
-                isOpen={isOpened}
-                onClose={() => setIsOpened(false)}>hello
+      <InfModal
+        {...args}
+        isOpen={isOpened}
+        onClose={() => setIsOpened(false)}>hello
       </InfModal>
     </div>
   )
