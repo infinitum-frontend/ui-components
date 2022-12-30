@@ -1,0 +1,8 @@
+@import './reset.scss';
+@import './fonts.scss';
+@import './tokens.scss';
+
+body {
+  color: var(--inf-color-text);
+  font-family: var(--inf-font-family-base);
+}

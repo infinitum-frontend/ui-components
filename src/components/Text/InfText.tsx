@@ -8,8 +8,8 @@ export interface InfTextProps {
   children?: ReactNode
   className?: string
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
-  weight?: 'light' | 'normal' | 'bold'
-  tone?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'danger' | 'warning'
+  weight?: 'light' | 'normal' | 'bold' | 'extrabold'
+  tone?: 'default' | 'secondary' | 'tertiary' | 'success' | 'danger' | 'warning'
   alignment?: 'left' | 'center' | 'right'
   isTruncated?: boolean
   isUppercase?: boolean
@@ -21,7 +21,7 @@ const InfText: React.FunctionComponent<InfTextProps> = ({
   className = '',
   size = 'medium',
   weight = 'normal',
-  tone = 'primary',
+  tone = 'default',
   alignment = 'left',
   isTruncated = false,
   isUppercase = false,
