@@ -139,55 +139,61 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
     const iconNode = typeof allowClear === 'object' && allowClear.icon
       ? allowClear.icon
       : (
-        <svg width="24"
-             height="24"
-             viewBox="0 0 24 24"
-             fill="none"
-             style={{ color: 'currentColor' }}
-             xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 18L18 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round" />
-          <path d="M6 6L18 18"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round" />
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          style={{ color: 'currentColor' }}
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6 18L18 6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round" />
+          <path
+            d="M6 6L18 18"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round" />
         </svg>
         )
 
     return (
-      <span onClick={handleClear}
-            data-testid={TestSelectors.input.allowClear}
-            className={classNames('inf-input__clear-button',
-              {
-                'inf-input__clear-button--hidden': !value
-              })}>
+      <span
+        onClick={handleClear}
+        data-testid={TestSelectors.input.allowClear}
+        className={classNames('inf-input__clear-button',
+          {
+            'inf-input__clear-button--hidden': !value
+          })}>
         {iconNode}
       </span>
     )
   }
 
   return (
-    <span className={getClassNames()}
-          ref={wrapperRef}
-          onClick={handleWrapperClick}
-          data-testid={TestSelectors.input.wrapper}>
+    <span
+      className={getClassNames()}
+      ref={wrapperRef}
+      onClick={handleWrapperClick}
+      data-testid={TestSelectors.input.wrapper}>
 
       {prefix && <span className={classNames('inf-input__prefix', prefixClass)} data-testid={TestSelectors.input.prefix}>{prefix}</span>}
 
-      <input className={'inf-input__input'}
-             data-testid={TestSelectors.input.inputEl}
-             value={getFormattedValue()}
-             placeholder={placeholder}
-             disabled={disabled}
-             onFocus={handleFocus}
-             onBlur={handleBlur}
-             onInput={handleInput}
-             {...restProps}
-             ref={inputRef} />
+      <input
+        className={'inf-input__input'}
+        data-testid={TestSelectors.input.inputEl}
+        value={getFormattedValue()}
+        placeholder={placeholder}
+        disabled={disabled}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onInput={handleInput}
+        {...restProps}
+        ref={inputRef} />
 
       {allowClear && getClearIcon()}
       {postfix && <span className={classNames('inf-input__postfix', postfixClass)} data-testid={TestSelectors.input.postfix}>{postfix}</span>}

@@ -100,42 +100,46 @@ const InfSelect = ({
   return (
     <>
       <div
-      ref={ref}
-      data-testid={TestSelectors.select.wrapper}
-      onKeyDown={handleKeyDown}
-      className={classNames(
-        'inf-select',
-        { 'inf-select--collapse-bottom': isFocused && variant === 'split' },
-        className
-      )}>
-        <InfInput className={'inf-select__input'}
-                  value={items[activeItem].text}
-                  ref={composedRef}
-                  borderRadius={'regular'}
-                  size={size}
-                  disabled={disabled}
-                  readOnly={true}
-                  collapseBottom={isFocused && variant === 'split'}
-                  postfix={<span>▼</span>}
-                  onBlur={handleInputBlur}
-                  onFocus={handleInputFocus} />
+        ref={ref}
+        data-testid={TestSelectors.select.wrapper}
+        onKeyDown={handleKeyDown}
+        className={classNames(
+          'inf-select',
+          { 'inf-select--collapse-bottom': isFocused && variant === 'split' },
+          className
+        )}>
+        <InfInput
+          className={'inf-select__input'}
+          value={items[activeItem].text}
+          ref={composedRef}
+          borderRadius={'regular'}
+          size={size}
+          disabled={disabled}
+          readOnly={true}
+          collapseBottom={isFocused && variant === 'split'}
+          postfix={<span>▼</span>}
+          onBlur={handleInputBlur}
+          onFocus={handleInputFocus} />
       </div>
 
       {isFocused && (
-        <InfPositioning getElementToAttach={() => ref.current}
-                        offsetTop={calculateOffsetTop()}
-                        placement={'bottom'}>
-          <ul className={classNames(
-            'inf-select__items',
-            `inf-select__items--size-${size}`,
-            { 'inf-select__items--variant-split': variant === 'split' }
-          )}
-              data-testid={TestSelectors.select.list}>
+        <InfPositioning
+          getElementToAttach={() => ref.current}
+          offsetTop={calculateOffsetTop()}
+          placement={'bottom'}>
+          <ul
+            className={classNames(
+              'inf-select__items',
+              `inf-select__items--size-${size}`,
+              { 'inf-select__items--variant-split': variant === 'split' }
+            )}
+            data-testid={TestSelectors.select.list}>
             {Boolean(items.length) && items.map((item, index) => (
-              <li key={item.value}
-                  onMouseOver={() => handleItemMouseOver(index)}
-                  onClick={() => handleItemSelect(index)}
-                  className={
+              <li
+                key={item.value}
+                onMouseOver={() => handleItemMouseOver(index)}
+                onClick={() => handleItemSelect(index)}
+                className={
                     classNames(
                       'inf-select__item',
                       `inf-select__item--size-${size}`,

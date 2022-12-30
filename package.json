@@ -7,7 +7,8 @@
     "storybook": "storybook dev -p 6006",
     "build-tokens": "rm -rf dist/themes && ts-node themes/build/index.ts",
     "test": "vitest",
-    "lint": "node_modules/.bin/eslint . --max-warnings=0 --ext .tsx,.ts"
+    "lint": "eslint --ext .tsx,.ts --ignore-pattern node_modules/ ./src/",
+    "fix": "eslint --fix --ext .tsx,.ts --ignore-pattern node_modules/ ./src/"
   },
   "engines": {
     "npm": ">=8.0.0 <9.0.0",

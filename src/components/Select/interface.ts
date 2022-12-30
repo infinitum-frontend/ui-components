@@ -1,4 +1,4 @@
-import {Ref, RefObject} from 'react'
+import { RefObject } from 'react'
 import { InputRefHandler } from '../Input/interface'
 
 type ArrayElementConstraints<T> = Record<string, T[keyof T]>

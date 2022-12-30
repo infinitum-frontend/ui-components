@@ -34,11 +34,12 @@ const InfCheckbox = ({
 
   return (
     <label className={classNames('inf-checkbox')}>
-      <input type={'checkbox'}
-             disabled={disabled}
-             defaultChecked={defaultChecked}
-             checked={checked}
-             onChange={handleChange} />
+      <input
+        type={'checkbox'}
+        disabled={disabled}
+        defaultChecked={defaultChecked}
+        checked={checked}
+        onChange={handleChange} />
       <span className={classNames('inf-checkbox__box', { 'inf-checkbox__box--checked': localChecked })}>
         {variant === 'indeterminate' ? indeterminateIcon : defaultCheckedIcon}
       </span>

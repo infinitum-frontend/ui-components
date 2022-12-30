@@ -39,8 +39,9 @@ export const AllSizes: StoryFn<typeof InfSelect> = (args) => {
     <InfBox style={{ width: '600px', height: '100px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'start', padding: '12px' }}>
       <div>
         <code style={{ color: 'darkred' }}>small</code>
-        <InfSelect {...args}
-                   size={'small'} />
+        <InfSelect
+          {...args}
+          size={'small'} />
       </div>
       <div>
         <code style={{ color: 'darkred' }}>medium</code>

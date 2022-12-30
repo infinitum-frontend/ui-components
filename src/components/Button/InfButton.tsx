@@ -40,11 +40,12 @@ const InfButton = React.forwardRef<HTMLButtonElement, InfButtonProps>(({
   const Component = as
 
   return (
-    <Component ref={ref}
-               data-testid={TestSelectors.button.root}
-               type="button"
-               className={`inf-button inf-button--variant-${variant} inf-button--size-${size}`}
-               {...props}>
+    <Component
+      ref={ref}
+      data-testid={TestSelectors.button.root}
+      type="button"
+      className={`inf-button inf-button--variant-${variant} inf-button--size-${size}`}
+      {...props}>
       {children}
     </Component>
   )

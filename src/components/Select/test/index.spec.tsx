@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { TestSelectors } from '../../../../test/selectors'
 import { InfSelectProps } from '../interface'
