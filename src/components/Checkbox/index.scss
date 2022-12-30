@@ -38,24 +38,6 @@
       border-color: var(--inf-checkbox-color-border);
       background-color: var(--inf-checkbox-color-background-disabled);
     }
-
-    &--checked {
-      border-color: transparent;
-      background-color: var(--inf-checkbox-checked-color-background);
-
-      &:hover {
-        border-color: transparent;
-        background-color: var(--inf-checkbox-checked-color-background-hover);
-      }
-
-      &:active {
-        background-color: var(--inf-checkbox-checked-color-background-active);
-      }
-
-      &:disabled {
-        background-color: var(--inf-checkbox-checked-color-background-disabled);
-      }
-    }
   }
 
   input[type='checkbox'] {
@@ -68,5 +50,23 @@
     z-index: -1;
     appearance: none;
 
+
+    &:checked ~ .inf-checkbox__box {
+      border-color: transparent;
+      background-color: var(--inf-checkbox-checked-color-background);
+    }
+
+    &:checked:hover ~ .inf-checkbox__box {
+      border-color: transparent;
+      background-color: var(--inf-checkbox-checked-color-background-hover);
+    }
+
+    &:checked:active ~ .inf-checkbox__box {
+      background-color: var(--inf-checkbox-checked-color-background-active);
+    }
+
+    &:checked:disabled ~ .inf-checkbox__box {
+      background-color: var(--inf-checkbox-checked-color-background-disabled);
+    }
   }
 }

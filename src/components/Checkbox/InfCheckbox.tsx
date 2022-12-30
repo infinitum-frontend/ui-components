@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ComponentPropsWithoutRef, ReactElement, useState } from 'react'
+import { ChangeEventHandler, ComponentPropsWithoutRef, ReactElement } from 'react'
 import classNames from 'classnames'
 import './index.scss'
 import { ReactComponent as CheckIcon } from '../../icons/check.svg'
@@ -6,8 +6,9 @@ import { ReactComponent as IndeterminateIcon } from '../../icons/minus.svg'
 
 const defaultCheckedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'8px'} height={'16px'} />
+
 export interface InfCheckboxProps extends ComponentPropsWithoutRef<'input'> {
-  variant: 'primary' | 'indeterminate'
+  variant?: 'primary' | 'indeterminate'
   checked?: boolean
   disabled?: boolean
   defaultChecked?: boolean
@@ -17,18 +18,12 @@ export interface InfCheckboxProps extends ComponentPropsWithoutRef<'input'> {
 const InfCheckbox = ({
   disabled = false,
   checked,
-  defaultChecked,
+  defaultChecked = false,
   onChange,
   children,
   variant = 'primary'
 }: InfCheckboxProps): ReactElement => {
-  const [localChecked, setLocalChecked] = useState(checked || defaultChecked)
-  if (checked === undefined && defaultChecked === undefined) {
-    defaultChecked = false
-  }
-
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setLocalChecked(e.target.checked)
     onChange?.(e)
   }
 
@@ -37,10 +32,10 @@ const InfCheckbox = ({
       <input
         type={'checkbox'}
         disabled={disabled}
-        defaultChecked={defaultChecked}
-        checked={checked}
+        defaultChecked={checked !== undefined ? undefined : defaultChecked}
+        checked={checked !== undefined ? checked : undefined}
         onChange={handleChange} />
-      <span className={classNames('inf-checkbox__box', { 'inf-checkbox__box--checked': localChecked })}>
+      <span className={classNames('inf-checkbox__box')}>
         {variant === 'indeterminate' ? indeterminateIcon : defaultCheckedIcon}
       </span>
       <span className={'inf-checkbox__label'}>{children}</span>
