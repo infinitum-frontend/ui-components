@@ -1,19 +1,34 @@
 import * as React from 'react'
 import { InfText } from './index'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
-const Meta: ComponentMeta<typeof InfText> = {
+const ComponentMeta: Meta<typeof InfText> = {
   title: 'Typography/Text',
   component: InfText,
-  argTypes: {
-    children: {
-      defaultValue: 'Съешь ещё этих мягких французских булок, да выпей чаю'
-    }
+  args: {
+    children: 'Съешь ещё этих мягких французских булок, да выпей чаю'
   }
 }
 
-export default Meta
+export default ComponentMeta
 
-const Template: ComponentStory<typeof InfText> = ({ ...args }) => <InfText {...args} />
+const Template: StoryFn<typeof InfText> = ({ ...args }) => <InfText {...args} />
 
 export const Playground = Template.bind({})
+
+export const Sizes: StoryFn<typeof InfText> = (args) => (
+  <>
+    <InfText {...args} size="xlarge" />
+    <InfText {...args} size="large" />
+    <InfText {...args} size="medium" />
+    <InfText {...args} size="small" />
+    <InfText {...args} size="xsmall" />
+  </>
+)
+Sizes.decorators = [
+  (Story) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <Story />
+    </div>
+  )
+]

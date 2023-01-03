@@ -7,8 +7,8 @@ import classNames from 'classnames'
 export interface InfHeadingProps {
   children?: ReactNode
   className?: string
-  level?: 1 | 2 | 3 | 4 | 5 | 6
-  weight?: 'light' | 'normal' | 'bold'
+  level?: '1' | '2' | '3' | '4' | '5'
+  weight?: 'light' | 'normal' | 'bold' | 'extrabold'
   alignment?: 'left' | 'center' | 'right'
   isTruncated?: boolean
   isUppercase?: boolean
@@ -17,7 +17,7 @@ export interface InfHeadingProps {
 const InfHeading: React.FunctionComponent<InfHeadingProps> = ({
   children = '',
   className = '',
-  level = 1,
+  level = '3',
   weight = 'bold',
   alignment = 'left',
   isTruncated = false,

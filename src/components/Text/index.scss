@@ -59,7 +59,11 @@
     font-weight: var(--inf-font-weight-bold);
   }
 
-  &--tone-primary {
+  &--weight-extrabold {
+    font-weight: var(--inf-font-weight-extrabold);
+  }
+
+  &--tone-default {
     color: var(--inf-color-text);
   }
 
