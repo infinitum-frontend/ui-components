@@ -1,7 +1,4 @@
-import IconBell from './IconBell'
-import IconCatalog from './IconCatalog'
-
+import InfIcon from './InfIcon'
 export {
-  IconCatalog,
-  IconBell
+  InfIcon
 }

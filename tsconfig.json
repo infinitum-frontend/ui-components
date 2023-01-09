@@ -19,6 +19,6 @@
     "isolatedModules": true,
     "outDir": "types"
   },
-  "include": ["src/**/*.tsx", "src/**/*.ts"],
+  "include": ["src/**/*.tsx", "src/**/*.ts", "definitions.d.ts"],
   "exclude": ["src/**/*.spec.tsx", "src/**/*.stories.tsx"]
 }
