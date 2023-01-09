@@ -1,12 +1,15 @@
 import { ChangeEventHandler, ComponentPropsWithoutRef, ReactElement } from 'react'
 import './index.scss'
 import classNames from 'classnames'
+import useRadioGroup from './useRadioGroup'
 
 export interface InfRadioProps extends ComponentPropsWithoutRef<'input'> {
   disabled?: boolean
   checked?: boolean
   defaultChecked?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>
+  name?: string
+  value: string
 }
 
 const InfRadio = ({
@@ -14,10 +17,19 @@ const InfRadio = ({
   checked,
   defaultChecked = false,
   onChange,
-  children
+  children,
+  name,
+  value
 }: InfRadioProps): ReactElement => {
+  console.log('rerender')
+  const groupData = useRadioGroup()
+  if (groupData) {
+    name = groupData.name
+    checked = value === groupData.value
+  }
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    onChange?.(e)
+    groupData ? groupData.onChange(e, value) : onChange?.(e)
   }
 
   return (
@@ -25,6 +37,7 @@ const InfRadio = ({
       <input
         type={'radio'}
         disabled={disabled}
+        name={name}
         defaultChecked={checked !== undefined ? undefined : defaultChecked}
         checked={checked !== undefined ? checked : undefined}
         onChange={handleChange} />

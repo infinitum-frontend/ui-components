@@ -1,0 +1,11 @@
+.inf-radio-group {
+  display: flex;
+
+  &--direction-vertical {
+    flex-direction: column;
+
+    > * + * {
+      margin-top: 2px;
+    }
+  }
+}
