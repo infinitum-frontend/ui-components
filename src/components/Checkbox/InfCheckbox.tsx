@@ -35,7 +35,7 @@ const InfCheckbox = ({
         defaultChecked={checked !== undefined ? undefined : defaultChecked}
         checked={checked !== undefined ? checked : undefined}
         onChange={handleChange} />
-      <span className={classNames('inf-checkbox__box')}>
+      <span className={classNames('inf-checkbox__box', { 'inf-checkbox__box--disabled': disabled })}>
         {variant === 'indeterminate' ? indeterminateIcon : defaultCheckedIcon}
       </span>
       <span className={'inf-checkbox__label'}>{children}</span>

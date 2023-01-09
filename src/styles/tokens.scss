@@ -46,7 +46,7 @@
   --inf-heading-level-2-size: 30px;
   --inf-heading-level-2-line-height: 32px;
   --inf-heading-level-3-size: 24px;
-  --inf-heading-level-2-line-height: 32px;
+  --inf-heading-level-3-line-height: 28px;
   --inf-heading-level-4-size: 18px;
   --inf-heading-level-4-line-height: 24px;
   --inf-heading-level-5-size: 16px;
@@ -78,7 +78,7 @@
   --inf-select-item-space: 4px;
 
   /* Checkbox */
-  --inf-checkbox-color-border: #C8CACC;
+  --inf-checkbox-color-border: var(--inf-color-border-default);
   --inf-checkbox-color-border-hover: #738F99;
   --inf-checkbox-color-border-active: #738F99;
 
@@ -90,6 +90,17 @@
   --inf-checkbox-checked-color-background-hover: #FF6673;
   --inf-checkbox-checked-color-background-active: #CC2D32;
   --inf-checkbox-checked-color-background-disabled: #C8CACC;
+
+  /* Radio */
+  --inf-radio-color-border: #1F2021;
+  --inf-radio-color-border-hover: #738F99;
+  --inf-radio-color-border-active: #738F99;
+  --inf-radio-color-border-disabled: var(--inf-color-border-default);
+
+  --inf-radio-color-background-hover: #E6F1F5;
+  --inf-radio-color-background-active: #B8D1D9;
+  --inf-radio-color-background-checked: #F53A50;
+  --inf-radio-color-background-checked-disabled: #C8CACC;
 
   /* Modal */
   --inf-modal-backdrop-background: rgba(0, 0, 0, 0.3)

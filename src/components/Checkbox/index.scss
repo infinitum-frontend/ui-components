@@ -2,6 +2,37 @@
   display: inline-flex;
   align-items: center;
 
+  &:hover {
+    & input[type=checkbox] ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
+      border-color: var(--inf-checkbox-color-border-hover)
+    }
+
+    & input[type=checkbox]:checked ~ .inf-checkbox__box {
+      border-color: transparent;
+      background-color: var(--inf-checkbox-checked-color-background-hover);
+    }
+  }
+
+  &:active {
+    & input[type=checkbox] ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
+      border-color: var(--inf-checkbox-color-border-active);
+      background-color: var(--inf-checkbox-color-background-active);
+
+      svg:not(.inf-checkbox input[type='checkbox']:checked ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) svg) {
+        visibility: hidden;
+      }
+    }
+
+    & input[type=checkbox]:checked ~ .inf-checkbox__box {
+      border-color: transparent;
+      background-color: var(--inf-checkbox-checked-color-background-active);
+
+      svg {
+        visibility: visible;
+      }
+    }
+  }
+
   &__label {
     cursor: pointer;
     user-select: none;
@@ -17,26 +48,21 @@
     outline: none;
     cursor: pointer;
     margin: 0;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
     border: 1px solid var(--inf-color-border-default);
     color: white;
     background-color: var(--inf-checkbox-color-background);
     border-radius: var(--inf-border-radius-small);
 
-    &:hover {
-      border-color: var(--inf-checkbox-color-border-hover)
-    }
-
-    &:active {
-      border-color: var(--inf-checkbox-color-border-active);
-      background-color: var(--inf-checkbox-color-background-active);
-    }
-
-    &:disabled {
+    &--disabled {
       border-color: var(--inf-checkbox-color-border);
       background-color: var(--inf-checkbox-color-background-disabled);
+
+      svg:not(.inf-checkbox input[type='checkbox']:checked) {
+        visibility: hidden;
+      }
     }
   }
 
@@ -56,17 +82,12 @@
       background-color: var(--inf-checkbox-checked-color-background);
     }
 
-    &:checked:hover ~ .inf-checkbox__box {
-      border-color: transparent;
-      background-color: var(--inf-checkbox-checked-color-background-hover);
-    }
-
-    &:checked:active ~ .inf-checkbox__box {
-      background-color: var(--inf-checkbox-checked-color-background-active);
-    }
-
     &:checked:disabled ~ .inf-checkbox__box {
       background-color: var(--inf-checkbox-checked-color-background-disabled);
+
+      svg {
+        visibility: visible;
+      }
     }
   }
 }

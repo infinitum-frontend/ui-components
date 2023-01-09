@@ -26,7 +26,8 @@ const getRootProps = (state: boolean[]): { variant: InfCheckboxProps['variant'],
   }
 }
 
-const InfCheckboxIndeterminateGroup = ({ children, onChange }: InfCheckboxIndeterminateGroupProps): ReactElement => {
+// TODO: доработка стилизации
+const InfCheckboxGroup = ({ children, onChange }: InfCheckboxIndeterminateGroupProps): ReactElement => {
   const initialState = Children.map(children, child => {
     return child.props.checked || false
   })
@@ -67,4 +68,4 @@ const InfCheckboxIndeterminateGroup = ({ children, onChange }: InfCheckboxIndete
   )
 }
 
-export default InfCheckboxIndeterminateGroup
+export default InfCheckboxGroup
