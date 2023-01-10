@@ -17,7 +17,7 @@ export interface InfButtonProps extends React.ComponentPropsWithoutRef<'button'>
   /**
    * Вариант оформления
    */
-  variant?: 'primary' | 'secondary' | 'tertiary'
+  variant?: 'primary' | 'secondary' | 'default' | 'text'
   /**
    * Размер
    */

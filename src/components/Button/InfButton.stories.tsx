@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { InfButton } from './index'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
-const Meta: ComponentMeta<typeof InfButton> = {
+const ComponentMeta: Meta<typeof InfButton> = {
   title: 'Button',
   component: InfButton,
   argTypes: {
@@ -12,23 +12,23 @@ const Meta: ComponentMeta<typeof InfButton> = {
   }
 }
 
-export default Meta
+export default ComponentMeta
 
-const Template: ComponentStory<typeof InfButton> = ({ ...args }) => <InfButton {...args} />
+const Template: StoryFn<typeof InfButton> = ({ ...args }) => <InfButton {...args} />
 
 export const Playground = Template.bind({})
-
-export const Primary = Template.bind({})
-Primary.args = {
-  variant: 'primary'
-}
 
 export const Secondary = Template.bind({})
 Secondary.args = {
   variant: 'secondary'
 }
 
-export const Sizes: ComponentStory<typeof InfButton> = (args) => (
+export const Default = Template.bind({})
+Default.args = {
+  variant: 'default'
+}
+
+export const Sizes: StoryFn<typeof InfButton> = (args) => (
   <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
     <InfButton {...args} size="large" />
     <InfButton {...args} size="medium" />
@@ -36,7 +36,7 @@ export const Sizes: ComponentStory<typeof InfButton> = (args) => (
   </div>
 )
 
-export const LinkButton: ComponentStory<typeof InfButton> = (args) => (
+export const LinkButton: StoryFn<typeof InfButton> = (args) => (
   <InfButton
     href="https://ya.ru"
     target="_blank"

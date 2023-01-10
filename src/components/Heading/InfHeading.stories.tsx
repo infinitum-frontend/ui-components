@@ -7,6 +7,13 @@ const ComponentMeta: Meta<typeof InfHeading> = {
   component: InfHeading,
   args: {
     children: 'Заголовок'
+  },
+  parameters: {
+    docs: {
+      source: {
+        excludeDecorators: true
+      }
+    }
   }
 }
 
@@ -28,7 +35,7 @@ export const Levels: StoryFn<typeof InfHeading> = (args) => (
 Levels.decorators = [
   (Story) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-      <Story />
+      {Story()}
     </div>
   )
 ]
