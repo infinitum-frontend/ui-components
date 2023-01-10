@@ -1,71 +1,73 @@
 import {
-  ChangeEventHandler,
   ComponentPropsWithoutRef,
   ReactElement,
-  useState,
   cloneElement,
   Children,
-  ChangeEvent, useEffect
+  ChangeEvent
 } from 'react'
 import { InfCheckbox } from './index'
-import { InfBox } from '../Box'
-import { InfCheckboxProps } from './InfCheckbox'
+import classNames from 'classnames'
+import './group.scss'
 
+/** Test cvsdfsdf */
 export interface InfCheckboxIndeterminateGroupProps extends ComponentPropsWithoutRef<any> {
-  onChange?: (state: boolean[]) => void
+  onChange?: (value: Array<string | number>, e: ChangeEvent) => void
+  /** Массив выбранных значений */
+  checkedList?: Array<string | number>
+  direction?: 'vertical'
+  // indeterminate?: boolean
 }
 
-const getRootProps = (state: boolean[]): { variant: InfCheckboxProps['variant'], checked: boolean } => {
-  const hasCheckedItem = Boolean(state.find(item => Boolean(item)))
-  const hasUncheckedItem = typeof (state.find(item => !item)) === 'boolean'
-  const variant = hasCheckedItem && hasUncheckedItem ? 'indeterminate' : 'primary'
-  const checked = variant === 'indeterminate' ? hasCheckedItem && hasUncheckedItem : !hasUncheckedItem
-  return {
-    variant,
-    checked
+// TODO: наработки для группы с неопределенным чекбоксом. Пока не убирать
+// const getRootProps = (state: boolean[]): { variant: InfCheckboxProps['variant'], checked: boolean } => {
+//   const hasCheckedItem = Boolean(state.find(item => Boolean(item)))
+//   const hasUncheckedItem = typeof (state.find(item => !item)) === 'boolean'
+//   const variant = hasCheckedItem && hasUncheckedItem ? 'indeterminate' : 'primary'
+//   const checked = variant === 'indeterminate' ? hasCheckedItem && hasUncheckedItem : !hasUncheckedItem
+//   return {
+//     variant,
+//     checked
+//   }
+// }
+
+/** Компонент для работы с группой Чекбоксов. Для работы необходимо каждому чекбоксу прописать уникальный value */
+const InfCheckboxGroup = ({
+  children,
+  onChange,
+  direction = 'vertical',
+  checkedList = []
+}: InfCheckboxIndeterminateGroupProps): ReactElement => {
+  const handleChangeItem = (val: string | number, e: ChangeEvent<HTMLInputElement>): void => {
+    const isActive = checkedList?.includes(val)
+
+    if (isActive) {
+      onChange?.(checkedList?.filter(item => item !== val), e)
+    } else {
+      onChange?.([...checkedList, val], e)
+    }
   }
-}
 
-// TODO: доработка стилизации
-const InfCheckboxGroup = ({ children, onChange }: InfCheckboxIndeterminateGroupProps): ReactElement => {
-  const initialState = Children.map(children, child => {
-    return child.props.checked || false
-  })
+  const clonedChildren = Children.map(children, (child) => {
+    const childValue = child.props.value
 
-  const [checkedArray, setCheckedArray] = useState<boolean[]>(initialState)
-
-  const rootProps = getRootProps(checkedArray)
-
-  useEffect(() => {
-    onChange?.(checkedArray)
-  }, [...checkedArray])
-
-  const handleChangeItem = (e: ChangeEvent<HTMLInputElement>, index: number): void => {
-    setCheckedArray(prevState => {
-      prevState[index] = e.target?.checked
-      return [...prevState]
+    return cloneElement(child, {
+      ...child.props,
+      checked: Boolean(checkedList.find(item => item === childValue)),
+      onChange: (e: ChangeEvent<HTMLInputElement>) => handleChangeItem(childValue, e)
     })
-  }
-
-  const handleChangeMain: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setCheckedArray(prev => [...prev.map(item => e.target.checked)])
-  }
-
-  const clonedChildren = Children.map(children, (child, index) => {
-    return cloneElement(child, { ...child.props, checked: checkedArray[index] || false, onChange: (e: ChangeEvent<HTMLInputElement>) => handleChangeItem(e, index) })
   })
 
   return (
-    <div>
-      <InfCheckbox
-        {...rootProps}
-        onChange={handleChangeMain}>Основной чекбокс
-      </InfCheckbox>
-      <InfBox>
-        {clonedChildren}
-      </InfBox>
-    </div>
+    <div className={classNames('inf-checkbox-group__items', `inf-checkbox-group__items--direction-${direction}`)}>{clonedChildren}</div>
   )
 }
+
+const Checkbox = ({ children, ...props }: ComponentPropsWithoutRef<any>): ReactElement => <InfCheckbox {...props}>{children}</InfCheckbox>
+
+if (process.env.NODE_ENV !== 'production') {
+  Checkbox.displayName = 'InfCheckboxGroup.Checkbox'
+}
+
+InfCheckboxGroup.Checkbox = Checkbox
 
 export default InfCheckboxGroup

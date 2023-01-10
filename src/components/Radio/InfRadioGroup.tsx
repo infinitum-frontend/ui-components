@@ -1,5 +1,6 @@
 import { ChangeEvent, ComponentPropsWithoutRef, ReactElement } from 'react'
 import RadioGroupContext from './RadioGroupContext'
+import { InfRadio } from './index'
 import './group.scss'
 import classNames from 'classnames'
 
@@ -8,14 +9,14 @@ export interface InfRadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>
   name: string
   onChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void
   /** Значение выбранной радиокнопки */
-  value?: string
+  value: string
   direction?: 'vertical'
 }
 
 const InfRadioGroup = ({
   name,
   onChange,
-  value,
+  value = '',
   children,
   direction = 'vertical'
 }: InfRadioGroupProps): ReactElement => {
@@ -33,5 +34,15 @@ const InfRadioGroup = ({
     </RadioGroupContext.Provider>
   )
 }
+
+const Radio = ({ children, ...props }: ComponentPropsWithoutRef<any>): ReactElement => {
+  return (<InfRadio {...props}>{children}</InfRadio>)
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  Radio.displayName = 'InfRadioGroup.Radio'
+}
+
+InfRadioGroup.Radio = Radio
 
 export default InfRadioGroup

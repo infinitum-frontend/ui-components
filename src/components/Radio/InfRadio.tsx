@@ -4,12 +4,17 @@ import classNames from 'classnames'
 import useRadioGroup from './useRadioGroup'
 
 export interface InfRadioProps extends ComponentPropsWithoutRef<'input'> {
+  /** Состояние недоступности */
   disabled?: boolean
+  /** Состояние выбора */
   checked?: boolean
+  /** HTML checked. Используется для неконтролируемого чекбокса */
   defaultChecked?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>
+  /** HTML name */
   name?: string
-  value: string
+  /** HTML value */
+  value?: string
 }
 
 const InfRadio = ({
@@ -21,15 +26,15 @@ const InfRadio = ({
   name,
   value
 }: InfRadioProps): ReactElement => {
-  console.log('rerender')
   const groupData = useRadioGroup()
+
   if (groupData) {
     name = groupData.name
     checked = value === groupData.value
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    groupData ? groupData.onChange(e, value) : onChange?.(e)
+    groupData ? groupData.onChange?.(e, value || '') : onChange?.(e)
   }
 
   return (
@@ -38,6 +43,7 @@ const InfRadio = ({
         type={'radio'}
         disabled={disabled}
         name={name}
+        value={value}
         defaultChecked={checked !== undefined ? undefined : defaultChecked}
         checked={checked !== undefined ? checked : undefined}
         onChange={handleChange} />
