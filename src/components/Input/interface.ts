@@ -7,7 +7,7 @@ export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement
    * Размер
    * @default medium
    */
-  size?: 'small' | 'medium'
+  size?: 'medium'
   /**
    * Функция, применяющаяся для форматирования значения
    * @param value {string}
@@ -22,7 +22,7 @@ export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement
    * Размер скруглений
    * @default unset
    */
-  borderRadius?: 'unset' | 'regular' | 'medium'
+  borderRadius?: 'unset' | 'regular'
   /** Состояние недоступности */
   disabled?: boolean
   /** Состояние (ошибка, предупреждение) */

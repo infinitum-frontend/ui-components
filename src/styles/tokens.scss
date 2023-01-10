@@ -26,7 +26,8 @@
   /* --inf-color-control-secondary: lightgray; */
   /* --inf-color-control-secondary: lightgray; */
    --inf-color-border-default: #C8CACC;
-   --inf-color-border-selected: lightgray;
+   --inf-color-border-hover: #46626B;
+   --inf-color-border-focused: #46626B;
 
   --inf-font-family-base: "Circe", Arial, sans-serif;
 
@@ -52,9 +53,9 @@
   --inf-heading-level-5-size: 16px;
   --inf-heading-level-5-line-height: 20px;
 
-  --inf-control-height-medium: 50px;
-  --inf-control-height-small: 35px;
-  --inf-control-height-large: 60px;
+  --inf-control-height-medium: 32px;
+  --inf-control-height-small: 28px; // нет в макете
+  --inf-control-height-large: 36px; // нет в макете
 
   /* Spacing */
   --inf-spacing-checked-group: 2px;
@@ -65,10 +66,8 @@
   --inf-border-radius-medium: 8px;
 
   /* Input */
-  --inf-input-padding-horizontal-small: 9px;
-  --inf-input-padding-horizontal-medium: 15px;
-  --inf-input-padding-vertical-small: 6px;
-  --inf-input-padding-vertical-medium: 12px;
+  --inf-input-padding-horizontal-medium: 12px;
+  --inf-input-padding-vertical-medium: 4px;
 
   /*  Select */
   --inf-select-items-border-radius-regular: var(--inf-border-radius-regular);
