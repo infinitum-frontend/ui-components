@@ -23,9 +23,9 @@ export const Playground: StoryFn<typeof InfRadioGroup> = (args) => {
         name={'radio'}
         value={state}
         onChange={handleChange}>
-        <InfRadioGroup.Radio value={'1'}>Checkbox 1</InfRadioGroup.Radio>
-        <InfRadioGroup.Radio value={'2'}>Checkbox 2</InfRadioGroup.Radio>
-        <InfRadioGroup.Radio value={'3'}>Checkbox 3</InfRadioGroup.Radio>
+        <InfRadioGroup.Radio value={'1'}>Облигации внешних облигационных займов РФ</InfRadioGroup.Radio>
+        <InfRadioGroup.Radio value={'2'}>Облигации государственных компаний</InfRadioGroup.Radio>
+        <InfRadioGroup.Radio value={'3'}>Облигации государственных корпораций</InfRadioGroup.Radio>
       </InfRadioGroup>
       <div style={{ marginTop: '12px' }}>Выбрано: {state}</div>
     </div>

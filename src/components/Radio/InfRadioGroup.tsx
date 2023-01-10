@@ -3,6 +3,7 @@ import RadioGroupContext from './RadioGroupContext'
 import { InfRadio } from './index'
 import './group.scss'
 import classNames from 'classnames'
+import { InfRadioProps } from './InfRadio'
 
 export interface InfRadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   /** Название группы радио кнопок */
@@ -35,7 +36,7 @@ const InfRadioGroup = ({
   )
 }
 
-const Radio = ({ children, ...props }: ComponentPropsWithoutRef<any>): ReactElement => {
+const Radio = ({ children, ...props }: InfRadioProps): ReactElement => {
   return (<InfRadio {...props}>{children}</InfRadio>)
 }
 

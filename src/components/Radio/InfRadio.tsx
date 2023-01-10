@@ -1,16 +1,16 @@
-import { ChangeEventHandler, ComponentPropsWithoutRef, ReactElement } from 'react'
+import { ChangeEvent, ChangeEventHandler, ComponentPropsWithoutRef, ReactElement } from 'react'
 import './index.scss'
 import classNames from 'classnames'
 import useRadioGroup from './useRadioGroup'
 
-export interface InfRadioProps extends ComponentPropsWithoutRef<'input'> {
+export interface InfRadioProps extends Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> {
   /** Состояние недоступности */
   disabled?: boolean
   /** Состояние выбора */
   checked?: boolean
   /** HTML checked. Используется для неконтролируемого чекбокса */
   defaultChecked?: boolean
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  onChange?: (checked: boolean, e: ChangeEvent) => void
   /** HTML name */
   name?: string
   /** HTML value */
@@ -34,7 +34,7 @@ const InfRadio = ({
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    groupData ? groupData.onChange?.(e, value || '') : onChange?.(e)
+    groupData ? groupData.onChange?.(e, value || '') : onChange?.(e.target.checked, e)
   }
 
   return (
@@ -50,7 +50,7 @@ const InfRadio = ({
       <span className={classNames('inf-radio__box', { 'inf-radio__box--disabled': disabled })}>
         <span className={'inf-radio__dot'} />
       </span>
-      <span className={'inf-radio__label'}>{children}</span>
+      <span className={classNames('inf-radio__label', { 'inf-radio__label--disabled': disabled })}>{children}</span>
     </label>
   )
 }

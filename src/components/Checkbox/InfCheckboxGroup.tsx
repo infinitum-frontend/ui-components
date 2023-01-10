@@ -8,8 +8,8 @@ import {
 import { InfCheckbox } from './index'
 import classNames from 'classnames'
 import './group.scss'
+import { InfCheckboxProps } from './InfCheckbox'
 
-/** Test cvsdfsdf */
 export interface InfCheckboxIndeterminateGroupProps extends ComponentPropsWithoutRef<any> {
   onChange?: (value: Array<string | number>, e: ChangeEvent) => void
   /** Массив выбранных значений */
@@ -62,7 +62,7 @@ const InfCheckboxGroup = ({
   )
 }
 
-const Checkbox = ({ children, ...props }: ComponentPropsWithoutRef<any>): ReactElement => <InfCheckbox {...props}>{children}</InfCheckbox>
+const Checkbox = ({ children, ...props }: InfCheckboxProps): ReactElement => <InfCheckbox {...props}>{children}</InfCheckbox>
 
 if (process.env.NODE_ENV !== 'production') {
   Checkbox.displayName = 'InfCheckboxGroup.Checkbox'

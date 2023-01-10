@@ -53,7 +53,7 @@ const InfCheckbox = ({
       <span className={classNames('inf-checkbox__box', { 'inf-checkbox__box--disabled': disabled })}>
         {variant === 'indeterminate' ? indeterminateIcon : defaultCheckedIcon}
       </span>
-      {children !== undefined && <span className={'inf-checkbox__label'}>{children}</span>}
+      {children !== undefined && <span className={classNames('inf-checkbox__label', { 'inf-checkbox__label--disabled': disabled })}>{children}</span>}
     </label>
   )
 }

@@ -29,3 +29,12 @@ export const AllVariants: StoryFn<typeof InfCheckbox> = (args) => {
     </InfBox>
   )
 }
+
+export const Disabled: StoryFn<typeof InfCheckbox> = (args) => {
+  return (
+    <InfBox style={{ width: '300px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', backgroundColor: 'transparent' }}>
+      <InfCheckbox disabled={true} defaultChecked={true}><code>checked</code></InfCheckbox>
+      <InfCheckbox disabled={true}><code>uncheked</code></InfCheckbox>
+    </InfBox>
+  )
+}
