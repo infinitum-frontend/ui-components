@@ -1,13 +1,13 @@
 .inf-button {
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: 300;
-  font-size: 18px;
+  font-family: var(--inf-font-family-base);
+  font-size: 14px;
+  font-weight: 400;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   width: -webkit-max-content;
   width: max-content;
-  padding: 0 25px;
+  padding: 0 16px;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -19,16 +19,9 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border-radius: 50px; // button-border-radius
+  border-radius: var(--inf-border-radius-regular);
   transition: .2s;
-
-  &:hover {
-    filter: brightness(110%);
-  }
-
-  &:active {
-    filter: brightness(90%);
-  }
+  background: none;
 
   &:focus-visible {
     outline: none;
@@ -37,16 +30,49 @@
   &--variant-primary {
     background-color: var(--inf-color-primary);
     color: #fff;
+
+    &:hover {
+      background-color: var(--inf-color-primary-light);
+    }
+
+    &:active {
+      background-color: var(--inf-color-primary-dark);
+    }
   }
 
   &--variant-secondary {
-    background: #f6f7f8;
-    color: #646a89;
+    background-color: #738F99;
+    color: #fff;
+
+    &:hover {
+      background-color: #B8D1D9;
+    }
+
+    &:active {
+      background-color: #46626B;
+    }
+  }
+
+  &--variant-default {
+    color: #46626B;
+    border: 1px solid #46626B;
+
+    &:hover {
+      background-color: #E6F1F5;
+    }
+
+    &:active {
+      background-color: #738F99;
+    }
+  }
+
+  &--disabled {
+    background-color: #F2F4F5;
+    color: #C8CACC;
   }
 
   &--size-small {
     height: var(--inf-control-height-small);
-    font-size: 14px;
   }
 
   &--size-medium {
