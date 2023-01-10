@@ -4,9 +4,9 @@ import {
 } from 'react'
 
 export interface RadioGroupContextValue {
-  name: string | undefined
-  onChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void
-  value?: string
+  name: string
+  onChange?: (event: ChangeEvent<HTMLInputElement>, value: string) => void
+  value: string
 }
 
 /**

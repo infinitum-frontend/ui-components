@@ -1,9 +1,7 @@
-import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { InfCheckbox } from './index'
-import { action } from '@storybook/addon-actions'
 import { InfBox } from '../Box'
-import InfCheckboxGroup from './InfCheckboxGroup'
+import { action } from '@storybook/addon-actions'
 
 const meta: Meta<typeof InfCheckbox> = {
   title: 'Checkbox',
@@ -15,6 +13,7 @@ export default meta
 const Template: StoryFn<typeof InfCheckbox> = (args) => {
   return (
     <InfCheckbox
+      onChange={action('change')}
       {...args}>Облигации
     </InfCheckbox>
   )
@@ -31,11 +30,11 @@ export const AllVariants: StoryFn<typeof InfCheckbox> = (args) => {
   )
 }
 
-export const IndeterminateGroup: StoryFn<typeof InfCheckboxGroup> = (arg) => {
+export const Disabled: StoryFn<typeof InfCheckbox> = (args) => {
   return (
-    <InfCheckboxGroup onChange={action('change')}>
-      <InfCheckbox>Первый мини чекбокс</InfCheckbox>
-      <InfCheckbox>Второй мини чекбокс</InfCheckbox>
-    </InfCheckboxGroup>
+    <InfBox style={{ width: '300px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', backgroundColor: 'transparent' }}>
+      <InfCheckbox disabled={true} defaultChecked={true}><code>checked</code></InfCheckbox>
+      <InfCheckbox disabled={true}><code>uncheked</code></InfCheckbox>
+    </InfBox>
   )
 }

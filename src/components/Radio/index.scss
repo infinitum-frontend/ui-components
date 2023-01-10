@@ -22,6 +22,10 @@
     margin-left: 8px;
     font-size: var(--inf-text-size-small);
     line-height: 20px;
+
+    &--disabled {
+      cursor: unset;
+    }
   }
 
   &__box {
@@ -39,6 +43,7 @@
 
     &--disabled {
       border-color: var(--inf-radio-color-border-disabled);
+      cursor: unset;
     }
   }
 

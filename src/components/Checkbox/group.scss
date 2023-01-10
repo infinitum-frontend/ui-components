@@ -1,0 +1,13 @@
+.inf-checkbox-group {
+  &__items {
+    display: flex;
+
+    &--direction-vertical {
+      flex-direction: column;
+
+      > * + * {
+        margin-top: var(--inf-spacing-checked-group);
+      }
+    }
+  }
+}

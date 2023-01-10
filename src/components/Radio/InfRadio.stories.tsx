@@ -2,8 +2,7 @@ import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { InfRadio } from './index'
 import { action } from '@storybook/addon-actions'
-import InfRadioGroup from './InfRadioGroup'
-import { ChangeEvent, useState } from 'react'
+import InfBox from '../Box/InfBox'
 
 const meta: Meta<typeof InfRadio> = {
   title: 'Radio',
@@ -13,29 +12,16 @@ const meta: Meta<typeof InfRadio> = {
 export default meta
 
 const Template: StoryFn<typeof InfRadio> = (args) => {
-  return (<InfRadio {...args} onChange={action('change')}>Radio</InfRadio>)
+  return (<InfRadio {...args} onChange={action('change')}>Облигации</InfRadio>)
 }
 
 export const Playground = Template.bind({})
 
-export const Group: StoryFn<typeof InfRadioGroup> = (args) => {
-  const [state, setState] = useState<string>('')
-
-  const handleChange = (e: ChangeEvent, val: string): void => {
-    setState(val)
-  }
-
+export const Disabled: StoryFn<typeof InfRadio> = (args) => {
   return (
-    <div>
-      <InfRadioGroup
-        name={'radio'}
-        value={state}
-        onChange={handleChange}>
-        <InfRadio value={'1'}>Checkbox 1</InfRadio>
-        <InfRadio value={'2'}>Checkbox 2</InfRadio>
-        <InfRadio value={'3'}>Checkbox 3</InfRadio>
-      </InfRadioGroup>
-      <div style={{ marginTop: '12px' }}>Selected: {state}</div>
-    </div>
+    <InfBox style={{ width: '300px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', backgroundColor: 'transparent' }}>
+      <InfRadio disabled={true} checked={true}><code>checked</code></InfRadio>
+      <InfRadio disabled={true}><code>unchecked</code></InfRadio>
+    </InfBox>
   )
 }
