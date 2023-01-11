@@ -5,6 +5,7 @@ import { InfBox } from '../Box'
 import { StandardizedListItem } from './interface'
 import InfSelectExternal from './InfSelectExternal'
 import InfSelectMpk from './InfSelectMpk'
+import { useState } from 'react'
 
 const mockItems = [
   { text: 'Депозитарные услуги', value: 0, subtext: 'Дополнительный' },
