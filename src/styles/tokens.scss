@@ -29,6 +29,8 @@
    --inf-color-border-default: #C8CACC;
    --inf-color-border-hover: #46626B;
    --inf-color-border-focused: #46626B;
+  --inf-control-color-border-active: #738F99;
+  --inf-control-background-color-hover: #E6F1F5;
 
   --inf-font-family-base: "Circe", Arial, sans-serif;
 
@@ -83,8 +85,8 @@
 
   /* Checkbox */
   --inf-checkbox-color-border: var(--inf-color-border-default);
-  --inf-checkbox-color-border-hover: #738F99;
-  --inf-checkbox-color-border-active: #738F99;
+  --inf-checkbox-color-border-hover: var(--inf-control-color-border-active);
+  --inf-checkbox-color-border-active: var(--inf-control-color-border-active);
 
   --inf-checkbox-color-background: white;
   --inf-checkbox-color-background-active: #B8D1D9;
@@ -97,8 +99,8 @@
 
   /* Radio */
   --inf-radio-color-border: #1F2021;
-  --inf-radio-color-border-hover: #738F99;
-  --inf-radio-color-border-active: #738F99;
+  --inf-radio-color-border-hover: var(--inf-control-color-border-active);
+  --inf-radio-color-border-active: var(--inf-control-color-border-active);
   --inf-radio-color-border-disabled: var(--inf-color-border-default);
 
   --inf-radio-color-background-hover: #E6F1F5;

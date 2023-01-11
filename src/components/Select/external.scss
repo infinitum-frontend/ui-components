@@ -1,0 +1,65 @@
+.inf-select-external {
+  width: 100%;
+
+  &__button {
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    appearance: none;
+    text-align: left;
+    background-color: var(--inf-color-background-base);
+    border-radius: var(--inf-border-radius-regular);
+    border: 1px solid var(--inf-color-border-default);
+    padding: var(--inf-input-padding-vertical-medium) var(--inf-input-padding-horizontal-medium);
+    line-height: 18px;
+    height: var(--inf-control-height-medium);
+    font-size: var(--inf-text-size-small);
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &--selected {
+      border-color: var(--inf-control-color-border-active);
+    }
+
+    &--disabled {
+      border-color: transparent;
+      background-color: var(--inf-color-background-control-disabled);
+      color: var(--inf-color-text-tertiary);
+    }
+  }
+
+  &__options {
+    margin-top: 2px;
+    border-radius: var(--inf-border-radius-regular);
+    border: 1px solid var(--inf-color-border-default);
+    width: 100%;
+    list-style-type: none;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+  }
+
+  &__option {
+    cursor: pointer;
+    padding: 7px 12px;
+
+    &--active {
+      background-color: var(--inf-control-background-color-hover);
+    }
+  }
+}
