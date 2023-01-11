@@ -1,0 +1,55 @@
+
+.inf-toggle {
+    position: relative;
+    display: inline-block;
+    width: 2rem;
+    height: 1rem;
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+
+    --primary-2-normal: #f53a3a;
+    --light-color: #ffffff;
+    --gray-3-light: #c8cacc;
+}
+
+.inf-toggle__bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: background-color 0.2s;
+    border-radius: 0.5rem;
+
+    &--on {
+      background-color: var(--primary-2-normal);
+    }
+
+    &--off {
+      background-color: var(--gray-3-light);
+    }
+}
+
+.inf-toggle__switch {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+}
+
+.inf-toggle__switch-handle {
+    position: absolute;
+    bottom: 0.1875rem;
+    left: 0.1875rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    transition: transform 0.2s;
+    transform: translateX(0);
+    border-radius: 50%;
+    outline: none;
+    background-color: var(--light-color);
+
+    &--checked {
+      transform: translateX(1rem);
+    }
+}
