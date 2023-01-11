@@ -1,7 +1,7 @@
 import React, {
   FocusEventHandler,
   FormEventHandler,
-  ReactElement, ReactNode, useImperativeHandle, useState, useRef, Ref, useEffect, useCallback, MouseEventHandler
+  ReactElement, ReactNode, useImperativeHandle, useState, useRef, Ref, useCallback, MouseEventHandler
 } from 'react'
 import classNames from 'classnames'
 import './index.scss'
@@ -9,12 +9,12 @@ import { InfInputProps, InputRefHandler } from './interface'
 import { TestSelectors } from '../../../test/selectors'
 // eslint-disable-next-line import/no-named-default
 import { default as debounceFn } from 'lodash.debounce'
-import { useClickOutside } from '../../hooks/useClickOutside'
 
 /**
  * Компонент поля ввода
  */
 const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
+  style,
   value = '',
   formatter,
   size = 'medium',
@@ -38,16 +38,10 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
 }: InfInputProps, ref: Ref<InputRefHandler>): ReactElement => {
   // обработка состояния
   const [isFocused, setFocus] = useState(false)
-  const [localValue, setLocalValue] = useState('')
+  const [localValue, setLocalValue] = useState(value)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const wrapperRef = useRef<HTMLSpanElement>(null)
-
-  const clickOutside = useClickOutside(wrapperRef)
-
-  useEffect(() => {
-    setLocalValue(value)
-  }, [value])
 
   useImperativeHandle(ref,
     () => ({
@@ -61,28 +55,22 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
     if (onInput) {
       onInput(val)
     }
-  }
-  , debounce), [debounce])
+  }, debounce), [debounce])
 
   // обработка событий
   const handleInput: FormEventHandler = (e) => {
     if (onInput !== undefined) {
       const target = e.target as HTMLInputElement
-      setLocalValue(target.value)
+      // обновляем локальное значение только когда есть дебаунс, чтобы не вызывать лишние ререндеры
+      if (debounce) {
+        setLocalValue(target.value)
+      }
       debouncedInput(target.value)
     }
   }
 
   const handleWrapperClick: MouseEventHandler<HTMLSpanElement> = (e): void => {
-    if ((e.target as HTMLElement)?.tagName === 'INPUT') {
-      return
-    }
-
-    if (isFocused) {
-      setFocus(false)
-      onBlur?.(e)
-    } else {
-      setFocus(true)
+    if (wrapperRef.current?.contains(e.target as HTMLElement)) {
       inputRef.current?.focus()
     }
   }
@@ -93,26 +81,27 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   }
 
   const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
-    if (clickOutside) {
-      setFocus(false)
-      onBlur?.(e)
-    }
+    setFocus(false)
+    onBlur?.(e)
   }
 
   const handleClear: () => void = () => {
-    if (onInput !== undefined) {
-      onInput('')
-      inputRef.current?.focus()
+    if (debounce) {
+      setLocalValue('')
     }
+    onInput?.('')
+    inputRef.current?.focus()
   }
 
   // хелперы
+  const composedValue = debounce ? localValue : value
+
   const getFormattedValue: () => string = () => {
     if (formatter !== undefined) {
-      return formatter(localValue)
+      return formatter(composedValue)
     }
 
-    return localValue
+    return composedValue
   }
 
   const getClassNames: () => string = () => {
@@ -176,6 +165,7 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
 
   return (
     <span
+      style={style}
       className={getClassNames()}
       ref={wrapperRef}
       onClick={handleWrapperClick}

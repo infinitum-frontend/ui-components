@@ -26,7 +26,7 @@ export interface InfInputProps extends Omit<InputHTMLAttributes<HTMLInputElement
   /** Состояние недоступности */
   disabled?: boolean
   /** Состояние (ошибка, предупреждение) */
-  status?: 'error' | 'warning'
+  status?: 'error'
   /** Элемент префикс */
   prefix?: ReactNode
   /** Кастомный класс префикса */

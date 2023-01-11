@@ -6,7 +6,7 @@ exports[`select > should match snapshop 1`] = `
   data-testid="selectWrapper"
 >
   <span
-    class="inf-input inf-input--size-medium inf-select__input"
+    class="inf-input inf-input--size-medium inf-select__input inf-input--br-regular"
     data-testid="inputWrapper"
   >
     <input
@@ -16,6 +16,14 @@ exports[`select > should match snapshop 1`] = `
       readonly=""
       value="Первый элемент"
     />
+    <span
+      class="inf-input__postfix"
+      data-testid="inputPostfix"
+    >
+      <span>
+        ▼
+      </span>
+    </span>
   </span>
 </div>
 `;

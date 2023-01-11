@@ -23,6 +23,7 @@
   --inf-color-background-base: #fff;
   --inf-color-background-secondary: #ccc;
   --inf-color-background-contrast: black;
+  --inf-color-background-control-disabled: #F2F4F5;
   /* --inf-color-control-secondary: lightgray; */
   /* --inf-color-control-secondary: lightgray; */
    --inf-color-border-default: #C8CACC;
@@ -68,6 +69,7 @@
   /* Input */
   --inf-input-padding-horizontal-medium: 12px;
   --inf-input-padding-vertical-medium: 4px;
+  --inf-input-color-background-disabled: var(--inf-color-background-control-disabled);
 
   /*  Select */
   --inf-select-items-border-radius-regular: var(--inf-border-radius-regular);
@@ -86,7 +88,7 @@
 
   --inf-checkbox-color-background: white;
   --inf-checkbox-color-background-active: #B8D1D9;
-  --inf-checkbox-color-background-disabled: #F2F4F5;
+  --inf-checkbox-color-background-disabled: var(--inf-color-background-control-disabled);
 
   --inf-checkbox-checked-color-background: #F53A50;
   --inf-checkbox-checked-color-background-hover: #FF6673;

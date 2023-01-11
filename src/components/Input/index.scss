@@ -1,7 +1,7 @@
 .inf-input {
   box-sizing: border-box;
   outline: none;
-
+  cursor: text;
   width: 100%;
   display: inline-flex;
   align-items: center;
@@ -20,8 +20,8 @@
   }
 
   &--size-medium {
-    line-height: 20px;
-    height: var(--inf-control-height-small);
+    line-height: 18px;
+    height: var(--inf-control-height-medium);
     font-size: var(--inf-text-size-small);
     padding: var(--inf-input-padding-vertical-medium) var(--inf-input-padding-horizontal-medium);
   }
@@ -90,16 +90,18 @@
   }
 
   &--disabled {
-    opacity: var(--inf--opacity_disable, 0.5);
+    background-color: var(--inf-input-color-background-disabled);
     pointer-events: none;
+    border-color: transparent !important;
+    color: var(----inf-color-text-quaternary);
+
+    &::placeholder {
+      color: var(----inf-color-text-quaternary);
+    }
   }
 
   &--status-error {
-    border-color: var(--inf--color_border--error, red);
-  }
-
-  &--status-warning {
-    border-color: var(--inf--color_border--warning, orange);
+    border-color: var(--inf-color-primary);
   }
 
   &__prefix, &__postfix, &__clear-button {

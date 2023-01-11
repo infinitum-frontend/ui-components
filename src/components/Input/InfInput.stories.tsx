@@ -51,6 +51,7 @@ const Template: StoryFn<typeof InfInput> = ({ ...args }) => {
 
   return (
     <InfInput
+      style={{ width: '200px' }}
       {...args}
       value={value}
       onFocus={action('focus')}
@@ -114,6 +115,7 @@ export const Debounced: StoryFn<typeof InfInput> = (args) => {
     <div>
       <InfInput
         {...args}
+        allowClear={true}
         onInput={handleInput} />
       <span style={{ color: 'darkred', marginTop: '6px' }}>Значение: {value}</span>
     </div>

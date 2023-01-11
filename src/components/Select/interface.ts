@@ -38,7 +38,7 @@ export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
 
 export interface InfSelectProps {
   items: Array<StandardizedListItem<Record<string, any>>>
-  size?: 'small' | 'medium'
+  size?: 'medium'
   variant?: 'split' | 'stuck'
   className?: string
   inputRef?: RefObject<InputRefHandler>
