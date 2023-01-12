@@ -1,66 +1,83 @@
 .inf-select {
   position: relative;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  text-align: left;
   background-color: var(--inf-color-background-base);
-  border-radius: var(--inf-border-radius-regular);
-  height: max-content;
+  border-radius: var(--inf-border-radius-medium);
+  border: 1px solid var(--inf-color-border-default);
+  padding: 7px var(--inf-input-padding-horizontal-medium);
+  line-height: 18px;
+  height: var(--inf-control-height-medium);
+  font-size: var(--inf-text-size-small);
+  font-family: var(--inf-font-family-base);
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &--selected {
+    border-color: var(--inf-control-color-border-active);
+  }
+
+  &--disabled {
+    border-color: transparent;
+    background-color: var(--inf-color-background-control-disabled);
+    color: var(--inf-color-text-tertiary);
+  }
 
   &--collapse-bottom {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
 
-  &__items {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border: 1px solid var(--inf-select-item-background-hover);
-    border-radius: var(--inf-select-items-border-radius-regular);
-    background-color: var(--inf-color-background-base);
-    width: 100%;
+  &__arrow {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
 
-    &--variant-split {
-      border-top: none;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-
-    &--size-small {
-      padding: var(--inf-select-items-padding-vertical-small) var(--inf-select-items-padding-horizontal-small);
-    }
-
-    &--size-medium {
-      padding: var(--inf-select-items-padding-vertical-medium) var(--inf-select-items-padding-horizontal-medium);
+    &--selected {
+      color: var(--inf-control-color-border-active);
     }
   }
 
-  &__input {
-    cursor: pointer;
+  &__items {
+    border-radius: var(--inf-border-radius-medium);
+    border: 1px solid var(--inf-color-border-default);
+    background-color: white;
+    width: 100%;
+    list-style-type: none;
+
+    // TODO: обсудить, почему снизу есть паддинг а сверху нет. Как выглядит ховер на последний элемент и на первый
+    padding-bottom: 4px;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   &__item {
     display: flex;
-    border-radius: var(--inf-select-item-border-radius);
-
-    &:not(:first-child) {
-      margin-top: var(--inf-select-item-space);
-    }
-
-    &--size-small {
-      font-size: var(--inf-text-size-small);
-      line-height: 18px;
-      padding: 3px;
-    }
-
-    &--size-medium {
-      font-size: var(--inf-text-size-medium);
-      padding: 7px 12px;
-      line-height: 21px;
-    }
+    cursor: pointer;
+    font-size: var(--inf-text-size-small);
+    padding: 7px 12px;
+    line-height: 18px;
 
     &--active {
-      color: var(--inf-color-text-contrast);
-      background-color: var(--inf-select-item-background-hover);
-      cursor: pointer;
+      background-color: var(--inf-control-background-color-hover);
+    }
+
+    &:first-child {
+      border-top-right-radius: var(--inf-select-item-border-radius);
+      border-top-left-radius: var(--inf-select-item-border-radius);
     }
   }
 }

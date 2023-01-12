@@ -1,12 +1,11 @@
-import { RefObject } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, RefObject } from 'react'
 import { InputRefHandler } from '../Input/interface'
 
 type ArrayElementConstraints<T> = Record<string, T[keyof T]>
 
 export interface StandardizedListItemDefault {
-  value: string | number | null
-  text: string
-  subtext?: string
+  value: number | string
+  label: string | ReactNode
 }
 
 type MappedObject<T extends ArrayElementConstraints<T>> = {
@@ -24,25 +23,25 @@ export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
    * Строковое название ключа элемента исходного массива, на основании которого будет браться ключ для опции
    * Ключ должен являться уникальным значением
    */
-  value: number
+  value: string
   /**
    * Строковое название ключа элемента исходного массива, на основании которого будет браться текст для отображения опции
    */
-  text: string
+  label: string
   /**
-   * Строковое название ключа элемента исходного массива, на основании которого будет браться дополнительный текст.
+   * Нужно ли сохранять остальные поля исходного объекта
    */
-  subtext?: string
   rest?: boolean
 }
 
-export interface InfSelectProps {
-  items: Array<StandardizedListItem<Record<string, any>>>
+export interface InfSelectProps extends Omit<ComponentPropsWithoutRef<'button'>, 'onChange'> {
+  options: Array<StandardizedListItem<Record<string, any>>>
   size?: 'medium'
-  variant?: 'split' | 'stuck'
   className?: string
   inputRef?: RefObject<InputRefHandler>
-  onSubmit?: (item: StandardizedListItem<Record<string, any>>) => void
+  onChange?: (item: StandardizedListItem<Record<string, any>>) => void
   autoFocus?: boolean
   disabled?: boolean
+  value?: StandardizedListItemDefault['value']
+  placeholder?: string
 }

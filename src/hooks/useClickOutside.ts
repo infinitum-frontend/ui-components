@@ -1,14 +1,11 @@
-import { RefObject, useEffect, useState } from 'react'
+import { RefObject, useEffect } from 'react'
 
-export function useClickOutside(ref: RefObject<any>): boolean {
-  const [isClickedOutside, setClickOutside] = useState(false)
-
+export function useClickOutside(ref: RefObject<any> | Array<RefObject<any>>, handler: (event: MouseEvent) => void): void {
+  const composedRef = Array.isArray(ref) ? ref : [ref]
   useEffect(() => {
     function handleClickOutside(event: MouseEvent): void {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setClickOutside(true)
-      } else {
-        setClickOutside(false)
+      if (!composedRef.filter(el => el.current?.contains(event.target)).length) {
+        handler(event)
       }
     }
 
@@ -16,7 +13,5 @@ export function useClickOutside(ref: RefObject<any>): boolean {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [ref])
-
-  return isClickedOutside
+  }, [...composedRef])
 }

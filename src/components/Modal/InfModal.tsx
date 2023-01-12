@@ -18,7 +18,6 @@ const InfModal = ({
   onClose
 }: InfModalProps): ReactElement | null => {
   let ref = null
-  let isClickOutside = false
 
   // обработка closeOnEsc
   useEffect(() => {
@@ -35,14 +34,10 @@ const InfModal = ({
   // обработка closeOnClickOutside
   if (closeOnClickOutside) {
     ref = useRef<HTMLDivElement>(null)
-    isClickOutside = useClickOutside(ref)
-  }
-
-  useEffect(() => {
-    if (closeOnClickOutside && isClickOutside) {
+    useClickOutside(ref, () => {
       onClose()
-    }
-  }, [isClickOutside])
+    })
+  }
 
   // render
   if (!isOpen) {
