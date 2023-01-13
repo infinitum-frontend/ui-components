@@ -1,7 +1,7 @@
 import { KeyboardEventHandler, ReactElement, useEffect, useRef, useState } from 'react'
 import './index.scss'
 import classNames from 'classnames'
-import { InfSelectProps, StandardizedListItem, StandardizedListItemDefault } from './interface'
+import { SelectProps, StandardizedListItem, StandardizedListItemDefault } from './interface'
 import InfPositioning from '../Positioning/InfPositioning'
 import { ReactComponent as ArrowDownIcon } from '../../icons/chevron-down.svg'
 import { TestSelectors } from '../../../test/selectors'
@@ -23,17 +23,16 @@ const getItemByValue = (value: StandardizedListItemDefault['value'] | undefined,
 }
 
 /** Компонент для выбора значения из выпадающег списка */
-const InfSelect = ({
+const Select = ({
   options = [],
   className = '',
-  size = 'medium',
   onChange,
   autoFocus = false,
   value,
   disabled = false,
   placeholder,
   ...props
-}: InfSelectProps): ReactElement => {
+}: SelectProps): ReactElement => {
   if (placeholder) {
     defaultSelectItem.label = placeholder
   }
@@ -112,6 +111,7 @@ const InfSelect = ({
         ref={ref}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        disabled={disabled}
         data-testid={TestSelectors.select.wrapper}
         className={classNames(
           'inf-select',
@@ -129,7 +129,7 @@ const InfSelect = ({
         </span>
       </button>
 
-      {isFocused && (
+      {isFocused && !disabled && (
         <InfPositioning
           getElementToAttach={() => ref.current}
           offsetTop={2}
@@ -137,8 +137,7 @@ const InfSelect = ({
           <ul
             ref={listRef}
             className={classNames(
-              'inf-select__items',
-              `inf-select__items--size-${size}`
+              'inf-select__items'
             )}
             data-testid={TestSelectors.select.list}>
             {Boolean(options.length) && options.map((option, index) => (
@@ -149,7 +148,6 @@ const InfSelect = ({
                 className={
                     classNames(
                       'inf-select__item',
-                      `inf-select__item--size-${size}`,
                       { 'inf-select__item--active': index === activeItem }
                     )
                   }>
@@ -163,4 +161,4 @@ const InfSelect = ({
   )
 }
 
-export default InfSelect
+export default Select

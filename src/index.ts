@@ -1,6 +1,6 @@
 import { Button } from './components/Button'
 import { InfInput } from './components/Input'
-import { InfSelect, selectDataFormatter } from './components/Select'
+import { Select, selectDataFormatter } from './components/Select'
 import { Modal } from './components/Modal'
 import { InfLoader } from './components/Loader'
 import { InfRadio, InfRadioGroup } from './components/Radio'
@@ -8,7 +8,7 @@ import { InfRadio, InfRadioGroup } from './components/Radio'
 export {
   Button,
   InfInput,
-  InfSelect,
+  Select,
   selectDataFormatter,
   Modal,
   InfLoader,

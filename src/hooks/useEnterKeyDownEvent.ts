@@ -1,13 +1,13 @@
-
 import React from 'react'
-import { KeyCode } from '../constants'
+// TODO: поправить
+// import { KeyCode } from '../constants'
 
 export function useEnterKeyDownEvent(handler: (arg0: KeyboardEvent) => void, target: HTMLElement | Document | null): void {
   const eventHandler = React.useCallback(
     (event: KeyboardEvent) => {
-      if (event.keyCode === KeyCode.Enter) {
-        handler(event)
-      }
+      // if (event.keyCode === KeyCode.Enter) {
+      //   handler(event)
+      // }
     },
     [handler]
   )

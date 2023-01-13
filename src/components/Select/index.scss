@@ -26,6 +26,7 @@
     border-color: transparent;
     background-color: var(--inf-color-background-control-disabled);
     color: var(--inf-color-text-tertiary);
+    pointer-events: none;
   }
 
   &--collapse-bottom {

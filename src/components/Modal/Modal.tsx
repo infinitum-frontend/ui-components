@@ -38,7 +38,6 @@ const Modal = ({
   }, [closeOnEsc])
 
   // обработка closeOnClickOutside
-  // TODO: не работает
   if (closeOnClickOutside) {
     ref = useRef<HTMLDivElement>(null)
     useClickOutside(ref, () => {

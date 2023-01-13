@@ -1,7 +1,7 @@
-import InfSelect from './InfSelect'
+import Select from './Select'
 import selectDataFormatter from './formatter'
 
 export {
-  InfSelect,
+  Select,
   selectDataFormatter
 }

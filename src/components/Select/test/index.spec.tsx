@@ -1,17 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { TestSelectors } from '../../../../test/selectors'
-import { InfSelectProps } from '../interface'
-import { InfSelect } from '../index'
+import { SelectProps } from '../interface'
+import { Select, selectDataFormatter } from '../index'
 
-const mockItems = [
-  { text: 'Первый элемент', value: 0, subtext: 'Дополнительный' },
-  { text: 'Второй элемент', value: 1, subtext: 'Дополнительный текст' },
-  { text: 'Третий элемент', value: 2, subtext: 'Дополнительный текст' }
-]
+const mockItems = selectDataFormatter({
+  array: [
+    { text: 'Первый элемент', value: 0, subtext: 'Дополнительный' },
+    { text: 'Второй элемент', value: 1, subtext: 'Дополнительный текст' },
+    { text: 'Третий элемент', value: 2, subtext: 'Дополнительный текст' }
+  ],
+  value: 'value',
+  label: 'text'
+})
 
-const renderComponent: (args?: InfSelectProps) => Record<string, HTMLElement | RenderResult | null> = (args) => {
-  const reactEl = render(<InfSelect {...args} items={mockItems} />)
+const renderComponent: (args?: SelectProps) => Record<string, HTMLElement | RenderResult | null> = (args) => {
+  const reactEl = render(<Select {...args} options={mockItems} />)
 
   const result: Record<string, HTMLElement | HTMLInputElement | RenderResult | null> = {
     wrapper: reactEl.queryByTestId(TestSelectors.select.wrapper),

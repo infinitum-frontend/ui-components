@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import { InfSelect, selectDataFormatter } from './index'
+import { Select, selectDataFormatter } from './index'
 import { StandardizedListItem } from './interface'
 import { useState } from 'react'
 
@@ -10,9 +10,9 @@ const mockItems = [
   { text: 'Консалтинг и аутсорсинг', value: 2 }
 ]
 
-const meta: Meta<typeof InfSelect> = {
+const meta: Meta<typeof Select> = {
   title: 'Select',
-  component: InfSelect,
+  component: Select,
   args: {
     options: selectDataFormatter({ value: 'value', array: mockItems, label: 'text' })
   }
@@ -20,7 +20,7 @@ const meta: Meta<typeof InfSelect> = {
 
 export default meta
 
-const Template: StoryFn<typeof InfSelect> = (args) => {
+const Template: StoryFn<typeof Select> = (args) => {
   const [value, setValue] = useState<number | string | undefined>(undefined)
 
   const handleChange: (item: StandardizedListItem<Record<string, any>>) => void = (item) => {
@@ -28,7 +28,7 @@ const Template: StoryFn<typeof InfSelect> = (args) => {
   }
 
   return (
-    <InfSelect
+    <Select
       {...args}
       onChange={handleChange}
       value={value}
