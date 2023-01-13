@@ -1,0 +1,31 @@
+.inf-space {
+  display: flex;
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+
+  &--gap-xxsmall {
+    gap: var(--inf-space-xxsmall);
+  }
+
+  &--gap-xsmall {
+    gap: var(--inf-space-xsmall);
+  }
+
+  &--gap-small {
+    gap: var(--inf-space-small);
+  }
+
+  &--gap-medium {
+    gap: var(--inf-space-medium);
+  }
+
+  &--gap-large {
+    gap: var(--inf-space-large);
+  }
+
+  &--gap-xlarge {
+    gap: var(--inf-space-xlarge);
+  }
+}

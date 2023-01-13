@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { InfButton } from './index'
+import { Button } from './index'
 import { Meta, StoryFn } from '@storybook/react'
 
-const ComponentMeta: Meta<typeof InfButton> = {
+const ComponentMeta: Meta<typeof Button> = {
   title: 'Button',
-  component: InfButton,
+  component: Button,
   argTypes: {
     children: {
       defaultValue: 'Кнопка'
@@ -14,7 +14,7 @@ const ComponentMeta: Meta<typeof InfButton> = {
 
 export default ComponentMeta
 
-const Template: StoryFn<typeof InfButton> = ({ ...args }) => <InfButton {...args} />
+const Template: StoryFn<typeof Button> = ({ ...args }) => <Button {...args} />
 
 export const Playground = Template.bind({})
 
@@ -28,16 +28,16 @@ Default.args = {
   variant: 'default'
 }
 
-export const Sizes: StoryFn<typeof InfButton> = (args) => (
+export const Sizes: StoryFn<typeof Button> = (args) => (
   <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-    <InfButton {...args} size="large" />
-    <InfButton {...args} size="medium" />
-    <InfButton {...args} size="small" />
+    <Button {...args} size="large" />
+    <Button {...args} size="medium" />
+    <Button {...args} size="small" />
   </div>
 )
 
-export const LinkButton: StoryFn<typeof InfButton> = (args) => (
-  <InfButton
+export const LinkButton: StoryFn<typeof Button> = (args) => (
+  <Button
     href="https://ya.ru"
     target="_blank"
     {...args} />

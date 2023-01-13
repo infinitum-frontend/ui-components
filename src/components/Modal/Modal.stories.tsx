@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import Modal from './index'
-import { InfButton } from '../Button'
+import { Button } from '../Button'
 import { useState } from 'react'
 import ModalTitle from './components/ModalTitle'
 import ModalClose from './components/ModalClose'
@@ -18,7 +18,7 @@ const Template: StoryFn<typeof Modal> = (args) => {
 
   return (
     <div>
-      <InfButton onClick={() => setIsOpened(true)} />
+      <Button onClick={() => setIsOpened(true)} />
       <Modal
         {...args}
         isOpen={isOpened}
@@ -34,9 +34,9 @@ const Template: StoryFn<typeof Modal> = (args) => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, illo.
           </Modal.Body>
           <Modal.Footer>
-            <InfButton variant="secondary">
+            <Button variant="secondary">
               Добавить настройку
-            </InfButton>
+            </Button>
           </Modal.Footer>
         </Modal.Card>
       </Modal>

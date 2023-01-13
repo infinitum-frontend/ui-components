@@ -1,31 +1,29 @@
-import './index.scss'
+import './Text.scss'
 import React, {
   ReactNode
 } from 'react'
 import classNames from 'classnames'
 
-export interface InfTextProps {
+export interface TextProps {
   children?: ReactNode
   className?: string
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
   weight?: 'light' | 'normal' | 'bold' | 'extrabold'
   tone?: 'default' | 'secondary' | 'tertiary' | 'success' | 'danger' | 'warning'
   alignment?: 'left' | 'center' | 'right'
-  isTruncated?: boolean
-  isUppercase?: boolean
-  isItalic?: boolean
+  truncated?: boolean
+  uppercase?: boolean
 }
 
-const InfText: React.FunctionComponent<InfTextProps> = ({
+const Text: React.FunctionComponent<TextProps> = ({
   children = '',
   className = '',
   size = 'medium',
   weight = 'normal',
   tone = 'default',
   alignment = 'left',
-  isTruncated = false,
-  isUppercase = false,
-  isItalic = false
+  truncated = false,
+  uppercase = false
 }) => {
   const getClassNames: () => string = () => {
     return classNames(
@@ -35,9 +33,8 @@ const InfText: React.FunctionComponent<InfTextProps> = ({
       `inf-text--weight-${weight}`,
       `inf-text--tone-${tone}`,
       {
-        'inf-text--uppercase': isUppercase,
-        'inf-text--truncated': isTruncated,
-        'inf-text--italic': isItalic,
+        'inf-text--uppercase': uppercase,
+        'inf-text--truncated': truncated,
         [`inf-text--align-${alignment}`]: alignment !== 'left'
       }
     )
@@ -50,6 +47,6 @@ const InfText: React.FunctionComponent<InfTextProps> = ({
   )
 }
 
-InfText.displayName = 'InfText'
+Text.displayName = 'Text'
 
-export default InfText
+export default Text

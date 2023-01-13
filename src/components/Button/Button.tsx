@@ -1,10 +1,10 @@
-import './index.scss'
+import './Button.scss'
 import React, {
   ReactNode
 } from 'react'
 import { TestSelectors } from '../../../test/selectors'
 
-export interface InfButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
    * Элемент для рендеринга
    * @default 'button'
@@ -25,16 +25,18 @@ export interface InfButtonProps extends React.ComponentPropsWithoutRef<'button'>
   /**
    * Размер
    */
-  isLoading?: boolean
-  isBlock?: boolean
+  loading?: boolean
+  block?: boolean
   innerRef?: any
 }
 
-const InfButton = React.forwardRef<HTMLButtonElement, InfButtonProps>(({
-  children,
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
+  children = 'Кнопка',
   as = 'button',
   variant = 'primary',
   size = 'medium',
+  loading = false,
+  block = false,
   ...props
 }, ref) => {
   const Component = as
@@ -51,15 +53,6 @@ const InfButton = React.forwardRef<HTMLButtonElement, InfButtonProps>(({
   )
 })
 
-InfButton.defaultProps = {
-  as: 'button',
-  children: 'Кнопка',
-  variant: 'primary',
-  size: 'medium',
-  isLoading: false,
-  isBlock: false
-}
+Button.displayName = 'Button'
 
-InfButton.displayName = 'InfButton'
-
-export default InfButton
+export default Button
