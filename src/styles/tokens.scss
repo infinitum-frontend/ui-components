@@ -64,9 +64,7 @@
   --inf-spacing-checked-group: 2px;
 
   /* Border radius */
-  --inf-border-radius-small: 3px;
-  --inf-border-radius-regular: 4px;
-  --inf-border-radius-medium: 10px;
+  --inf-border-radius-medium: 4px;
 
   /* Input */
   --inf-input-padding-horizontal-medium: 12px;
@@ -74,13 +72,13 @@
   --inf-input-color-background-disabled: var(--inf-color-background-control-disabled);
 
   /*  Select */
-  --inf-select-items-border-radius-regular: var(--inf-border-radius-regular);
+  --inf-select-items-border-radius-regular: var(--inf-border-radius-medium);
   --inf-select-items-padding-horizontal-small: 6px;
   --inf-select-items-padding-horizontal-medium: 0px;
   --inf-select-items-padding-vertical-small: 3px;
   --inf-select-items-padding-vertical-medium: 8px;
   --inf-select-item-background-hover: darkred;
-  --inf-select-item-border-radius: var(--inf-border-radius-regular);
+  --inf-select-item-border-radius: var(--inf-border-radius-medium);
   --inf-select-item-space: 4px;
 
   /* Checkbox */

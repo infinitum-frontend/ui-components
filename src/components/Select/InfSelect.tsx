@@ -1,53 +1,69 @@
-import { FocusEventHandler, KeyboardEventHandler, ReactElement, useEffect, useRef, useState } from 'react'
+import { KeyboardEventHandler, ReactElement, useEffect, useRef, useState } from 'react'
 import './index.scss'
 import classNames from 'classnames'
-import InfInput from '../Input/InfInput'
-import { InfSelectProps } from './interface'
+import { InfSelectProps, StandardizedListItem, StandardizedListItemDefault } from './interface'
 import InfPositioning from '../Positioning/InfPositioning'
-import { InputRefHandler } from '../Input/interface'
+import { ReactComponent as ArrowDownIcon } from '../../icons/chevron-down.svg'
 import { TestSelectors } from '../../../test/selectors'
+import { useClickOutside } from '../../hooks/useClickOutside'
 
-// TODO: сделать composeRef и прописать blur/focus где надо
+export const defaultSelectItem: StandardizedListItemDefault = {
+  value: -1,
+  label: 'Не указано'
+}
 
+type SelectItem = StandardizedListItem<Record<string, any>>
+
+const getIndexByValue = (value: StandardizedListItemDefault['value'] | undefined, items: SelectItem[]): number => {
+  return items.findIndex((item) => item.value === value)
+}
+
+const getItemByValue = (value: StandardizedListItemDefault['value'] | undefined, items: SelectItem[]): SelectItem | undefined => {
+  return items.find(item => item.value === value)
+}
+
+/** Компонент для выбора значения из выпадающег списка */
 const InfSelect = ({
-  items,
+  options = [],
   className = '',
   size = 'medium',
-  onSubmit,
-  inputRef,
-  variant = 'stuck',
+  onChange,
   autoFocus = false,
-  disabled = false
+  value,
+  disabled = false,
+  placeholder,
+  ...props
 }: InfSelectProps): ReactElement => {
+  if (placeholder) {
+    defaultSelectItem.label = placeholder
+  }
+
   // state
   const [isFocused, setFocused] = useState<boolean>(false)
-  const [activeItem, setActiveItem] = useState<number>(0)
+  const [activeItem, setActiveItem] = useState<number>(getIndexByValue(value, options) || 0)
 
   // refs
-  const ref = useRef<HTMLDivElement>(null)
-  const internalInputRef = useRef<InputRefHandler>(null)
-  const composedRef = inputRef || internalInputRef
+  const ref = useRef<HTMLButtonElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
 
   // effects
   useEffect(() => {
     if (autoFocus) {
       setFocused(true)
-      composedRef.current?.focus()
     }
   }, [autoFocus])
 
-  // handlers
-  const handleInputFocus: FocusEventHandler<HTMLInputElement> = (e) => {
-    setFocused(true)
-  }
-  const handleInputBlur = (): void => {
-    setFocused(false)
+  useClickOutside([ref, listRef], () => setFocused(false))
+
+  const handleClick = (): void => {
+    setFocused(prevState => !prevState)
   }
 
   const handleKeyDown: KeyboardEventHandler = (e) => {
+    e.preventDefault()
     if (e.key === 'ArrowDown') {
       setActiveItem((prevState) => {
-        if (prevState === items.length - 1) {
+        if (prevState === options.length - 1) {
           return 0
         }
 
@@ -58,7 +74,7 @@ const InfSelect = ({
     if (e.key === 'ArrowUp') {
       setActiveItem((prevState) => {
         if (prevState === 0) {
-          return items.length - 1
+          return options.length - 1
         }
 
         return prevState - 1
@@ -67,78 +83,69 @@ const InfSelect = ({
 
     if (e.key === 'Escape') {
       setActiveItem(0)
-      composedRef.current?.blur()
       setFocused(false)
     }
 
     if (e.key === 'Enter') {
-      submit()
+      submit(activeItem)
     }
   }
 
-  const handleItemSelect = (index: number): void => {
-    setActiveItem(() => index)
-    submit()
+  const handleItemSelect = (id: number | string): void => {
+    const index = getIndexByValue(id, options)
+    setActiveItem(index)
+    submit(index)
   }
 
   const handleItemMouseOver = (index: number): void => {
     setActiveItem(index)
   }
 
-  // helpers
-  const submit = (): void => {
-    onSubmit?.(items[activeItem])
-    blur()
+  const submit = (index: number): void => {
+    setFocused(() => false)
+    onChange?.(options[index])
   }
-
-  const blur = (): void => {
-    composedRef.current?.blur()
-    setFocused(false)
-  }
-  const calculateOffsetTop = (): number => variant === 'split' ? 0 : 2
 
   return (
     <>
-      <div
+      <button
         ref={ref}
-        data-testid={TestSelectors.select.wrapper}
+        onClick={handleClick}
         onKeyDown={handleKeyDown}
+        data-testid={TestSelectors.select.wrapper}
         className={classNames(
           'inf-select',
-          { 'inf-select--collapse-bottom': isFocused && variant === 'split' },
+          {
+            'inf-select--selected': value !== undefined,
+            'inf-select--disabled': disabled
+          },
           className
-        )}>
-        <InfInput
-          className={'inf-select__input'}
-          value={items[activeItem].text}
-          ref={composedRef}
-          borderRadius={'regular'}
-          size={size}
-          disabled={disabled}
-          readOnly={true}
-          collapseBottom={isFocused && variant === 'split'}
-          postfix={<span>▼</span>}
-          onBlur={handleInputBlur}
-          onFocus={handleInputFocus} />
-      </div>
+        )}
+        {...props}
+      >
+        {value !== undefined ? getItemByValue(value, options)?.label : defaultSelectItem.label}
+        <span className={classNames('inf-select__arrow', { 'inf-select__arrow--selected': value !== undefined })}>
+          <ArrowDownIcon width={'10px'} height={'5px'} />
+        </span>
+      </button>
 
       {isFocused && (
         <InfPositioning
           getElementToAttach={() => ref.current}
-          offsetTop={calculateOffsetTop()}
+          offsetTop={2}
           placement={'bottom'}>
           <ul
+            ref={listRef}
             className={classNames(
               'inf-select__items',
-              `inf-select__items--size-${size}`,
-              { 'inf-select__items--variant-split': variant === 'split' }
+              `inf-select__items--size-${size}`
             )}
             data-testid={TestSelectors.select.list}>
-            {Boolean(items.length) && items.map((item, index) => (
+            {Boolean(options.length) && options.map((option, index) => (
               <li
-                key={item.value}
+                key={option.value}
                 onMouseOver={() => handleItemMouseOver(index)}
-                onClick={() => handleItemSelect(index)}
+                onClick={() => handleItemSelect(option.value)}
                 className={
                     classNames(
                       'inf-select__item',
@@ -146,7 +153,7 @@ const InfSelect = ({
                       { 'inf-select__item--active': index === activeItem }
                     )
                   }>
-                {item.text}
+                {option.label}
               </li>
             ))}
           </ul>
@@ -155,7 +162,5 @@ const InfSelect = ({
     </>
   )
 }
-
-InfSelect.displayName = 'InfSelect'
 
 export default InfSelect

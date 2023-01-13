@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import './index.scss'
 import { InfInputProps, InputRefHandler } from './interface'
 import { TestSelectors } from '../../../test/selectors'
+import { ReactComponent as ClearIcon } from '../../icons/clear-button.svg'
 // eslint-disable-next-line import/no-named-default
 import { default as debounceFn } from 'lodash.debounce'
 
@@ -127,28 +128,7 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
 
     const iconNode = typeof allowClear === 'object' && allowClear.icon
       ? allowClear.icon
-      : (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          style={{ color: 'currentColor' }}
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M6 18L18 6"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round" />
-          <path
-            d="M6 6L18 18"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round" />
-        </svg>
-        )
+      : (<ClearIcon />)
 
     return (
       <span
