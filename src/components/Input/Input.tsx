@@ -5,7 +5,7 @@ import React, {
 } from 'react'
 import classNames from 'classnames'
 import './index.scss'
-import { InfInputProps, InputRefHandler } from './interface'
+import { InputProps, InputRefHandler } from './interface'
 import { TestSelectors } from '../../../test/selectors'
 import { ReactComponent as ClearIcon } from '../../icons/clear-button.svg'
 // eslint-disable-next-line import/no-named-default
@@ -14,7 +14,7 @@ import { default as debounceFn } from 'lodash.debounce'
 /**
  * Компонент поля ввода
  */
-const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
+const Input = React.forwardRef<InputRefHandler, InputProps>(({
   style,
   value = '',
   formatter,
@@ -36,7 +36,7 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   collapseBottom = false,
   debounce = 0,
   ...restProps
-}: InfInputProps, ref: Ref<InputRefHandler>): ReactElement => {
+}: InputProps, ref: Ref<InputRefHandler>): ReactElement => {
   // обработка состояния
   const [isFocused, setFocus] = useState(false)
   const [localValue, setLocalValue] = useState(value)
@@ -171,6 +171,6 @@ const InfInput = React.forwardRef<InputRefHandler, InfInputProps>(({
   )
 })
 
-InfInput.displayName = 'InfInput'
+Input.displayName = 'Input'
 
-export default InfInput
+export default Input

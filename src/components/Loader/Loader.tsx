@@ -2,15 +2,15 @@ import { ReactElement } from 'react'
 import './index.scss'
 import classNames from 'classnames'
 
-export interface InfLoaderProps {
+export interface LoaderProps {
   /** Размер */
   size?: 'compact' | 'regular' | 'large'
 }
 
 // TODO: нужно заменить иконку в дизайне. там полный круг в макетах с лоадером, а нужен частичный, как у иконки bx-loader-alt
-const InfLoader = ({
+const Loader = ({
   size = 'regular'
-}: InfLoaderProps): ReactElement => {
+}: LoaderProps): ReactElement => {
   return (
     <span className={classNames('inf-loader', `inf-loader--size-${size}`)}>
       <svg
@@ -29,4 +29,4 @@ const InfLoader = ({
   )
 }
 
-export default InfLoader
+export default Loader

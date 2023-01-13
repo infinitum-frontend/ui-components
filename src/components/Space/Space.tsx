@@ -29,7 +29,7 @@ const Space: React.FunctionComponent<SpaceProps> = ({
       `inf-space--direction-${direction}`,
       {
         'inf-space--wrap': wrap,
-        [`inf-space--align-${align}`]: align
+        [`inf-space--align-${align as string}`]: align
       }
     )
   }

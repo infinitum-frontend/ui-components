@@ -1,11 +1,11 @@
 import { ChangeEvent, ComponentPropsWithoutRef, ReactElement } from 'react'
 import RadioGroupContext from './RadioGroupContext'
-import { InfRadio } from './index'
+import { Radio } from './index'
 import './group.scss'
 import classNames from 'classnames'
-import { InfRadioProps } from './InfRadio'
+import { RadioProps } from './Radio'
 
-export interface InfRadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
+export interface RadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   /** Название группы радио кнопок */
   name: string
   onChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void
@@ -14,13 +14,13 @@ export interface InfRadioGroupProps extends Omit<ComponentPropsWithoutRef<'div'>
   direction?: 'vertical'
 }
 
-const InfRadioGroup = ({
+const RadioGroup = ({
   name,
   onChange,
   value = '',
   children,
   direction = 'vertical'
-}: InfRadioGroupProps): ReactElement => {
+}: RadioGroupProps): ReactElement => {
   const context = {
     value,
     name,
@@ -36,14 +36,14 @@ const InfRadioGroup = ({
   )
 }
 
-const Radio = ({ children, ...props }: InfRadioProps): ReactElement => {
-  return (<InfRadio {...props}>{children}</InfRadio>)
+const RadioButton = ({ children, ...props }: RadioProps): ReactElement => {
+  return (<Radio {...props}>{children}</Radio>)
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  Radio.displayName = 'InfRadioGroup.Radio'
+  RadioButton.displayName = 'RadioGroup.Radio'
 }
 
-InfRadioGroup.Radio = Radio
+RadioGroup.Radio = RadioButton
 
-export default InfRadioGroup
+export default RadioGroup

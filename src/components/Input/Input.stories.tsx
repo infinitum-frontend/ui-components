@@ -1,13 +1,13 @@
 import { Meta, StoryFn } from '@storybook/react'
-import { InfInput } from './index'
+import { Input } from './index'
 import { action } from '@storybook/addon-actions'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 // @ts-expect-error
 import { useArgs } from '@storybook/client-api'
 
-const meta: Meta<typeof InfInput> = {
+const meta: Meta<typeof Input> = {
   title: 'Input',
-  component: InfInput,
+  component: Input,
   args: {
     placeholder: 'Введите значение',
     borderRadius: 'regular',
@@ -40,7 +40,7 @@ const meta: Meta<typeof InfInput> = {
 }
 export default meta
 
-const Template: StoryFn<typeof InfInput> = ({ ...args }) => {
+const Template: StoryFn<typeof Input> = ({ ...args }) => {
   const [{ value }, updateArgs] = useArgs()
 
   const handleInput: (val: string) => void = (val) => {
@@ -50,7 +50,7 @@ const Template: StoryFn<typeof InfInput> = ({ ...args }) => {
   }
 
   return (
-    <InfInput
+    <Input
       style={{ width: '200px' }}
       {...args}
       value={value}
@@ -105,7 +105,7 @@ WithClearButtonAndPostfix.args = {
   postfix: <span style={{ color: 'darkred' }}>INF</span>
 }
 
-export const Debounced: StoryFn<typeof InfInput> = (args) => {
+export const Debounced: StoryFn<typeof Input> = (args) => {
   const [{ value }, updateArgs] = useArgs()
 
   const handleInput: (val: string) => void = (val) => {
@@ -113,7 +113,7 @@ export const Debounced: StoryFn<typeof InfInput> = (args) => {
   }
   return (
     <div>
-      <InfInput
+      <Input
         {...args}
         allowClear={true}
         onInput={handleInput} />
