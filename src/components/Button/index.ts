@@ -1,1 +1,1 @@
-export { default as InfButton } from './InfButton'
+export { default as Button } from './Button'

@@ -25,10 +25,6 @@
     text-transform: uppercase;
   }
 
-  &--italic {
-    font-style: italic;
-  }
-
   &--truncated {
     text-overflow: ellipsis;
     white-space: nowrap;

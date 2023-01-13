@@ -56,6 +56,13 @@
   --inf-heading-level-5-size: 16px;
   --inf-heading-level-5-line-height: 20px;
 
+  --inf-space-xxsmall: 4px;
+  --inf-space-xsmall: 8px;
+  --inf-space-small: 16px;
+  --inf-space-medium: 24px;
+  --inf-space-large: 32px;
+  --inf-space-xlarge: 40px;
+
   --inf-control-height-medium: 32px;
   --inf-control-height-small: 28px; // нет в макете
   --inf-control-height-large: 36px; // нет в макете
@@ -158,3 +165,4 @@
   --filter-secondary-light: invert(78%) sepia(25%) saturate(408%) hue-rotate(150deg) brightness(83%) contrast(89%);
   --filter-gray-2-normal: invert(51%) sepia(0%) saturate(5142%) hue-rotate(279deg) brightness(85%) contrast(79%);
 }
+

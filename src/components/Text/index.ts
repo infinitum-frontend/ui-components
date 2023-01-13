@@ -1,1 +1,1 @@
-export { default as InfText } from './InfText'
+export { default as Text } from './Text'
