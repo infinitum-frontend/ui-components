@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
-import Modal from './index'
+import { Modal } from './index'
 import { Button } from '../Button'
 import { useState } from 'react'
 import ModalTitle from './components/ModalTitle'
