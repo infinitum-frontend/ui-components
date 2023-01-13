@@ -4,6 +4,10 @@ import React, {
 } from 'react'
 import { TestSelectors } from '../../../test/selectors'
 
+// TODO: лишний innerRef
+// добавить стили для block
+// добавить classname
+
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
    * Элемент для рендеринга

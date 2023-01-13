@@ -4,7 +4,9 @@ import React, {
 } from 'react'
 import classNames from 'classnames'
 
-export interface InfHeadingProps {
+// TODO: добавить as
+
+export interface HeadingProps {
   children?: ReactNode
   className?: string
   level?: '1' | '2' | '3' | '4' | '5'
@@ -14,7 +16,7 @@ export interface InfHeadingProps {
   isUppercase?: boolean
 }
 
-const InfHeading: React.FunctionComponent<InfHeadingProps> = ({
+const Heading: React.FunctionComponent<HeadingProps> = ({
   children = '',
   className = '',
   level = '3',
@@ -55,6 +57,6 @@ const InfHeading: React.FunctionComponent<InfHeadingProps> = ({
   )
 }
 
-InfHeading.displayName = 'InfHeading'
+Heading.displayName = 'Heading'
 
-export default InfHeading
+export default Heading

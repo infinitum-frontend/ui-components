@@ -1,1 +1,1 @@
-export { default as InfHeading } from './InfHeading'
+export { default as Heading } from './Heading'
