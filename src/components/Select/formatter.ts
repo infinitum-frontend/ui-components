@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 type ResultElement<T extends Record<string, T[keyof T]>> = StandardizedListItemDefault | StandardizedListItem<T>
 
 /**
- * Хелпер для форматирования массива к формату опций компонента InfSelect
+ * Хелпер для форматирования массива к формату опций компонента Select
  * @param options
  */
 function selectDataFormatter<T extends Record<string, T[keyof T]>>(options: FormatterOptions<T>): StandardizedListItemDefault[] | Array<StandardizedListItem<T>> {

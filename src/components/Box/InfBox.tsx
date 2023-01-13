@@ -4,7 +4,6 @@ import React, {
   HTMLAttributes,
   ReactNode
 } from 'react'
-import classNames from 'classnames'
 
 export interface InfBoxProps extends HTMLAttributes<any> {
   children?: ReactNode
@@ -20,13 +19,6 @@ const InfBox: React.FunctionComponent<InfBoxProps> = ({
   as = 'div',
   ...restProps
 }) => {
-  const getClassNames: () => string = () => {
-    return classNames(
-      'inf-box',
-      className
-    )
-  }
-
   const Component = as
 
   return (

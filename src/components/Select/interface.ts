@@ -1,5 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode, RefObject } from 'react'
-import { InputRefHandler } from '../Input/interface'
+import { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 type ArrayElementConstraints<T> = Record<string, T[keyof T]>
 
@@ -34,11 +33,9 @@ export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
   rest?: boolean
 }
 
-export interface InfSelectProps extends Omit<ComponentPropsWithoutRef<'button'>, 'onChange'> {
+export interface SelectProps extends Omit<ComponentPropsWithoutRef<'button'>, 'onChange'> {
   options: Array<StandardizedListItem<Record<string, any>>>
-  size?: 'medium'
   className?: string
-  inputRef?: RefObject<InputRefHandler>
   onChange?: (item: StandardizedListItem<Record<string, any>>) => void
   autoFocus?: boolean
   disabled?: boolean
