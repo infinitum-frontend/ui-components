@@ -66,7 +66,7 @@
   /* Border radius */
   --inf-border-radius-small: 3px;
   --inf-border-radius-regular: 4px;
-  --inf-border-radius-medium: 8px;
+  --inf-border-radius-medium: 10px;
 
   /* Input */
   --inf-input-padding-horizontal-medium: 12px;
@@ -110,4 +110,53 @@
 
   /* Modal */
   --inf-modal-backdrop-background: rgba(0, 0, 0, 0.3)
+
+  /* МПК */
+  --brand-color: #e54350;
+  --brand-light-color: #ff5764;
+  --brand-dark-color: #c42f3b;
+  --primary-1-dark: #cc2d32;
+  --primary-2-normal: #f53a3a;
+  --primary-2-normal-light: #ff6673;
+  --light-color: #ffffff;
+  --text-color: #1f2021;
+  --background-color: #f7f9fa;
+  --negative-color: var(--brand-color);
+  --negative-color-a15: rgba(229, 67, 80, 0.15);
+  --negative-background-color: #ffe8ea;
+  --positive-color: #43ab5d;
+  --secondary-color: #57737d;
+  --secondary-light-color: #82b1c2;
+  --secondary-dark-color: #325663;
+
+  --neutral-color: #e0e0e0;
+  --neutral-light-color: #f2f2f2;
+  --neutral-dark-color: #bdbdbd;
+  --neutral-darker-color: #828282;
+  --muted-text-color: var(--neutral-darker-color);
+
+  --gray-4-vary-light: #f2f4f5;
+  --grey-3-5: #e9ebed;
+  --gray-3-light: #c8cacc;
+  --gray-2-normal: #717375;
+  --gray-3: #717375;
+  --cold-grey-4-very-light: #e6f1f5;
+  --cold-grey-1-dark: #46626b;
+  --cold-grey-2-normal: #738f99;
+  --cold-grey-3-light: #b8d1d9;
+
+  --good-1-dark: #029161;
+  --good-2-normal: #1dbf6e;
+
+  --filter-brand-color: brightness(0) saturate(100%) invert(49%) sepia(64%) saturate(6240%) hue-rotate(333deg) brightness(95%)
+      contrast(88%);
+  --filter-gray-3-light: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(5283%) hue-rotate(175deg) brightness(79%)
+      contrast(102%);
+  --filter-cold-grey-2-normal: brightness(0) saturate(100%) invert(58%) sepia(19%) saturate(403%) hue-rotate(150deg) brightness(91%)
+      contrast(84%);
+  --filter-black: brightness(0) saturate(100%) invert(0%) sepia(92%) saturate(7474%) hue-rotate(261deg) brightness(91%) contrast(105%);
+  --filter-gray-3: brightness(0) saturate(100%)  invert(49%) sepia(6%) saturate(166%) hue-rotate(169deg) brightness(90%) contrast(88%);
+  --filter-light: invert(100%) sepia(0) saturate(0) hue-rotate(93deg) brightness(103%) contrast(103%);
+  --filter-secondary-light: invert(78%) sepia(25%) saturate(408%) hue-rotate(150deg) brightness(83%) contrast(89%);
+  --filter-gray-2-normal: invert(51%) sepia(0%) saturate(5142%) hue-rotate(279deg) brightness(85%) contrast(79%);
 }

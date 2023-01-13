@@ -11,8 +11,11 @@ export default ComponentMeta
 
 const Template: StoryFn<typeof InfToggle> = ({ ...args }) => {
   return (
-    <InfToggle />
+    <InfToggle {...args} />
   )
 }
 
 export const Playground = Template.bind({})
+Playground.args = {
+  checked: true
+}

@@ -1,0 +1,15 @@
+.inf-modal-close {
+  background: none;
+  border: none;
+  margin: -12px;
+  padding: 12px;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+
+  &__icon {
+    color: #738F99;
+    width: 24px;
+    height: 24px;
+  }
+}

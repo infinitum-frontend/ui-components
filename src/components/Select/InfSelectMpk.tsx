@@ -42,6 +42,8 @@ const InfSelectMpk = (props: {
   data?: ISelectDropdownOption[]
   onChange?: (arg0: string) => void
 }): React.ReactElement => {
+  console.log('styles', styles)
+
   const {
     className,
     buttonClassName,

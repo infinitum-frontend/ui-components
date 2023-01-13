@@ -1,22 +1,28 @@
 import { PropsWithChildren, ReactElement, useEffect, useRef } from 'react'
 import { InfPortal } from '../Portal'
-import './index.scss'
 import { useClickOutside } from '../../hooks/useClickOutside'
+import './Modal.scss'
+import ModalCard from './components/ModalCard'
+import ModalBody from './components/ModalBody'
+import ModalHeader from './components/ModalHeader'
+import ModalFooter from './components/ModalFooter'
+import ModalTitle from './components/ModalTitle'
+import ModalClose from './components/ModalClose'
 
-export interface InfModalProps extends PropsWithChildren<ReactElement> {
+export interface IModalProps extends PropsWithChildren<ReactElement> {
   isOpen?: boolean
   closeOnClickOutside?: boolean
   closeOnEsc?: boolean
   onClose: () => void
 }
 
-const InfModal = ({
+const Modal = ({
   isOpen = false,
   closeOnClickOutside = true,
   closeOnEsc = true,
   children,
   onClose
-}: InfModalProps): ReactElement | null => {
+}: IModalProps): ReactElement | null => {
   let ref = null
   let isClickOutside = false
 
@@ -33,6 +39,7 @@ const InfModal = ({
   }, [closeOnEsc])
 
   // обработка closeOnClickOutside
+  // TODO: не работает
   if (closeOnClickOutside) {
     ref = useRef<HTMLDivElement>(null)
     isClickOutside = useClickOutside(ref)
@@ -50,10 +57,18 @@ const InfModal = ({
   }
   return (
     <InfPortal>
-      <div className={'inf-modal__body'} ref={ref}>{children}</div>
-      <div className={'inf-modal__backdrop'} />
+      <div className={'inf-modal'}>
+        {children}
+      </div>
     </InfPortal>
   )
 }
 
-export default InfModal
+Modal.Card = ModalCard
+Modal.Header = ModalHeader
+Modal.Body = ModalBody
+Modal.Footer = ModalFooter
+Modal.Title = ModalTitle
+Modal.Close = ModalClose
+
+export default Modal

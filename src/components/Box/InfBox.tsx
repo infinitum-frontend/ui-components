@@ -1,4 +1,5 @@
-import './index.scss'
+// import './index.scss'
+import styles from './InfBox.module.scss'
 import React, {
   HTMLAttributes,
   ReactNode
@@ -29,7 +30,7 @@ const InfBox: React.FunctionComponent<InfBoxProps> = ({
   const Component = as
 
   return (
-    <Component className={getClassNames()} {...restProps}>
+    <Component className={styles.infBox} {...restProps}>
       {children}
     </Component>
   )
