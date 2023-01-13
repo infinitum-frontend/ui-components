@@ -16,6 +16,10 @@
       "npm run lint"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/vinderman/ui-components.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -25,10 +29,11 @@
     "npm": ">=8.0.0 <9.0.0",
     "node": ">=16.0.0 <17.0.0"
   },
-  "main": "dist/index.js",
-  "types": "types/src/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.mjs",
+  "types": "types/src",
   "files": [
-    "dist",
+    "dist/src",
     "types/src"
   ],
   "dependencies": {
@@ -38,6 +43,7 @@
     "react-dom": "^18.2.0",
     "sass": "^1.56.1"
   },
+  "sideEffects": false,
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@storybook/addon-a11y": "^7.0.0-beta.13",
