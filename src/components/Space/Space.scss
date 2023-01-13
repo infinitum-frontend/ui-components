@@ -1,6 +1,10 @@
 .inf-space {
   display: flex;
 
+  &--direction-vertical {
+    flex-direction: column;
+  }
+
   &--wrap {
     flex-wrap: wrap;
   }
@@ -27,5 +31,21 @@
 
   &--gap-xlarge {
     gap: var(--inf-space-xlarge);
+  }
+
+  &--align-baseline {
+    align-items: baseline;
+  }
+
+  &--align-start {
+    align-items: start;
+  }
+
+  &--align-end {
+    align-items: end;
+  }
+
+  &--align-center {
+    align-items: center;
   }
 }
