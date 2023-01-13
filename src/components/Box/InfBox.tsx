@@ -1,9 +1,9 @@
 // import './index.scss'
-import styles from "./InfBox.module.scss"
+import styles from './InfBox.module.scss'
 import React, {
   HTMLAttributes,
   ReactNode
-} from 'react'
+} from "react"
 
 export interface InfBoxProps extends HTMLAttributes<any> {
   children?: ReactNode
