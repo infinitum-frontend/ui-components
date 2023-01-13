@@ -1,1 +1,1 @@
-export { default as InfInput } from './InfInput'
+export { default as Input } from './Input'

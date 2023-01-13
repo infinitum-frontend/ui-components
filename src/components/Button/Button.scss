@@ -27,6 +27,10 @@
     outline: none;
   }
 
+  &:hover {
+    border-color: transparent;
+  }
+
   &--variant-primary {
     background-color: var(--inf-color-primary);
     color: #fff;

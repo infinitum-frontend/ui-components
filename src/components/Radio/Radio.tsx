@@ -3,7 +3,7 @@ import './index.scss'
 import classNames from 'classnames'
 import useRadioGroup from './useRadioGroup'
 
-export interface InfRadioProps extends Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> {
+export interface RadioProps extends Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> {
   /** Состояние недоступности */
   disabled?: boolean
   /** Состояние выбора */
@@ -17,7 +17,7 @@ export interface InfRadioProps extends Omit<ComponentPropsWithoutRef<'input'>, '
   value?: string
 }
 
-const InfRadio = ({
+const Radio = ({
   disabled = false,
   checked,
   defaultChecked = false,
@@ -25,7 +25,7 @@ const InfRadio = ({
   children,
   name,
   value
-}: InfRadioProps): ReactElement => {
+}: RadioProps): ReactElement => {
   const groupData = useRadioGroup()
 
   if (groupData) {
@@ -55,4 +55,4 @@ const InfRadio = ({
   )
 }
 
-export default InfRadio
+export default Radio

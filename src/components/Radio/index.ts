@@ -1,2 +1,2 @@
-export { default as InfRadio } from './InfRadio'
-export { default as InfRadioGroup } from './InfRadioGroup'
+export { default as Radio } from './Radio'
+export { default as RadioGroup } from './RadioGroup'

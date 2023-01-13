@@ -1,27 +1,27 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
-import { InfRadio } from './index'
+import Radio from './Radio'
 import { action } from '@storybook/addon-actions'
 import InfBox from '../Box/InfBox'
 
-const meta: Meta<typeof InfRadio> = {
+const meta: Meta<typeof Radio> = {
   title: 'Radio',
-  component: InfRadio
+  component: Radio
 }
 
 export default meta
 
-const Template: StoryFn<typeof InfRadio> = (args) => {
-  return (<InfRadio {...args} onChange={action('change')}>Облигации</InfRadio>)
+const Template: StoryFn<typeof Radio> = (args) => {
+  return (<Radio {...args} onChange={action('change')}>Облигации</Radio>)
 }
 
 export const Playground = Template.bind({})
 
-export const Disabled: StoryFn<typeof InfRadio> = (args) => {
+export const Disabled: StoryFn<typeof Radio> = (args) => {
   return (
     <InfBox style={{ width: '300px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', backgroundColor: 'transparent' }}>
-      <InfRadio disabled={true} checked={true}><code>checked</code></InfRadio>
-      <InfRadio disabled={true}><code>unchecked</code></InfRadio>
+      <Radio disabled={true} checked={true}><code>checked</code></Radio>
+      <Radio disabled={true}><code>unchecked</code></Radio>
     </InfBox>
   )
 }

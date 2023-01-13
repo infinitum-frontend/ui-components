@@ -1,1 +1,1 @@
-export { default as InfLoader } from './InfLoader'
+export { default as Loader } from './Loader'

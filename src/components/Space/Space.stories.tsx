@@ -55,7 +55,6 @@ Wrap.args = {
   wrap: true
 }
 
-
 export const Direction: StoryFn<typeof Space> = ({ ...args }) => (
   <>
     <Text>horizontal</Text>

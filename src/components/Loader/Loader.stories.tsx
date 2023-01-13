@@ -1,18 +1,18 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
-import { InfLoader } from './index'
+import { Loader } from './index'
 
-const meta: Meta<typeof InfLoader> = {
+const meta: Meta<typeof Loader> = {
   title: 'Loader',
-  component: InfLoader
+  component: Loader
 }
 
 export default meta
 
-const Template: StoryFn<typeof InfLoader> = (args) => {
+const Template: StoryFn<typeof Loader> = (args) => {
   return (
     <div style={{ backgroundColor: 'white', padding: '18px', color: 'red' }}>
-      <InfLoader {...args} />
+      <Loader {...args} />
     </div>
   )
 }
@@ -22,20 +22,20 @@ Playground.args = {
   size: 'regular'
 }
 
-export const AllSizes: StoryFn<typeof InfLoader> = (args) => {
+export const AllSizes: StoryFn<typeof Loader> = (args) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-evenly', backgroundColor: 'white', color: 'red' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '18px' }}>
         <code>Compact(17.5x17.5)</code>
-        <InfLoader size={'compact'} />
+        <Loader size={'compact'} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '18px' }}>
         <code>Regular(30x30)</code>
-        <InfLoader />
+        <Loader />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '18px' }}>
         <code>Large(70x70)</code>
-        <InfLoader size={'large'} />
+        <Loader size={'large'} />
       </div>
     </div>
   )
