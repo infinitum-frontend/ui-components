@@ -22,6 +22,7 @@ export default defineConfig({
       // into your library
       external: ['react', 'react-dom'],
       output: {
+        preserveModules: true,
         globals: {
           react: 'React',
           'react-dom': 'React-Dom'
