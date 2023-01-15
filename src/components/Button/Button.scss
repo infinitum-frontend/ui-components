@@ -2,8 +2,9 @@
   font-family: var(--inf-font-family-base);
   font-size: 14px;
   font-weight: 400;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   width: -webkit-max-content;
   width: max-content;
@@ -23,12 +24,16 @@
   transition: .2s;
   background: none;
 
+  &:hover {
+    border-color: transparent;
+  }
+
   &:focus-visible {
     outline: none;
   }
 
-  &:hover {
-    border-color: transparent;
+  &:focus {
+    border: 2px solid #7ABFFF;
   }
 
   &--variant-primary {
@@ -70,9 +75,14 @@
     }
   }
 
-  &--disabled {
+  &:disabled {
     background-color: #F2F4F5;
     color: #C8CACC;
+    cursor: not-allowed;
+  }
+
+  &--block {
+    width: 100%;
   }
 
   &--size-small {

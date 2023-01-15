@@ -6,11 +6,6 @@ import cn from 'classnames'
 
 export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
-   * Элемент для рендеринга
-   * @default 'button'
-   */
-  as?: React.ElementType<any>
-  /**
    * Содержимое
    */
   children?: ReactNode
@@ -27,7 +22,8 @@ const Space = React.forwardRef<HTMLDivElement, SpaceProps>(({
   gap = 'small',
   direction = 'horizontal',
   align,
-  wrap = false
+  wrap = false,
+  ...props
 }, ref) => {
   const getClassNames: () => string = () => {
     return cn(
@@ -43,7 +39,10 @@ const Space = React.forwardRef<HTMLDivElement, SpaceProps>(({
   }
 
   return (
-    <div ref={ref} className={getClassNames()}>
+    <div
+      ref={ref}
+      className={getClassNames()}
+      {...props}>
       {children}
     </div>
   )

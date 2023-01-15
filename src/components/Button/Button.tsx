@@ -3,10 +3,11 @@ import React, {
   ReactNode
 } from 'react'
 import { TestSelectors } from '../../../test/selectors'
+import cn from 'classnames'
 
-// TODO: лишний innerRef
 // добавить стили для block
-// добавить classname
+// добавить
+// тип для атрибуты href
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
@@ -19,6 +20,10 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
    */
   children?: ReactNode
   /**
+   * Дополнительный className
+   */
+  className?: string
+  /**
    * Вариант оформления
    */
   variant?: 'primary' | 'secondary' | 'default' | 'text'
@@ -27,15 +32,22 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
    */
   size?: 'small' | 'medium' | 'large'
   /**
-   * Размер
+   * Состояние недоступности
+   */
+  disabled?: boolean
+  /**
+   * Состояние загрузки
    */
   loading?: boolean
+  /**
+   * Занимает всю ширину контейнера
+   */
   block?: boolean
-  innerRef?: any
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   children = 'Кнопка',
+  className = '',
   as = 'button',
   variant = 'primary',
   size = 'medium',
@@ -47,16 +59,27 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 
   return (
     <Component
+      className={cn(
+        'inf-button', className,
+        `inf-button--variant-${variant}`,
+        `inf-button--size-${size}`,
+        {
+          'inf-button--block': block
+        }
+      )}
       ref={ref}
       data-testid={TestSelectors.button.root}
       type="button"
-      className={`inf-button inf-button--variant-${variant} inf-button--size-${size}`}
       {...props}>
-      {children}
+      {loading ? 'Loading ...' : (children)}
     </Component>
   )
 })
 
 Button.displayName = 'Button'
+
+Button.defaultProps = {
+  disabled: false
+}
 
 export default Button
