@@ -125,7 +125,7 @@
   }
 
   &__loader {
-    position: absolute;
+    position: absolute !important; // TODO: исправить ошибку с порядком стилей
   }
 
   &__content {

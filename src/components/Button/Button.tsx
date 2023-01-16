@@ -89,19 +89,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type="button"
         {...props}
       >
-        {icon ? (
-          <span className="inf-button__icon">{icon}</span>
-        ) : (
-          <span className="inf-button__content">
-            {iconLeft && (
-              <span className="inf-button__left-icon">{iconLeft}</span>
-            )}
-            <span className="inf-button__text">{children}</span>
-            {iconRight && (
-              <span className="inf-button__right-icon">{iconRight}</span>
-            )}
-          </span>
-        )}
+        <span className="inf-button__content">
+          {icon ? (
+            <span className="inf-button__icon">{icon}</span>
+          ) : (
+            <>
+              {iconLeft && (
+                <span className="inf-button__left-icon">{iconLeft}</span>
+              )}
+              <span className="inf-button__text">{children}</span>
+              {iconRight && (
+                <span className="inf-button__right-icon">{iconRight}</span>
+              )}
+            </>
+          )}
+        </span>
 
         {loading && <Loader className="inf-button__loader" size="compact" />}
       </Component>
