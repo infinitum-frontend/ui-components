@@ -56,6 +56,13 @@ export const Icon: StoryFn<typeof Button> = (args) => (
     <Button iconRight={<ArrowDownIcon />} {...args}>
       Icon Right
     </Button>
+    <Button
+      iconLeft={<ArrowDownIcon />}
+      iconRight={<ArrowDownIcon />}
+      {...args}
+    >
+      Icon Right
+    </Button>
     <Button icon={<ArrowDownIcon />} {...args} />
   </>
 )
