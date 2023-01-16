@@ -1,6 +1,6 @@
-import { KeyboardEventHandler, ReactElement, useEffect, useRef, useState } from 'react'
+import {KeyboardEventHandler, forwardRef, useEffect, useRef, useState, ReactElement, RefObject} from 'react'
 import './index.scss'
-import classNames from 'classnames'
+import cn from 'classnames'
 import { SelectProps, StandardizedListItem, StandardizedListItemDefault } from './interface'
 import InfPositioning from '../Positioning/InfPositioning'
 import { ReactComponent as ArrowDownIcon } from '../../icons/chevron-down.svg'
@@ -23,7 +23,7 @@ const getItemByValue = (value: StandardizedListItemDefault['value'] | undefined,
 }
 
 /** Компонент для выбора значения из выпадающег списка */
-const Select = ({
+const Select = forwardRef<HTMLButtonElement, SelectProps>(({
   options = [],
   className = '',
   onChange,
@@ -32,7 +32,7 @@ const Select = ({
   disabled = false,
   placeholder,
   ...props
-}: SelectProps): ReactElement => {
+}, ref): ReactElement => {
   if (placeholder) {
     defaultSelectItem.label = placeholder
   }
@@ -42,7 +42,7 @@ const Select = ({
   const [activeItem, setActiveItem] = useState<number>(getIndexByValue(value, options) || 0)
 
   // refs
-  const ref = useRef<HTMLButtonElement>(null)
+  const composedRef = ref as RefObject<HTMLButtonElement> ?? useRef<HTMLButtonElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
   // effects
@@ -52,7 +52,7 @@ const Select = ({
     }
   }, [autoFocus])
 
-  useClickOutside([ref, listRef], () => setFocused(false))
+  useClickOutside([composedRef, listRef], () => setFocused(false))
 
   const handleClick = (): void => {
     setFocused(prevState => !prevState)
@@ -108,12 +108,12 @@ const Select = ({
   return (
     <>
       <button
-        ref={ref}
+        ref={composedRef}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         disabled={disabled}
         data-testid={TestSelectors.select.wrapper}
-        className={classNames(
+        className={cn(
           'inf-select',
           {
             'inf-select--selected': value !== undefined,
@@ -124,19 +124,19 @@ const Select = ({
         {...props}
       >
         {value !== undefined ? getItemByValue(value, options)?.label : defaultSelectItem.label}
-        <span className={classNames('inf-select__arrow', { 'inf-select__arrow--selected': value !== undefined })}>
+        <span className={cn('inf-select__arrow', { 'inf-select__arrow--selected': value !== undefined })}>
           <ArrowDownIcon width={'10px'} height={'5px'} />
         </span>
       </button>
 
       {isFocused && !disabled && (
         <InfPositioning
-          getElementToAttach={() => ref.current}
+          getElementToAttach={() => composedRef.current}
           offsetTop={2}
           placement={'bottom'}>
           <ul
             ref={listRef}
-            className={classNames(
+            className={cn(
               'inf-select__items'
             )}
             data-testid={TestSelectors.select.list}>
@@ -146,7 +146,7 @@ const Select = ({
                 onMouseOver={() => handleItemMouseOver(index)}
                 onClick={() => handleItemSelect(option.value)}
                 className={
-                    classNames(
+                    cn(
                       'inf-select__item',
                       { 'inf-select__item--active': index === activeItem }
                     )
@@ -159,6 +159,8 @@ const Select = ({
       )}
     </>
   )
-}
+})
+
+Select.displayName = 'Select'
 
 export default Select

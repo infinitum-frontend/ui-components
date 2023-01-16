@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, ComponentPropsWithoutRef, ReactElement } from 'react'
+import {ChangeEvent, ChangeEventHandler, ComponentPropsWithoutRef, forwardRef, ReactElement} from 'react'
 import './index.scss'
 import classNames from 'classnames'
 import useRadioGroup from './useRadioGroup'
@@ -17,7 +17,7 @@ export interface RadioProps extends Omit<ComponentPropsWithoutRef<'input'>, 'onC
   value?: string
 }
 
-const Radio = ({
+const Radio = forwardRef<HTMLLabelElement, RadioProps>(({
   disabled = false,
   checked,
   defaultChecked = false,
@@ -25,7 +25,7 @@ const Radio = ({
   children,
   name,
   value
-}: RadioProps): ReactElement => {
+}, ref): ReactElement => {
   const groupData = useRadioGroup()
 
   if (groupData) {
@@ -38,7 +38,7 @@ const Radio = ({
   }
 
   return (
-    <label className={'inf-radio'}>
+    <label className={'inf-radio'} ref={ref}>
       <input
         type={'radio'}
         disabled={disabled}
@@ -53,6 +53,8 @@ const Radio = ({
       <span className={classNames('inf-radio__label', { 'inf-radio__label--disabled': disabled })}>{children}</span>
     </label>
   )
-}
+})
+
+Radio.displayName = 'Radio'
 
 export default Radio

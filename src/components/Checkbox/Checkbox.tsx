@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, ComponentPropsWithoutRef, ReactElement } from 'react'
+import {ChangeEvent, ChangeEventHandler, ComponentPropsWithoutRef, forwardRef, ReactElement} from 'react'
 import classNames from 'classnames'
 import './index.scss'
 import { ReactComponent as CheckIcon } from '../../icons/check.svg'
@@ -7,7 +7,7 @@ import { ReactComponent as IndeterminateIcon } from '../../icons/minus.svg'
 const defaultCheckedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'8px'} height={'16px'} />
 
-export interface InfCheckboxProps extends Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> {
+export interface CheckboxProps extends Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> {
   /** Вариант чекбокса */
   variant?: 'primary' | 'indeterminate'
   /** Состояние выбора */
@@ -26,7 +26,7 @@ export interface InfCheckboxProps extends Omit<ComponentPropsWithoutRef<'input'>
 // TODO: добавить расположение лейбла
 
 /** Компонент чекбокса */
-const InfCheckbox = ({
+const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(({
   disabled = false,
   checked,
   defaultChecked = false,
@@ -35,13 +35,13 @@ const InfCheckbox = ({
   name,
   value,
   variant = 'primary'
-}: InfCheckboxProps): ReactElement => {
+}, ref): ReactElement => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     onChange?.(e.target.checked, e)
   }
 
   return (
-    <label className={classNames('inf-checkbox')}>
+    <label className={classNames('inf-checkbox')} ref={ref}>
       <input
         type={'checkbox'}
         name={name}
@@ -56,6 +56,8 @@ const InfCheckbox = ({
       {children !== undefined && <span className={classNames('inf-checkbox__label', { 'inf-checkbox__label--disabled': disabled })}>{children}</span>}
     </label>
   )
-}
+})
 
-export default InfCheckbox
+Checkbox.displayName = 'Checkbox'
+
+export default Checkbox

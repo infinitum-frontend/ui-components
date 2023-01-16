@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Loader } from './index'

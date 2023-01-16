@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import { Button } from '../components/Button'

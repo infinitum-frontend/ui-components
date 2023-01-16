@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { InfBox } from './index'
 import { ComponentMeta, ComponentStory } from '@storybook/react'

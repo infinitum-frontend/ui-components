@@ -1,2 +1,2 @@
-export { default as InfCheckbox } from './InfCheckbox'
-export { default as InfCheckboxGroup } from './InfCheckboxGroup'
+export { default as Checkbox } from './Checkbox'
+export { default as CheckboxGroup } from './CheckboxGroup'
