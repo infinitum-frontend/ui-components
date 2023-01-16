@@ -50,13 +50,13 @@ Disabled.args = {
 
 export const Icon: StoryFn<typeof Button> = (args) => (
   <>
-    <Button iconLeft={ArrowDownIcon} {...args}>
+    <Button iconLeft={<ArrowDownIcon />} {...args}>
       Icon Left
     </Button>
-    <Button iconRight={ArrowDownIcon} {...args}>
+    <Button iconRight={<ArrowDownIcon />} {...args}>
       Icon Right
     </Button>
-    <Button {...args}>Icon Only</Button>
+    <Button icon={<ArrowDownIcon />} {...args} />
   </>
 )
 Icon.decorators = [(Story) => <Space gap="small">{Story()}</Space>]

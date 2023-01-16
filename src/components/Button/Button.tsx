@@ -38,16 +38,25 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
    * Занимает всю ширину контейнера
    */
   block?: boolean
-  iconLeft?: string
-  iconRight?: string
-  icon?: string
+  /**
+   * Иконка (без текста)
+   */
+  icon?: ReactNode
+  /**
+   * Иконка слева от текста
+   */
+  iconLeft?: ReactNode
+  /**
+   * Иконка справа от текста
+   */
+  iconRight?: ReactNode
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      children = 'Кнопка',
-      className = '',
+      children,
+      className,
       as = 'button',
       variant = 'primary',
       size = 'medium',
@@ -61,8 +70,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const Component = as
-    // const IconLeft = iconLeft
-    // const IconRight = iconRight
 
     return (
       <Component
@@ -74,18 +81,28 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           `inf-button--size-${size}`,
           {
             'inf-button--block': block,
-            'inf-button--loading': loading
+            'inf-button--loading': loading,
+            'inf-button--square': icon
           }
         )}
         data-testid={TestSelectors.button.root}
         type="button"
         {...props}
       >
-        <span className="inf-button__content">
-          {/* <span>{iconLeft && <IconLeft />}</span> */}
-          <span>{children}</span>
-          {/* {iconRight && <IconRight />} */}
-        </span>
+        {icon ? (
+          <span className="inf-button__icon">{icon}</span>
+        ) : (
+          <span className="inf-button__content">
+            {iconLeft && (
+              <span className="inf-button__left-icon">{iconLeft}</span>
+            )}
+            <span className="inf-button__text">{children}</span>
+            {iconRight && (
+              <span className="inf-button__right-icon">{iconRight}</span>
+            )}
+          </span>
+        )}
+
         {loading && <Loader className="inf-button__loader" size="compact" />}
       </Component>
     )
