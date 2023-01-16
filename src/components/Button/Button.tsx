@@ -2,6 +2,7 @@ import './Button.scss'
 import React, { ReactNode } from 'react'
 import { TestSelectors } from 'Test/selectors'
 import cn from 'classnames'
+import { Loader } from '../Loader'
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
@@ -37,6 +38,9 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
    * Занимает всю ширину контейнера
    */
   block?: boolean
+  iconLeft?: string
+  iconRight?: string
+  icon?: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -49,11 +53,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size = 'medium',
       loading = false,
       block = false,
+      iconLeft,
+      iconRight,
+      icon,
       ...props
     },
     ref
   ) => {
     const Component = as
+    // const IconLeft = iconLeft
+    // const IconRight = iconRight
 
     return (
       <Component
@@ -64,14 +73,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           `inf-button--variant-${variant}`,
           `inf-button--size-${size}`,
           {
-            'inf-button--block': block
+            'inf-button--block': block,
+            'inf-button--loading': loading
           }
         )}
         data-testid={TestSelectors.button.root}
         type="button"
         {...props}
       >
-        {loading ? 'Loading ...' : children}
+        <span className="inf-button__content">
+          {/* <span>{iconLeft && <IconLeft />}</span> */}
+          <span>{children}</span>
+          {/* {iconRight && <IconRight />} */}
+        </span>
+        {loading && <Loader className="inf-button__loader" size="compact" />}
       </Component>
     )
   }

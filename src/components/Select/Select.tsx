@@ -15,7 +15,7 @@ import {
   StandardizedListItemDefault
 } from './interface'
 import { Positioning } from 'Components/Positioning'
-import { ReactComponent as ArrowDownIcon } from 'Icons/icons/chevron-down.svg'
+import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { TestSelectors } from 'Test/selectors'
 import { useClickOutside } from 'Hooks/useClickOutside'
 

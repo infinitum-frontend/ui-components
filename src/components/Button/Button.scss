@@ -21,8 +21,9 @@
   -moz-appearance: none;
   appearance: none;
   border-radius: var(--inf-border-radius-medium);
-  transition: .2s;
+  transition: 0.2s;
   background: none;
+  position: relative;
 
   &:hover {
     border-color: transparent;
@@ -33,7 +34,7 @@
   }
 
   &:focus {
-    border: 2px solid #7ABFFF;
+    border: 2px solid #7abfff;
   }
 
   &--variant-primary {
@@ -50,39 +51,49 @@
   }
 
   &--variant-secondary {
-    background-color: #738F99;
+    background-color: #738f99;
     color: #fff;
 
     &:hover {
-      background-color: #B8D1D9;
+      background-color: #b8d1d9;
     }
 
     &:active {
-      background-color: #46626B;
+      background-color: #46626b;
     }
   }
 
   &--variant-default {
-    color: #46626B;
-    border: 1px solid #46626B;
+    color: #46626b;
+    border: 1px solid #46626b;
 
     &:hover {
-      background-color: #E6F1F5;
+      background-color: #e6f1f5;
     }
 
     &:active {
-      background-color: #738F99;
+      background-color: #738f99;
     }
   }
 
   &:disabled {
-    background-color: #F2F4F5;
-    color: #C8CACC;
-    cursor: not-allowed;
+    background-color: #f2f4f5;
+    color: #c8cacc;
+    pointer-events: none;
+    cursor: default;
   }
 
   &--block {
     width: 100%;
+  }
+
+  &--loading {
+    pointer-events: none;
+    cursor: default;
+
+    .inf-button__content {
+      visibility: hidden;
+    }
   }
 
   &--size-small {
@@ -95,5 +106,15 @@
 
   &--size-large {
     height: var(--inf-control-height-large);
+  }
+
+  &__loader {
+    position: absolute;
+  }
+
+  &__content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
