@@ -1,15 +1,18 @@
 // import './index.scss'
 import styles from './InfBox.module.scss'
-import React, {
-  HTMLAttributes,
-  ReactNode
-} from 'react'
+import React, { HTMLAttributes, ReactNode } from 'react'
 
 export interface InfBoxProps extends HTMLAttributes<any> {
   children?: ReactNode
   className?: string
   as?: React.ElementType<any>
-  background?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'danger' | 'warning'
+  background?:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'success'
+    | 'danger'
+    | 'warning'
   foreground?: 'left' | 'center' | 'right'
 }
 
