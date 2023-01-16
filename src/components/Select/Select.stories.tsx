@@ -15,7 +15,11 @@ const meta: Meta<typeof Select> = {
   title: 'Select',
   component: Select,
   args: {
-    options: selectDataFormatter({ value: 'value', array: mockItems, label: 'text' })
+    options: selectDataFormatter({
+      value: 'value',
+      array: mockItems,
+      label: 'text'
+    })
   }
 }
 
@@ -24,7 +28,9 @@ export default meta
 const Template: StoryFn<typeof Select> = (args) => {
   const [value, setValue] = useState<number | string | undefined>(undefined)
 
-  const handleChange: (item: StandardizedListItem<Record<string, any>>) => void = (item) => {
+  const handleChange: (
+    item: StandardizedListItem<Record<string, any>>
+  ) => void = (item) => {
     setValue(item.value)
   }
 
@@ -33,7 +39,8 @@ const Template: StoryFn<typeof Select> = (args) => {
       {...args}
       onChange={handleChange}
       value={value}
-      style={{ width: '300px' }} />
+      style={{ width: '300px' }}
+    />
   )
 }
 

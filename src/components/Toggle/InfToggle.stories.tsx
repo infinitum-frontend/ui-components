@@ -11,9 +11,7 @@ const ComponentMeta: Meta<typeof InfToggle> = {
 export default ComponentMeta
 
 const Template: StoryFn<typeof InfToggle> = ({ ...args }) => {
-  return (
-    <InfToggle {...args} />
-  )
+  return <InfToggle {...args} />
 }
 
 export const Playground = Template.bind({})

@@ -1,10 +1,10 @@
 import './index.scss'
-import React, { ReactNode } from 'react'
+import React, { ComponentPropsWithoutRef, ReactNode } from 'react'
 import classNames from 'classnames'
 
 // TODO: добавить as
 
-export interface HeadingProps {
+export interface HeadingProps extends ComponentPropsWithoutRef<any> {
   children?: ReactNode
   className?: string
   level?: '1' | '2' | '3' | '4' | '5'
@@ -23,7 +23,8 @@ const Heading = React.forwardRef<HTMLDivElement, HeadingProps>(
       weight = 'bold',
       alignment = 'left',
       isTruncated = false,
-      isUppercase = false
+      isUppercase = false,
+      ...props
     },
     ref
   ) => {
@@ -54,7 +55,7 @@ const Heading = React.forwardRef<HTMLDivElement, HeadingProps>(
     const Component = LEVEL_MAP[level]
 
     return (
-      <Component ref={ref} className={getClassNames()}>
+      <Component ref={ref} className={getClassNames()} {...props}>
         {children}
       </Component>
     )

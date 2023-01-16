@@ -15,6 +15,8 @@ const Meta: ComponentMeta<typeof InfBox> = {
 
 export default Meta
 
-const Template: ComponentStory<typeof InfBox> = ({ ...args }) => <InfBox {...args} />
+const Template: ComponentStory<typeof InfBox> = ({ ...args }) => (
+  <InfBox {...args} />
+)
 
 export const Playground = Template.bind({})

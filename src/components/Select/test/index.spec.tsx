@@ -14,10 +14,15 @@ const mockItems = selectDataFormatter({
   label: 'text'
 })
 
-const renderComponent: (args?: SelectProps) => Record<string, HTMLElement | RenderResult | null> = (args) => {
+const renderComponent: (
+  args?: SelectProps
+) => Record<string, HTMLElement | RenderResult | null> = (args) => {
   const reactEl = render(<Select {...args} options={mockItems} />)
 
-  const result: Record<string, HTMLElement | HTMLInputElement | RenderResult | null> = {
+  const result: Record<
+    string,
+    HTMLElement | HTMLInputElement | RenderResult | null
+  > = {
     wrapper: reactEl.queryByTestId(TestSelectors.select.wrapper),
     inputWrapper: reactEl.queryByTestId(TestSelectors.input.wrapper),
     inputEl: reactEl.queryByTestId(TestSelectors.input.inputEl),
@@ -25,9 +30,11 @@ const renderComponent: (args?: SelectProps) => Record<string, HTMLElement | Rend
   }
 
   if (args) {
-    Object.keys(args).forEach(key => {
+    Object.keys(args).forEach((key) => {
       if (key in TestSelectors.select) {
-        result[key] = reactEl.getByTestId(TestSelectors.select[key as keyof typeof TestSelectors.select])
+        result[key] = reactEl.getByTestId(
+          TestSelectors.select[key as keyof typeof TestSelectors.select]
+        )
       }
     })
   }

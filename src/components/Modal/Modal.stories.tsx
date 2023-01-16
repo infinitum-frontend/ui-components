@@ -20,24 +20,18 @@ const Template: StoryFn<typeof Modal> = (args) => {
   return (
     <div>
       <Button onClick={() => setIsOpened(true)} />
-      <Modal
-        {...args}
-        isOpen={isOpened}
-        onClose={() => setIsOpened(false)}>
+      <Modal {...args} isOpen={isOpened} onClose={() => setIsOpened(false)}>
         <Modal.Card>
           <Modal.Header>
-            <ModalTitle>
-              Изменение показателя
-            </ModalTitle>
+            <ModalTitle>Изменение показателя</ModalTitle>
             <ModalClose />
           </Modal.Header>
           <Modal.Body>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, illo.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
+            illo.
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary">
-              Добавить настройку
-            </Button>
+            <Button variant="secondary">Добавить настройку</Button>
           </Modal.Footer>
         </Modal.Card>
       </Modal>

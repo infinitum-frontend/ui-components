@@ -7,19 +7,22 @@ const ModalClose: React.FC = () => {
         className="inf-modal-close__icon"
         viewBox="0 0 24 24"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg">
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M18 6L6 18"
           stroke="currentColor"
           strokeWidth="1.5"
           strokeLinecap="round"
-          strokeLinejoin="round" />
+          strokeLinejoin="round"
+        />
         <path
           d="M6 6L18 18"
           stroke="currentColor"
           strokeWidth="1.5"
           strokeLinecap="round"
-          strokeLinejoin="round" />
+          strokeLinejoin="round"
+        />
       </svg>
     </button>
   )

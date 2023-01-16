@@ -20,13 +20,16 @@ export const Playground: StoryFn<typeof RadioGroup> = (args) => {
 
   return (
     <div>
-      <RadioGroup
-        name={'radio'}
-        value={state}
-        onChange={handleChange}>
-        <RadioGroup.Radio value={'1'}>Облигации внешних облигационных займов РФ</RadioGroup.Radio>
-        <RadioGroup.Radio value={'2'}>Облигации государственных компаний</RadioGroup.Radio>
-        <RadioGroup.Radio value={'3'}>Облигации государственных корпораций</RadioGroup.Radio>
+      <RadioGroup name={'radio'} value={state} onChange={handleChange}>
+        <RadioGroup.Radio value={'1'}>
+          Облигации внешних облигационных займов РФ
+        </RadioGroup.Radio>
+        <RadioGroup.Radio value={'2'}>
+          Облигации государственных компаний
+        </RadioGroup.Radio>
+        <RadioGroup.Radio value={'3'}>
+          Облигации государственных корпораций
+        </RadioGroup.Radio>
       </RadioGroup>
       <div style={{ marginTop: '12px' }}>Выбрано: {state}</div>
     </div>

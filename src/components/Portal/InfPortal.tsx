@@ -1,4 +1,10 @@
-import { ComponentPropsWithoutRef, ReactElement, ReactNode, useEffect, useState } from 'react'
+import {
+  ComponentPropsWithoutRef,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useState
+} from 'react'
 import { createPortal } from 'react-dom'
 
 export interface InfPortalProps extends ComponentPropsWithoutRef<any> {
@@ -6,7 +12,10 @@ export interface InfPortalProps extends ComponentPropsWithoutRef<any> {
   children: ReactNode
 }
 
-const InfPortal = ({ className = '', children }: InfPortalProps): ReactElement => {
+const InfPortal = ({
+  className = '',
+  children
+}: InfPortalProps): ReactElement => {
   const [wrapper] = useState(() => {
     const el = document.createElement('div')
     if (className) {
@@ -17,12 +26,12 @@ const InfPortal = ({ className = '', children }: InfPortalProps): ReactElement =
 
   useEffect(() => {
     document.body.appendChild(wrapper)
-    return () => { document.body.removeChild(wrapper) }
+    return () => {
+      document.body.removeChild(wrapper)
+    }
   }, [])
 
-  return (
-    createPortal(children, wrapper)
-  )
+  return createPortal(children, wrapper)
 }
 
 export default InfPortal

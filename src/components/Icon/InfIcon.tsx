@@ -7,16 +7,9 @@ export interface InfIconProps extends Partial<ReactSVGElement> {
   height?: number
 }
 
-const InfIcon = ({
-  name,
-  ...restProps
-}: InfIconProps): ReactElement => {
+const InfIcon = ({ name, ...restProps }: InfIconProps): ReactElement => {
   const { Component, isLoaded } = useIcon(name)
-  return (
-    <>
-      {isLoaded && Component && <Component {...restProps} />}
-    </>
-  )
+  return <>{isLoaded && Component && <Component {...restProps} />}</>
 }
 
 export default InfIcon

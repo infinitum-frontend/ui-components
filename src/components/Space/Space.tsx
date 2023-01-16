@@ -1,7 +1,5 @@
 import './Space.scss'
-import React, {
-  ReactNode
-} from 'react'
+import React, { ReactNode } from 'react'
 import cn from 'classnames'
 
 export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -16,37 +14,39 @@ export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
   wrap?: boolean
 }
 
-const Space = React.forwardRef<HTMLDivElement, SpaceProps>(({
-  children = '',
-  className = '',
-  gap = 'small',
-  direction = 'horizontal',
-  align,
-  wrap = false,
-  ...props
-}, ref) => {
-  const getClassNames: () => string = () => {
-    return cn(
-      'inf-space',
-      className,
-      `inf-space--gap-${gap}`,
-      `inf-space--direction-${direction}`,
-      {
-        'inf-space--wrap': wrap,
-        [`inf-space--align-${align as string}`]: align
-      }
+const Space = React.forwardRef<HTMLDivElement, SpaceProps>(
+  (
+    {
+      children = '',
+      className = '',
+      gap = 'small',
+      direction = 'horizontal',
+      align,
+      wrap = false,
+      ...props
+    },
+    ref
+  ) => {
+    const getClassNames: () => string = () => {
+      return cn(
+        'inf-space',
+        className,
+        `inf-space--gap-${gap}`,
+        `inf-space--direction-${direction}`,
+        {
+          'inf-space--wrap': wrap,
+          [`inf-space--align-${align as string}`]: align
+        }
+      )
+    }
+
+    return (
+      <div ref={ref} className={getClassNames()} {...props}>
+        {children}
+      </div>
     )
   }
-
-  return (
-    <div
-      ref={ref}
-      className={getClassNames()}
-      {...props}>
-      {children}
-    </div>
-  )
-})
+)
 
 Space.displayName = 'Space'
 

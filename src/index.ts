@@ -6,6 +6,7 @@ import { Radio, RadioGroup } from './components/Radio'
 import { Checkbox, CheckboxGroup } from './components/Checkbox'
 import { Text } from './components/Text'
 import { Heading } from './components/Heading'
+import { Space } from './components/Space'
 
 export {
   Button,
@@ -18,5 +19,6 @@ export {
   Checkbox,
   CheckboxGroup,
   Text,
-  Heading
+  Heading,
+  Space
 }

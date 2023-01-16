@@ -10,12 +10,12 @@ import classNames from 'classnames'
 import './group.scss'
 import { CheckboxProps } from './Checkbox'
 
-export interface CheckboxIndeterminateGroupProps extends ComponentPropsWithoutRef<any> {
+export interface CheckboxGroupProps
+  extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   onChange?: (value: Array<string | number>, e: ChangeEvent) => void
   /** Массив выбранных значений */
   checkedList?: Array<string | number>
   direction?: 'vertical'
-  // indeterminate?: boolean
 }
 
 // TODO: наработки для группы с неопределенным чекбоксом. Пока не убирать
@@ -35,34 +35,61 @@ const CheckboxGroup = ({
   children,
   onChange,
   direction = 'vertical',
-  checkedList = []
-}: CheckboxIndeterminateGroupProps): ReactElement => {
-  const handleChangeItem = (val: string | number, e: ChangeEvent<HTMLInputElement>): void => {
+  className,
+  checkedList = [],
+  ...props
+}: CheckboxGroupProps): ReactElement => {
+  const handleChangeItem = (
+    val: string | number,
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
     const isActive = checkedList?.includes(val)
 
     if (isActive) {
-      onChange?.(checkedList?.filter(item => item !== val), e)
+      onChange?.(
+        checkedList?.filter((item) => item !== val),
+        e
+      )
     } else {
       onChange?.([...checkedList, val], e)
     }
   }
 
-  const clonedChildren = Children.map(children, (child) => {
-    const childValue = child.props.value
+  const clonedChildren = Children.map(
+    children as ReactElement | ReactElement[],
+    (child: ReactElement) => {
+      if (!child) {
+        return
+      }
+      const childValue = child?.props.value
 
-    return cloneElement(child, {
-      ...child.props,
-      checked: Boolean(checkedList.find(item => item === childValue)),
-      onChange: (e: ChangeEvent<HTMLInputElement>) => handleChangeItem(childValue, e)
-    })
-  })
+      return cloneElement(child, {
+        ...child.props,
+        checked: Boolean(checkedList.find((item) => item === childValue)),
+        onChange: (e: ChangeEvent<HTMLInputElement>) =>
+          handleChangeItem(childValue, e)
+      })
+    }
+  )
 
   return (
-    <div className={classNames('inf-checkbox-group__items', `inf-checkbox-group__items--direction-${direction}`)}>{clonedChildren}</div>
+    <div
+      className={classNames(
+        'inf-checkbox-group__items',
+        `inf-checkbox-group__items--direction-${direction}`,
+        className
+      )}
+      {...props}
+    >
+      {clonedChildren}
+    </div>
   )
 }
 
-const CheckboxButton = ({ children, ...props }: CheckboxProps): ReactElement => <Checkbox {...props}>{children}</Checkbox>
+const CheckboxButton = ({
+  children,
+  ...props
+}: CheckboxProps): ReactElement => <Checkbox {...props}>{children}</Checkbox>
 
 if (process.env.NODE_ENV !== 'production') {
   CheckboxButton.displayName = 'CheckboxGroup.Checkbox'

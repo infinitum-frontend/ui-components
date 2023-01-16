@@ -19,8 +19,18 @@ const InfToggle: React.FunctionComponent<InfToggleProps> = ({
 }) => {
   return (
     <label className={cn('inf-toggle', className)} role={role}>
-      <div className={cn('inf-toggle__bg', { 'inf-toggle__bg--checked': checked }, checked ? 'inf-toggle__bg--on' : 'inf-toggle__bg--off')} />
-      <div className={cn('inf-toggle__switch-handle', { 'inf-toggle__switch-handle--checked': checked })} />
+      <div
+        className={cn(
+          'inf-toggle__bg',
+          { 'inf-toggle__bg--checked': checked },
+          checked ? 'inf-toggle__bg--on' : 'inf-toggle__bg--off'
+        )}
+      />
+      <div
+        className={cn('inf-toggle__switch-handle', {
+          'inf-toggle__switch-handle--checked': checked
+        })}
+      />
       <input
         className="inf-toggle__switch"
         role="switch"

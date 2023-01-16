@@ -8,8 +8,7 @@ import { Heading } from '../components/Heading'
 
 const ComponentMeta: Meta = {
   title: 'Demo/Login Form',
-  argTypes: {
-  }
+  argTypes: {}
 }
 
 export default ComponentMeta
@@ -20,8 +19,12 @@ export const LoginForm: StoryFn = (args) => (
       <Heading>Войти в систему</Heading>
       <Input />
       <Input />
-      <Button variant="secondary" block>Войти</Button>
-      <Button variant="default" block>Войти через Гослуги</Button>
+      <Button variant="secondary" block>
+        Войти
+      </Button>
+      <Button variant="default" block>
+        Войти через Гослуги
+      </Button>
     </Space>
   </div>
 )

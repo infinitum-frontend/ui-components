@@ -51,9 +51,7 @@ const Modal = ({
   }
   return (
     <InfPortal>
-      <div className={'inf-modal'}>
-        {children}
-      </div>
+      <div className={'inf-modal'}>{children}</div>
     </InfPortal>
   )
 }

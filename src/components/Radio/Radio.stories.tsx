@@ -13,16 +13,33 @@ const meta: Meta<typeof Radio> = {
 export default meta
 
 const Template: StoryFn<typeof Radio> = (args) => {
-  return (<Radio {...args} onChange={action('change')}>Облигации</Radio>)
+  return (
+    <Radio {...args} onChange={action('change')}>
+      Облигации
+    </Radio>
+  )
 }
 
 export const Playground = Template.bind({})
 
 export const Disabled: StoryFn<typeof Radio> = (args) => {
   return (
-    <InfBox style={{ width: '300px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', backgroundColor: 'transparent' }}>
-      <Radio disabled={true} checked={true}><code>checked</code></Radio>
-      <Radio disabled={true}><code>unchecked</code></Radio>
+    <InfBox
+      style={{
+        width: '300px',
+        height: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        backgroundColor: 'transparent'
+      }}
+    >
+      <Radio disabled={true} checked={true}>
+        <code>checked</code>
+      </Radio>
+      <Radio disabled={true}>
+        <code>unchecked</code>
+      </Radio>
     </InfBox>
   )
 }

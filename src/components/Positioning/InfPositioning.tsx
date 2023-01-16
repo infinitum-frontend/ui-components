@@ -3,7 +3,8 @@ import {
   CSSProperties,
   ReactElement,
   useState,
-  useRef, useLayoutEffect
+  useRef,
+  useLayoutEffect
 } from 'react'
 import InfPortal from '../Portal/InfPortal'
 
@@ -27,7 +28,12 @@ export interface InfPositioningProps extends ComponentPropsWithoutRef<any> {
 /**
  * Компонент, предназначенный для абсолютного позиционирования контента относительно HTML-элемента. Контент рендерится в конце тега body
  */
-const InfPositioning = ({ getElementToAttach, children, placement = 'bottom', offsetTop = 0 }: InfPositioningProps): ReactElement => {
+const InfPositioning = ({
+  getElementToAttach,
+  children,
+  placement = 'bottom',
+  offsetTop = 0
+}: InfPositioningProps): ReactElement => {
   const [styles, setStyles] = useState<CSSProperties>({})
   const ref = useRef<HTMLDivElement>(null)
 

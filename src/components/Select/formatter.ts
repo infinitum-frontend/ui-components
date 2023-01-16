@@ -1,13 +1,21 @@
-import { StandardizedListItemDefault, StandardizedListItem, FormatterOptions } from './interface'
+import {
+  StandardizedListItemDefault,
+  StandardizedListItem,
+  FormatterOptions
+} from './interface'
 import { ReactNode } from 'react'
 
-type ResultElement<T extends Record<string, T[keyof T]>> = StandardizedListItemDefault | StandardizedListItem<T>
+type ResultElement<T extends Record<string, T[keyof T]>> =
+  | StandardizedListItemDefault
+  | StandardizedListItem<T>
 
 /**
  * Хелпер для форматирования массива к формату опций компонента Select
  * @param options
  */
-function selectDataFormatter<T extends Record<string, T[keyof T]>>(options: FormatterOptions<T>): StandardizedListItemDefault[] | Array<StandardizedListItem<T>> {
+function selectDataFormatter<T extends Record<string, T[keyof T]>>(
+  options: FormatterOptions<T>
+): StandardizedListItemDefault[] | Array<StandardizedListItem<T>> {
   const standardizedArray: Array<ResultElement<T>> = []
 
   const { array, label, value, rest } = options
@@ -44,7 +52,9 @@ function selectDataFormatter<T extends Record<string, T[keyof T]>>(options: Form
   }
   console.log(standardizedArray)
 
-  return rest ? standardizedArray as Array<StandardizedListItem<T>> : standardizedArray as StandardizedListItemDefault[]
+  return rest
+    ? (standardizedArray as Array<StandardizedListItem<T>>)
+    : (standardizedArray as StandardizedListItemDefault[])
 }
 
 export default selectDataFormatter

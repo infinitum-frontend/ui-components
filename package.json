@@ -9,10 +9,13 @@
     "test": "vitest",
     "lint": "eslint --ext .tsx,.ts --ignore-pattern node_modules/ ./src/",
     "fix": "eslint --fix --ext .tsx,.ts --ignore-pattern node_modules/ ./src/",
+    "prettier-check": "prettier --check src/**/*.{ts,tsx}",
+    "prettier-fix": "prettier --write src/**/*.{ts,tsx}",
     "prepare": "husky install"
   },
   "lint-staged": {
     "*.{tsx,ts}": [
+      "npm run prettier-check",
       "npm run lint"
     ]
   },

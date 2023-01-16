@@ -1,7 +1,4 @@
-import {
-  createContext,
-  ChangeEvent
-} from 'react'
+import { createContext, ChangeEvent } from 'react'
 
 export interface RadioGroupContextValue {
   name: string
@@ -12,7 +9,9 @@ export interface RadioGroupContextValue {
 /**
  * @ignore - internal component.
  */
-const RadioGroupContext = createContext<RadioGroupContextValue | undefined>(undefined)
+const RadioGroupContext = createContext<RadioGroupContextValue | undefined>(
+  undefined
+)
 
 if (process.env.NODE_ENV !== 'production') {
   RadioGroupContext.displayName = 'RadioGroupContext'

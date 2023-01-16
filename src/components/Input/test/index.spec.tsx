@@ -5,7 +5,9 @@ import { TestSelectors } from '../../../../test/selectors'
 import { InfInputProps } from '../interface'
 import { ReactNode } from 'react'
 
-const renderComponent: (args?: InfInputProps) => Record<string, HTMLElement> = (args) => {
+const renderComponent: (args?: InfInputProps) => Record<string, HTMLElement> = (
+  args
+) => {
   const reactEl = render(<InfInput {...args} />)
 
   const result: Record<string, HTMLElement | HTMLInputElement> = {
@@ -14,9 +16,11 @@ const renderComponent: (args?: InfInputProps) => Record<string, HTMLElement> = (
   }
 
   if (args) {
-    Object.keys(args).forEach(key => {
+    Object.keys(args).forEach((key) => {
       if (key in TestSelectors.input) {
-        result[key] = reactEl.getByTestId(TestSelectors.input[key as keyof typeof TestSelectors.input])
+        result[key] = reactEl.getByTestId(
+          TestSelectors.input[key as keyof typeof TestSelectors.input]
+        )
       }
     })
   }
@@ -58,7 +62,10 @@ describe('border', () => {
 
 describe('prefix and postfix', () => {
   it('prefix renders', () => {
-    const { wrapper, prefix } = renderComponent({ prefix: 'prefix', prefixClass: 'prefix-class' })
+    const { wrapper, prefix } = renderComponent({
+      prefix: 'prefix',
+      prefixClass: 'prefix-class'
+    })
     expect(prefix).toBeDefined()
     expect(prefix.className).toContain('inf-input__prefix')
     expect(prefix.className).toContain('prefix-class')
@@ -67,7 +74,10 @@ describe('prefix and postfix', () => {
   })
 
   it('postfix renders', () => {
-    const { wrapper, postfix } = renderComponent({ postfix: <span>postfix</span>, postfixClass: 'postfix-class' })
+    const { wrapper, postfix } = renderComponent({
+      postfix: <span>postfix</span>,
+      postfixClass: 'postfix-class'
+    })
     expect(postfix).toBeDefined()
     expect(postfix.className).toContain('inf-input__postfix')
     expect(postfix.className).toContain('postfix-class')
@@ -77,7 +87,7 @@ describe('prefix and postfix', () => {
 })
 
 describe('clear-button', () => {
-  it('exists', async() => {
+  it('exists', async () => {
     const { allowClear } = renderComponent({ allowClear: true, value: 'test' })
     expect(allowClear).toBeDefined()
     expect(allowClear.style.visibility).toContain('')
@@ -85,7 +95,11 @@ describe('clear-button', () => {
 
   it('trigger input event', () => {
     const onInput = vi.fn()
-    const { wrapper, allowClear } = renderComponent({ allowClear: true, value: 'test', onInput })
+    const { wrapper, allowClear } = renderComponent({
+      allowClear: true,
+      value: 'test',
+      onInput
+    })
     fireEvent.click(allowClear)
     expect(onInput).toHaveBeenCalledWith('')
     expect(wrapper.className).toContain('inf-input--focused')

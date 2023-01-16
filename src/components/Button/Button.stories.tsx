@@ -38,10 +38,7 @@ export const Sizes: StoryFn<typeof Button> = (args) => (
 )
 
 export const LinkButton: StoryFn<typeof Button> = (args) => (
-  <Button
-    href="https://ya.ru"
-    target="_blank"
-    {...args} />
+  <Button href="https://ya.ru" target="_blank" {...args} />
 )
 LinkButton.args = {
   as: 'a',

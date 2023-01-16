@@ -15,7 +15,8 @@ const meta: Meta<typeof Input> = {
   },
   argTypes: {
     ref: {
-      description: 'Cсылка на нативный элемент<br /><code>Ref< InputRefHandler ></code>'
+      description:
+        'Cсылка на нативный элемент<br /><code>Ref< InputRefHandler ></code>'
     },
     onInput: {
       action: 'input',
@@ -113,11 +114,10 @@ export const Debounced: StoryFn<typeof Input> = (args) => {
   }
   return (
     <div>
-      <Input
-        {...args}
-        allowClear={true}
-        onInput={handleInput} />
-      <span style={{ color: 'darkred', marginTop: '6px' }}>Значение: {value}</span>
+      <Input {...args} allowClear={true} onInput={handleInput} />
+      <span style={{ color: 'darkred', marginTop: '6px' }}>
+        Значение: {value}
+      </span>
     </div>
   )
 }

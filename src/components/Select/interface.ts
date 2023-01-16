@@ -11,7 +11,8 @@ type MappedObject<T extends ArrayElementConstraints<T>> = {
   [Property in keyof T]: T[Property]
 }
 
-export type StandardizedListItem<T extends ArrayElementConstraints<T>> = StandardizedListItemDefault & MappedObject<T>
+export type StandardizedListItem<T extends ArrayElementConstraints<T>> =
+  StandardizedListItemDefault & MappedObject<T>
 
 export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
   /**
@@ -33,7 +34,8 @@ export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
   rest?: boolean
 }
 
-export interface SelectProps extends Omit<ComponentPropsWithoutRef<'button'>, 'onChange'> {
+export interface SelectProps
+  extends Omit<ComponentPropsWithoutRef<'button'>, 'onChange'> {
   options: Array<StandardizedListItem<Record<string, any>>>
   className?: string
   onChange?: (item: StandardizedListItem<Record<string, any>>) => void

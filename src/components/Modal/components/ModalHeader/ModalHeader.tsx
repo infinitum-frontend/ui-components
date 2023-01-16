@@ -4,11 +4,7 @@ import './ModalHeader.scss'
 const ModalHeader = ({
   children
 }: PropsWithChildren<ReactElement>): ReactElement | null => {
-  return (
-    <div className="inf-modal-header">
-      {children}
-    </div>
-  )
+  return <div className="inf-modal-header">{children}</div>
 }
 
 export default ModalHeader

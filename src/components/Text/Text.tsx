@@ -23,7 +23,8 @@ const Text = React.forwardRef<HTMLDivElement, TextProps>(
       tone = 'default',
       alignment = 'left',
       truncated = false,
-      uppercase = false
+      uppercase = false,
+      ...props
     },
     ref
   ) => {
@@ -43,7 +44,7 @@ const Text = React.forwardRef<HTMLDivElement, TextProps>(
     }
 
     return (
-      <div ref={ref} className={getClassNames()}>
+      <div ref={ref} className={getClassNames()} {...props}>
         {children}
       </div>
     )

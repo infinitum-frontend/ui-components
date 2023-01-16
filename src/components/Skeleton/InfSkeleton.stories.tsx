@@ -11,9 +11,7 @@ const ComponentMeta: Meta<typeof InfSkeleton> = {
 export default ComponentMeta
 
 const Template: StoryFn<typeof InfSkeleton> = ({ ...args }) => {
-  return (
-    <InfSkeleton {...args} />
-  )
+  return <InfSkeleton {...args} />
 }
 
 export const Playground = Template.bind({})
