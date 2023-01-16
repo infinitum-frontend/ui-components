@@ -1,6 +1,6 @@
 import './Button.scss'
 import React, { ReactNode } from 'react'
-import { TestSelectors } from '../../../test/selectors'
+import { TestSelectors } from 'Test/selectors'
 import cn from 'classnames'
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {

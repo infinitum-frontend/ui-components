@@ -1,1 +1,1 @@
-export { default as InfBox } from './InfBox'
+export { default as Box } from './Box'

@@ -13,8 +13,8 @@ import React, {
 import classNames from 'classnames'
 import './index.scss'
 import { InputProps, InputRefHandler } from './interface'
-import { TestSelectors } from '../../../test/selectors'
-import { ReactComponent as ClearIcon } from '../../icons/clear-button.svg'
+import { TestSelectors } from 'Test/selectors'
+import { ReactComponent as ClearIcon } from 'Icons/clear-button.svg'
 // eslint-disable-next-line import/no-named-default
 import { default as debounceFn } from 'lodash.debounce'
 

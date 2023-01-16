@@ -17,7 +17,19 @@
     "emitDeclarationOnly": true,
     "declaration": true,
     "isolatedModules": true,
-    "outDir": "types"
+    "outDir": "types",
+    "paths": {
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ],
+      "Components/*": ["./src/components/*"],
+      "Icons/*": ["./src/icons/*"],
+      "Hooks/*": ["./src/hooks/*"],
+      "Test/*": ["./test/*"]
+    }
   },
   "include": ["src/**/*.tsx", "src/**/*.ts", "definitions.d.ts"],
   "exclude": ["src/**/*.spec.tsx", "src/**/*.stories.tsx"]

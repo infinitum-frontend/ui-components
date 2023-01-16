@@ -1,1 +1,1 @@
-export { default as InfSkeleton } from './InfSkeleton'
+export { default as Skeleton } from './Skeleton'

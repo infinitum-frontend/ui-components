@@ -3,7 +3,7 @@ import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import Radio from './Radio'
 import { action } from '@storybook/addon-actions'
-import InfBox from '../Box/InfBox'
+import { Box } from '../Box'
 
 const meta: Meta<typeof Radio> = {
   title: 'Radio',
@@ -24,7 +24,7 @@ export const Playground = Template.bind({})
 
 export const Disabled: StoryFn<typeof Radio> = (args) => {
   return (
-    <InfBox
+    <Box
       style={{
         width: '300px',
         height: '100px',
@@ -40,6 +40,6 @@ export const Disabled: StoryFn<typeof Radio> = (args) => {
       <Radio disabled={true}>
         <code>unchecked</code>
       </Radio>
-    </InfBox>
+    </Box>
   )
 }

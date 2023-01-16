@@ -1,17 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
-import { InfToggle } from './index'
+import { Toggle } from './index'
 import { Meta, StoryFn } from '@storybook/react'
 
-const ComponentMeta: Meta<typeof InfToggle> = {
+const ComponentMeta: Meta<typeof Toggle> = {
   title: 'Toggle',
-  component: InfToggle
+  component: Toggle
 }
 
 export default ComponentMeta
 
-const Template: StoryFn<typeof InfToggle> = ({ ...args }) => {
-  return <InfToggle {...args} />
+const Template: StoryFn<typeof Toggle> = ({ ...args }) => {
+  return <Toggle {...args} />
 }
 
 export const Playground = Template.bind({})

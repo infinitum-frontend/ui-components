@@ -5,14 +5,22 @@ import viteSvgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    viteSvgr()
-  ],
+  plugins: [react(), viteSvgr()],
+  resolve: {
+    alias: {
+      Components: resolve(__dirname, './src/components/'),
+      Icons: resolve(__dirname, './src/icons/'),
+      Hooks: resolve(__dirname, './src/hooks/'),
+      Test: resolve(__dirname, './test/')
+    }
+  },
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
-      entry: [resolve(__dirname, 'src/index.ts'), resolve(__dirname, 'src/styles/global.scss')],
+      entry: [
+        resolve(__dirname, 'src/index.ts'),
+        resolve(__dirname, 'src/styles/global.scss')
+      ],
       name: 'ui-components',
       formats: ['es', 'cjs'],
       fileName: 'src/index'

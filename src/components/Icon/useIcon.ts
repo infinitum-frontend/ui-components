@@ -20,9 +20,7 @@ export function useIcon(name: string): {
 
     const getIcon = async (iconName: string): Promise<any> => {
       try {
-        ref.current = (
-          await import(`../../icons/${iconName}.svg`)
-        ).ReactComponent
+        ref.current = (await import(`Icons/${iconName}.svg`)).ReactComponent
         setIsLoaded(true)
       } catch (error) {
         console.error(`Failed to dynamic import ${name}`)

@@ -6,8 +6,8 @@ import {
   ReactElement
 } from 'react'
 import './index.scss'
-import { ReactComponent as CheckIcon } from '../../icons/check.svg'
-import { ReactComponent as IndeterminateIcon } from '../../icons/minus.svg'
+import { ReactComponent as CheckIcon } from 'Icons/check.svg'
+import { ReactComponent as IndeterminateIcon } from 'Icons/minus.svg'
 import cn from 'classnames'
 
 const defaultCheckedIcon = <CheckIcon width={'16px'} height={'16px'} />

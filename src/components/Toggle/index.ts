@@ -1,1 +1,1 @@
-export { default as InfToggle } from './InfToggle'
+export { default as Toggle } from './Toggle'

@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactElement, useEffect, useRef } from 'react'
-import { InfPortal } from '../Portal'
-import { useClickOutside } from '../../hooks/useClickOutside'
+import { Portal } from '../Portal'
+import { useClickOutside } from 'Hooks/useClickOutside'
 import './Modal.scss'
 import ModalCard from './components/ModalCard'
 import ModalBody from './components/ModalBody'
@@ -50,9 +50,9 @@ const Modal = ({
     return null
   }
   return (
-    <InfPortal>
+    <Portal>
       <div className={'inf-modal'}>{children}</div>
-    </InfPortal>
+    </Portal>
   )
 }
 

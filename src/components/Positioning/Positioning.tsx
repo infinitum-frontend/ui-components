@@ -6,9 +6,9 @@ import {
   useRef,
   useLayoutEffect
 } from 'react'
-import InfPortal from '../Portal/InfPortal'
+import { Portal } from 'Components/Portal'
 
-export interface InfPositioningProps extends ComponentPropsWithoutRef<any> {
+export interface PositioningProps extends ComponentPropsWithoutRef<any> {
   /**
    * функция, возвращающая элемент, относительно которого необходимо спозиционировать переданный контент
    */
@@ -28,12 +28,12 @@ export interface InfPositioningProps extends ComponentPropsWithoutRef<any> {
 /**
  * Компонент, предназначенный для абсолютного позиционирования контента относительно HTML-элемента. Контент рендерится в конце тега body
  */
-const InfPositioning = ({
+const Positioning = ({
   getElementToAttach,
   children,
   placement = 'bottom',
   offsetTop = 0
-}: InfPositioningProps): ReactElement => {
+}: PositioningProps): ReactElement => {
   const [styles, setStyles] = useState<CSSProperties>({})
   const ref = useRef<HTMLDivElement>(null)
 
@@ -61,12 +61,12 @@ const InfPositioning = ({
 
   // TODO: оставил обертку, тк не нашел, как получить данные о DOM элементах, входящие в children
   return (
-    <InfPortal>
+    <Portal>
       <div ref={ref} style={styles}>
         {children}
       </div>
-    </InfPortal>
+    </Portal>
   )
 }
 
-export default InfPositioning
+export default Positioning

@@ -1,14 +1,14 @@
 import { describe, expectTypeOf, it, vi, expect } from 'vitest'
 import { fireEvent, render } from '@testing-library/react'
-import { InfInput } from '../index'
+import { Input } from '../index'
 import { TestSelectors } from '../../../../test/selectors'
-import { InfInputProps } from '../interface'
+import { InputProps } from '../interface'
 import { ReactNode } from 'react'
 
-const renderComponent: (args?: InfInputProps) => Record<string, HTMLElement> = (
+const renderComponent: (args?: InputProps) => Record<string, HTMLElement> = (
   args
 ) => {
-  const reactEl = render(<InfInput {...args} />)
+  const reactEl = render(<Input {...args} />)
 
   const result: Record<string, HTMLElement | HTMLInputElement> = {
     wrapper: reactEl.getByTestId(TestSelectors.input.wrapper),

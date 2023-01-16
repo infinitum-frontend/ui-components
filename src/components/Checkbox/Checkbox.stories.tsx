@@ -1,6 +1,6 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { Checkbox } from './index'
-import { InfBox } from '../Box'
+import { Box } from '../Box'
 import { action } from '@storybook/addon-actions'
 
 const meta: Meta<typeof Checkbox> = {
@@ -22,7 +22,8 @@ export const Playground = Template.bind({})
 
 export const AllVariants: StoryFn<typeof Checkbox> = (args) => {
   return (
-    <InfBox
+    <Box
+      background={'primary'}
       style={{
         width: '300px',
         height: '100px',
@@ -37,13 +38,13 @@ export const AllVariants: StoryFn<typeof Checkbox> = (args) => {
       <Checkbox variant={'indeterminate'} defaultChecked={true}>
         <code>indeterminate</code>
       </Checkbox>
-    </InfBox>
+    </Box>
   )
 }
 
 export const Disabled: StoryFn<typeof Checkbox> = (args) => {
   return (
-    <InfBox
+    <Box
       style={{
         width: '300px',
         height: '100px',
@@ -59,6 +60,6 @@ export const Disabled: StoryFn<typeof Checkbox> = (args) => {
       <Checkbox disabled={true}>
         <code>uncheked</code>
       </Checkbox>
-    </InfBox>
+    </Box>
   )
 }

@@ -14,10 +14,10 @@ import {
   StandardizedListItem,
   StandardizedListItemDefault
 } from './interface'
-import InfPositioning from '../Positioning/InfPositioning'
-import { ReactComponent as ArrowDownIcon } from '../../icons/chevron-down.svg'
-import { TestSelectors } from '../../../test/selectors'
-import { useClickOutside } from '../../hooks/useClickOutside'
+import { Positioning } from 'Components/Positioning'
+import { ReactComponent as ArrowDownIcon } from 'Icons/icons/chevron-down.svg'
+import { TestSelectors } from 'Test/selectors'
+import { useClickOutside } from 'Hooks/useClickOutside'
 
 export const defaultSelectItem: StandardizedListItemDefault = {
   value: -1,
@@ -161,7 +161,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
         </button>
 
         {isFocused && !disabled && (
-          <InfPositioning
+          <Positioning
             getElementToAttach={() => composedRef.current}
             offsetTop={2}
             placement={'bottom'}
@@ -185,7 +185,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
                   </li>
                 ))}
             </ul>
-          </InfPositioning>
+          </Positioning>
         )}
       </>
     )

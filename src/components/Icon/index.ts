@@ -1,2 +1,2 @@
-import InfIcon from './InfIcon'
-export { InfIcon }
+import Icon from './Icon'
+export { Icon }

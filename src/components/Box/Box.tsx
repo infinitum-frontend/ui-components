@@ -1,11 +1,10 @@
-// import './index.scss'
-import styles from './InfBox.module.scss'
+import './index.scss'
 import React, { HTMLAttributes, ReactNode } from 'react'
 
-export interface InfBoxProps extends HTMLAttributes<any> {
+export interface BoxProps extends HTMLAttributes<any> {
   children?: ReactNode
   className?: string
-  as?: React.ElementType<any>
+  as?: React.ElementType
   background?:
     | 'primary'
     | 'secondary'
@@ -16,7 +15,7 @@ export interface InfBoxProps extends HTMLAttributes<any> {
   foreground?: 'left' | 'center' | 'right'
 }
 
-const InfBox: React.FunctionComponent<InfBoxProps> = ({
+const Box: React.FunctionComponent<BoxProps> = ({
   children = '',
   className = '',
   as = 'div',
@@ -25,12 +24,12 @@ const InfBox: React.FunctionComponent<InfBoxProps> = ({
   const Component = as
 
   return (
-    <Component className={styles.infBox} {...restProps}>
+    <Component className={'inf-box'} {...restProps}>
       {children}
     </Component>
   )
 }
 
-InfBox.displayName = 'InfBox'
+Box.displayName = 'Box'
 
-export default InfBox
+export default Box

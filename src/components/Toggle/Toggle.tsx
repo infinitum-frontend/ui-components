@@ -2,7 +2,7 @@ import './index.scss'
 import React from 'react'
 import cn from 'classnames'
 
-export interface InfToggleProps {
+export interface ToggleProps {
   className?: string
   checked?: boolean
   role?: string
@@ -10,7 +10,7 @@ export interface InfToggleProps {
   disabled?: boolean
 }
 
-const InfToggle: React.FunctionComponent<InfToggleProps> = ({
+const Toggle: React.FunctionComponent<ToggleProps> = ({
   className,
   checked = false,
   role = 'toggle',
@@ -44,6 +44,6 @@ const InfToggle: React.FunctionComponent<InfToggleProps> = ({
   )
 }
 
-InfToggle.displayName = 'InfToggle'
+Toggle.displayName = 'Toggle'
 
-export default InfToggle
+export default Toggle
