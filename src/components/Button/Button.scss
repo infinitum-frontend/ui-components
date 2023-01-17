@@ -125,7 +125,7 @@
   }
 
   &__loader {
-    position: absolute !important; // TODO: исправить ошибку с порядком стилей
+    position: absolute;
   }
 
   &__content {
@@ -134,8 +134,8 @@
     white-space: nowrap;
   }
 
-  .inf-button__right-icon:not(:first-child),
-  .inf-button__left-icon:not(:last-child) + .inf-button__text {
+  .inf-button__icon-after:not(:first-child),
+  .inf-button__icon-before:not(:last-child) + .inf-button__text {
     margin-left: var(--inf-space-xsmall);
   }
 }

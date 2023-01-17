@@ -4,19 +4,40 @@ import cn from 'classnames'
 
 export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
+   * Элемент для рендеринга
+   * @default 'button'
+   */
+  as?: React.ElementType<any>
+  /**
    * Содержимое
    */
   children?: ReactNode
+  /**
+   * Дополнительный className
+   */
   className?: string
+  /**
+   * Расстояние между блоками
+   */
   gap?: 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+  /**
+   * Направление раскладки
+   */
   direction?: 'vertical' | 'horizontal'
+  /**
+   * Выравние по оси (Flexbox align-items)
+   */
   align?: 'baseline' | 'start' | 'end' | 'center'
+  /**
+   * Перенос на новый ряд при переполнении (Flexbox wrap)
+   */
   wrap?: boolean
 }
 
 const Space = React.forwardRef<HTMLDivElement, SpaceProps>(
   (
     {
+      as = 'div',
       children = '',
       className = '',
       gap = 'small',
@@ -40,10 +61,12 @@ const Space = React.forwardRef<HTMLDivElement, SpaceProps>(
       )
     }
 
+    const Component = as
+
     return (
-      <div ref={ref} className={getClassNames()} {...props}>
+      <Component ref={ref} className={getClassNames()} {...props}>
         {children}
-      </div>
+      </Component>
     )
   }
 )

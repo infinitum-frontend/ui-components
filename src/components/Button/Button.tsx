@@ -1,8 +1,8 @@
-import './Button.scss'
 import React, { ReactNode } from 'react'
 import { TestSelectors } from 'Test/selectors'
 import cn from 'classnames'
 import { Loader } from '../Loader'
+import './Button.scss'
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
@@ -45,11 +45,11 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
    * Иконка слева от текста
    */
-  iconLeft?: ReactNode
+  iconBefore?: ReactNode
   /**
    * Иконка справа от текста
    */
-  iconRight?: ReactNode
+  iconAfter?: ReactNode
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -62,8 +62,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size = 'medium',
       loading = false,
       block = false,
-      iconLeft,
-      iconRight,
+      iconBefore,
+      iconAfter,
       icon,
       ...props
     },
@@ -94,12 +94,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <span className="inf-button__icon">{icon}</span>
           ) : (
             <>
-              {iconLeft && (
-                <span className="inf-button__left-icon">{iconLeft}</span>
+              {iconBefore && (
+                <span className="inf-button__left-icon">{iconBefore}</span>
               )}
               <span className="inf-button__text">{children}</span>
-              {iconRight && (
-                <span className="inf-button__right-icon">{iconRight}</span>
+              {iconAfter && (
+                <span className="inf-button__right-icon">{iconAfter}</span>
               )}
             </>
           )}
