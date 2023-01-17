@@ -50,7 +50,6 @@ function selectDataFormatter<T extends Record<string, T[keyof T]>>(
       standardizedArray.push(standardizedElement as StandardizedListItem<T>)
     })
   }
-  console.log(standardizedArray)
 
   return rest
     ? (standardizedArray as Array<StandardizedListItem<T>>)
