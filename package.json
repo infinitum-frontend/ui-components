@@ -15,6 +15,7 @@
   },
   "lint-staged": {
     "*.{tsx,ts}": [
+      "npm run lint",
       "npm run prettier-check"
     ]
   },

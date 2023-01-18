@@ -4,13 +4,11 @@ import {
   ReactElement,
   useEffect,
   useId,
-  useRef,
-  useState
+  useRef
 } from 'react'
 import cn from 'classnames'
 import './index.scss'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
-import { Positioning } from 'Components/Positioning'
 
 export interface TabProps extends ComponentPropsWithoutRef<'button'> {
   as?: ElementType
