@@ -1,3 +1,7 @@
+import TabGroup from 'Components/Tabs/components/Group'
+import TabPanel from 'Components/Tabs/components/Panel'
+import TabPanels from 'Components/Tabs/components/Panels'
+import TabList from 'Components/Tabs/components/TabList'
 import {
   ComponentPropsWithoutRef,
   ElementType,
@@ -7,9 +11,9 @@ import {
   useRef
 } from 'react'
 import cn from 'classnames'
-import './index.scss'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
 import { Positioning } from 'Components/Positioning'
+import './index.scss'
 
 export interface TabProps extends ComponentPropsWithoutRef<'button'> {
   as?: ElementType
@@ -61,4 +65,9 @@ const Tab = ({
   )
 }
 
-export default Tab
+export default Object.assign(Tab, {
+  Group: TabGroup,
+  List: TabList,
+  Panels: TabPanels,
+  Panel: TabPanel
+})
