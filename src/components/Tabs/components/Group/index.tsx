@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
 import TabsContext, { ITabsContext } from 'Components/Tabs/context/TabsContext'
 
-export interface TabsProps
+export interface TabGroupProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   selectedIndex?: number
   onChange?: (index: number) => void
@@ -12,7 +12,7 @@ const TabGroup = ({
   onChange,
   className,
   children
-}: TabsProps): ReactElement => {
+}: TabGroupProps): ReactElement => {
   const [panels, setPanels] = useState<any[]>([])
   const [tabs, setTabs] = useState<any[]>([])
   const [selectedTabIndex, setSelectedTabIndex] =
