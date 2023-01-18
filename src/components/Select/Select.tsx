@@ -2,10 +2,9 @@ import {
   KeyboardEventHandler,
   forwardRef,
   useEffect,
-  useRef,
   useState,
   ReactElement,
-  RefObject
+  useMemo
 } from 'react'
 import './index.scss'
 import cn from 'classnames'
@@ -14,10 +13,12 @@ import {
   StandardizedListItem,
   StandardizedListItemDefault
 } from './interface'
-import { Positioning } from 'Components/Positioning'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { TestSelectors } from 'Test/selectors'
 import { useClickOutside } from 'Hooks/useClickOutside'
+import { mergeRefs } from 'react-merge-refs'
+import { Modifier, usePopper } from 'react-popper'
+import { createPortal } from 'react-dom'
 
 export const defaultSelectItem: StandardizedListItemDefault = {
   value: -1,
@@ -60,15 +61,12 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     }
 
     // state
+    const [reference, setReference] = useState<any>(null)
+    const [popper, setPopper] = useState<any>(null)
     const [isFocused, setFocused] = useState<boolean>(false)
     const [activeItem, setActiveItem] = useState<number>(
       getIndexByValue(value, options) || 0
     )
-
-    // refs
-    const composedRef =
-      (ref as RefObject<HTMLButtonElement>) ?? useRef<HTMLButtonElement>(null)
-    const listRef = useRef<HTMLUListElement>(null)
 
     // effects
     useEffect(() => {
@@ -77,7 +75,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       }
     }, [autoFocus])
 
-    useClickOutside([composedRef, listRef], () => setFocused(false))
+    useClickOutside([reference, popper], () => setFocused(false))
 
     const handleClick = (): void => {
       setFocused((prevState) => !prevState)
@@ -130,10 +128,43 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       onChange?.(options[index])
     }
 
+    const modifiers = useMemo(() => {
+      const modifiers: Array<Modifier<any>> = [
+        {
+          name: 'equalWidth',
+          phase: 'beforeWrite',
+          requires: ['computeStyles'],
+          fn({ state }: { state: any }) {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            state.styles.popper.width = `${state.rects.reference.width}px`
+          },
+          effect({ state }: { state: any }) {
+            state.elements.popper.style.width = `${
+              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              state.elements.reference.offsetWidth
+            }px`
+          },
+          enabled: true
+        },
+        {
+          name: 'offset',
+          enabled: true,
+          options: { offset: [0, 2] }
+        }
+      ]
+
+      return modifiers
+    }, [])
+
+    const { styles } = usePopper(reference, popper, {
+      placement: 'bottom-start',
+      modifiers
+    })
+
     return (
       <>
         <button
-          ref={composedRef}
+          ref={mergeRefs([ref, setReference])}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
           disabled={disabled}
@@ -160,14 +191,12 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           </span>
         </button>
 
-        {isFocused && !disabled && (
-          <Positioning
-            referenceEl={composedRef.current}
-            offsetTop={2}
-            placement={'bottom'}
-          >
+        {isFocused &&
+          !disabled &&
+          createPortal(
             <ul
-              ref={listRef}
+              style={styles.popper}
+              ref={setPopper}
               className={cn('inf-select__items')}
               data-testid={TestSelectors.select.list}
             >
@@ -184,9 +213,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
                     {option.label}
                   </li>
                 ))}
-            </ul>
-          </Positioning>
-        )}
+            </ul>,
+            document.body
+          )}
       </>
     )
   }

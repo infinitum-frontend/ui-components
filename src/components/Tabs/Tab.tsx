@@ -8,12 +8,12 @@ import {
   ReactElement,
   useEffect,
   useId,
-  useRef
+  useState
 } from 'react'
 import cn from 'classnames'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
-import { Positioning } from 'Components/Positioning'
 import './index.scss'
+import { usePopper } from 'react-popper'
 
 export interface TabProps extends ComponentPropsWithoutRef<'button'> {
   as?: ElementType
@@ -28,11 +28,12 @@ const Tab = ({
   disabled = false,
   badge
 }: TabProps): ReactElement => {
+  const [reference, setReference] = useState<any>(null)
+  const [popper, setPopper] = useState<any>(null)
   const { handleTabClick, registerTab, unregisterTab, tabs, selectedIndex } =
     useTabsContext()
 
   const id = useId()
-  const ref = useRef<HTMLSpanElement>(null)
   const tabIndex = tabs.findIndex((tab) => tab === id)
   const active = tabIndex === selectedIndex
   const Component = as
@@ -42,6 +43,8 @@ const Tab = ({
     return () => unregisterTab(id)
   }, [])
 
+  const { styles } = usePopper(reference, popper)
+
   return (
     <Component
       className={cn('inf-tab', className, {
@@ -50,12 +53,14 @@ const Tab = ({
       })}
       onClick={() => handleTabClick(id)}
     >
-      <span ref={ref} className={cn('inf-tab__label')}>
+      <span ref={setReference} className={cn('inf-tab__label')}>
         {children}
         {active && (
-          <Positioning referenceEl={ref.current} offsetTop={2}>
-            <span className={'inf-tab__underline'} />
-          </Positioning>
+          <span
+            ref={setPopper}
+            style={styles.popper}
+            className={'inf-tab__underline'}
+          />
         )}
       </span>
       {(badge || Number.isInteger(badge)) && (

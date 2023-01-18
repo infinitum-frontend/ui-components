@@ -1,14 +1,16 @@
-import { RefObject, useEffect } from 'react'
+import { useEffect } from 'react'
 
 export function useClickOutside(
-  ref: RefObject<any> | Array<RefObject<any>>,
+  element: HTMLElement | HTMLElement[],
   handler: (event: MouseEvent) => void
 ): void {
-  const composedRef = Array.isArray(ref) ? ref : [ref]
+  const composedElements = Array.isArray(element) ? element : [element]
   useEffect(() => {
     function handleClickOutside(event: MouseEvent): void {
       if (
-        !composedRef.filter((el) => el.current?.contains(event.target)).length
+        !composedElements.filter((el) =>
+          el?.contains(event.target as HTMLElement)
+        ).length
       ) {
         handler(event)
       }
@@ -18,5 +20,5 @@ export function useClickOutside(
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [...composedRef])
+  }, [...composedElements])
 }
