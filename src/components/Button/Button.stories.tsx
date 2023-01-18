@@ -11,6 +11,9 @@ const ComponentMeta: Meta<typeof Button> = {
   argTypes: {
     children: {
       defaultValue: 'Кнопка'
+    },
+    as: {
+      defaultValue: 'button'
     }
   },
   parameters: {
@@ -50,15 +53,15 @@ Disabled.args = {
 
 export const Icon: StoryFn<typeof Button> = (args) => (
   <>
-    <Button iconLeft={<ArrowDownIcon />} {...args}>
+    <Button iconBefore={<ArrowDownIcon />} {...args}>
       Icon Left
     </Button>
-    <Button iconRight={<ArrowDownIcon />} {...args}>
+    <Button iconAfter={<ArrowDownIcon />} {...args}>
       Icon Right
     </Button>
     <Button
-      iconLeft={<ArrowDownIcon />}
-      iconRight={<ArrowDownIcon />}
+      iconBefore={<ArrowDownIcon />}
+      iconAfter={<ArrowDownIcon />}
       {...args}
     >
       Icon Right

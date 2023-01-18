@@ -8,6 +8,11 @@ import { Text } from '../Text'
 const ComponentMeta: Meta<typeof Space> = {
   title: 'Layout/Space',
   component: Space,
+  argTypes: {
+    as: {
+      defaultValue: 'div'
+    }
+  },
   parameters: {
     docs: {
       source: {
