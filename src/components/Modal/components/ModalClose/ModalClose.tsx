@@ -1,8 +1,12 @@
 import './ModalClose.scss'
 
-const ModalClose: React.FC = () => {
+interface ModalCloseProps {
+  onClick: () => void
+}
+
+const ModalClose = ({ onClick }: ModalCloseProps): JSX.Element => {
   return (
-    <button className="inf-modal-close">
+    <button className="inf-modal-close" onClick={onClick}>
       <svg
         className="inf-modal-close__icon"
         viewBox="0 0 24 24"

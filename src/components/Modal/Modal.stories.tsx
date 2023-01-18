@@ -3,11 +3,8 @@ import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Modal } from './index'
 import { Button } from '../Button'
-import { Space } from '../Space'
 import { useState } from 'react'
 import ModalTitle from './components/ModalTitle'
-import { Heading } from '../Heading'
-import { Text } from '../Text'
 
 const meta: Meta<typeof Modal> = {
   title: 'Modal',
@@ -28,7 +25,7 @@ const Template: StoryFn<typeof Modal> = (args) => {
   return (
     <div>
       <Button onClick={() => setIsOpened(true)}>Открыть модальное окно</Button>
-      <Modal {...args} isOpen={isOpened} onClose={() => setIsOpened(false)}>
+      <Modal {...args} open={isOpened} onClose={() => setIsOpened(false)}>
         <Modal.Header>
           <ModalTitle>Изменение показателя</ModalTitle>
         </Modal.Header>
@@ -52,7 +49,7 @@ export const Custom: StoryFn<typeof Button> = (args) => {
   return (
     <>
       <Button onClick={() => setIsOpened(true)}>Открыть модальное окно</Button>
-      <Modal {...args} isOpen={isOpened} onClose={() => setIsOpened(false)}>
+      <Modal {...args} open={isOpened} onClose={() => setIsOpened(false)}>
         <div style={{ padding: '30px', backgroundColor: 'lightgray' }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ad
           accusamus perferendis at earum obcaecati architecto nihil porro iusto
