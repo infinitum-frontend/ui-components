@@ -3,16 +3,15 @@ import {
   CSSProperties,
   ReactElement,
   useState,
-  useRef,
   useLayoutEffect
 } from 'react'
 import { Portal } from 'Components/Portal'
 
 export interface PositioningProps extends ComponentPropsWithoutRef<any> {
   /**
-   * функция, возвращающая элемент, относительно которого необходимо спозиционировать переданный контент
+   * элемент, относительно которого необходимо спозиционировать переданный контент
    */
-  getElementToAttach?: () => HTMLElement | null
+  referenceEl?: HTMLElement | null
   /**
    * Контент, подлежащий абсолютному позиционированию
    */
@@ -29,42 +28,36 @@ export interface PositioningProps extends ComponentPropsWithoutRef<any> {
  * Компонент, предназначенный для абсолютного позиционирования контента относительно HTML-элемента. Контент рендерится в конце тега body
  */
 const Positioning = ({
-  getElementToAttach,
+  referenceEl,
   children,
   placement = 'bottom',
   offsetTop = 0
 }: PositioningProps): ReactElement => {
   const [styles, setStyles] = useState<CSSProperties>({})
-  const ref = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     const result: CSSProperties = {
       position: 'absolute'
     }
 
-    if (getElementToAttach) {
-      const el = getElementToAttach()
-      if (el) {
-        const { left, top, width, bottom } = el.getBoundingClientRect()
+    if (referenceEl) {
+      const { left, top, width, bottom } = referenceEl.getBoundingClientRect()
 
-        if (placement === 'bottom') {
-          result.left = left ? `${left}px` : 0
-          result.top = top ? `${bottom + window.scrollY + offsetTop}px` : 0
-        }
-
-        result.width = width ? `${width}px` : '100%'
+      if (placement === 'bottom') {
+        result.left = left ? `${left}px` : 0
+        result.top = top ? `${bottom + window.scrollY + offsetTop}px` : 0
       }
+
+      result.width = width ? `${width}px` : '100%'
     }
 
     setStyles(result)
-  }, [offsetTop])
+  }, [offsetTop, referenceEl])
 
   // TODO: оставил обертку, тк не нашел, как получить данные о DOM элементах, входящие в children
   return (
     <Portal>
-      <div ref={ref} style={styles}>
-        {children}
-      </div>
+      <div style={styles}>{children}</div>
     </Portal>
   )
 }

@@ -162,7 +162,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
         {isFocused && !disabled && (
           <Positioning
-            getElementToAttach={() => composedRef.current}
+            referenceEl={composedRef.current}
             offsetTop={2}
             placement={'bottom'}
           >

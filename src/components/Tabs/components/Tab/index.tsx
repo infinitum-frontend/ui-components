@@ -9,6 +9,7 @@ import {
 import cn from 'classnames'
 import './index.scss'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
+import { Positioning } from 'Components/Positioning'
 
 export interface TabProps extends ComponentPropsWithoutRef<'button'> {
   as?: ElementType
@@ -47,7 +48,11 @@ const Tab = ({
     >
       <span ref={ref} className={cn('inf-tab__label')}>
         {children}
-        {active && <span className={'inf-tab__underline'} />}
+        {active && (
+          <Positioning referenceEl={ref.current} offsetTop={2}>
+            <span className={'inf-tab__underline'} />
+          </Positioning>
+        )}
       </span>
       {(badge || Number.isInteger(badge)) && (
         <span className={'inf-tab__badge'}>{badge}</span>

@@ -3,11 +3,8 @@ import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Modal } from './index'
 import { Button } from '../Button'
-import { Space } from '../Space'
 import { useState } from 'react'
 import ModalTitle from './components/ModalTitle'
-import { Heading } from '../Heading'
-import { Text } from '../Text'
 
 const meta: Meta<typeof Modal> = {
   title: 'Modal',
