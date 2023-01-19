@@ -9,35 +9,29 @@ import React, {
 } from 'react'
 import './index.scss'
 import cn from 'classnames'
-import {
-  SelectProps,
-  StandardizedListItem,
-  StandardizedListItemDefault
-} from './interface'
+import { SelectProps, SelectOption } from './interface'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { useClickOutside } from 'Hooks/useClickOutside'
 import { mergeRefs } from 'react-merge-refs'
 import { Modifier, usePopper } from 'react-popper'
 import { createPortal } from 'react-dom'
 
-export const defaultSelectItem: StandardizedListItemDefault = {
+export const defaultSelectItem: SelectOption = {
   value: -1,
   label: 'Не указано'
 }
 
-type SelectItem = StandardizedListItem<Record<string, any>>
-
 const getIndexByValue = (
-  value: StandardizedListItemDefault['value'] | undefined,
-  items: SelectItem[]
+  value: SelectOption['value'] | undefined,
+  items: SelectOption[]
 ): number => {
   return items.findIndex((item) => item.value === value)
 }
 
 const getItemByValue = (
-  value: StandardizedListItemDefault['value'] | undefined,
-  items: SelectItem[]
-): SelectItem | undefined => {
+  value: SelectOption['value'],
+  items: SelectOption[]
+): SelectOption | undefined => {
   return items.find((item) => item.value === value)
 }
 
