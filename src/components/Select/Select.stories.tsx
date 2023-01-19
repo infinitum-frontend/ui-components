@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import { Select, selectDataFormatter } from './index'
-import { StandardizedListItem } from './interface'
+import { SelectOption } from './interface'
 import { useState } from 'react'
 
 const mockItems = [
@@ -28,9 +28,7 @@ export default meta
 const Template: StoryFn<typeof Select> = (args) => {
   const [value, setValue] = useState<number | string | undefined>(undefined)
 
-  const handleChange: (
-    item: StandardizedListItem<Record<string, any>>
-  ) => void = (item) => {
+  const handleChange: (item: SelectOption) => void = (item) => {
     setValue(item.value)
   }
 

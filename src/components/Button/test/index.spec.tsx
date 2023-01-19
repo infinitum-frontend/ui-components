@@ -1,9 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { fireEvent, render } from '@testing-library/react'
-
 import { Button } from '../index'
 import '@testing-library/jest-dom/extend-expect'
-import { TestSelectors } from '../../../../test/selectors'
 
 describe('hello world', () => {
   it('matchSnapshot', () => {
@@ -12,10 +10,10 @@ describe('hello world', () => {
   })
 
   it('default variant', () => {
-    const reactEl = render(<Button />)
+    const { container } = render(<Button />)
 
-    const el = reactEl.queryByTestId(TestSelectors.button.root)
-    expect(el?.className).contains('inf-button--variant-primary')
+    const el = container.firstChild as HTMLElement
+    expect(el.className).contains('inf-button--variant-primary')
   })
 
   it('click', () => {

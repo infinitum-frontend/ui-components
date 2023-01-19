@@ -10,6 +10,15 @@ export interface ITabsContext {
   unregisterPanel: (value: any) => void
   handleTabClick: (value: any) => void
 }
-const TabsContext = createContext<ITabsContext>(null)
+const TabsContext = createContext<ITabsContext>({
+  selectedIndex: 0,
+  tabs: [],
+  panels: [],
+  registerTab: (value) => {},
+  unregisterTab: (value) => {},
+  registerPanel: (value) => {},
+  unregisterPanel: (value) => {},
+  handleTabClick: (value) => {}
+})
 
 export default TabsContext

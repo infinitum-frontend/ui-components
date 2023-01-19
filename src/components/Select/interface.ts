@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 type ArrayElementConstraints<T> = Record<string, T[keyof T]>
 
-export interface StandardizedListItemDefault {
+export interface DefaultSelectOption {
   value: number | string
   label: string | ReactNode
 }
@@ -11,8 +11,9 @@ type MappedObject<T extends ArrayElementConstraints<T>> = {
   [Property in keyof T]: T[Property]
 }
 
-export type StandardizedListItem<T extends ArrayElementConstraints<T>> =
-  StandardizedListItemDefault & MappedObject<T>
+export type SelectOption<
+  T extends ArrayElementConstraints<T> = Record<string, any>
+> = DefaultSelectOption & MappedObject<T>
 
 export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
   /**
@@ -36,11 +37,11 @@ export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
 
 export interface SelectProps
   extends Omit<ComponentPropsWithoutRef<'button'>, 'onChange'> {
-  options: Array<StandardizedListItem<Record<string, any>>>
+  options: SelectOption[]
   className?: string
-  onChange?: (item: StandardizedListItem<Record<string, any>>) => void
+  onChange?: (option: SelectOption) => void
   autoFocus?: boolean
   disabled?: boolean
-  value?: StandardizedListItemDefault['value']
+  value?: SelectOption['value']
   placeholder?: string
 }

@@ -1,3 +1,4 @@
+@import './common.scss';
 .inf-input {
   box-sizing: border-box;
   outline: none;
@@ -6,7 +7,7 @@
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--inf-color-border-default);
-  transition: border-color .2s;
+  transition: border-color 0.2s;
   font-family: var(--inf-font-family-base);
   font-weight: var(--inf-font-weight-normal);
 
@@ -22,55 +23,19 @@
     line-height: 18px;
     height: var(--inf-control-height-medium);
     font-size: var(--inf-text-size-small);
-    padding: var(--inf-input-padding-vertical-medium) var(--inf-input-padding-horizontal-medium);
+    padding: var(--inf-input-padding-vertical-medium)
+      var(--inf-input-padding-horizontal-medium);
   }
 
-  &__input {
-    // reset styles
-    border-radius: 0;
+  input {
     border: none;
     padding: 0;
     line-height: inherit;
-    font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
     background-color: inherit;
     cursor: inherit;
     width: 100%;
-
-    -webkit-appearance: none;
-    /* Chrome, Safari, Edge, Opera */
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    /* Firefox */
-    &[type=number] {
-      -moz-appearance: textfield;
-    }
-
-    /* iOS */
-    input[type="search"] {
-      -webkit-appearance: none;
-    }
-
-    &::-ms-clear {
-      display: none;
-    }
-
-    &::-webkit-clear-button {
-      display: none;
-    }
-
-    &:focus, &:focus-visible {
-      outline: none;
-    }
-
-    &::placeholder {
-      color: var(--inf-color-text-tertiary);
-    }
   }
 
   // TODO: другим способом сделать специфичнее, чем .inf-input:hover
@@ -107,7 +72,9 @@
     border-color: var(--inf-color-primary);
   }
 
-  &__prefix, &__postfix, &__clear-button {
+  &__prefix,
+  &__postfix,
+  &__clear-button {
     user-select: none;
     display: inline-flex;
     align-items: center;

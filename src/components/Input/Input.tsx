@@ -13,7 +13,6 @@ import React, {
 import classNames from 'classnames'
 import './index.scss'
 import { InputProps, InputRefHandler } from './interface'
-import { TestSelectors } from 'Test/selectors'
 import { ReactComponent as ClearIcon } from 'Icons/clear-button.svg'
 // eslint-disable-next-line import/no-named-default
 import { default as debounceFn } from 'lodash.debounce'
@@ -25,7 +24,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
   (
     {
       style,
-      value = '',
+      value,
       formatter,
       size = 'medium',
       className = '',
@@ -111,7 +110,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
     // хелперы
     const composedValue = debounce ? localValue : value
 
-    const getFormattedValue: () => string = () => {
+    const getFormattedValue: () => string | undefined = () => {
       if (formatter !== undefined) {
         return formatter(composedValue)
       }
@@ -145,7 +144,6 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       return (
         <span
           onClick={handleClear}
-          data-testid={TestSelectors.input.allowClear}
           className={classNames('inf-input__clear-button', {
             'inf-input__clear-button--hidden': !value
           })}
@@ -161,20 +159,14 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         className={getClassNames()}
         ref={wrapperRef}
         onClick={handleWrapperClick}
-        data-testid={TestSelectors.input.wrapper}
       >
         {prefix && (
-          <span
-            className={classNames('inf-input__prefix', prefixClass)}
-            data-testid={TestSelectors.input.prefix}
-          >
+          <span className={classNames('inf-input__prefix', prefixClass)}>
             {prefix}
           </span>
         )}
 
         <input
-          className={'inf-input__input'}
-          data-testid={TestSelectors.input.inputEl}
           value={getFormattedValue()}
           placeholder={isFocused ? '' : placeholder}
           disabled={disabled}
@@ -187,10 +179,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
 
         {allowClear && getClearIcon()}
         {postfix && (
-          <span
-            className={classNames('inf-input__postfix', postfixClass)}
-            data-testid={TestSelectors.input.postfix}
-          >
+          <span className={classNames('inf-input__postfix', postfixClass)}>
             {postfix}
           </span>
         )}

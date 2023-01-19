@@ -18,6 +18,7 @@
     "declaration": true,
     "isolatedModules": true,
     "outDir": "types",
+    "baseUrl": "./",
     "paths": {
       "~/*": [
         "./*"

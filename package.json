@@ -2,7 +2,8 @@
   "name": "@vinderman/ui-components",
   "version": "1.0.1",
   "scripts": {
-    "build": "rm -rf dist && rm -rf types && vite build && tsc && npm run build-tokens",
+    "build": "rm -rf dist && vite build && npm run ts-compile && npm run build-tokens",
+    "ts-compile": "rm -rf types && tsc && tscpaths -p tsconfig.json -s ./src",
     "build-storybook": "storybook build",
     "storybook": "storybook dev -p 6006",
     "build-tokens": "rm -rf dist/themes && ts-node themes/build/index.ts",
@@ -15,6 +16,7 @@
   },
   "lint-staged": {
     "*.{tsx,ts}": [
+      "npm run lint",
       "npm run prettier-check"
     ]
   },
@@ -33,16 +35,19 @@
   },
   "main": "dist/src/index.js",
   "module": "dist/src/index.mjs",
-  "types": "types/src",
+  "types": "types",
   "files": [
     "dist",
-    "types/src"
+    "types"
   ],
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "classnames": "^2.3.2",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-merge-refs": "^2.0.1",
+    "react-popper": "^2.3.0",
     "sass": "^1.56.1"
   },
   "sideEffects": false,
@@ -81,6 +86,7 @@
     "prettier": "^2.8.3",
     "storybook": "^7.0.0-beta.13",
     "ts-node": "^10.9.1",
+    "tscpaths": "^0.0.9",
     "typescript": "^4.6.4",
     "vite": "^3.2.3",
     "vite-plugin-svgr": "^2.4.0",
