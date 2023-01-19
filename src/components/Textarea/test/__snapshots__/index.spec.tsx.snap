@@ -1,0 +1,8 @@
+// Vitest Snapshot v1
+
+exports[`Textarea > should match snapshot 1`] = `
+<textarea
+  class="inf-textarea inf-input-common inf-textarea--resize-none"
+  placeholder="Введите значение"
+/>
+`;
