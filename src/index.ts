@@ -8,6 +8,7 @@ import { Text } from './components/Text'
 import { Heading } from './components/Heading'
 import { Space } from 'Components/Space'
 import { Tab } from 'Components/Tabs'
+import { Textarea } from 'Components/Textarea'
 
 export {
   Button,
@@ -22,5 +23,6 @@ export {
   Text,
   Heading,
   Space,
-  Tab
+  Tab,
+  Textarea
 }

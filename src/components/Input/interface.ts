@@ -23,7 +23,7 @@ export interface InputProps
    * @param value {string}
    * @return {string}
    */
-  formatter?: (value: string) => string
+  formatter?: (value?: string) => string
   /** Кастомный css-класс */
   className?: string
   /** placeholder */

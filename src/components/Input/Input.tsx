@@ -25,7 +25,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
   (
     {
       style,
-      value = '',
+      value,
       formatter,
       size = 'medium',
       className = '',
@@ -111,7 +111,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
     // хелперы
     const composedValue = debounce ? localValue : value
 
-    const getFormattedValue: () => string = () => {
+    const getFormattedValue: () => string | undefined = () => {
       if (formatter !== undefined) {
         return formatter(composedValue)
       }
@@ -173,7 +173,6 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         )}
 
         <input
-          className={'inf-input__input'}
           data-testid={TestSelectors.input.inputEl}
           value={getFormattedValue()}
           placeholder={isFocused ? '' : placeholder}
