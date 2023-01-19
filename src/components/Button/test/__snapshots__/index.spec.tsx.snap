@@ -7,20 +7,34 @@ exports[`hello world > matchSnapshot 1`] = `
     <div>
       <button
         class="inf-button inf-button--variant-primary inf-button--size-medium"
-        data-testid="button"
         type="button"
       >
-        Button
+        <span
+          class="inf-button__content"
+        >
+          <span
+            class="inf-button__text"
+          >
+            Button
+          </span>
+        </span>
       </button>
     </div>
   </body>,
   "container": <div>
     <button
       class="inf-button inf-button--variant-primary inf-button--size-medium"
-      data-testid="button"
       type="button"
     >
-      Button
+      <span
+        class="inf-button__content"
+      >
+        <span
+          class="inf-button__text"
+        >
+          Button
+        </span>
+      </span>
     </button>
   </div>,
   "debug": [Function],

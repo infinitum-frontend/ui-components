@@ -1,4 +1,5 @@
-import {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {
   KeyboardEventHandler,
   forwardRef,
   useEffect,
@@ -14,7 +15,6 @@ import {
   StandardizedListItemDefault
 } from './interface'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
-import { TestSelectors } from 'Test/selectors'
 import { useClickOutside } from 'Hooks/useClickOutside'
 import { mergeRefs } from 'react-merge-refs'
 import { Modifier, usePopper } from 'react-popper'
@@ -53,7 +53,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       disabled = false,
       placeholder,
       ...props
-    },
+    }: SelectProps,
     ref
   ): ReactElement => {
     if (placeholder) {
@@ -168,7 +168,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           onClick={handleClick}
           onKeyDown={handleKeyDown}
           disabled={disabled}
-          data-testid={TestSelectors.select.wrapper}
           className={cn(
             'inf-select',
             {
@@ -198,7 +197,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
               style={styles.popper}
               ref={setPopper}
               className={cn('inf-select__items')}
-              data-testid={TestSelectors.select.list}
             >
               {Boolean(options.length) &&
                 options.map((option, index) => (

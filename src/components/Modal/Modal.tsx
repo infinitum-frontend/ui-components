@@ -47,7 +47,7 @@ const Modal = ({
   // обработка closeOnClickOutside
   if (closeOnClickOutside) {
     ref = useRef<HTMLDivElement>(null)
-    useClickOutside(ref, () => {
+    useClickOutside(ref.current as HTMLElement, () => {
       onClose()
     })
   }

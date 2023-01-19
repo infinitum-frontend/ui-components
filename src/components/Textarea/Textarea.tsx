@@ -7,7 +7,7 @@ import {
 import cn from 'classnames'
 import './index.scss'
 
-export interface ITextareaProps
+export interface TextareaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onInput'> {
   /** Значение */
   value?: string
@@ -47,7 +47,7 @@ const Textarea = ({
   status,
   onInput,
   ...props
-}: ITextareaProps): ReactElement => {
+}: TextareaProps): ReactElement => {
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     onInput?.((e.target as HTMLTextAreaElement).value, e)
   }

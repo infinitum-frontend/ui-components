@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "scripts": {
     "build": "rm -rf dist && vite build && npm run ts-compile && npm run build-tokens",
-    "ts-compile": "rm -rf types && tsc && tscpaths -p tsconfig.json -s .",
+    "ts-compile": "rm -rf types && tsc && tscpaths -p tsconfig.json -s ./src",
     "build-storybook": "storybook build",
     "storybook": "storybook dev -p 6006",
     "build-tokens": "rm -rf dist/themes && ts-node themes/build/index.ts",
@@ -35,10 +35,10 @@
   },
   "main": "dist/src/index.js",
   "module": "dist/src/index.mjs",
-  "types": "types/src",
+  "types": "types",
   "files": [
     "dist",
-    "types/src"
+    "types"
   ],
   "dependencies": {
     "@popperjs/core": "^2.11.6",

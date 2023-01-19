@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import { TestSelectors } from 'Test/selectors'
 import cn from 'classnames'
 import { Loader } from '../Loader'
 import './Button.scss'
@@ -85,7 +84,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             'inf-button--square': icon
           }
         )}
-        data-testid={TestSelectors.button.root}
         type="button"
         {...props}
       >
