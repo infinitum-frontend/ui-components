@@ -30,11 +30,11 @@
   }
 
   &:focus-visible {
-    outline: none;
+    // outline: none;
   }
 
   &:focus {
-    border: 2px solid #7abfff;
+    // border: 2px solid #7abfff;
   }
 
   &--variant-primary {
@@ -63,7 +63,7 @@
     }
   }
 
-  &--variant-default {
+  &--variant-tertiary {
     color: #46626b;
     border: 1px solid #46626b;
 
@@ -74,6 +74,10 @@
     &:active {
       background-color: #738f99;
     }
+  }
+
+  &--variant-ghost {
+    // TODO:
   }
 
   &:disabled {

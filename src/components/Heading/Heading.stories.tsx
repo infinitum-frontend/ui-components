@@ -41,3 +41,18 @@ Levels.decorators = [
     </Space>
   )
 ]
+
+export const HasMargin: StoryFn<typeof Heading> = (args) => (
+  <>
+    <Heading {...args} />
+    <div>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ab harum
+      dolore. Aperiam quae tempore, temporibus impedit accusantium accusamus
+      culpa distinctio, nesciunt omnis ab, officiis praesentium nulla voluptatem
+      esse molestias.
+    </div>
+  </>
+)
+HasMargin.args = {
+  hasMargin: true
+}

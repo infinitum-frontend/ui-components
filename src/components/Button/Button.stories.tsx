@@ -69,7 +69,13 @@ export const Icon: StoryFn<typeof Button> = (args) => (
     <Button icon={<ArrowDownIcon />} {...args} />
   </>
 )
-Icon.decorators = [(Story) => <Space gap="small">{Story()}</Space>]
+Icon.decorators = [
+  (Story) => (
+    <Space gap="small" direction="horizontal">
+      {Story()}
+    </Space>
+  )
+]
 
 export const Sizes: StoryFn<typeof Button> = (args) => (
   <>
@@ -78,7 +84,13 @@ export const Sizes: StoryFn<typeof Button> = (args) => (
     <Button {...args} size="small" />
   </>
 )
-Sizes.decorators = [(Story) => <Space gap="small">{Story()}</Space>]
+Sizes.decorators = [
+  (Story) => (
+    <Space gap="small" direction="horizontal">
+      {Story()}
+    </Space>
+  )
+]
 
 export const LinkButton: StoryFn<typeof Button> = (args) => (
   <Button href="https://ya.ru" target="_blank" {...args} />

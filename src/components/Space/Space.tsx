@@ -11,7 +11,7 @@ export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
    * Содержимое
    */
-  children?: ReactNode
+  children: ReactNode
   /**
    * Дополнительный className
    */
@@ -41,7 +41,7 @@ const Space = React.forwardRef<HTMLDivElement, SpaceProps>(
       children = '',
       className = '',
       gap = 'small',
-      direction = 'horizontal',
+      direction = 'vertical',
       align,
       wrap = false,
       ...props
@@ -74,3 +74,5 @@ const Space = React.forwardRef<HTMLDivElement, SpaceProps>(
 Space.displayName = 'Space'
 
 export default Space
+
+// TODO: gapX, gapY

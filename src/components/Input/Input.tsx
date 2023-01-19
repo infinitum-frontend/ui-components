@@ -30,7 +30,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       size = 'medium',
       className = '',
       placeholder = '',
-      borderRadius = 'unset',
+      borderRadius = 'regular',
       disabled = false,
       status,
       onInput,

@@ -9,9 +9,10 @@ export interface HeadingProps extends ComponentPropsWithoutRef<any> {
   className?: string
   level?: '1' | '2' | '3' | '4' | '5'
   weight?: 'light' | 'normal' | 'bold' | 'extrabold'
-  alignment?: 'left' | 'center' | 'right'
-  isTruncated?: boolean
-  isUppercase?: boolean
+  align?: 'left' | 'center' | 'right'
+  truncated?: boolean
+  uppercase?: boolean
+  hasMargin?: boolean
 }
 
 const Heading = React.forwardRef<HTMLDivElement, HeadingProps>(
@@ -21,9 +22,10 @@ const Heading = React.forwardRef<HTMLDivElement, HeadingProps>(
       className = '',
       level = '3',
       weight = 'bold',
-      alignment = 'left',
-      isTruncated = false,
-      isUppercase = false,
+      align = 'left',
+      truncated = false,
+      uppercase = false,
+      hasMargin = false,
       ...props
     },
     ref
@@ -35,9 +37,10 @@ const Heading = React.forwardRef<HTMLDivElement, HeadingProps>(
         `inf-heading--level-${level}`,
         `inf-heading--weight-${weight}`,
         {
-          'inf-heading--uppercase': isUppercase,
-          'inf-heading--truncated': isTruncated,
-          [`inf-heading--align-${alignment}`]: alignment !== 'left'
+          'inf-heading--uppercase': uppercase,
+          'inf-heading--truncated': truncated,
+          'inf-heading--has-margin': hasMargin,
+          [`inf-heading--align-${align}`]: align !== 'left'
         }
       )
     }
@@ -63,5 +66,10 @@ const Heading = React.forwardRef<HTMLDivElement, HeadingProps>(
 )
 
 Heading.displayName = 'Heading'
+
+Heading.defaultProps = {
+  level: '3',
+  weight: 'bold'
+}
 
 export default Heading

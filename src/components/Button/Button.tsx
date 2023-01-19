@@ -21,7 +21,7 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
    * Вариант оформления
    */
-  variant?: 'primary' | 'secondary' | 'default' | 'text'
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
   /**
    * Размер
    */
@@ -52,7 +52,10 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   iconAfter?: ReactNode
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  ButtonProps
+>(
   (
     {
       children,

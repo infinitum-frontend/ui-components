@@ -138,6 +138,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           onKeyDown={handleKeyDown}
           disabled={disabled}
           data-testid={TestSelectors.select.wrapper}
+          type="button"
           className={cn(
             'inf-select',
             {
