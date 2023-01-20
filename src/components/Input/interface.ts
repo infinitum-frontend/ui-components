@@ -6,7 +6,6 @@ import {
   ReactNode
 } from 'react'
 
-// перезаписываем некоторые HTML аттрибуты, для своих реализаций
 export interface InputProps
   extends Omit<
     InputHTMLAttributes<HTMLInputElement>,

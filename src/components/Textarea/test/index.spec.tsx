@@ -1,7 +1,7 @@
 import { it, describe, expect, vi } from 'vitest'
 import { Textarea } from '../index'
 import { TextareaProps } from '../Textarea'
-import { renderComponent } from '../../../../testSetup'
+import { renderComponent } from '@/testSetup'
 import { fireEvent } from '@testing-library/react'
 
 describe('Textarea', () => {
