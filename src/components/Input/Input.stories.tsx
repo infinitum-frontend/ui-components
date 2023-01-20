@@ -78,11 +78,6 @@ NoBorder.args = {
   noBorder: true
 }
 
-export const CollapseBottom = Template.bind({})
-CollapseBottom.args = {
-  collapseBottom: true
-}
-
 export const WithPrefix = Template.bind({})
 WithPrefix.args = {
   prefix: <span style={{ color: 'darkred' }}>INF</span>

@@ -6,23 +6,14 @@ import {
   ReactNode
 } from 'react'
 
-export interface InputProps
-  extends Omit<
-    InputHTMLAttributes<HTMLInputElement>,
-    'prefix' | 'onInput' | 'size' | 'onBlur'
-  > {
+export interface BaseInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   value?: string
   /**
    * Размер
    * @default medium
    */
   size?: 'medium'
-  /**
-   * Функция, применяющаяся для форматирования значения
-   * @param value {string}
-   * @return {string}
-   */
-  formatter?: (value?: string) => string
   /** Кастомный css-класс */
   className?: string
   /** placeholder */
@@ -36,6 +27,17 @@ export interface InputProps
   disabled?: boolean
   /** Состояние (ошибка, предупреждение) */
   status?: 'error'
+  /** Отсутствие границ */
+  noBorder?: boolean
+}
+
+export interface InputProps
+  extends Omit<BaseInputProps, 'prefix' | 'onBlur' | 'onInput'> {
+  /**
+   * Количество миллисекунд для отложенного вызова onInput
+   * @type number
+   */
+  debounce?: number
   /** Элемент префикс */
   prefix?: ReactNode
   /** Кастомный класс префикса */
@@ -46,15 +48,12 @@ export interface InputProps
   postfixClass?: string
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
-  /** Отсутствие границ */
-  noBorder?: boolean
-  /** Убрать границу снизу */
-  collapseBottom?: boolean
   /**
-   * Количество миллисекунд для отложенного вызова onInput
-   * @type number
+   * Функция, применяющаяся для форматирования значения
+   * @param value {string}
+   * @return {string}
    */
-  debounce?: number
+  formatter?: (value?: string) => string
   onFocus?: FocusEventHandler<HTMLInputElement>
   onInput?: (value: string) => void
   onBlur?: (
