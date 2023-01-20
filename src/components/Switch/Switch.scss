@@ -1,0 +1,128 @@
+.inf-switch {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  input {
+    width: 0;
+    height: 0;
+    position: absolute;
+    opacity: 0;
+
+    &:focus {
+      + .inf-switch__switch {
+        outline: 2px solid #49c8ff;
+      }
+    }
+  }
+
+  &__switch {
+    position: relative;
+    display: inline-block;
+    width: 2rem;
+    height: 1rem;
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--gray-3-light);
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+
+    // position: relative;
+    // border-radius: 24px;
+    // width: 2rem;
+    // height: 1rem;
+    // margin-bottom: 0;
+    // flex-shrink: 0;
+    // display: inline-block;
+    // background-color: #c8cacc;
+    // border: 1px solid #c8cacc;
+    // transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   display: block;
+    //   bottom: 0.1875rem;
+    //   left: 0.1875rem;
+    //   width: 0.625rem;
+    //   height: 0.625rem;
+    //   border-radius: 50%;
+    //   background-color: #fff;
+    //   transition: transform 0.2s ease;
+    // }
+  }
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 0.5rem;
+
+    &--on {
+      background-color: var(--primary-2-normal);
+    }
+
+    &--off {
+      background-color: var(--gray-3-light);
+    }
+  }
+
+  &__handle {
+    position: absolute;
+    bottom: 0.1875rem;
+    left: 0.1875rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    transition: transform 0.2s;
+    transform: translateX(0);
+    border-radius: 50%;
+    outline: none;
+    background-color: var(--light-color);
+  }
+
+  &__label {
+    margin-left: 8px;
+    flex-grow: 1;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &:hover {
+    .inf-switch__switch {
+      background-color: #717375;
+    }
+
+    &.inf-switch--checked {
+      .inf-switch__switch {
+        background-color: #ff6666;
+      }
+    }
+  }
+
+  &--checked {
+    .inf-switch__switch {
+      background-color: var(--primary-2-normal);
+    }
+
+    .inf-switch__handle {
+      transform: translateX(1rem);
+    }
+  }
+
+  &--disabled {
+    cursor: default;
+    pointer-events: none;
+
+    .inf-switch__switch {
+      background-color: #e9ebed;
+    }
+  }
+}
