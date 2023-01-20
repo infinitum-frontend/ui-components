@@ -1,6 +1,8 @@
 input, textarea {
   font-family: var(--inf-font-family-base);
   border-radius: 0;
+  padding-inline-start: 0;
+  padding: 0;
   -webkit-appearance: none;
 
   /* Chrome, Safari, Edge, Opera */

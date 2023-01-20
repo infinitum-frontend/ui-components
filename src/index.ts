@@ -9,6 +9,7 @@ import { Heading } from './components/Heading'
 import { Space } from 'Components/Space'
 import { Tab } from 'Components/Tabs'
 import { Textarea } from 'Components/Textarea'
+import { NativeDatePicker } from 'Components/DatePicker'
 
 export {
   Button,
@@ -24,5 +25,6 @@ export {
   Heading,
   Space,
   Tab,
-  Textarea
+  Textarea,
+  NativeDatePicker
 }

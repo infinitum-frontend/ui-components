@@ -1,0 +1,26 @@
+@import "../Input/common.scss";
+.inf-datepicker {
+  border: 1px solid var(--inf-color-border-default);
+  transition: border-color 0.2s;
+  font-family: var(--inf-font-family-base);
+  font-weight: var(--inf-font-weight-normal);
+  border-radius: var(--inf-border-radius-medium);
+  padding: var(--inf-input-padding-vertical-medium)
+  var(--inf-input-padding-horizontal-medium);
+
+  &:hover {
+    border-color: var(--inf-color-border-hover);
+  }
+
+  &:focus {
+    border-color: var(--inf-color-border-hover);
+  }
+
+  &:disabled {
+    background-color: var(--inf-input-color-background-disabled);
+    pointer-events: none;
+    border-color: transparent;
+    color: var(--inf-color-text-quaternary);
+    -webkit-text-fill-color: var(--inf-color-text-quaternary);
+  }
+}
