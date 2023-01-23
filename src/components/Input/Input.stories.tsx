@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 // @ts-expect-error
 import { useArgs } from '@storybook/client-api'
+import { useState } from 'react'
 
 const meta: Meta<typeof Input> = {
   title: 'Input',
@@ -119,4 +120,15 @@ export const Debounced: StoryFn<typeof Input> = (args) => {
 
 Debounced.args = {
   debounce: 1000
+}
+
+export const Formatter: StoryFn<typeof Input> = (args) => {
+  const [value, setValue] = useState<string>('')
+  const formatter = (value?: string): string | undefined => value?.toUpperCase()
+
+  const handleInput = (value: string): void => {
+    setValue(value)
+  }
+
+  return <Input formatter={formatter} value={value} onInput={handleInput} />
 }

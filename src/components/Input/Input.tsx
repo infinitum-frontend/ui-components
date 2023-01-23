@@ -36,13 +36,13 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       onInput,
       onFocus,
       onBlur,
-      prefix,
-      prefixClass = '',
-      postfix,
-      postfixClass = '',
+      prefix, // не покрыто тестами
+      prefixClass = '', // не покрыто тестами
+      postfix, // не покрыто тестами
+      postfixClass = '', // не покрыто тестами
       allowClear = false,
       noBorder = false,
-      debounce = 0,
+      debounce = 0, // не покрыто тестами
       ...restProps
     }: InputProps,
     ref: Ref<InputRefHandler>
@@ -61,23 +61,24 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
     }))
 
     const debouncedInput = useCallback(
-      debounceFn((val) => {
+      debounceFn((val, e) => {
         if (onInput) {
-          onInput(val)
+          onInput(val, e)
         }
       }, debounce),
       [debounce]
     )
 
     // обработка событий
-    const handleInput: FormEventHandler = (e) => {
+    const handleInput: FormEventHandler<HTMLInputElement> = (e) => {
       if (onInput !== undefined) {
         const target = e.target as HTMLInputElement
         // обновляем локальное значение только когда есть дебаунс, чтобы не вызывать лишние ререндеры
         if (debounce) {
-          setLocalValue(target.value)
+          setLocalValue(getFormattedValue(target.value))
+          debouncedInput(getFormattedValue(target.value), e)
         }
-        debouncedInput(target.value)
+        onInput(getFormattedValue(target.value), e)
       }
     }
 
@@ -110,12 +111,12 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
     // хелперы
     const composedValue = debounce ? localValue : value
 
-    const getFormattedValue: () => string | undefined = () => {
+    const getFormattedValue: (val?: string) => string | undefined = (val) => {
       if (formatter !== undefined) {
-        return formatter(composedValue)
+        return formatter(val)
       }
 
-      return composedValue
+      return val
     }
 
     const getClassNames: () => string = () => {
@@ -162,7 +163,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
     if (isBaseInput) {
       return (
         <BaseInput
-          value={getFormattedValue()}
+          value={getFormattedValue(composedValue)}
           style={style}
           className={className}
           placeholder={isFocused ? '' : placeholder}
@@ -196,7 +197,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         )}
 
         <BaseInput
-          value={getFormattedValue()}
+          value={getFormattedValue(composedValue)}
           placeholder={isFocused ? '' : placeholder}
           disabled={disabled}
           onFocus={handleFocus}

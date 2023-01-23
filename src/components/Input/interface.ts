@@ -3,7 +3,8 @@ import {
   MouseEvent,
   FocusEventHandler,
   InputHTMLAttributes,
-  ReactNode
+  ReactNode,
+  FormEvent
 } from 'react'
 
 export interface BaseInputProps
@@ -53,9 +54,9 @@ export interface InputProps
    * @param value {string}
    * @return {string}
    */
-  formatter?: (value?: string) => string
+  formatter?: (value?: string) => string | undefined
   onFocus?: FocusEventHandler<HTMLInputElement>
-  onInput?: (value: string) => void
+  onInput?: (value?: string, e?: FormEvent<HTMLInputElement>) => void
   onBlur?: (
     e?: FocusEvent<HTMLInputElement> | MouseEvent<HTMLSpanElement>
   ) => void
