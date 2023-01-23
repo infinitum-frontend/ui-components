@@ -1,14 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, {
   InputHTMLAttributes,
-  useCallback,
   ChangeEvent,
   ReactNode,
-  useRef,
   forwardRef
 } from 'react'
 import cn from 'classnames'
-import { mergeRefs } from 'react-merge-refs'
 import './Switch.scss'
 
 // TODO:
@@ -57,16 +54,11 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
     },
     ref
   ) => {
-    const labelRef = useRef<HTMLLabelElement>(null)
-
-    const handleChange = useCallback(
-      (e: ChangeEvent<HTMLInputElement>) => {
-        if (onChange) {
-          onChange(e, { checked: e.target.checked, name })
-        }
-      },
-      [onChange, name]
-    )
+    function handleChange(e: ChangeEvent<HTMLInputElement>): void {
+      if (onChange) {
+        onChange(e, { checked: e.target.checked, name })
+      }
+    }
 
     return (
       <label
@@ -74,7 +66,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
           'inf-switch--checked': checked,
           'inf-switch--disabled': disabled
         })}
-        ref={mergeRefs([labelRef, ref])}
+        ref={ref}
       >
         <input
           type="checkbox"
