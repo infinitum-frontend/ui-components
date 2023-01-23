@@ -29,11 +29,6 @@
     pointer-events: none;
   }
 
-  &--collapse-bottom {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
   &__arrow {
     position: absolute;
     display: flex;

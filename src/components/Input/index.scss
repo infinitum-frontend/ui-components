@@ -1,5 +1,4 @@
-@import './common.scss';
-.inf-input {
+.inf-input-wrapper {
   box-sizing: border-box;
   outline: none;
   cursor: text;
@@ -34,6 +33,7 @@
     font-size: inherit;
     font-weight: inherit;
     background-color: inherit;
+    height: auto;
     cursor: inherit;
     width: 100%;
   }
@@ -49,12 +49,6 @@
 
   &--no-border {
     border: none;
-  }
-
-  &--collapse-bottom {
-    border-bottom: none;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
   }
 
   &--disabled {

@@ -15,7 +15,8 @@ import './index.scss'
 import { InputProps, InputRefHandler } from './interface'
 import { ReactComponent as ClearIcon } from 'Icons/clear-button.svg'
 // eslint-disable-next-line import/no-named-default
-import { default as debounceFn } from 'lodash.debounce'
+import debounceFn from 'lodash.debounce'
+import BaseInput from 'Components/Input/components/BaseInput'
 
 /**
  * Компонент поля ввода
@@ -41,7 +42,6 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       postfixClass = '',
       allowClear = false,
       noBorder = false,
-      collapseBottom = false,
       debounce = 0,
       ...restProps
     }: InputProps,
@@ -119,14 +119,18 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
     }
 
     const getClassNames: () => string = () => {
-      return classNames('inf-input', `inf-input--size-${size}`, className, {
-        'inf-input--disabled': disabled,
-        'inf-input--focused': isFocused,
-        'inf-input--no-border': noBorder,
-        'inf-input--collapse-bottom': collapseBottom,
-        [`inf-input--br-${borderRadius}`]: borderRadius !== 'unset',
-        [`inf-input--status-${status as string}`]: status
-      })
+      return classNames(
+        'inf-input-wrapper',
+        `inf-input-wrapper--size-${size}`,
+        className,
+        {
+          'inf-input-wrapper--disabled': disabled,
+          'inf-input-wrapper--focused': isFocused,
+          'inf-input-wrapper--no-border': noBorder,
+          [`inf-input-wrapper--br-${borderRadius}`]: borderRadius !== 'unset',
+          [`inf-input-wrapper--status-${status as string}`]: status
+        }
+      )
     }
 
     const getClearIcon: () => ReactNode = () => {
@@ -144,12 +148,35 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       return (
         <span
           onClick={handleClear}
-          className={classNames('inf-input__clear-button', {
-            'inf-input__clear-button--hidden': !value
+          className={classNames('inf-input-wrapper__clear-button', {
+            'inf-input-wrapper__clear-button--hidden': !value
           })}
         >
           {iconNode}
         </span>
+      )
+    }
+
+    const isBaseInput = !prefix && !allowClear && !postfix
+
+    if (isBaseInput) {
+      return (
+        <BaseInput
+          value={getFormattedValue()}
+          style={style}
+          className={className}
+          placeholder={isFocused ? '' : placeholder}
+          disabled={disabled}
+          size={size}
+          noBorder={noBorder}
+          borderRadius={borderRadius}
+          status={status}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onInput={handleInput}
+          {...restProps}
+          ref={inputRef}
+        />
       )
     }
 
@@ -161,12 +188,14 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         onClick={handleWrapperClick}
       >
         {prefix && (
-          <span className={classNames('inf-input__prefix', prefixClass)}>
+          <span
+            className={classNames('inf-input-wrapper__prefix', prefixClass)}
+          >
             {prefix}
           </span>
         )}
 
-        <input
+        <BaseInput
           value={getFormattedValue()}
           placeholder={isFocused ? '' : placeholder}
           disabled={disabled}
@@ -179,7 +208,9 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
 
         {allowClear && getClearIcon()}
         {postfix && (
-          <span className={classNames('inf-input__postfix', postfixClass)}>
+          <span
+            className={classNames('inf-input-wrapper__postfix', postfixClass)}
+          >
             {postfix}
           </span>
         )}
