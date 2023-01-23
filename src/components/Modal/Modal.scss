@@ -30,4 +30,25 @@
       width: 885px;
     }
   }
+
+  &--appear,
+  &--enter {
+    opacity: 0;
+  }
+
+  &--appear-active,
+  &--enter-active {
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+  }
+
+  &--exit {
+    opacity: 1;
+  }
+
+  &--exit-active,
+  &--exix-done {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+  }
 }
