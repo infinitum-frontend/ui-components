@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   ChangeEventHandler,
   forwardRef,
+  HTMLInputTypeAttribute,
   InputHTMLAttributes,
   ReactElement
 } from 'react'
@@ -14,7 +15,10 @@ export interface NativeDatePickerProps
    * Формат выбираемого времени
    * @default 'date'
    */
-  type?: 'date' | 'time' | 'datetime-local' | 'month' | 'week' | 'year'
+  type?: Extract<
+    HTMLInputTypeAttribute,
+    'date' | 'time' | 'datetime-local' | 'month' | 'week'
+  >
   /**
    * Состояние недоступности
    * @default false
