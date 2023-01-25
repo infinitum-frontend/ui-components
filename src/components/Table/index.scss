@@ -1,0 +1,36 @@
+.inf-table {
+  border-collapse: collapse;
+  font-family: var(--inf-font-family-base);
+
+  th {
+    text-align: left;
+    color: var(--inf-color-text-secondary);
+    font-weight: var(--inf-font-weight-normal);
+    font-size: var(--inf-text-size-small);
+    padding: 6px;
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background-color: var(--inf-control-background-color-hover);
+      }
+      &:first-child td {
+        padding-top: 12px;
+      }
+
+      td {
+        padding: 6px;
+      }
+
+      &.inf-table__group-label {
+        background-color: #F2F4F5;
+        text-transform: uppercase;
+
+        td {
+          padding: 0 6px;
+        }
+      }
+    }
+  }
+}

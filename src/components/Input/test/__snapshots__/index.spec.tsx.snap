@@ -2,7 +2,7 @@
 
 exports[`input > matches snapshop 1`] = `
 <input
-  data-testid="input"
+  class="inf-input inf-input--size-medium inf-input--br-regular"
   placeholder=""
   value=""
 />

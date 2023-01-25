@@ -27,7 +27,7 @@ export interface CheckboxProps
   name?: string
   /** HTML value */
   value?: string | number
-  onChange?: (checked: boolean, e: ChangeEvent) => void
+  onChange?: (e: ChangeEvent, checked: boolean) => void
 }
 
 // TODO: добавить расположение лейбла
@@ -50,7 +50,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     ref
   ): ReactElement => {
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-      onChange?.(e.target.checked, e)
+      onChange?.(e, e.target.checked)
     }
 
     return (
