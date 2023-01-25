@@ -14,11 +14,6 @@ const ComponentMeta: Meta<typeof Tooltip> = {
         excludeDecorators: true
       }
     }
-  },
-  argTypes: {
-    content: {
-      defaultValue: 'Lorem ipsum dolor sit amet.'
-    }
   }
 }
 
@@ -47,6 +42,9 @@ export const Playground: StoryFn<typeof Tooltip> = ({ ...args }) => {
   )
 }
 Playground.decorators = [decorator]
+Playground.args = {
+  content: 'Lorem ipsum dolor sit amet.'
+}
 
 export const Controlled: StoryFn<typeof Tooltip> = () => {
   const [open, setOpen] = useState(false)
@@ -72,15 +70,15 @@ export const DefaultOpen: StoryFn<typeof Tooltip> = () => {
 }
 DefaultOpen.decorators = [decorator]
 
-export const Inverted: StoryFn<typeof Tooltip> = (args) => {
+export const Inverted: StoryFn<typeof Tooltip> = () => {
   return (
-    <Tooltip {...args}>
+    <Tooltip
+      variant="inverted"
+      defaultOpen
+      content="Lorem ipsum dolor sit amet."
+    >
       <Button>Trigger</Button>
     </Tooltip>
   )
 }
 Inverted.decorators = [decorator]
-Inverted.args = {
-  variant: 'inverted',
-  defaultOpen: true
-}
