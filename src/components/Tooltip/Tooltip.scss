@@ -1,7 +1,37 @@
+:root {
+  --inf-tooltip-arrow-size: 8px;
+}
+
 .inf-tooltip {
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
+  border-radius: var(--inf-border-radius-medium);
+  padding: var(--inf-space-xxsmall) var(--inf-space-xsmall);
   z-index: 200;
+
+  &--variant-default {
+    background-color: var(--inf-color-background-base);
+    color: var(--inf-color-text);
+    border: 1px solid var(--inf-color-border-default);
+
+    .inf-tooltip__arrow {
+      border: 1px solid var(--inf-color-border-default);
+      background-color: var(--inf-color-background-base);
+    }
+  }
+
+  &--variant-inverted {
+    background-color: var(--inf-color-background-contrast);
+    color: var(--inf-color-text-contrast);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4), 0px 4px 7px rgba(0, 0, 0, 0.25);
+
+    .inf-tooltip__arrow {
+      background-color: var(--inf-color-background-contrast);
+    }
+  }
+
+  &__arrow {
+    height: var(--inf-tooltip-arrow-size);
+    width: var(--inf-tooltip-arrow-size);
+    transform: rotate(45deg);
+    position: absolute;
+  }
 }

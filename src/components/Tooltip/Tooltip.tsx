@@ -1,11 +1,18 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, ReactNode, cloneElement, useState } from 'react'
+import React, {
+  ReactElement,
+  ReactNode,
+  cloneElement,
+  useState,
+  useRef
+} from 'react'
 import {
   useFloating,
   autoUpdate,
   offset,
   flip,
   shift,
+  arrow,
   useHover,
   useFocus,
   useDismiss,
@@ -15,6 +22,7 @@ import {
   FloatingPortal
 } from '@floating-ui/react'
 import type { Placement } from '@floating-ui/react'
+import cn from 'classnames'
 import './Tooltip.scss'
 
 export interface TooltipProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -24,6 +32,7 @@ export interface TooltipProps extends React.ComponentPropsWithoutRef<'div'> {
   placement?: Placement
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  variant?: 'default' | 'inverted'
 }
 
 const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
@@ -35,6 +44,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       defaultOpen = false,
       open: controlledOpen,
       onOpenChange: setControlledOpen,
+      variant = 'default',
       ...props
     },
     propRef
@@ -44,18 +54,32 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     const open = controlledOpen ?? uncontrolledOpen
     const setOpen = setControlledOpen ?? setUncontrolledOpen
 
-    const { x, y, refs, strategy, context } = useFloating({
+    const arrowRef = useRef<HTMLDivElement>(null)
+
+    const {
+      x,
+      y,
+      refs,
+      strategy,
+      context,
+      placement: floatingPlacement,
+      middlewareData: { arrow: { x: arrowX, y: arrowY } = {} }
+    } = useFloating({
       placement,
       open,
       onOpenChange: setOpen,
       whileElementsMounted: autoUpdate,
       middleware: [
-        offset(12),
+        offset(8),
         flip({
           fallbackAxisSideDirection: 'start',
           crossAxis: placement.includes('-')
         }),
-        shift({ padding: 8 })
+        shift({ padding: 8 }),
+        arrow({
+          element: arrowRef,
+          padding: 6
+        })
       ]
     })
 
@@ -76,21 +100,29 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       role
     ])
 
+    const opposedSide = {
+      left: 'right',
+      right: 'left',
+      bottom: 'top',
+      top: 'bottom'
+    }[floatingPlacement.split('-')[0]]
+
+    const tooltipRef = useMergeRefs([refs.setFloating, propRef])
+
     const triggerProps = {
       ref: refs.setReference,
       ...getReferenceProps(),
       'data-tooltip-state': open ? 'open' : 'closed'
     }
 
-    const tooltipRef = useMergeRefs([refs.setFloating, propRef])
-
     return (
       <>
         {cloneElement(children as ReactElement<any>, triggerProps)}
+
         <FloatingPortal>
           {open && (
             <div
-              className="inf-tooltip"
+              className={cn('inf-tooltip', `inf-tooltip--variant-${variant}`)}
               ref={tooltipRef}
               style={{
                 position: strategy,
@@ -100,6 +132,15 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               }}
               {...getFloatingProps(props)}
             >
+              <div
+                className="inf-tooltip__arrow"
+                ref={arrowRef}
+                style={{
+                  left: arrowX != null ? `${arrowX}px` : '',
+                  top: arrowY != null ? `${arrowY}px` : '',
+                  [opposedSide as string]: '-4px'
+                }}
+              />
               {content}
             </div>
           )}

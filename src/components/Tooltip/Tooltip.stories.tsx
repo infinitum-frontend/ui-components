@@ -3,6 +3,7 @@ import React, { useState, ReactElement } from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import { Tooltip } from './index'
 import { Button } from '../Button'
+import { omitKeyFromObject } from '../../utils/helpers'
 
 const ComponentMeta: Meta<typeof Tooltip> = {
   title: 'Overlay/Tooltip',
@@ -12,6 +13,11 @@ const ComponentMeta: Meta<typeof Tooltip> = {
       source: {
         excludeDecorators: true
       }
+    }
+  },
+  argTypes: {
+    content: {
+      defaultValue: 'Lorem ipsum dolor sit amet.'
     }
   }
 }
@@ -32,8 +38,10 @@ const decorator = (Story): ReactElement => (
 export default ComponentMeta
 
 export const Playground: StoryFn<typeof Tooltip> = ({ ...args }) => {
+  const argsWithoutChangeHandler = omitKeyFromObject('onOpenChange', args)
+
   return (
-    <Tooltip content="Lorem ipsum dolor sit amet.">
+    <Tooltip {...argsWithoutChangeHandler}>
       <Button>Trigger</Button>
     </Tooltip>
   )
@@ -64,24 +72,15 @@ export const DefaultOpen: StoryFn<typeof Tooltip> = () => {
 }
 DefaultOpen.decorators = [decorator]
 
-export const Placement: StoryFn<typeof Tooltip> = () => {
+export const Inverted: StoryFn<typeof Tooltip> = (args) => {
   return (
-    <Tooltip defaultOpen content="Lorem ipsum dolor sit amet.">
+    <Tooltip {...args}>
       <Button>Trigger</Button>
     </Tooltip>
   )
 }
-DefaultOpen.decorators = [
-  (Story) => (
-    <div
-      style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-      }}
-    >
-      {Story()}
-    </div>
-  )
-]
+Inverted.decorators = [decorator]
+Inverted.args = {
+  variant: 'inverted',
+  defaultOpen: true
+}
