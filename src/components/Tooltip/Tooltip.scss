@@ -18,21 +18,25 @@
       &--direction-bottom {
         border-right: 1px solid var(--inf-color-border-default);
         border-bottom: 1px solid var(--inf-color-border-default);
+        margin-bottom: -1px;
       }
 
       &--direction-top {
         border-top: 1px solid var(--inf-color-border-default);
         border-left: 1px solid var(--inf-color-border-default);
+        margin-top: -1px;
       }
 
       &--direction-right {
         border-right: 1px solid var(--inf-color-border-default);
         border-top: 1px solid var(--inf-color-border-default);
+        margin-right: -1px;
       }
 
       &--direction-left {
         border-left: 1px solid var(--inf-color-border-default);
         border-bottom: 1px solid var(--inf-color-border-default);
+        margin-left: -1px;
       }
     }
   }

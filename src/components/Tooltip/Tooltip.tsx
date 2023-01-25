@@ -155,7 +155,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
                 style={{
                   left: arrowX != null ? `${arrowX}px` : '',
                   top: arrowY != null ? `${arrowY}px` : '',
-                  [opposedSide as string]: '-5px'
+                  [opposedSide as string]: '-4px'
                 }}
               />
               {content}
