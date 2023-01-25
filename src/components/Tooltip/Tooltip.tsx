@@ -84,6 +84,10 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     })
 
     const hover = useHover(context, {
+      delay: {
+        open: 200,
+        close: 0
+      },
       move: false,
       enabled: controlledOpen == null
     })
