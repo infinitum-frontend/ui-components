@@ -13,8 +13,27 @@
     border: 1px solid var(--inf-color-border-default);
 
     .inf-tooltip__arrow {
-      border: 1px solid var(--inf-color-border-default);
       background-color: var(--inf-color-background-base);
+
+      &--direction-bottom {
+        border-right: 1px solid var(--inf-color-border-default);
+        border-bottom: 1px solid var(--inf-color-border-default);
+      }
+
+      &--direction-top {
+        border-top: 1px solid var(--inf-color-border-default);
+        border-left: 1px solid var(--inf-color-border-default);
+      }
+
+      &--direction-right {
+        border-right: 1px solid var(--inf-color-border-default);
+        border-top: 1px solid var(--inf-color-border-default);
+      }
+
+      &--direction-left {
+        border-left: 1px solid var(--inf-color-border-default);
+        border-bottom: 1px solid var(--inf-color-border-default);
+      }
     }
   }
 

@@ -4,7 +4,8 @@ import React, {
   ReactNode,
   cloneElement,
   useState,
-  useRef
+  useRef,
+  isValidElement
 } from 'react'
 import {
   useFloating,
@@ -24,6 +25,9 @@ import {
 import type { Placement } from '@floating-ui/react'
 import cn from 'classnames'
 import './Tooltip.scss'
+
+// TODO: click
+// ref на тултип
 
 export interface TooltipProps extends React.ComponentPropsWithoutRef<'div'> {
   children: ReactNode
@@ -50,7 +54,6 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     propRef
   ) => {
     const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
-
     const open = controlledOpen ?? uncontrolledOpen
     const setOpen = setControlledOpen ?? setUncontrolledOpen
 
@@ -113,6 +116,12 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     const tooltipRef = useMergeRefs([refs.setFloating, propRef])
 
+    // const triggerProps = getReferenceProps({
+    //   ref: refs.setReference,
+    //   ...children?.props,
+    //   'data-tooltip-state': context.open ? 'open' : 'closed'
+    // })
+
     const triggerProps = {
       ref: refs.setReference,
       ...getReferenceProps(),
@@ -121,7 +130,8 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     return (
       <>
-        {cloneElement(children as ReactElement<any>, triggerProps)}
+        {isValidElement(children) &&
+          cloneElement(children as ReactElement<any>, triggerProps)}
 
         <FloatingPortal>
           {open && (
@@ -137,12 +147,15 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               {...getFloatingProps(props)}
             >
               <div
-                className="inf-tooltip__arrow"
+                className={cn(
+                  'inf-tooltip__arrow',
+                  `inf-tooltip__arrow--direction-${opposedSide as string}`
+                )}
                 ref={arrowRef}
                 style={{
                   left: arrowX != null ? `${arrowX}px` : '',
                   top: arrowY != null ? `${arrowY}px` : '',
-                  [opposedSide as string]: '-4px'
+                  [opposedSide as string]: '-5px'
                 }}
               />
               {content}

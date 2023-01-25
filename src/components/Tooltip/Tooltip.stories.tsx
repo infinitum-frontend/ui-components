@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useState, ReactElement } from 'react'
+import React, { useState, ReactElement, useRef } from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import { Tooltip } from './index'
 import { Button } from '../Button'
@@ -54,6 +54,7 @@ export const Controlled: StoryFn<typeof Tooltip> = () => {
       open={open}
       onOpenChange={setOpen}
       content="Lorem ipsum dolor sit amet."
+      placement="left"
     >
       <Button onClick={() => setOpen((v) => !v)}>Trigger</Button>
     </Tooltip>
@@ -82,3 +83,19 @@ export const Inverted: StoryFn<typeof Tooltip> = () => {
   )
 }
 Inverted.decorators = [decorator]
+
+export const PointerEvent: StoryFn<typeof Tooltip> = () => {
+  function onPointerEnter(): void {
+    console.log('Событие pointerEnter сработало', buttonRef)
+  }
+
+  const buttonRef = useRef(null)
+
+  return (
+    <Tooltip content="Lorem ipsum dolor sit amet.">
+      <Button ref={buttonRef} onPointerEnter={onPointerEnter}>
+        Кликни
+      </Button>
+    </Tooltip>
+  )
+}
