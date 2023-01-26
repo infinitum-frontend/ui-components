@@ -5,18 +5,19 @@ import {
   forwardRef,
   ReactElement
 } from 'react'
-import './index.scss'
+import '../style/index.scss'
 import { ReactComponent as CheckIcon } from 'Icons/check.svg'
 import { ReactComponent as IndeterminateIcon } from 'Icons/minus.svg'
 import cn from 'classnames'
+import { useCheckboxGroup } from 'Components/Checkbox/context'
 
 const defaultCheckedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'8px'} height={'16px'} />
 
 export interface CheckboxProps
   extends Omit<ComponentPropsWithoutRef<'label'>, 'onChange'> {
-  /** Вариант чекбокса */
-  variant?: 'primary' | 'indeterminate'
+  /** Неопределенный вариант чекбокса */
+  indeterminate?: boolean
   /** Состояние выбора */
   checked?: boolean
   /** Состояние недоступности */
@@ -26,8 +27,8 @@ export interface CheckboxProps
   /** HTML name */
   name?: string
   /** HTML value */
-  value?: string | number
-  onChange?: (e: ChangeEvent, checked: boolean) => void
+  value?: string
+  onChange?: (checked: boolean, e: ChangeEvent) => void
 }
 
 // TODO: добавить расположение лейбла
@@ -42,15 +43,21 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       onChange,
       children,
       name,
-      value,
-      variant = 'primary',
+      value = '',
+      indeterminate = false,
       className,
       ...props
     },
     ref
   ): ReactElement => {
+    const groupData = useCheckboxGroup()
+
+    if (groupData) {
+      checked = Boolean(groupData.value.find((el) => el === value))
+    }
+
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-      onChange?.(e, e.target.checked)
+      groupData?.onChange?.(value, e) ?? onChange?.(e.target.checked, e)
     }
 
     return (
@@ -66,10 +73,11 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         />
         <span
           className={cn('inf-checkbox__box', {
-            'inf-checkbox__box--disabled': disabled
+            'inf-checkbox__box--disabled': disabled,
+            'inf-checkbox__box--indeterminate': indeterminate
           })}
         >
-          {variant === 'indeterminate' ? indeterminateIcon : defaultCheckedIcon}
+          {indeterminate ? indeterminateIcon : defaultCheckedIcon}
         </span>
         {children !== undefined && (
           <span

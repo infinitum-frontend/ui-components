@@ -1,7 +1,8 @@
 import { StoryFn, Meta } from '@storybook/react'
-import { Checkbox } from './index'
-import { Box } from '../Box'
+import { Checkbox, CheckboxGroup } from './index'
 import { action } from '@storybook/addon-actions'
+import { Space } from '../Space'
+import { useState } from 'react'
 
 const meta: Meta<typeof Checkbox> = {
   title: 'Checkbox',
@@ -9,6 +10,21 @@ const meta: Meta<typeof Checkbox> = {
 }
 
 export default meta
+
+const options = [
+  {
+    value: '0',
+    label: 'РФ'
+  },
+  {
+    value: '1',
+    label: 'Иностранная'
+  },
+  {
+    value: '2',
+    label: 'Международная'
+  }
+]
 
 const Template: StoryFn<typeof Checkbox> = (args) => {
   return (
@@ -20,46 +36,59 @@ const Template: StoryFn<typeof Checkbox> = (args) => {
 
 export const Playground = Template.bind({})
 
-export const AllVariants: StoryFn<typeof Checkbox> = (args) => {
+export const Indeterminate: StoryFn<typeof Checkbox> = (args) => {
+  const [indeterminate, setIndeterminate] = useState(true)
+  const [allChecked, setAllChecked] = useState(false)
+  const [checkedList, setCheckedList] = useState(['0'])
+
+  const handleChange = (val: string[]): void => {
+    setCheckedList(val)
+    setIndeterminate(val.length > 0 && val.length < options.length)
+    setAllChecked(val.length === options.length)
+  }
+
+  const handleCheckAll = (val: boolean): void => {
+    setAllChecked(val)
+    setCheckedList(val ? options.map((option) => option.value) : [])
+    setIndeterminate(false)
+  }
+
   return (
-    <Box
-      background={'primary'}
-      style={{
-        width: '300px',
-        height: '100px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-evenly'
-      }}
-    >
-      <Checkbox variant={'primary'} defaultChecked={true}>
-        <code>primary</code>
+    <>
+      <Checkbox
+        indeterminate={indeterminate}
+        onChange={handleCheckAll}
+        checked={allChecked}
+      >
+        Категории по юрисдикции
       </Checkbox>
-      <Checkbox variant={'indeterminate'} defaultChecked={true}>
-        <code>indeterminate</code>
-      </Checkbox>
-    </Box>
+      <CheckboxGroup
+        onChange={handleChange}
+        value={checkedList}
+        style={{ marginLeft: '20px', marginTop: '6px' }}
+      >
+        {options.map((option) => (
+          <Checkbox value={option.value} key={option.value}>
+            {option.label}
+          </Checkbox>
+        ))}
+      </CheckboxGroup>
+    </>
   )
 }
 
 export const Disabled: StoryFn<typeof Checkbox> = (args) => {
   return (
-    <Box
-      style={{
-        width: '300px',
-        height: '100px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        backgroundColor: 'transparent'
-      }}
-    >
+    <Space direction={'horizontal'}>
       <Checkbox disabled={true} defaultChecked={true}>
         <code>checked</code>
+      </Checkbox>
+      <Checkbox disabled={true} indeterminate={true}>
+        <code>indeterminate</code>
       </Checkbox>
       <Checkbox disabled={true}>
         <code>uncheked</code>
       </Checkbox>
-    </Box>
+    </Space>
   )
 }

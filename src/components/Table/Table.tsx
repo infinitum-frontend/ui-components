@@ -46,7 +46,9 @@ const Table = ({
           return (
             <Checkbox
               checked={Boolean(table.getIsAllRowsSelected())}
-              onChange={table.getToggleAllRowsSelectedHandler()}
+              onChange={(value, e) =>
+                table.getToggleAllRowsSelectedHandler().call({}, e)
+              }
             />
           )
         },
@@ -55,7 +57,7 @@ const Table = ({
             <div className="px-1">
               <Checkbox
                 checked={row.getIsSelected()}
-                variant={row.getIsSomeSelected() ? 'indeterminate' : 'primary'}
+                indeterminate={row.getIsSomeSelected()}
                 onChange={row.getToggleSelectedHandler()}
               />
             </div>

@@ -70,6 +70,15 @@
         visibility: hidden;
       }
     }
+
+    &--indeterminate:not(.inf-checkbox__box--disabled) {
+      border-color: transparent;
+      background-color: var(--inf-checkbox-checked-color-background);
+
+      svg {
+        visibility: visible;
+      }
+    }
   }
 
   input[type='checkbox'] {
@@ -89,6 +98,14 @@
     }
 
     &:checked:disabled ~ .inf-checkbox__box {
+      background-color: var(--inf-checkbox-checked-color-background-disabled);
+
+      svg {
+        visibility: visible;
+      }
+    }
+
+    &:disabled ~ .inf-checkbox__box--indeterminate {
       background-color: var(--inf-checkbox-checked-color-background-disabled);
 
       svg {
