@@ -3,6 +3,10 @@
   align-items: center;
   width: max-content;
 
+  &--disabled {
+    pointer-events: none;
+  }
+
   &:hover {
     & input[type=checkbox] ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
       border-color: var(--inf-checkbox-color-border-hover)

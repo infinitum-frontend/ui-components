@@ -2,7 +2,9 @@ import {
   ChangeEvent,
   ChangeEventHandler,
   ComponentPropsWithoutRef,
+  DetailedHTMLProps,
   forwardRef,
+  InputHTMLAttributes,
   ReactElement
 } from 'react'
 import '../style/index.scss'
@@ -13,6 +15,12 @@ import { useCheckboxGroup } from 'Components/Checkbox/context'
 
 const defaultCheckedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'8px'} height={'16px'} />
+
+interface InputProps
+  extends DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {}
 
 export interface CheckboxProps
   extends Omit<ComponentPropsWithoutRef<'label'>, 'onChange'> {
@@ -29,6 +37,17 @@ export interface CheckboxProps
   /** HTML value */
   value?: string
   onChange?: (checked: boolean, e: ChangeEvent) => void
+  inputProps?: Omit<
+    InputProps,
+    | 'type'
+    | 'name'
+    | 'value'
+    | 'disabled'
+    | 'defaultChecked'
+    | 'aria-checked'
+    | 'checked'
+    | 'onChange'
+  >
 }
 
 // TODO: добавить расположение лейбла
@@ -46,6 +65,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       value = '',
       indeterminate = false,
       className,
+      inputProps,
       ...props
     },
     ref
@@ -60,12 +80,30 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       groupData?.onChange?.(value, e) ?? onChange?.(e.target.checked, e)
     }
 
+    const getAriaCheckedAttr: () => InputProps['aria-checked'] = () => {
+      if (indeterminate) {
+        return 'mixed'
+      } else if (checked) {
+        return 'true'
+      } else {
+        return 'false'
+      }
+    }
+
     return (
-      <label className={cn('inf-checkbox', className)} ref={ref} {...props}>
+      <label
+        className={cn('inf-checkbox', className, {
+          'inf-checkbox--disabled': disabled
+        })}
+        ref={ref}
+        {...props}
+      >
         <input
+          {...inputProps}
           type={'checkbox'}
           name={name}
           value={value}
+          aria-checked={getAriaCheckedAttr()}
           disabled={disabled}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
@@ -80,13 +118,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           {indeterminate ? indeterminateIcon : defaultCheckedIcon}
         </span>
         {children !== undefined && (
-          <span
-            className={cn('inf-checkbox__label', {
-              'inf-checkbox__label--disabled': disabled
-            })}
-          >
-            {children}
-          </span>
+          <span className={'inf-checkbox__label'}>{children}</span>
         )}
       </label>
     )

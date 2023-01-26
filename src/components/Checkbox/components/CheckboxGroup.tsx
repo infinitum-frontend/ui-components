@@ -38,8 +38,8 @@ const CheckboxGroup = ({
     <CheckboxGroupContext.Provider value={context}>
       <div
         className={classNames(
-          'inf-checkbox-group__items',
-          `inf-checkbox-group__items--direction-${direction}`,
+          'inf-checkbox-group',
+          `inf-checkbox-group--direction-${direction}`,
           className
         )}
         {...props}

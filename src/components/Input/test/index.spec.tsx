@@ -1,19 +1,18 @@
 import { describe, it, expect, vi } from 'vitest'
 import { Input } from '../index'
-import { InputProps } from '../interface'
 import { renderComponent } from '@/testSetup'
 import { fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('input', () => {
   it('should render', () => {
-    const { el } = renderComponent(Input)
+    const { el } = renderComponent(<Input />)
     expect(el).toBeDefined()
     expect(el.className).toContain('inf-input')
   })
 
   it('should render as plain input by default', () => {
-    const { el } = renderComponent(Input)
+    const { el } = renderComponent(<Input />)
     expect(el).toBeEmptyDOMElement()
     expect(el).toContainHTML(
       `<input class="inf-input inf-input--size-medium inf-input--br-regular" placeholder="" value="" />`
@@ -21,32 +20,29 @@ describe('input', () => {
   })
 
   it('should render as complex input by default', () => {
-    const { el } = renderComponent<InputProps>(Input, { prefix: 'prefix ' })
+    const { el } = renderComponent(<Input prefix={'prefix'} />)
     const inputEl = el.querySelector('input') as HTMLInputElement
     expect(el).not.toBeEmptyDOMElement()
     expect(el).toContainHTML(inputEl.outerHTML)
   })
 
   it('matches snapshop', () => {
-    const { el } = renderComponent(Input)
+    const { el } = renderComponent(<Input />)
     expect(el).toMatchSnapshot()
   })
 })
 
 describe('className', () => {
   it('should apply custom classname on plain input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      className: 'custom-class'
-    })
+    const { el } = renderComponent(<Input className={'custom-class'} />)
     expect(el.className).toContain('custom-class')
     expect(el.className).toContain('inf-input')
   })
 
   it('should apply custom classname on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      className: 'custom-class',
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(
+      <Input className={'custom-class'} prefix={'prefix'} />
+    )
     expect(el.className).toContain('custom-class')
     expect(el.className).toContain('inf-input')
   })
@@ -54,44 +50,38 @@ describe('className', () => {
 
 describe('style', () => {
   it('should apply style on plain input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      style: { width: '100%' }
-    })
+    const { el } = renderComponent(<Input style={{ width: '100%' }} />)
     expect(el).toHaveStyle('width: 100%')
   })
 
   it('should apply style on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      style: { width: '100%' },
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(
+      <Input style={{ width: '100%' }} prefix={'prefix'} />
+    )
     expect(el).toHaveStyle('width: 100%')
   })
 })
 
 describe('size', () => {
   it('should support size on plain input', () => {
-    const { el } = renderComponent(Input)
+    const { el } = renderComponent(<Input />)
     expect(el.className).toContain('inf-input--size-medium')
   })
 
   it('should support size on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, { prefix: 'prefix' })
+    const { el } = renderComponent(<Input prefix={'prefix'} />)
     expect(el)
   })
 })
 
 describe('value', () => {
   it('should apply value on plain input', () => {
-    const { el } = renderComponent<InputProps>(Input, { value: 'Акции' })
+    const { el } = renderComponent(<Input value={'Акции'} />)
     expect(el).toHaveValue('Акции')
   })
 
   it('should apply value on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      value: 'Акции',
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(<Input value={'Акции'} prefix={'prefix'} />)
     const inputEl = el.querySelector('input')
     expect(inputEl).toHaveValue('Акции')
   })
@@ -106,7 +96,7 @@ describe('events', () => {
       eventType = e.type
     })
 
-    const { el } = renderComponent<InputProps>(Input, { onInput })
+    const { el } = renderComponent(<Input onInput={onInput} />)
     fireEvent.input(el, { target: { value: 'hello' } })
 
     expect(onInput).toHaveBeenCalledOnce()
@@ -119,7 +109,7 @@ describe('events', () => {
     const onBlur = vi.fn((e) => {
       event = e
     })
-    const { el } = renderComponent<InputProps>(Input, { onBlur })
+    const { el } = renderComponent(<Input onBlur={onBlur} />)
     fireEvent.blur(el)
 
     expect(onBlur).toHaveBeenCalledOnce()
@@ -131,7 +121,7 @@ describe('events', () => {
     const onFocus = vi.fn((e) => {
       event = e
     })
-    const { el } = renderComponent<InputProps>(Input, { onFocus })
+    const { el } = renderComponent(<Input onFocus={onFocus} />)
     fireEvent.focus(el)
 
     expect(onFocus).toHaveBeenCalledOnce()
@@ -142,10 +132,9 @@ describe('events', () => {
 describe('formatter', () => {
   const defaultValue = 'облигации'
   it('should transform value', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      formatter: (value) => value?.toUpperCase(),
-      value: defaultValue
-    })
+    const { el } = renderComponent(
+      <Input formatter={(value) => value?.toUpperCase()} value={defaultValue} />
+    )
     expect(el).toHaveValue(defaultValue.toUpperCase())
   })
 
@@ -154,10 +143,9 @@ describe('formatter', () => {
     const onInput = vi.fn((value) => {
       eventValue = value
     })
-    const { el } = renderComponent<InputProps>(Input, {
-      formatter: (value) => value?.toUpperCase(),
-      onInput
-    })
+    const { el } = renderComponent(
+      <Input formatter={(value) => value?.toUpperCase()} onInput={onInput} />
+    )
 
     fireEvent.input(el, {
       target: { value: defaultValue }
@@ -172,36 +160,30 @@ describe('placeholder', () => {
   const defaultPlaceholder = 'Введите значение'
 
   it('should be applied on plain input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      placeholder: defaultPlaceholder
-    })
+    const { el } = renderComponent(<Input placeholder={defaultPlaceholder} />)
     expect((el as HTMLInputElement).placeholder).toBe(defaultPlaceholder)
   })
 
   it('should be applied on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      placeholder: defaultPlaceholder,
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(
+      <Input placeholder={defaultPlaceholder} prefix={'prefix'} />
+    )
 
     const inputEl = el.querySelector('input') as HTMLInputElement
     expect(inputEl.placeholder).toBe(defaultPlaceholder)
   })
 
   it('should be empty on plain focused input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      placeholder: defaultPlaceholder
-    })
+    const { el } = renderComponent(<Input placeholder={defaultPlaceholder} />)
 
     fireEvent.focus(el)
     expect((el as HTMLInputElement).placeholder).toBe('')
   })
 
   it('should be empty on complex focused input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      placeholder: defaultPlaceholder,
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(
+      <Input placeholder={defaultPlaceholder} prefix={'prefix'} />
+    )
     const inputEl = el.querySelector('input') as HTMLInputElement
     fireEvent.click(el)
     expect(inputEl.placeholder).toBe('')
@@ -210,28 +192,25 @@ describe('placeholder', () => {
 
 describe('border', () => {
   it('should be regular on plain input', () => {
-    const { el } = renderComponent(Input)
+    const { el } = renderComponent(<Input />)
     expect(el.className).toContain('inf-input--br-regular')
     expect(el).toHaveStyle('border-radius: var(--inf-border-radius-medium);')
   })
 
   it('should be regular on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, { prefix: 'prefix' })
+    const { el } = renderComponent(<Input prefix={'prefix'} />)
     expect(el.className).toContain('inf-input-wrapper--br-regular')
     expect(el).toHaveStyle('border-radius: var(--inf-border-radius-medium);')
   })
 
   it('should support noBorder on plain input', () => {
-    const { el } = renderComponent<InputProps>(Input, { noBorder: true })
+    const { el } = renderComponent(<Input noBorder={true} />)
     expect(el.className).toContain('inf-input--no-border')
     expect(el).toHaveStyle('border: none')
   })
 
   it('should support noBorder on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      noBorder: true,
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(<Input noBorder={true} prefix={'prefix'} />)
     expect(el.className).toContain('inf-input-wrapper--no-border')
     expect(el).toHaveStyle('border: none')
   })
@@ -239,15 +218,12 @@ describe('border', () => {
 
 describe('disabled', () => {
   it('should apply on plain input', () => {
-    const { el } = renderComponent<InputProps>(Input, { disabled: true })
+    const { el } = renderComponent(<Input disabled={true} />)
     expect(el).toHaveProperty('disabled')
   })
 
   it('should apply on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      disabled: true,
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(<Input disabled={true} prefix={'prefix'} />)
     const inputEl = el.querySelector('input')
     expect(el.className).toContain('inf-input-wrapper--disabled')
     expect(inputEl).toHaveProperty('disabled')
@@ -256,16 +232,13 @@ describe('disabled', () => {
 
 describe('status', () => {
   it('should apply on plain input', () => {
-    const { el } = renderComponent<InputProps>(Input, { status: 'error' })
+    const { el } = renderComponent(<Input status={'error'} />)
     expect(el.className).toContain('inf-input--status-error')
     expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
   })
 
   it('should apply on complex input', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      status: 'error',
-      prefix: 'prefix'
-    })
+    const { el } = renderComponent(<Input status={'error'} prefix={'prefix'} />)
     expect(el.className).toContain('inf-input-wrapper--status-error')
     expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
   })
@@ -275,7 +248,7 @@ describe('clear button', () => {
   const user = userEvent.setup()
 
   it('should be hidden on empty input', () => {
-    const { el } = renderComponent<InputProps>(Input, { allowClear: true })
+    const { el } = renderComponent(<Input allowClear={true} />)
     const clearButton = el.querySelector(
       '.inf-input-wrapper__clear-button'
     ) as HTMLSpanElement
@@ -284,10 +257,9 @@ describe('clear button', () => {
   })
 
   it('should be visible on input with value', () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      allowClear: true,
-      value: 'Облигации'
-    })
+    const { el } = renderComponent(
+      <Input allowClear={true} value={'Облигации'} />
+    )
     const clearButton = el.querySelector(
       '.inf-input-wrapper__clear-button'
     ) as HTMLSpanElement
@@ -301,11 +273,9 @@ describe('clear button', () => {
     const onInput = vi.fn((value) => {
       eventValue = value
     })
-    const { el, rerender } = renderComponent<InputProps>(Input, {
-      allowClear: true,
-      value: 'Облигации',
-      onInput
-    })
+    const { el, rerender } = renderComponent(
+      <Input allowClear={true} value={'Облигации'} onInput={onInput} />
+    )
     const clearButton = el.querySelector(
       '.inf-input-wrapper__clear-button'
     ) as HTMLSpanElement
@@ -318,10 +288,9 @@ describe('clear button', () => {
   })
 
   it('should focus input after click', async () => {
-    const { el } = renderComponent<InputProps>(Input, {
-      allowClear: true,
-      value: 'Облигации'
-    })
+    const { el } = renderComponent(
+      <Input allowClear={true} value={'Облигации'} />
+    )
     const clearButton = el.querySelector(
       '.inf-input-wrapper__clear-button'
     ) as HTMLSpanElement
@@ -334,12 +303,14 @@ describe('clear button', () => {
 
   it('should not work on disabled', async () => {
     const onInput = vi.fn()
-    const { el } = renderComponent<InputProps>(Input, {
-      allowClear: true,
-      value: 'Облигации',
-      disabled: true,
-      onInput
-    })
+    const { el } = renderComponent(
+      <Input
+        allowClear={true}
+        value={'Облигации'}
+        onInput={onInput}
+        disabled={true}
+      />
+    )
 
     const clearButton = el.querySelector(
       '.inf-input-wrapper__clear-button'
