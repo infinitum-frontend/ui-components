@@ -1,0 +1,10 @@
+.inf-collapse-root {
+  &--hidden {
+    height: 0;
+    overflow: hidden;
+  }
+  &--expanded {
+    height: auto;
+    overflow: visible;
+  }
+}

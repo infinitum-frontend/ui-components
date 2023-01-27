@@ -1,0 +1,70 @@
+// Vitest Snapshot v1
+
+exports[`group > should match snapshot 1`] = `
+<div
+  class="inf-checkbox-group inf-checkbox-group--direction-vertical"
+>
+  <label
+    class="inf-checkbox"
+  >
+    <input
+      type="checkbox"
+      value=""
+    />
+    <span
+      class="inf-checkbox__box"
+    >
+      <svg
+        fill="none"
+        height="16px"
+        viewBox="0 0 16 16"
+        width="16px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M4 7.70588L7.11111 11L11.5 4"
+          stroke="currentColor"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+      </svg>
+    </span>
+    <span
+      class="inf-checkbox__label"
+    >
+      Label 1
+    </span>
+  </label>
+  <label
+    class="inf-checkbox"
+  >
+    <input
+      type="checkbox"
+      value=""
+    />
+    <span
+      class="inf-checkbox__box"
+    >
+      <svg
+        fill="none"
+        height="16px"
+        viewBox="0 0 16 16"
+        width="16px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M4 7.70588L7.11111 11L11.5 4"
+          stroke="currentColor"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+      </svg>
+    </span>
+    <span
+      class="inf-checkbox__label"
+    >
+      Label 2
+    </span>
+  </label>
+</div>
+`;
