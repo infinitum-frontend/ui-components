@@ -7,7 +7,7 @@ import { useState } from 'react'
 import ModalTitle from './components/ModalTitle'
 
 const meta: Meta<typeof Modal> = {
-  title: 'Modal',
+  title: 'Overlay/Modal',
   component: Modal,
   parameters: {
     docs: {

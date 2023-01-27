@@ -138,8 +138,8 @@
     white-space: nowrap;
   }
 
-  .inf-button__icon-after:not(:first-child),
-  .inf-button__icon-before:not(:last-child) + .inf-button__text {
+  .inf-button__after:not(:first-child),
+  .inf-button__before:not(:last-child) + .inf-button__text {
     margin-left: var(--inf-space-xsmall);
   }
 }

@@ -42,13 +42,13 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
    */
   icon?: ReactNode
   /**
-   * Иконка слева от текста
+   * Контент слева от текста
    */
-  iconBefore?: ReactNode
+  before?: ReactNode
   /**
-   * Иконка справа от текста
+   * Контент справа от текста
    */
-  iconAfter?: ReactNode
+  after?: ReactNode
 }
 
 const Button = React.forwardRef<
@@ -64,8 +64,8 @@ const Button = React.forwardRef<
       size = 'medium',
       loading = false,
       block = false,
-      iconBefore,
-      iconAfter,
+      before,
+      after,
       icon,
       ...props
     },
@@ -95,13 +95,9 @@ const Button = React.forwardRef<
             <span className="inf-button__icon">{icon}</span>
           ) : (
             <>
-              {iconBefore && (
-                <span className="inf-button__left-icon">{iconBefore}</span>
-              )}
+              {before && <span className="inf-button__before">{before}</span>}
               <span className="inf-button__text">{children}</span>
-              {iconAfter && (
-                <span className="inf-button__right-icon">{iconAfter}</span>
-              )}
+              {after && <span className="inf-button__after">{after}</span>}
             </>
           )}
         </span>

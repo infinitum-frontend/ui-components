@@ -36,9 +36,14 @@ Secondary.args = {
   variant: 'secondary'
 }
 
-export const Default = Template.bind({})
-Default.args = {
-  variant: 'default'
+export const Tertiary = Template.bind({})
+Tertiary.args = {
+  variant: 'tertiary'
+}
+
+export const Ghost = Template.bind({})
+Ghost.args = {
+  variant: 'ghost'
 }
 
 export const Loading = Template.bind({})
@@ -53,18 +58,14 @@ Disabled.args = {
 
 export const Icon: StoryFn<typeof Button> = (args) => (
   <>
-    <Button iconBefore={<ArrowDownIcon />} {...args}>
-      Icon Left
+    <Button before={<ArrowDownIcon />} {...args}>
+      Icon Before
     </Button>
-    <Button iconAfter={<ArrowDownIcon />} {...args}>
-      Icon Right
+    <Button after={<ArrowDownIcon />} {...args}>
+      Icon After
     </Button>
-    <Button
-      iconBefore={<ArrowDownIcon />}
-      iconAfter={<ArrowDownIcon />}
-      {...args}
-    >
-      Icon Right
+    <Button before={<ArrowDownIcon />} after={<ArrowDownIcon />} {...args}>
+      Icon Before and After
     </Button>
     <Button icon={<ArrowDownIcon />} {...args} />
   </>

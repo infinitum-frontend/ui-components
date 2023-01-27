@@ -1,15 +1,20 @@
-.inf-tooltip {
+.inf-popover-content {
+  --inf-popover-content-arrow-size: 8px;
+
   border-radius: var(--inf-border-radius-medium);
-  padding: var(--inf-space-xxsmall) var(--inf-space-xsmall);
-  z-index: 200;
-  --inf-tooltip-arrow-size: 8px;
+  z-index: 200; // TODO: не место здесь
+  padding: var(--inf-space-medium) var(--inf-space-small);
+
+  &--no-padding {
+    padding: 0;
+  }
 
   &--variant-default {
     background-color: var(--inf-color-background-base);
     color: var(--inf-color-text);
     border: 1px solid var(--inf-color-border-default);
 
-    .inf-tooltip__arrow {
+    .inf-popover-content__arrow {
       background-color: var(--inf-color-background-base);
 
       &--direction-bottom {
@@ -38,19 +43,19 @@
     }
   }
 
-  &--variant-inverted {
+  &--variant-inverse {
     background-color: var(--inf-color-background-contrast);
     color: var(--inf-color-text-contrast);
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4), 0px 4px 7px rgba(0, 0, 0, 0.25);
 
-    .inf-tooltip__arrow {
+    .inf-popover-content__arrow {
       background-color: var(--inf-color-background-contrast);
     }
   }
 
   &__arrow {
-    height: var(--inf-tooltip-arrow-size);
-    width: var(--inf-tooltip-arrow-size);
+    height: var(--inf-popover-content-arrow-size);
+    width: var(--inf-popover-content-arrow-size);
     transform: rotate(45deg);
     position: absolute;
   }
