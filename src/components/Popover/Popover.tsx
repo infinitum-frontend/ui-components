@@ -22,13 +22,12 @@ export interface PopoverProps {
   onOpenChange?: (open: boolean) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function usePopover({
   defaultOpen = false,
   placement,
   open: controlledOpen,
   onOpenChange: setControlledOpen
-}: PopoverProps = {}) {
+}: PopoverProps = {}): any {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const [labelId, setLabelId] = useState<string | undefined>()
   const [descriptionId, setDescriptionId] = useState<string | undefined>()

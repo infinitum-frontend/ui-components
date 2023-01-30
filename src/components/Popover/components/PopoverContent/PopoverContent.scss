@@ -3,7 +3,7 @@
 
   border-radius: var(--inf-border-radius-medium);
   z-index: 200; // TODO: не место здесь
-  padding: var(--inf-space-medium) var(--inf-space-small);
+  padding: var(--inf-space-small);
 
   &--no-padding {
     padding: 0;

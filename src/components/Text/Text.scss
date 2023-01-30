@@ -82,4 +82,8 @@
   &--tone-warning {
     color: var(--inf-color-text-warning);
   }
+
+  &--tone-inverse {
+    color: var(--inf-color-text-contrast);
+  }
 }
