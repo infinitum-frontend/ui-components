@@ -38,7 +38,7 @@ export interface PolymorphicComponentWithRef<
 
 // basic component:
 /*
-    export interface BaseProps {
+    export interface TextProps {
       color?: string
     }
 
@@ -46,7 +46,7 @@ export interface PolymorphicComponentWithRef<
       children,
       as,
       ...props
-    }: PolymorphicComponent<C, BaseProps>): ReactElement => {
+    }: PolymorphicComponent<C, TextProps>): ReactElement => {
       const Component = as || 'div'
       return <Component {...props}>{children}</Component>
     }
@@ -56,13 +56,13 @@ export interface PolymorphicComponentWithRef<
 
 // forwardRef component:
 /*
-    export interface BaseProps {
+    export interface TextProps {
       gap?: string
     }
 
-    const Base: PolymorphicComponentWithRef<'div', BaseProps> = forwardRef(
+    const Text: PolymorphicComponentWithRef<'div', TextProps> = forwardRef(
       <C extends ElementType = 'div'>(
-        { as, children, ...props }: PolymorphicComponent<C, BaseProps>,
+        { as, children, ...props }: PolymorphicComponent<C, TextProps>,
         ref?: PolymorphicRef<C>
       ): ReactElement => {
         const Component = as || 'div'
