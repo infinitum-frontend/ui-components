@@ -11,6 +11,7 @@ export interface TextProps extends React.ComponentPropsWithoutRef<'div'> {
     | 'default'
     | 'secondary'
     | 'tertiary'
+    | 'quaternary'
     | 'success'
     | 'danger'
     | 'warning'
