@@ -6,6 +6,7 @@ import { Button } from '../Button'
 import { Heading } from '../Heading'
 import { Space } from '../Space'
 import { Text } from '../Text'
+import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 
 const ComponentMeta: Meta<typeof Popover> = {
   title: 'Overlay/Popover',
@@ -42,13 +43,15 @@ export const MPCProfileInfo: StoryFn<typeof Popover> = () => {
   return (
     <Popover>
       <Popover.Trigger>
-        <Button>Trigger</Button>
+        <Button variant="ghost" after={<ArrowDownIcon />}>
+          Константин Константинопольский
+        </Button>
       </Popover.Trigger>
       <Popover.Content variant="inverse">
-        <Space gap="small">
+        <Space gap="small" style={{ width: '235px' }}>
           <div>
             <Heading level="4">Иван Иванов</Heading>
-            <Text size="small" tone="secondary">
+            <Text size="small" tone="quaternary">
               Проверяющий портфели
             </Text>
           </div>

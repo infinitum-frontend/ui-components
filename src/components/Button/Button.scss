@@ -136,6 +136,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+
+  &__before,
+  &__after {
+    display: flex;
   }
 
   .inf-button__after:not(:first-child),
