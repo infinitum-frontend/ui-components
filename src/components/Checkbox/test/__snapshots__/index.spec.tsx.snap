@@ -5,6 +5,7 @@ exports[`Checkbox > should match snapshop 1`] = `
   class="inf-checkbox"
 >
   <input
+    aria-checked="false"
     type="checkbox"
     value=""
   />

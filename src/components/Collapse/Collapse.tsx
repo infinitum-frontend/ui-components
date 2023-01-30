@@ -95,7 +95,7 @@ const Collapse = ({
       {(state) => (
         <div
           ref={ref}
-          className={cn(className, {
+          className={cn(className, 'inf-collapse-root', {
             'inf-collapse-root--hidden': state === 'exited' && collapsed,
             'inf-collapse-root--expanded': state === 'entered'
           })}
