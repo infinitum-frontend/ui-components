@@ -1,5 +1,5 @@
 import { Button } from './components/Button'
-import { Input } from './components/Input'
+import { Input, SearchInput } from './components/Input'
 import { Select, selectDataFormatter } from './components/Select'
 import { Loader } from './components/Loader'
 import { Radio, RadioGroup } from './components/Radio'
@@ -10,6 +10,7 @@ import { Space } from 'Components/Space'
 import { Tab } from 'Components/Tabs'
 import { Textarea } from 'Components/Textarea'
 import { NativeDatePicker } from 'Components/DatePicker'
+import { List, ListItem } from 'Components/List'
 
 export {
   Button,
@@ -26,5 +27,8 @@ export {
   Space,
   Tab,
   Textarea,
-  NativeDatePicker
+  NativeDatePicker,
+  List,
+  ListItem,
+  SearchInput
 }

@@ -67,8 +67,8 @@
   }
 
   &__prefix,
-  &__postfix,
   &__clear-button {
+    cursor: pointer;
     user-select: none;
     display: inline-flex;
     align-items: center;
@@ -78,18 +78,19 @@
     margin-inline-end: var(--inf--space--xxsmall, 6px);
   }
 
-  &__postfix {
-    margin-inline-start: var(--inf--space--xxsmall, 6px);
-  }
-
   &__clear-button {
     transition: var(--inf-transition_duration);
     margin-inline-start: var(--inf--space--xxsmall, 6px);
-    cursor: pointer;
 
     &--hidden {
       visibility: hidden;
       pointer-events: none;
     }
+  }
+}
+
+.inf-search-input {
+  &__icon {
+    color: #738F99;
   }
 }

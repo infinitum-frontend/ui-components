@@ -38,8 +38,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       onBlur,
       prefix, // не покрыто тестами
       prefixClass = '', // не покрыто тестами
-      postfix, // не покрыто тестами
-      postfixClass = '', // не покрыто тестами
+      onPrefixClick, // не покрыто тестами
       allowClear = false,
       noBorder = false,
       debounce = 0, // не покрыто тестами
@@ -49,7 +48,9 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
-    const [localValue, setLocalValue] = useState(value)
+    const [localValue, setLocalValue] = useState(
+      debounce && !value ? '' : value
+    )
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -77,8 +78,9 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         if (debounce) {
           setLocalValue(getFormattedValue(target.value))
           debouncedInput(getFormattedValue(target.value), e)
+        } else {
+          onInput(getFormattedValue(target.value), e)
         }
-        onInput(getFormattedValue(target.value), e)
       }
     }
 
@@ -88,6 +90,11 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       if (wrapperRef.current?.contains(e.target as HTMLElement)) {
         inputRef.current?.focus()
       }
+    }
+
+    const handlePrefixClick: MouseEventHandler<HTMLSpanElement> = (e) => {
+      e.stopPropagation()
+      onPrefixClick?.(getFormattedValue(composedValue))
     }
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
@@ -158,7 +165,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       )
     }
 
-    const isBaseInput = !prefix && !allowClear && !postfix
+    const isBaseInput = !prefix && !allowClear
 
     if (isBaseInput) {
       return (
@@ -190,6 +197,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       >
         {prefix && (
           <span
+            onClick={handlePrefixClick}
             className={classNames('inf-input-wrapper__prefix', prefixClass)}
           >
             {prefix}
@@ -208,13 +216,6 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         />
 
         {allowClear && getClearIcon()}
-        {postfix && (
-          <span
-            className={classNames('inf-input-wrapper__postfix', postfixClass)}
-          >
-            {postfix}
-          </span>
-        )}
       </span>
     )
   }

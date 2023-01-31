@@ -1,0 +1,95 @@
+import {
+  ElementType,
+  MouseEventHandler,
+  ReactElement,
+  ReactNode,
+  useState
+} from 'react'
+import { PolymorphicComponent } from '~/src/utils/types'
+import '../style/list-item.scss'
+import cn from 'classnames'
+import ListItemButton from './ListItemButton'
+import ListItemIcon from './ListItemIcon'
+import ListItemContent from './ListItemContent'
+import { Collapse } from 'Components/Collapse'
+import { ReactComponent as TriangleIcon } from 'Icons/triangle.svg'
+import useListContext from 'Components/List/context/useListContext'
+
+export interface BaseListItemProps {
+  /** Состояние недоступности */
+  disabled?: boolean
+  /** Событие клика */
+  onClick?: MouseEventHandler
+  /** Можно ли схлопывать/расхлопывать элемент */
+  collapsible?: boolean
+  /** Схлопываемый контент */
+  collapsedContent?: ReactNode
+}
+
+const ListItem = <C extends ElementType = 'li'>({
+  children,
+  disabled = false,
+  collapsible = false,
+  collapsedContent,
+  onClick,
+  as,
+  ...props
+}: PolymorphicComponent<C, BaseListItemProps>): ReactElement => {
+  const [collapsed, setCollapsed] = useState(true)
+  const Component = as || 'li'
+
+  const context = useListContext()
+
+  const handleClick: MouseEventHandler = (e) => {
+    if (collapsible) {
+      setCollapsed((prev) => !prev)
+    }
+    onClick?.(e)
+  }
+
+  if (!collapsible) {
+    return (
+      <Component
+        {...props}
+        className={cn('inf-list-item', {
+          'inf-list-item--disabled': disabled,
+          'inf-list-item--nested': context?.nested,
+          'inf-list-item--br-regular': context?.borderRadius === 'regular'
+        })}
+        onClick={handleClick}
+      >
+        {children}
+      </Component>
+    )
+  }
+
+  return (
+    <div>
+      <Component
+        {...props}
+        className={cn('inf-list-item', {
+          'inf-list-item--disabled': disabled,
+          'inf-list-item--nested': context?.nested
+        })}
+        onClick={handleClick}
+      >
+        <span
+          className={cn('inf-list-item__collapse-icon', {
+            'inf-list-item__collapse-icon--rotate': !collapsed
+          })}
+        >
+          <TriangleIcon />
+        </span>
+        {children}
+      </Component>
+
+      <Collapse collapsed={collapsed}>{collapsedContent}</Collapse>
+    </div>
+  )
+}
+
+export default Object.assign(ListItem, {
+  Icon: ListItemIcon,
+  Content: ListItemContent,
+  Button: ListItemButton
+})

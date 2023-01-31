@@ -1,0 +1,21 @@
+.inf-list {
+  &--scrollable {
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+      background: #E7E7E7;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      width: 7px;
+      background-color: #C9C9C9;
+    }
+  }
+}
