@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement, ComponentPropsWithoutRef } from 'react'
 import { Header } from '../Header'
+import './Layout.scss'
 
 export interface LayoutProps extends ComponentPropsWithoutRef<'div'> {}
 
