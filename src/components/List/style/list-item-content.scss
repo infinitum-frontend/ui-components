@@ -1,3 +1,7 @@
 .inf-list-item-content {
   flex-grow: 1;
+
+  &--unstretched {
+    flex-grow: 0;
+  }
 }

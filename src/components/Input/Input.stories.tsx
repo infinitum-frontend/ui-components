@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions'
 // @ts-expect-error
 import { useArgs } from '@storybook/client-api'
 import { useState } from 'react'
+import SearchInput from './SearchInput'
 
 const meta: Meta<typeof Input> = {
   title: 'Input',
@@ -34,9 +35,6 @@ const meta: Meta<typeof Input> = {
     },
     prefix: {
       control: 'text'
-    },
-    postfix: {
-      control: 'text'
     }
   }
 }
@@ -45,7 +43,7 @@ export default meta
 const Template: StoryFn<typeof Input> = ({ ...args }) => {
   const [{ value }, updateArgs] = useArgs()
 
-  const handleInput: (val: string) => void = (val) => {
+  const handleInput: (val: string | undefined) => void = (val) => {
     // экшен не работает. Он работает только если в шаблоне вызывать
     action('input')
     updateArgs({ value: val })
@@ -84,28 +82,16 @@ WithPrefix.args = {
   prefix: <span style={{ color: 'darkred' }}>INF</span>
 }
 
-export const WithPostfix = Template.bind({})
-WithPostfix.args = {
-  postfix: <span style={{ color: 'darkred' }}>INF</span>
-}
-
 export const WithClearButton = Template.bind({})
 WithClearButton.args = {
   value: 'Инфинитум',
   allowClear: true
 }
 
-export const WithClearButtonAndPostfix = Template.bind({})
-WithClearButtonAndPostfix.args = {
-  value: 'Инфинитум',
-  allowClear: true,
-  postfix: <span style={{ color: 'darkred' }}>INF</span>
-}
-
 export const Debounced: StoryFn<typeof Input> = (args) => {
   const [{ value }, updateArgs] = useArgs()
 
-  const handleInput: (val: string) => void = (val) => {
+  const handleInput: (val: string | undefined) => void = (val) => {
     updateArgs({ value: val })
   }
   return (
@@ -123,12 +109,16 @@ Debounced.args = {
 }
 
 export const Formatter: StoryFn<typeof Input> = (args) => {
-  const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState<string | undefined>('')
   const formatter = (value?: string): string | undefined => value?.toUpperCase()
 
-  const handleInput = (value: string): void => {
+  const handleInput = (value: string | undefined): void => {
     setValue(value)
   }
 
   return <Input formatter={formatter} value={value} onInput={handleInput} />
+}
+
+export const Search: StoryFn<typeof SearchInput> = (args) => {
+  return <SearchInput {...args} />
 }
