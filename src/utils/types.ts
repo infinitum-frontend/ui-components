@@ -7,10 +7,11 @@ import {
   WeakValidationMap
 } from 'react'
 
-export type PolymorphicComponent<
-  C extends ElementType,
-  Props = {}
-> = PropsWithChildren<Props & { as?: C }> & ComponentPropsWithoutRef<C>
+export type PolymorphicComponent<C extends ElementType, Props = {}> = Omit<
+  PropsWithChildren<Props & { as?: C }>,
+  'children'
+> &
+  Omit<ComponentPropsWithoutRef<C>, keyof Props>
 
 export type PolymorphicRef<C extends ElementType> =
   ComponentPropsWithRef<C>['ref']

@@ -10,6 +10,7 @@ import { Space } from 'Components/Space'
 import { Tab } from 'Components/Tabs'
 import { Textarea } from 'Components/Textarea'
 import { NativeDatePicker } from 'Components/DatePicker'
+import { List, ListItem } from 'Components/List'
 
 export {
   Button,
@@ -26,5 +27,7 @@ export {
   Space,
   Tab,
   Textarea,
-  NativeDatePicker
+  NativeDatePicker,
+  List,
+  ListItem
 }
