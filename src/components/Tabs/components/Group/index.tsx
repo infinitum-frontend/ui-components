@@ -3,14 +3,19 @@ import TabsContext, { ITabsContext } from 'Components/Tabs/context/TabsContext'
 
 export interface TabGroupProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
+  /** Индекс выбранного элемента */
   selectedIndex?: number
+  /** Событие клика на элемент */
   onChange?: (index: number) => void
+  /** Вариант визуального оформления */
+  variant?: 'default' | 'uppercase' | 'underline'
 }
 
 const TabGroup = ({
   selectedIndex = 0,
   onChange,
   className,
+  variant = 'default',
   children
 }: TabGroupProps): ReactElement => {
   const [panels, setPanels] = useState<any[]>([])
@@ -47,7 +52,8 @@ const TabGroup = ({
     unregisterTab,
     registerPanel,
     unregisterPanel,
-    handleTabClick
+    handleTabClick,
+    variant
   }
   return (
     <TabsContext.Provider value={context}>
