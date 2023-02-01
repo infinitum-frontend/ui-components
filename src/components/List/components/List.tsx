@@ -14,11 +14,19 @@ export interface ListProps {
   maxHeight?: number
   /** Базовая html-стилизация */
   raw?: boolean
+  /** Отключить отступы у элементов */
+  disablePadding?: boolean
+  /**
+   * Расстояние между блоками
+   */
+  gap?: 'unset' | 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 }
 
 const List = <C extends ElementType = 'ul'>({
   as,
   nested = false,
+  gap = 'unset',
+  disablePadding = false,
   maxHeight,
   style,
   borderRadius = 'unset',
@@ -28,13 +36,13 @@ const List = <C extends ElementType = 'ul'>({
   ...props
 }: PolymorphicComponent<C, ListProps>): ReactElement => {
   const Component = as || 'ul'
-  const context = { nested, borderRadius, raw }
+  const context = { nested, borderRadius, raw, disablePadding }
 
   return (
     <ListContext.Provider value={context}>
       <Component
         {...props}
-        className={cn(className, 'inf-list', {
+        className={cn(className, 'inf-list', `inf-list--gap-${gap as string}`, {
           'inf-list--scrollable': maxHeight
         })}
         style={{
