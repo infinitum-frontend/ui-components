@@ -41,4 +41,9 @@
   &--br-regular {
     border-radius: var(--inf-border-radius-medium);
   }
+
+  &--raw {
+    display: list-item;
+    padding: 0;
+  }
 }

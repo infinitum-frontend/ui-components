@@ -3,6 +3,7 @@ import { PolymorphicComponent } from '~/src/utils/types'
 import cn from 'classnames'
 import '../style/index.scss'
 import ListContext from 'Components/List/context/ListContext'
+import ListItem from 'Components/List/components/ListItem'
 
 export interface ListProps {
   /** Является ли список вложенным в другой. Устанавливает дополнительные оступы элементам */
@@ -11,6 +12,8 @@ export interface ListProps {
   borderRadius?: 'unset' | 'regular'
   /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
+  /** Базовая html-стилизация */
+  raw?: boolean
 }
 
 const List = <C extends ElementType = 'ul'>({
@@ -21,10 +24,11 @@ const List = <C extends ElementType = 'ul'>({
   borderRadius = 'unset',
   className,
   children,
+  raw = false,
   ...props
 }: PolymorphicComponent<C, ListProps>): ReactElement => {
   const Component = as || 'ul'
-  const context = { nested, borderRadius }
+  const context = { nested, borderRadius, raw }
 
   return (
     <ListContext.Provider value={context}>
@@ -44,4 +48,6 @@ const List = <C extends ElementType = 'ul'>({
   )
 }
 
-export default List
+export default Object.assign(List, {
+  Item: ListItem
+})

@@ -15,7 +15,7 @@ import { Collapse } from 'Components/Collapse'
 import { ReactComponent as TriangleIcon } from 'Icons/triangle.svg'
 import useListContext from 'Components/List/context/useListContext'
 
-export interface BaseListItemProps {
+export interface ListItemProps {
   /** Состояние недоступности */
   disabled?: boolean
   /** Событие клика */
@@ -31,10 +31,11 @@ const ListItem = <C extends ElementType = 'li'>({
   disabled = false,
   collapsible = false,
   collapsedContent,
+  className,
   onClick,
   as,
   ...props
-}: PolymorphicComponent<C, BaseListItemProps>): ReactElement => {
+}: PolymorphicComponent<C, ListItemProps>): ReactElement => {
   const [collapsed, setCollapsed] = useState(true)
   const Component = as || 'li'
 
@@ -51,10 +52,11 @@ const ListItem = <C extends ElementType = 'li'>({
     return (
       <Component
         {...props}
-        className={cn('inf-list-item', {
+        className={cn('inf-list-item', className, {
           'inf-list-item--disabled': disabled,
           'inf-list-item--nested': context?.nested,
-          'inf-list-item--br-regular': context?.borderRadius === 'regular'
+          'inf-list-item--br-regular': context?.borderRadius === 'regular',
+          'inf-list-item--raw': context?.raw
         })}
         onClick={handleClick}
       >

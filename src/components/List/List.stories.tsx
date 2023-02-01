@@ -1,6 +1,5 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { List } from './index'
-import ListItem from './components/ListItem'
 import { Checkbox } from '../Checkbox'
 // @ts-expect-error
 import { ReactComponent as CaseIcon } from 'Icons/case.svg'
@@ -26,11 +25,9 @@ export default meta
 
 const Template: StoryFn<typeof List> = (args) => {
   return (
-    <List as={'ul'} {...args}>
+    <List {...args}>
       {ListBase.map((item, index) => (
-        <ListItem key={index} as={'li'}>
-          {item.text}
-        </ListItem>
+        <List.Item key={index}>{item.text}</List.Item>
       ))}
     </List>
   )
@@ -38,18 +35,21 @@ const Template: StoryFn<typeof List> = (args) => {
 
 export const Playground = Template.bind({})
 
+export const RawList = Template.bind({})
+RawList.args = { raw: true }
+
 export const WithActionButton: StoryFn<typeof List> = (args) => {
   return (
     <List style={{ width: '350px' }}>
       {ListBase.map((item) => (
-        <ListItem key={item.text}>
-          <ListItem.Content>
+        <List.Item key={item.text}>
+          <List.Item.Content>
             <Text size={'small'}>{item.text}</Text>
-          </ListItem.Content>
-          <ListItem.Button>
+          </List.Item.Content>
+          <List.Item.Button>
             <ClearIcon style={{ color: '#F53A3A' }} />
-          </ListItem.Button>
-        </ListItem>
+          </List.Item.Button>
+        </List.Item>
       ))}
     </List>
   )
@@ -69,11 +69,11 @@ export const WithIcon: StoryFn<typeof List> = (args) => {
   return (
     <List>
       {ListWithStatuses.map((item) => (
-        <ListItem disabled={Boolean(item.disabled)} key={item.statusText}>
-          <ListItem.Icon>
+        <List.Item disabled={Boolean(item.disabled)} key={item.statusText}>
+          <List.Item.Icon>
             <CaseIcon />
-          </ListItem.Icon>
-          <ListItem.Content>
+          </List.Item.Icon>
+          <List.Item.Content>
             <Space gap={'xxsmall'}>
               <Text size={'small'}>{item.name}</Text>
               <Space gap={'xxsmall'} direction={'horizontal'}>
@@ -85,8 +85,8 @@ export const WithIcon: StoryFn<typeof List> = (args) => {
                 )}
               </Space>
             </Space>
-          </ListItem.Content>
-        </ListItem>
+          </List.Item.Content>
+        </List.Item>
       ))}
     </List>
   )
@@ -100,12 +100,12 @@ export const Nested: StoryFn<typeof List> = (args) => {
       Boolean(item.subitems) && (
         <List nested={true}>
           {item.subitems?.map((subitem) => (
-            <ListItem key={subitem.text}>
-              <ListItem.Content>{subitem.text}</ListItem.Content>
-              <ListItem.Button>
+            <List.Item key={subitem.text}>
+              <List.Item.Content>{subitem.text}</List.Item.Content>
+              <List.Item.Button>
                 <Checkbox checked={subitem.selected} />
-              </ListItem.Button>
-            </ListItem>
+              </List.Item.Button>
+            </List.Item>
           ))}
         </List>
       )
@@ -114,21 +114,21 @@ export const Nested: StoryFn<typeof List> = (args) => {
   return (
     <List style={{ width: '450px' }}>
       {ListWithNestedSelection.map((item, key) => (
-        <ListItem
+        <List.Item
           key={key}
           collapsible={true}
           collapsedContent={getCollapsedContent(item)}
         >
-          <ListItem.Content>{item.text}</ListItem.Content>
-          <ListItem.Button>
+          <List.Item.Content>{item.text}</List.Item.Content>
+          <List.Item.Button>
             <Checkbox
               checked={item.selected}
               indeterminate={Boolean(
                 item.subitems?.find((item) => item.selected)
               )}
             />
-          </ListItem.Button>
-        </ListItem>
+          </List.Item.Button>
+        </List.Item>
       ))}
     </List>
   )
@@ -138,7 +138,7 @@ export const Scrollable: StoryFn<typeof List> = (args) => {
   return (
     <List maxHeight={150}>
       {BaseListLong.map((item) => (
-        <ListItem key={item.text}>{item.text}</ListItem>
+        <List.Item key={item.text}>{item.text}</List.Item>
       ))}
     </List>
   )
