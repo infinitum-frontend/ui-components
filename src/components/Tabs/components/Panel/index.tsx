@@ -1,6 +1,6 @@
 import { ElementType, ReactElement, useEffect, useId } from 'react'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
-import { PolymorphicComponent } from '~/types/utils/types'
+import { PolymorphicComponent } from '~/src/utils/types'
 
 const TabPanel = <C extends ElementType = 'div'>({
   as,

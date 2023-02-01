@@ -3,19 +3,25 @@ import { Tab } from './index'
 import { Space } from '../Space'
 
 const meta: Meta<typeof Tab> = {
-  title: 'Tabs',
-  component: Tab
+  title: 'Tab',
+  component: Tab,
+  subcomponents: {
+    'Tab.Group': Tab.Group,
+    'Tab.List': Tab.List,
+    'Tab.Panels': Tab.Panels,
+    'Tab.Panel': Tab.Panel
+  }
 }
 
 export default meta
 
-const Template: StoryFn<typeof Tab.Group> = (args) => {
+const Template: StoryFn<typeof Tab> = (args) => {
   const handleChange = (value: number): void => {
     console.log(value)
   }
 
   return (
-    <Tab.Group selectedIndex={1} onChange={handleChange} {...args}>
+    <Tab.Group selectedIndex={1} onChange={handleChange}>
       <Tab.List>
         <Tab>Контроль структуры</Tab>
         <Tab>Статистический</Tab>

@@ -6,7 +6,7 @@ import { ElementType, ReactElement, useEffect, useId } from 'react'
 import cn from 'classnames'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
 import './style/index.scss'
-import { PolymorphicComponent } from '~/types/utils/types'
+import { PolymorphicComponent } from '~/src/utils/types'
 
 export interface TabProps {
   badge?: string | number
