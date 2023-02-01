@@ -40,10 +40,19 @@ export const Inverted: StoryFn<typeof Popover> = () => {
 }
 
 export const MPCProfileInfo: StoryFn<typeof Popover> = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <Popover>
-      <Popover.Trigger>
-        <Button variant="ghost" after={<ArrowDownIcon />}>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <Popover.Trigger onClick={() => setIsOpen((v) => !v)}>
+        <Button
+          variant="ghost"
+          after={
+            <ArrowDownIcon
+              style={{ transform: isOpen ? 'rotate(180deg)' : '' }}
+            />
+          }
+        >
           Константин Константинопольский
         </Button>
       </Popover.Trigger>

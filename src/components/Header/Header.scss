@@ -1,0 +1,31 @@
+.inf-header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--header-height);
+  background-color: var(--light-color);
+  box-shadow: 0 0.0625rem 0.625rem rgba(10, 62, 102, 0.1);
+
+  &__container {
+    display: flex;
+    align-items: center;
+    /*width: var(--container-width);*/
+    height: var(--header-height);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  &__logo {
+    height: 2.25rem;
+    margin-right: 6.25rem;
+  }
+
+  &__user {
+    margin-left: auto;
+    padding-left: 1rem;
+    white-space: nowrap;
+    font-size: 1rem;
+  }
+}
