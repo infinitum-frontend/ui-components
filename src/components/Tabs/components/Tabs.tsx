@@ -1,18 +1,27 @@
 import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
+import Tab from 'Components/Tabs/components/Tab'
+import TabPanel from 'Components/Tabs/components/Panel'
+import TabPanels from 'Components/Tabs/components/Panels'
+import TabList from 'Components/Tabs/components/List'
 import TabsContext, { ITabsContext } from 'Components/Tabs/context/TabsContext'
 
-export interface TabGroupProps
+export interface TabsProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
+  /** Индекс выбранного элемента */
   selectedIndex?: number
+  /** Событие клика на элемент */
   onChange?: (index: number) => void
+  /** Вариант визуального оформления */
+  variant?: 'default' | 'uppercase' | 'underline'
 }
 
-const TabGroup = ({
+const Tabs = ({
   selectedIndex = 0,
   onChange,
   className,
+  variant = 'default',
   children
-}: TabGroupProps): ReactElement => {
+}: TabsProps): ReactElement => {
   const [panels, setPanels] = useState<any[]>([])
   const [tabs, setTabs] = useState<any[]>([])
   const [selectedTabIndex, setSelectedTabIndex] =
@@ -40,14 +49,15 @@ const TabGroup = ({
   }
 
   const context: ITabsContext = {
-    selectedIndex: selectedTabIndex,
+    selectedIndex: onChange ? selectedIndex : selectedTabIndex,
     tabs,
     panels,
     registerTab,
     unregisterTab,
     registerPanel,
     unregisterPanel,
-    handleTabClick
+    handleTabClick,
+    variant
   }
   return (
     <TabsContext.Provider value={context}>
@@ -56,4 +66,9 @@ const TabGroup = ({
   )
 }
 
-export default TabGroup
+export default Object.assign(Tabs, {
+  Tab,
+  List: TabList,
+  Panels: TabPanels,
+  Panel: TabPanel
+})

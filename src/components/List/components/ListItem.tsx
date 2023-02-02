@@ -56,7 +56,8 @@ const ListItem = <C extends ElementType = 'li'>({
           'inf-list-item--disabled': disabled,
           'inf-list-item--nested': context?.nested,
           'inf-list-item--br-regular': context?.borderRadius === 'regular',
-          'inf-list-item--raw': context?.raw
+          'inf-list-item--raw': context?.raw,
+          'inf-list-item--no-padding': context?.disablePadding
         })}
         onClick={handleClick}
       >

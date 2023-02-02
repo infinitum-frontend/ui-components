@@ -18,7 +18,18 @@ import { ReactNode } from 'react'
 
 const meta: Meta<typeof List> = {
   title: 'List',
-  component: List
+  component: List,
+  subcomponents: {
+    'List.Item': List.Item,
+    'List.Item.Icon': List.Item.Icon,
+    'List.Item.Content': List.Item.Content,
+    'List.Item.Button': List.Item.Button
+  }
+  // parameters: {
+  //   docs: {
+  //     page: Docs
+  //   }
+  // }
 }
 
 export default meta

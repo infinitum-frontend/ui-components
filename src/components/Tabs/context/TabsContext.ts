@@ -9,16 +9,18 @@ export interface ITabsContext {
   registerPanel: (value: any) => void
   unregisterPanel: (value: any) => void
   handleTabClick: (value: any) => void
+  variant?: 'default' | 'uppercase' | 'underline'
 }
 const TabsContext = createContext<ITabsContext>({
   selectedIndex: 0,
   tabs: [],
   panels: [],
-  registerTab: (value) => {},
-  unregisterTab: (value) => {},
-  registerPanel: (value) => {},
-  unregisterPanel: (value) => {},
-  handleTabClick: (value) => {}
+  registerTab: () => {},
+  unregisterTab: () => {},
+  registerPanel: () => {},
+  unregisterPanel: () => {},
+  handleTabClick: () => {},
+  variant: 'default'
 })
 
 export default TabsContext

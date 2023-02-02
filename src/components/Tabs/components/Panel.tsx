@@ -1,26 +1,17 @@
-import {
-  ComponentPropsWithoutRef,
-  ElementType,
-  ReactElement,
-  useEffect,
-  useId
-} from 'react'
+import { ElementType, ReactElement, useEffect, useId } from 'react'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
+import { PolymorphicComponent } from '~/src/utils/types'
 
-export interface TabPanelProps extends ComponentPropsWithoutRef<'section'> {
-  as?: ElementType
-}
-
-const TabPanel = ({
-  as = 'section',
+const TabPanel = <C extends ElementType = 'div'>({
+  as,
   children
-}: TabPanelProps): ReactElement | null => {
+}: PolymorphicComponent<C, {}>): ReactElement | null => {
   const { registerPanel, unregisterPanel, selectedIndex, panels } =
     useTabsContext()
 
   const id = useId()
   const panelIndex = panels.findIndex((panel) => panel === id)
-  const Component = as
+  const Component = as || 'div'
 
   useEffect(() => {
     registerPanel(id)

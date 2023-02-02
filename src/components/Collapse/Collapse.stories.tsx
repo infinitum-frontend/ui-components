@@ -5,7 +5,7 @@ import Button from '../Button/Button'
 import { useState } from 'react'
 
 const meta: Meta<typeof Collapse> = {
-  title: '',
+  title: 'Collapse',
   component: Collapse,
   args: {
     collapsed: true
