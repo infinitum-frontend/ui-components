@@ -1,11 +1,7 @@
-import TabGroup from 'Components/Tabs/components/Group'
-import TabPanel from 'Components/Tabs/components/Panel'
-import TabPanels from 'Components/Tabs/components/Panels'
-import TabList from 'Components/Tabs/components/TabList'
 import { ElementType, ReactElement, useEffect, useId } from 'react'
 import cn from 'classnames'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
-import './style/index.scss'
+import '../style/index.scss'
 import { PolymorphicComponent } from '~/src/utils/types'
 
 export interface TabProps {
@@ -85,9 +81,4 @@ const Tab = <C extends ElementType = 'button'>({
   )
 }
 
-export default Object.assign(Tab, {
-  Group: TabGroup,
-  List: TabList,
-  Panels: TabPanels,
-  Panel: TabPanel
-})
+export default Tab

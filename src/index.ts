@@ -7,7 +7,7 @@ import { Checkbox, CheckboxGroup } from './components/Checkbox'
 import { Text } from './components/Text'
 import { Heading } from './components/Heading'
 import { Space } from 'Components/Space'
-import { Tab } from 'Components/Tabs'
+import { Tabs } from 'Components/Tabs'
 import { Textarea } from 'Components/Textarea'
 import { NativeDatePicker } from 'Components/DatePicker'
 import { List } from 'Components/List'
@@ -25,7 +25,7 @@ export {
   Text,
   Heading,
   Space,
-  Tab,
+  Tabs,
   Textarea,
   NativeDatePicker,
   List,
