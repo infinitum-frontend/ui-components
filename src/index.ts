@@ -18,6 +18,7 @@ import { Popover } from 'Components/Popover'
 import { Link } from 'Components/Link'
 import { Modal } from 'Components/Modal'
 import { Container } from 'Components/Container'
+import { Logo } from 'Components/Logo'
 
 export {
   Button,
@@ -43,5 +44,6 @@ export {
   Page,
   Link,
   Modal,
-  Container
+  Container,
+  Logo
 }

@@ -8,6 +8,6 @@
   --default-verticalPlace: 0.5rem;
   /*min-height: 100vh;*/
   height: 100%;
-  margin: 0 auto;
-  padding: var(--header-height) var(--container-padding) 0;
+  width: 100%;
+  padding-top: var(--header-height);
 }
