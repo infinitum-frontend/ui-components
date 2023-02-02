@@ -7,7 +7,8 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding: var(--inf-container-inner-padding);
+  padding-left: var(--inf-container-inner-padding);
+  padding-right: var(--inf-container-inner-padding);
 
   @media (min-width: 576px) {
     max-width: calc(576px - 2 * var(--inf-container-inner-padding));
@@ -23,10 +24,5 @@
 
   @media (min-width: 1280px) {
     max-width: calc(1280px - 2 * var(--inf-container-inner-padding));
-  }
-
-  &--fluid {
-    padding: 0 var(--inf-container-inner-padding) 0
-      var(--inf-container-inner-padding);
   }
 }

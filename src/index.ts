@@ -11,6 +11,12 @@ import { Tab } from 'Components/Tabs'
 import { Textarea } from 'Components/Textarea'
 import { NativeDatePicker } from 'Components/DatePicker'
 import { List } from 'Components/List'
+import { Tooltip } from 'Components/Tooltip'
+import { Layout } from 'Components/Layout'
+import { Page } from 'Components/Page'
+import { Popover } from 'Components/Popover'
+import { Link } from 'Components/Link'
+import { Modal } from 'Components/Modal'
 
 export {
   Button,
@@ -29,5 +35,11 @@ export {
   Textarea,
   NativeDatePicker,
   List,
-  SearchInput
+  SearchInput,
+  Tooltip,
+  Popover,
+  Layout,
+  Page,
+  Link,
+  Modal
 }

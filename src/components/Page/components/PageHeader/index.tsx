@@ -1,21 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement, ComponentPropsWithoutRef } from 'react'
 import cn from 'classnames'
+import './index.scss'
 
 export interface PageHeaderProps extends ComponentPropsWithoutRef<'header'> {
   className?: string
-  role?: string
 }
 
-const PageHeader = ({
-  className,
-  role = 'heading',
-  children
-}: PageHeaderProps): ReactElement => {
+const PageHeader = ({ className, children }: PageHeaderProps): ReactElement => {
   return (
-    <header role={role} className={cn('inf-page-header', className)}>
-      {children}
-    </header>
+    <header className={cn('inf-page-header', className)}>{children}</header>
   )
 }
 
