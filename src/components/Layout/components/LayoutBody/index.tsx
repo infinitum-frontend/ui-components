@@ -1,11 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
+import cn from 'classnames'
 import './index.scss'
 
-export interface BodyProps extends ComponentPropsWithoutRef<'div'> {}
-
-const LayoutBody = ({ children }: BodyProps): ReactElement => {
-  return <div className="inf-layout-body">{children}</div>
+export interface LayoutBodyProps extends ComponentPropsWithoutRef<'div'> {
+  className?: string
 }
+
+const LayoutBody = React.forwardRef<HTMLDivElement, LayoutBodyProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn('inf-layout-body', className)} {...props}>
+        {children}
+      </div>
+    )
+  }
+)
+
+LayoutBody.displayName = 'LayoutBody'
 
 export default LayoutBody

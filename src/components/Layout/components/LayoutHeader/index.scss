@@ -7,4 +7,8 @@
   height: var(--header-height);
   background-color: var(--light-color);
   box-shadow: 0 0.0625rem 0.625rem rgba(10, 62, 102, 0.1);
+
+  &__container {
+    height: 100%;
+  }
 }

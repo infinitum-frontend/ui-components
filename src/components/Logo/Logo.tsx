@@ -12,7 +12,7 @@ export interface LogoProps extends ComponentPropsWithoutRef<'div'> {
 }
 
 const Logo = React.forwardRef<HTMLElement, LogoProps>(
-  ({ variant = 'default', ...props }, ref) => {
+  ({ className, variant = 'default', ...props }, ref) => {
     let template
     if (variant === 'short') {
       template = <LogoShort />
@@ -27,7 +27,7 @@ const Logo = React.forwardRef<HTMLElement, LogoProps>(
     }
 
     return (
-      <div className={cn('inf-logo')} {...props}>
+      <div ref={ref} className={cn('inf-logo', className)} {...props}>
         {template}
       </div>
     )
