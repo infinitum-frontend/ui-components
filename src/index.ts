@@ -17,6 +17,7 @@ import { Page } from 'Components/Page'
 import { Popover } from 'Components/Popover'
 import { Link } from 'Components/Link'
 import { Modal } from 'Components/Modal'
+import { Container } from 'Components/Container'
 
 export {
   Button,
@@ -41,5 +42,6 @@ export {
   Layout,
   Page,
   Link,
-  Modal
+  Modal,
+  Container
 }

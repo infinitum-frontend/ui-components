@@ -10,19 +10,21 @@
   padding-left: var(--inf-container-inner-padding);
   padding-right: var(--inf-container-inner-padding);
 
-  @media (min-width: 576px) {
-    max-width: calc(576px - 2 * var(--inf-container-inner-padding));
-  }
+  &:not(.inf-container--fluid) {
+    @media (min-width: 576px) {
+      max-width: calc(576px - 2 * var(--inf-container-inner-padding));
+    }
 
-  @media (min-width: 768px) {
-    max-width: calc(768px - 2 * var(--inf-container-inner-padding));
-  }
+    @media (min-width: 768px) {
+      max-width: calc(768px - 2 * var(--inf-container-inner-padding));
+    }
 
-  @media (min-width: 992px) {
-    max-width: calc(992px - 2 * var(--inf-container-inner-padding));
-  }
+    @media (min-width: 992px) {
+      max-width: calc(992px - 2 * var(--inf-container-inner-padding));
+    }
 
-  @media (min-width: 1280px) {
-    max-width: calc(1280px - 2 * var(--inf-container-inner-padding));
+    @media (min-width: 1280px) {
+      max-width: calc(1280px - 2 * var(--inf-container-inner-padding));
+    }
   }
 }

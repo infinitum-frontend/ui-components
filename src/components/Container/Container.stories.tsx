@@ -12,7 +12,7 @@ export default meta
 
 const Template: StoryFn<typeof Container> = (args) => {
   return (
-    <Container>
+    <Container {...args}>
       <div>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea maiores
         fugit neque exercitationem, doloribus eius quod dolores placeat sit
