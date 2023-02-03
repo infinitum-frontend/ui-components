@@ -73,3 +73,14 @@ const Template: StoryFn<typeof Container> = (args) => {
   )
 }
 export const Playground = Template.bind({})
+Playground.parameters = {
+  layout: 'fullscreen'
+}
+
+export const Fluid = Template.bind({})
+Fluid.args = {
+  fluid: true
+}
+Fluid.parameters = {
+  layout: 'fullscreen'
+}

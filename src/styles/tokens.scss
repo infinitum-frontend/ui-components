@@ -175,4 +175,10 @@
     hue-rotate(150deg) brightness(83%) contrast(89%);
   --filter-gray-2-normal: invert(51%) sepia(0%) saturate(5142%)
     hue-rotate(279deg) brightness(85%) contrast(79%);
+
+  --inf-z-index-header: 100;
+  --inf-z-index-footer: 100;
+  --inf-z-index-modal: 150;
+  --inf-z-index-popover: 200;
+  --inf-z-index-tooltip: 200;
 }

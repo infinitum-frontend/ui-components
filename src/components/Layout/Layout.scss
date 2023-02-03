@@ -1,13 +1,10 @@
 .inf-layout {
   --container-width: 80rem;
   --container-padding: 2.5rem;
-  --header-height: 3.5rem;
+  --header-height: 46px;
   --footer-height: 3rem;
   --page-side-margin: 5rem;
   --status-width: 155px;
   --default-verticalPlace: 0.5rem;
   /*min-height: 100vh;*/
-  height: 100%;
-  width: 100%;
-  padding-top: var(--header-height);
 }

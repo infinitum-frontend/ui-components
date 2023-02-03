@@ -13,9 +13,10 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
     return (
       <div
         ref={ref}
-        className={cn('inf-container', className, {
-          'inf-container--fluid': fluid
-        })}
+        className={cn(
+          fluid ? 'inf-container--fluid' : 'inf-container',
+          className
+        )}
         {...props}
       >
         {children}

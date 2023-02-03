@@ -2,7 +2,7 @@
   --inf-popover-content-arrow-size: 8px;
 
   border-radius: var(--inf-border-radius-medium);
-  z-index: 200; // TODO: не место здесь
+  z-index: var(--inf-z-index-popover); // TODO: не место здесь
   padding: var(--inf-space-small);
 
   &--no-padding {

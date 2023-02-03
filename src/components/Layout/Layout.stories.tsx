@@ -2,6 +2,8 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Layout } from './index'
+import { Container } from 'Components/Container'
+import { Space } from 'Components/Space'
 
 const meta: Meta<typeof Layout> = {
   title: 'Layout/Layout',
@@ -17,12 +19,38 @@ const Template: StoryFn<typeof Layout> = (args) => {
         <div>Lorem ipsum dolor sit amet.</div>
       </Layout.Header>
       <Layout.Body>
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. A totam
-          laboriosam porro tempore corporis, vitae ipsa magnam? Error rerum
-          sequi ipsam quia, numquam culpa, architecto magni alias vel accusamus,
-          aut deleniti vero accusantium eum delectus nisi qui labore voluptates
-        </div>
+        <Container>
+          <Space>
+            <div
+              style={{
+                height: '400px',
+                backgroundColor: 'lightgrey',
+                border: '2px solid gray'
+              }}
+            />
+            <div
+              style={{
+                height: '400px',
+                backgroundColor: 'lightgrey',
+                border: '2px solid gray'
+              }}
+            />
+            <div
+              style={{
+                height: '400px',
+                backgroundColor: 'lightgrey',
+                border: '2px solid gray'
+              }}
+            />
+            <div
+              style={{
+                height: '400px',
+                backgroundColor: 'lightgrey',
+                border: '2px solid gray'
+              }}
+            />
+          </Space>
+        </Container>
       </Layout.Body>
     </Layout>
   )

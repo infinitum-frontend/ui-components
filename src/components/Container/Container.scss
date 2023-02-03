@@ -3,28 +3,41 @@
 }
 
 .inf-container {
-  /*display: flex;*/
   width: 100%;
   margin-right: auto;
   margin-left: auto;
   padding-left: var(--inf-container-inner-padding);
   padding-right: var(--inf-container-inner-padding);
+}
 
-  &:not(.inf-container--fluid) {
-    @media (min-width: 576px) {
-      max-width: calc(576px - 2 * var(--inf-container-inner-padding));
-    }
-
-    @media (min-width: 768px) {
-      max-width: calc(768px - 2 * var(--inf-container-inner-padding));
-    }
-
-    @media (min-width: 992px) {
-      max-width: calc(992px - 2 * var(--inf-container-inner-padding));
-    }
-
-    @media (min-width: 1280px) {
-      max-width: calc(1280px - 2 * var(--inf-container-inner-padding));
-    }
+@media (min-width: 576px) {
+  .inf-container {
+    max-width: calc(576px - 2 * var(--inf-container-inner-padding));
   }
+}
+
+@media (min-width: 768px) {
+  .inf-container {
+    max-width: calc(768px - 2 * var(--inf-container-inner-padding));
+  }
+}
+
+@media (min-width: 992px) {
+  .inf-container {
+    max-width: calc(992px - 2 * var(--inf-container-inner-padding));
+  }
+}
+
+@media (min-width: 1280px) {
+  .inf-container {
+    max-width: calc(1280px - 2 * var(--inf-container-inner-padding));
+  }
+}
+
+.inf-container--fluid {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--inf-container-inner-padding);
+  padding-left: var(--inf-container-inner-padding);
 }

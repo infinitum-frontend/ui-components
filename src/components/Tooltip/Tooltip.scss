@@ -1,7 +1,7 @@
 .inf-tooltip {
   border-radius: var(--inf-border-radius-medium);
   padding: var(--inf-space-xxsmall) var(--inf-space-xsmall);
-  z-index: 200;
+  z-index: var(--inf-z-index-tooltip);
   --inf-tooltip-arrow-size: 8px;
 
   &--variant-default {
