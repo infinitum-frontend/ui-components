@@ -11,7 +11,7 @@ export interface LogoProps extends ComponentPropsWithoutRef<'div'> {
   variant?: 'default' | 'no-caption' | 'monochrome' | 'inverse' | 'short'
 }
 
-const Logo = React.forwardRef<HTMLElement, LogoProps>(
+const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
   ({ className, variant = 'default', ...props }, ref) => {
     let template
     if (variant === 'short') {

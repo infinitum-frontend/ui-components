@@ -1,8 +1,4 @@
 .inf-page {
-  position: relative;
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  height: calc(100vh - var(--header-height));
   background-color: var(--light-color);
 }
