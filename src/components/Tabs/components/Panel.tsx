@@ -4,7 +4,8 @@ import { PolymorphicComponent } from '~/src/utils/types'
 
 const TabPanel = <C extends ElementType = 'div'>({
   as,
-  children
+  children,
+  ...props
 }: PolymorphicComponent<C, {}>): ReactElement | null => {
   const { registerPanel, unregisterPanel, selectedIndex, panels } =
     useTabsContext()
@@ -23,7 +24,7 @@ const TabPanel = <C extends ElementType = 'div'>({
     return null
   }
 
-  return <Component>{children}</Component>
+  return <Component {...props}>{children}</Component>
 }
 
 export default TabPanel

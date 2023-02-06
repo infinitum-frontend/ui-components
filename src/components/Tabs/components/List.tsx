@@ -5,14 +5,20 @@ import '../style/list.scss'
 
 export interface TabListProps extends ComponentPropsWithoutRef<'div'> {}
 
-const TabList = ({ children }: TabListProps): ReactElement => {
+const TabList = ({
+  children,
+  className,
+  ...props
+}: TabListProps): ReactElement => {
   const { variant } = useTabsContext()
   return (
     <div
       className={cn(
         'inf-tab-list',
+        className,
         `inf-tab-list--variant-${variant as string}`
       )}
+      {...props}
     >
       {children}
     </div>
