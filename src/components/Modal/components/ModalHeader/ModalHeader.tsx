@@ -1,10 +1,21 @@
-import { PropsWithChildren, ReactElement } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
+import cn from 'classnames'
 import './ModalHeader.scss'
 
-const ModalHeader = ({
-  children
-}: PropsWithChildren<ReactElement>): ReactElement | null => {
-  return <div className="inf-modal-header">{children}</div>
+export interface ModalHeaderProps extends ComponentPropsWithoutRef<'div'> {
+  className?: string
 }
+
+const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn('inf-modal-header', className)} {...props}>
+        {children}
+      </div>
+    )
+  }
+)
+
+ModalHeader.displayName = 'ModalHeader'
 
 export default ModalHeader

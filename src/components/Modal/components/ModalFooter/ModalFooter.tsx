@@ -1,10 +1,21 @@
-import { PropsWithChildren, ReactElement } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
+import cn from 'classnames'
 import './ModalFooter.scss'
 
-const ModalFooter = ({
-  children
-}: PropsWithChildren<ReactElement>): ReactElement | null => {
-  return <div className="inf-modal-footer">{children}</div>
+export interface ModalFooterProps extends ComponentPropsWithoutRef<'div'> {
+  className?: string
 }
+
+const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn('inf-modal-footer', className)} {...props}>
+        {children}
+      </div>
+    )
+  }
+)
+
+ModalFooter.displayName = 'ModalFooter'
 
 export default ModalFooter

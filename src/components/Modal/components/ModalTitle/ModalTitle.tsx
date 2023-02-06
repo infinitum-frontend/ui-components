@@ -1,14 +1,26 @@
-import { PropsWithChildren, ReactElement } from 'react'
-import { Heading } from '../../../Heading'
+import React, { ComponentPropsWithoutRef } from 'react'
+import { Heading } from 'Components/Heading'
+import cn from 'classnames'
 
-const ModalTitle = ({
-  children
-}: PropsWithChildren<ReactElement>): ReactElement | null => {
-  return (
-    <Heading className="inf-modal-title" level="3">
-      {children}
-    </Heading>
-  )
+export interface ModalTitleProps extends ComponentPropsWithoutRef<'div'> {
+  className?: string
 }
+
+const ModalTitle = React.forwardRef<HTMLDivElement, ModalTitleProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <Heading
+        ref={ref}
+        className={cn('inf-modal-title', className)}
+        level="3"
+        {...props}
+      >
+        {children}
+      </Heading>
+    )
+  }
+)
+
+ModalTitle.displayName = 'ModalTitle'
 
 export default ModalTitle

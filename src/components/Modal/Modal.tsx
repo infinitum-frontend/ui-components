@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import React, { useEffect, useState, ComponentPropsWithoutRef } from 'react'
 import { Portal } from '../Portal'
 import ModalBody from './components/ModalBody'
 import ModalHeader from './components/ModalHeader'
@@ -11,7 +11,8 @@ import { useMount } from './useMount'
 import { CSSTransition } from 'react-transition-group'
 
 export const ANIMATION_TIME = 200
-export interface IModalProps extends PropsWithChildren<ReactElement> {
+
+export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
   open: boolean
   size?: 'small' | 'medium' | 'large'
@@ -21,72 +22,80 @@ export interface IModalProps extends PropsWithChildren<ReactElement> {
   onClose: () => void
 }
 
-const Modal = ({
-  className,
-  open = false,
-  hasCloseButton = true,
-  closeOnClickOutside = true,
-  closeOnEsc = true,
-  children,
-  onClose,
-  size = 'medium',
-  ...props
-}: IModalProps): ReactElement | null => {
-  const { mounted } = useMount(open)
-  const [animationIn, setAnimationIn] = useState(false)
+const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
+  (
+    {
+      className,
+      open = false,
+      hasCloseButton = true,
+      closeOnClickOutside = true,
+      closeOnEsc = true,
+      children,
+      onClose,
+      size = 'medium',
+      ...props
+    },
+    ref
+  ) => {
+    const { mounted } = useMount(open)
+    const [animationIn, setAnimationIn] = useState(false)
 
-  useEffect(() => {
-    setAnimationIn(open)
-  }, [open])
+    useEffect(() => {
+      setAnimationIn(open)
+    }, [open])
 
-  // обработка closeOnEsc
-  useEffect(() => {
-    const keydownHandler = (e: KeyboardEvent): void => {
-      if (e.key === 'Escape') {
-        onClose()
+    // обработка closeOnEsc
+    useEffect(() => {
+      const keydownHandler = (e: KeyboardEvent): void => {
+        if (e.key === 'Escape') {
+          onClose()
+        }
       }
+
+      document.addEventListener('keydown', keydownHandler)
+      return () => document.removeEventListener('keydown', keydownHandler)
+    }, [closeOnEsc])
+
+    if (!mounted) {
+      return null
     }
 
-    document.addEventListener('keydown', keydownHandler)
-    return () => document.removeEventListener('keydown', keydownHandler)
-  }, [closeOnEsc])
-
-  if (!mounted) {
-    return null
-  }
-
-  return (
-    <Portal>
-      <CSSTransition
-        appear={true}
-        in={animationIn}
-        timeout={ANIMATION_TIME}
-        mountOnEnter
-        unmountOnExit
-        classNames="inf-modal-"
-      >
-        <div
-          className={cn('inf-modal', className)}
-          role="dialog"
-          onClick={onClose}
-          {...props}
+    return (
+      <Portal>
+        <CSSTransition
+          appear={true}
+          in={animationIn}
+          timeout={ANIMATION_TIME}
+          mountOnEnter
+          unmountOnExit
+          classNames="inf-modal-"
         >
           <div
-            className={cn('inf-modal__card', `inf-modal__card--size-${size}`)}
-            onClick={(e) => e.stopPropagation()}
+            ref={ref}
+            className={cn('inf-modal', className)}
+            role="dialog"
+            onClick={onClose}
+            {...props}
           >
-            {hasCloseButton && <ModalClose onClick={onClose} />}
-            {children}
+            <div
+              className={cn('inf-modal__card', `inf-modal__card--size-${size}`)}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {hasCloseButton && <ModalClose onClick={onClose} />}
+              {children}
+            </div>
           </div>
-        </div>
-      </CSSTransition>
-    </Portal>
-  )
-}
+        </CSSTransition>
+      </Portal>
+    )
+  }
+)
 
-Modal.Header = ModalHeader
-Modal.Body = ModalBody
-Modal.Footer = ModalFooter
-Modal.Title = ModalTitle
+Modal.displayName = 'Modal'
 
-export default Modal
+export default Object.assign(Modal, {
+  Header: ModalHeader,
+  Body: ModalBody,
+  Footer: ModalFooter,
+  Title: ModalTitle
+})
