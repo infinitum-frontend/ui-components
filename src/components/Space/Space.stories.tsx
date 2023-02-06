@@ -64,13 +64,13 @@ Wrap.args = {
 export const Direction: StoryFn<typeof Space> = ({ ...args }) => (
   <>
     <Text>horizontal</Text>
-    <Space {...args}>
+    <Space {...args} direction="horizontal">
       <Button>Кнопка</Button>
       <Button>Кнопка</Button>
       <Button>Кнопка</Button>
     </Space>
     <Text>vertical</Text>
-    <Space {...args} direction="vertical">
+    <Space {...args}>
       <Button>Кнопка</Button>
       <Button>Кнопка</Button>
       <Button>Кнопка</Button>
