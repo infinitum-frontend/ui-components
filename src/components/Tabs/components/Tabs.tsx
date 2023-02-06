@@ -20,7 +20,8 @@ const Tabs = ({
   onChange,
   className,
   variant = 'default',
-  children
+  children,
+  ...props
 }: TabsProps): ReactElement => {
   const [panels, setPanels] = useState<any[]>([])
   const [tabs, setTabs] = useState<any[]>([])
@@ -61,7 +62,9 @@ const Tabs = ({
   }
   return (
     <TabsContext.Provider value={context}>
-      <div className={className}>{children}</div>
+      <div className={className} {...props}>
+        {children}
+      </div>
     </TabsContext.Provider>
   )
 }

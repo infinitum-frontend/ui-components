@@ -19,6 +19,7 @@ import { Link } from 'Components/Link'
 import { Modal } from 'Components/Modal'
 import { Container } from 'Components/Container'
 import { Logo } from 'Components/Logo'
+import { Table } from 'Components/Table'
 
 export {
   Button,
@@ -45,5 +46,6 @@ export {
   Link,
   Modal,
   Container,
-  Logo
+  Logo,
+  Table
 }

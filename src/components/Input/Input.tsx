@@ -8,12 +8,13 @@ import React, {
   useRef,
   Ref,
   useCallback,
-  MouseEventHandler
+  MouseEventHandler,
+  KeyboardEventHandler
 } from 'react'
 import classNames from 'classnames'
 import './index.scss'
 import { InputProps, InputRefHandler } from './interface'
-import { ReactComponent as ClearIcon } from 'Icons/clear-button.svg'
+import { ReactComponent as ClearIcon } from 'Icons/bx-x.svg'
 // eslint-disable-next-line import/no-named-default
 import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput'
@@ -35,6 +36,8 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       status,
       onInput,
       onFocus,
+      onSubmit,
+      onClear,
       onBlur,
       prefix, // не покрыто тестами
       prefixClass = '', // не покрыто тестами
@@ -107,11 +110,17 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       onBlur?.(e)
     }
 
+    const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+      if (e.key === 'Enter' && onSubmit) {
+        onSubmit(e)
+      }
+    }
+
     const handleClear: () => void = () => {
       if (debounce) {
         setLocalValue('')
       }
-      onInput?.('')
+      onClear?.()
       inputRef.current?.focus()
     }
 
@@ -182,6 +191,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           onInput={handleInput}
+          onKeyDown={handleKeyDown}
           {...restProps}
           ref={inputRef}
         />
@@ -207,6 +217,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         <BaseInput
           value={getFormattedValue(composedValue)}
           placeholder={isFocused ? '' : placeholder}
+          onKeyDown={handleKeyDown}
           disabled={disabled}
           onFocus={handleFocus}
           onBlur={handleBlur}

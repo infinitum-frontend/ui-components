@@ -1,6 +1,10 @@
 .inf-popover-content {
   --inf-popover-content-arrow-size: 8px;
 
+  &:focus-visible {
+    outline: none;
+  }
+
   border-radius: var(--inf-border-radius-medium);
   z-index: var(--inf-z-index-popover); // TODO: не место здесь
   padding: var(--inf-space-small);

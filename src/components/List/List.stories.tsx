@@ -2,9 +2,9 @@ import { StoryFn, Meta } from '@storybook/react'
 import { List } from './index'
 import { Checkbox } from '../Checkbox'
 // @ts-expect-error
-import { ReactComponent as CaseIcon } from 'Icons/case.svg'
+import { ReactComponent as PortfolioIcon } from 'Icons/portfolio.svg'
 // @ts-expect-error
-import { ReactComponent as ClearIcon } from 'Icons/clear-button.svg'
+import { ReactComponent as ClearIcon } from 'Icons/cross.svg'
 import { Space } from '../Space'
 import { Text } from '../Text'
 import {
@@ -82,7 +82,7 @@ export const WithIcon: StoryFn<typeof List> = (args) => {
       {ListWithStatuses.map((item) => (
         <List.Item disabled={Boolean(item.disabled)} key={item.statusText}>
           <List.Item.Icon>
-            <CaseIcon />
+            <PortfolioIcon />
           </List.Item.Icon>
           <List.Item.Content>
             <Space gap={'xxsmall'}>

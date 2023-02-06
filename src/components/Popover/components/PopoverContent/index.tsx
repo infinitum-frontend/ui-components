@@ -15,54 +15,53 @@ export interface PopoverContentProps extends ComponentPropsWithoutRef<'div'> {
   hasArrow?: boolean
 }
 
-const PopoverContent = forwardRef<
-  HTMLDivElement,
-  HTMLProps<HTMLDivElement> & PopoverContentProps
->(function PopoverContent(
-  {
-    variant = 'default',
-    hasPadding = true,
-    hasArrow = true,
-    children,
-    style,
-    ...props
-  }: PopoverContentProps,
-  propRef
-) {
-  const { context: floatingContext, ...context } = usePopoverContext()
-  const ref = useMergeRefs([context.refs.setFloating, propRef])
+const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
+  function PopoverContent(
+    {
+      variant = 'default',
+      hasPadding = true,
+      hasArrow = true,
+      children,
+      style,
+      ...props
+    }: PopoverContentProps,
+    propRef
+  ) {
+    const { context: floatingContext, ...context } = usePopoverContext()
+    const ref = useMergeRefs([context.refs.setFloating, propRef])
 
-  return (
-    <FloatingPortal>
-      {context.open && (
-        <FloatingFocusManager context={floatingContext} modal={false}>
-          <div
-            ref={ref}
-            style={{
-              position: context.strategy,
-              top: context.y ?? 0,
-              left: context.x ?? 0,
-              width: 'max-content',
-              ...style
-            }}
-            className={cn(
-              'inf-popover-content',
-              `inf-popover-content--variant-${variant}`,
-              {
-                'inf-popover--no-padding': !hasPadding
-              }
-            )}
-            aria-labelledby={context.labelId}
-            aria-describedby={context.descriptionId}
-            {...context.getFloatingProps(props)}
-          >
-            {children}
-          </div>
-        </FloatingFocusManager>
-      )}
-    </FloatingPortal>
-  )
-})
+    return (
+      <FloatingPortal>
+        {context.open && (
+          <FloatingFocusManager context={floatingContext} modal={false}>
+            <div
+              ref={ref}
+              style={{
+                position: context.strategy,
+                top: context.y ?? 0,
+                left: context.x ?? 0,
+                width: 'max-content',
+                ...style
+              }}
+              className={cn(
+                'inf-popover-content',
+                `inf-popover-content--variant-${variant}`,
+                {
+                  'inf-popover-content--no-padding': !hasPadding
+                }
+              )}
+              aria-labelledby={context.labelId}
+              aria-describedby={context.descriptionId}
+              {...context.getFloatingProps(props)}
+            >
+              {children}
+            </div>
+          </FloatingFocusManager>
+        )}
+      </FloatingPortal>
+    )
+  }
+)
 
 PopoverContent.displayName = 'PopoverContent'
 

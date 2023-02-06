@@ -12,7 +12,7 @@ import ListItemButton from './ListItemButton'
 import ListItemIcon from './ListItemIcon'
 import ListItemContent from './ListItemContent'
 import { Collapse } from 'Components/Collapse'
-import { ReactComponent as TriangleIcon } from 'Icons/triangle.svg'
+import { ReactComponent as TriangleIcon } from 'Icons/sort.svg'
 import useListContext from 'Components/List/context/useListContext'
 
 export interface ListItemProps {
