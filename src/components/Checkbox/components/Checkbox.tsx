@@ -9,12 +9,12 @@ import {
 } from 'react'
 import '../style/index.scss'
 import { ReactComponent as CheckIcon } from 'Icons/check.svg'
-import { ReactComponent as IndeterminateIcon } from 'Icons/minus.svg'
+import { ReactComponent as IndeterminateIcon } from 'Icons/indeterminate.svg'
 import cn from 'classnames'
 import { useCheckboxGroup } from 'Components/Checkbox/context'
 
 const defaultCheckedIcon = <CheckIcon width={'16px'} height={'16px'} />
-const indeterminateIcon = <IndeterminateIcon width={'8px'} height={'16px'} />
+const indeterminateIcon = <IndeterminateIcon width={'16px'} height={'16px'} />
 
 interface InputProps
   extends DetailedHTMLProps<

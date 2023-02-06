@@ -1,0 +1,26 @@
+.inf-table-header {
+  &:hover {
+    .inf-table-header__sort-icon {
+      opacity: 0.5;
+    }
+  }
+  &__filter-wrapper {
+    display: flex;
+
+    > * + * {
+      margin-left: 4px;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__sort-icon {
+    opacity: 0.2;
+  }
+
+  &--interactive {
+    cursor: pointer;
+  }
+}

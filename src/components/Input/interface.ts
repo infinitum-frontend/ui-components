@@ -55,6 +55,7 @@ export interface InputProps
   formatter?: (value?: string) => string | undefined
   onFocus?: FocusEventHandler<HTMLInputElement>
   onInput?: (value?: string, e?: FormEvent<HTMLInputElement>) => void
+  onClear?: () => void
   onBlur?: (
     e?: FocusEvent<HTMLInputElement> | MouseEvent<HTMLSpanElement>
   ) => void
