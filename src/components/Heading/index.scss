@@ -3,7 +3,7 @@
 
   &--level-1 {
     font-size: var(--inf-heading-level-1-size);
-    line-height: var(--inf-heading-level-1-size);
+    line-height: var(--inf-heading-level-1-line-height);
 
     &.inf-heading--has-margin {
       margin-bottom: 40px;
@@ -12,6 +12,7 @@
 
   &--level-2 {
     font-size: var(--inf-heading-level-2-size);
+    line-height: var(--inf-heading-level-2-line-height);
 
     &.inf-heading--has-margin {
       margin-bottom: 24px;
@@ -20,6 +21,7 @@
 
   &--level-3 {
     font-size: var(--inf-heading-level-3-size);
+    line-height: var(--inf-heading-level-3-line-height);
 
     &.inf-heading--has-margin {
       margin-bottom: 16px;
@@ -28,6 +30,7 @@
 
   &--level-4 {
     font-size: var(--inf-heading-level-4-size);
+    line-height: var(--inf-heading-level-4-line-height);
 
     &.inf-heading--has-margin {
       margin-bottom: 12px;
@@ -36,6 +39,7 @@
 
   &--level-5 {
     font-size: var(--inf-heading-level-5-size);
+    line-height: var(--inf-heading-level-5-line-height);
 
     &.inf-heading--has-margin {
       margin-bottom: 12px;

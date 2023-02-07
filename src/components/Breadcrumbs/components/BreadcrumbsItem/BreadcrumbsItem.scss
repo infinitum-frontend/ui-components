@@ -1,0 +1,23 @@
+.inf-breadcrumbs-item {
+  position: relative;
+  font-size: var(--inf-text-size-medium);
+  color: var(--inf-color-text-control);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--inf-color-text-secondary);
+  }
+
+  &:not(:last-child)::after {
+    width: 8px;
+    padding: var(--inf-space-xsmall);
+    flex-shrink: 0;
+    content: '/';
+    text-align: center;
+  }
+
+  &:last-child {
+    color: var(--inf-color-text);
+  }
+}
