@@ -38,16 +38,10 @@ const TableHeaderFilter = ({
   const handleInput = (val?: string): void => {
     if (!val) {
       setDisplayValue('')
+      setDisplayValue('')
     }
     setValue(val || '')
     onChange(val || '', header.column)
-  }
-
-  const handleClear = (): void => {
-    setValue('')
-    setDisplayValue('')
-    setOpen(false)
-    onChange('', header.column)
   }
 
   const handleSubmit: KeyboardEventHandler<HTMLInputElement> = (e) => {
@@ -103,7 +97,6 @@ const TableHeaderFilter = ({
             value={value}
             onInput={handleInput}
             onSubmit={handleSubmit}
-            onClear={handleClear}
           />
         ) : (
           <List>
