@@ -1,0 +1,22 @@
+.inf-header-nav-item {
+  display: inline-block;
+  font-weight: var(--inf-font-weight-normal);
+  font-size: var(--inf-text-size-xsmall);
+  line-height: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--inf-color-text);
+  padding: 12px 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--inf-color-primary-light);
+  }
+
+  &--active {
+    font-weight: var(--inf-font-weight-extrabold);
+    border-bottom: 2px solid var(--inf-color-primary-dark);
+  }
+}

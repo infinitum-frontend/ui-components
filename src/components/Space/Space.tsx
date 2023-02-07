@@ -19,7 +19,14 @@ export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
    * Расстояние между блоками
    */
-  gap?: 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+  gap?:
+    | 'xxsmall'
+    | 'xsmall'
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'xlarge'
+    | 'xxlarge'
   /**
    * Направление раскладки
    */

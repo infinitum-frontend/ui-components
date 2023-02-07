@@ -10,10 +10,10 @@
   }
 
   &:not(:last-child)::after {
+    content: '/';
     width: 8px;
     padding: var(--inf-space-xsmall);
     flex-shrink: 0;
-    content: '/';
     text-align: center;
   }
 
