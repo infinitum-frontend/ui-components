@@ -37,7 +37,6 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       onInput,
       onFocus,
       onSubmit,
-      onClear,
       onBlur,
       prefix, // не покрыто тестами
       prefixClass = '', // не покрыто тестами
@@ -82,7 +81,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           setLocalValue(getFormattedValue(target.value))
           debouncedInput(getFormattedValue(target.value), e)
         } else {
-          onInput(getFormattedValue(target.value), e)
+          onInput(getFormattedValue(target.value) || '', e)
         }
       }
     }
@@ -120,7 +119,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       if (debounce) {
         setLocalValue('')
       }
-      onClear?.()
+      onInput?.('')
       inputRef.current?.focus()
     }
 
@@ -166,7 +165,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
         <span
           onClick={handleClear}
           className={classNames('inf-input-wrapper__clear-button', {
-            'inf-input-wrapper__clear-button--hidden': !value
+            'inf-input-wrapper__clear-button--hidden': !composedValue
           })}
         >
           {iconNode}
