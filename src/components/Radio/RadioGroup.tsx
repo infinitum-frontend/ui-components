@@ -13,6 +13,7 @@ export interface RadioGroupProps
   /** Значение выбранной радиокнопки */
   value: string
   direction?: 'vertical'
+  required?: boolean
 }
 
 const RadioGroup = ({
@@ -21,13 +22,15 @@ const RadioGroup = ({
   value = '',
   children,
   direction = 'vertical',
+  required,
   className,
   ...props
 }: RadioGroupProps): ReactElement => {
   const context = {
     value,
     name,
-    onChange
+    onChange,
+    required
   }
 
   return (

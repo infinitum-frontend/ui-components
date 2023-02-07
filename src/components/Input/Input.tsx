@@ -18,6 +18,7 @@ import { ReactComponent as ClearIcon } from 'Icons/bx-x.svg'
 // eslint-disable-next-line import/no-named-default
 import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput'
+import { useForm } from 'Components/Form/context'
 
 /**
  * Компонент поля ввода
@@ -56,6 +57,8 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
+
+    const context = useForm()
 
     useImperativeHandle(ref, () => ({
       input: inputRef.current,
@@ -187,6 +190,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           noBorder={noBorder}
           borderRadius={borderRadius}
           status={status}
+          id={context?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onInput={handleInput}
@@ -218,6 +222,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           placeholder={isFocused ? '' : placeholder}
           onKeyDown={handleKeyDown}
           disabled={disabled}
+          id={context?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onInput={handleInput}

@@ -37,10 +37,13 @@ export interface CheckboxProps
   /** HTML value */
   value?: string
   onChange?: (checked: boolean, e: ChangeEvent) => void
+  /** html required */
+  required?: boolean
   inputProps?: Omit<
     InputProps,
     | 'type'
     | 'name'
+    | 'required'
     | 'value'
     | 'disabled'
     | 'defaultChecked'
@@ -65,6 +68,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       value = '',
       indeterminate = false,
       className,
+      required = false,
       inputProps,
       ...props
     },
@@ -105,6 +109,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           value={value}
           aria-checked={getAriaCheckedAttr()}
           disabled={disabled}
+          required={required}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
           onChange={handleChange}

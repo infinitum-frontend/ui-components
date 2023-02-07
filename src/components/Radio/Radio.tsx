@@ -22,6 +22,7 @@ export interface RadioProps
   name?: string
   /** HTML value */
   value?: string
+  required?: boolean
 }
 
 const Radio = forwardRef<HTMLLabelElement, RadioProps>(
@@ -35,6 +36,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
       name,
       value,
       className,
+      required = false,
       ...props
     },
     ref
@@ -44,6 +46,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
     if (groupData) {
       name = groupData.name
       checked = value === groupData.value
+      required = required || Boolean(groupData.required)
     }
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -59,6 +62,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
           disabled={disabled}
           name={name}
           value={value}
+          required={required}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
           onChange={handleChange}

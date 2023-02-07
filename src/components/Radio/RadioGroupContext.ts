@@ -4,6 +4,7 @@ export interface RadioGroupContextValue {
   name: string
   onChange?: (event: ChangeEvent<HTMLInputElement>, value: string) => void
   value: string
+  required?: boolean
 }
 
 /**
