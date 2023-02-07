@@ -1,6 +1,7 @@
 .inf-radio {
   display: inline-flex;
   align-items: center;
+  position: relative;
 
   &:hover {
     & .inf-radio__box:not(.inf-radio__box--disabled) {
@@ -59,10 +60,13 @@
     outline: none;
     position: absolute;
     margin: 0;
-    width: 0;
-    height: 0;
     z-index: -1;
-    appearance: none;
+    width: 16px;
+    height: 16px;
+    // TODO: вернуть после реализации кастомной валидации
+    //width: 0;
+    //height: 0;
+    //appearance: none;
 
 
     &:checked ~ .inf-radio__box {

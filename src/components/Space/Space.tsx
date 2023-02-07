@@ -1,21 +1,13 @@
 import './Space.scss'
-import React, { ReactNode } from 'react'
+import React, { ElementType } from 'react'
 import cn from 'classnames'
+import {
+  PolymorphicComponent,
+  PolymorphicComponentWithRef,
+  PolymorphicRef
+} from '~/src/utils/types'
 
-export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
-  /**
-   * Элемент для рендеринга
-   * @default 'button'
-   */
-  as?: React.ElementType<any>
-  /**
-   * Содержимое
-   */
-  children: ReactNode
-  /**
-   * Дополнительный className
-   */
-  className?: string
+export interface SpaceProps {
   /**
    * Расстояние между блоками
    */
@@ -34,26 +26,26 @@ export interface SpaceProps extends React.ComponentPropsWithoutRef<'div'> {
   wrap?: boolean
 }
 
-const Space = React.forwardRef<HTMLDivElement, SpaceProps>(
-  (
+const Space: PolymorphicComponentWithRef<'div', SpaceProps> = React.forwardRef(
+  <C extends ElementType = 'div'>(
     {
-      as = 'div',
-      children = '',
-      className = '',
+      as,
+      children,
+      className,
       gap = 'small',
       direction = 'vertical',
       align,
       wrap = false,
       ...props
-    },
-    ref
+    }: PolymorphicComponent<C, SpaceProps>,
+    ref: PolymorphicRef<C>
   ) => {
     const getClassNames: () => string = () => {
       return cn(
         'inf-space',
         className,
-        `inf-space--gap-${gap}`,
-        `inf-space--direction-${direction}`,
+        `inf-space--gap-${gap as string}`,
+        `inf-space--direction-${direction as string}`,
         {
           'inf-space--wrap': wrap,
           [`inf-space--align-${align as string}`]: align
@@ -61,7 +53,7 @@ const Space = React.forwardRef<HTMLDivElement, SpaceProps>(
       )
     }
 
-    const Component = as
+    const Component = as || 'div'
 
     return (
       <Component ref={ref} className={getClassNames()} {...props}>
