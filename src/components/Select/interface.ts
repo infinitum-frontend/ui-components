@@ -44,4 +44,6 @@ export interface SelectProps
   disabled?: boolean
   value?: SelectOption['value']
   placeholder?: string
+  status?: 'error'
+  required?: boolean
 }

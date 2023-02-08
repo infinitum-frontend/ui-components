@@ -52,6 +52,11 @@ describe('Textarea', () => {
     expect(el.className).contains(className)
     expect(el.className).contains('inf-textarea')
   })
+
+  it('should support filled state', () => {
+    const { el } = renderComponent(<Textarea value={'textarea'} />)
+    expect(el).toHaveClass('inf-textarea--filled')
+  })
 })
 
 describe('Resize', () => {

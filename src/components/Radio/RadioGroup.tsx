@@ -9,7 +9,7 @@ export interface RadioGroupProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   /** Название группы радио кнопок */
   name: string
-  onChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void
+  onChange: (value: string, event: ChangeEvent<HTMLInputElement>) => void
   /** Значение выбранной радиокнопки */
   value: string
   direction?: 'vertical'

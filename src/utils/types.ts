@@ -21,7 +21,7 @@ export interface PolymorphicComponentWithRef<
   Props = {}
 > {
   <C extends ElementType = DefaultTag>(
-    props: PolymorphicComponent<C, Props>
+    props: PolymorphicComponent<C, Props> & { ref?: PolymorphicRef<C> }
   ): ReactElement | null
   propTypes?:
     | WeakValidationMap<PolymorphicComponent<DefaultTag, Props>>

@@ -1,19 +1,32 @@
-import { ComponentPropsWithoutRef, ReactElement } from 'react'
-import { useForm } from 'Components/Form/context'
+import { ComponentPropsWithoutRef, forwardRef, ReactElement } from 'react'
+import { useFormGroup } from 'Components/Form/context/group'
+import { useForm } from 'Components/Form/context/form'
 
-export interface LabelProps extends ComponentPropsWithoutRef<'label'> {
+export interface FormLabelProps extends ComponentPropsWithoutRef<'label'> {
   id?: string
 }
 
-const Label = ({ id, children, ...props }: LabelProps): ReactElement => {
-  const context = useForm()
+const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
+  ({ id, style, children, ...props }, ref): ReactElement => {
+    const formData = useForm()
+    const formGroupData = useFormGroup()
 
-  const htmlFor = id || context?.id
-  return (
-    <label htmlFor={htmlFor} {...props}>
-      {children}
-    </label>
-  )
-}
+    const htmlFor = id || formGroupData?.id
 
-export default Label
+    return (
+      <label
+        className={'inf-form-label'}
+        htmlFor={htmlFor}
+        ref={ref}
+        {...props}
+        style={{ ...style, width: formData?.labelWidth || 'initial' }}
+      >
+        {children}
+      </label>
+    )
+  }
+)
+
+FormLabel.displayName = 'Form.Label'
+
+export default FormLabel

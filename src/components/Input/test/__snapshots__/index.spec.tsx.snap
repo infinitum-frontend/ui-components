@@ -3,7 +3,7 @@
 exports[`input > matches snapshop 1`] = `
 <input
   class="inf-input inf-input--size-medium inf-input--br-regular"
-  placeholder=""
+  placeholder="Введите значение"
   value=""
 />
 `;

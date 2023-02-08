@@ -26,6 +26,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       className,
       `inf-input--size-${size as string}`,
       {
+        'inf-input--filled': value,
         'inf-input--no-border': noBorder,
         [`inf-input--status-${status as string}`]: status,
         [`inf-input--br-${borderRadius as string}`]: borderRadius

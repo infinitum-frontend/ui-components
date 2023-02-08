@@ -2,7 +2,7 @@ import { createContext, ChangeEvent } from 'react'
 
 export interface RadioGroupContextValue {
   name: string
-  onChange?: (event: ChangeEvent<HTMLInputElement>, value: string) => void
+  onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void
   value: string
   required?: boolean
 }
