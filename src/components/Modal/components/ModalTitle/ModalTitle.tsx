@@ -21,6 +21,6 @@ const ModalTitle = React.forwardRef<HTMLDivElement, ModalTitleProps>(
   }
 )
 
-ModalTitle.displayName = 'ModalTitle'
+ModalTitle.displayName = 'Modal.Title'
 
 export default ModalTitle

@@ -36,6 +36,6 @@ const PopoverTrigger = forwardRef<
   return <div>Invalid element in children</div>
 })
 
-PopoverTrigger.displayName = 'PopoverTrigger'
+PopoverTrigger.displayName = 'Popover.Trigger'
 
 export default PopoverTrigger

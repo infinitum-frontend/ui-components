@@ -11,22 +11,28 @@ import {
   useInteractions,
   Placement
 } from '@floating-ui/react'
+import { OffsetOptions } from '@floating-ui/core'
 import PopoverTrigger from './components/PopoverTrigger'
 import PopoverContent from './components/PopoverContent'
 import { PopoverContext } from './usePopoverContext'
 
 export interface PopoverProps {
   defaultOpen?: boolean
-  placement?: Placement
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  placement?: Placement
+  /**
+   * Значение отступа от триггера https://floating-ui.com/docs/offset
+   */
+  offset?: OffsetOptions
 }
 
 export function usePopover({
   defaultOpen = false,
-  placement,
   open: controlledOpen,
-  onOpenChange: setControlledOpen
+  onOpenChange: setControlledOpen,
+  placement = 'bottom',
+  offset: offsetProp = 6
 }: PopoverProps = {}): any {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const [labelId, setLabelId] = useState<string | undefined>()
@@ -41,7 +47,7 @@ export function usePopover({
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(8),
+      offset(),
       flip({
         fallbackAxisSideDirection: 'end'
       }),

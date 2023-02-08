@@ -6,18 +6,42 @@ import { Button } from '../Button'
 import { Heading } from '../Heading'
 import { Space } from '../Space'
 import { Text } from '../Text'
+import { List } from '../List'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import { omitKeyFromObject } from '../../utils/helpers'
 
 const ComponentMeta: Meta<typeof Popover> = {
   title: 'Overlay/Popover',
-  component: Popover
+  component: Popover,
+  parameters: {
+    docs: {
+      source: {
+        excludeDecorators: true
+      }
+    }
+  }
 }
 
 export default ComponentMeta
 
+const decorator = (Story): ReactElement => (
+  <div
+    style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    }}
+  >
+    {Story()}
+  </div>
+)
+
 export const Playground: StoryFn<typeof Popover> = ({ ...args }) => {
+  const argsWithoutChangeHandler = omitKeyFromObject('onOpenChange', args)
+
   return (
-    <Popover>
+    <Popover {...argsWithoutChangeHandler}>
       <Popover.Trigger>
         <Button>Trigger</Button>
       </Popover.Trigger>
@@ -25,6 +49,7 @@ export const Playground: StoryFn<typeof Popover> = ({ ...args }) => {
     </Popover>
   )
 }
+Playground.decorators = [decorator]
 
 export const Inverted: StoryFn<typeof Popover> = () => {
   return (
@@ -38,9 +63,10 @@ export const Inverted: StoryFn<typeof Popover> = () => {
     </Popover>
   )
 }
+Playground.Inverted = [decorator]
 
-export const MPCProfileInfo: StoryFn<typeof Popover> = () => {
-  const [isOpen, setIsOpen] = useState(false)
+export const UserMenu1: StoryFn<typeof Popover> = () => {
+  const [isOpen, setIsOpen] = useState(true)
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -93,3 +119,49 @@ export const MPCProfileInfo: StoryFn<typeof Popover> = () => {
     </Popover>
   )
 }
+UserMenu1.decorators = [decorator]
+
+export const UserMenu2: StoryFn<typeof Popover> = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  function onExitClick(): void {
+    alert('Выйти')
+  }
+
+  return (
+    <Popover
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      placement="bottom-end"
+      offset={{ mainAxis: 10 }}
+    >
+      <Popover.Trigger onClick={() => setIsOpen((v) => !v)}>
+        <Button
+          variant="ghost"
+          after={
+            <ArrowDownIcon
+              style={{ transform: isOpen ? 'rotate(180deg)' : '' }}
+            />
+          }
+        >
+          Константин Константинопольский
+        </Button>
+      </Popover.Trigger>
+      <Popover.Content hasPadding={false} style={{ width: '150px' }}>
+        <List>
+          <List.Item as="a" href="https://ya.ru">
+            Настройки
+          </List.Item>
+          <List.Item
+            as="button"
+            onClick={onExitClick}
+            style={{ display: 'block', color: 'var(--inf-color-text-danger' }}
+          >
+            Выйти
+          </List.Item>
+        </List>
+      </Popover.Content>
+    </Popover>
+  )
+}
+UserMenu2.decorators = [decorator]

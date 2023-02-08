@@ -63,6 +63,6 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
   }
 )
 
-PopoverContent.displayName = 'PopoverContent'
+PopoverContent.displayName = 'Popover.Content'
 
 export default PopoverContent

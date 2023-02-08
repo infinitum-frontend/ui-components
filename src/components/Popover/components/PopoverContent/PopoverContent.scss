@@ -1,5 +1,6 @@
 .inf-popover-content {
   --inf-popover-content-arrow-size: 8px;
+  overflow: hidden;
 
   &:focus-visible {
     outline: none;

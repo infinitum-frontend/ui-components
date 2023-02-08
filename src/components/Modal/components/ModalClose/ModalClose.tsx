@@ -42,6 +42,6 @@ const ModalClose = React.forwardRef<HTMLButtonElement, ModalCloseProps>(
   }
 )
 
-ModalClose.displayName = 'ModalClose'
+ModalClose.displayName = 'Modal.Close'
 
 export default ModalClose
