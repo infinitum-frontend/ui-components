@@ -58,6 +58,7 @@ export const Wrap: StoryFn<typeof Space> = ({ ...args }) => (
   </Space>
 )
 Wrap.args = {
+  direction: 'horizontal',
   wrap: true
 }
 
