@@ -1,7 +1,7 @@
-import { createContext, useContext } from 'react'
+import { createContext, CSSProperties, useContext } from 'react'
 
 export interface IFormContext {
-  id?: string
+  labelWidth?: CSSProperties['width']
 }
 
 const FormContext = createContext<IFormContext | null>(null)

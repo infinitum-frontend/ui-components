@@ -49,4 +49,8 @@
   &--no-border {
     border: none;
   }
+
+  &--filled {
+    border-color: var(--inf-color-border-focused);
+  }
 }

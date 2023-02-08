@@ -29,6 +29,10 @@
     pointer-events: none;
   }
 
+  &--status-error {
+    border-color: var(--inf-color-primary);
+  }
+
   &__arrow {
     position: absolute;
     display: flex;
@@ -75,5 +79,13 @@
       border-top-right-radius: var(--inf-select-item-border-radius);
       border-top-left-radius: var(--inf-select-item-border-radius);
     }
+  }
+
+  select {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    z-index: -1;
   }
 }

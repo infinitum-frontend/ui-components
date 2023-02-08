@@ -51,7 +51,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       groupData
-        ? groupData.onChange?.(e, value || '')
+        ? groupData.onChange?.(value || '', e)
         : onChange?.(e.target.checked, e)
     }
 

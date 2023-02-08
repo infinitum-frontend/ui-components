@@ -66,6 +66,10 @@
     border-color: var(--inf-color-primary);
   }
 
+  &--filled {
+    border-color: var(--inf-color-border-focused);
+  }
+
   &__prefix,
   &__clear-button {
     cursor: pointer;

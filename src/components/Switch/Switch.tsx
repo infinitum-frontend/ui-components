@@ -31,13 +31,7 @@ export type SwitchProps = Omit<
   /**
    * Обработчик переключения состояния
    */
-  onChange?: (
-    event?: ChangeEvent<HTMLInputElement>,
-    payload?: {
-      checked: boolean
-      name: InputHTMLAttributes<HTMLInputElement>['name']
-    }
-  ) => void
+  onChange?: (checked: boolean, event?: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
@@ -56,7 +50,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
   ) => {
     function handleChange(e: ChangeEvent<HTMLInputElement>): void {
       if (onChange) {
-        onChange(e, { checked: e.target.checked, name })
+        onChange(e.target.checked, e)
       }
     }
 

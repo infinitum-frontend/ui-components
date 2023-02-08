@@ -68,6 +68,10 @@
     //height: 0;
     //appearance: none;
 
+    &:focus-visible ~ .inf-radio__box {
+      outline: 2px solid #49c8ff;
+    }
+
 
     &:checked ~ .inf-radio__box {
       border-color: transparent;

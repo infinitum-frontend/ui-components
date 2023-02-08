@@ -1,16 +1,17 @@
-@import "../Input/common.scss";
+@import '../Input/common.scss';
 .inf-textarea {
   box-sizing: border-box;
   outline: none;
   cursor: text;
-  display: inline-flex;
-  align-items: center;
+  display: block;
+  width: 100%;
   border: 1px solid var(--inf-color-border-default);
-  transition: border-color .2s;
+  border-radius: var(--inf-border-radius-medium);
+  transition: border-color 0.2s;
   font-weight: var(--inf-font-weight-normal);
   font-size: var(--inf-text-size-small);
   line-height: 18px;
-  padding: 8px 16px;
+  padding: 7px 12px;
   background-color: inherit;
   overflow: hidden;
   resize: none;
@@ -24,7 +25,7 @@
   }
 
   &:focus {
-    border-color: var(--inf-color-border-focused)
+    border-color: var(--inf-color-border-focused);
   }
 
   &:disabled {
@@ -44,6 +45,10 @@
 
   &--block {
     width: 100%;
+  }
+
+  &--filled {
+    border-color: var(--inf-color-border-focused);
   }
 
   &--resize-both {

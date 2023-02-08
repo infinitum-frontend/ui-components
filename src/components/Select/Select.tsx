@@ -15,6 +15,7 @@ import { useClickOutside } from 'Hooks/useClickOutside'
 import { mergeRefs } from 'react-merge-refs'
 import { Modifier, usePopper } from 'react-popper'
 import { createPortal } from 'react-dom'
+import { useFormGroup } from 'Components/Form/context/group'
 
 export const defaultSelectItem: SelectOption = {
   value: -1,
@@ -46,6 +47,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       value,
       disabled = false,
       placeholder,
+      required = false,
+      status,
+      id,
       ...props
     }: SelectProps,
     ref
@@ -62,6 +66,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       getIndexByValue(value, options) || 0
     )
 
+    const formGroupData = useFormGroup()
+
     // effects
     useEffect(() => {
       if (autoFocus) {
@@ -76,8 +82,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     }
 
     const handleKeyDown: KeyboardEventHandler = (e) => {
-      e.preventDefault()
       if (e.key === 'ArrowDown') {
+        e.preventDefault()
         setActiveItem((prevState) => {
           if (prevState === options.length - 1) {
             return 0
@@ -88,6 +94,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       }
 
       if (e.key === 'ArrowUp') {
+        e.preventDefault()
         setActiveItem((prevState) => {
           if (prevState === 0) {
             return options.length - 1
@@ -98,11 +105,13 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       }
 
       if (e.key === 'Escape') {
+        e.preventDefault()
         setActiveItem(0)
         setFocused(false)
       }
 
       if (e.key === 'Enter') {
+        e.preventDefault()
         submit(activeItem)
       }
     }
@@ -118,6 +127,10 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     }
 
     const submit = (index: number): void => {
+      if (index < 0) {
+        return
+      }
+
       setFocused(() => false)
       onChange?.(options[index])
     }
@@ -158,6 +171,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     return (
       <>
         <button
+          tabIndex={-1}
           ref={mergeRefs([ref, setReference])}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
@@ -166,14 +180,15 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           className={cn(
             'inf-select',
             {
-              'inf-select--selected': value !== undefined,
+              [`inf-select--status-${status as string}`]: status,
+              'inf-select--selected': Boolean(value),
               'inf-select--disabled': disabled
             },
             className
           )}
           {...props}
         >
-          {value !== undefined
+          {value
             ? getItemByValue(value, options)?.label
             : defaultSelectItem.label}
           <span
@@ -183,6 +198,21 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           >
             <ArrowDownIcon width={'10px'} height={'5px'} />
           </span>
+          <select
+            required={required}
+            id={formGroupData?.id || id}
+            value={value}
+            onChange={() => null}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+          >
+            <option value={''} />
+            {options.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </button>
 
         {isFocused &&

@@ -18,7 +18,7 @@ import { ReactComponent as ClearIcon } from 'Icons/bx-x.svg'
 // eslint-disable-next-line import/no-named-default
 import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput'
-import { useForm } from 'Components/Form/context'
+import { useFormGroup } from 'Components/Form/context/group'
 
 /**
  * Компонент поля ввода
@@ -31,7 +31,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       formatter,
       size = 'medium',
       className = '',
-      placeholder = '',
+      placeholder = 'Введите значение',
       borderRadius = 'regular',
       disabled = false,
       status,
@@ -45,6 +45,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       allowClear = false,
       noBorder = false,
       debounce = 0, // не покрыто тестами
+      id,
       ...restProps
     }: InputProps,
     ref: Ref<InputRefHandler>
@@ -58,7 +59,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
 
-    const context = useForm()
+    const formGroupContext = useFormGroup()
 
     useImperativeHandle(ref, () => ({
       input: inputRef.current,
@@ -146,6 +147,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           'inf-input-wrapper--disabled': disabled,
           'inf-input-wrapper--focused': isFocused,
           'inf-input-wrapper--no-border': noBorder,
+          'inf-input-wrapper--filled': composedValue,
           [`inf-input-wrapper--br-${borderRadius}`]: borderRadius !== 'unset',
           [`inf-input-wrapper--status-${status as string}`]: status
         }
@@ -190,7 +192,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           noBorder={noBorder}
           borderRadius={borderRadius}
           status={status}
-          id={context?.id}
+          id={id || formGroupContext?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onInput={handleInput}
@@ -222,7 +224,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           placeholder={isFocused ? '' : placeholder}
           onKeyDown={handleKeyDown}
           disabled={disabled}
-          id={context?.id}
+          id={id || formGroupContext?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onInput={handleInput}

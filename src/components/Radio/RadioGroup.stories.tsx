@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { RadioGroup } from './index'
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
 const meta: Meta<typeof RadioGroup> = {
   title: 'RadioGroup',
@@ -14,7 +14,7 @@ export default meta
 export const Playground: StoryFn<typeof RadioGroup> = (args) => {
   const [state, setState] = useState<string>('')
 
-  const handleChange = (e: ChangeEvent, val: string): void => {
+  const handleChange = (val: string): void => {
     setState(val)
   }
 

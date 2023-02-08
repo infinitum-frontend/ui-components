@@ -6,6 +6,7 @@ import {
 } from 'react'
 import cn from 'classnames'
 import './index.scss'
+import { useFormGroup } from 'Components/Form/context/group'
 
 export interface TextareaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onInput'> {
@@ -46,14 +47,17 @@ const Textarea = ({
   className,
   status,
   onInput,
+  id,
   ...props
 }: TextareaProps): ReactElement => {
+  const formGroupData = useFormGroup()
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     onInput?.((e.target as HTMLTextAreaElement).value, e)
   }
 
   const classNames = cn('inf-textarea', 'inf-input-common', className, {
     'inf-textarea--block': block,
+    'inf-textarea--filled': value,
     [`inf-textarea--status-${status as string}`]: status,
     [`inf-textarea--resize-${resize as string}`]: resize
   })
@@ -63,6 +67,7 @@ const Textarea = ({
       placeholder={placeholder}
       className={classNames}
       value={value}
+      id={id || formGroupData?.id}
       onInput={handleInput}
       disabled={disabled}
       {...props}

@@ -1,34 +1,58 @@
-import { ComponentPropsWithoutRef, ReactElement, useId } from 'react'
-import FormContext from 'Components/Form/context'
+import {
+  ComponentPropsWithoutRef,
+  forwardRef,
+  ReactElement,
+  useId
+} from 'react'
+import FormGroupContext from 'Components/Form/context/group'
 import cn from 'classnames'
 import '../style/group.scss'
-import Space from 'Components/Space/Space'
+import Space, { SpaceProps } from 'Components/Space/Space'
 
-export interface GroupProps extends ComponentPropsWithoutRef<'div'> {
-  direction?: 'vertical' | 'horizontal'
+export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
+  /** Направление раскладки */
+  direction?: SpaceProps['direction']
+  /**
+   * Расстояние между блоками
+   */
+  gap?: SpaceProps['gap']
 }
 
-const Group = ({
-  direction = 'vertical',
-  children,
-  className,
-  ...props
-}: GroupProps): ReactElement => {
-  const context = {
-    id: `field-${useId()}`
+const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
+  (
+    {
+      direction = 'vertical',
+      gap = 'medium',
+      children,
+      className,
+      ...props
+    }: FormGroupProps,
+    ref
+  ): ReactElement => {
+    const context = {
+      id: `field-${useId()}`
+    }
+
+    const align: SpaceProps['align'] =
+      direction === 'vertical' ? 'start' : 'baseline'
+
+    return (
+      <FormGroupContext.Provider value={context}>
+        <Space
+          align={align}
+          ref={ref}
+          gap={gap}
+          className={cn(className, 'inf-form-group')}
+          direction={direction}
+          {...props}
+        >
+          {children}
+        </Space>
+      </FormGroupContext.Provider>
+    )
   }
+)
 
-  return (
-    <FormContext.Provider value={context}>
-      <Space
-        className={cn(className, 'inf-form-group')}
-        {...props}
-        direction={direction}
-      >
-        {children}
-      </Space>
-    </FormContext.Provider>
-  )
-}
+FormGroup.displayName = 'Form.Group'
 
-export default Group
+export default FormGroup

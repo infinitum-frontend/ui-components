@@ -15,7 +15,7 @@ describe('input', () => {
     const { el } = renderComponent(<Input />)
     expect(el).toBeEmptyDOMElement()
     expect(el).toContainHTML(
-      `<input class="inf-input inf-input--size-medium inf-input--br-regular" placeholder="" value="" />`
+      `<input class="inf-input inf-input--size-medium inf-input--br-regular" placeholder="Введите значение" value="" />`
     )
   })
 
@@ -213,6 +213,16 @@ describe('border', () => {
     const { el } = renderComponent(<Input noBorder={true} prefix={'prefix'} />)
     expect(el.className).toContain('inf-input-wrapper--no-border')
     expect(el).toHaveStyle('border: none')
+  })
+
+  it('should support filled class on plain input', () => {
+    const { el } = renderComponent(<Input value={'test'} />)
+    expect(el).toHaveClass('inf-input--filled')
+  })
+
+  it('should support filled class on complex input', () => {
+    const { el } = renderComponent(<Input value={'test'} prefix={'prefix'} />)
+    expect(el).toHaveClass('inf-input-wrapper--filled')
   })
 })
 
