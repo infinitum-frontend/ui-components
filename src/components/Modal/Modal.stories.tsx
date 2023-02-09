@@ -2,8 +2,7 @@
 import React, { useState } from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Modal } from './index'
-import { Button } from '../Button'
-import ModalTitle from './components/ModalTitle'
+import { Button } from 'Components/Button'
 
 const meta: Meta<typeof Modal> = {
   title: 'Overlay/Modal',
@@ -25,7 +24,7 @@ const Template: StoryFn<typeof Modal> = (args) => {
       <Button onClick={() => setIsOpened(true)}>Открыть модальное окно</Button>
       <Modal {...args} open={isOpened} onClose={() => setIsOpened(false)}>
         <Modal.Header>
-          <ModalTitle>Изменение показателя</ModalTitle>
+          <Modal.Title>Изменение показателя</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis
@@ -58,7 +57,7 @@ export const ContentOverflow: StoryFn<typeof Modal> = (args) => {
       <Button onClick={() => setIsOpened(true)}>Открыть модальное окно</Button>
       <Modal {...args} open={isOpened} onClose={() => setIsOpened(false)}>
         <Modal.Header>
-          <ModalTitle>Изменение показателя</ModalTitle>
+          <Modal.Title>Изменение показателя</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam

@@ -20,11 +20,11 @@ import {
 export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
   open: boolean
+  onClose: () => void
   size?: 'small' | 'medium' | 'large'
   closeOnClickOutside?: boolean
   closeOnEsc?: boolean
   hasCloseButton?: boolean
-  onClose: () => void
 }
 
 const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
@@ -32,11 +32,11 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     {
       className,
       open: isOpen = false,
+      onClose,
       hasCloseButton = true,
       closeOnClickOutside = true,
       closeOnEsc = true,
       children,
-      onClose,
       size = 'medium',
       ...props
     },
@@ -53,6 +53,8 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       onOpenChange: handleOpenChange
     })
     const dismiss = useDismiss(context, {
+      escapeKey: closeOnEsc,
+      outsidePress: closeOnClickOutside,
       outsidePressEvent: 'mousedown'
     })
     const role = useRole(context)
@@ -67,7 +69,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         {isOpen && (
           <FloatingOverlay
             ref={ref}
-            className="inf-modal"
+            className={cn('inf-modal', className)}
             lockScroll
             {...props}
           >
