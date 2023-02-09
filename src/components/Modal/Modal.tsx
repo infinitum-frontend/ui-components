@@ -12,6 +12,7 @@ import {
   useRole,
   useId,
   useInteractions,
+  useTransitionStatus,
   FloatingFocusManager,
   FloatingOverlay,
   FloatingPortal
@@ -64,13 +65,16 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     const headingId = useId()
     const descriptionId = useId()
 
+    const { isMounted, status } = useTransitionStatus(context)
+
     return (
       <FloatingPortal>
-        {isOpen && (
+        {isMounted && (
           <FloatingOverlay
             ref={ref}
             className={cn('inf-modal', className)}
             lockScroll
+            data-status={status}
             {...props}
           >
             <FloatingFocusManager context={context}>
@@ -82,6 +86,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                 )}
                 aria-labelledby={headingId}
                 aria-describedby={descriptionId}
+                data-status={status}
                 {...getFloatingProps()}
               >
                 {hasCloseButton && <ModalClose onClick={onClose} />}

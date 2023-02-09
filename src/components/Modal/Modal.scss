@@ -4,6 +4,18 @@
   place-items: center;
   z-index: var(--inf-z-index-modal);
 
+  transition-property: opacity;
+
+  &[data-status='open'],
+  &[data-status='close'] {
+    transition-duration: 250ms;
+  }
+
+  &[data-status='initial'],
+  &[data-status='close'] {
+    opacity: 0;
+  }
+
   &__card {
     margin: 12px;
     background-color: #fff;
