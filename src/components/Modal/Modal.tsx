@@ -1,5 +1,4 @@
-import React, { useEffect, useState, ComponentPropsWithoutRef } from 'react'
-import { Portal } from '../Portal'
+import React, { ComponentPropsWithoutRef } from 'react'
 import ModalBody from './components/ModalBody'
 import ModalHeader from './components/ModalHeader'
 import ModalFooter from './components/ModalFooter'
@@ -7,10 +6,16 @@ import ModalTitle from './components/ModalTitle'
 import ModalClose from './components/ModalClose'
 import cn from 'classnames'
 import './Modal.scss'
-import { useMount } from './useMount'
-import { CSSTransition } from 'react-transition-group'
-
-export const ANIMATION_TIME = 200
+import {
+  useFloating,
+  useDismiss,
+  useRole,
+  useId,
+  useInteractions,
+  FloatingFocusManager,
+  FloatingOverlay,
+  FloatingPortal
+} from '@floating-ui/react'
 
 export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
@@ -26,7 +31,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   (
     {
       className,
-      open = false,
+      open: isOpen = false,
       hasCloseButton = true,
       closeOnClickOutside = true,
       closeOnEsc = true,
@@ -37,56 +42,53 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     },
     ref
   ) => {
-    const { mounted } = useMount(open)
-    const [animationIn, setAnimationIn] = useState(false)
-
-    useEffect(() => {
-      setAnimationIn(open)
-    }, [open])
-
-    // обработка closeOnEsc
-    useEffect(() => {
-      const keydownHandler = (e: KeyboardEvent): void => {
-        if (e.key === 'Escape') {
-          onClose()
-        }
+    function handleOpenChange(value: boolean): void {
+      if (!value) {
+        onClose()
       }
-
-      document.addEventListener('keydown', keydownHandler)
-      return () => document.removeEventListener('keydown', keydownHandler)
-    }, [closeOnEsc])
-
-    if (!mounted) {
-      return null
     }
 
+    const { refs, context } = useFloating({
+      open: isOpen,
+      onOpenChange: handleOpenChange
+    })
+    const dismiss = useDismiss(context, {
+      outsidePressEvent: 'mousedown'
+    })
+    const role = useRole(context)
+
+    const { getFloatingProps } = useInteractions([dismiss, role])
+
+    const headingId = useId()
+    const descriptionId = useId()
+
     return (
-      <Portal>
-        <CSSTransition
-          appear={true}
-          in={animationIn}
-          timeout={ANIMATION_TIME}
-          mountOnEnter
-          unmountOnExit
-          classNames="inf-modal-"
-        >
-          <div
+      <FloatingPortal>
+        {isOpen && (
+          <FloatingOverlay
             ref={ref}
-            className={cn('inf-modal', className)}
-            role="dialog"
-            onClick={onClose}
+            className="inf-modal"
+            lockScroll
             {...props}
           >
-            <div
-              className={cn('inf-modal__card', `inf-modal__card--size-${size}`)}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {hasCloseButton && <ModalClose onClick={onClose} />}
-              {children}
-            </div>
-          </div>
-        </CSSTransition>
-      </Portal>
+            <FloatingFocusManager context={context}>
+              <div
+                ref={refs.setFloating}
+                className={cn(
+                  'inf-modal__card',
+                  `inf-modal__card--size-${size}`
+                )}
+                aria-labelledby={headingId}
+                aria-describedby={descriptionId}
+                {...getFloatingProps()}
+              >
+                {hasCloseButton && <ModalClose onClick={onClose} />}
+                {children}
+              </div>
+            </FloatingFocusManager>
+          </FloatingOverlay>
+        )}
+      </FloatingPortal>
     )
   }
 )

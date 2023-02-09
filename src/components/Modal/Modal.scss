@@ -1,22 +1,16 @@
 .inf-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
   z-index: var(--inf-z-index-modal);
 
   &__card {
+    margin: 12px;
     background-color: #fff;
     border: 1px solid #c8cacc;
     border-radius: 10px;
     position: relative;
     max-width: 95%;
-    overflow: hidden;
 
     &--size-small {
       width: 453px;
