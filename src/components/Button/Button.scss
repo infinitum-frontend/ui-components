@@ -77,7 +77,15 @@
   }
 
   &--variant-ghost {
-    // TODO:
+    color: var(--inf-color-text-control);
+
+    &:hover {
+      color: var(--inf-color-text-secondary);
+    }
+
+    &:active {
+      color: var(--inf-color-text-secondary);
+    }
   }
 
   &:disabled {

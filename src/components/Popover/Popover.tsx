@@ -47,7 +47,7 @@ export function usePopover({
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(),
+      offset(offsetProp),
       flip({
         fallbackAxisSideDirection: 'end'
       }),
