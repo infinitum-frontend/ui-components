@@ -20,6 +20,12 @@ import { Modal } from 'Components/Modal'
 import { Container } from 'Components/Container'
 import { Logo } from 'Components/Logo'
 import { Table } from 'Components/Table'
+import { Menu } from 'Components/Menu'
+import { HeaderNav } from 'Components/HeaderNav'
+import { Form } from 'Components/Form'
+import { Breadcrumbs } from 'Components/Breadcrumbs'
+import { Divider } from 'Components/Divider'
+import { Collapse } from 'Components/Collapse'
 
 export {
   Button,
@@ -47,5 +53,11 @@ export {
   Modal,
   Container,
   Logo,
-  Table
+  Table,
+  Form,
+  Menu,
+  HeaderNav,
+  Breadcrumbs,
+  Divider,
+  Collapse
 }
