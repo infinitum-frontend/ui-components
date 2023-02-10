@@ -1,8 +1,8 @@
-<p align="center">
+<p style="text-align: center" align="center">
 <img src="src/components/Logo/assets/logo-full-no-caption.svg" alt="">
 </p>
 
-<h1 align="center">UI-библиотека React-компонентов ГК Инфинитум</h1>
+<h1 align="center" style="text-align: center">UI-библиотека React-компонентов ГК Инфинитум</h1>
 
 ## Установка
 1. Создаем в корне проекта файл `.npmrc` с содержимым:
