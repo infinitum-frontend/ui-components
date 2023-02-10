@@ -8,11 +8,6 @@ import { Text } from '../Text'
 const ComponentMeta: Meta<typeof Space> = {
   title: 'Layout/Space',
   component: Space,
-  argTypes: {
-    as: {
-      defaultValue: 'div'
-    }
-  },
   parameters: {
     docs: {
       source: {
@@ -33,7 +28,6 @@ const Template: StoryFn<typeof Space> = ({ ...args }) => (
     <Button>Кнопка</Button>
   </Space>
 )
-
 export const Playground = Template.bind({})
 
 export const Wrap: StoryFn<typeof Space> = ({ ...args }) => (
@@ -126,6 +120,9 @@ export const Gap: StoryFn<typeof Space> = ({ ...args }) => (
     </Space>
   </>
 )
+Gap.args = {
+  direction: 'horizontal'
+}
 Gap.decorators = [
   (Story) => (
     <Space direction="vertical" gap="xsmall">
@@ -158,6 +155,9 @@ export const Align: StoryFn<typeof Space> = ({ ...args }) => (
     </Space>
   </>
 )
+Align.args = {
+  direction: 'horizontal'
+}
 Align.decorators = [
   (Story) => (
     <Space direction="vertical" gap="medium">

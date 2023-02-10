@@ -28,9 +28,21 @@ export interface SpaceProps {
    */
   align?: 'baseline' | 'start' | 'end' | 'center'
   /**
+   * Выравние по оси (Flexbox justify-content)
+   */
+  justify?: 'center' | 'start' | 'end' | 'space-between' | 'space-around'
+  /**
    * Перенос на новый ряд при переполнении (Flexbox wrap)
    */
   wrap?: boolean
+  /**
+   * Разделитель
+   */
+  // TODO: divider?: React.ReactNode
+  /**
+   * На всю ширину контейнера
+   */
+  fullWidth?: boolean
 }
 
 const Space: PolymorphicComponentWithRef<'div', SpaceProps> = React.forwardRef(
@@ -42,6 +54,8 @@ const Space: PolymorphicComponentWithRef<'div', SpaceProps> = React.forwardRef(
       gap = 'small',
       direction = 'vertical',
       align,
+      justify,
+      fullWidth = false,
       wrap = false,
       ...props
     }: PolymorphicComponent<C, SpaceProps>,
@@ -55,7 +69,9 @@ const Space: PolymorphicComponentWithRef<'div', SpaceProps> = React.forwardRef(
         `inf-space--direction-${direction as string}`,
         {
           'inf-space--wrap': wrap,
-          [`inf-space--align-${align as string}`]: align
+          'inf-space--full-width': fullWidth,
+          [`inf-space--align-${align as string}`]: align,
+          [`inf-space--justify-${justify as string}`]: justify
         }
       )
     }

@@ -9,6 +9,10 @@
     flex-wrap: wrap;
   }
 
+  &--full-width {
+    width: 100%;
+  }
+
   &--gap-xxsmall {
     gap: var(--inf-space-xxsmall);
   }
@@ -51,5 +55,25 @@
 
   &--align-center {
     align-items: center;
+  }
+
+  &--justify-center {
+    justify-content: center;
+  }
+
+  &--justify-start {
+    justify-content: start;
+  }
+
+  &--justify-end {
+    justify-content: end;
+  }
+
+  &--justify-space-between {
+    justify-content: space-between;
+  }
+
+  &--justify-space-around {
+    justify-content: space-around;
   }
 }

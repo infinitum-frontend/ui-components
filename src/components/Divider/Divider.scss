@@ -1,0 +1,26 @@
+.inf-divider {
+  margin: 0;
+  flex-shrink: 0;
+  border-width: 0;
+  border-style: solid;
+  border-bottom-width: thin;
+
+  &--orientation-horizontal {
+    border-bottom-width: thin;
+  }
+
+  &--orientation-vertical {
+    border-bottom-width: 0;
+    height: auto;
+    border-right-width: thin;
+    align-self: stretch;
+  }
+
+  &--variant-default {
+    border-color: var(--inf-color-border-default);
+  }
+
+  &--variant-secondary {
+    border-color: var(--inf-color-border-secondary);
+  }
+}
