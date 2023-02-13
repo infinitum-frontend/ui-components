@@ -21,7 +21,7 @@ const Template: StoryFn<typeof Pagination> = (args) => {
         totalCount={50}
         pageSize={10}
       />
-      <div>Page: {currentPage}</div>
+      <div style={{ marginTop: '8px' }}>Page: {currentPage}</div>
     </>
   )
 }

@@ -23,6 +23,10 @@ export interface PaginationProps extends ComponentPropsWithoutRef<'div'> {
    */
   pageSize: number
   /**
+   * Название сущности в соответствующем склонении
+   */
+  entitylabel?: string
+  /**
    * Текст кнопки предыдущей страницы
    */
   backwardLabel?: string
@@ -30,10 +34,6 @@ export interface PaginationProps extends ComponentPropsWithoutRef<'div'> {
    * Текст кнопки следующей страницы
    */
   forwardLabel?: string
-  /**
-   * Название сущности в соответствующем склонении
-   */
-  entitylabel?: string
   /**
    * Блокировка контролов
    */
@@ -64,6 +64,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     return (
       <div ref={ref} className={cn('inf-pagination', className)} {...props}>
         <Button
+          className="inf-pagination__prev-button"
           variant="tertiary"
           disabled={isBackDisabled}
           onClick={() => onPageChange(currentPage - 1)}
@@ -71,17 +72,14 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
           {backwardLabel}
         </Button>
         <Button
+          className="inf-pagination__next-button"
           variant="tertiary"
           disabled={isForwardDisabled}
           onClick={() => onPageChange(currentPage + 1)}
         >
           {forwardLabel}
         </Button>
-        <Text
-          className="inf-pagination__page-text"
-          size="medium"
-          tone="tertiary"
-        >
+        <Text className="inf-pagination__text" size="medium" tone="tertiary">
           {(currentPage - 1) * pageSize + 1}–{currentPage * pageSize}{' '}
           {entitylabel} из {totalCount}
         </Text>
