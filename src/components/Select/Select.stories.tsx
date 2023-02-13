@@ -12,7 +12,7 @@ const mockItems = [
 ]
 
 const meta: Meta<typeof Select> = {
-  title: 'Select',
+  title: 'Form/Select',
   component: Select,
   args: {
     options: selectDataFormatter({

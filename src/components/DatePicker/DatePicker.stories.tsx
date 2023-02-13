@@ -2,7 +2,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { NativeDatePicker } from './index'
 
 const meta: Meta<typeof NativeDatePicker> = {
-  title: 'DatePicker',
+  title: 'Form/DatePicker',
   component: NativeDatePicker
 }
 

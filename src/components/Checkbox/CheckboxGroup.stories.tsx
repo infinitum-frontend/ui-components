@@ -5,7 +5,7 @@ import { Checkbox, CheckboxGroup } from './index'
 import { useState } from 'react'
 
 const meta: Meta<typeof CheckboxGroup> = {
-  title: 'CheckboxGroup',
+  title: 'Form/CheckboxGroup',
   component: CheckboxGroup
 }
 

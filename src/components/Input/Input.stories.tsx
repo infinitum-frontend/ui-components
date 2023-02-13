@@ -8,7 +8,7 @@ import { useState } from 'react'
 import SearchInput from './SearchInput'
 
 const meta: Meta<typeof Input> = {
-  title: 'Input',
+  title: 'Form/Input',
   component: Input,
   args: {
     placeholder: 'Введите значение',

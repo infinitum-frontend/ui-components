@@ -5,7 +5,7 @@ import { Space } from '../Space'
 import { useState } from 'react'
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Checkbox',
+  title: 'Form/Checkbox',
   component: Checkbox
 }
 

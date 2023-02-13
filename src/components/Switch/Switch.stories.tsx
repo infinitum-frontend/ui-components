@@ -5,7 +5,7 @@ import { Switch } from './index'
 import { Space } from '../Space'
 
 const ComponentMeta: Meta<typeof Switch> = {
-  title: 'Switch',
+  title: 'Form/Switch',
   component: Switch
 }
 

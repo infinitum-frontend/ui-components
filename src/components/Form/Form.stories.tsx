@@ -11,7 +11,7 @@ import { Textarea } from '../Textarea'
 import { Switch } from '../Switch'
 
 const meta: Meta<typeof Form> = {
-  title: 'Form',
+  title: 'Form/Form',
   component: Form,
   subcomponents: {
     'Form.Group': Form.Group,
