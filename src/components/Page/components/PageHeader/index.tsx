@@ -16,6 +16,6 @@ const PageHeader = React.forwardRef<HTMLHeadElement, PageHeaderProps>(
   }
 )
 
-PageHeader.displayName = 'PageHeader'
+PageHeader.displayName = 'Page.Header'
 
 export default PageHeader

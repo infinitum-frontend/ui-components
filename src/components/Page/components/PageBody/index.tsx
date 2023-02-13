@@ -14,6 +14,6 @@ const PageBody = React.forwardRef<HTMLDivElement, PageBodyProps>(
   }
 )
 
-PageBody.displayName = 'PageBody'
+PageBody.displayName = 'Page.Body'
 
 export default PageBody

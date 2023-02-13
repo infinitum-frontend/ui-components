@@ -17,6 +17,6 @@ const PageFooter = React.forwardRef<HTMLElement, PageFooterProps>(
   }
 )
 
-PageFooter.displayName = 'PageFooter'
+PageFooter.displayName = 'Page.Footer'
 
 export default PageFooter
