@@ -89,8 +89,9 @@
   }
 
   &:disabled {
-    background-color: #f2f4f5;
-    color: #c8cacc;
+    background-color: var(--inf-color-background-control-disabled);
+    border-color: var(--inf-color-background-control-disabled);
+    color: var(--inf-color-text-quaternary);
     pointer-events: none;
     cursor: default;
   }
