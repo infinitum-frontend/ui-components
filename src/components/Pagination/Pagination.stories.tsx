@@ -18,12 +18,26 @@ const Template: StoryFn<typeof Pagination> = (args) => {
         {...args}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
-        totalCount={50}
-        pageSize={10}
       />
       <div style={{ marginTop: '8px' }}>Page: {currentPage}</div>
     </>
   )
 }
-
 export const Playground = Template.bind({})
+Playground.args = {
+  totalCount: 50,
+  pageSize: 10
+}
+
+export const OnlyOnePage = Template.bind({})
+OnlyOnePage.args = {
+  totalCount: 10,
+  pageSize: 10
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  totalCount: 50,
+  pageSize: 10,
+  disabled: true
+}
