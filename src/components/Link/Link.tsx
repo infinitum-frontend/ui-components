@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import './Link.scss'
 
@@ -8,9 +8,8 @@ export interface LinkProps extends React.ComponentPropsWithoutRef<'a'> {
    * @default 'button'
    */
   as?: React.ElementType<any>
-  children: ReactNode
   className?: string
-  variant?: 'primary' | 'secondary' | 'text'
+  variant?: 'primary'
 }
 
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(

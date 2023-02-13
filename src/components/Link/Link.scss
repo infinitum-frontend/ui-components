@@ -1,10 +1,11 @@
 .inf-link {
   display: inline-block;
-  color: #738f99;
+  color: var(--inf-color-text-secondary);
   text-decoration: none;
   border-bottom: 1px solid currentColor;
   cursor: pointer;
   width: max-content;
+  line-height: 1;
 
   &:hover {
     border-color: transparent;

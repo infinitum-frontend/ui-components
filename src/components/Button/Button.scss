@@ -77,14 +77,14 @@
   }
 
   &--variant-ghost {
-    color: var(--inf-color-text-control);
+    color: var(--inf-color-text-secondary);
 
     &:hover {
-      color: var(--inf-color-text-secondary);
+      color: var(--inf-color-text-tertiary);
     }
 
     &:active {
-      color: var(--inf-color-text-secondary);
+      color: var(--inf-color-text-tertiary);
     }
   }
 

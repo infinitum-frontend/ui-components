@@ -4,6 +4,7 @@ import { Button } from './index'
 import { Space } from '../Space'
 import { Meta, StoryFn } from '@storybook/react'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
 
 const ComponentMeta: Meta<typeof Button> = {
   title: 'Button',
@@ -44,6 +45,12 @@ Tertiary.args = {
 export const Ghost = Template.bind({})
 Ghost.args = {
   variant: 'ghost'
+}
+
+export const GhostWithIcon = Template.bind({})
+GhostWithIcon.args = {
+  variant: 'ghost',
+  after: <DownloadIcon />
 }
 
 export const Loading = Template.bind({})
