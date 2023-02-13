@@ -1,0 +1,41 @@
+@mixin can-hover {
+  // проверяем дополнительно на pointer: fine
+  // так как на устройствах Samsung некорректно определяется hover: hover
+  // https://www.ctrl.blog/entry/css-media-hover-samsung.html
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @include can-hover {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Если устройство поддерживает hover, применяются стили при наведении, иначе при состоянии active
+@mixin hover-active {
+  @include can-hover {
+    &:hover {
+      @content;
+    }
+  }
+
+  &:active {
+    @content;
+  }
+}
+
+@mixin text-truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin button-reset {
+  background: none;
+  padding: 0;
+  border: none;
+}
