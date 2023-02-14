@@ -1,9 +1,4 @@
 .inf-page-body {
-  display: flex;
-  flex-flow: column;
-  flex-grow: 1;
-  padding: 16px;
-  /*flex-shrink: 1;*/
-  /*padding: 0.625rem 1.5rem 3.75rem;*/
-  /*padding: 0 0 3.75rem;*/
+  padding-top: var(--inf-space-large);
+  padding-bottom: var(--inf-space-large);
 }

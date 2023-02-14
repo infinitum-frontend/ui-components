@@ -1,2 +1,5 @@
 .inf-layout-body {
+  &--full-height {
+    flex-grow: 1;
+  }
 }

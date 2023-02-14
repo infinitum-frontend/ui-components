@@ -6,6 +6,7 @@ import { ColumnDef, ColumnFiltersState } from '@tanstack/react-table'
 import { Space } from '../components/Space'
 import { Link } from '../components/Link'
 import { Button } from '../components/Button'
+import { Divider } from '../components/Divider'
 import { Row } from '../components/Table/components/Table'
 // @ts-expect-error
 import { ReactComponent as PadlockIcon } from 'Icons/padlock.svg'
@@ -80,7 +81,7 @@ export const ShareholdersTableStories = (): ReactElement => {
       address: '620178, Амурская область, город Лотошино, бульвар Гоголя, 54',
       nationality: 'Казахстан',
       className: 'custom-class',
-      style: { backgroundColor: 'lightpink' },
+      style: { backgroundColor: '#E9EBED' },
       email: 'gennadij71@abramova.ru'
     },
     {
@@ -207,7 +208,7 @@ export const ShareholdersTableStories = (): ReactElement => {
   }
 
   return (
-    <>
+    <Space>
       <Space direction={'horizontal'}>
         <SearchInput
           placeholder={'Пайщик'}
@@ -230,7 +231,8 @@ export const ShareholdersTableStories = (): ReactElement => {
           Сбросить
         </Button>
       </Space>
-      <Table columns={columns} rows={rows} />
-    </>
+      <Divider variant="secondary" />
+      <Table columns={columns} rows={rows} maxLength={25} />
+    </Space>
   )
 }

@@ -5,7 +5,7 @@ import classNames from 'classnames'
 export interface TextProps extends React.ComponentPropsWithoutRef<'div'> {
   children?: ReactNode
   className?: string
-  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+  size?: 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
   weight?: 'light' | 'normal' | 'bold' | 'extrabold'
   tone?:
     | 'default'

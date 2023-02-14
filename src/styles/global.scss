@@ -3,6 +3,15 @@
 @import './fonts.scss';
 @import './tokens.scss';
 
+html,
+body {
+  height: 100%;
+}
+
+#storybook-root {
+  height: 100%;
+}
+
 body {
   color: var(--inf-color-text);
   font-family: var(--inf-font-family-base);

@@ -1,4 +1,5 @@
 import React, { ComponentPropsWithoutRef } from 'react'
+import './index.scss'
 import cn from 'classnames'
 
 export interface PageBodyProps extends ComponentPropsWithoutRef<'div'> {

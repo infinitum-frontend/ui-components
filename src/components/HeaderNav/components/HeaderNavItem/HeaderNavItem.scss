@@ -1,14 +1,16 @@
 .inf-header-nav-item {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-weight: var(--inf-font-weight-normal);
-  font-size: var(--inf-text-size-xsmall);
+  font-size: var(--inf-text-size-xxsmall);
   line-height: 20px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--inf-color-text);
-  padding: 12px 0;
+  padding: 14px 0 10px;
   text-decoration: none;
   cursor: pointer;
+  height: 100%;
   transition: color 0.2s;
 
   &:hover {

@@ -24,6 +24,7 @@ export const Sizes: StoryFn<typeof Text> = (args) => (
     <Text {...args} size="medium" />
     <Text {...args} size="small" />
     <Text {...args} size="xsmall" />
+    <Text {...args} size="xxsmall" />
   </>
 )
 Sizes.decorators = [
