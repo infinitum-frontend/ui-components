@@ -26,6 +26,7 @@ import { Form } from 'Components/Form'
 import { Breadcrumbs } from 'Components/Breadcrumbs'
 import { Divider } from 'Components/Divider'
 import { Collapse } from 'Components/Collapse'
+import { Pagination } from 'Components/Pagination'
 
 export {
   Button,
@@ -59,5 +60,6 @@ export {
   HeaderNav,
   Breadcrumbs,
   Divider,
-  Collapse
+  Collapse,
+  Pagination
 }
