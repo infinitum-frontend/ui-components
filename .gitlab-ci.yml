@@ -9,4 +9,5 @@ pages:
     paths:
       - public
   rules:
-    when: manual
+    - if: true
+      when: manual
