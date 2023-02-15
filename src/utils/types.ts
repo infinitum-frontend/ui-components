@@ -35,6 +35,15 @@ export interface PolymorphicComponentWithRef<
   displayName?: string | undefined
 }
 
+export type SpaceVariants =
+  | 'xxsmall'
+  | 'xsmall'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+
 // examples
 
 // basic component:

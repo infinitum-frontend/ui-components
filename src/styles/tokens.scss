@@ -7,7 +7,7 @@
   --inf-color-text-secondary: #738f99;
   --inf-color-text-tertiary: #717375;
   --inf-color-text-quaternary: #c8cacc;
-  --inf-color-text-contrast: #fff;
+  --inf-color-text-inverse: #fff;
   --inf-color-success: #1dbf6e;
   --inf-color-success-dark: #029161;
   --inf-color-success-light: #48e697;
@@ -19,10 +19,10 @@
   --inf-color-text-control: #46626b;
   --inf-color-icon: black;
   --inf-color-icon-secondary: #444;
-  --inf-color-icon-contrast: #fff;
+  --inf-color-icon-inverse: #fff;
   --inf-color-background-base: #fff;
   --inf-color-background-secondary: #ccc;
-  --inf-color-background-contrast: #1f2021;
+  --inf-color-background-inverse: #1f2021;
   --inf-color-background-control-disabled: #f2f4f5;
   /* --inf-color-control-secondary: lightgray; */
   /* --inf-color-control-secondary: lightgray; */
@@ -33,9 +33,8 @@
   --inf-control-color-border-active: #738f99;
   --inf-control-background-color-hover: #e6f1f5;
 
-  --inf-font-family-base: Circe, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+  --inf-font-family-base: Circe, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
   --inf-font-weight-light: 300;
   --inf-font-weight-normal: 400;
@@ -81,9 +80,7 @@
   /* Input */
   --inf-input-padding-horizontal-medium: 12px;
   --inf-input-padding-vertical-medium: 4px;
-  --inf-input-color-background-disabled: var(
-    --inf-color-background-control-disabled
-  );
+  --inf-input-color-background-disabled: var(--inf-color-background-control-disabled);
 
   /*  Select */
   --inf-select-items-border-radius-regular: var(--inf-border-radius-medium);
@@ -102,9 +99,7 @@
 
   --inf-checkbox-color-background: white;
   --inf-checkbox-color-background-active: #b8d1d9;
-  --inf-checkbox-color-background-disabled: var(
-    --inf-color-background-control-disabled
-  );
+  --inf-checkbox-color-background-disabled: var(--inf-color-background-control-disabled);
 
   --inf-checkbox-checked-color-background: #f53a50;
   --inf-checkbox-checked-color-background-hover: #ff6673;
@@ -162,22 +157,19 @@
   --good-1-dark: #029161;
   --good-2-normal: #1dbf6e;
 
-  --filter-brand-color: brightness(0) saturate(100%) invert(49%) sepia(64%)
-    saturate(6240%) hue-rotate(333deg) brightness(95%) contrast(88%);
-  --filter-gray-3-light: brightness(0) saturate(100%) invert(100%) sepia(1%)
-    saturate(5283%) hue-rotate(175deg) brightness(79%) contrast(102%);
-  --filter-cold-grey-2-normal: brightness(0) saturate(100%) invert(58%)
-    sepia(19%) saturate(403%) hue-rotate(150deg) brightness(91%) contrast(84%);
-  --filter-black: brightness(0) saturate(100%) invert(0%) sepia(92%)
-    saturate(7474%) hue-rotate(261deg) brightness(91%) contrast(105%);
-  --filter-gray-3: brightness(0) saturate(100%) invert(49%) sepia(6%)
-    saturate(166%) hue-rotate(169deg) brightness(90%) contrast(88%);
-  --filter-light: invert(100%) sepia(0) saturate(0) hue-rotate(93deg)
-    brightness(103%) contrast(103%);
-  --filter-secondary-light: invert(78%) sepia(25%) saturate(408%)
-    hue-rotate(150deg) brightness(83%) contrast(89%);
-  --filter-gray-2-normal: invert(51%) sepia(0%) saturate(5142%)
-    hue-rotate(279deg) brightness(85%) contrast(79%);
+  --filter-brand-color: brightness(0) saturate(100%) invert(49%) sepia(64%) saturate(6240%) hue-rotate(333deg)
+    brightness(95%) contrast(88%);
+  --filter-gray-3-light: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(5283%) hue-rotate(175deg)
+    brightness(79%) contrast(102%);
+  --filter-cold-grey-2-normal: brightness(0) saturate(100%) invert(58%) sepia(19%) saturate(403%) hue-rotate(150deg)
+    brightness(91%) contrast(84%);
+  --filter-black: brightness(0) saturate(100%) invert(0%) sepia(92%) saturate(7474%) hue-rotate(261deg) brightness(91%)
+    contrast(105%);
+  --filter-gray-3: brightness(0) saturate(100%) invert(49%) sepia(6%) saturate(166%) hue-rotate(169deg) brightness(90%)
+    contrast(88%);
+  --filter-light: invert(100%) sepia(0) saturate(0) hue-rotate(93deg) brightness(103%) contrast(103%);
+  --filter-secondary-light: invert(78%) sepia(25%) saturate(408%) hue-rotate(150deg) brightness(83%) contrast(89%);
+  --filter-gray-2-normal: invert(51%) sepia(0%) saturate(5142%) hue-rotate(279deg) brightness(85%) contrast(79%);
 
   --inf-z-index-header: 100;
   --inf-z-index-footer: 100;

@@ -1,20 +1,23 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
+import { StoryFn, Meta } from '@storybook/react'
 import { Box } from './index'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-const Meta: ComponentMeta<typeof Box> = {
+const meta: Meta<typeof Box> = {
   title: 'Box',
   component: Box,
   argTypes: {
     children: {
-      defaultValue: 'Съешь ещё этих мягких французских булок, да выпей чаю'
+      defaultValue:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad, accusantium.'
     }
   }
 }
 
-export default Meta
+export default meta
 
-const Template: ComponentStory<typeof Box> = ({ ...args }) => <Box {...args} />
+const Template: StoryFn<typeof Box> = (args) => {
+  return <Box {...args} />
+}
 
 export const Playground = Template.bind({})
