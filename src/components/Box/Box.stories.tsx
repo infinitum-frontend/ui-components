@@ -9,7 +9,7 @@ const meta: Meta<typeof Box> = {
   argTypes: {
     children: {
       defaultValue:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad, accusantium.'
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad, accusantium. 123'
     }
   }
 }
