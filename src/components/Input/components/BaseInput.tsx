@@ -1,7 +1,7 @@
 import { forwardRef, ReactElement } from 'react'
 import { BaseInputProps } from 'Components/Input/interface'
 import cn from 'classnames'
-import './index..scss'
+import './index.scss'
 
 const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   (

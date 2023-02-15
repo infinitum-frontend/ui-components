@@ -13,7 +13,7 @@ import { ReactComponent as IndeterminateIcon } from 'Icons/indeterminate.svg'
 import cn from 'classnames'
 import { useCheckboxGroup } from 'Components/Checkbox/context'
 
-const defaultCheckedIcon = <CheckIcon width={'16px'} height={'16px'} />
+const checkedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'16px'} height={'16px'} />
 
 interface InputProps
@@ -120,7 +120,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
             'inf-checkbox__box--indeterminate': indeterminate
           })}
         >
-          {indeterminate ? indeterminateIcon : defaultCheckedIcon}
+          {indeterminate ? indeterminateIcon : checkedIcon}
         </span>
         {children !== undefined && (
           <span className={'inf-checkbox__label'}>{children}</span>
