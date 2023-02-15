@@ -1,12 +1,9 @@
 .inf-pagination {
   display: flex;
   align-items: center;
+  gap: var(--inf-space-xsmall);
 
-  &__prev-button {
-    margin-right: var(--inf-space-xsmall);
-  }
-
-  &__next-button {
-    margin-right: var(--inf-space-medium);
+  &__page-button {
+    aspect-ratio: 1 / 1;
   }
 }
