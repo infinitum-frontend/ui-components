@@ -4,18 +4,25 @@ import React, {
   forwardRef,
   useEffect,
   useState,
-  ReactElement,
-  useMemo
+  ReactElement
 } from 'react'
 import './index.scss'
 import cn from 'classnames'
 import { SelectProps, SelectOption } from './interface'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
-import { useClickOutside } from 'Hooks/useClickOutside'
 import { mergeRefs } from 'react-merge-refs'
-import { Modifier, usePopper } from 'react-popper'
-import { createPortal } from 'react-dom'
 import { useFormGroup } from 'Components/Form/context/group'
+import {
+  autoUpdate,
+  flip,
+  offset,
+  useFloating,
+  FloatingPortal,
+  useInteractions,
+  useClick,
+  useDismiss,
+  size
+} from '@floating-ui/react'
 
 export const defaultSelectItem: SelectOption = {
   value: -1,
@@ -59,13 +66,12 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     }
 
     // state
-    const [reference, setReference] = useState<any>(null)
-    const [popper, setPopper] = useState<any>(null)
     const [isFocused, setFocused] = useState<boolean>(false)
     const [activeItem, setActiveItem] = useState<number>(
       getIndexByValue(value, options) || 0
     )
 
+    const isValueExists = Boolean(value) || Number.isInteger(value)
     const formGroupData = useFormGroup()
 
     // effects
@@ -75,8 +81,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       }
     }, [autoFocus])
 
-    useClickOutside([reference, popper], () => setFocused(false))
-
+    // handlers
     const handleClick = (): void => {
       setFocused((prevState) => !prevState)
     }
@@ -135,45 +140,35 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       onChange?.(options[index])
     }
 
-    const modifiers = useMemo(() => {
-      const modifiers: Array<Modifier<any>> = [
-        {
-          name: 'equalWidth',
-          phase: 'beforeWrite',
-          requires: ['computeStyles'],
-          fn({ state }: { state: any }) {
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            state.styles.popper.width = `${state.rects.reference.width}px`
-          },
-          effect({ state }: { state: any }) {
-            state.elements.popper.style.width = `${
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-              state.elements.reference.offsetWidth
-            }px`
-          },
-          enabled: true
-        },
-        {
-          name: 'offset',
-          enabled: true,
-          options: { offset: [0, 2] }
-        }
-      ]
-
-      return modifiers
-    }, [])
-
-    const { styles } = usePopper(reference, popper, {
+    // floating
+    const { x, y, refs, context } = useFloating({
+      open: isFocused,
+      onOpenChange: handleClick,
       placement: 'bottom-start',
-      modifiers
+      whileElementsMounted: autoUpdate,
+      middleware: [
+        offset(2),
+        flip(),
+        size({
+          apply({ rects, elements }) {
+            Object.assign(elements.floating.style, {
+              width: `${rects.reference.width}px`
+            })
+          }
+        })
+      ]
     })
+
+    const { getReferenceProps, getFloatingProps } = useInteractions([
+      useClick(context),
+      useDismiss(context)
+    ])
 
     return (
       <>
         <button
           tabIndex={-1}
-          ref={mergeRefs([ref, setReference])}
-          onClick={handleClick}
+          ref={mergeRefs([ref, refs.setReference])}
           onKeyDown={handleKeyDown}
           disabled={disabled}
           type="button"
@@ -181,19 +176,20 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             'inf-select',
             {
               [`inf-select--status-${status as string}`]: status,
-              'inf-select--selected': Boolean(value),
+              'inf-select--selected': isValueExists,
               'inf-select--disabled': disabled
             },
             className
           )}
+          {...getReferenceProps()}
           {...props}
         >
-          {value
-            ? getItemByValue(value, options)?.label
+          {isValueExists
+            ? getItemByValue(value as string | number, options)?.label
             : defaultSelectItem.label}
           <span
             className={cn('inf-select__arrow', {
-              'inf-select__arrow--selected': value !== undefined
+              'inf-select__arrow--selected': isValueExists
             })}
           >
             <ArrowDownIcon width={'10px'} height={'5px'} />
@@ -215,13 +211,17 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           </select>
         </button>
 
-        {isFocused &&
-          !disabled &&
-          createPortal(
+        <FloatingPortal>
+          {isFocused && !disabled && (
             <ul
-              style={styles.popper}
-              ref={setPopper}
+              style={{
+                position: 'absolute',
+                top: y ?? 0,
+                left: x ?? 0
+              }}
+              ref={refs.setFloating}
               className={cn('inf-select__items')}
+              {...getFloatingProps()}
             >
               {Boolean(options.length) &&
                 options.map((option, index) => (
@@ -236,9 +236,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
                     {option.label}
                   </li>
                 ))}
-            </ul>,
-            document.body
+            </ul>
           )}
+        </FloatingPortal>
       </>
     )
   }
