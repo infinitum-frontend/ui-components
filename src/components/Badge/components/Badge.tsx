@@ -12,7 +12,7 @@ export interface BadgeProps {
   badgeContent?: ReactNode
   /** отображать в виде точки */
   dot?: boolean
-  /** Сдвиг по горизонтали и вертикали в пикселях */
+  /** Сдвиг по горизонтали и вертикали в пикселях. Работает только когда у компонента есть children */
   offset?: [number, number]
 }
 

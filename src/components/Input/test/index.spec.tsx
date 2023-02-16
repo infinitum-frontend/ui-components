@@ -26,7 +26,7 @@ describe('input', () => {
     expect(el).toContainHTML(inputEl.outerHTML)
   })
 
-  it('matches snapshop', () => {
+  it('matches snapshot', () => {
     const { el } = renderComponent(<Input />)
     expect(el).toMatchSnapshot()
   })

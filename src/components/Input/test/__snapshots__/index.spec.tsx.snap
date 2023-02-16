@@ -7,3 +7,11 @@ exports[`input > matches snapshop 1`] = `
   value=""
 />
 `;
+
+exports[`input > matches snapshot 1`] = `
+<input
+  class="inf-input inf-input--size-medium inf-input--br-regular"
+  placeholder="Введите значение"
+  value=""
+/>
+`;

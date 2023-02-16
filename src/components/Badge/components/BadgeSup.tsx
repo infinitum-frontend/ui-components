@@ -15,14 +15,19 @@ const BadgeSup = ({
   offset,
   showZero = false
 }: BadgeSupProps): ReactElement | null => {
+  const title =
+    typeof badgeContent === 'number' || typeof badgeContent === 'string'
+      ? badgeContent.toString()
+      : undefined
   const isZero = !badgeContent && Number.isInteger(badgeContent) && showZero
   const styles: CSSProperties = {
-    right: `-${(offset as number[])?.[0]}px` || 0,
+    right: `${-(offset as number[])?.[0]}px` || 0,
     top: `${(offset as number[])?.[1]}px` || 0
   }
 
   return badgeContent || isZero || dot ? (
     <sup
+      title={title}
       className={cn('inf-badge-sup', `inf-badge-sup--tone-${tone as string}`, {
         'inf-badge-sup--standalone': standalone && !dot,
         'inf-badge-sup--dot': dot

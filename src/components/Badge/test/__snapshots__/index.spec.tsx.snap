@@ -1,0 +1,14 @@
+// Vitest Snapshot v1
+
+exports[`badge > should match snapshot 1`] = `
+<span
+  class="inf-badge"
+>
+  <sup
+    class="inf-badge-sup inf-badge-sup--tone-primary inf-badge-sup--standalone"
+    title="5"
+  >
+    5
+  </sup>
+</span>
+`;
