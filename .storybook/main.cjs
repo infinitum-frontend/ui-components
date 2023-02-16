@@ -1,15 +1,40 @@
+const { mergeConfig } = require('vite')
 module.exports = {
-  "stories": ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  "addons": ["@storybook/addon-links", "@storybook/addon-essentials", "@storybook/addon-interactions", '@storybook/preset-scss', '@storybook/addon-a11y'],
-  "framework": {
-    name: "@storybook/react-vite",
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/preset-scss',
+    '@storybook/addon-a11y'
+  ],
+  framework: {
+    name: '@storybook/react-vite',
     options: {}
   },
-  "features": {
-    "storyStoreV7": true
+  features: {
+    storyStoreV7: true
   },
   docs: {
-		autodocs: true,
+    autodocs: true,
     docsName: 'Docs'
+  },
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      css: {
+        preprocessorOptions: {
+          scss: {
+            additionalData (source, fp) {
+              // не добавляем второй импорт в globals
+              if (fp.match('global.scss')) {
+                return source
+              }
+
+              return `@import "@/src/styles/mixins.scss";\n${source}`
+            }
+          }
+        }
+      }
+    })
   }
-};
+}
