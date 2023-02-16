@@ -1,52 +1,49 @@
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react'
 import cn from 'classnames'
-import './index.scss'
+import '../style/badge.scss'
+import BadgeSup from './BadgeSup'
 
-export interface BadgeProps extends ComponentPropsWithoutRef<'span'> {
+export interface BadgeProps {
   /** Отображается ли значение 0 */
   showZero?: boolean
   /** цветовая тема */
   tone?: 'primary' | 'secondary'
   /** контент для отображения в бейдже */
   badgeContent?: ReactNode
+  /** отображать в виде точки */
+  dot?: boolean
+  /** Сдвиг по горизонтали и вертикали в пикселях */
+  offset?: [number, number]
 }
 
-const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
+const Badge = forwardRef<
+  HTMLSpanElement,
+  ComponentPropsWithoutRef<'span'> & BadgeProps
+>(
   (
     {
       children,
       tone = 'primary',
       showZero = false,
+      dot = false,
+      offset,
       badgeContent,
       className,
       ...props
     },
     ref
   ) => {
-    // standalone
-    if (!children && badgeContent) {
-      return (
-        <sup
-          className={cn(
-            'inf-badge__sup',
-            'inf-badge__sup--standalone',
-            `inf-badge__sup--tone-${tone}`
-          )}
-        >
-          {badgeContent}
-        </sup>
-      )
-    }
-
-    // with children
     return (
       <span ref={ref} className={cn('inf-badge', className)} {...props}>
         {children}
-        {badgeContent && (
-          <sup className={cn('inf-badge__sup', `inf-badge__sup--tone-${tone}`)}>
-            {badgeContent}
-          </sup>
-        )}
+        <BadgeSup
+          standalone={!children}
+          badgeContent={badgeContent}
+          offset={offset}
+          tone={tone}
+          dot={dot}
+          showZero={showZero}
+        />
       </span>
     )
   }

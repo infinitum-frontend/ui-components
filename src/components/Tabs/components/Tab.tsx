@@ -3,6 +3,7 @@ import cn from 'classnames'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
 import '../style/index.scss'
 import { PolymorphicComponent } from '~/src/utils/types'
+import { Badge } from 'Components/Badge'
 
 export interface TabProps {
   badge?: string | number
@@ -72,11 +73,11 @@ const Tab = <C extends ElementType = 'button'>({
       )}
     >
       {BaseComponent}
-      {(badge || Number.isInteger(badge)) && (
-        <span className={'inf-tab__badge'} onClick={() => handleTabClick(id)}>
-          {badge}
-        </span>
-      )}
+      <Badge
+        badgeContent={badge}
+        onClick={() => handleTabClick(id)}
+        className={'inf-tab__badge'}
+      />
     </div>
   )
 }

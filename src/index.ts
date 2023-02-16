@@ -27,6 +27,7 @@ import { Breadcrumbs } from 'Components/Breadcrumbs'
 import { Divider } from 'Components/Divider'
 import { Collapse } from 'Components/Collapse'
 import { Pagination } from 'Components/Pagination'
+import { Badge } from 'Components/Badge'
 
 export {
   Button,
@@ -61,5 +62,6 @@ export {
   Breadcrumbs,
   Divider,
   Collapse,
-  Pagination
+  Pagination,
+  Badge
 }

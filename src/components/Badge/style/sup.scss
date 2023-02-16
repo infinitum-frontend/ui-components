@@ -1,0 +1,38 @@
+.inf-badge-sup {
+  color: var(--inf-color-text-inverse);
+  border-radius: 16px;
+  font-size: 11px;
+  line-height: normal;
+  min-width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+
+  &--standalone {
+    position: static;
+    transform: none;
+  }
+
+  &--dot {
+    min-width: unset;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    padding: 0;
+  }
+
+  &--tone-primary {
+    background-color: var(--inf-color-primary);
+  }
+
+  &--tone-secondary {
+    background-color: var(--inf-color-text-secondary);
+  }
+}
