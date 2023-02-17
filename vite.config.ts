@@ -15,12 +15,26 @@ export default defineConfig({
       Test: resolve(__dirname, './test/')
     }
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData(source: string, fp: string) {
+          // не добавляем второй импорт в globals
+          if (fp.match('global.scss')) {
+            return source
+          }
+
+          return `@import "@/src/styles/mixins.scss";\n${source}`
+        }
+      }
+    }
+  },
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: [
-        resolve(__dirname, 'src/index.ts'),
-        resolve(__dirname, 'src/styles/global.scss')
+        resolve(__dirname, 'src/styles/global.scss'),
+        resolve(__dirname, 'src/index.ts')
       ],
       name: 'ui-components',
       formats: ['es', 'cjs'],
