@@ -24,12 +24,15 @@ export interface MenuItemProps {
   collapsible?: boolean
   /** Схлопываемый контент */
   collapsedContent?: ReactNode
+  /** Активное состояние */
+  active?: boolean
 }
 
 const MenuItem = <C extends ElementType = 'li'>({
   children,
   disabled = false,
   collapsible = false,
+  active = false,
   collapsedContent,
   className,
   onClick,
@@ -54,6 +57,7 @@ const MenuItem = <C extends ElementType = 'li'>({
         {...props}
         className={cn('inf-menu-item', className, {
           'inf-menu-item--disabled': disabled,
+          'inf-menu-item--active': active,
           'inf-menu-item--nested': context?.nested,
           'inf-menu-item--br-regular': context?.borderRadius === 'regular',
           'inf-menu-item--no-padding': context?.disablePadding

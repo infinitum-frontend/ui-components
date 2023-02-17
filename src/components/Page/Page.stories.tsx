@@ -3,7 +3,6 @@ import React, { useRef } from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Page } from './index'
 import { Layout } from 'Components/Layout'
-import { Container } from 'Components/Container'
 import { Heading } from 'Components/Heading'
 
 const meta: Meta<typeof Page> = {
@@ -17,20 +16,19 @@ const Template: StoryFn<typeof Page> = (args) => {
   return (
     <Layout>
       <Layout.Header>Layout Header</Layout.Header>
-      <Layout.Body>
-        <Container>
-          <Page>
-            <Page.Header>
-              <Heading level="2">Список пайщиков</Heading>
-            </Page.Header>
-            <Page.Body>
-              <div>Page Body</div>
-            </Page.Body>
-            <Page.Footer>
-              <span>Page Footer</span>
-            </Page.Footer>
-          </Page>
-        </Container>
+      <Layout.Body hasContainer fullHeight>
+        <Page>
+          <Page.Header>
+            <Heading level="2">Список пайщиков</Heading>
+          </Page.Header>
+          <Page.Aside>Aside</Page.Aside>
+          <Page.Body>
+            <div>Page Body</div>
+          </Page.Body>
+          <Page.Footer>
+            <span>Page Footer</span>
+          </Page.Footer>
+        </Page>
       </Layout.Body>
     </Layout>
   )

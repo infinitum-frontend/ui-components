@@ -2,6 +2,7 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { SideNav } from './index'
+import { Menu } from '../Menu'
 
 const meta: Meta<typeof SideNav> = {
   title: 'SideNav',
@@ -13,7 +14,7 @@ export default meta
 const Template: StoryFn<typeof SideNav> = (args) => {
   return (
     <SideNav {...args}>
-      <SideNav.Item as="a" href="https://ya.ru">
+      <SideNav.Item active as="a" href="https://ya.ru" target="_blank">
         Входящие
       </SideNav.Item>
       <SideNav.Item as="a" href="https://ya.ru">
@@ -36,3 +37,22 @@ const Template: StoryFn<typeof SideNav> = (args) => {
 }
 
 export const Playground = Template.bind({})
+
+export const WithMenu: StoryFn<typeof SideNav> = () => {
+  return (
+    <Menu as="nav">
+      <Menu.Item as="a" href="https://ya.ru" target="_blank">
+        Item 1
+      </Menu.Item>
+      <Menu.Item as="a" href="https://ya.ru" target="_blank">
+        Item 2
+      </Menu.Item>
+      <Menu.Item as="a" href="https://ya.ru" target="_blank">
+        Item 3
+      </Menu.Item>
+      <Menu.Item as="a" href="https://ya.ru" target="_blank">
+        Item 4
+      </Menu.Item>
+    </Menu>
+  )
+}

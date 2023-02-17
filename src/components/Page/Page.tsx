@@ -3,6 +3,7 @@ import cn from 'classnames'
 import PageBody from './components/PageBody'
 import PageHeader from './components/PageHeader'
 import PageFooter from './components/PageFooter'
+import PageAside from './components/PageAside'
 import './Page.scss'
 
 export interface PageProps extends ComponentPropsWithoutRef<'div'> {
@@ -23,6 +24,7 @@ Page.displayName = 'Page'
 
 export default Object.assign(Page, {
   Header: PageHeader,
+  Aside: PageAside,
   Body: PageBody,
   Footer: PageFooter
 })
