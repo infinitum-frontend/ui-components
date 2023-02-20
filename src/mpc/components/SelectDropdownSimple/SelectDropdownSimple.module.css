@@ -1,5 +1,6 @@
 @import "../../styles/variables.css";
 @import "../../styles/colors.css";
+@import "../../styles/forms.css";
 
 .popover {
     position: relative;
@@ -17,11 +18,11 @@
 }
 
 .iconArrow {
-    background: url("../../icons/arrowDropdown.svg") no-repeat center;
+    background: url("../../../icons/arrowDropdown.svg") no-repeat center;
 }
 
 .iconChevron {
-    background: url("../../icons/chevronDown.svg") no-repeat center;
+    background: url("../../../icons/chevronDown.svg") no-repeat center;
 }
 
 .trigger {

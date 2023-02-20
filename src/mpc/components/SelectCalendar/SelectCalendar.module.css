@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    flex-grow: 0.1;
+
+    padding-right:0.25rem;
+
+    text-align: left;
+}
+
+.placeholder {
+    color: var(--gray-3-light);
+}
