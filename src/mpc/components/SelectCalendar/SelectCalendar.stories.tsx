@@ -3,7 +3,7 @@ import { SelectCalendar } from './index'
 import { useState } from 'react'
 
 const meta: Meta<typeof SelectCalendar> = {
-  title: 'MPK/SelectCalendar',
+  title: 'MPC/SelectCalendar',
   component: SelectCalendar,
   args: {
     prefix: 'prefix'

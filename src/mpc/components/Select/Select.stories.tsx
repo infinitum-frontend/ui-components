@@ -4,7 +4,7 @@ import { OptionsFixture } from './__fixture__'
 import { useState } from 'react'
 
 const meta: Meta<typeof Select> = {
-  title: 'MPK/Select',
+  title: 'MPC/Select',
   component: Select
 }
 

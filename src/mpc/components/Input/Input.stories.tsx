@@ -4,7 +4,7 @@ import styles from './Input.module.css'
 import cn from 'classnames'
 
 const meta: Meta<any> = {
-  title: 'MPK/Input'
+  title: 'MPC/Input'
 }
 
 export default meta

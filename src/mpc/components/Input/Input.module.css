@@ -1,12 +1,4 @@
-.inputReset {
-  outline: none;
-  background-color: transparent;
-  border: none;
-  line-height: inherit;
-  font-family: inherit;
-  font-size: inherit;
-  width: 100%;
-}
+@import "../../styles/forms.css";
 .textInput {
   padding: 0.25rem 0.5rem;
 
