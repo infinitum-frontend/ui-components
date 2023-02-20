@@ -12,6 +12,7 @@ export default defineConfig({
       Components: resolve(__dirname, './src/components/'),
       Icons: resolve(__dirname, './src/icons/'),
       Hooks: resolve(__dirname, './src/hooks/'),
+      Utils: resolve(__dirname, './src/utils/'),
       Test: resolve(__dirname, './test/')
     }
   },
