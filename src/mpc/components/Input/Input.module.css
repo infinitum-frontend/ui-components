@@ -1,0 +1,15 @@
+.inputReset {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  line-height: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+}
+.textInput {
+  padding: 0.25rem 0.5rem;
+
+  border: 1px solid var(--cold-grey-2-normal);
+  border-radius: 4px;
+}
