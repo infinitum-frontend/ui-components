@@ -6,6 +6,7 @@ import { action } from '@storybook/addon-actions'
 import { useArgs } from '@storybook/client-api'
 import { useState } from 'react'
 import SearchInput from './SearchInput'
+import { bankCardMask } from '../../utils/masks'
 
 const meta: Meta<typeof Input> = {
   title: 'Form/Input',
@@ -121,4 +122,15 @@ export const Formatter: StoryFn<typeof Input> = (args) => {
 
 export const Search: StoryFn<typeof SearchInput> = (args) => {
   return <SearchInput {...args} />
+}
+
+export const BankCardMask: StoryFn<typeof Input> = (args) => {
+  const [value, setValue] = useState<string | undefined>('')
+
+  return (
+    <>
+      <Input formatter={bankCardMask} value={value} onInput={setValue} />
+      <div>Value: {value}</div>
+    </>
+  )
 }
