@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+
+    width: 100%;
+    padding: 1rem 1rem 0;
+
+    color: var(--gray-3-light);
+}
+
+.btn {
+    margin-right: 1rem;
+    padding: 0;
+
+    color: #E9EBED;
+
+    border-bottom: 2px solid transparent;
+
+    font-size: 0.875rem;
+    font-weight: 800;
+    line-height: 1.125rem;
+}
+
+.btnActive {
+    color: var(--gray-3-light);
+    border-bottom-color: var(--brand-color);
+}
+
+.btn.hasRules {
+    color: var(--text-color);
+}
+
+.bottomLineBody {
+    display: flex;
+
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.bottomLine {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    border: 0;
+    border-top: 1px solid var(--gray-3-light);
+}

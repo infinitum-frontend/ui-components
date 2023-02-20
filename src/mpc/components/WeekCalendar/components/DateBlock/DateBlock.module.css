@@ -1,0 +1,51 @@
+@import "../../../../styles/variables.css";
+@import "../../../../styles/colors.css";
+
+.date {
+    position: relative;
+
+    display: flex;
+    
+    align-items: baseline;
+    flex-grow: 1;
+    justify-content: flex-start;
+
+    padding: 0.75rem 0.75rem 0.5rem;
+
+    cursor: pointer;
+}
+
+.date:disabled {
+    cursor: default;
+}
+
+.dateNumber {
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.dateDay {
+    color: var(--gray-3-light);
+}
+
+.dateDayOff {
+    color: var(--gray-3-light);
+    background-color: var(--gray-4-vary-light);
+}
+
+.todayDate {
+    color: var(--cold-grey-1-dark);
+    background-color: var(--gray-4-vary-light);
+}
+
+.chosenDate {
+    background-color: var(--cold-grey-4-very-light);
+}
+
+.chosenDate .dateNumber {
+    color: var(--cold-grey-1-dark);
+}
+
+.chosenDate .dateDay {
+    color: var(--cold-grey-2-normal);
+}
