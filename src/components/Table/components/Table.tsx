@@ -1,9 +1,16 @@
-import { CSSProperties, ReactElement, TableHTMLAttributes } from 'react'
+import {
+  CSSProperties,
+  ReactElement,
+  TableHTMLAttributes,
+  useState
+} from 'react'
 import {
   ColumnDef,
   getCoreRowModel,
   getFilteredRowModel,
-  useReactTable
+  useReactTable,
+  SortingState,
+  getSortedRowModel
 } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeader from 'Components/Table/components/Header'
@@ -23,9 +30,9 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   rows: Array<Row<any>>
   /** Максимальное количество отображаемых элементов */
   maxLength?: number
-  // /** Включение сортировки по столбцам */
-  // withSorting?: boolean
-  // sortingState?: SortingState
+  /** Включение сортировки по столбцам */
+  withSorting?: boolean
+  sortingState?: SortingState
   // /** Отображение чекбоксов в 1 колонке */
   // withRowSelection?: boolean
   // withFiltering?: boolean
@@ -53,7 +60,7 @@ const Table = ({
   className,
   maxLength = 5,
   // withRowSelection,
-  // withSorting,
+  withSorting,
   // withFiltering,
   // onChangeRowSelection,
   // selectionValue = {},
@@ -66,7 +73,7 @@ const Table = ({
 }: TableProps): ReactElement => {
   // const filterMode = 'manual'
   // const [rowSelection, setRowSelection] = useState(selectionValue)
-  // const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>([])
   // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
   //   filtersState || []
   // )
@@ -140,23 +147,23 @@ const Table = ({
     data: rows,
     columns,
     getFilteredRowModel: getFilteredRowModel(),
-    getCoreRowModel: getCoreRowModel()
-    // state: {
-    //   rowSelection,
-    //   columnFilters,
-    //   sorting
-    // },
+    getCoreRowModel: getCoreRowModel(),
+    state: {
+      // rowSelection,
+      // columnFilters,
+      sorting
+    },
     // filterFns: {
     //   elIncludesString: (row, columnId, filterValue) => {
     //     return getByText(row, columnId, filterValue)
     //   }
     // },
     // onColumnFiltersChange: setColumnFilters,
-    // onSortingChange: setSorting,
+    onSortingChange: setSorting,
     // getSubRows: (row) => row?.subRows,
     // manualGrouping: enableGrouping,
     // onRowSelectionChange: handleRowSelection,
-    // getSortedRowModel: getSortedRowModel(),
+    getSortedRowModel: getSortedRowModel()
     // getFacetedRowModel: getFacetedRowModel(),
     // getFacetedUniqueValues: getFacetedUniqueValues(),
     // getFacetedMinMaxValues: getFacetedMinMaxValues()
@@ -168,7 +175,7 @@ const Table = ({
     <table className={cn('inf-table', className)} {...props}>
       <TableHeader
         table={table}
-        // withSorting={withSorting}
+        withSorting={withSorting}
         // withFiltering={withFiltering}
         // onFiltersChange={handleFiltersChange}
       />

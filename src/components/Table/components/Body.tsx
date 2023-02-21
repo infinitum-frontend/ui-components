@@ -14,7 +14,7 @@ const TableBody = ({ rows }: TableBodyProps): ReactElement => {
         return (
           <tr
             key={row.id}
-            className={row.original.customClass}
+            className={row.original.className}
             style={row.original.style}
           >
             {row.getVisibleCells().map((cell, index) => (

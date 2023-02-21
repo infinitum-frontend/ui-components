@@ -15,11 +15,15 @@
   font-family: var(--inf-font-family-base);
 
   &:focus-visible {
-    outline: none;
+    outline: 2px solid #49c8ff;
   }
 
   &--selected {
     border-color: var(--inf-control-color-border-active);
+  }
+
+  &--focused {
+    outline: 2px solid #49c8ff;
   }
 
   &--disabled {

@@ -4,7 +4,10 @@ import React, {
   forwardRef,
   useEffect,
   useState,
-  ReactElement
+  ReactElement,
+  useRef,
+  FocusEventHandler,
+  MouseEventHandler
 } from 'react'
 import './index.scss'
 import cn from 'classnames'
@@ -19,7 +22,6 @@ import {
   useFloating,
   FloatingPortal,
   useInteractions,
-  useClick,
   useDismiss,
   size
 } from '@floating-ui/react'
@@ -61,69 +63,100 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     }: SelectProps,
     ref
   ): ReactElement => {
-    if (placeholder) {
-      defaultSelectItem.label = placeholder
-    }
-
-    // state
+    // ============================= state =============================
+    const [isOpened, setOpened] = useState<boolean>(false)
     const [isFocused, setFocused] = useState<boolean>(false)
     const [activeItem, setActiveItem] = useState<number>(
       getIndexByValue(value, options) || 0
     )
 
-    const isValueExists = Boolean(value) || Number.isInteger(value)
     const formGroupData = useFormGroup()
+    const displayRef = useRef<HTMLButtonElement>(null)
 
-    // effects
+    // ============================= effects =============================
     useEffect(() => {
       if (autoFocus) {
-        setFocused(true)
+        setOpened(true)
       }
     }, [autoFocus])
 
-    // handlers
-    const handleClick = (): void => {
-      setFocused((prevState) => !prevState)
+    // ============================= handlers =============================
+    const handleClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
+      setOpened((prev) => !prev)
+    }
+
+    // фокус, который поднимается от внутреннего нативного селекта
+    const handleFocus: FocusEventHandler = (e) => {
+      e.preventDefault()
+      setFocused(true)
+    }
+
+    // блюр, который поднимается от внутреннего нативного селекта. Если было нажатие на элементы выпадающего списка, фокус не скидывается
+    const handleBlur: FocusEventHandler = (e) => {
+      const classList = e.relatedTarget?.classList
+
+      if (
+        classList?.contains('inf-select') ||
+        classList?.contains('inf-select__items')
+      ) {
+        return
+      }
+
+      setFocused(false)
     }
 
     const handleKeyDown: KeyboardEventHandler = (e) => {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault()
-        setActiveItem((prevState) => {
-          if (prevState === options.length - 1) {
-            return 0
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault()
+          setActiveItem((prevState) => {
+            if (prevState === options.length - 1) {
+              return 0
+            }
+
+            return prevState + 1
+          })
+          break
+        case 'ArrowUp':
+          e.preventDefault()
+          setActiveItem((prevState) => {
+            if (prevState === 0) {
+              return options.length - 1
+            }
+
+            return prevState - 1
+          })
+          break
+        case 'Escape':
+          e.preventDefault()
+          setActiveItem(0)
+          setOpened(false)
+          break
+        case ' ':
+          e.preventDefault()
+          setOpened(true)
+          break
+        case 'Enter':
+          e.preventDefault()
+          if (isOpened) {
+            submit(activeItem)
+          } else {
+            setOpened(true)
           }
-
-          return prevState + 1
-        })
-      }
-
-      if (e.key === 'ArrowUp') {
-        e.preventDefault()
-        setActiveItem((prevState) => {
-          if (prevState === 0) {
-            return options.length - 1
+          break
+        case 'Tab':
+          if (isOpened) {
+            e.preventDefault()
+            setOpened(false)
           }
-
-          return prevState - 1
-        })
-      }
-
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        setActiveItem(0)
-        setFocused(false)
-      }
-
-      if (e.key === 'Enter') {
-        e.preventDefault()
-        submit(activeItem)
       }
     }
 
     const handleItemSelect = (id: number | string): void => {
       const index = getIndexByValue(id, options)
       setActiveItem(index)
+      // сохраняем состояния фокуса на элементе триггере при опции с помощью мышки
+      displayRef.current?.focus()
       submit(index)
     }
 
@@ -136,14 +169,14 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
         return
       }
 
-      setFocused(() => false)
+      setOpened(false)
       onChange?.(options[index])
     }
 
-    // floating
+    // ============================= floating =============================
     const { x, y, refs, context } = useFloating({
-      open: isFocused,
-      onOpenChange: handleClick,
+      open: isOpened,
+      onOpenChange: setOpened,
       placement: 'bottom-start',
       whileElementsMounted: autoUpdate,
       middleware: [
@@ -160,28 +193,46 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     })
 
     const { getReferenceProps, getFloatingProps } = useInteractions([
-      useClick(context),
-      useDismiss(context)
+      useDismiss(context, {
+        outsidePress: (e) => {
+          if (formGroupData) {
+            return (e.target as HTMLLabelElement)?.htmlFor !== formGroupData?.id
+          } else {
+            return true
+          }
+        }
+      })
     ])
+
+    // ============================= render =============================
+    if (placeholder) {
+      defaultSelectItem.label = placeholder
+    }
+    const isValueExists = Boolean(value) || Number.isInteger(value)
 
     return (
       <>
         <button
           tabIndex={-1}
-          ref={mergeRefs([ref, refs.setReference])}
-          onKeyDown={handleKeyDown}
+          ref={mergeRefs([ref, refs.setReference, displayRef])}
           disabled={disabled}
           type="button"
+          onFocus={handleFocus}
+          onClick={handleClick}
+          onBlur={handleBlur}
           className={cn(
             'inf-select',
             {
               [`inf-select--status-${status as string}`]: status,
+              'inf-select--focused': isFocused,
               'inf-select--selected': isValueExists,
               'inf-select--disabled': disabled
             },
             className
           )}
-          {...getReferenceProps()}
+          {...getReferenceProps({
+            onKeyDown: handleKeyDown
+          })}
           {...props}
         >
           {isValueExists
@@ -199,8 +250,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             id={formGroupData?.id || id}
             value={value}
             onChange={() => null}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
           >
             <option value={''} />
             {options.map((option) => (
@@ -212,7 +261,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
         </button>
 
         <FloatingPortal>
-          {isFocused && !disabled && (
+          {isOpened && !disabled && (
             <ul
               style={{
                 position: 'absolute',
