@@ -1,12 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { useState } from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import { Input } from './index'
+import { Input, SearchInput, maskInput } from './index'
 import { action } from '@storybook/addon-actions'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 // @ts-expect-error
 import { useArgs } from '@storybook/client-api'
-import { useState } from 'react'
-import SearchInput from './SearchInput'
-import { bankCardMask } from 'Utils/masks'
 
 const meta: Meta<typeof Input> = {
   title: 'Form/Input',
@@ -124,19 +123,22 @@ export const Search: StoryFn<typeof SearchInput> = (args) => {
   return <SearchInput {...args} />
 }
 
-export const BankCardMask: StoryFn<typeof Input> = (args) => {
+export const PhoneMask: StoryFn<typeof Input> = () => {
   const [value, setValue] = useState<string | undefined>('')
 
   return (
     <>
       <Input
-        formatter={bankCardMask}
+        formatter={(value) => maskInput(value, 'phone')}
         value={value}
         onInput={setValue}
+        placeholder="Номер телефона"
         type="tel"
         inputMode="numeric"
       />
-      <div>Value: {value}</div>
+      <span style={{ color: 'darkred', marginTop: '6px' }}>
+        Значение: {value}
+      </span>
     </>
   )
 }

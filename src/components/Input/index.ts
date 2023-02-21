@@ -1,2 +1,5 @@
-export { default as Input } from './Input'
-export { default as SearchInput } from './SearchInput'
+import maskInput from './mask'
+import Input from './Input'
+import SearchInput from './SearchInput'
+
+export { Input, maskInput, SearchInput }

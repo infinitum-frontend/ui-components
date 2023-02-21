@@ -21,6 +21,12 @@ import BaseInput from 'Components/Input/components/BaseInput'
 import { useFormGroup } from 'Components/Form/context/group'
 
 /**
+ * TODO:
+ * mask prop
+ * raw mask value
+ */
+
+/**
  * Компонент поля ввода
  */
 const Input = React.forwardRef<InputRefHandler, InputProps>(
