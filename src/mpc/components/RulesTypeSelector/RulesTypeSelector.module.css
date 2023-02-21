@@ -1,0 +1,68 @@
+@import "../../styles/colors.css";
+
+.body {
+    display: flex;
+
+    width: 100%;
+    padding: 1rem 1rem 0;
+
+    color: var(--gray-3-light);
+}
+
+.buttonBlock {
+    margin-right: 1rem;
+}
+
+.button {
+    padding: 0;
+
+    color: #E9EBED;
+
+    border-bottom: 2px solid transparent;
+
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.125rem;
+}
+
+.buttonActive {
+    padding-bottom: 1px;
+
+    color: var(--gray-3-light);
+    border-bottom-color: var(--brand-color);
+}
+
+.button.hasRules {
+    color: var(--text-color);
+}
+
+.bottomLineBody {
+    display: flex;
+
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.bottomLine {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    border: 0;
+    border-top: 1px solid var(--gray-3-light);
+}
+
+.factoid {
+    display: inline-block;
+
+    height: 95%;
+    margin-left: 0.3rem;
+    padding: 0.1rem 0.4rem 0;
+
+    color: var(--light-color);
+    border-radius: 0.8rem;
+    background-color: var(--cold-grey-2-normal);
+
+    font-size: 0.75rem;
+    font-weight: 500;
+}
