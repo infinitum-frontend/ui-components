@@ -59,6 +59,7 @@
     background-color: white;
     width: 100%;
     list-style-type: none;
+    z-index: var(--inf-z-index-dropdown);
 
     // TODO: обсудить, почему снизу есть паддинг а сверху нет. Как выглядит ховер на последний элемент и на первый
     padding-bottom: 4px;

@@ -77,12 +77,18 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     useEffect(() => {
       if (autoFocus) {
         setOpened(true)
+        setFocused(true)
       }
     }, [autoFocus])
 
     // ============================= handlers =============================
     const handleClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
-      setOpened((prev) => !prev)
+      if (
+        displayRef.current?.contains(e.target as HTMLElement) &&
+        (e.target as HTMLElement).tagName !== 'SELECT'
+      ) {
+        setOpened((prev) => !prev)
+      }
     }
 
     // фокус, который поднимается от внутреннего нативного селекта
@@ -180,7 +186,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       placement: 'bottom-start',
       whileElementsMounted: autoUpdate,
       middleware: [
-        offset(2),
+        offset(4),
         flip(),
         size({
           apply({ rects, elements }) {
@@ -224,7 +230,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             'inf-select',
             {
               [`inf-select--status-${status as string}`]: status,
-              'inf-select--focused': isFocused,
+              'inf-select--focused': isFocused && !disabled,
               'inf-select--selected': isValueExists,
               'inf-select--disabled': disabled
             },
@@ -247,6 +253,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           </span>
           <select
             required={required}
+            disabled={disabled}
+            autoFocus={autoFocus}
             id={formGroupData?.id || id}
             value={value}
             onChange={() => null}
