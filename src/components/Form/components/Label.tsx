@@ -1,8 +1,10 @@
 import { ComponentPropsWithoutRef, forwardRef, ReactElement } from 'react'
 import { useFormGroup } from 'Components/Form/context/group'
 import { useForm } from 'Components/Form/context/form'
+import '../style/label.scss'
 
 export interface FormLabelProps extends ComponentPropsWithoutRef<'label'> {
+  /** htmlId */
   id?: string
 }
 
@@ -12,6 +14,7 @@ const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
     const formGroupData = useFormGroup()
 
     const htmlFor = id || formGroupData?.id
+    const showRequiredIndicator = formGroupData?.isRequired
 
     return (
       <label
@@ -22,6 +25,9 @@ const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
         style={{ ...style, width: formData?.labelWidth || 'initial' }}
       >
         {children}
+        {showRequiredIndicator ? (
+          <span className={'inf-form-label__required-indicator'}>*</span>
+        ) : null}
       </label>
     )
   }

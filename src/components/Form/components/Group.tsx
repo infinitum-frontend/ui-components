@@ -16,6 +16,8 @@ export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
    * Расстояние между блоками
    */
   gap?: SpaceProps['gap']
+  /** Обязательность заполнения */
+  isRequired?: boolean
 }
 
 const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
@@ -23,6 +25,7 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
     {
       direction = 'vertical',
       gap = 'medium',
+      isRequired = false,
       children,
       className,
       ...props
@@ -30,7 +33,8 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
     ref
   ): ReactElement => {
     const context = {
-      id: `field-${useId()}`
+      id: `field-${useId()}`,
+      isRequired
     }
 
     const align: SpaceProps['align'] =

@@ -43,7 +43,7 @@ const Template: StoryFn<typeof Form> = (args, subArgs) => {
 
   return (
     <Form {...args} onSubmit={handleSubmit} labelWidth={'150px'}>
-      <Form.Group gap={'xsmall'}>
+      <Form.Group gap={'xsmall'} isRequired={true}>
         <Form.Label>Email</Form.Label>
         <Form.Item>
           <Input

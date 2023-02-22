@@ -10,7 +10,8 @@ import {
   getFilteredRowModel,
   useReactTable,
   SortingState,
-  getSortedRowModel
+  getSortedRowModel,
+  OnChangeFn
 } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeader from 'Components/Table/components/Header'
@@ -32,7 +33,8 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   maxLength?: number
   /** Включение сортировки по столбцам */
   withSorting?: boolean
-  sortingState?: SortingState
+  onSortingChange?: (sortingState: SortingState) => void
+  // sortingState?: SortingState
   // /** Отображение чекбоксов в 1 колонке */
   // withRowSelection?: boolean
   // withFiltering?: boolean
@@ -61,6 +63,7 @@ const Table = ({
   maxLength = 5,
   // withRowSelection,
   withSorting,
+  onSortingChange,
   // withFiltering,
   // onChangeRowSelection,
   // selectionValue = {},
@@ -80,6 +83,12 @@ const Table = ({
   // const [manualFilters, setManualFilters] = useState<ColumnFiltersState>(
   //   filtersState || []
   // )
+
+  const handleSortingChange: OnChangeFn<SortingState> = (fn) => {
+    // @ts-expect-error
+    onSortingChange?.(fn())
+    setSorting(fn)
+  }
 
   // const memoizedColumns = useMemo(() => {
   //   if (withRowSelection) {
@@ -159,7 +168,7 @@ const Table = ({
     //   }
     // },
     // onColumnFiltersChange: setColumnFilters,
-    onSortingChange: setSorting,
+    onSortingChange: handleSortingChange,
     // getSubRows: (row) => row?.subRows,
     // manualGrouping: enableGrouping,
     // onRowSelectionChange: handleRowSelection,
