@@ -1,4 +1,5 @@
-import { ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 
 export interface TableBodyProps {

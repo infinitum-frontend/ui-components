@@ -1,4 +1,5 @@
-import { CSSProperties, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { CSSProperties, ReactElement } from 'react'
 import cn from 'classnames'
 import { BadgeProps } from 'Components/Badge/components/Badge'
 import '../style/sup.scss'

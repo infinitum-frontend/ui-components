@@ -1,4 +1,5 @@
-import { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react'
 import cn from 'classnames'
 import '../style/menu-item-button.scss'
 

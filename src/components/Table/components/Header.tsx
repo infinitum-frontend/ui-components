@@ -1,4 +1,5 @@
-import { MouseEvent, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { MouseEvent, ReactElement } from 'react'
 import { Column, flexRender, Table } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeaderFilter from './HeaderFilter'

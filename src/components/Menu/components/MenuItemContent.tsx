@@ -1,4 +1,5 @@
-import { ReactElement, ReactNode } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ReactElement, ReactNode } from 'react'
 import '../style/menu-item-content.scss'
 import cn from 'classnames'
 

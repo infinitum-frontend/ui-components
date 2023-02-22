@@ -1,4 +1,5 @@
-import { ComponentPropsWithRef, forwardRef, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ComponentPropsWithRef, forwardRef, ReactElement } from 'react'
 import cn from 'classnames'
 import '../style/item.scss'
 

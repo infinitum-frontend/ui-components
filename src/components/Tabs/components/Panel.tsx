@@ -1,4 +1,5 @@
-import { ElementType, ReactElement, useEffect, useId } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ElementType, ReactElement, useEffect, useId } from 'react'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
 import { PolymorphicComponent } from '~/src/utils/types'
 

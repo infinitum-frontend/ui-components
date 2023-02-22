@@ -1,4 +1,6 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { forwardRef } from 'react'
+import type { ReactNode, ComponentPropsWithoutRef } from 'react'
 import cn from 'classnames'
 import '../style/badge.scss'
 import BadgeSup from './BadgeSup'

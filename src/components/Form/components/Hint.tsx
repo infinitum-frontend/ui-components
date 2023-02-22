@@ -1,4 +1,5 @@
-import { forwardRef, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { forwardRef, ReactElement } from 'react'
 import cn from 'classnames'
 import Text, { TextProps } from 'Components/Text/Text'
 import '../style/hint.scss'

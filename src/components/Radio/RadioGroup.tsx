@@ -1,4 +1,9 @@
-import { ChangeEvent, ComponentPropsWithoutRef, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  ReactElement
+} from 'react'
 import RadioGroupContext from './RadioGroupContext'
 import { Radio } from './index'
 import './group.scss'

@@ -1,5 +1,6 @@
 import { Header } from '@tanstack/react-table'
-import { ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ReactElement } from 'react'
 import { ReactComponent as SortIcon } from 'Icons/sort.svg'
 
 // TODO: manual sorting

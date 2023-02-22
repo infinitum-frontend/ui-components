@@ -1,4 +1,9 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {
+  ComponentPropsWithoutRef,
+  forwardRef,
+  ReactElement
+} from 'react'
 import { useFormGroup } from 'Components/Form/context/group'
 import { useForm } from 'Components/Form/context/form'
 import '../style/label.scss'

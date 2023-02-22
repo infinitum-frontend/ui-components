@@ -1,5 +1,11 @@
 import { Column, flexRender, Header } from '@tanstack/react-table'
-import { KeyboardEventHandler, MouseEvent, ReactElement, useState } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {
+  KeyboardEventHandler,
+  MouseEvent,
+  ReactElement,
+  useState
+} from 'react'
 import { Popover } from 'Components/Popover'
 import Text from '../../Text/Text'
 import { ReactComponent as FilterIcon } from 'Icons/bx-filter.svg'

@@ -1,4 +1,5 @@
-import { ComponentProps, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ComponentProps, ReactElement } from 'react'
 import './index.scss'
 import classNames from 'classnames'
 

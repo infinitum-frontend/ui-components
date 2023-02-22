@@ -1,4 +1,5 @@
-import { ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ReactElement } from 'react'
 import Step, { StepProps } from './Step'
 import cn from 'classnames'
 import './index.scss'

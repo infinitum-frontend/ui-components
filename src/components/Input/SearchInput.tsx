@@ -1,4 +1,5 @@
-import { ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ReactElement } from 'react'
 import Input from 'Components/Input/Input'
 import { InputProps } from 'Components/Input/interface'
 import { ReactComponent as SearchIcon } from 'Icons/search.svg'

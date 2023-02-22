@@ -1,4 +1,5 @@
-import { ElementType, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ElementType, ReactElement } from 'react'
 import { PolymorphicComponent } from '~/src/utils/types'
 import cn from 'classnames'
 import '../style/index.scss'

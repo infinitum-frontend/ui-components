@@ -1,4 +1,9 @@
-import { ComponentPropsWithoutRef, ReactElement, ChangeEvent } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {
+  ComponentPropsWithoutRef,
+  ReactElement,
+  ChangeEvent
+} from 'react'
 import classNames from 'classnames'
 import '../style/group.scss'
 import CheckboxGroupContext from 'Components/Checkbox/context'

@@ -1,4 +1,5 @@
-import { ReactElement, ReactNode } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ReactElement, ReactNode } from 'react'
 import { ReactComponent as CircleIcon } from 'Icons/circle.svg'
 import { ReactComponent as CircleOutlinedIcon } from 'Icons/circle-outlined.svg'
 import './step.scss'

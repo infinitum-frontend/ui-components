@@ -1,4 +1,5 @@
-import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
 import Tab from 'Components/Tabs/components/Tab'
 import TabPanel from 'Components/Tabs/components/Panel'
 import TabPanels from 'Components/Tabs/components/Panels'

@@ -1,4 +1,5 @@
-import { ComponentProps, ReactElement, useRef } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ComponentProps, ReactElement, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import cn from 'classnames'
 import './index.scss'
