@@ -4,7 +4,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { Form } from './index'
 import { Button } from '../Button'
 import { Checkbox } from '../Checkbox'
-import { Input } from '../Input'
+import { Input, maskInput } from '../Input'
 import { Select } from '../Select'
 import { Radio, RadioGroup } from '../Radio'
 import { Textarea } from '../Textarea'
@@ -72,6 +72,7 @@ export const WithNativeValidation: StoryFn<typeof Form> = (args) => {
   const [comment, setComment] = useState<string>('')
   const [restrictionType, setRestrictionType] = useState<string>('')
   const [fullName, setFullName] = useState<string>('')
+  const [phone, setPhone] = useState<string>('')
   const [entityType, setEntityType] = useState<string>('')
   const [subscription, setSubscription] = useState<boolean>(false)
 
@@ -95,6 +96,22 @@ export const WithNativeValidation: StoryFn<typeof Form> = (args) => {
               value={fullName}
               onInput={(value) => setFullName(value)}
               minLength={6}
+            />
+          </Form.Item>
+        </Form.Group>
+
+        <Form.Group direction={'horizontal'}>
+          <Form.Label>Номер телефона</Form.Label>
+          <Form.Item>
+            <Input
+              name="phone"
+              placeholder="+7(999) 999-99-99"
+              type="tel"
+              formatter={(value) => maskInput(value, 'phone')}
+              minLength={18}
+              required={true}
+              value={phone}
+              onInput={(value) => setPhone(value)}
             />
           </Form.Item>
         </Form.Group>
