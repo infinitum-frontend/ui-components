@@ -16,10 +16,6 @@ const meta: Meta<typeof Input> = {
     size: 'medium'
   },
   argTypes: {
-    ref: {
-      description:
-        'Cсылка на нативный элемент<br /><code>Ref< InputRefHandler ></code>'
-    },
     onInput: {
       action: 'input',
       control: false

@@ -3,22 +3,21 @@ import React, {
   FormEventHandler,
   ReactElement,
   ReactNode,
-  useImperativeHandle,
   useState,
   useRef,
-  Ref,
   useCallback,
   MouseEventHandler,
   KeyboardEventHandler
 } from 'react'
 import classNames from 'classnames'
 import './index.scss'
-import { InputProps, InputRefHandler } from './interface'
+import { InputProps } from './interface'
 import { ReactComponent as ClearIcon } from 'Icons/bx-x.svg'
 // eslint-disable-next-line import/no-named-default
 import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput'
 import { useFormGroup } from 'Components/Form/context/group'
+import { mergeRefs } from 'react-merge-refs'
 
 /**
  * TODO:
@@ -29,7 +28,7 @@ import { useFormGroup } from 'Components/Form/context/group'
 /**
  * Компонент поля ввода
  */
-const Input = React.forwardRef<InputRefHandler, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       style,
@@ -53,8 +52,8 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
       debounce = 0, // не покрыто тестами
       id,
       ...restProps
-    }: InputProps,
-    ref: Ref<InputRefHandler>
+    },
+    ref
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
@@ -64,14 +63,9 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
+    const mergedRef = mergeRefs([inputRef, ref])
 
     const formGroupContext = useFormGroup()
-
-    useImperativeHandle(ref, () => ({
-      input: inputRef.current,
-      focus: () => inputRef.current?.focus(),
-      blur: () => inputRef.current?.blur()
-    }))
 
     const debouncedInput = useCallback(
       debounceFn((val, e) => {
@@ -204,7 +198,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           onInput={handleInput}
           onKeyDown={handleKeyDown}
           {...restProps}
-          ref={inputRef}
+          ref={mergedRef}
         />
       )
     }
@@ -235,7 +229,7 @@ const Input = React.forwardRef<InputRefHandler, InputProps>(
           onBlur={handleBlur}
           onInput={handleInput}
           {...restProps}
-          ref={inputRef}
+          ref={mergedRef}
         />
 
         {allowClear && getClearIcon()}

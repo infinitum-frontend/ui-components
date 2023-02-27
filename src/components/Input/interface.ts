@@ -59,9 +59,3 @@ export interface InputProps
     e?: FocusEvent<HTMLInputElement> | MouseEvent<HTMLSpanElement>
   ) => void
 }
-
-export interface InputRefHandler {
-  focus: () => void
-  blur: () => void
-  input: HTMLInputElement | null
-}

@@ -1,0 +1,42 @@
+.inf-select {
+  &__items {
+    border-radius: var(--inf-border-radius-medium);
+    border: 1px solid var(--inf-color-border-default);
+    background-color: white;
+    width: 100%;
+    list-style-type: none;
+    z-index: var(--inf-z-index-dropdown);
+
+    // TODO: обсудить, почему снизу есть паддинг а сверху нет. Как выглядит ховер на последний элемент и на первый
+    padding-bottom: 4px;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &__item {
+    display: flex;
+    cursor: pointer;
+    font-size: var(--inf-text-size-small);
+    padding: 7px 12px;
+    line-height: 18px;
+
+    &--active {
+      background-color: var(--inf-control-background-color-hover);
+    }
+
+    &:first-child {
+      border-top-right-radius: var(--inf-select-item-border-radius);
+      border-top-left-radius: var(--inf-select-item-border-radius);
+    }
+  }
+
+  select {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    z-index: -1;
+  }
+}

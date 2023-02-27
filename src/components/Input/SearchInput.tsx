@@ -9,16 +9,21 @@ export interface SearchInputProps
   onClick?: (value?: string) => void
 }
 
-const SearchInput = ({ onClick, ...props }: SearchInputProps): ReactElement => {
-  return (
-    <Input
-      type={'search'}
-      prefix={<SearchIcon className={'inf-search-input__icon'} />}
-      noBorder={true}
-      onPrefixClick={(value) => onClick?.(value)}
-      {...props}
-    />
-  )
-}
+const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
+  ({ onClick, ...props }, ref): ReactElement => {
+    return (
+      <Input
+        type={'search'}
+        prefix={<SearchIcon className={'inf-search-input__icon'} />}
+        noBorder={true}
+        onPrefixClick={(value) => onClick?.(value)}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+
+SearchInput.displayName = 'SearchInput'
 
 export default SearchInput

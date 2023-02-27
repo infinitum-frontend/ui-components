@@ -9,10 +9,9 @@ import React, {
   FocusEventHandler,
   MouseEventHandler
 } from 'react'
-import './index.scss'
+import '../style/index.scss'
 import cn from 'classnames'
-import { SelectProps, SelectOption } from './interface'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import { SelectProps, SelectOption } from '../interface'
 import { mergeRefs } from 'react-merge-refs'
 import { useFormGroup } from 'Components/Form/context/group'
 import {
@@ -25,6 +24,7 @@ import {
   useDismiss,
   size
 } from '@floating-ui/react'
+import SelectButton from 'Components/Select/components/button'
 
 export const defaultSelectItem: SelectOption = {
   value: -1,
@@ -218,24 +218,17 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     return (
       <>
-        <button
+        <SelectButton
           tabIndex={-1}
           ref={mergeRefs([ref, refs.setReference, displayRef])}
           disabled={disabled}
-          type="button"
+          selected={isValueExists}
+          focused={isFocused}
+          status={status}
           onFocus={handleFocus}
           onClick={handleClick}
           onBlur={handleBlur}
-          className={cn(
-            'inf-select',
-            {
-              [`inf-select--status-${status as string}`]: status,
-              'inf-select--focused': isFocused && !disabled,
-              'inf-select--selected': isValueExists,
-              'inf-select--disabled': disabled
-            },
-            className
-          )}
+          className={cn(className, 'inf-select')}
           {...getReferenceProps({
             onKeyDown: handleKeyDown
           })}
@@ -244,13 +237,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           {isValueExists
             ? getItemByValue(value as string | number, options)?.label
             : defaultSelectItem.label}
-          <span
-            className={cn('inf-select__arrow', {
-              'inf-select__arrow--selected': isValueExists
-            })}
-          >
-            <ArrowDownIcon width={'10px'} height={'5px'} />
-          </span>
           <select
             required={required}
             disabled={disabled}
@@ -266,7 +252,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
               </option>
             ))}
           </select>
-        </button>
+        </SelectButton>
 
         <FloatingPortal>
           {isOpened && !disabled && (
