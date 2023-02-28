@@ -60,4 +60,10 @@ describe('badge', () => {
       right: '-10px'
     })
   })
+
+  it('should support maxCount', () => {
+    renderComponent(<Badge badgeContent={1000} maxCount={99} />)
+    const el = screen.getByTitle('1000')
+    expect(el.innerHTML).toBe('99+')
+  })
 })

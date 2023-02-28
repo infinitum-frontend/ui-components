@@ -16,6 +16,8 @@ export interface BadgeProps {
   dot?: boolean
   /** Сдвиг по горизонтали и вертикали в пикселях. Работает только когда у компонента есть children */
   offset?: [number, number]
+  /** Максимальное отображаемое значение. Работает, только если badgeContent имеет тип number */
+  maxCount?: number
 }
 
 const Badge = forwardRef<
@@ -30,6 +32,7 @@ const Badge = forwardRef<
       dot = false,
       offset,
       badgeContent,
+      maxCount,
       className,
       ...props
     },
@@ -44,6 +47,7 @@ const Badge = forwardRef<
           offset={offset}
           tone={tone}
           dot={dot}
+          maxCount={maxCount}
           showZero={showZero}
         />
       </span>

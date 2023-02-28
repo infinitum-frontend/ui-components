@@ -48,3 +48,9 @@ export const Offset = Template.bind({})
 Offset.args = {
   offset: [-5, 10]
 }
+
+export const MaxCount = Template.bind({})
+MaxCount.args = {
+  badgeContent: 100,
+  maxCount: 99
+}
