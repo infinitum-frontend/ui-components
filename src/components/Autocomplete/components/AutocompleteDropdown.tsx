@@ -7,6 +7,7 @@ import '../style/dropdown.scss'
 export interface AutocompleteDropdownProps
   extends ComponentPropsWithoutRef<'div'> {}
 
+/** Компонент-обертка для выпадающего контента */
 const AutocompleteDropdown = ({
   children,
   className,

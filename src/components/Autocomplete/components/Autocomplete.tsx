@@ -1,10 +1,15 @@
-import {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {
   ComponentPropsWithoutRef,
   ReactElement,
   useEffect,
   useState
 } from 'react'
-import AutocompleteButton from 'Components/Autocomplete/components/button'
+import AutocompleteButton from 'Components/Autocomplete/components/AutocompleteButton'
+import AutocompleteDropdown from 'Components/Autocomplete/components/AutocompleteDropdown'
+import AutocompleteInput from 'Components/Autocomplete/components/AutocompleteInput'
+import AutocompleteOption from 'Components/Autocomplete/components/AutocompleteOption'
+import AutocompleteOptions from 'Components/Autocomplete/components/AutocompleteOptions'
 import AutocompleteContext, {
   IAutocompleteContext
 } from 'Components/Autocomplete/context'
@@ -16,21 +21,24 @@ import {
   useFloating,
   useInteractions
 } from '@floating-ui/react'
-import AutocompleteDropdown from 'Components/Autocomplete/components/dropdown'
-import AutocompleteInput from 'Components/Autocomplete/components/input'
-import AutocompleteOption from 'Components/Autocomplete/components/option'
-import AutocompleteOptions from 'Components/Autocomplete/components/options'
 import { IAutocompleteOption } from 'Components/Autocomplete/typings'
 
 export interface AutocompleteProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
-  opened?: boolean
-  onOpenChange?: (value: boolean) => void
-  onChange?: (value: IAutocompleteOption['value']) => void
+  /** Опции для отображения */
   options?: IAutocompleteOption[]
+  /** Значение выбранной опции */
   selectedValue?: IAutocompleteOption['value']
+  /** Событие изменения выбранной опции */
+  onChange?: (value: IAutocompleteOption['value']) => void
+  /** Плейсхолдер, отображаемый в случае, когда ни одно из значений не выбрано */
   placeholder?: string
+  /** Функция для фильтрации опций. По умолчанию идет нечувствительная к регистру фильтрация по вхождению в строку */
   filterFn?: (option: IAutocompleteOption) => boolean
+  /** Состояние отображения выпадающего контента. Только для контролируемого варианта */
+  opened?: boolean
+  /** Событие изменения состояния отображения выпадающего контента. Только для контролируемого варианта */
+  onOpenChange?: (value: boolean) => void
 }
 
 // const getIndexByValue = (value: IAutocompleteOption['value'], options: Array<IAutocompleteOption['value']>): number => {
@@ -51,8 +59,6 @@ const Autocomplete = ({
   const [open, setOpen] = useState<boolean>(opened)
   const [query, setQuery] = useState<string>('')
   const [filteredOptions, setFilteredOptions] = useState(options || [])
-  // const [internalOptions, setInternalOptions] = useState<Array<IAutocompleteOption['value']>>([])
-  // const [activeItem, setActiveItem] = useState<IAutocompleteOption['value']>(0)
 
   useEffect(() => {
     setOpen(opened)
@@ -145,8 +151,6 @@ const Autocomplete = ({
     getReferenceProps,
     dropdownRef: refs.setFloating,
     getFloatingProps,
-    // activeItem,
-    // setActiveItem,
     x,
     y,
     open
@@ -192,5 +196,7 @@ const Autocomplete = ({
 export default Object.assign(Autocomplete, {
   Button: AutocompleteButton,
   Dropdown: AutocompleteDropdown,
-  Input: AutocompleteInput
+  Input: AutocompleteInput,
+  Options: AutocompleteOptions,
+  Option: AutocompleteOption
 })

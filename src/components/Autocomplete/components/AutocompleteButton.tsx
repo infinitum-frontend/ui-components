@@ -1,13 +1,15 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import '../style/button.scss'
-import SelectButton from 'Components/Select/components/button'
+import SelectButton from 'Components/Select/components/SelectButton'
 
 export interface AutocompleteButtonProps
   extends ComponentPropsWithoutRef<'button'> {
+  /** Плейсхолдер, отображаемый в случае, когда не передан слот */
   placeholder?: string
 }
 
+/** Компонент кнопки-триггера для вызова выпадающего списка */
 const AutocompleteButton = ({
   placeholder = 'Не указано',
   children,

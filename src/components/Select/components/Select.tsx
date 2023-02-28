@@ -24,7 +24,7 @@ import {
   useDismiss,
   size
 } from '@floating-ui/react'
-import SelectButton from 'Components/Select/components/button'
+import SelectButton from 'Components/Select/components/SelectButton'
 
 export const defaultSelectItem: SelectOption = {
   value: -1,

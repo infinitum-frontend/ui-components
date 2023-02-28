@@ -4,6 +4,7 @@ import { useAutocompleteContext } from 'Components/Autocomplete/context'
 
 export interface AutocompleteInputProps extends SearchInputProps {}
 
+/** Поле ввода для фильтрации опций */
 const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
   ({ ...props }, ref): ReactElement => {
     const context = useAutocompleteContext()

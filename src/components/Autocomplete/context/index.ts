@@ -12,7 +12,6 @@ export interface IAutocompleteContext {
   getFloatingProps: ReturnType<typeof useInteractions>['getFloatingProps']
   x?: number | null
   y?: number | null
-  /** отображение дропдауна */
   open?: boolean
   // setActiveItem?: (value: IAutocompleteOption['value']) => void
   // activeItem?: IAutocompleteOption['value']

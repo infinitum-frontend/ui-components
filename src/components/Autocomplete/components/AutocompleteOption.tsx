@@ -3,10 +3,13 @@ import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import MenuItem, { MenuItemProps } from 'Components/Menu/components/MenuItem'
 import { IAutocompleteOption } from 'Components/Autocomplete/typings'
 
-export type AutocompleteOptionProps = ComponentPropsWithoutRef<'button'> &
-  MenuItemProps & {
+export type AutocompleteOptionProps = Omit<
+  ComponentPropsWithoutRef<'button'>,
+  'onClick'
+> &
+  Omit<MenuItemProps, 'onClick'> & {
     value?: IAutocompleteOption['value']
-    onClick?: () => void
+    onClick?: (value: IAutocompleteOption['value']) => void
   }
 
 const AutocompleteOption = ({
@@ -20,7 +23,7 @@ const AutocompleteOption = ({
 
   const handleClick = (): void => {
     if (onClick) {
-      onClick()
+      onClick(value)
       return
     }
 
@@ -34,7 +37,7 @@ const AutocompleteOption = ({
   return (
     <MenuItem
       as={'button'}
-      onClick={handleClick}
+      onClick={handleClick as any}
       // onMouseOver={handleMouseOver}
       // className={cn('inf-autocomplete-option', {
       //   'inf-autocomplete-option--active': active

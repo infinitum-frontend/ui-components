@@ -1,1 +1,1 @@
-export { default as Autocomplete } from './components/index'
+export { default as Autocomplete } from './components/Autocomplete'
