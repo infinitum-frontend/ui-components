@@ -24,7 +24,7 @@ const meta: Meta<typeof Form> = {
 
 export default meta
 
-const Template: StoryFn<typeof Form> = (args, subArgs) => {
+const Template: StoryFn<typeof Form> = (args) => {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState<boolean>(true)
 
@@ -43,7 +43,7 @@ const Template: StoryFn<typeof Form> = (args, subArgs) => {
 
   return (
     <Form {...args} onSubmit={handleSubmit} labelWidth={'150px'}>
-      <Form.Group gap={'xsmall'} isRequired={true}>
+      <Form.Group gap={'xsmall'}>
         <Form.Label>Email</Form.Label>
         <Form.Item>
           <Input
@@ -88,19 +88,24 @@ export const WithNativeValidation: StoryFn<typeof Form> = (args) => {
         также проп required, обрабатывающий вложенные радиокнопки), Checkbox
       </code>
       <Form {...args} onSubmit={handleSubmit} labelWidth={'200px'}>
-        <Form.Group direction={'horizontal'}>
+        <Form.Group
+          direction={'horizontal'}
+          required
+          invalidMessage={'5 цифр без пробелов'}
+        >
           <Form.Label>ФИО</Form.Label>
           <Form.Item>
             <Input
-              required={true}
               value={fullName}
+              title={'5 цифр без пробелов'}
+              pattern="[0-9]{5}"
               onInput={(value) => setFullName(value)}
-              minLength={6}
             />
           </Form.Item>
+          <Form.Hint>5 цифр без пробелов</Form.Hint>
         </Form.Group>
 
-        <Form.Group direction={'horizontal'}>
+        <Form.Group direction={'horizontal'} required>
           <Form.Label>Номер телефона</Form.Label>
           <Form.Item>
             <Input
@@ -109,18 +114,16 @@ export const WithNativeValidation: StoryFn<typeof Form> = (args) => {
               type="tel"
               formatter={(value) => maskInput(value, 'phone')}
               minLength={18}
-              required={true}
               value={phone}
               onInput={(value) => setPhone(value)}
             />
           </Form.Item>
         </Form.Group>
 
-        <Form.Group direction={'horizontal'}>
+        <Form.Group direction={'horizontal'} required>
           <Form.Label>Вид сущности</Form.Label>
           <Form.Item>
             <Select
-              required={true}
               value={entityType}
               onChange={(option) => setEntityType(option.value as string)}
               options={[
@@ -131,12 +134,11 @@ export const WithNativeValidation: StoryFn<typeof Form> = (args) => {
           </Form.Item>
         </Form.Group>
 
-        <Form.Group direction={'horizontal'}>
+        <Form.Group direction={'horizontal'} required>
           <Form.Label>Комментарий в ТЗ</Form.Label>
           <Form.Item>
             <Textarea
               resize={'vertical'}
-              required={true}
               maxLength={10}
               value={comment}
               onInput={(value) => setComment(value)}
@@ -145,23 +147,20 @@ export const WithNativeValidation: StoryFn<typeof Form> = (args) => {
           <Form.Hint>Комментарий виден только сотрудникам</Form.Hint>
         </Form.Group>
 
-        <Form.Group direction={'horizontal'}>
+        <Form.Group direction={'horizontal'} required>
           <Form.Label>Счёт депо</Form.Label>
           <Form.Item>
-            <Checkbox required={true}>
-              Использовать для отбора счёт депо
-            </Checkbox>
+            <Checkbox>Использовать для отбора счёт депо</Checkbox>
           </Form.Item>
         </Form.Group>
 
-        <Form.Group direction={'horizontal'}>
+        <Form.Group direction={'horizontal'} required>
           <Form.Label>Ограничение в обороте</Form.Label>
           <Form.Item>
             <RadioGroup
               name={'restrictions'}
               value={restrictionType}
               onChange={(value) => setRestrictionType(value)}
-              required={true}
             >
               <Radio value={'1'}>Ограничено</Radio>
               <Radio value={'2'}>Не ограничено</Radio>

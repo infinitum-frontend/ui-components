@@ -2,7 +2,10 @@ import { createContext, useContext } from 'react'
 
 export interface IFormGroupContext {
   id?: string
-  isRequired?: boolean
+  required?: boolean
+  invalidMessage?: string
+  invalid?: boolean
+  setInvalid?: (value: boolean) => void
 }
 
 const FormGroupContext = createContext<IFormGroupContext | null>(null)

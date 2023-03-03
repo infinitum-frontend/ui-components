@@ -4,6 +4,7 @@ import React, {
   ChangeEventHandler,
   ComponentPropsWithoutRef,
   DetailedHTMLProps,
+  FormEventHandler,
   forwardRef,
   InputHTMLAttributes,
   ReactElement
@@ -13,6 +14,7 @@ import { ReactComponent as CheckIcon } from 'Icons/check.svg'
 import { ReactComponent as IndeterminateIcon } from 'Icons/indeterminate.svg'
 import cn from 'classnames'
 import { useCheckboxGroup } from 'Components/Checkbox/context'
+import { useFormGroup } from 'Components/Form/context/group'
 
 const checkedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'16px'} height={'16px'} />
@@ -51,6 +53,8 @@ export interface CheckboxProps
     | 'aria-checked'
     | 'checked'
     | 'onChange'
+    | 'aria-required'
+    | 'aria-invalid'
   >
 }
 
@@ -75,14 +79,26 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     },
     ref
   ): ReactElement => {
-    const groupData = useCheckboxGroup()
+    const checkboxGroupData = useCheckboxGroup()
+    const formGroupData = useFormGroup()
 
-    if (groupData) {
-      checked = Boolean(groupData.value.find((el) => el === value))
+    if (checkboxGroupData) {
+      checked = Boolean(checkboxGroupData.value.find((el) => el === value))
     }
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-      groupData?.onChange?.(value, e) ?? onChange?.(e.target.checked, e)
+      checkboxGroupData?.onChange?.(value, e) ?? onChange?.(e.target.checked, e)
+      if (formGroupData) {
+        e.target.setCustomValidity('')
+        formGroupData.setInvalid?.(!e.target.checked)
+      }
+    }
+
+    const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
+      if (formGroupData) {
+        e.currentTarget.setCustomValidity(formGroupData.invalidMessage || '')
+        formGroupData.setInvalid?.(true)
+      }
     }
 
     const getAriaCheckedAttr: () => InputProps['aria-checked'] = () => {
@@ -110,10 +126,13 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           value={value}
           aria-checked={getAriaCheckedAttr()}
           disabled={disabled}
-          required={required}
+          required={formGroupData?.required || required}
+          aria-required={formGroupData?.required || required}
+          aria-invalid={formGroupData?.invalid || undefined}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
           onChange={handleChange}
+          onInvalid={handleInvalid}
         />
         <span
           className={cn('inf-checkbox__box', {
