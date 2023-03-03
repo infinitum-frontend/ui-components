@@ -16,8 +16,8 @@
   },
   "lint-staged": {
     "*.{tsx,ts}": [
-      "npm run lint",
-      "npm run prettier-check"
+      "eslint --ext .tsx,.ts",
+      "prettier --check"
     ]
   },
   "repository": {
