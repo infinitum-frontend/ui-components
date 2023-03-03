@@ -2,7 +2,8 @@
 import React, {
   ComponentPropsWithoutRef,
   forwardRef,
-  ReactElement
+  ReactElement,
+  ReactNode
 } from 'react'
 import { useFormGroup } from 'Components/Form/context/group'
 import { useForm } from 'Components/Form/context/form'
@@ -11,15 +12,16 @@ import '../style/label.scss'
 export interface FormLabelProps extends ComponentPropsWithoutRef<'label'> {
   /** htmlId */
   id?: string
+  requiredIndicator?: ReactNode
 }
 
 const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
-  ({ id, style, children, ...props }, ref): ReactElement => {
+  ({ id, requiredIndicator, style, children, ...props }, ref): ReactElement => {
     const formData = useForm()
     const formGroupData = useFormGroup()
 
     const htmlFor = id || formGroupData?.id
-    const showRequiredIndicator = formGroupData?.isRequired
+    const showRequiredIndicator = formGroupData?.required || requiredIndicator
 
     return (
       <label
@@ -31,7 +33,12 @@ const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
       >
         {children}
         {showRequiredIndicator ? (
-          <span className={'inf-form-label__required-indicator'}>*</span>
+          <span
+            className={'inf-form-label__required-indicator'}
+            aria-label={'required'}
+          >
+            {requiredIndicator || '*'}
+          </span>
         ) : null}
       </label>
     )

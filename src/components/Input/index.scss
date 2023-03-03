@@ -62,12 +62,12 @@
     }
   }
 
-  &--status-error {
-    border-color: var(--inf-color-primary);
-  }
-
   &--filled {
     border-color: var(--inf-color-border-focused);
+  }
+
+  &--status-error {
+    border-color: var(--inf-color-primary);
   }
 
   &__prefix,

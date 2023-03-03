@@ -3,12 +3,22 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   ComponentPropsWithoutRef,
+  DetailedHTMLProps,
+  FormEventHandler,
   forwardRef,
+  InputHTMLAttributes,
   ReactElement
 } from 'react'
 import './index.scss'
 import useRadioGroup from './useRadioGroup'
 import cn from 'classnames'
+import { useFormGroup } from 'Components/Form/context/group'
+
+interface InputProps
+  extends DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {}
 
 export interface RadioProps
   extends Omit<ComponentPropsWithoutRef<'label'>, 'onChange'> {
@@ -24,6 +34,19 @@ export interface RadioProps
   /** HTML value */
   value?: string
   required?: boolean
+  inputProps?: Omit<
+    InputProps,
+    | 'type'
+    | 'name'
+    | 'required'
+    | 'value'
+    | 'disabled'
+    | 'defaultChecked'
+    | 'checked'
+    | 'onChange'
+    | 'aria-required'
+    | 'aria-invalid'
+  >
 }
 
 const Radio = forwardRef<HTMLLabelElement, RadioProps>(
@@ -43,6 +66,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
     ref
   ): ReactElement => {
     const groupData = useRadioGroup()
+    const formGroupData = useFormGroup()
 
     if (groupData) {
       name = groupData.name
@@ -54,6 +78,17 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
       groupData
         ? groupData.onChange?.(value || '', e)
         : onChange?.(e.target.checked, e)
+      if (formGroupData) {
+        e.target.setCustomValidity('')
+        formGroupData.setInvalid?.(!e.target.checked)
+      }
+    }
+
+    const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
+      if (formGroupData) {
+        e.currentTarget.setCustomValidity(formGroupData.invalidMessage || '')
+        formGroupData.setInvalid?.(true)
+      }
     }
 
     return (
@@ -63,9 +98,12 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
           disabled={disabled}
           name={name}
           value={value}
-          required={required}
+          required={formGroupData?.required || required}
+          aria-required={formGroupData?.required || required}
+          aria-invalid={formGroupData?.invalid || undefined}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
+          onInvalid={handleInvalid}
           onChange={handleChange}
         />
         <span

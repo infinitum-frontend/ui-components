@@ -51,6 +51,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       noBorder = false,
       debounce = 0, // не покрыто тестами
       id,
+      required = false,
+      'aria-required': ariaRequired,
+      'aria-invalid': ariaInvalid,
       ...restProps
     },
     ref
@@ -78,6 +81,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     // обработка событий
     const handleInput: FormEventHandler<HTMLInputElement> = (e) => {
+      if (formGroupContext) {
+        formGroupContext.setInvalid?.(!e.currentTarget.checkValidity())
+        e.currentTarget.setCustomValidity('')
+      }
+
       if (onInput !== undefined) {
         const target = e.target as HTMLInputElement
         // обновляем локальное значение только когда есть дебаунс, чтобы не вызывать лишние ререндеры
@@ -125,6 +133,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
       onInput?.('')
       inputRef.current?.focus()
+    }
+
+    const handleInvalid: FormEventHandler<HTMLInputElement> = (e): void => {
+      if (formGroupContext) {
+        e.currentTarget.setCustomValidity(formGroupContext.invalidMessage || '')
+        formGroupContext.setInvalid?.(true)
+      }
     }
 
     // хелперы
@@ -178,6 +193,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       )
     }
 
+    const isRequired = required || formGroupContext?.required
+
     const isBaseInput = !prefix && !allowClear
 
     if (isBaseInput) {
@@ -190,6 +207,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           disabled={disabled}
           size={size}
           noBorder={noBorder}
+          onInvalid={handleInvalid}
           borderRadius={borderRadius}
           status={status}
           id={id || formGroupContext?.id}
@@ -197,8 +215,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onBlur={handleBlur}
           onInput={handleInput}
           onKeyDown={handleKeyDown}
-          {...restProps}
+          required={isRequired}
+          aria-required={formGroupContext?.required || ariaRequired}
+          aria-invalid={formGroupContext?.invalid || ariaInvalid}
           ref={mergedRef}
+          {...restProps}
         />
       )
     }
@@ -228,8 +249,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           onInput={handleInput}
-          {...restProps}
+          onInvalid={handleInvalid}
+          required={isRequired}
           ref={mergedRef}
+          aria-invalid={formGroupContext?.invalid || ariaInvalid}
+          aria-required={formGroupContext?.required || ariaRequired}
+          {...restProps}
         />
 
         {allowClear && getClearIcon()}

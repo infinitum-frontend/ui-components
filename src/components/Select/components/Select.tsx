@@ -7,7 +7,8 @@ import React, {
   ReactElement,
   useRef,
   FocusEventHandler,
-  MouseEventHandler
+  MouseEventHandler,
+  FormEventHandler
 } from 'react'
 import '../style/index.scss'
 import cn from 'classnames'
@@ -64,14 +65,15 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     ref
   ): ReactElement => {
     // ============================= state =============================
-    const [isOpened, setOpened] = useState<boolean>(false)
-    const [isFocused, setFocused] = useState<boolean>(false)
-    const [activeItem, setActiveItem] = useState<number>(
+    const [isOpened, setOpened] = useState(false)
+    const [isFocused, setFocused] = useState(false)
+    const [activeItem, setActiveItem] = useState(
       getIndexByValue(value, options) || 0
     )
 
     const formGroupData = useFormGroup()
     const displayRef = useRef<HTMLButtonElement>(null)
+    const selectRef = useRef<HTMLSelectElement>(null)
 
     // ============================= effects =============================
     useEffect(() => {
@@ -170,12 +172,23 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       setActiveItem(index)
     }
 
+    const handleInvalid: FormEventHandler<HTMLSelectElement> = () => {
+      if (formGroupData) {
+        formGroupData.setInvalid?.(true)
+        selectRef.current?.setCustomValidity(formGroupData.invalidMessage || '')
+      }
+    }
+
     const submit = (index: number): void => {
       if (index < 0) {
         return
       }
 
       setOpened(false)
+      if (formGroupData) {
+        formGroupData.setInvalid?.(false)
+        selectRef.current?.setCustomValidity('')
+      }
       onChange?.(options[index])
     }
 
@@ -214,6 +227,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     if (placeholder) {
       defaultSelectItem.label = placeholder
     }
+
     const isValueExists = Boolean(value) || Number.isInteger(value)
 
     return (
@@ -238,11 +252,15 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             ? getItemByValue(value as string | number, options)?.label
             : defaultSelectItem.label}
           <select
-            required={required}
+            ref={selectRef}
+            required={formGroupData?.required || required}
+            aria-required={formGroupData?.required || required}
+            aria-invalid={formGroupData?.invalid || undefined}
             disabled={disabled}
             autoFocus={autoFocus}
             id={formGroupData?.id || id}
             value={value}
+            onInvalid={handleInvalid}
             onChange={() => null}
           >
             <option value={''} />

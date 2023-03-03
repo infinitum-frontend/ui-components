@@ -30,6 +30,10 @@
     }
   }
 
+  &--filled {
+    border-color: var(--inf-color-border-focused);
+  }
+
   &--size-medium {
     line-height: 18px;
     height: var(--inf-control-height-medium);
@@ -48,9 +52,5 @@
 
   &--no-border {
     border: none;
-  }
-
-  &--filled {
-    border-color: var(--inf-color-border-focused);
   }
 }

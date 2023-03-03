@@ -49,11 +49,26 @@ const Textarea = ({
   status,
   onInput,
   id,
+  required = false,
+  'aria-required': ariaRequired,
+  'aria-invalid': ariaInvalid,
   ...props
 }: TextareaProps): ReactElement => {
   const formGroupData = useFormGroup()
+
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
+    if (formGroupData) {
+      e.currentTarget.setCustomValidity('')
+      formGroupData.setInvalid?.(!e.currentTarget.checkValidity())
+    }
     onInput?.((e.target as HTMLTextAreaElement).value, e)
+  }
+
+  const handleInvalid: FormEventHandler<HTMLTextAreaElement> = (e) => {
+    if (formGroupData) {
+      e.currentTarget.setCustomValidity(formGroupData.invalidMessage || '')
+      formGroupData.setInvalid?.(true)
+    }
   }
 
   const classNames = cn('inf-textarea', 'inf-input-common', className, {
@@ -70,7 +85,11 @@ const Textarea = ({
       value={value}
       id={id || formGroupData?.id}
       onInput={handleInput}
+      onInvalid={handleInvalid}
       disabled={disabled}
+      required={formGroupData?.required || required}
+      aria-required={formGroupData?.required || ariaRequired}
+      aria-invalid={formGroupData?.invalid || ariaInvalid}
       {...props}
     />
   )
