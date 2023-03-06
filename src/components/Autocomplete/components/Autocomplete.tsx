@@ -32,7 +32,9 @@ export interface AutocompleteProps
   /** Событие изменения выбранной опции */
   onChange?: (value: IAutocompleteOption['value']) => void
   /** Плейсхолдер, отображаемый в случае, когда ни одно из значений не выбрано */
-  placeholder?: string
+  buttonPlaceholder?: string
+  /** Плейсхолдер, отображаемый в инпуте */
+  inputPlaceholder?: string
   /** Функция для фильтрации опций. По умолчанию идет нечувствительная к регистру фильтрация по вхождению в строку */
   filterFn?: (option: IAutocompleteOption) => boolean
   /** Состояние отображения выпадающего контента. Только для контролируемого варианта */
@@ -49,7 +51,8 @@ const Autocomplete = ({
   options = [],
   opened = false,
   onChange,
-  placeholder = 'Выберите',
+  buttonPlaceholder = 'Выберите',
+  inputPlaceholder,
   selectedValue,
   filterFn,
   onOpenChange,
@@ -157,19 +160,20 @@ const Autocomplete = ({
   }
 
   // ==================== render ====================
-  if (!children) {
+  if (options?.length) {
     return (
       <AutocompleteContext.Provider value={autocompleteContext}>
         <div>
           <AutocompleteButton
             onClick={handleButtonClick}
-            placeholder={placeholder}
+            placeholder={buttonPlaceholder}
           >
             {options?.find((option) => option.value === selectedValue)?.label}
           </AutocompleteButton>
           <AutocompleteDropdown>
             <AutocompleteInput
               onInput={handleInput}
+              placeholder={inputPlaceholder}
               value={query}
               allowClear={true}
             />

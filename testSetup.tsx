@@ -1,4 +1,4 @@
-import { expect, afterEach } from 'vitest'
+import { expect, afterEach, beforeAll } from 'vitest'
 import { cleanup, render } from '@testing-library/react'
 import matchers from '@testing-library/jest-dom/matchers'
 import { ReactElement, JSXElementConstructor } from 'react'
@@ -18,6 +18,14 @@ export const renderComponent = function (Component: ReactElement): {
 
   return { el, container, rerender }
 }
+
+beforeAll(() => {
+  global.ResizeObserver = class ResizeObserver {
+    observe(): any {}
+    unobserve(): any {}
+    disconnect(): any {}
+  }
+})
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {

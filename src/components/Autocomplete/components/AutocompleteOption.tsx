@@ -38,6 +38,7 @@ const AutocompleteOption = ({
     <MenuItem
       as={'button'}
       onClick={handleClick as any}
+      className={className}
       // onMouseOver={handleMouseOver}
       // className={cn('inf-autocomplete-option', {
       //   'inf-autocomplete-option--active': active

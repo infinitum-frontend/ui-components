@@ -2,6 +2,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { Autocomplete } from './index'
 import { useState } from 'react'
 import { IAutocompleteOption } from './typings'
+import { AutocompleteBaseOptions } from './fixture'
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Autocomplete',
@@ -17,19 +18,13 @@ const meta: Meta<typeof Autocomplete> = {
 
 export default meta
 
-const mockItems = [
-  { label: 'Депозитарные услуги', value: 0 },
-  { label: 'Спецдепозитарные услуги', value: 1 },
-  { label: 'Консалтинг и аутсорсинг', value: 2 }
-]
-
 const Template: StoryFn<typeof Autocomplete> = (args) => {
   const [selectedItem, setSelectedItem] = useState<string | number>('')
 
   return (
     <Autocomplete
       onChange={(value) => setSelectedItem(value)}
-      options={mockItems}
+      options={AutocompleteBaseOptions}
       selectedValue={selectedItem}
       {...args}
     />
@@ -41,7 +36,7 @@ export const Playground = Template.bind({})
 export const ControlledVariant: StoryFn<typeof Autocomplete> = (args) => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const [filteredItems, setFilteredItems] = useState(mockItems)
+  const [filteredItems, setFilteredItems] = useState(AutocompleteBaseOptions)
   const [selectedItem, setSelectedItem] =
     useState<IAutocompleteOption['value']>('')
 
@@ -53,7 +48,7 @@ export const ControlledVariant: StoryFn<typeof Autocomplete> = (args) => {
   const handleInput = (value: string): void => {
     setQuery(value)
     setFilteredItems(
-      mockItems.filter((item) => {
+      AutocompleteBaseOptions.filter((item) => {
         return item.label.toLowerCase().match(value.toLowerCase())
       })
     )
@@ -68,7 +63,11 @@ export const ControlledVariant: StoryFn<typeof Autocomplete> = (args) => {
   return (
     <Autocomplete opened={open} onOpenChange={(value) => setOpen(value)}>
       <Autocomplete.Button placeholder={'Выберите услугу'}>
-        {mockItems.find((option) => option.value === selectedItem)?.label}
+        {
+          AutocompleteBaseOptions.find(
+            (option) => option.value === selectedItem
+          )?.label
+        }
       </Autocomplete.Button>
       <Autocomplete.Dropdown>
         <Autocomplete.Input
