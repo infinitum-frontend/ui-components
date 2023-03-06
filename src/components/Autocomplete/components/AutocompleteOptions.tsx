@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import Menu, { MenuProps } from 'Components/Menu/components/Menu'
+import cn from 'classnames'
 
 export type AutocompleteOptionsProps = MenuProps &
   ComponentPropsWithoutRef<'div'>
@@ -10,7 +11,11 @@ const AutocompleteOptions = ({
   ...props
 }: AutocompleteOptionsProps): ReactElement => {
   return (
-    <Menu as={'div'} className={'inf-autocomplete-options'} {...props}>
+    <Menu
+      as={'div'}
+      className={cn('inf-autocomplete-options', className)}
+      {...props}
+    >
       {children}
     </Menu>
   )

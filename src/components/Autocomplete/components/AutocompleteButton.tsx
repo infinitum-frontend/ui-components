@@ -1,4 +1,5 @@
-import { ComponentPropsWithoutRef, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import '../style/button.scss'
 import SelectButton from 'Components/Select/components/SelectButton'

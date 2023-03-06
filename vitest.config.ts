@@ -18,6 +18,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     css: true,
-    setupFiles: './testSetup.tsx'
+    setupFiles: './testSetup.tsx',
+    coverage: {
+      provider: 'c8'
+    }
   }
 })

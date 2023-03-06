@@ -1,0 +1,80 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Autocomplete > should match snapshot 1`] = `
+<div>
+  <button
+    class="inf-select-button"
+    tabindex="-1"
+    type="button"
+  >
+    <span
+      class="inf-select-button__arrow"
+    >
+      <svg
+        fill="none"
+        height="5px"
+        viewBox="0 0 12 7"
+        width="10px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1L6 6L11 1"
+          stroke="currentColor"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+      </svg>
+    </span>
+    Кнопка
+  </button>
+</div>
+`;
+
+exports[`Autocomplete Dropdown > should match snapshot > dropdown 1`] = `
+<div
+  class="inf-autocomplete-dropdown"
+  name="floating"
+  style="position: absolute; top: 100px; left: 100px;"
+  title="title"
+>
+  Dropdown
+</div>
+`;
+
+exports[`Autocomplete Option > should match snapshot 1`] = `
+<button
+  class="inf-menu-item"
+  title="option"
+>
+  Option
+</button>
+`;
+
+exports[`AutocompleteButton > should match snapshot > button 1`] = `
+<button
+  class="inf-select-button"
+  tabindex="-1"
+  title="title"
+  type="button"
+>
+  <span
+    class="inf-select-button__arrow"
+  >
+    <svg
+      fill="none"
+      height="5px"
+      viewBox="0 0 12 7"
+      width="10px"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1 1L6 6L11 1"
+        stroke="currentColor"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+      />
+    </svg>
+  </span>
+  Кнопка
+</button>
+`;
