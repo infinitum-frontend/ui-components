@@ -1,16 +1,25 @@
 import { describe, it, vi } from 'vitest'
 import { renderComponent } from '../../../../testSetup'
 import { Checkbox } from '../index'
+import { screen } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
+import { Form } from '../../Form'
+import { Button } from '../../Button'
+
+const wrapperTitle = 'wrapper'
+const inputTitle = 'control'
+const user = userEvent.setup()
 
 describe('Checkbox', () => {
-  const user = userEvent.setup()
   it('should render', () => {
-    const { el } = renderComponent(<Checkbox />)
-    const input = el.querySelector('input')
-    expect(el).toBeInTheDocument()
-    expect(el).toHaveClass('inf-checkbox')
-    expect(input).toHaveProperty('type', 'checkbox')
+    renderComponent(
+      <Checkbox inputProps={{ title: inputTitle }} title={wrapperTitle} />
+    )
+
+    const wrapper = screen.queryByTitle(wrapperTitle)
+    expect(wrapper).toBeInTheDocument()
+    expect(wrapper).toHaveClass('inf-checkbox')
+    expect(screen.queryByTitle(inputTitle)).toHaveProperty('type', 'checkbox')
   })
 
   it('should match snapshop', () => {
@@ -19,14 +28,15 @@ describe('Checkbox', () => {
   })
 
   it('should be unchecked by default', () => {
-    renderComponent(<Checkbox />)
-    const input = document.querySelector('input')
-    expect(input).toHaveProperty('checked', false)
+    renderComponent(<Checkbox inputProps={{ title: inputTitle }} />)
+    expect(screen.queryByTitle(inputTitle)).toHaveProperty('checked', false)
   })
 
   it('should support uncontrolled variant', async () => {
-    const { el } = renderComponent(<Checkbox defaultChecked={true} />)
-    const input = el.querySelector('input')
+    const { el } = renderComponent(
+      <Checkbox defaultChecked={true} inputProps={{ title: inputTitle }} />
+    )
+    const input = screen.queryByTitle(inputTitle)
     expect(input).toHaveProperty('checked', true)
     await user.click(el)
     expect(input).toHaveProperty('checked', false)
@@ -42,10 +52,14 @@ describe('Checkbox', () => {
       event = e
     })
     const { el } = renderComponent(
-      <Checkbox checked={true} onChange={onChange} />
+      <Checkbox
+        checked={true}
+        onChange={onChange}
+        inputProps={{ title: inputTitle }}
+      />
     )
-    const input = el.querySelector('input')
-    expect(input).toHaveProperty('checked', true)
+
+    expect(screen.queryByTitle(inputTitle)).toHaveProperty('checked', true)
     await user.click(el)
     expect(onChange).toBeCalledTimes(1)
     expect(onChange).toBeCalledWith(checked, event)
@@ -87,8 +101,14 @@ describe('Checkbox', () => {
   })
 
   it('should support name and value', () => {
-    const { el } = renderComponent(<Checkbox name={'Name'} value={'Value'} />)
-    const input = el.querySelector('input')
+    renderComponent(
+      <Checkbox
+        name={'Name'}
+        value={'Value'}
+        inputProps={{ title: inputTitle }}
+      />
+    )
+    const input = screen.queryByTitle(inputTitle)
     expect(input).toHaveAttribute('name', 'Name')
     expect(input).toHaveAttribute('value', 'Value')
   })
@@ -106,10 +126,46 @@ describe('Checkbox', () => {
 
   it('should support basic inputProps', () => {
     const { el } = renderComponent(
-      <Checkbox inputProps={{ 'aria-checked': 'false' }}>Label</Checkbox>
+      <Checkbox inputProps={{ accept: 'test' }}>Label</Checkbox>
     )
     const input = el.querySelector('input')
 
-    expect(input).toHaveAttribute('aria-checked', 'false')
+    expect(input).toHaveAttribute('accept', 'test')
+  })
+
+  it('should set ariaRequired if required prop is passed', () => {
+    renderComponent(<Checkbox required inputProps={{ title: inputTitle }} />)
+
+    expect(screen.queryByTitle(inputTitle)).toHaveAttribute(
+      'aria-required',
+      'true'
+    )
+  })
+})
+
+describe('CheckboxForm', () => {
+  it('should support formContext', async () => {
+    renderComponent(
+      <Form>
+        <Form.Group required invalidMessage={'Error'}>
+          <Checkbox inputProps={{ title: inputTitle }} />
+        </Form.Group>
+        <Button type={'submit'}>Submit</Button>
+      </Form>
+    )
+
+    const input = screen.queryByTitle(inputTitle) as HTMLInputElement
+    expect(input).toHaveAttribute('required')
+    expect(input).toHaveAttribute('aria-required', 'true')
+
+    await user.click(screen.queryByText('Submit') as HTMLElement)
+
+    expect(input.validationMessage).toBe('Error')
+    expect(input).toHaveAttribute('aria-invalid', 'true')
+
+    await user.click(input)
+
+    expect(input.validationMessage).toBe('')
+    expect(input).not.toHaveAttribute('aria-invalid')
   })
 })
