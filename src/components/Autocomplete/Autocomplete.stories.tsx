@@ -23,10 +23,10 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
 
   return (
     <Autocomplete
+      {...args}
       onChange={(value) => setSelectedItem(value)}
       options={AutocompleteBaseOptions}
       selectedValue={selectedItem}
-      {...args}
     />
   )
 }

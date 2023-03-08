@@ -29,8 +29,8 @@ const BadgeSup = ({
     : badgeContent
 
   const styles: CSSProperties = {
-    right: `${-(offset as number[])?.[0]}px` || 0,
-    top: `${(offset as number[])?.[1]}px` || 0
+    right: `${-Number((offset as number[])?.[0]) || 0}px`,
+    top: `${Number((offset as number[])?.[1]) || 0}px`
   }
 
   return badgeContent || isZero || dot ? (

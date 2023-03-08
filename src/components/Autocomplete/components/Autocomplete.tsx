@@ -61,7 +61,7 @@ const Autocomplete = ({
   // ==================== state ====================
   const [open, setOpen] = useState<boolean>(opened)
   const [query, setQuery] = useState<string>('')
-  const [filteredOptions, setFilteredOptions] = useState(options || [])
+  const [filteredOptions, setFilteredOptions] = useState(options)
 
   useEffect(() => {
     setOpen(opened)

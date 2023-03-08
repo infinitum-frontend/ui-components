@@ -34,6 +34,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
           },
           className
         )}
+        disabled={disabled}
         {...props}
       >
         <span

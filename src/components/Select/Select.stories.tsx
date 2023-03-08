@@ -1,25 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import { Select, selectDataFormatter } from './index'
+import { Select } from './index'
 import { SelectOption } from './interface'
 import { useState } from 'react'
-
-const mockItems = [
-  { text: 'Депозитарные услуги', value: 0 },
-  { text: 'Спецдепозитарные услуги', value: 1 },
-  { text: 'Консалтинг и аутсорсинг', value: 2 }
-]
+import { SelectBaseOptions } from './fixture'
+import { Button } from '../Button'
 
 const meta: Meta<typeof Select> = {
   title: 'Form/Select',
   component: Select,
   args: {
-    options: selectDataFormatter({
-      value: 'value',
-      array: mockItems,
-      label: 'text'
-    })
+    options: SelectBaseOptions
   }
 }
 
@@ -33,12 +25,15 @@ const Template: StoryFn<typeof Select> = (args) => {
   }
 
   return (
-    <Select
-      {...args}
-      onChange={handleChange}
-      value={value}
-      style={{ width: '300px' }}
-    />
+    <>
+      <Select
+        {...args}
+        onChange={handleChange}
+        value={value}
+        style={{ width: '300px' }}
+      />
+      <Button>ewr</Button>
+    </>
   )
 }
 

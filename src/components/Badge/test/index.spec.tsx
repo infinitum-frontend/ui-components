@@ -7,7 +7,7 @@ describe('badge', () => {
   it('should render', () => {
     const { el } = renderComponent(<Badge badgeContent={5} />)
     expect(el).toBeInTheDocument()
-    expect(screen.getByText('5')).toBeDefined()
+    expect(screen.queryByText('5')).toBeDefined()
   })
 
   it('should match snapshot', () => {
@@ -17,17 +17,19 @@ describe('badge', () => {
 
   it('should have position absolute if children exist', () => {
     renderComponent(<Badge badgeContent={5}>Уведомления</Badge>)
-    expect(screen.getByTitle('5')).toHaveStyle('position: absolute')
+    expect(screen.queryByTitle('5')).toHaveStyle('position: absolute')
   })
 
   it('should have position static id children don`t exist', () => {
     renderComponent(<Badge badgeContent={5} />)
-    expect(screen.getByTitle('5')).toHaveStyle('position: static')
+    expect(screen.queryByTitle('5')).toHaveStyle('position: static')
   })
 
   it('should support tone', () => {
     renderComponent(<Badge badgeContent={5} tone={'secondary'} />)
-    expect(screen.getByTitle('5')).toHaveClass('inf-badge-sup--tone-secondary')
+    expect(screen.queryByTitle('5')).toHaveClass(
+      'inf-badge-sup--tone-secondary'
+    )
   })
 
   it('should support dot variant', () => {
@@ -44,9 +46,17 @@ describe('badge', () => {
 
   it('should support showZero', () => {
     renderComponent(<Badge badgeContent={0} showZero={true} />)
-    const el = screen.getByTitle('0')
+    const el = screen.queryByTitle('0') as HTMLElement
     expect(el).toBeInTheDocument()
     expect(el.innerHTML).toBe('0')
+  })
+
+  it('should be in the right-top corner if no offset provided', () => {
+    renderComponent(<Badge badgeContent={5} />)
+    expect(screen.queryByTitle('5')).toHaveStyle({
+      top: 0,
+      right: 0
+    })
   })
 
   it('should support offset', () => {
@@ -55,7 +65,7 @@ describe('badge', () => {
         Уведомления
       </Badge>
     )
-    expect(screen.getByTitle('5')).toHaveStyle({
+    expect(screen.queryByTitle('5')).toHaveStyle({
       top: '10px',
       right: '-10px'
     })
@@ -63,7 +73,18 @@ describe('badge', () => {
 
   it('should support maxCount', () => {
     renderComponent(<Badge badgeContent={1000} maxCount={99} />)
-    const el = screen.getByTitle('1000')
+    const el = screen.queryByTitle('1000') as HTMLElement
     expect(el.innerHTML).toBe('99+')
+  })
+
+  it('should set title if badgeContent is number or string', () => {
+    const { rerender } = renderComponent(<Badge badgeContent={1000} />)
+    expect(screen.queryByTitle('1000')).toHaveAttribute('title', '1000')
+
+    rerender(<Badge badgeContent={'123'} />)
+    expect(screen.queryByTitle('123')).toHaveAttribute('title', '123')
+
+    rerender(<Badge badgeContent={null} />)
+    expect(screen.queryByTitle('123')).not.toBeInTheDocument()
   })
 })

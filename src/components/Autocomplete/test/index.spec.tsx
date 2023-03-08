@@ -90,6 +90,27 @@ describe('Autocomplete', () => {
 })
 
 describe('Autocomplete options', () => {
+  it('should call onChange on input submit', async () => {
+    const onChange = vi.fn()
+    renderComponent(
+      <Autocomplete
+        options={AutocompleteBaseOptions}
+        onChange={onChange}
+        inputPlaceholder={inputPlaceholder}
+        buttonPlaceholder={buttonPlaceholder}
+      />
+    )
+
+    await user.click(screen.queryByText(buttonPlaceholder) as HTMLElement)
+
+    await user.click(
+      screen.queryByPlaceholderText(inputPlaceholder) as HTMLInputElement
+    )
+    await user.keyboard('{Enter}')
+
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange).toHaveBeenCalledWith(0)
+  })
   it('should render plain button that open a dropdown', async () => {
     renderComponent(
       <Autocomplete
@@ -261,7 +282,7 @@ describe('AutocompleteButton', () => {
 })
 
 describe('Autocomplete Dropdown', () => {
-  let context = {}
+  let context = getContext()
   beforeEach(() => {
     context = getContext()
   })

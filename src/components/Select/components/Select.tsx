@@ -56,10 +56,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       autoFocus = false,
       value,
       disabled = false,
-      placeholder,
+      placeholder = defaultSelectItem.label as string,
       required = false,
       status,
-      id,
       ...props
     }: SelectProps,
     ref
@@ -68,7 +67,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const [isOpened, setOpened] = useState(false)
     const [isFocused, setFocused] = useState(false)
     const [activeItem, setActiveItem] = useState(
-      getIndexByValue(value, options) || 0
+      value ? getIndexByValue(value, options) : 0
     )
 
     const formGroupData = useFormGroup()
@@ -103,10 +102,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const handleBlur: FocusEventHandler = (e) => {
       const classList = e.relatedTarget?.classList
 
-      if (
-        classList?.contains('inf-select') ||
-        classList?.contains('inf-select__items')
-      ) {
+      if (classList?.contains('inf-select__items')) {
         return
       }
 
@@ -154,7 +150,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           break
         case 'Tab':
           if (isOpened) {
-            e.preventDefault()
             setOpened(false)
           }
       }
@@ -224,10 +219,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     ])
 
     // ============================= render =============================
-    if (placeholder) {
-      defaultSelectItem.label = placeholder
-    }
-
     const isValueExists = Boolean(value) || Number.isInteger(value)
 
     return (
@@ -250,15 +241,14 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
         >
           {isValueExists
             ? getItemByValue(value as string | number, options)?.label
-            : defaultSelectItem.label}
+            : placeholder}
           <select
             ref={selectRef}
             required={formGroupData?.required || required}
             aria-required={formGroupData?.required || required}
             aria-invalid={formGroupData?.invalid || undefined}
             disabled={disabled}
-            autoFocus={autoFocus}
-            id={formGroupData?.id || id}
+            id={formGroupData?.id}
             value={value}
             onInvalid={handleInvalid}
             onChange={() => null}
