@@ -5,6 +5,8 @@ import { SelectBaseOptions } from '../fixture'
 import { renderComponent } from '../../../../testSetup'
 import { defaultSelectItem } from '../components/Select'
 import userEvent from '@testing-library/user-event'
+import { Form } from '../../Form'
+import { Button } from '../../Button'
 
 const title = 'select'
 const user = userEvent.setup()
@@ -290,5 +292,63 @@ describe('Select Items', () => {
     const item = screen.queryAllByRole('listitem')[1]
     await user.hover(item)
     expect(item).toHaveClass('inf-select__item--active')
+  })
+})
+
+describe('Select in Form', () => {
+  it('should apply attrs if FormGroup is required', async () => {
+    const { rerender } = renderComponent(
+      <Form>
+        <Form.Group required invalidMessage={'Error'}>
+          <Select options={SelectBaseOptions} title={title} />
+        </Form.Group>
+
+        <Button title={'submit'} type={'submit'} />
+      </Form>
+    )
+
+    const select = screen.queryByRole('combobox') as HTMLSelectElement
+    expect(select).toHaveAttribute('required')
+    expect(select).toHaveAttribute('aria-required', 'true')
+    expect(select).not.toHaveAttribute('aria-invalid')
+    expect(select).toHaveAttribute('id')
+
+    await user.click(screen.queryByTitle('submit') as HTMLButtonElement)
+    expect(select).toHaveAttribute('aria-invalid', 'true')
+    expect(select.validationMessage).toBe('Error')
+
+    await user.click(screen.queryByTitle(title) as HTMLButtonElement)
+    await user.click(screen.queryAllByRole('listitem')[0])
+
+    rerender(
+      <Form>
+        <Form.Group required>
+          <Select options={SelectBaseOptions} title={title} value={0} />
+        </Form.Group>
+
+        <Button title={'submit'} type={'submit'} />
+      </Form>
+    )
+
+    expect(select).not.toHaveAttribute('aria-invalid')
+    expect(select.validationMessage).toBe('')
+  })
+
+  it('should not close on label click', async () => {
+    renderComponent(
+      <Form>
+        <Form.Group required invalidMessage={'Error'}>
+          <Form.Label role={'label'}>Label</Form.Label>
+          <Select options={SelectBaseOptions} title={title} />
+        </Form.Group>
+
+        <Button title={'submit'} type={'submit'} />
+      </Form>
+    )
+
+    await user.click(screen.queryByTitle(title) as HTMLButtonElement)
+    await user.click(screen.queryByRole('label') as HTMLLabelElement)
+
+    expect(screen.queryByRole('list')).toBeInTheDocument()
   })
 })
