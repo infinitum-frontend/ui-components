@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NativeDatePicker > should match snapshop 1`] = `
+<input
+  class="inf-datepicker"
+  role="calendar"
+  type="date"
+  value=""
+/>
+`;

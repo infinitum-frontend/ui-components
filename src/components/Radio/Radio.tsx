@@ -56,11 +56,11 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
       checked,
       defaultChecked = false,
       onChange,
-      children,
       name,
       value,
       className,
       required = false,
+      children,
       ...props
     },
     ref
@@ -78,6 +78,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
       groupData
         ? groupData.onChange?.(value || '', e)
         : onChange?.(e.target.checked, e)
+
       if (formGroupData) {
         e.target.setCustomValidity('')
         formGroupData.setInvalid?.(!e.target.checked)

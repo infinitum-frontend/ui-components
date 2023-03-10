@@ -1,7 +1,12 @@
 import { it, describe, expect, vi } from 'vitest'
 import { Textarea } from '../index'
 import { renderComponent } from '@/testSetup'
-import { fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { Form } from '../../Form'
+import { Button } from '../../Button'
+
+const user = userEvent.setup()
 
 describe('Textarea', () => {
   it('should render', () => {
@@ -35,15 +40,13 @@ describe('Textarea', () => {
     expect((el as HTMLTextAreaElement).placeholder).toBe(placeholder)
   })
 
-  it('should call onInput', () => {
+  it('should call onInput', async () => {
     const onInput = vi.fn()
     const { el } = renderComponent(<Textarea onInput={onInput} />)
-    fireEvent.input(el, {
-      target: { value: 'inf' }
-    })
+    await user.type(el, 'inf')
 
     expect(onInput).toBeCalled()
-    expect(onInput).toHaveBeenCalledOnce()
+    expect(onInput).toHaveBeenCalledTimes(3)
   })
 
   it('should support custom className', () => {
@@ -81,5 +84,35 @@ describe('Resize', () => {
     const { el } = renderComponent(<Textarea resize={'both'} />)
     expect(el).toHaveStyle('resize: both')
     expect(el.className).contains('inf-textarea--resize-both')
+  })
+})
+
+describe('Support Form', () => {
+  it('should apply attributes', async () => {
+    renderComponent(
+      <Form>
+        <Form.Group required invalidMessage={'error'}>
+          <Textarea />
+        </Form.Group>
+        <Button type={'submit'} />
+      </Form>
+    )
+
+    const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+
+    expect(textarea).toHaveAttribute('id')
+    expect(textarea).toHaveAttribute('required')
+    expect(textarea).toHaveAttribute('aria-required', 'true')
+    expect(textarea).not.toHaveAttribute('aria-invalid')
+
+    await user.click(screen.queryByRole('button') as HTMLButtonElement)
+
+    expect(textarea).toHaveAttribute('aria-invalid', 'true')
+    expect(textarea.validationMessage).toBe('error')
+
+    await user.type(textarea, 'test')
+
+    expect(textarea).not.toHaveAttribute('aria-invalid')
+    expect(textarea.validationMessage).toBe('')
   })
 })

@@ -3,7 +3,10 @@ import { NativeDatePicker } from './index'
 
 const meta: Meta<typeof NativeDatePicker> = {
   title: 'Form/DatePicker',
-  component: NativeDatePicker
+  component: NativeDatePicker,
+  args: {
+    disabled: false
+  }
 }
 
 export default meta

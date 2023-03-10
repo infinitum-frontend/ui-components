@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Radio > should match snapshot 1`] = `
+<label
+  class="inf-radio"
+>
+  <input
+    aria-required="false"
+    type="radio"
+    value=""
+  />
+  <span
+    class="inf-radio__box"
+  >
+    <span
+      class="inf-radio__dot"
+    />
+  </span>
+  <span
+    class="inf-radio__label"
+  />
+</label>
+`;
