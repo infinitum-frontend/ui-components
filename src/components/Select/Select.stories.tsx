@@ -5,7 +5,6 @@ import { Select } from './index'
 import { SelectOption } from './interface'
 import { useState } from 'react'
 import { SelectBaseOptions } from './fixture'
-import { Button } from '../Button'
 
 const meta: Meta<typeof Select> = {
   title: 'Form/Select',
@@ -25,15 +24,12 @@ const Template: StoryFn<typeof Select> = (args) => {
   }
 
   return (
-    <>
-      <Select
-        {...args}
-        onChange={handleChange}
-        value={value}
-        style={{ width: '300px' }}
-      />
-      <Button>ewr</Button>
-    </>
+    <Select
+      {...args}
+      onChange={handleChange}
+      value={value}
+      style={{ width: '300px' }}
+    />
   )
 }
 
