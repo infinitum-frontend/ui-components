@@ -37,6 +37,13 @@
     }
   }
 
+  &__close-btn {
+    margin: -12px;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+  }
+
   &--appear,
   &--enter {
     opacity: 0;

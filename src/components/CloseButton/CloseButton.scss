@@ -1,0 +1,30 @@
+.inf-close-button {
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--inf-color-text-secondary);
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--inf-color-text-tertiary);
+  }
+
+  &--size-medium {
+    padding: 12px;
+
+    .inf-close-button__icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &--size-small {
+    padding: 6px;
+
+    .inf-close-button__icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
