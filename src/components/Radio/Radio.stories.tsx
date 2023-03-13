@@ -6,7 +6,7 @@ import { action } from '@storybook/addon-actions'
 import { Box } from '../Box'
 
 const meta: Meta<typeof Radio> = {
-  title: 'Radio',
+  title: 'Form/Radio',
   component: Radio
 }
 

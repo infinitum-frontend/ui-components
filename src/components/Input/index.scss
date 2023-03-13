@@ -36,11 +36,16 @@
     height: auto;
     cursor: inherit;
     width: 100%;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   // TODO: другим способом сделать специфичнее, чем .inf-input:hover
   &--focused {
     border-color: var(--inf-color-border-focused) !important;
+    outline: 2px solid #49c8ff;
   }
 
   &--br-regular {
