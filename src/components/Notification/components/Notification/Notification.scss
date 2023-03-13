@@ -1,0 +1,20 @@
+.inf-notification {
+  position: relative;
+  background-color: var(--inf-color-background-base);
+  border-radius: var(--inf-border-radius-medium);
+  box-shadow: var(--inf-box-shadow-medium);
+  padding: var(--inf-space-small) var(--inf-space-medium);
+  max-width: 500px;
+  display: flex;
+
+  &__text {
+    padding-right: 50px;
+  }
+
+  &__close-btn {
+    position: absolute;
+    margin: -6px;
+    top: 14px;
+    right: 16px;
+  }
+}

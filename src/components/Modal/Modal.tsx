@@ -3,7 +3,7 @@ import ModalBody from './components/ModalBody'
 import ModalHeader from './components/ModalHeader'
 import ModalFooter from './components/ModalFooter'
 import ModalTitle from './components/ModalTitle'
-import ModalClose from './components/ModalClose'
+import { CloseButton } from 'Components/CloseButton'
 import cn from 'classnames'
 import './Modal.scss'
 import {
@@ -89,7 +89,14 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                 data-status={status}
                 {...getFloatingProps()}
               >
-                {hasCloseButton && <ModalClose onClick={onClose} />}
+                {hasCloseButton && (
+                  <div>
+                    <CloseButton
+                      className="inf-modal__close-btn"
+                      onClick={onClose}
+                    />
+                  </div>
+                )}
                 {children}
               </div>
             </FloatingFocusManager>
