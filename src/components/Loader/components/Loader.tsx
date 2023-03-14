@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ComponentProps, ReactElement } from 'react'
-import './index.scss'
+import '../style/index.scss'
 import classNames from 'classnames'
+import LoaderWrapper from 'Components/Loader/components/LoaderWrapper'
 
 export interface LoaderProps extends ComponentProps<'span'> {
   /** Размер */
@@ -41,4 +42,6 @@ const Loader = ({
   )
 }
 
-export default Loader
+export default Object.assign(Loader, {
+  Wrapper: LoaderWrapper
+})

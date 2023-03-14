@@ -23,6 +23,22 @@ Playground.args = {
   size: 'regular'
 }
 
+export const Wrapper: StoryFn<typeof Loader> = (args) => {
+  return (
+    <Loader.Wrapper fullHeight>
+      <Loader style={{ color: 'red' }} />
+    </Loader.Wrapper>
+  )
+}
+
+export const Overlay: StoryFn<typeof Loader> = (args) => {
+  return (
+    <Loader.Wrapper overlay>
+      <Loader style={{ color: 'red' }} />
+    </Loader.Wrapper>
+  )
+}
+
 export const AllSizes: StoryFn<typeof Loader> = (args) => {
   return (
     <div

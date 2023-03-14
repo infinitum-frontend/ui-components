@@ -3,7 +3,6 @@
   position: relative;
   animation: inf-loader-rotate 1s linear infinite;
   display: inline-block;
-  background-color: inherit;
   width: var(--inf-loader-size);
   height: var(--inf-loader-size);
 
@@ -17,6 +16,16 @@
 
   &--size-large {
     --inf-loader-size: 70px;
+  }
+
+  &--overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(var(--inf-color-primary), 0.9);
+    height: 100%;
   }
 
   &__circle {
