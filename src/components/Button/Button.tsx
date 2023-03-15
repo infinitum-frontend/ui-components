@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import cn from 'classnames'
-import { Loader } from '../Loader'
+import { Loader, Size, Variant } from '../Loader'
 import './Button.scss'
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
@@ -102,7 +102,13 @@ const Button = React.forwardRef<
           )}
         </span>
 
-        {loading && <Loader className="inf-button__loader" size="compact" />}
+        {loading && (
+          <Loader
+            className="inf-button__loader"
+            size={Size.Compact}
+            variant={Variant.Unset}
+          />
+        )}
       </Component>
     )
   }

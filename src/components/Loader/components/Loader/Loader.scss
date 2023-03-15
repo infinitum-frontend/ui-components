@@ -1,7 +1,6 @@
 .inf-loader {
-  --inf-loader-scale: 4.375;
   position: relative;
-  animation: inf-loader-rotate 1s linear infinite;
+  animation: inf-loader-rotate 1s ease-out infinite;
   display: inline-block;
   width: var(--inf-loader-size);
   height: var(--inf-loader-size);
@@ -18,22 +17,18 @@
     --inf-loader-size: 70px;
   }
 
+  &--variant-primary {
+    color: var(--inf-color-primary);
+  }
+
+  &--variant-unset {
+    color: unset;
+  }
+
   &__circle {
-    opacity: 0.4;
     width: 100%;
     height: 100%;
     color: currentColor;
-  }
-
-  &__dot {
-    z-index: 2;
-    position: absolute;
-    border-radius: 50%;
-    background-color: currentColor;
-    right: 12.5%;
-    top: 12.5%;
-    width: calc(var(--inf-loader-size)/var(--inf-loader-scale));
-    height: calc(var(--inf-loader-size)/var(--inf-loader-scale));
   }
 
   @keyframes inf-loader-rotate {

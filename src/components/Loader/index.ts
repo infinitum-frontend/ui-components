@@ -1,1 +1,3 @@
-export { default as Loader } from './components/Loader'
+import { Size, Variant } from './enums'
+import Loader from './components/Loader/Loader'
+export { Loader, Size, Variant }

@@ -1,0 +1,60 @@
+@import '../../../styles/colors.css';
+
+.indicator {
+  transform-origin: 50% 50%;
+  animation: rotate 1s ease-in-out infinite;
+}
+
+.indicator svg {
+  color: inherit;
+}
+
+.brand {
+  color: var(--brand-color);
+  filter: var(--filter-brand-color);
+}
+
+.neutral {
+  color: #21272b;
+}
+
+.light {
+  color: var(--light-color);
+}
+
+.large {
+  width: 5rem;
+  height: 5rem;
+}
+
+.medium {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.small {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.largeIcon {
+  background: url('./assets/large.svg');
+}
+
+.mediumIcon {
+  background: url('./assets/medium.svg');
+}
+
+.smallIcon {
+  background: url('./assets/small.svg');
+}

@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
-import { Loader } from './index'
+import { Loader, Size, Variant } from './index'
 
 const meta: Meta<typeof Loader> = {
   title: 'Loader',
@@ -12,7 +12,7 @@ export default meta
 
 const Template: StoryFn<typeof Loader> = (args) => {
   return (
-    <div style={{ backgroundColor: 'white', padding: '18px', color: 'red' }}>
+    <div style={{ backgroundColor: 'white', padding: '18px' }}>
       <Loader {...args} />
     </div>
   )
@@ -23,30 +23,29 @@ Playground.args = {
   size: 'regular'
 }
 
-export const Wrapper: StoryFn<typeof Loader> = (args) => {
+export const Container: StoryFn<typeof Loader> = (args) => {
   return (
-    <Loader.Wrapper fullHeight>
-      <Loader style={{ color: 'red' }} />
-    </Loader.Wrapper>
+    <Loader.Container fullHeight>
+      <Loader />
+    </Loader.Container>
   )
 }
 
 export const Overlay: StoryFn<typeof Loader> = (args) => {
   return (
-    <Loader.Wrapper overlay>
-      <Loader style={{ color: 'red' }} />
-    </Loader.Wrapper>
+    <Loader.Container overlay>
+      <Loader />
+    </Loader.Container>
   )
 }
 
-export const AllSizes: StoryFn<typeof Loader> = (args) => {
+export const Sizes: StoryFn<typeof Loader> = (args) => {
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'space-evenly',
-        backgroundColor: 'white',
-        color: 'red'
+        backgroundColor: 'white'
       }}
     >
       <div
@@ -59,7 +58,7 @@ export const AllSizes: StoryFn<typeof Loader> = (args) => {
         }}
       >
         <code>Compact(17.5x17.5)</code>
-        <Loader size={'compact'} />
+        <Loader size={Size.Compact} />
       </div>
       <div
         style={{
@@ -83,7 +82,44 @@ export const AllSizes: StoryFn<typeof Loader> = (args) => {
         }}
       >
         <code>Large(70x70)</code>
-        <Loader size={'large'} />
+        <Loader size={Size.Large} />
+      </div>
+    </div>
+  )
+}
+
+export const Variants: StoryFn<typeof Loader> = (args) => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        backgroundColor: 'white'
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
+          padding: '18px'
+        }}
+      >
+        <code>Primary</code>
+        <Loader variant={Variant.Primary} />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
+          padding: '18px'
+        }}
+      >
+        <code>Unset</code>
+        <Loader variant={Variant.Unset} />
       </div>
     </div>
   )
