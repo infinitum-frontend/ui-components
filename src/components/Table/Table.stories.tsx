@@ -1,6 +1,13 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { Table } from './index'
-import { ColumnDef } from '@tanstack/react-table'
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  OnChangeFn,
+  RowSelectionState
+} from '@tanstack/react-table'
+import { useState } from 'react'
+import { Text } from '../Text'
 
 const meta: Meta<typeof Table> = {
   title: 'Table',
@@ -17,38 +24,38 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
     id: 'portfolio',
-    accessorKey: 'portfolio'
+    accessorKey: 'portfolio',
     // для рендеринга html
     // cell: info => info.getValue(),
     // для фильтрации по тексту по вложенным реакт-элементам
     // filterFn: 'elIncludesString',
-    // meta: {
-    //   filterType: 'input'
-    // }
+    meta: {
+      filterType: 'input'
+    }
   },
   {
     header: 'Показатель',
     id: 'mark',
-    accessorKey: 'mark'
-    // meta: {
-    //   filterType: 'input'
-    // }
+    accessorKey: 'mark',
+    meta: {
+      filterType: 'input'
+    }
   },
   {
     header: 'Тип',
     id: 'type',
-    accessorKey: 'type'
-    // meta: {
-    //   filterType: 'select'
-    // }
+    accessorKey: 'type',
+    meta: {
+      filterType: 'select'
+    }
   },
   {
     header: 'Статус',
     id: 'status',
-    accessorKey: 'status'
-    // meta: {
-    //   filterType: 'select'
-    // }
+    accessorKey: 'status',
+    meta: {
+      filterType: 'select'
+    }
   }
 ]
 const data: Portfolio[] = [
@@ -84,20 +91,62 @@ export const Base: StoryFn<typeof Table> = (args) => {
   return <Table {...args} columns={columns} rows={data} />
 }
 
-// export const Selection: StoryFn<typeof Table> = (args) => {
-//   const handleChange: OnChangeFn<RowSelectionState> = (data) => {
-//     console.log('handleChange', data)
-//   }
-//
-//   return (
-//     <Table
-//       columns={columns}
-//       rows={data}
-//       withRowSelection={true}
-//       onChangeRowSelection={handleChange}
-//     />
-//   )
-// }
+export const Filtering: StoryFn<typeof Table> = (args) => {
+  return (
+    <div>
+      <Table {...args} withFiltering={true} columns={columns} rows={data} />
+    </div>
+  )
+}
+Filtering.args = { withFiltering: true }
+
+export const ManualFiltering: StoryFn<typeof Table> = (args) => {
+  const [resData, setResData] = useState(data)
+
+  const handleFiltersChange = (state: ColumnFiltersState): void => {
+    let result = data
+    state.forEach((pos) => {
+      result = result.filter((item) => {
+        return Boolean(
+          item[pos.id as keyof typeof item].match(pos.value as string)
+        )
+      })
+    })
+
+    setResData(result)
+  }
+  return (
+    <div>
+      <Table
+        {...args}
+        withFiltering={true}
+        filterMode={'manual'}
+        onFiltersChange={handleFiltersChange}
+        columns={columns}
+        rows={resData}
+      />
+    </div>
+  )
+}
+
+export const Selection: StoryFn<typeof Table> = (args) => {
+  const [selected, setSelected] = useState<{}>({})
+  const handleChange: OnChangeFn<RowSelectionState> = (data) => {
+    setSelected(data)
+  }
+
+  return (
+    <>
+      <Table
+        withRowSelection={true}
+        onChangeRowSelection={handleChange}
+        columns={columns}
+        rows={data}
+      />
+      <Text>Выбранные ряды: {Object.keys(selected)}</Text>
+    </>
+  )
+}
 
 // export const GroupSeparators: StoryFn<typeof Table> = (args) => {
 //   const groupedByDate = [
@@ -153,32 +202,3 @@ export const Base: StoryFn<typeof Table> = (args) => {
 
 // export const Sorting = Base.bind({})
 // Sorting.args = { withSorting: true }
-//
-// export const Filtering: StoryFn<typeof Table> = (args) => {
-//   const [resData, setResData] = useState(data)
-//
-//   const handleFiltersChange = (state: ColumnFiltersState): void => {
-//     let result = data
-//     state.forEach((pos) => {
-//       result = result.filter((item) => {
-//         return Boolean(
-//           item[pos.id as keyof typeof item].match(pos.value as string)
-//         )
-//       })
-//     })
-//
-//     setResData(result)
-//   }
-//   return (
-//     <div>
-//       <Table
-//         {...args}
-//         columns={columns}
-//         rows={resData}
-//         withFiltering={true}
-//         onFiltersChange={handleFiltersChange}
-//       />
-//     </div>
-//   )
-// }
-// Filtering.args = { withFiltering: true }
