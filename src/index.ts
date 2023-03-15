@@ -28,6 +28,8 @@ import { Divider } from 'Components/Divider'
 import { Collapse } from 'Components/Collapse'
 import { Pagination } from 'Components/Pagination'
 import { Badge } from 'Components/Badge'
+import { SideNav } from 'Components/SideNav'
+import { PageLayout } from 'Components/PageLayout'
 
 export {
   Button,
@@ -63,5 +65,7 @@ export {
   Divider,
   Collapse,
   Pagination,
-  Badge
+  Badge,
+  SideNav,
+  PageLayout
 }

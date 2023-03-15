@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   font-weight: var(--inf-font-weight-normal);
-  font-size: var(--inf-text-size-xxsmall);
+  font-size: var(--inf-text-size-xsmall);
   line-height: 20px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -13,7 +13,7 @@
   height: 100%;
   transition: color 0.2s;
 
-  &:hover {
+  @include hover-active {
     color: var(--inf-color-primary-light);
   }
 

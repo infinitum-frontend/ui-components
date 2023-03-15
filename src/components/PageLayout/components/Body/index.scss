@@ -1,0 +1,24 @@
+.inf-page-layout-body {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+
+  &--size-medium {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  &--size-large {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  &__box {
+    display: flex;
+    // padding-bottom: var(--bottom-bar-height);
+    background-color: #fff;
+  }
+}
