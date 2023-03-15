@@ -1,15 +1,22 @@
 .inf-side-nav-item {
-  border: 1px solid red;
   display: block;
-  font-size: var(--inf-font-size-medium);
-  padding: 7px 12px;
+  font-size: var(--inf-text-size-large);
+  padding: var(--inf-space-xsmall) var(--inf-space-medium);
   transition: background-color 0.2s;
+  position: relative;
 
   @include hover-active {
     background-color: var(--inf-control-background-color-hover);
   }
 
   &--active {
-    border-left: 2px solid var(--inf-color-primary);
+    &::before {
+      content: '';
+      border-left: 3px solid var(--inf-color-primary-dark);
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
   }
 }

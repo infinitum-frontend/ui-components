@@ -1,0 +1,14 @@
+.inf-page-layout-aside {
+  width: 300px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--inf-color-border-default);
+  position: sticky;
+  top: var(--inf-height-header);
+  height: calc(100vh - var(--inf-height-header));
+  overflow: auto;
+
+  &--collapsed {
+    width: 0;
+    overflow: hidden;
+  }
+}
