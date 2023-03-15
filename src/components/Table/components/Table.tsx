@@ -3,6 +3,7 @@ import React, {
   CSSProperties,
   ReactElement,
   TableHTMLAttributes,
+  useMemo,
   useState
 } from 'react'
 import {
@@ -12,12 +13,18 @@ import {
   useReactTable,
   SortingState,
   getSortedRowModel,
-  OnChangeFn
+  OnChangeFn,
+  ColumnFiltersState,
+  Column,
+  getFacetedUniqueValues,
+  RowSelectionState
 } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeader from 'Components/Table/components/Header'
 import TableBody from 'Components/Table/components/Body'
 import '../index.scss'
+import { Checkbox } from 'Components/Checkbox'
+import { getByText } from 'Components/Table/helpers'
 
 interface BaseRow {
   className?: string
@@ -34,25 +41,27 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   maxLength?: number
   /** Включение сортировки по столбцам */
   withSorting?: boolean
+  /** Событие изменения состояния сортировки */
   onSortingChange?: (sortingState: SortingState) => void
   // sortingState?: SortingState
-  // /** Отображение чекбоксов в 1 колонке */
-  // withRowSelection?: boolean
-  // withFiltering?: boolean
-  // /** Событие изменения чекбоксов */
-  // onChangeRowSelection?: OnChangeFn<RowSelectionState>
-  // /** Обьект с состоянием чекбоксов */
-  // selectionValue?: RowSelectionState
-  // onFiltersChange?: (state: ColumnFiltersState) => void
-  // /** Начальное состояние фильтров */
-  // filtersState?: ColumnFiltersState
-  // /**
-  //  * Режим фильтрации
-  //  * @default auto
-  //  * auto - таблица сама фильтрует среди всех своих данных,
-  //  * manual - фильтры не устанавливаются, а только вызывается событие onFiltersChange с состоянием фильтров
-  //  */
-  // // filterMode?: 'auto' | 'manual'
+  withFiltering?: boolean
+  /** Событие изменения состояния фильтров */
+  onFiltersChange?: (state: ColumnFiltersState) => void
+  /** Начальное состояние фильтров */
+  filtersState?: ColumnFiltersState
+  /**
+   * Режим фильтрации
+   * @default auto
+   * auto - таблица сама фильтрует среди всех своих данных,
+   * manual - фильтры не устанавливаются, а только вызывается событие onFiltersChange с состоянием фильтров
+   */
+  filterMode?: 'auto' | 'manual'
+  /** Отображение чекбоксов в 1 колонке */
+  withRowSelection?: boolean
+  /** Событие изменения чекбоксов */
+  onChangeRowSelection?: OnChangeFn<RowSelectionState>
+  /** Начальное состояние чекбоксов */
+  selectionState?: RowSelectionState
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -62,121 +71,120 @@ const Table = ({
   rows,
   className,
   maxLength = 5,
-  // withRowSelection,
   withSorting,
   onSortingChange,
-  // withFiltering,
-  // onChangeRowSelection,
-  // selectionValue = {},
-  // onFiltersChange,
-  // filtersState = [],
+  withFiltering,
+  onFiltersChange,
+  filtersState = [],
+  filterMode = 'auto',
+  withRowSelection,
+  onChangeRowSelection,
+  selectionState = {},
   // enableGrouping = false,
-  // filterMode = 'manual',
   // sortingMode = 'manual
   ...props
 }: TableProps): ReactElement => {
-  // const filterMode = 'manual'
-  // const [rowSelection, setRowSelection] = useState(selectionValue)
+  // ==================== state ====================
   const [sorting, setSorting] = useState<SortingState>([])
-  // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-  //   filtersState || []
-  // )
-  // const [manualFilters, setManualFilters] = useState<ColumnFiltersState>(
-  //   filtersState || []
-  // )
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    filtersState || []
+  )
+  // устанавливаем отдельной состояние фильтров для manual режима фильтрации
+  const [manualFilters, setManualFilters] = useState<ColumnFiltersState>(
+    filtersState || []
+  )
 
+  const [rowSelection, setRowSelection] = useState(selectionState)
+
+  // ==================== handlers ====================
   const handleSortingChange: OnChangeFn<SortingState> = (fn) => {
     // @ts-expect-error
     onSortingChange?.(fn())
     setSorting(fn)
   }
 
-  // const memoizedColumns = useMemo(() => {
-  //   if (withRowSelection) {
-  //     const deepCopy: Array<ColumnDef<any>> = JSON.parse(
-  //       JSON.stringify(columns)
-  //     )
-  //     deepCopy.unshift({
-  //       id: 'checkbox',
-  //       header: ({ table }) => {
-  //         return (
-  //           <Checkbox
-  //             checked={Boolean(table.getIsAllRowsSelected())}
-  //             indeterminate={table.getIsSomeRowsSelected()}
-  //             onChange={(value, e) =>
-  //               table.getToggleAllRowsSelectedHandler().call({}, e)
-  //             }
-  //           />
-  //         )
-  //       },
-  //       cell: ({ row }) => {
-  //         return (
-  //           <div className="px-1">
-  //             <Checkbox
-  //               checked={row.getIsSelected()}
-  //               indeterminate={row.getIsSomeSelected()}
-  //               onChange={row.getToggleSelectedHandler()}
-  //             />
-  //           </div>
-  //         )
-  //       }
-  //     })
-  //
-  //     return deepCopy
-  //   }
-  //
-  //   return columns
-  // }, [...columns, withRowSelection])
+  const handleFiltersChange: (value: string, column: Column<any>) => void = (
+    value,
+    column
+  ) => {
+    if (filterMode === 'auto') {
+      column.setFilterValue(value)
+    }
 
-  // const handleRowSelection: OnChangeFn<RowSelectionState> = (callback) => {
-  //   const newState =
-  //     typeof callback === 'function' ? callback(rowSelection) : {}
-  //   setRowSelection(newState)
-  //   onChangeRowSelection?.(newState)
-  // }
-  //
-  // const handleFiltersChange: (value: string, column: Column<any>) => void = (
-  //   value,
-  //   column
-  // ) => {
-  // if (filterMode === 'auto') {
-  //   column.setFilterValue(value)
-  // }
+    if (filterMode === 'manual') {
+      const newState = [
+        ...manualFilters?.filter((item) => item.id !== column.id),
+        value ? { id: column.id, value } : undefined
+      ].filter((item) => Boolean(item)) as ColumnFiltersState
+      setManualFilters(newState)
+      onFiltersChange?.(newState)
+    }
+  }
 
-  //   if (filterMode === 'manual') {
-  //     const newState = [
-  //       ...manualFilters?.filter((item) => item.id !== column.id),
-  //       value ? { id: column.id, value } : undefined
-  //     ].filter((item) => Boolean(item)) as ColumnFiltersState
-  //     setManualFilters(newState)
-  //     onFiltersChange?.(newState)
-  //   }
-  // }
+  const handleRowSelection: OnChangeFn<RowSelectionState> = (callback) => {
+    const newState =
+      typeof callback === 'function' ? callback(rowSelection) : {}
+    setRowSelection(() => newState)
+    onChangeRowSelection?.(newState)
+  }
+
+  const memoizedColumns = useMemo(() => {
+    if (withRowSelection) {
+      return [
+        {
+          id: 'checkbox',
+          header: ({ table }) => {
+            return (
+              <Checkbox
+                checked={Boolean(table.getIsAllRowsSelected())}
+                indeterminate={table.getIsSomeRowsSelected()}
+                onChange={(value, e) =>
+                  table.getToggleAllRowsSelectedHandler().call({}, e)
+                }
+              />
+            )
+          },
+          cell: ({ row }) => {
+            return (
+              <div className="px-1">
+                <Checkbox
+                  checked={row.getIsSelected()}
+                  indeterminate={row.getIsSomeSelected()}
+                  onChange={row.getToggleSelectedHandler()}
+                />
+              </div>
+            )
+          }
+        },
+        ...columns
+      ] as Array<ColumnDef<any>>
+    }
+
+    return columns
+  }, [...columns, withRowSelection])
 
   const table = useReactTable({
     data: rows,
-    columns,
+    columns: memoizedColumns,
     getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
     state: {
-      // rowSelection,
-      // columnFilters,
+      rowSelection,
+      columnFilters,
       sorting
     },
-    // filterFns: {
-    //   elIncludesString: (row, columnId, filterValue) => {
-    //     return getByText(row, columnId, filterValue)
-    //   }
-    // },
-    // onColumnFiltersChange: setColumnFilters,
+    filterFns: {
+      elIncludesString: (row, columnId, filterValue) => {
+        return getByText(row, columnId, filterValue)
+      }
+    },
+    onColumnFiltersChange: setColumnFilters,
     onSortingChange: handleSortingChange,
+    onRowSelectionChange: handleRowSelection,
+    getSortedRowModel: getSortedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues()
     // getSubRows: (row) => row?.subRows,
     // manualGrouping: enableGrouping,
-    // onRowSelectionChange: handleRowSelection,
-    getSortedRowModel: getSortedRowModel()
-    // getFacetedRowModel: getFacetedRowModel(),
-    // getFacetedUniqueValues: getFacetedUniqueValues(),
-    // getFacetedMinMaxValues: getFacetedMinMaxValues()
   })
 
   const tableRows = table.getRowModel().rows.slice(0, maxLength)
@@ -186,8 +194,8 @@ const Table = ({
       <TableHeader
         table={table}
         withSorting={withSorting}
-        // withFiltering={withFiltering}
-        // onFiltersChange={handleFiltersChange}
+        withFiltering={withFiltering}
+        onFiltersChange={handleFiltersChange}
       />
       <TableBody
         rows={tableRows}
