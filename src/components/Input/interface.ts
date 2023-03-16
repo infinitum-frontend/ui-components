@@ -45,6 +45,12 @@ export interface InputProps
   prefixClass?: string
   /** Обработчик клика на префикс */
   onPrefixClick?: (value?: string) => void
+  /** Элемент постфикса */
+  postfix?: ReactNode
+  /** Кастомный класс постфикса */
+  postfixClass?: string
+  /** Обработчик клика на префикс */
+  onPostfixClick?: (value?: string) => void
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
   /**

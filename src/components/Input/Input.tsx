@@ -47,6 +47,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       prefix, // не покрыто тестами
       prefixClass = '', // не покрыто тестами
       onPrefixClick, // не покрыто тестами
+      postfix,
+      postfixClass = '',
+      onPostfixClick, // не покрыто тестами
       allowClear = false,
       noBorder = false,
       debounce = 0, // не покрыто тестами
@@ -109,6 +112,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const handlePrefixClick: MouseEventHandler<HTMLSpanElement> = (e) => {
       e.stopPropagation()
       onPrefixClick?.(getFormattedValue(composedValue))
+    }
+
+    const handlePostfixClick: MouseEventHandler<HTMLSpanElement> = (e) => {
+      e.stopPropagation()
+      onPostfixClick?.(getFormattedValue(composedValue))
     }
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
@@ -195,7 +203,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isRequired = required || formGroupContext?.required
 
-    const isBaseInput = !prefix && !allowClear
+    const isBaseInput = !prefix && !allowClear && !postfix
 
     if (isBaseInput) {
       return (
@@ -258,6 +266,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         />
 
         {allowClear && getClearIcon()}
+        {postfix && (
+          <span
+            onClick={handlePostfixClick}
+            className={classNames('inf-input-wrapper__postfix', postfixClass)}
+          >
+            {postfix}
+          </span>
+        )}
       </span>
     )
   }

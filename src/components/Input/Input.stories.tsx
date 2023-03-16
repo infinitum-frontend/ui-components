@@ -78,6 +78,11 @@ WithPrefix.args = {
   prefix: <span style={{ color: 'darkred' }}>INF</span>
 }
 
+export const WithPostfix = Template.bind({})
+WithPostfix.args = {
+  postfix: <span style={{ color: 'darkred' }}>INF</span>
+}
+
 export const WithClearButton = Template.bind({})
 WithClearButton.args = {
   value: 'Инфинитум',

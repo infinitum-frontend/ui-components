@@ -76,6 +76,7 @@
   }
 
   &__prefix,
+  &__postfix,
   &__clear-button {
     cursor: pointer;
     user-select: none;
@@ -84,12 +85,17 @@
   }
 
   &__prefix {
-    margin-inline-end: var(--inf--space--xxsmall, 6px);
+    margin-inline-end: 6px;
+  }
+
+  &__postfix {
+    margin-inline-start: 6px;
   }
 
   &__clear-button {
     transition: var(--inf-transition_duration);
     margin-inline-start: var(--inf--space--xxsmall, 6px);
+    align-self: baseline;
 
     &--hidden {
       visibility: hidden;
