@@ -1,7 +1,11 @@
 import { Button } from './components/Button'
 import { Input, SearchInput } from './components/Input'
 import { Select, selectDataFormatter } from './components/Select'
-import { Loader } from './components/Loader'
+import {
+  Loader,
+  Size as LoaderSize,
+  Variant as LoaderVariant
+} from './components/Loader'
 import { Radio, RadioGroup } from './components/Radio'
 import { Checkbox, CheckboxGroup } from './components/Checkbox'
 import { Text } from './components/Text'
@@ -30,6 +34,12 @@ import { Pagination } from 'Components/Pagination'
 import { Badge } from 'Components/Badge'
 import { SideNav } from 'Components/SideNav'
 import { PageLayout } from 'Components/PageLayout'
+import {
+  NotificationProvider,
+  useNotification,
+  NotificationContainer,
+  Notification
+} from 'Components/Notification'
 
 export {
   Button,
@@ -37,6 +47,8 @@ export {
   Select,
   selectDataFormatter,
   Loader,
+  LoaderSize,
+  LoaderVariant,
   Radio,
   RadioGroup,
   Checkbox,
@@ -67,5 +79,9 @@ export {
   Pagination,
   Badge,
   SideNav,
-  PageLayout
+  PageLayout,
+  Notification,
+  NotificationContainer,
+  NotificationProvider,
+  useNotification
 }
