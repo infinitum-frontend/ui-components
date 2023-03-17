@@ -9,6 +9,8 @@ import { Badge } from 'Components/Badge'
 export interface TabProps {
   badge?: string | number
   disabled?: boolean
+  /** Состояние активности элемента. Для корректной работы необходимо всем табам установить в данный проп булево значение */
+  active?: boolean
 }
 
 const Tab = <C extends ElementType = 'button'>({
@@ -17,6 +19,7 @@ const Tab = <C extends ElementType = 'button'>({
   className,
   type,
   disabled = false,
+  active: activeProp,
   badge,
   ...props
 }: PolymorphicComponent<C, TabProps>): ReactElement => {
@@ -31,7 +34,8 @@ const Tab = <C extends ElementType = 'button'>({
 
   const id = useId()
   const tabIndex = tabs.findIndex((tab) => tab === id)
-  const active = tabIndex === selectedIndex
+  const active =
+    activeProp !== undefined ? activeProp : tabIndex === selectedIndex
   const Component = as || 'button'
 
   useEffect(() => {
