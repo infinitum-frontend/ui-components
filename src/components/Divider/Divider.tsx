@@ -5,7 +5,7 @@ import cn from 'classnames'
 export interface DividerProps extends ComponentPropsWithoutRef<'hr'> {
   className?: string
   orientation?: 'horizontal' | 'vertical'
-  variant: 'default' | 'secondary'
+  variant?: 'default' | 'secondary'
 }
 
 const Divider = React.forwardRef<HTMLHRElement, DividerProps>(

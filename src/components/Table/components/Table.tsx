@@ -62,6 +62,11 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   onChangeRowSelection?: OnChangeFn<RowSelectionState>
   /** Начальное состояние чекбоксов */
   selectionState?: RowSelectionState
+  /**
+   * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id столбца.
+   */
+  selectedRow?: string | number | ((row: Row<any>) => boolean)
+  onRowClick?: (row: Row<any>) => void
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -80,6 +85,8 @@ const Table = ({
   withRowSelection,
   onChangeRowSelection,
   selectionState = {},
+  selectedRow,
+  onRowClick,
   // enableGrouping = false,
   // sortingMode = 'manual
   ...props
@@ -199,6 +206,8 @@ const Table = ({
       />
       <TableBody
         rows={tableRows}
+        selectedRow={selectedRow}
+        onRowClick={onRowClick}
         // grouping={enableGrouping}
       />
     </table>

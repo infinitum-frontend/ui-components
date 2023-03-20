@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
+import { Row } from './components/Table'
 
 const meta: Meta<typeof Table> = {
   title: 'Table',
@@ -146,6 +147,30 @@ export const Selection: StoryFn<typeof Table> = (args) => {
       <Text>Выбранные ряды: {Object.keys(selected)}</Text>
     </>
   )
+}
+
+export const WithSelectedRow: StoryFn<typeof Table> = (args) => {
+  const [selected, setSelected] = useState(undefined)
+
+  const handleRowClick = (row: Row<any>): void => {
+    console.log(row)
+    setSelected(row.id)
+  }
+
+  return (
+    <>
+      <Table
+        columns={columns}
+        selectedRow={selected}
+        onRowClick={handleRowClick}
+        rows={data}
+      />
+      <Text>Выбранный ряд: {selected}</Text>
+    </>
+  )
+}
+WithSelectedRow.args = {
+  selectedRow: '3'
 }
 
 // export const GroupSeparators: StoryFn<typeof Table> = (args) => {
