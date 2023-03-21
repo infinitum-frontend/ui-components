@@ -20,6 +20,14 @@
         padding-top: 12px;
       }
 
+      &.inf-table__row--interactive {
+        cursor: pointer;
+      }
+
+      &.inf-table__row--selected {
+        background-color: #E6F1F5;
+      }
+
       td {
         padding: 6px;
       }

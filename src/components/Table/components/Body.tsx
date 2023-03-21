@@ -1,24 +1,46 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
+import cn from 'classnames'
 
 export interface TableBodyProps {
   rows: Array<Row<any>>
+  selectedRow?: string | number | ((row: Row<any>) => boolean)
+  onRowClick?: (row: Row<any>) => void
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
 
-const TableBody = ({ rows }: TableBodyProps): ReactElement => {
+const checkSelected = (
+  row: Row<any>,
+  selectedRow?: string | number | ((row: Row<any>) => boolean)
+): boolean => {
+  if (typeof selectedRow === 'function') {
+    return selectedRow(row)
+  } else {
+    return row.id === selectedRow
+  }
+}
+
+const TableBody = ({
+  rows,
+  selectedRow,
+  onRowClick
+}: TableBodyProps): ReactElement => {
   return (
     <tbody>
       {rows.map((row) => {
         return (
           <tr
             key={row.id}
-            className={row.original.className}
+            className={cn(row.original.className, {
+              'inf-table__row--selected': checkSelected(row, selectedRow),
+              'inf-table__row--interactive': Boolean(onRowClick)
+            })}
             style={row.original.style}
+            onClick={() => onRowClick?.(row)}
           >
-            {row.getVisibleCells().map((cell, index) => (
+            {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
