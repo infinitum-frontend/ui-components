@@ -1,6 +1,7 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { Tabs } from './index'
 import { Space } from '../Space'
+import { useState } from 'react'
 
 const meta: Meta<typeof Tabs> = {
   title: 'Tabs',
@@ -17,11 +18,11 @@ export default meta
 
 const Template: StoryFn<typeof Tabs> = (args) => {
   const handleChange = (value: number): void => {
-    console.log(value)
+    console.log('handleChange', value)
   }
 
   return (
-    <Tabs onChange={handleChange} {...args}>
+    <Tabs {...args} onChange={handleChange}>
       <Tabs.List>
         <Tabs.Tab>Контроль структуры</Tabs.Tab>
         <Tabs.Tab>Статистический</Tabs.Tab>
@@ -45,6 +46,20 @@ const Template: StoryFn<typeof Tabs> = (args) => {
 }
 
 export const Playground = Template.bind({})
+
+export const ManualActiveHandling: StoryFn<typeof Tabs> = (args) => {
+  const [active, setActive] = useState(1)
+
+  return (
+    <Tabs onChange={(value) => setActive(value)}>
+      <Tabs.List>
+        <Tabs.Tab active={active === 0}>Контроль структуры</Tabs.Tab>
+        <Tabs.Tab active={active === 1}>Статистический</Tabs.Tab>
+        <Tabs.Tab active={active === 2}>Состава по доле владения</Tabs.Tab>
+      </Tabs.List>
+    </Tabs>
+  )
+}
 
 export const AllVariants: StoryFn<typeof Tabs> = (args) => {
   return (

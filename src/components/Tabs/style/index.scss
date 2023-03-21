@@ -48,7 +48,7 @@
 
   &--variant-default {
     line-height: 22px;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 800;
     color: var(--inf-color-text-tertiary);
     --badge-gap: 4px;
@@ -70,17 +70,15 @@
   &--variant-uppercase {
     text-transform: uppercase;
     line-height: 35px;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: normal;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.1em;
     --badge-gap: 6px;
     --item-gap: 24px;
 
     &.inf-tab--active {
       color: var(--inf-color-text);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      font-weight: 800;
+      font-weight: bold;
     }
 
     &.inf-tab--disabled {
