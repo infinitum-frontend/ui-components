@@ -37,47 +37,60 @@ const Collapse = ({
     wrapperRef.current ? wrapperRef.current.clientHeight : 0
 
   //  ====================== Entering ======================
-  const handleEntering = (node: HTMLElement): void => {
+  const handleEntering = (): void => {
     // получаем высоту обертки и сбрасываем позиционирование
     if (wrapperRef.current) {
       wrapperRef.current.style.position = ''
     }
 
     requestAnimationFrame(() => {
-      node.style.transition = `height ${transitionFn} ${transitionDuration}ms`
-      node.style.height = `${getWrapperHeight()}px`
+      if (ref.current) {
+        ref.current.style.transition = `height ${transitionFn} ${transitionDuration}ms`
+        ref.current.style.height = `${getWrapperHeight()}px`
+      }
     })
   }
 
   // при начале транзишена делаем меняет позишн у обертки, чтобы получить ее высоту
-  const handleEnter = (node: HTMLElement): void => {
+  const handleEnter = (): void => {
     if (wrapperRef.current) {
       wrapperRef.current.style.position = 'absolute'
     }
-    node.style.height = '0px'
-    node.style.overflow = 'hidden'
+
+    if (ref.current) {
+      ref.current.style.height = '0px'
+      ref.current.style.overflow = 'hidden'
+    }
   }
 
-  const handleEntered = (node: HTMLElement): void => {
-    node.style.height = 'auto'
+  const handleEntered = (): void => {
+    if (ref.current) {
+      ref.current.style.height = 'auto'
+    }
   }
 
   //  ====================== Exiting ======================
-  const handleExiting = (node: HTMLElement): void => {
+  const handleExiting = (): void => {
     // Хак, сделанный для корректной работы транзишена, чтобы браузер успел отрисовать
     requestAnimationFrame(() => {
-      node.style.transition = `height ${transitionFn} ${transitionDuration}ms`
-      node.style.overflow = 'hidden'
-      node.style.height = '0px'
+      if (ref.current) {
+        ref.current.style.transition = `height ${transitionFn} ${transitionDuration}ms`
+        ref.current.style.overflow = 'hidden'
+        ref.current.style.height = '0px'
+      }
     })
   }
 
-  const handleExited = (node: HTMLElement): void => {
-    node.style.height = '0px'
+  const handleExited = (): void => {
+    if (ref.current) {
+      ref.current.style.height = '0px'
+    }
   }
 
-  const handleExit = (node: HTMLElement): void => {
-    node.style.height = `${getWrapperHeight()}px`
+  const handleExit = (): void => {
+    if (ref.current) {
+      ref.current.style.height = `${getWrapperHeight()}px`
+    }
   }
 
   return (
@@ -89,6 +102,7 @@ const Collapse = ({
       onExiting={handleExiting}
       onExited={handleExited}
       onExit={handleExit}
+      nodeRef={ref}
       unmountOnExit={unmountOnExit}
       mountOnEnter={mountOnEnter}
       timeout={transitionDuration}
