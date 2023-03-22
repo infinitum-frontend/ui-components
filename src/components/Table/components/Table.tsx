@@ -168,7 +168,7 @@ const Table = ({
     }
 
     return columns
-  }, [...columns, withRowSelection])
+  }, [columns, withRowSelection])
 
   const table = useReactTable({
     data: rows,
