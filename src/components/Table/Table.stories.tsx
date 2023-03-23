@@ -4,7 +4,8 @@ import {
   ColumnDef,
   ColumnFiltersState,
   OnChangeFn,
-  RowSelectionState
+  RowSelectionState,
+  SortingState
 } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
@@ -173,6 +174,38 @@ WithSelectedRow.args = {
   selectedRow: '3'
 }
 
+export const WithSorting: StoryFn<typeof Table> = (args) => {
+  const defaultSorting = [{ id: 'status', desc: false }]
+  const [sortedItems, setSortedItems] = useState(data)
+
+  const handleSortingChange = (state: SortingState): void => {
+    if (!state.length) {
+      setSortedItems([...data])
+    } else {
+      setSortedItems([
+        ...data.sort((a, b) => {
+          const { id, desc } = state[0]
+
+          const compareResult = a[id as keyof Portfolio].localeCompare(
+            b[id as keyof Portfolio]
+          )
+          return desc ? compareResult : -compareResult
+        })
+      ])
+    }
+  }
+
+  return (
+    <Table
+      withSorting
+      defaultSorting={defaultSorting}
+      onSortingChange={handleSortingChange}
+      columns={columns}
+      rows={sortedItems}
+    />
+  )
+}
+
 // export const GroupSeparators: StoryFn<typeof Table> = (args) => {
 //   const groupedByDate = [
 //     {
@@ -224,6 +257,3 @@ WithSelectedRow.args = {
 //     />
 //   )
 // }
-
-// export const Sorting = Base.bind({})
-// Sorting.args = { withSorting: true }

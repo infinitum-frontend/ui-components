@@ -3,6 +3,7 @@ import React, {
   CSSProperties,
   ReactElement,
   TableHTMLAttributes,
+  useEffect,
   useMemo,
   useState
 } from 'react'
@@ -41,14 +42,16 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   maxLength?: number
   /** Включение сортировки по столбцам */
   withSorting?: boolean
+  /** Начальное состояние сортировки */
+  defaultSorting?: SortingState
   /** Событие изменения состояния сортировки */
   onSortingChange?: (sortingState: SortingState) => void
-  // sortingState?: SortingState
+  // TODO: sorting mode auto
   withFiltering?: boolean
   /** Событие изменения состояния фильтров */
   onFiltersChange?: (state: ColumnFiltersState) => void
   /** Начальное состояние фильтров */
-  filtersState?: ColumnFiltersState
+  defaultFilters?: ColumnFiltersState
   /**
    * Режим фильтрации
    * @default auto
@@ -78,9 +81,10 @@ const Table = ({
   maxLength = 5,
   withSorting,
   onSortingChange,
+  defaultSorting = [],
   withFiltering,
   onFiltersChange,
-  filtersState = [],
+  defaultFilters = [],
   filterMode = 'auto',
   withRowSelection,
   onChangeRowSelection,
@@ -92,24 +96,21 @@ const Table = ({
   ...props
 }: TableProps): ReactElement => {
   // ==================== state ====================
-  const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    filtersState || []
-  )
+  const [sorting, setSorting] = useState<SortingState>(defaultSorting)
+  const [columnFilters, setColumnFilters] =
+    useState<ColumnFiltersState>(defaultFilters)
   // устанавливаем отдельной состояние фильтров для manual режима фильтрации
-  const [manualFilters, setManualFilters] = useState<ColumnFiltersState>(
-    filtersState || []
-  )
+  const [manualFilters, setManualFilters] =
+    useState<ColumnFiltersState>(defaultFilters)
 
   const [rowSelection, setRowSelection] = useState(selectionState)
 
-  // ==================== handlers ====================
-  const handleSortingChange: OnChangeFn<SortingState> = (fn) => {
-    // @ts-expect-error
-    onSortingChange?.(fn())
-    setSorting(fn)
-  }
+  // обработка сортировки
+  useEffect(() => {
+    onSortingChange?.(sorting)
+  }, [sorting])
 
+  // ==================== handlers ====================
   const handleFiltersChange: (value: string, column: Column<any>) => void = (
     value,
     column
@@ -185,8 +186,9 @@ const Table = ({
         return getByText(row, columnId, filterValue)
       }
     },
+    manualSorting: true,
     onColumnFiltersChange: setColumnFilters,
-    onSortingChange: handleSortingChange,
+    onSortingChange: setSorting,
     onRowSelectionChange: handleRowSelection,
     getSortedRowModel: getSortedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues()
