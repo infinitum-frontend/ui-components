@@ -39,7 +39,7 @@ export default defineConfig({
       ],
       name: 'ui-components',
       formats: ['es', 'cjs'],
-      fileName: 'src/index'
+      fileName: 'index'
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
