@@ -1,4 +1,4 @@
-.inf-modal {
+.inf-modal-container {
   background-color: rgba(0, 0, 0, 0.7);
   display: grid;
   place-items: center;
@@ -15,26 +15,29 @@
   &[data-status='close'] {
     opacity: 0;
   }
+}
 
-  &__card {
-    margin: 12px;
-    background-color: #fff;
-    border: 1px solid #c8cacc;
-    border-radius: 10px;
-    position: relative;
-    max-width: 95%;
+.inf-modal {
+  background-color: #fff;
+  border: 1px solid #c8cacc;
+  border-radius: 10px;
+  position: relative;
+  max-width: 95vw;
 
-    &--size-small {
-      width: 453px;
-    }
+  &--size-small {
+    width: 453px;
+  }
 
-    &--size-medium {
-      width: 670px;
-    }
+  &--size-medium {
+    width: 885px;
+  }
 
-    &--size-large {
-      width: 885px;
-    }
+  &--size-large {
+    width: 1200px;
+  }
+
+  &--size-full {
+    width: 100%;
   }
 
   &__close-btn {

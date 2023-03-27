@@ -6,18 +6,13 @@ import { Button } from 'Components/Button'
 
 const meta: Meta<typeof Modal> = {
   title: 'Overlay/Modal',
-  component: Modal,
-  parameters: {
-    docs: {
-      inlineStories: false
-    }
-  }
+  component: Modal
 }
 
 export default meta
 
 const Template: StoryFn<typeof Modal> = (args) => {
-  const [isOpened, setIsOpened] = useState(true)
+  const [isOpened, setIsOpened] = useState(false)
 
   return (
     <>
@@ -50,7 +45,7 @@ const Template: StoryFn<typeof Modal> = (args) => {
 export const Playground = Template.bind({})
 
 export const ContentOverflow: StoryFn<typeof Modal> = (args) => {
-  const [isOpened, setIsOpened] = useState(true)
+  const [isOpened, setIsOpened] = useState(false)
 
   return (
     <>

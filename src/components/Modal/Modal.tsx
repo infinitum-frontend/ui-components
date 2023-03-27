@@ -22,7 +22,7 @@ export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
   open: boolean
   onClose: () => void
-  size?: 'small' | 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large' | 'full'
   closeOnClickOutside?: boolean
   closeOnEsc?: boolean
   hasCloseButton?: boolean
@@ -72,22 +72,23 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         {isMounted && (
           <FloatingOverlay
             ref={ref}
-            className={cn('inf-modal', className)}
+            className="inf-modal-container"
             lockScroll
             data-status={status}
-            {...props}
           >
             <FloatingFocusManager context={context}>
               <div
                 ref={refs.setFloating}
                 className={cn(
-                  'inf-modal__card',
-                  `inf-modal__card--size-${size}`
+                  'inf-modal',
+                  `inf-modal--size-${size}`,
+                  className
                 )}
                 aria-labelledby={headingId}
                 aria-describedby={descriptionId}
                 data-status={status}
                 {...getFloatingProps()}
+                {...props}
               >
                 {hasCloseButton && (
                   <div>
