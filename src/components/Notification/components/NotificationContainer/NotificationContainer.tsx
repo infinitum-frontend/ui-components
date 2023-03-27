@@ -4,6 +4,7 @@ import { useNotificationStateContext } from '../../NotificationContext'
 import './NotificationContainer.scss'
 import cn from 'classnames'
 import { NotificationOptions } from '../../types'
+import { FloatingPortal } from '@floating-ui/react'
 
 export interface NotificationContainerProps
   extends ComponentPropsWithoutRef<'div'> {
@@ -17,21 +18,23 @@ const NotificationContainer = React.forwardRef<
   const { notifications } = useNotificationStateContext()
 
   return (
-    <div
-      ref={ref}
-      className={cn('inf-notification-container', className)}
-      {...props}
-    >
-      {notifications?.map(
-        (notification: { id: string; options: NotificationOptions }) => (
-          <Notification
-            id={notification.id}
-            key={notification.id}
-            {...notification.options}
-          />
-        )
-      )}
-    </div>
+    <FloatingPortal>
+      <div
+        ref={ref}
+        className={cn('inf-notification-container', className)}
+        {...props}
+      >
+        {notifications?.map(
+          (notification: { id: string; options: NotificationOptions }) => (
+            <Notification
+              id={notification.id}
+              key={notification.id}
+              {...notification.options}
+            />
+          )
+        )}
+      </div>
+    </FloatingPortal>
   )
 })
 
