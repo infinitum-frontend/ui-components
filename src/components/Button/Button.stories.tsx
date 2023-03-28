@@ -9,13 +9,9 @@ import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
 const ComponentMeta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
-  argTypes: {
-    children: {
-      defaultValue: 'Кнопка'
-    },
-    as: {
-      defaultValue: 'button'
-    }
+  args: {
+    children: 'Кнопка',
+    as: 'button'
   },
   parameters: {
     docs: {
