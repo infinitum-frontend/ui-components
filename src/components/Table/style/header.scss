@@ -1,19 +1,14 @@
 .inf-table-header {
-  &:hover {
-    .inf-table-header__sort-icon {
-      opacity: 0.5;
-    }
-  }
-  &__filter-wrapper {
-    display: flex;
-
-    > * + * {
-      margin-left: 4px;
-    }
-  }
+  display: flex;
 
   &__wrapper {
     display: flex;
+
+    &:hover {
+      .inf-table-header__sort-icon {
+        opacity: 0.5;
+      }
+    }
   }
 
   &__sort-icon {
@@ -22,5 +17,23 @@
 
   &--interactive {
     cursor: pointer;
+  }
+
+  &__resizer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: rgba(#738f99, 0.5);
+    cursor: col-resize;
+    user-select: none;
+    touch-action: none;
+    opacity: 0;
+
+    &--active {
+      background: var(--inf-color-border-hover);
+      opacity: 1;
+    }
   }
 }

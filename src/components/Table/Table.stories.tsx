@@ -1,8 +1,7 @@
 import { StoryFn, Meta } from '@storybook/react'
-import { Table } from './index'
+import { Table, ColumnFiltersState, ColumnFilter } from './index'
 import {
   ColumnDef,
-  ColumnFiltersState,
   OnChangeFn,
   RowSelectionState,
   SortingState
@@ -10,18 +9,17 @@ import {
 import { useState } from 'react'
 import { Text } from '../Text'
 import { Row } from './components/Table'
+import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtrure'
+import { Button } from '../Button'
 
 const meta: Meta<typeof Table> = {
   title: 'Table',
-  component: Table
+  component: Table,
+  args: {
+    resizeMode: undefined
+  }
 }
 
-interface Portfolio {
-  portfolio: string
-  mark: string
-  type: string
-  status: string
-}
 const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
@@ -38,17 +36,15 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Показатель',
     id: 'mark',
-    accessorKey: 'mark',
-    meta: {
-      filterType: 'input'
-    }
+    accessorKey: 'mark'
   },
   {
     header: 'Тип',
     id: 'type',
     accessorKey: 'type',
     meta: {
-      filterType: 'select'
+      filterType: 'select',
+      filterItems: TYPE_FILTER_ITEMS
     }
   },
   {
@@ -58,60 +54,49 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     meta: {
       filterType: 'select'
     }
-  }
-]
-const data: Portfolio[] = [
-  {
-    portfolio: 'ОПИФ Открытие — Telecommunicaton Index',
-    mark: '2335',
-    type: 'УВНР',
-    status: 'Сформировано'
   },
   {
-    portfolio: 'ОПИФ И Открытие — ИММВБ — высокая капитализация',
-    mark: '2206',
-    type: 'УВУН',
-    status: 'Сформировано'
-  },
-  {
-    portfolio: 'ОПИФ Открытие — Telecommunicaton Index',
-    mark: '2206',
-    type: 'УВУН',
-    status: 'Сформировано'
-  },
-  {
-    portfolio: 'ОПИФ И Открытие — ИММВБ — машиностроение',
-    mark: '2206',
-    type: 'УВНУ',
-    status: 'На согласовании'
+    header: 'Дата',
+    id: 'date',
+    accessorKey: 'date',
+    meta: {
+      filterType: 'date'
+    }
   }
 ]
 
 export default meta
 
 export const Base: StoryFn<typeof Table> = (args) => {
-  return <Table {...args} columns={columns} rows={data} />
+  return <Table {...args} columns={columns} rows={TABLE_DATA} />
 }
 
 export const Filtering: StoryFn<typeof Table> = (args) => {
-  return (
-    <div>
-      <Table {...args} withFiltering={true} columns={columns} rows={data} />
-    </div>
-  )
-}
-Filtering.args = { withFiltering: true }
-
-export const ManualFiltering: StoryFn<typeof Table> = (args) => {
-  const [resData, setResData] = useState(data)
+  const [filters, setFilters] = useState<ColumnFiltersState>([])
+  const [resData, setResData] = useState(TABLE_DATA)
 
   const handleFiltersChange = (state: ColumnFiltersState): void => {
-    let result = data
-    state.forEach((pos) => {
+    let result = TABLE_DATA
+    setFilters(state)
+    state.forEach((filter) => {
       result = result.filter((item) => {
-        return Boolean(
-          item[pos.id as keyof typeof item].match(pos.value as string)
-        )
+        if (filter.filterType === 'select') {
+          const filterLabel = (filter as ColumnFilter<'select'>).value.label
+          if (filterLabel === 'Все типы') {
+            return true
+          }
+          return Boolean(
+            item[filter.id as keyof typeof item].match(filterLabel)
+          )
+        }
+
+        if (filter.filterType === 'input') {
+          return Boolean(
+            item[filter.id as keyof typeof item].match(filter.value as string)
+          )
+        }
+
+        return false
       })
     })
 
@@ -119,11 +104,20 @@ export const ManualFiltering: StoryFn<typeof Table> = (args) => {
   }
   return (
     <div>
+      <Button
+        onClick={() => {
+          setFilters([])
+          setResData(TABLE_DATA)
+        }}
+      >
+        Сбросить фильтры
+      </Button>
       <Table
         {...args}
-        withFiltering={true}
-        filterMode={'manual'}
+        withFiltering
+        withSorting
         onFiltersChange={handleFiltersChange}
+        filtersState={filters}
         columns={columns}
         rows={resData}
       />
@@ -143,7 +137,7 @@ export const Selection: StoryFn<typeof Table> = (args) => {
         withRowSelection={true}
         onChangeRowSelection={handleChange}
         columns={columns}
-        rows={data}
+        rows={TABLE_DATA}
       />
       <Text>Выбранные ряды: {Object.keys(selected)}</Text>
     </>
@@ -164,7 +158,7 @@ export const WithSelectedRow: StoryFn<typeof Table> = (args) => {
         columns={columns}
         selectedRow={selected}
         onRowClick={handleRowClick}
-        rows={data}
+        rows={TABLE_DATA}
       />
       <Text>Выбранный ряд: {selected}</Text>
     </>
@@ -176,14 +170,14 @@ WithSelectedRow.args = {
 
 export const WithSorting: StoryFn<typeof Table> = (args) => {
   const defaultSorting = [{ id: 'status', desc: false }]
-  const [sortedItems, setSortedItems] = useState(data)
+  const [sortedItems, setSortedItems] = useState(TABLE_DATA)
 
   const handleSortingChange = (state: SortingState): void => {
     if (!state.length) {
-      setSortedItems([...data])
+      setSortedItems([...TABLE_DATA])
     } else {
       setSortedItems([
-        ...data.sort((a, b) => {
+        ...TABLE_DATA.sort((a, b) => {
           const { id, desc } = state[0]
 
           const compareResult = a[id as keyof Portfolio].localeCompare(
@@ -206,6 +200,9 @@ export const WithSorting: StoryFn<typeof Table> = (args) => {
   )
 }
 
+export const Resizing: StoryFn<typeof Table> = (args) => {
+  return <Table resizeMode={'onChange'} columns={columns} rows={TABLE_DATA} />
+}
 // export const GroupSeparators: StoryFn<typeof Table> = (args) => {
 //   const groupedByDate = [
 //     {
