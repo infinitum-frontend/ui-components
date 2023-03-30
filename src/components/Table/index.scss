@@ -5,10 +5,16 @@
 
   th {
     text-align: left;
+    vertical-align: top;
     color: var(--inf-color-text-secondary);
     font-weight: var(--inf-font-weight-normal);
     font-size: var(--inf-text-size-small);
     padding: 6px;
+    position: relative;
+
+    &:hover .inf-table-header__resizer {
+      opacity: 1;
+    }
   }
 
   tbody {

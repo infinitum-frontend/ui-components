@@ -23,6 +23,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
       hasArrow = true,
       children,
       style,
+      className,
       ...props
     }: PopoverContentProps,
     propRef
@@ -46,6 +47,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
               className={cn(
                 'inf-popover-content',
                 `inf-popover-content--variant-${variant}`,
+                className,
                 {
                   'inf-popover-content--no-padding': !hasPadding
                 }

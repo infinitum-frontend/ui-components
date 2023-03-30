@@ -3,29 +3,29 @@ import React, {
   CSSProperties,
   ReactElement,
   TableHTMLAttributes,
-  useEffect,
   useMemo,
   useState
 } from 'react'
 import {
   ColumnDef,
   getCoreRowModel,
-  getFilteredRowModel,
   useReactTable,
   SortingState,
   getSortedRowModel,
   OnChangeFn,
-  ColumnFiltersState,
   Column,
   getFacetedUniqueValues,
-  RowSelectionState
+  RowSelectionState,
+  ColumnResizeMode,
+  ColumnMeta
 } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeader from 'Components/Table/components/Header'
 import TableBody from 'Components/Table/components/Body'
 import '../index.scss'
 import { Checkbox } from 'Components/Checkbox'
-import { getByText } from 'Components/Table/helpers'
+import { ColumnFiltersState, ColumnFilterValue } from 'Components/Table'
+import useUpdateEffect from 'Hooks/useUpdateEffect'
 
 interface BaseRow {
   className?: string
@@ -51,14 +51,7 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Событие изменения состояния фильтров */
   onFiltersChange?: (state: ColumnFiltersState) => void
   /** Начальное состояние фильтров */
-  defaultFilters?: ColumnFiltersState
-  /**
-   * Режим фильтрации
-   * @default auto
-   * auto - таблица сама фильтрует среди всех своих данных,
-   * manual - фильтры не устанавливаются, а только вызывается событие onFiltersChange с состоянием фильтров
-   */
-  filterMode?: 'auto' | 'manual'
+  filtersState?: ColumnFiltersState
   /** Отображение чекбоксов в 1 колонке */
   withRowSelection?: boolean
   /** Событие изменения чекбоксов */
@@ -70,6 +63,7 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
    */
   selectedRow?: string | number | ((row: Row<any>) => boolean)
   onRowClick?: (row: Row<any>) => void
+  resizeMode?: ColumnResizeMode
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -78,55 +72,44 @@ const Table = ({
   columns = [],
   rows,
   className,
-  maxLength = 5,
+  maxLength,
   withSorting,
   onSortingChange,
   defaultSorting = [],
   withFiltering,
   onFiltersChange,
-  defaultFilters = [],
-  filterMode = 'auto',
+  filtersState = [],
   withRowSelection,
   onChangeRowSelection,
   selectionState = {},
   selectedRow,
   onRowClick,
+  resizeMode,
   // enableGrouping = false,
   // sortingMode = 'manual
   ...props
 }: TableProps): ReactElement => {
   // ==================== state ====================
   const [sorting, setSorting] = useState<SortingState>(defaultSorting)
-  const [columnFilters, setColumnFilters] =
-    useState<ColumnFiltersState>(defaultFilters)
-  // устанавливаем отдельной состояние фильтров для manual режима фильтрации
-  const [manualFilters, setManualFilters] =
-    useState<ColumnFiltersState>(defaultFilters)
 
   const [rowSelection, setRowSelection] = useState(selectionState)
 
   // обработка сортировки
-  useEffect(() => {
+  useUpdateEffect(() => {
     onSortingChange?.(sorting)
   }, [sorting])
 
   // ==================== handlers ====================
-  const handleFiltersChange: (value: string, column: Column<any>) => void = (
-    value,
-    column
-  ) => {
-    if (filterMode === 'auto') {
-      column.setFilterValue(value)
-    }
-
-    if (filterMode === 'manual') {
-      const newState = [
-        ...manualFilters?.filter((item) => item.id !== column.id),
-        value ? { id: column.id, value } : undefined
-      ].filter((item) => Boolean(item)) as ColumnFiltersState
-      setManualFilters(newState)
-      onFiltersChange?.(newState)
-    }
+  const handleFiltersChange: (
+    value: ColumnFilterValue,
+    filterType: ColumnMeta<any, any>['filterType'],
+    column: Column<any>
+  ) => void = (value, filterType, column) => {
+    const newState = [
+      ...filtersState?.filter((item) => item.id !== column.id),
+      value ? { id: column.id, filterType, value } : undefined
+    ].filter((item) => Boolean(item)) as ColumnFiltersState
+    onFiltersChange?.(newState)
   }
 
   const handleRowSelection: OnChangeFn<RowSelectionState> = (callback) => {
@@ -141,6 +124,7 @@ const Table = ({
       return [
         {
           id: 'checkbox',
+          size: 20,
           header: ({ table }) => {
             return (
               <Checkbox
@@ -174,29 +158,25 @@ const Table = ({
   const table = useReactTable({
     data: rows,
     columns: memoizedColumns,
-    getFilteredRowModel: getFilteredRowModel(),
+    columnResizeMode: resizeMode,
     getCoreRowModel: getCoreRowModel(),
     state: {
       rowSelection,
-      columnFilters,
       sorting
     },
-    filterFns: {
-      elIncludesString: (row, columnId, filterValue) => {
-        return getByText(row, columnId, filterValue)
-      }
-    },
+    manualFiltering: true,
     manualSorting: true,
-    onColumnFiltersChange: setColumnFilters,
+    // manualGrouping: enableGrouping,
     onSortingChange: setSorting,
     onRowSelectionChange: handleRowSelection,
     getSortedRowModel: getSortedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues()
     // getSubRows: (row) => row?.subRows,
-    // manualGrouping: enableGrouping,
   })
 
-  const tableRows = table.getRowModel().rows.slice(0, maxLength)
+  const tableRows = maxLength
+    ? table.getRowModel().rows.slice(0, maxLength)
+    : table.getRowModel().rows
 
   return (
     <table className={cn('inf-table', className)} {...props}>
@@ -204,7 +184,9 @@ const Table = ({
         table={table}
         withSorting={withSorting}
         withFiltering={withFiltering}
+        filtersState={filtersState}
         onFiltersChange={handleFiltersChange}
+        resizeMode={resizeMode}
       />
       <TableBody
         rows={tableRows}
