@@ -25,7 +25,6 @@ import TableBody from 'Components/Table/components/Body'
 import '../index.scss'
 import { Checkbox } from 'Components/Checkbox'
 import { ColumnFiltersState, ColumnFilterValue } from 'Components/Table'
-import useUpdateEffect from 'Hooks/useUpdateEffect'
 
 interface BaseRow {
   className?: string
@@ -43,7 +42,7 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Включение сортировки по столбцам */
   withSorting?: boolean
   /** Начальное состояние сортировки */
-  defaultSorting?: SortingState
+  sortingState?: SortingState
   /** Событие изменения состояния сортировки */
   onSortingChange?: (sortingState: SortingState) => void
   // TODO: sorting mode auto
@@ -75,7 +74,7 @@ const Table = ({
   maxLength,
   withSorting,
   onSortingChange,
-  defaultSorting = [],
+  sortingState = [],
   withFiltering,
   onFiltersChange,
   filtersState = [],
@@ -90,16 +89,18 @@ const Table = ({
   ...props
 }: TableProps): ReactElement => {
   // ==================== state ====================
-  const [sorting, setSorting] = useState<SortingState>(defaultSorting)
-
   const [rowSelection, setRowSelection] = useState(selectionState)
 
-  // обработка сортировки
-  useUpdateEffect(() => {
-    onSortingChange?.(sorting)
-  }, [sorting])
-
   // ==================== handlers ====================
+  const handleSortingChange: OnChangeFn<SortingState> = (state) => {
+    let newState
+    if (typeof state === 'function') {
+      newState = state(sortingState)
+    } else {
+      newState = state
+    }
+    onSortingChange?.(newState)
+  }
   const handleFiltersChange: (
     value: ColumnFilterValue,
     filterType: ColumnMeta<any, any>['filterType'],
@@ -162,12 +163,12 @@ const Table = ({
     getCoreRowModel: getCoreRowModel(),
     state: {
       rowSelection,
-      sorting
+      sorting: sortingState
     },
     manualFiltering: true,
     manualSorting: true,
     // manualGrouping: enableGrouping,
-    onSortingChange: setSorting,
+    onSortingChange: handleSortingChange,
     onRowSelectionChange: handleRowSelection,
     getSortedRowModel: getSortedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues()

@@ -12,8 +12,8 @@ const TableHeaderSort = ({
   return (
     <span>
       {{
-        asc: <SortIcon />,
-        desc: <SortIcon style={{ transform: 'rotate(180deg)' }} />
+        asc: <SortIcon style={{ transform: 'rotate(180deg)' }} />,
+        desc: <SortIcon />
       }[header.column.getIsSorted() as string] ?? (
         <SortIcon className={'inf-table-header__sort-icon'} />
       )}
