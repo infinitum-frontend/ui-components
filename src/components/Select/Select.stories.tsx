@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import { Select } from './index'
+import { Select, selectDataFormatter } from './index'
 import { SelectOption } from './interface'
 import { useState } from 'react'
-import { SelectBaseOptions } from './fixture'
+import { SelectBaseOptions, SelectOptionsRawLong } from './fixture'
 
 const meta: Meta<typeof Select> = {
   title: 'Form/Select',
@@ -43,4 +43,14 @@ AutoFocus.args = {
 export const Disabled = Template.bind({})
 Disabled.args = {
   disabled: true
+}
+
+export const Scrollable = Template.bind({})
+Scrollable.args = {
+  maxItemsCount: 5,
+  options: selectDataFormatter({
+    array: SelectOptionsRawLong,
+    value: 'id',
+    label: 'name'
+  })
 }

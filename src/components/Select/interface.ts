@@ -46,4 +46,6 @@ export interface SelectProps
   placeholder?: string
   status?: 'error'
   required?: boolean
+  /** максимальное количество отображаемых элементов, после которого начинается скролл */
+  maxItemsCount?: number
 }
