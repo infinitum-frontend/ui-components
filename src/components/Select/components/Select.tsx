@@ -46,7 +46,7 @@ const getItemByValue = (
   return items.find((item) => item.value === value)
 }
 
-/** Компонент для выбора значения из выпадающег списка */
+/** Компонент для выбора значения из выпадающего списка */
 const Select = forwardRef<HTMLButtonElement, SelectProps>(
   (
     {
@@ -59,6 +59,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       placeholder = defaultSelectItem.label as string,
       required = false,
       status,
+      maxItemsCount = 12,
       ...props
     }: SelectProps,
     ref
@@ -220,6 +221,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     // ============================= render =============================
     const isValueExists = Boolean(value) || Number.isInteger(value)
+    // высота элемента, паддинг и границы
+    const maxHeight = maxItemsCount * 32 + 4 + 2
 
     return (
       <>
@@ -267,6 +270,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             <ul
               style={{
                 position: 'absolute',
+                maxHeight: `${maxHeight}px`,
+                overflowX: 'hidden',
+                overflowY: 'auto',
                 top: y ?? 0,
                 left: x ?? 0
               }}
