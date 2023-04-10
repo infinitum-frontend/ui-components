@@ -1,14 +1,9 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { Table, ColumnFiltersState, ColumnFilter } from './index'
-import {
-  ColumnDef,
-  OnChangeFn,
-  RowSelectionState,
-  SortingState
-} from '@tanstack/react-table'
+import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
-import { Row } from './components/Table'
+import { Row, SelectionStateItem } from './components/Table'
 import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtrure'
 import { Button } from '../Button'
 
@@ -126,9 +121,10 @@ export const Filtering: StoryFn<typeof Table> = (args) => {
 }
 
 export const Selection: StoryFn<typeof Table> = (args) => {
-  const [selected, setSelected] = useState<{}>({})
-  const handleChange: OnChangeFn<RowSelectionState> = (data) => {
-    setSelected(data)
+  const [selection, setSelection] = useState<SelectionStateItem[]>([])
+  const handleChange = (data: SelectionStateItem[]): void => {
+    setSelection(data)
+    console.log(data)
   }
 
   return (
@@ -136,10 +132,12 @@ export const Selection: StoryFn<typeof Table> = (args) => {
       <Table
         withRowSelection={true}
         onChangeRowSelection={handleChange}
+        selectionState={selection}
         columns={columns}
         rows={TABLE_DATA}
       />
-      <Text>Выбранные ряды: {Object.keys(selected)}</Text>
+      <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
+      <Button onClick={() => handleChange([])}>Сбросить</Button>
     </>
   )
 }

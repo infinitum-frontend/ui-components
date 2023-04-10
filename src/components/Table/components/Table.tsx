@@ -3,8 +3,7 @@ import React, {
   CSSProperties,
   ReactElement,
   TableHTMLAttributes,
-  useMemo,
-  useState
+  useMemo
 } from 'react'
 import {
   ColumnDef,
@@ -31,7 +30,9 @@ interface BaseRow {
   style?: CSSProperties
 }
 
-export type Row<T extends Record<any, any>> = BaseRow & T
+export type Row<T extends Record<any, any> = Record<any, any>> = BaseRow & T
+export type SelectionStateItem = Row<{ id: string; rowData: any }>
+
 export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Массив с данными для построения шапки таблицы */
   columns: Array<ColumnDef<any, any>>
@@ -54,9 +55,9 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Отображение чекбоксов в 1 колонке */
   withRowSelection?: boolean
   /** Событие изменения чекбоксов */
-  onChangeRowSelection?: OnChangeFn<RowSelectionState>
-  /** Начальное состояние чекбоксов */
-  selectionState?: RowSelectionState
+  onChangeRowSelection?: (selectionState: SelectionStateItem[]) => void
+  /** Состояние выбора рядов через чекбокс */
+  selectionState?: SelectionStateItem[]
   /**
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id столбца.
    */
@@ -80,16 +81,22 @@ const Table = ({
   filtersState = [],
   withRowSelection,
   onChangeRowSelection,
-  selectionState = {},
+  selectionState = [],
   selectedRow,
   onRowClick,
   resizeMode,
   // enableGrouping = false,
-  // sortingMode = 'manual
   ...props
 }: TableProps): ReactElement => {
-  // ==================== state ====================
-  const [rowSelection, setRowSelection] = useState(selectionState)
+  // Приводим состояние селекции столбцом к формату танстака(объект ключ-id ряда, значение-boolean)
+  const tanstackSelectionState = useMemo(
+    () =>
+      selectionState?.reduce<RowSelectionState>((accumulator, currentValue) => {
+        accumulator[currentValue.id] = true
+        return accumulator
+      }, {}),
+    [selectionState]
+  )
 
   // ==================== handlers ====================
   const handleSortingChange: OnChangeFn<SortingState> = (state) => {
@@ -114,10 +121,16 @@ const Table = ({
   }
 
   const handleRowSelection: OnChangeFn<RowSelectionState> = (callback) => {
-    const newState =
-      typeof callback === 'function' ? callback(rowSelection) : {}
-    setRowSelection(() => newState)
-    onChangeRowSelection?.(newState)
+    const newTanstackSelectionState =
+      typeof callback === 'function' ? callback(tanstackSelectionState) : {}
+
+    const rowSelectionState: SelectionStateItem[] = []
+    Object.keys(newTanstackSelectionState).forEach((key) => {
+      const { id, original } = table.getRow(key)
+      rowSelectionState.push({ id, rowData: original })
+    })
+
+    onChangeRowSelection?.(rowSelectionState)
   }
 
   const memoizedColumns = useMemo(() => {
@@ -162,7 +175,7 @@ const Table = ({
     columnResizeMode: resizeMode,
     getCoreRowModel: getCoreRowModel(),
     state: {
-      rowSelection,
+      rowSelection: tanstackSelectionState,
       sorting: sortingState
     },
     manualFiltering: true,
