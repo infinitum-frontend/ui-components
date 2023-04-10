@@ -171,32 +171,43 @@ WithSelectedRow.args = {
 export const WithSorting: StoryFn<typeof Table> = (args) => {
   const defaultSorting = [{ id: 'status', desc: false }]
   const [sortedItems, setSortedItems] = useState(TABLE_DATA)
+  const [sorting, setSorting] = useState(defaultSorting)
 
   const handleSortingChange = (state: SortingState): void => {
+    setSorting(state)
     if (!state.length) {
       setSortedItems([...TABLE_DATA])
     } else {
-      setSortedItems([
-        ...TABLE_DATA.sort((a, b) => {
+      setSortedItems(
+        [...TABLE_DATA].sort((a, b) => {
           const { id, desc } = state[0]
 
           const compareResult = a[id as keyof Portfolio].localeCompare(
             b[id as keyof Portfolio]
           )
-          return desc ? compareResult : -compareResult
+          return desc ? -compareResult : compareResult
         })
-      ])
+      )
     }
   }
 
   return (
-    <Table
-      withSorting
-      defaultSorting={defaultSorting}
-      onSortingChange={handleSortingChange}
-      columns={columns}
-      rows={sortedItems}
-    />
+    <>
+      <Table
+        withSorting
+        sortingState={sorting}
+        onSortingChange={handleSortingChange}
+        columns={columns}
+        rows={sortedItems}
+      />
+      <Button
+        onClick={() => {
+          handleSortingChange([])
+        }}
+      >
+        Сброс сортировки
+      </Button>
+    </>
   )
 }
 
