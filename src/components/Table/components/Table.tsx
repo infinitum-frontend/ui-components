@@ -1,10 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
-  CSSProperties,
-  ReactElement,
-  TableHTMLAttributes,
-  useMemo
-} from 'react'
+import React, { ReactElement, TableHTMLAttributes, useMemo } from 'react'
 import {
   ColumnDef,
   getCoreRowModel,
@@ -23,21 +18,18 @@ import TableHeader from 'Components/Table/components/Header'
 import TableBody from 'Components/Table/components/Body'
 import '../index.scss'
 import { Checkbox } from 'Components/Checkbox'
-import { ColumnFiltersState, ColumnFilterValue } from 'Components/Table'
-
-interface BaseRow {
-  className?: string
-  style?: CSSProperties
-}
-
-export type Row<T extends Record<any, any> = Record<any, any>> = BaseRow & T
-export type SelectionStateItem = Row<{ id: string; rowData: any }>
+import {
+  TableColumnFiltersState,
+  TableColumnFilterValue,
+  TableRow,
+  TableSelectionStateItem
+} from 'Components/Table'
 
 export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Массив с данными для построения шапки таблицы */
   columns: Array<ColumnDef<any, any>>
   /** Массив с данными для построения тела таблицы */
-  rows: Array<Row<any>>
+  rows: Array<TableRow<any>>
   /** Максимальное количество отображаемых элементов */
   maxLength?: number
   /** Включение сортировки по столбцам */
@@ -49,20 +41,20 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   // TODO: sorting mode auto
   withFiltering?: boolean
   /** Событие изменения состояния фильтров */
-  onFiltersChange?: (state: ColumnFiltersState) => void
+  onFiltersChange?: (state: TableColumnFiltersState) => void
   /** Начальное состояние фильтров */
-  filtersState?: ColumnFiltersState
+  filtersState?: TableColumnFiltersState
   /** Отображение чекбоксов в 1 колонке */
   withRowSelection?: boolean
   /** Событие изменения чекбоксов */
-  onChangeRowSelection?: (selectionState: SelectionStateItem[]) => void
+  onChangeRowSelection?: (selectionState: TableSelectionStateItem[]) => void
   /** Состояние выбора рядов через чекбокс */
-  selectionState?: SelectionStateItem[]
+  selectionState?: TableSelectionStateItem[]
   /**
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id столбца.
    */
-  selectedRow?: string | number | ((row: Row<any>) => boolean)
-  onRowClick?: (row: Row<any>) => void
+  selectedRow?: string | number | ((row: TableRow<any>) => boolean)
+  onRowClick?: (row: TableRow<any>) => void
   resizeMode?: ColumnResizeMode
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
@@ -109,14 +101,14 @@ const Table = ({
     onSortingChange?.(newState)
   }
   const handleFiltersChange: (
-    value: ColumnFilterValue,
+    value: TableColumnFilterValue,
     filterType: ColumnMeta<any, any>['filterType'],
     column: Column<any>
   ) => void = (value, filterType, column) => {
     const newState = [
       ...filtersState?.filter((item) => item.id !== column.id),
       value ? { id: column.id, filterType, value } : undefined
-    ].filter((item) => Boolean(item)) as ColumnFiltersState
+    ].filter((item) => Boolean(item)) as TableColumnFiltersState
     onFiltersChange?.(newState)
   }
 
@@ -124,7 +116,7 @@ const Table = ({
     const newTanstackSelectionState =
       typeof callback === 'function' ? callback(tanstackSelectionState) : {}
 
-    const rowSelectionState: SelectionStateItem[] = []
+    const rowSelectionState: TableSelectionStateItem[] = []
     Object.keys(newTanstackSelectionState).forEach((key) => {
       const { id, original } = table.getRow(key)
       rowSelectionState.push({ id, rowData: original })

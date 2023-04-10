@@ -1,6 +1,6 @@
-import { FilterSelectOption } from 'Components/Table'
+import { TableFilterSelectOption } from 'Components/Table'
 
-export const TYPE_FILTER_ITEMS: FilterSelectOption[] = [
+export const TYPE_FILTER_ITEMS: TableFilterSelectOption[] = [
   {
     value: '-1',
     label: 'Все типы'

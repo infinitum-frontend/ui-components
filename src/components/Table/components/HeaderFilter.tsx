@@ -6,11 +6,11 @@ import { ReactComponent as FilterIcon } from 'Icons/bx-filter.svg'
 import { ReactComponent as SelectedFilterIcon } from 'Icons/bx-filter-selected.svg'
 import HeaderFilterSelect from 'Components/Table/components/HeaderFilterSelect'
 import {
-  ColumnFilter,
-  ColumnFilterValue,
-  FilterDateOption,
-  FilterSelectOption,
-  FilterType
+  TableColumnFilter,
+  TableColumnFilterValue,
+  TableFilterDateOption,
+  TableFilterSelectOption,
+  TableFilterType
 } from 'Components/Table'
 import Space from 'Components/Space/Space'
 import Button from '../../Button/Button'
@@ -22,9 +22,9 @@ import useUpdateEffect from 'Hooks/useUpdateEffect'
 
 // TODO: filter default value
 const getInitialValue = (
-  type: FilterType,
-  state?: ColumnFilter<FilterType>
-): ColumnFilterValue => {
+  type: TableFilterType,
+  state?: TableColumnFilter<TableFilterType>
+): TableColumnFilterValue => {
   if (state) {
     return state.value
   }
@@ -44,9 +44,9 @@ const TableHeaderFilter = ({
   onChange
 }: {
   header: Header<any, any>
-  filterState?: ColumnFilter<any>
+  filterState?: TableColumnFilter<any>
   onChange: (
-    value: ColumnFilterValue,
+    value: TableColumnFilterValue,
     filterType: ColumnMeta<any, any>['filterType'],
     column: Column<any>
   ) => void
@@ -55,7 +55,7 @@ const TableHeaderFilter = ({
     header.column.columnDef.meta || {}
   // ==================== state ====================
   const [open, setOpen] = useState(false)
-  const [filterValue, setFilterValue] = useState<ColumnFilterValue>(
+  const [filterValue, setFilterValue] = useState<TableColumnFilterValue>(
     getInitialValue(filterType, filterState)
   )
 
@@ -81,14 +81,14 @@ const TableHeaderFilter = ({
 
   const setDateFilter = (value: string, type: 'from' | 'to'): void => {
     setFilterValue((prev) => {
-      const result = { ...(prev as FilterDateOption) }
+      const result = { ...(prev as TableFilterDateOption) }
       result[type] = value
 
       return result
     })
   }
 
-  const handleFilterSelectChange = (item: FilterSelectOption): void => {
+  const handleFilterSelectChange = (item: TableFilterSelectOption): void => {
     setOpen(false)
     setFilterValue(item)
 
@@ -100,9 +100,9 @@ const TableHeaderFilter = ({
   // ==================== render ====================
   const selected = Boolean(filterState?.value)
   const dateFrom =
-    (filterType === 'date' && (filterValue as FilterDateOption).from) || ''
+    (filterType === 'date' && (filterValue as TableFilterDateOption).from) || ''
   const dateTo =
-    (filterType === 'date' && (filterValue as FilterDateOption).to) || ''
+    (filterType === 'date' && (filterValue as TableFilterDateOption).to) || ''
 
   return (
     <Popover
@@ -140,7 +140,7 @@ const TableHeaderFilter = ({
           {filterType === 'select' && (
             <HeaderFilterSelect
               onChange={handleFilterSelectChange}
-              selected={filterValue as FilterSelectOption}
+              selected={filterValue as TableFilterSelectOption}
               items={filterItems}
             />
           )}
