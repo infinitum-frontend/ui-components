@@ -11,15 +11,18 @@ import cn from 'classnames'
 import TableHeaderFilter from './HeaderFilter'
 import TableHeaderSort from 'Components/Table/components/HeaderSort'
 import '../style/header.scss'
-import { ColumnFiltersState, ColumnFilterValue } from 'Components/Table'
+import {
+  TableColumnFiltersState,
+  TableColumnFilterValue
+} from 'Components/Table'
 
-export interface TableHeaderProps {
+interface TableHeaderProps {
   table: Table<any>
   withSorting?: boolean
   withFiltering?: boolean
-  filtersState: ColumnFiltersState
+  filtersState: TableColumnFiltersState
   onFiltersChange?: (
-    value: ColumnFilterValue,
+    value: TableColumnFilterValue,
     filterType: ColumnMeta<any, any>['filterType'],
     column: Column<any>
   ) => void
@@ -41,7 +44,7 @@ const TableHeader = ({
   }
 
   const handleFilterChange: (
-    value: ColumnFilterValue,
+    value: TableColumnFilterValue,
     filterType: ColumnMeta<any, any>['filterType'],
     column: Column<any>
   ) => void = (value, filterType, column) => {

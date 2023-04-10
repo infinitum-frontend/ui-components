@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
 import Menu from 'Components/Menu/components/Menu'
-import { FilterSelectOption } from 'Components/Table'
+import { TableFilterSelectOption } from 'Components/Table'
 
-export interface HeaderFilterSelectProps {
+interface HeaderFilterSelectProps {
   onChange: (item: any) => void
-  items?: FilterSelectOption[]
-  selected: FilterSelectOption
+  items?: TableFilterSelectOption[]
+  selected: TableFilterSelectOption
 }
 
 const HeaderFilterSelect = ({

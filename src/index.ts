@@ -23,7 +23,6 @@ import { Link } from 'Components/Link'
 import { Modal } from 'Components/Modal'
 import { Container } from 'Components/Container'
 import { Logo } from 'Components/Logo'
-import { Table } from 'Components/Table'
 import { Menu } from 'Components/Menu'
 import { HeaderNav } from 'Components/HeaderNav'
 import { Form } from 'Components/Form'
@@ -40,6 +39,8 @@ import {
   NotificationContainer,
   Notification
 } from 'Components/Notification'
+
+export * from 'Components/Table'
 
 export {
   Button,
@@ -69,7 +70,6 @@ export {
   Modal,
   Container,
   Logo,
-  Table,
   Form,
   Menu,
   HeaderNav,

@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
 
-export interface TableBodyProps {
+interface TableBodyProps {
   rows: Array<Row<any>>
   selectedRow?: string | number | ((row: Row<any>) => boolean)
   onRowClick?: (row: Row<any>) => void
