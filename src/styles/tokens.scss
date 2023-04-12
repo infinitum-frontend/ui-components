@@ -11,15 +11,15 @@
   --inf-color-success: #1dbf6e;
   --inf-color-success-dark: #029161;
   --inf-color-success-light: #48e697;
-  --inf-color-success-light: #84f2bb;
+  --inf-color-success-lighter: #84f2bb;
   --inf-color-text-warning: yellow;
   --inf-color-text-success: var(--inf-color-success);
   --inf-color-text-danger: #f53a3a; // TODO: #CC2D32 ?
   --inf-color-text-link: #738f99;
   --inf-color-text-control: #46626b;
-  --inf-color-icon: black;
-  --inf-color-icon-secondary: #444;
-  --inf-color-icon-inverse: #fff;
+  --inf-color-icon: var(--inf-color-text);
+  --inf-color-icon-secondary: var(--inf-color-text-secondary);
+  --inf-color-icon-inverse: var(--inf-color-text-inverse);
   --inf-color-background-base: #fff;
   --inf-color-background-secondary: #ccc;
   --inf-color-background-inverse: #1f2021;

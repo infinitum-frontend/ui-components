@@ -1,0 +1,24 @@
+import { Meta, ColorPalette, ColorItem, Typeset } from '@storybook/blocks'
+import { color, fontSize, fontWeight } from '../tokens'
+
+<Meta title="Дизайн-токены" />
+
+## Цвета
+
+<ColorPalette>
+  {Object.keys(color).map((key) => (
+    <ColorItem title={key} colors={[color[key]]} />
+  ))}
+</ColorPalette>
+
+## Типографика
+
+**Font:** Circe
+
+**Weights:** 300(light), 400(normal), 600(bold), 800(extrabold)
+
+<Typeset
+  fontSizes={Object.values(fontSize)}
+  fontWeight={fontWeight.normal}
+  sampleText="Съешь ещё этих мягких французских булок, да выпей чаю"
+/>
