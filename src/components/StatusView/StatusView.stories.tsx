@@ -19,4 +19,6 @@ const Template: StoryFn<typeof StatusView> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

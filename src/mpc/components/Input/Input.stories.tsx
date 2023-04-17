@@ -13,4 +13,6 @@ const Template: StoryFn<any> = (args) => {
   return <input className={cn(styles.inputReset, styles.textInput)} />
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

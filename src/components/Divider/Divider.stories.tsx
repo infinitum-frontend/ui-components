@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Divider } from './index'
 import { Space } from 'Components/Space'
 import { Text } from 'Components/Text'
@@ -21,17 +21,23 @@ const Template: StoryFn<typeof Divider> = (args) => {
     </Space>
   )
 }
-export const Playground = Template.bind({})
 
-export const Vertical: StoryFn<typeof Divider> = (args) => {
-  return (
-    <Space direction="horizontal">
-      <Text>Lorem ipsum dolor sit amet.</Text>
-      <Divider {...args} />
-      <Text>Lorem ipsum dolor, sit amet consectetur adipisicing.</Text>
-    </Space>
-  )
+export const Playground = {
+  render: Template
 }
-Vertical.args = {
-  orientation: 'vertical'
+
+export const Vertical: StoryObj<typeof Divider> = {
+  render: (args) => {
+    return (
+      <Space direction="horizontal">
+        <Text>Lorem ipsum dolor sit amet.</Text>
+        <Divider {...args} />
+        <Text>Lorem ipsum dolor, sit amet consectetur adipisicing.</Text>
+      </Space>
+    )
+  },
+
+  args: {
+    orientation: 'vertical'
+  }
 }

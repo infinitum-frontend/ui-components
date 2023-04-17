@@ -13,4 +13,6 @@ const Template: StoryFn<typeof SelectWithSearch> = (args) => {
   return <SelectWithSearch {...args} data={OptionsFixture} />
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

@@ -13,27 +13,43 @@ export default meta
 const Template: StoryFn<typeof Logo> = (args) => {
   return <Logo {...args} />
 }
-export const Playground = Template.bind({})
 
-export const NoCaption = Template.bind({})
-NoCaption.args = {
-  variant: 'no-caption'
+export const Playground = {
+  render: Template
 }
 
-export const Inverse = Template.bind({})
-Inverse.args = {
-  variant: 'inverse'
-}
-Inverse.parameters = {
-  backgrounds: { default: 'dark' }
+export const NoCaption = {
+  render: Template,
+
+  args: {
+    variant: 'no-caption'
+  }
 }
 
-export const Monochrome = Template.bind({})
-Monochrome.args = {
-  variant: 'monochrome'
+export const Inverse = {
+  render: Template,
+
+  args: {
+    variant: 'inverse'
+  },
+
+  parameters: {
+    backgrounds: { default: 'dark' }
+  }
 }
 
-export const Short = Template.bind({})
-Short.args = {
-  variant: 'short'
+export const Monochrome = {
+  render: Template,
+
+  args: {
+    variant: 'monochrome'
+  }
+}
+
+export const Short = {
+  render: Template,
+
+  args: {
+    variant: 'short'
+  }
 }

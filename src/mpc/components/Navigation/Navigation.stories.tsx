@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { Meta } from '@storybook/react'
 import { Navigation } from './index'
 
 const meta: Meta<typeof Navigation> = {
@@ -8,6 +8,4 @@ const meta: Meta<typeof Navigation> = {
 
 export default meta
 
-const Template: StoryFn<typeof Navigation> = (args) => <Navigation {...args} />
-
-export const Playground = Template.bind({})
+export const Playground = {}

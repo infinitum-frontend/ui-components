@@ -33,24 +33,35 @@ const Template: StoryFn<typeof Select> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
-
-export const AutoFocus = Template.bind({})
-AutoFocus.args = {
-  autoFocus: true
+export const Playground = {
+  render: Template
 }
 
-export const Disabled = Template.bind({})
-Disabled.args = {
-  disabled: true
+export const AutoFocus = {
+  render: Template,
+
+  args: {
+    autoFocus: true
+  }
 }
 
-export const Scrollable = Template.bind({})
-Scrollable.args = {
-  maxItemsCount: 5,
-  options: selectDataFormatter({
-    array: SelectOptionsRawLong,
-    value: 'id',
-    label: 'name'
-  })
+export const Disabled = {
+  render: Template,
+
+  args: {
+    disabled: true
+  }
+}
+
+export const Scrollable = {
+  render: Template,
+
+  args: {
+    maxItemsCount: 5,
+    options: selectDataFormatter({
+      array: SelectOptionsRawLong,
+      value: 'id',
+      label: 'name'
+    })
+  }
 }

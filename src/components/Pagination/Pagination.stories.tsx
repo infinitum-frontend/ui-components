@@ -23,28 +23,41 @@ const Template: StoryFn<typeof Pagination> = (args) => {
     </>
   )
 }
-export const Playground = Template.bind({})
-Playground.args = {
-  totalCount: 100,
-  pageSize: 10
+
+export const Playground = {
+  render: Template,
+
+  args: {
+    totalCount: 100,
+    pageSize: 10
+  }
 }
 
-export const FewPages = Template.bind({})
-FewPages.args = {
-  totalCount: 30,
-  pageSize: 10
+export const FewPages = {
+  render: Template,
+
+  args: {
+    totalCount: 30,
+    pageSize: 10
+  }
 }
 
-export const Disabled = Template.bind({})
-Disabled.args = {
-  totalCount: 50,
-  pageSize: 10,
-  disabled: true
+export const Disabled = {
+  render: Template,
+
+  args: {
+    totalCount: 50,
+    pageSize: 10,
+    disabled: true
+  }
 }
 
-export const PrevNextVariant = Template.bind({})
-PrevNextVariant.args = {
-  totalCount: 50,
-  pageSize: 10,
-  variant: 'prev-next'
+export const PrevNextVariant = {
+  render: Template,
+
+  args: {
+    totalCount: 50,
+    pageSize: 10,
+    variant: 'prev-next'
+  }
 }

@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Badge } from './index'
 import { Box } from '../Box'
 import { Text } from '../Text'
@@ -22,35 +22,51 @@ const Template: StoryFn<typeof Badge> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
-
-export const Standalone: StoryFn<typeof Badge> = (args) => {
-  return (
-    <Space direction={'horizontal'} gap={'xxsmall'}>
-      <Text tone={'secondary'}>Контроль структуры</Text>
-      <Badge badgeContent={'10'} tone={'secondary'} />
-    </Space>
-  )
+export const Playground = {
+  render: Template
 }
 
-export const Dot = Template.bind({})
-Dot.args = {
-  dot: true
+export const Standalone: StoryObj<typeof Badge> = {
+  render: (args) => {
+    return (
+      <Space direction={'horizontal'} gap={'xxsmall'}>
+        <Text tone={'secondary'}>Контроль структуры</Text>
+        <Badge badgeContent={'10'} tone={'secondary'} />
+      </Space>
+    )
+  }
 }
 
-export const ShowZero = Template.bind({})
-ShowZero.args = {
-  badgeContent: 0,
-  showZero: true
+export const Dot = {
+  render: Template,
+
+  args: {
+    dot: true
+  }
 }
 
-export const Offset = Template.bind({})
-Offset.args = {
-  offset: [-5, 10]
+export const ShowZero = {
+  render: Template,
+
+  args: {
+    badgeContent: 0,
+    showZero: true
+  }
 }
 
-export const MaxCount = Template.bind({})
-MaxCount.args = {
-  badgeContent: 100,
-  maxCount: 99
+export const Offset = {
+  render: Template,
+
+  args: {
+    offset: [-5, 10]
+  }
+}
+
+export const MaxCount = {
+  render: Template,
+
+  args: {
+    badgeContent: 100,
+    maxCount: 99
+  }
 }

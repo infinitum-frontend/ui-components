@@ -14,4 +14,6 @@ const Template: StoryFn<typeof PendingContainer> = (args) => {
   return <PendingContainer {...args} />
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

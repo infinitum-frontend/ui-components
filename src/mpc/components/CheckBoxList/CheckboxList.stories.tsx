@@ -28,4 +28,6 @@ const Template: StoryFn<typeof CheckboxList> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

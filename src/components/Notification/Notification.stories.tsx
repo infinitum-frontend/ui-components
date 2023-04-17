@@ -43,9 +43,13 @@ const Template: StoryFn<typeof Notification> = (args) => {
     </Button>
   )
 }
-export const Playground = Template.bind({})
-Playground.args = {
-  message: `some message ${new Date().getTime()}`
+
+export const Playground = {
+  render: Template,
+
+  args: {
+    message: `some message ${new Date().getTime()}`
+  }
 }
 
 export const Duration: StoryFn<typeof Notification> = () => {

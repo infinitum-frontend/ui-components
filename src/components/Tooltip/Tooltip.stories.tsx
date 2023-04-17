@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useState, ReactElement, useRef } from 'react'
-import { Meta, StoryFn } from '@storybook/react'
+import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import { Tooltip } from './index'
 import { Button } from '../Button'
 import { omitKeyFromObject } from '../../utils/helpers'
@@ -32,57 +32,70 @@ const decorator = (Story): ReactElement => (
 
 export default ComponentMeta
 
-export const Playground: StoryFn<typeof Tooltip> = ({ ...args }) => {
-  const argsWithoutChangeHandler = omitKeyFromObject('onOpenChange', args)
+export const Playground: StoryObj<typeof Tooltip> = {
+  render: ({ ...args }) => {
+    const argsWithoutChangeHandler = omitKeyFromObject('onOpenChange', args)
 
-  return (
-    <Tooltip {...argsWithoutChangeHandler}>
-      <Button>Trigger</Button>
-    </Tooltip>
-  )
-}
-Playground.decorators = [decorator]
-Playground.args = {
-  content: 'Lorem ipsum dolor sit amet.'
+    return (
+      <Tooltip {...argsWithoutChangeHandler}>
+        <Button>Trigger</Button>
+      </Tooltip>
+    )
+  },
+
+  decorators: [decorator],
+
+  args: {
+    content: 'Lorem ipsum dolor sit amet.'
+  }
 }
 
-export const Controlled: StoryFn<typeof Tooltip> = () => {
-  const [open, setOpen] = useState(false)
+export const Controlled: StoryObj<typeof Tooltip> = {
+  render: () => {
+    const [open, setOpen] = useState(false)
 
-  return (
-    <Tooltip
-      open={open}
-      onOpenChange={setOpen}
-      content="Lorem ipsum dolor sit amet."
-      placement="left"
-    >
-      <Button onClick={() => setOpen((v) => !v)}>Trigger</Button>
-    </Tooltip>
-  )
-}
-Controlled.decorators = [decorator]
+    return (
+      <Tooltip
+        open={open}
+        onOpenChange={setOpen}
+        content="Lorem ipsum dolor sit amet."
+        placement="left"
+      >
+        <Button onClick={() => setOpen((v) => !v)}>Trigger</Button>
+      </Tooltip>
+    )
+  },
 
-export const DefaultOpen: StoryFn<typeof Tooltip> = () => {
-  return (
-    <Tooltip defaultOpen content="Lorem ipsum dolor sit amet.">
-      <Button>Trigger</Button>
-    </Tooltip>
-  )
+  decorators: [decorator]
 }
-DefaultOpen.decorators = [decorator]
 
-export const Inverted: StoryFn<typeof Tooltip> = () => {
-  return (
-    <Tooltip
-      variant="inverted"
-      defaultOpen
-      content="Lorem ipsum dolor sit amet."
-    >
-      <Button>Trigger</Button>
-    </Tooltip>
-  )
+export const DefaultOpen: StoryObj<typeof Tooltip> = {
+  render: () => {
+    return (
+      <Tooltip defaultOpen content="Lorem ipsum dolor sit amet.">
+        <Button>Trigger</Button>
+      </Tooltip>
+    )
+  },
+
+  decorators: [decorator]
 }
-Inverted.decorators = [decorator]
+
+export const Inverted: StoryObj<typeof Tooltip> = {
+  render: () => {
+    return (
+      <Tooltip
+        variant="inverted"
+        defaultOpen
+        content="Lorem ipsum dolor sit amet."
+      >
+        <Button>Trigger</Button>
+      </Tooltip>
+    )
+  },
+
+  decorators: [decorator]
+}
 
 export const PointerEvent: StoryFn<typeof Tooltip> = () => {
   function onPointerEnter(): void {

@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { Meta } from '@storybook/react'
 import RulesTypeSelector from './RulesTypeSelector'
 
 const meta: Meta<typeof RulesTypeSelector> = {
@@ -8,8 +8,4 @@ const meta: Meta<typeof RulesTypeSelector> = {
 
 export default meta
 
-const Template: StoryFn<typeof RulesTypeSelector> = (args) => (
-  <RulesTypeSelector {...args} />
-)
-
-export const Playground = Template.bind({})
+export const Playground = {}
