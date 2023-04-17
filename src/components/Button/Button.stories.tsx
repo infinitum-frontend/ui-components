@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Button } from './index'
 import { Space } from '../Space'
-import { Meta, StoryFn } from '@storybook/react'
+import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
 
@@ -26,80 +26,107 @@ export default ComponentMeta
 
 const Template: StoryFn<typeof Button> = ({ ...args }) => <Button {...args} />
 
-export const Playground = Template.bind({})
-
-export const Secondary = Template.bind({})
-Secondary.args = {
-  variant: 'secondary'
+export const Playground = {
+  render: Template
 }
 
-export const Tertiary = Template.bind({})
-Tertiary.args = {
-  variant: 'tertiary'
+export const Secondary = {
+  render: Template,
+
+  args: {
+    variant: 'secondary'
+  }
 }
 
-export const Ghost = Template.bind({})
-Ghost.args = {
-  variant: 'ghost'
+export const Tertiary = {
+  render: Template,
+
+  args: {
+    variant: 'tertiary'
+  }
 }
 
-export const GhostWithIcon = Template.bind({})
-GhostWithIcon.args = {
-  variant: 'ghost',
-  after: <DownloadIcon />
+export const Ghost = {
+  render: Template,
+
+  args: {
+    variant: 'ghost'
+  }
 }
 
-export const Loading = Template.bind({})
-Loading.args = {
-  loading: true
+export const GhostWithIcon = {
+  render: Template,
+
+  args: {
+    variant: 'ghost',
+    after: <DownloadIcon />
+  }
 }
 
-export const Disabled = Template.bind({})
-Disabled.args = {
-  disabled: true
+export const Loading = {
+  render: Template,
+
+  args: {
+    loading: true
+  }
 }
 
-export const Icon: StoryFn<typeof Button> = (args) => (
-  <>
-    <Button before={<ArrowDownIcon />} {...args}>
-      Icon Before
-    </Button>
-    <Button after={<ArrowDownIcon />} {...args}>
-      Icon After
-    </Button>
-    <Button before={<ArrowDownIcon />} after={<ArrowDownIcon />} {...args}>
-      Icon Before and After
-    </Button>
-    <Button icon={<ArrowDownIcon />} {...args} />
-  </>
-)
-Icon.decorators = [
-  (Story) => (
-    <Space gap="small" direction="horizontal">
-      {Story()}
-    </Space>
-  )
-]
+export const Disabled = {
+  render: Template,
 
-export const Sizes: StoryFn<typeof Button> = (args) => (
-  <>
-    <Button {...args} size="large" />
-    <Button {...args} size="medium" />
-    <Button {...args} size="small" />
-  </>
-)
-Sizes.decorators = [
-  (Story) => (
-    <Space gap="small" direction="horizontal">
-      {Story()}
-    </Space>
-  )
-]
+  args: {
+    disabled: true
+  }
+}
 
-export const LinkButton: StoryFn<typeof Button> = (args) => (
-  <Button href="https://ya.ru" target="_blank" {...args} />
-)
-LinkButton.args = {
-  as: 'a',
-  children: 'Кнопка-ссылка'
+export const Icon: StoryObj<typeof Button> = {
+  render: (args) => (
+    <>
+      <Button before={<ArrowDownIcon />} {...args}>
+        Icon Before
+      </Button>
+      <Button after={<ArrowDownIcon />} {...args}>
+        Icon After
+      </Button>
+      <Button before={<ArrowDownIcon />} after={<ArrowDownIcon />} {...args}>
+        Icon Before and After
+      </Button>
+      <Button icon={<ArrowDownIcon />} {...args} />
+    </>
+  ),
+
+  decorators: [
+    (Story) => (
+      <Space gap="small" direction="horizontal">
+        {Story()}
+      </Space>
+    )
+  ]
+}
+
+export const Sizes: StoryObj<typeof Button> = {
+  render: (args) => (
+    <>
+      <Button {...args} size="large" />
+      <Button {...args} size="medium" />
+      <Button {...args} size="small" />
+    </>
+  ),
+
+  decorators: [
+    (Story) => (
+      <Space gap="small" direction="horizontal">
+        {Story()}
+      </Space>
+    )
+  ]
+}
+
+export const LinkButton: StoryObj<typeof Button> = {
+  render: (args) => <Button href="https://ya.ru" target="_blank" {...args} />,
+
+  args: {
+    as: 'a',
+    children: 'Кнопка-ссылка'
+  }
 }

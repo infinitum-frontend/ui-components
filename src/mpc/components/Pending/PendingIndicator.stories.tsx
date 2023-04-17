@@ -14,4 +14,6 @@ const Template: StoryFn<typeof PendingIndicator> = (args) => {
   return <PendingIndicator {...args} />
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

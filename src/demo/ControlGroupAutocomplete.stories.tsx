@@ -203,4 +203,6 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
   )
 }
 
-export const ControlGroupAutocomplete = Template.bind({})
+export const ControlGroupAutocomplete = {
+  render: Template
+}

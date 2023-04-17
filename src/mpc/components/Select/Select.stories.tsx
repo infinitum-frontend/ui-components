@@ -28,4 +28,6 @@ const Template: StoryFn<typeof Select> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

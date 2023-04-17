@@ -27,18 +27,27 @@ const Template: StoryFn<typeof Switch> = ({ ...args }) => {
   )
 }
 
-export const Playground = Template.bind({})
-Playground.args = {
-  label: ''
+export const Playground = {
+  render: Template,
+
+  args: {
+    label: ''
+  }
 }
 
-export const WithLabel = Template.bind({})
-WithLabel.args = {
-  label: 'Только показатели с нарушениями'
+export const WithLabel = {
+  render: Template,
+
+  args: {
+    label: 'Только показатели с нарушениями'
+  }
 }
 
-export const Disabled = Template.bind({})
-Disabled.args = {
-  disabled: true,
-  label: 'Только показатели с нарушениями'
+export const Disabled = {
+  render: Template,
+
+  args: {
+    disabled: true,
+    label: 'Только показатели с нарушениями'
+  }
 }

@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { Meta } from '@storybook/react'
 import { Checkbox } from './index'
 
 const meta: Meta<typeof Checkbox> = {
@@ -8,6 +8,4 @@ const meta: Meta<typeof Checkbox> = {
 
 export default meta
 
-const Template: StoryFn<typeof Checkbox> = (args) => <Checkbox {...args} />
-
-export const Playground = Template.bind({})
+export const Playground = {}

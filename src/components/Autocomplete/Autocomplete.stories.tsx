@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Autocomplete } from './index'
 import { useState } from 'react'
 import { IAutocompleteOption } from './typings'
@@ -31,63 +31,67 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}
 
-export const ControlledVariant: StoryFn<typeof Autocomplete> = (args) => {
-  const [open, setOpen] = useState(false)
-  const [query, setQuery] = useState('')
-  const [filteredItems, setFilteredItems] = useState(AutocompleteBaseOptions)
-  const [selectedItem, setSelectedItem] =
-    useState<IAutocompleteOption['value']>('')
+export const ControlledVariant: StoryObj<typeof Autocomplete> = {
+  render: (args) => {
+    const [open, setOpen] = useState(false)
+    const [query, setQuery] = useState('')
+    const [filteredItems, setFilteredItems] = useState(AutocompleteBaseOptions)
+    const [selectedItem, setSelectedItem] =
+      useState<IAutocompleteOption['value']>('')
 
-  const handleClick = (value: IAutocompleteOption['value']): void => {
-    setSelectedItem(value)
-    setOpen(false)
-  }
+    const handleClick = (value: IAutocompleteOption['value']): void => {
+      setSelectedItem(value)
+      setOpen(false)
+    }
 
-  const handleInput = (value: string): void => {
-    setQuery(value)
-    setFilteredItems(
-      AutocompleteBaseOptions.filter((item) => {
-        return item.label.toLowerCase().match(value.toLowerCase())
-      })
+    const handleInput = (value: string): void => {
+      setQuery(value)
+      setFilteredItems(
+        AutocompleteBaseOptions.filter((item) => {
+          return item.label.toLowerCase().match(value.toLowerCase())
+        })
+      )
+    }
+
+    const handleInputSubmit = (): void => {
+      setSelectedItem(filteredItems[0].value)
+      setQuery('')
+      setOpen(false)
+    }
+
+    return (
+      <Autocomplete opened={open} onOpenChange={(value) => setOpen(value)}>
+        <Autocomplete.Button placeholder={'Выберите услугу'}>
+          {
+            AutocompleteBaseOptions.find(
+              (option) => option.value === selectedItem
+            )?.label
+          }
+        </Autocomplete.Button>
+        <Autocomplete.Dropdown>
+          <Autocomplete.Input
+            onSubmit={handleInputSubmit}
+            value={query}
+            onInput={handleInput}
+            allowClear={true}
+          />
+          <Autocomplete.Options>
+            {filteredItems.map((option) => (
+              <Autocomplete.Option
+                onClick={handleClick}
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </Autocomplete.Option>
+            ))}
+          </Autocomplete.Options>
+        </Autocomplete.Dropdown>
+      </Autocomplete>
     )
   }
-
-  const handleInputSubmit = (): void => {
-    setSelectedItem(filteredItems[0].value)
-    setQuery('')
-    setOpen(false)
-  }
-
-  return (
-    <Autocomplete opened={open} onOpenChange={(value) => setOpen(value)}>
-      <Autocomplete.Button placeholder={'Выберите услугу'}>
-        {
-          AutocompleteBaseOptions.find(
-            (option) => option.value === selectedItem
-          )?.label
-        }
-      </Autocomplete.Button>
-      <Autocomplete.Dropdown>
-        <Autocomplete.Input
-          onSubmit={handleInputSubmit}
-          value={query}
-          onInput={handleInput}
-          allowClear={true}
-        />
-        <Autocomplete.Options>
-          {filteredItems.map((option) => (
-            <Autocomplete.Option
-              onClick={handleClick}
-              key={option.value}
-              value={option.value}
-            >
-              {option.label}
-            </Autocomplete.Option>
-          ))}
-        </Autocomplete.Options>
-      </Autocomplete.Dropdown>
-    </Autocomplete>
-  )
 }

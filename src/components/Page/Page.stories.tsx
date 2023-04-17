@@ -33,8 +33,12 @@ const Template: StoryFn<typeof Page> = (args) => {
     </Layout>
   )
 }
-export const Playground = Template.bind({})
-Playground.parameters = {
-  layout: 'fullscreen',
-  backgrounds: { default: 'light' }
+
+export const Playground = {
+  render: Template,
+
+  parameters: {
+    layout: 'fullscreen',
+    backgrounds: { default: 'light' }
+  }
 }

@@ -23,4 +23,6 @@ const Template: StoryFn<typeof Breadcrumbs> = (args) => {
     </Breadcrumbs>
   )
 }
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

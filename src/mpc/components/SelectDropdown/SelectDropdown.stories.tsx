@@ -24,4 +24,6 @@ const Template: StoryFn<typeof SelectDropdown> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

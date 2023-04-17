@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 import { Stepper } from './index'
 import { StepProps } from './Step'
 import { Text } from '../Text'
@@ -54,18 +54,24 @@ const stepsVertical = getSteps('horizontal')
 
 export default meta
 
-export const Vertical: StoryFn<typeof Stepper> = (args) => {
-  return <Stepper {...args} steps={stepsVertical} current={1} />
+export const Vertical: StoryObj<typeof Stepper> = {
+  render: (args) => {
+    return <Stepper {...args} steps={stepsVertical} current={1} />
+  }
 }
 
-export const Horizontal: StoryFn<typeof Stepper> = (args) => {
-  return (
-    <Stepper steps={stepsHorizontal} current={1} direction={'horizontal'} />
-  )
+export const Horizontal: StoryObj<typeof Stepper> = {
+  render: (args) => {
+    return (
+      <Stepper steps={stepsHorizontal} current={1} direction={'horizontal'} />
+    )
+  }
 }
 
-export const Clipped: StoryFn<typeof Stepper> = (args) => {
-  return (
-    <Stepper steps={stepsVertical.slice(0, 1)} clipped={true} current={1} />
-  )
+export const Clipped: StoryObj<typeof Stepper> = {
+  render: (args) => {
+    return (
+      <Stepper steps={stepsVertical.slice(0, 1)} clipped={true} current={1} />
+    )
+  }
 }

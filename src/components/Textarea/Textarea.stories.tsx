@@ -23,13 +23,21 @@ const Template: StoryFn<typeof Textarea> = (args) => {
   return <Textarea {...args} />
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}
 
-export const Disabled = Template.bind({})
-Disabled.args = { disabled: true }
+export const Disabled = {
+  render: Template,
+  args: { disabled: true }
+}
 
-export const Block = Template.bind({})
-Block.args = { block: true }
+export const Block = {
+  render: Template,
+  args: { block: true }
+}
 
-export const Resizable = Template.bind({})
-Resizable.args = { resize: 'both' }
+export const Resizable = {
+  render: Template,
+  args: { resize: 'both' }
+}

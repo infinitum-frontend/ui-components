@@ -36,7 +36,9 @@ const Template: StoryFn<typeof SideNav> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}
 
 export const WithMenu: StoryFn<typeof SideNav> = () => {
   return (

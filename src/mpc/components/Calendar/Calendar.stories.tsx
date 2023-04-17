@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { Meta } from '@storybook/react'
 import { Calendar } from './index'
 
 const meta: Meta<typeof Calendar> = {
@@ -8,6 +8,4 @@ const meta: Meta<typeof Calendar> = {
 
 export default meta
 
-const Template: StoryFn<typeof Calendar> = (args) => <Calendar {...args} />
-
-export const Playground = Template.bind({})
+export const Playground = {}

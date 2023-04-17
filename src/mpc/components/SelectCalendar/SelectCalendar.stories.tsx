@@ -23,4 +23,6 @@ const Template: StoryFn<typeof SelectCalendar> = (args) => {
   )
 }
 
-export const Playground = Template.bind({})
+export const Playground = {
+  render: Template
+}

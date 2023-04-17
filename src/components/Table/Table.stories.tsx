@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 import { Table, ColumnFiltersState, ColumnFilter } from './index'
 import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
@@ -62,204 +62,166 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
 
 export default meta
 
-export const Base: StoryFn<typeof Table> = (args) => {
-  return <Table {...args} columns={columns} rows={TABLE_DATA} />
+export const Base: StoryObj<typeof Table> = {
+  render: (args) => {
+    return <Table {...args} columns={columns} rows={TABLE_DATA} />
+  }
 }
 
-export const Filtering: StoryFn<typeof Table> = (args) => {
-  const [filters, setFilters] = useState<ColumnFiltersState>([])
-  const [resData, setResData] = useState(TABLE_DATA)
+export const Filtering: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [filters, setFilters] = useState<ColumnFiltersState>([])
+    const [resData, setResData] = useState(TABLE_DATA)
 
-  const handleFiltersChange = (state: ColumnFiltersState): void => {
-    let result = TABLE_DATA
-    setFilters(state)
-    state.forEach((filter) => {
-      result = result.filter((item) => {
-        if (filter.filterType === 'select') {
-          const filterLabel = (filter as ColumnFilter<'select'>).value.label
-          if (filterLabel === 'Все типы') {
-            return true
+    const handleFiltersChange = (state: ColumnFiltersState): void => {
+      let result = TABLE_DATA
+      setFilters(state)
+      state.forEach((filter) => {
+        result = result.filter((item) => {
+          if (filter.filterType === 'select') {
+            const filterLabel = (filter as ColumnFilter<'select'>).value.label
+            if (filterLabel === 'Все типы') {
+              return true
+            }
+            return Boolean(
+              item[filter.id as keyof typeof item].match(filterLabel)
+            )
           }
-          return Boolean(
-            item[filter.id as keyof typeof item].match(filterLabel)
-          )
-        }
 
-        if (filter.filterType === 'input') {
-          return Boolean(
-            item[filter.id as keyof typeof item].match(filter.value as string)
-          )
-        }
+          if (filter.filterType === 'input') {
+            return Boolean(
+              item[filter.id as keyof typeof item].match(filter.value as string)
+            )
+          }
 
-        return false
-      })
-    })
-
-    setResData(result)
-  }
-  return (
-    <div>
-      <Button
-        onClick={() => {
-          setFilters([])
-          setResData(TABLE_DATA)
-        }}
-      >
-        Сбросить фильтры
-      </Button>
-      <Table
-        {...args}
-        withFiltering
-        withSorting
-        onFiltersChange={handleFiltersChange}
-        filtersState={filters}
-        columns={columns}
-        rows={resData}
-      />
-    </div>
-  )
-}
-
-export const Selection: StoryFn<typeof Table> = (args) => {
-  const [selection, setSelection] = useState<SelectionStateItem[]>([])
-  const handleChange = (data: SelectionStateItem[]): void => {
-    setSelection(data)
-    console.log(data)
-  }
-
-  return (
-    <>
-      <Table
-        withRowSelection={true}
-        onChangeRowSelection={handleChange}
-        selectionState={selection}
-        columns={columns}
-        rows={TABLE_DATA}
-      />
-      <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
-      <Button onClick={() => handleChange([])}>Сбросить</Button>
-    </>
-  )
-}
-
-export const WithSelectedRow: StoryFn<typeof Table> = (args) => {
-  const [selected, setSelected] = useState(undefined)
-
-  const handleRowClick = (row: Row<any>): void => {
-    console.log(row)
-    setSelected(row.id)
-  }
-
-  return (
-    <>
-      <Table
-        columns={columns}
-        selectedRow={selected}
-        onRowClick={handleRowClick}
-        rows={TABLE_DATA}
-      />
-      <Text>Выбранный ряд: {selected}</Text>
-    </>
-  )
-}
-WithSelectedRow.args = {
-  selectedRow: '3'
-}
-
-export const WithSorting: StoryFn<typeof Table> = (args) => {
-  const defaultSorting = [{ id: 'status', desc: false }]
-  const [sortedItems, setSortedItems] = useState(TABLE_DATA)
-  const [sorting, setSorting] = useState(defaultSorting)
-
-  const handleSortingChange = (state: SortingState): void => {
-    setSorting(state)
-    if (!state.length) {
-      setSortedItems([...TABLE_DATA])
-    } else {
-      setSortedItems(
-        [...TABLE_DATA].sort((a, b) => {
-          const { id, desc } = state[0]
-
-          const compareResult = a[id as keyof Portfolio].localeCompare(
-            b[id as keyof Portfolio]
-          )
-          return desc ? -compareResult : compareResult
+          return false
         })
-      )
+      })
+
+      setResData(result)
     }
+    return (
+      <div>
+        <Button
+          onClick={() => {
+            setFilters([])
+            setResData(TABLE_DATA)
+          }}
+        >
+          Сбросить фильтры
+        </Button>
+        <Table
+          {...args}
+          withFiltering
+          withSorting
+          onFiltersChange={handleFiltersChange}
+          filtersState={filters}
+          columns={columns}
+          rows={resData}
+        />
+      </div>
+    )
   }
-
-  return (
-    <>
-      <Table
-        withSorting
-        sortingState={sorting}
-        onSortingChange={handleSortingChange}
-        columns={columns}
-        rows={sortedItems}
-      />
-      <Button
-        onClick={() => {
-          handleSortingChange([])
-        }}
-      >
-        Сброс сортировки
-      </Button>
-    </>
-  )
 }
 
-export const Resizing: StoryFn<typeof Table> = (args) => {
-  return <Table resizeMode={'onChange'} columns={columns} rows={TABLE_DATA} />
+export const Selection: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [selection, setSelection] = useState<SelectionStateItem[]>([])
+    const handleChange = (data: SelectionStateItem[]): void => {
+      setSelection(data)
+      console.log(data)
+    }
+
+    return (
+      <>
+        <Table
+          withRowSelection={true}
+          onChangeRowSelection={handleChange}
+          selectionState={selection}
+          columns={columns}
+          rows={TABLE_DATA}
+        />
+        <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
+        <Button onClick={() => handleChange([])}>Сбросить</Button>
+      </>
+    )
+  }
 }
-// export const GroupSeparators: StoryFn<typeof Table> = (args) => {
-//   const groupedByDate = [
-//     {
-//       row: '25.01 Среда',
-//       subRows: [
-//         {
-//           portfolio: 'ОПИФ Открытие — Telecommunicaton Index',
-//           mark: '2335',
-//           type: 'УВНР',
-//           status: 'Сформировано'
-//         }
-//       ]
-//     },
-//     {
-//       row: '22.01 Воскресенье',
-//       subRows: [
-//         {
-//           portfolio: 'ОПИФ И Открытие — ИММВБ — высокая капитализация',
-//           mark: '2206',
-//           type: 'УВУН',
-//           status: 'Сформировано'
-//         },
-//         {
-//           portfolio: 'ОПИФ И Открытие — ИММВБ — машиностроение',
-//           mark: '2206',
-//           type: 'УВНУ',
-//           status: 'На согласовании'
-//         }
-//       ]
-//     },
-//     {
-//       row: '24.01 Вторник',
-//       subRows: [
-//         {
-//           portfolio: 'ОПИФ Открытие — Telecommunicaton Index',
-//           mark: '2206',
-//           type: 'УВУН',
-//           status: 'Сформировано'
-//         }
-//       ]
-//     }
-//   ]
-//   return (
-//     <Table
-//       {...args}
-//       columns={columns}
-//       data={groupedByDate}
-//       enableGrouping={true}
-//     />
-//   )
-// }
+
+export const WithSelectedRow: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [selected, setSelected] = useState(undefined)
+
+    const handleRowClick = (row: Row<any>): void => {
+      console.log(row)
+      setSelected(row.id)
+    }
+
+    return (
+      <>
+        <Table
+          columns={columns}
+          selectedRow={selected}
+          onRowClick={handleRowClick}
+          rows={TABLE_DATA}
+        />
+        <Text>Выбранный ряд: {selected}</Text>
+      </>
+    )
+  },
+
+  args: {
+    selectedRow: '3'
+  }
+}
+
+export const WithSorting: StoryObj<typeof Table> = {
+  render: (args) => {
+    const defaultSorting = [{ id: 'status', desc: false }]
+    const [sortedItems, setSortedItems] = useState(TABLE_DATA)
+    const [sorting, setSorting] = useState(defaultSorting)
+
+    const handleSortingChange = (state: SortingState): void => {
+      setSorting(state)
+      if (!state.length) {
+        setSortedItems([...TABLE_DATA])
+      } else {
+        setSortedItems(
+          [...TABLE_DATA].sort((a, b) => {
+            const { id, desc } = state[0]
+
+            const compareResult = a[id as keyof Portfolio].localeCompare(
+              b[id as keyof Portfolio]
+            )
+            return desc ? -compareResult : compareResult
+          })
+        )
+      }
+    }
+
+    return (
+      <>
+        <Table
+          withSorting
+          sortingState={sorting}
+          onSortingChange={handleSortingChange}
+          columns={columns}
+          rows={sortedItems}
+        />
+        <Button
+          onClick={() => {
+            handleSortingChange([])
+          }}
+        >
+          Сброс сортировки
+        </Button>
+      </>
+    )
+  }
+}
+
+export const Resizing: StoryObj<typeof Table> = {
+  render: (args) => {
+    return <Table resizeMode={'onChange'} columns={columns} rows={TABLE_DATA} />
+  }
+}
