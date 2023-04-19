@@ -4,7 +4,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { Logo } from './index'
 
 const meta: Meta<typeof Logo> = {
-  title: 'Logo',
+  title: 'Components/Logo',
   component: Logo
 }
 

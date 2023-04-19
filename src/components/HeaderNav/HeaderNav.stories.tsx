@@ -8,7 +8,7 @@ import { Logo } from 'Components/Logo'
 import { Space } from 'Components/Space'
 
 const meta: Meta<typeof HeaderNav> = {
-  title: 'HeaderNav',
+  title: 'Components/HeaderNav',
   component: HeaderNav
 }
 
@@ -16,15 +16,17 @@ export default meta
 
 const Template: StoryFn<typeof HeaderNav> = (args) => {
   return (
-    <HeaderNav {...args}>
-      <HeaderNav.Item as="a" href="https://specdep.ru/">
-        Главная
-      </HeaderNav.Item>
-      <HeaderNav.Item as="a" href="https://specdep.ru/" target="_blank">
-        Пайщики
-      </HeaderNav.Item>
-      <HeaderNav.Item active>Морозов Виталий Владимирович</HeaderNav.Item>
-    </HeaderNav>
+    <div>
+      <HeaderNav {...args}>
+        <HeaderNav.Item as="a" href="javascript:void(0);">
+          Главная
+        </HeaderNav.Item>
+        <HeaderNav.Item as="a" href="javascript:void(0);">
+          Пайщики
+        </HeaderNav.Item>
+        <HeaderNav.Item active>Морозов Виталий Владимирович</HeaderNav.Item>
+      </HeaderNav>
+    </div>
   )
 }
 

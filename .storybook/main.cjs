@@ -6,7 +6,8 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/preset-scss',
-    '@storybook/addon-a11y'
+    '@storybook/addon-a11y',
+    '@storybook/addon-mdx-gfm'
   ],
   framework: {
     name: '@storybook/react-vite',
@@ -19,17 +20,17 @@ module.exports = {
     autodocs: true,
     docsName: 'Docs'
   },
+  // staticDirs: ['../public'],
   async viteFinal(config) {
     return mergeConfig(config, {
       css: {
         preprocessorOptions: {
           scss: {
-            additionalData (source, fp) {
+            additionalData(source, fp) {
               // не добавляем второй импорт в globals
               if (fp.match('global.scss')) {
                 return source
               }
-
               return `@import "@/src/styles/mixins.scss";\n${source}`
             }
           }

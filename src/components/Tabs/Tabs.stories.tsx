@@ -4,7 +4,7 @@ import { Space } from '../Space'
 import { useState } from 'react'
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Tabs',
+  title: 'Components/Tabs',
   component: Tabs,
   subcomponents: {
     'Tabs.Tab': Tabs.Tab,

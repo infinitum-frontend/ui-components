@@ -156,7 +156,7 @@ export const UserMenu2: StoryObj<typeof Popover> = {
         </Popover.Trigger>
         <Popover.Content hasPadding={false} style={{ width: '150px' }}>
           <List>
-            <List.Item as="a" href="https://ya.ru">
+            <List.Item as="a" href="https://specdep.ru/">
               Настройки
             </List.Item>
             <List.Item

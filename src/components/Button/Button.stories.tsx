@@ -7,7 +7,7 @@ import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
 
 const ComponentMeta: Meta<typeof Button> = {
-  title: 'Button',
+  title: 'Components/Button',
   component: Button,
   args: {
     children: 'Кнопка',
@@ -123,7 +123,9 @@ export const Sizes: StoryObj<typeof Button> = {
 }
 
 export const LinkButton: StoryObj<typeof Button> = {
-  render: (args) => <Button href="https://ya.ru" target="_blank" {...args} />,
+  render: (args) => (
+    <Button href="https://specdep.ru/" target="_blank" {...args} />
+  ),
 
   args: {
     as: 'a',

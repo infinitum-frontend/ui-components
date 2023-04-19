@@ -8,7 +8,7 @@ import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtrure'
 import { Button } from '../Button'
 
 const meta: Meta<typeof Table> = {
-  title: 'Table',
+  title: 'Components/Table',
   component: Table,
   args: {
     resizeMode: undefined

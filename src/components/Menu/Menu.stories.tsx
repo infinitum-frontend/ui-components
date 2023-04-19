@@ -11,8 +11,6 @@ import { Space } from '../Space'
 import { Text } from '../Text'
 import { Popover } from '../Popover'
 import { Button } from '../Button'
-import { Layout } from '../Layout'
-import { Page } from '../Page'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import {
   BaseMenuLong,
@@ -23,7 +21,7 @@ import {
 import { TextProps } from '../Text/Text'
 
 const meta: Meta<typeof Menu> = {
-  title: 'Menu',
+  title: 'Components/Menu',
   component: Menu,
   subcomponents: {
     'Menu.Item': Menu.Item,
@@ -185,7 +183,7 @@ export const InPopover: StoryObj<typeof Menu> = {
         </Popover.Trigger>
         <Popover.Content hasPadding={false} style={{ width: '150px' }}>
           <Menu borderRadius="regular">
-            <Menu.Item as="a" target="_blank" href="https://ya.ru">
+            <Menu.Item as="a" target="_blank" href="https://specdep.ru/">
               Настройки
             </Menu.Item>
             <Menu.Item as="button" onClick={onExitClick}>
@@ -194,49 +192,6 @@ export const InPopover: StoryObj<typeof Menu> = {
           </Menu>
         </Popover.Content>
       </Popover>
-    )
-  }
-}
-
-export const FotonSideNav: StoryObj<typeof Menu> = {
-  render: (args) => {
-    return (
-      <Layout>
-        <Layout.Header>Header</Layout.Header>
-        <Layout.Body>
-          <Page>
-            <Page.Header>Page Header</Page.Header>
-            <Page.Aside>
-              <Menu as="nav">
-                <Menu.Item as="a" href="https://ya.ru">
-                  Совет директоров
-                </Menu.Item>
-                <Menu.Item as="a" href="https://ya.ru">
-                  Входящие
-                </Menu.Item>
-                <Menu.Item as="a" href="https://ya.ru">
-                  Исходящие
-                </Menu.Item>
-                <Menu.Item as="a" href="https://ya.ru">
-                  Отчетность
-                </Menu.Item>
-                <Menu.Item as="a" href="https://ya.ru">
-                  Документы для отправки
-                </Menu.Item>
-              </Menu>
-            </Page.Aside>
-            <Page.Body>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Molestias ducimus tenetur cum harum expedita, maiores voluptate
-              quod temporibus incidunt neque distinctio magni inventore
-              consequatur hic pariatur. Fuga officia incidunt, voluptate
-              accusamus, natus minus eos assumenda dolor, autem recusandae
-              delectus magni laudantium culpa eum! Nisi, nostrum provident.
-              Tenetur illo numquam molestiae?
-            </Page.Body>
-          </Page>
-        </Layout.Body>
-      </Layout>
     )
   }
 }

@@ -5,7 +5,7 @@ import { IAutocompleteOption } from './typings'
 import { AutocompleteBaseOptions } from './fixture'
 
 const meta: Meta<typeof Autocomplete> = {
-  title: 'Autocomplete',
+  title: 'Form/Autocomplete',
   component: Autocomplete,
   subcomponents: {
     'Autocomplete.Button': Autocomplete.Button,
