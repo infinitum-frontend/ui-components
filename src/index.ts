@@ -33,17 +33,19 @@ import { Pagination } from 'Components/Pagination'
 import { Badge } from 'Components/Badge'
 import { SideNav } from 'Components/SideNav'
 import { PageLayout } from 'Components/PageLayout'
+import { Table } from 'Components/Table'
 import {
   NotificationProvider,
   useNotification,
   NotificationContainer,
   Notification
 } from 'Components/Notification'
-
-export * from 'Components/Table'
+import useUpdateEffect from 'Hooks/useUpdateEffect'
+import useIsFirstRender from 'Hooks/useIsFirstRender'
 
 export {
   Button,
+  Table,
   Input,
   Select,
   selectDataFormatter,
@@ -83,5 +85,7 @@ export {
   Notification,
   NotificationContainer,
   NotificationProvider,
-  useNotification
+  useNotification,
+  useIsFirstRender,
+  useUpdateEffect
 }
