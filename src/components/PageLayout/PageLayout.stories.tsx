@@ -30,22 +30,22 @@ const Template: StoryFn<typeof PageLayout> = (args) => {
       <PageLayout.Body containerWidth="large">
         <PageLayout.Aside style={{ padding: '12px 0' }}>
           <SideNav>
-            <SideNav.Item as="a" href="https://ya.ru" target="_blank">
+            <SideNav.Item as="a" href="https://specdep.ru/" target="_blank">
               Входящие
             </SideNav.Item>
-            <SideNav.Item active as="a" href="https://ya.ru">
+            <SideNav.Item active as="a" href="https://specdep.ru/">
               Исходящие
             </SideNav.Item>
-            <SideNav.Item as="a" href="https://ya.ru">
+            <SideNav.Item as="a" href="https://specdep.ru/">
               Отчетность
             </SideNav.Item>
-            <SideNav.Item as="a" href="https://ya.ru">
+            <SideNav.Item as="a" href="https://specdep.ru/">
               Документы для отправки
             </SideNav.Item>
-            <SideNav.Item as="a" href="https://ya.ru">
+            <SideNav.Item as="a" href="https://specdep.ru/">
               Черновики
             </SideNav.Item>
-            <SideNav.Item as="a" href="https://ya.ru">
+            <SideNav.Item as="a" href="https://specdep.ru/">
               Локальный справочник контрагентов
             </SideNav.Item>
           </SideNav>

@@ -12,7 +12,7 @@ import { Modal } from 'Components/Modal'
 import { Space } from 'Components/Space'
 
 const meta: Meta<typeof Notification> = {
-  title: 'Notification',
+  title: 'Components/Notification',
   component: Notification,
   decorators: [
     (Story) => {

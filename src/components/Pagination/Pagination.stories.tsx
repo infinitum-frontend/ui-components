@@ -4,7 +4,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { Pagination } from './index'
 
 const meta: Meta<typeof Pagination> = {
-  title: 'Pagination',
+  title: 'Components/Pagination',
   component: Pagination
 }
 

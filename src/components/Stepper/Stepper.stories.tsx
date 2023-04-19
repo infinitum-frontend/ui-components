@@ -6,7 +6,7 @@ import { Link } from '../Link'
 import { Space } from '../Space'
 
 const meta: Meta<typeof Stepper> = {
-  title: 'Stepper',
+  title: 'Components/Stepper',
   component: Stepper
 }
 

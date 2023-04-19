@@ -4,7 +4,7 @@ import { Link } from './index'
 import { Meta, StoryFn } from '@storybook/react'
 
 const ComponentMeta: Meta<typeof Link> = {
-  title: 'Link',
+  title: 'Components/Link',
   component: Link,
   args: {
     children: 'Ссылка'

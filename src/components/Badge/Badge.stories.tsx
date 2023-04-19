@@ -5,7 +5,7 @@ import { Text } from '../Text'
 import { Space } from '../Space'
 
 const meta: Meta<typeof Badge> = {
-  title: 'Badge',
+  title: 'Components/Badge',
   component: Badge,
   args: {
     badgeContent: 5

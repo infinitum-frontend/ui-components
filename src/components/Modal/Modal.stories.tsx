@@ -130,7 +130,19 @@ export const ContentOverflow: StoryObj<typeof Modal> = {
             corporis quod, odio iusto molestias incidunt aliquid laborum,
             quaerat, eaque adipisci eius rem voluptatibus qui reiciendis placeat
             culpa ipsa ipsam! Non a porro illum quaerat quam aperiam autem ex
-            tempore quia ipsa? Id quaerat quos libero recusandae repellat!
+            tempore quia ipsa? Id quaerat quos libero recusandae repellat! Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Voluptates
+            laboriosam qui magni sapiente nisi autem, cumque vero, earum
+            veritatis sequi aliquid illo. Vitae nostrum iusto voluptatibus ipsam
+            tempora facilis blanditiis? Aliquam, libero dicta doloribus facere
+            accusantium provident corrupti numquam? Itaque asperiores modi earum
+            molestiae odio totam qui quas alias debitis, repudiandae fugiat
+            accusantium eum laborum expedita, a nobis explicabo amet quidem
+            perferendis odit magnam aspernatur atque rerum. Fugiat, corporis
+            quibusdam odit magnam qui voluptatum! Laborum incidunt reiciendis
+            qui eos iusto nihil repellat animi, recusandae et delectus, atque
+            est autem repellendus porro error. Ducimus, natus ipsum recusandae
+            ut dolorem placeat odit?
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary">Добавить настройку</Button>

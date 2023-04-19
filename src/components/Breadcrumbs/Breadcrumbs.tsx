@@ -7,7 +7,13 @@ import cn from 'classnames'
 // ol / li
 
 export interface BreadcrumbsProps extends ComponentPropsWithoutRef<'nav'> {
+  /**
+   * Дополнительный classname
+   */
   className?: string
+  /**
+   * Элемент для рендеринга
+   */
   as?: React.ElementType<any>
 }
 

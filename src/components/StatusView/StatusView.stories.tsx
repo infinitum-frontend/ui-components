@@ -5,7 +5,7 @@ import { StatusView } from './index'
 import { ReactComponent as StopIcon } from 'Icons/stop.svg'
 
 const meta: Meta<typeof StatusView> = {
-  title: 'StatusView',
+  title: 'Components/StatusView',
   component: StatusView
 }
 

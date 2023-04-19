@@ -17,7 +17,7 @@ import { TextProps } from '../Text/Text'
 import { ReactNode } from 'react'
 
 const meta: Meta<typeof List> = {
-  title: 'List',
+  title: 'Components/List',
   component: List,
   subcomponents: {
     'List.Item': List.Item,

@@ -4,7 +4,7 @@ import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Loader, Size, Variant } from './index'
 
 const meta: Meta<typeof Loader> = {
-  title: 'Loader',
+  title: 'Components/Loader',
   component: Loader
 }
 

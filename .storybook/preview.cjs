@@ -8,6 +8,7 @@ export const parameters = {
       date: /Date$/
     }
   },
+
   backgrounds: {
     default: 'clean',
     values: [
@@ -24,5 +25,18 @@ export const parameters = {
         value: '#333333'
       }
     ]
+  },
+  options: {
+    storySort: {
+      order: [
+        'Intro',
+        'Components',
+        'Typography',
+        'Form',
+        'Overlay',
+        'Layout',
+        'Demo'
+      ]
+    }
   }
 }
