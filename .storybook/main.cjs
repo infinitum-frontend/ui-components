@@ -20,7 +20,7 @@ module.exports = {
     autodocs: true,
     docsName: 'Docs'
   },
-  // staticDirs: ['../public'],
+  staticDirs: ['../static'],
   async viteFinal(config) {
     return mergeConfig(config, {
       css: {
