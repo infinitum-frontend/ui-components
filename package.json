@@ -5,7 +5,7 @@
     "build": "rm -rf dist && vite build && npm run ts-compile",
     "ts-compile": "tsc && tscpaths -p tsconfig.json -s ./src",
     "build-storybook": "storybook build -o public",
-    "storybook": "storybook dev -p 6006 -s public",
+    "storybook": "storybook dev -p 6006",
     "build-tokens": "rm -rf dist/themes && ts-node themes/build/index.ts",
     "test": "vitest",
     "test:ui": "vitest --ui",
