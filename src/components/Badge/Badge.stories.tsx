@@ -8,7 +8,7 @@ const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
   component: Badge,
   args: {
-    badgeContent: 5
+    count: 5
   }
 }
 
@@ -31,7 +31,7 @@ export const Standalone: StoryObj<typeof Badge> = {
     return (
       <Space direction={'horizontal'} gap={'xxsmall'}>
         <Text tone={'secondary'}>Контроль структуры</Text>
-        <Badge badgeContent={'10'} tone={'secondary'} />
+        <Badge count={10} tone={'secondary'} />
       </Space>
     )
   }
@@ -49,7 +49,7 @@ export const ShowZero = {
   render: Template,
 
   args: {
-    badgeContent: 0,
+    count: 0,
     showZero: true
   }
 }
@@ -66,7 +66,7 @@ export const MaxCount = {
   render: Template,
 
   args: {
-    badgeContent: 100,
+    count: 100,
     maxCount: 99
   }
 }
