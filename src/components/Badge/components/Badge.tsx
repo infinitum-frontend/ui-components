@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { forwardRef } from 'react'
-import type { ReactNode, ComponentPropsWithoutRef } from 'react'
+import React, { forwardRef, ReactNode, ComponentPropsWithoutRef } from 'react'
 import cn from 'classnames'
 import '../style/badge.scss'
 import BadgeSup from './BadgeSup'
@@ -11,7 +10,7 @@ export interface BadgeProps {
   /** цветовая тема */
   tone?: 'primary' | 'secondary'
   /** контент для отображения в бейдже */
-  badgeContent?: ReactNode
+  count?: ReactNode
   /** отображать в виде точки */
   dot?: boolean
   /** Сдвиг по горизонтали и вертикали в пикселях. Работает только когда у компонента есть children */
@@ -31,7 +30,7 @@ const Badge = forwardRef<
       showZero = false,
       dot = false,
       offset,
-      badgeContent,
+      count,
       maxCount,
       className,
       ...props
@@ -43,7 +42,7 @@ const Badge = forwardRef<
         {children}
         <BadgeSup
           standalone={!children}
-          badgeContent={badgeContent}
+          count={count}
           offset={offset}
           tone={tone}
           dot={dot}
