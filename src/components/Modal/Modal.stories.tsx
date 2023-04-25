@@ -19,7 +19,10 @@ const Template: StoryFn<typeof Modal> = (args) => {
       <Button onClick={() => setIsOpened(true)}>Открыть модальное окно</Button>
       <Modal {...args} open={isOpened} onClose={() => setIsOpened(false)}>
         <Modal.Header>
-          <Modal.Title>Изменение показателя</Modal.Title>
+          <Modal.Title>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero
+            modi odittttt incidunt nostrum voluptatibus quibusdam!
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis

@@ -9,7 +9,6 @@
     color: var(--inf-color-text-secondary);
     font-weight: var(--inf-font-weight-normal);
     font-size: var(--inf-text-size-small);
-    padding: 6px;
     position: relative;
 
     &:hover .inf-table-header__resizer {
@@ -17,13 +16,24 @@
     }
   }
 
+  th {
+    padding: var(--inf-space-xxsmall) var(--inf-space-medium)
+      var(--inf-space-small) 0;
+  }
+  td {
+    padding: var(--inf-space-xxsmall) var(--inf-space-medium)
+      var(--inf-space-xxsmall) 0;
+  }
+
+  td:first-child,
+  th:first-child {
+    padding-left: var(--inf-space-medium);
+  }
+
   tbody {
     tr {
       &:hover {
         background-color: var(--inf-control-background-color-hover);
-      }
-      &:first-child td {
-        padding-top: 12px;
       }
 
       &.inf-table__row--interactive {
@@ -31,15 +41,11 @@
       }
 
       &.inf-table__row--selected {
-        background-color: #E6F1F5;
-      }
-
-      td {
-        padding: 6px;
+        background-color: #e6f1f5;
       }
 
       &.inf-table__group-label {
-        background-color: #F2F4F5;
+        background-color: #f2f4f5;
         text-transform: uppercase;
 
         td {

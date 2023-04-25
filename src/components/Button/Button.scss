@@ -21,7 +21,7 @@
   -moz-appearance: none;
   appearance: none;
   border-radius: var(--inf-border-radius-medium);
-  transition: 0.2s;
+  transition: background-color 0.2s;
   background: none;
   position: relative;
 
@@ -30,11 +30,7 @@
   }
 
   &:focus-visible {
-    // outline: none;
-  }
-
-  &:focus {
-    // TODO: border: 2px solid #7abfff;
+    outline: 2px solid #49c8ff;
   }
 
   &--variant-primary {
