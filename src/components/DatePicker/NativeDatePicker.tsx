@@ -66,7 +66,9 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
         role={'calendar'}
         value={value}
         onChange={handleChange}
-        className={cn('inf-datepicker', className)}
+        className={cn('inf-datepicker', className, {
+          'inf-datepicker--filled': value
+        })}
         required={required || formGroupData?.required}
         aria-required={ariaRequired || formGroupData?.required}
         aria-invalid={ariaInvalid || formGroupData?.invalid}

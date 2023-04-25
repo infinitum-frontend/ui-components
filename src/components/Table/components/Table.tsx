@@ -144,7 +144,7 @@ const Table = ({
           },
           cell: ({ row }) => {
             return (
-              <div className="px-1">
+              <div>
                 <Checkbox
                   checked={row.getIsSelected()}
                   indeterminate={row.getIsSomeSelected()}

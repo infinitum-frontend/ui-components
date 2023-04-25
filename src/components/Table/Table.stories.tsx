@@ -6,6 +6,7 @@ import { Text } from '../Text'
 import { Row, SelectionStateItem } from './components/Table'
 import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtrure'
 import { Button } from '../Button'
+import { Space } from '../Space'
 
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
@@ -133,7 +134,7 @@ export const Selection: StoryObj<typeof Table> = {
     }
 
     return (
-      <>
+      <Space>
         <Table
           withRowSelection={true}
           onChangeRowSelection={handleChange}
@@ -143,7 +144,7 @@ export const Selection: StoryObj<typeof Table> = {
         />
         <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
         <Button onClick={() => handleChange([])}>Сбросить</Button>
-      </>
+      </Space>
     )
   }
 }
@@ -158,7 +159,7 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
     }
 
     return (
-      <>
+      <Space>
         <Table
           columns={columns}
           selectedRow={selected}
@@ -166,7 +167,7 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
           rows={TABLE_DATA}
         />
         <Text>Выбранный ряд: {selected}</Text>
-      </>
+      </Space>
     )
   },
 
@@ -200,7 +201,7 @@ export const WithSorting: StoryObj<typeof Table> = {
     }
 
     return (
-      <>
+      <Space>
         <Table
           withSorting
           sortingState={sorting}
@@ -215,7 +216,7 @@ export const WithSorting: StoryObj<typeof Table> = {
         >
           Сброс сортировки
         </Button>
-      </>
+      </Space>
     )
   }
 }
