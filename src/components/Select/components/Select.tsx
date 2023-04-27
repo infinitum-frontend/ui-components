@@ -221,6 +221,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     // ============================= render =============================
     const isValueExists = Boolean(value) || Number.isInteger(value)
+    const displayValue = isValueExists
+      ? getItemByValue(value as string | number, options)?.label
+      : placeholder
     // высота элемента, паддинг и границы
     const maxHeight = maxItemsCount * 32 + 4 + 2
 
@@ -236,15 +239,14 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           onFocus={handleFocus}
           onClick={handleClick}
           onBlur={handleBlur}
+          title={typeof displayValue === 'string' ? displayValue : ''}
           className={cn(className, 'inf-select')}
           {...getReferenceProps({
             onKeyDown: handleKeyDown
           })}
           {...props}
         >
-          {isValueExists
-            ? getItemByValue(value as string | number, options)?.label
-            : placeholder}
+          {displayValue}
           <select
             ref={selectRef}
             required={formGroupData?.required || required}
@@ -284,6 +286,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
                 options.map((option, index) => (
                   <li
                     key={option.value}
+                    title={typeof option.label === 'string' ? option.label : ''}
                     onMouseOver={() => handleItemMouseOver(index)}
                     onClick={() => handleItemSelect(option.value)}
                     className={cn('inf-select__item', {

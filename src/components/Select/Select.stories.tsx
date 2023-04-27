@@ -28,7 +28,7 @@ const Template: StoryFn<typeof Select> = (args) => {
       {...args}
       onChange={handleChange}
       value={value}
-      style={{ width: '300px' }}
+      style={args.style || { width: '300px' }}
     />
   )
 }
@@ -63,5 +63,13 @@ export const Scrollable = {
       value: 'id',
       label: 'name'
     })
+  }
+}
+
+export const Overflow = {
+  render: Template,
+
+  args: {
+    style: { width: '100px' }
   }
 }
