@@ -8,11 +8,14 @@
   background-color: var(--inf-color-background-base);
   border-radius: var(--inf-border-radius-medium);
   border: 1px solid var(--inf-color-border-default);
-  padding: 7px var(--inf-input-padding-horizontal-medium);
+  padding: 7px 28px  7px var(--inf-input-padding-horizontal-medium);
   line-height: 18px;
   height: var(--inf-control-height-medium);
   font-size: var(--inf-text-size-small);
   font-family: var(--inf-font-family-base);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &--selected {
     border-color: var(--inf-control-color-border-active);

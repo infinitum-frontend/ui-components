@@ -34,11 +34,13 @@
   }
 
   &__item {
-    display: flex;
     cursor: pointer;
     font-size: var(--inf-text-size-small);
     padding: 7px 12px;
     line-height: 18px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 
     &--active {
       background-color: var(--inf-control-background-color-hover);
@@ -54,6 +56,7 @@
     opacity: 0;
     outline: none;
     position: absolute;
+    left: 0;
     margin: 0;
     z-index: -1;
   }
