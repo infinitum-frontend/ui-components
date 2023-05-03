@@ -17,7 +17,6 @@ export function useNotification(): (
   const dispatch = useNotificationDispatchContext()
 
   function notify(message: Message, options?: NotificationOptions): void {
-    console.log(message, options)
     const id = generateToastId()
 
     const payload = {
