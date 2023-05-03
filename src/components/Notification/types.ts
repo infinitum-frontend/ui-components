@@ -5,6 +5,8 @@ export enum ActionKind {
   Delete = 'DELETE'
 }
 
+export type Message = ReactNode
+
 export interface INotification {
   id: string
   options: NotificationOptions
@@ -16,13 +18,17 @@ export interface NotificationOptions {
    */
   className?: string
   /**
-   * Текст сообщения
+   * Текст сообщения (DEPRECATED, дублирует первый аргумент функции вызова уведомления)
    */
-  message: ReactNode
+  message?: Message
   /**
    * Время (в мс) до автоматического закрытия, если null, то автоматически не закрывается
    */
   duration?: number | null
+  /**
+   * Тип сообщения
+   */
+  type?: 'default' | 'success' | 'error' | 'warning'
 }
 
 export interface ReducerState {
@@ -47,5 +53,8 @@ export type INotificationDispatchContext = Dispatch<ReducerAction>
 export interface NotificationProps
   extends ComponentPropsWithoutRef<'div'>,
     NotificationOptions {
+  /**
+   * ID уведомления
+   */
   id: string
 }
