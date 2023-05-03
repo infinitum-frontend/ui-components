@@ -8,6 +8,18 @@
   max-width: 500px;
   display: flex;
 
+  &--type-success {
+    border-color: green;
+  }
+
+  &--type-warning {
+    border-color: yellow;
+  }
+
+  &--type-error {
+    border-color: red;
+  }
+
   &__text {
     padding-right: 50px;
   }

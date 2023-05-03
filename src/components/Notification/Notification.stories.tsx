@@ -32,24 +32,14 @@ const Template: StoryFn<typeof Notification> = (args) => {
   const notify = useNotification()
 
   return (
-    <Button
-      onClick={() =>
-        notify({
-          message: `some message ${new Date().getTime()}`
-        })
-      }
-    >
+    <Button onClick={() => notify(`some message ${new Date().getTime()}`)}>
       Notify
     </Button>
   )
 }
 
 export const Playground = {
-  render: Template,
-
-  args: {
-    message: `some message ${new Date().getTime()}`
-  }
+  render: Template
 }
 
 export const Duration: StoryFn<typeof Notification> = () => {
@@ -59,20 +49,43 @@ export const Duration: StoryFn<typeof Notification> = () => {
 
   return (
     <Space>
-      {durations.map((duration) => (
-        <>
+      {durations.map((duration, index) => (
+        <div key={index}>
           <div>duration: {duration || 'null'}</div>
           <Button
             onClick={() =>
-              notify({
-                message: `Текст сообщения с задержкой ${duration || 'null'}`,
+              notify(`Текст сообщения с задержкой ${duration || 'null'}`, {
                 duration
               })
             }
           >
             Notify
           </Button>
-        </>
+        </div>
+      ))}
+    </Space>
+  )
+}
+
+export const Type: StoryFn<typeof Notification> = () => {
+  const notify = useNotification()
+
+  const types = ['default', 'success', 'warning', 'error']
+
+  return (
+    <Space>
+      {types.map((type, index) => (
+        <div key={index}>
+          <Button
+            onClick={() =>
+              notify(`Текст сообщения типа ${type}`, {
+                type
+              })
+            }
+          >
+            Notify {type}
+          </Button>
+        </div>
       ))}
     </Space>
   )
@@ -84,11 +97,12 @@ export const LongMessage: StoryFn<typeof Notification> = () => {
   return (
     <Button
       onClick={() =>
-        notify({
-          message:
-            'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis inventore quas aspernatur repudiandae voluptate rerum distinctio libero minima minus cupiditate.',
-          duration: null
-        })
+        notify(
+          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis inventore quas aspernatur repudiandae voluptate rerum distinctio libero minima minus cupiditate.',
+          {
+            duration: null
+          }
+        )
       }
     >
       Notify
@@ -107,8 +121,7 @@ export const InModal: StoryFn<typeof Notification> = () => {
         <Modal.Body>
           <Button
             onClick={() =>
-              notify({
-                message: `some message ${new Date().getTime()}`,
+              notify(`some message ${new Date().getTime()}`, {
                 duration: 5000
               })
             }
@@ -117,6 +130,21 @@ export const InModal: StoryFn<typeof Notification> = () => {
           </Button>
         </Modal.Body>
       </Modal>
+    </>
+  )
+}
+
+export const MutipleAtOnce: StoryFn<typeof Notification> = () => {
+  const notify = useNotification()
+
+  function handleClick(): void {
+    notify('Message 1 - 1000 ms duration', { duration: 1000 })
+    notify('Message 2 - 3000 ms duration', { duration: 3000 })
+  }
+
+  return (
+    <>
+      <Button onClick={() => handleClick()}>Notify Multiple</Button>
     </>
   )
 }

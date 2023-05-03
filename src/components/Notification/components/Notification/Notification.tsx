@@ -9,7 +9,10 @@ import './Notification.scss'
  * Всплывающее окно с сообщением
  */
 const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
-  ({ className, message, id, duration = 5000, ...props }, ref) => {
+  (
+    { className, message, id, duration = 5000, type = 'default', ...props },
+    ref
+  ) => {
     const dispatch = useNotificationDispatchContext()
 
     function close(): void {
@@ -23,7 +26,11 @@ const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     return (
       <div
         ref={ref}
-        className={cn('inf-notification', className)}
+        className={cn(
+          'inf-notification',
+          className,
+          `inf-notification--type-${type}`
+        )}
         role="alert"
         {...props}
       >

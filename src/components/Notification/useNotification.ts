@@ -1,21 +1,36 @@
 import { useNotificationDispatchContext } from './NotificationContext'
-import { NotificationOptions, ActionKind } from './types'
+import { NotificationOptions, ActionKind, Message } from './types'
+
+let TOAST_ID = 1
+
+function generateToastId(): string {
+  return `${TOAST_ID++}`
+}
 
 /**
  * Хук создает функцию для вызова компонента Notification
  */
-export function useNotification(): (options: NotificationOptions) => void {
+export function useNotification(): (
+  message: Message,
+  options?: NotificationOptions
+) => void {
   const dispatch = useNotificationDispatchContext()
 
-  function notify(options: NotificationOptions): void {
-    const id = `notification-${new Date().getTime()}` // TODO: id
+  function notify(message: Message, options?: NotificationOptions): void {
+    console.log(message, options)
+    const id = generateToastId()
+
+    const payload = {
+      id,
+      options: {
+        message,
+        ...options
+      }
+    }
 
     dispatch({
       type: ActionKind.Add,
-      payload: {
-        options,
-        id
-      }
+      payload
     })
   }
 
