@@ -7,16 +7,15 @@ function generateToastId(): string {
   return `${TOAST_ID++}`
 }
 
+type NotifyFunction = (message: Message, options?: NotificationOptions) => void
+
 /**
  * Хук создает функцию для вызова компонента Notification
  */
-export function useNotification(): (
-  message: Message,
-  options?: NotificationOptions
-) => void {
+export function useNotification(): NotifyFunction {
   const dispatch = useNotificationDispatchContext()
 
-  function notify(message: Message, options?: NotificationOptions): void {
+  const notify: NotifyFunction = (message, options) => {
     const id = generateToastId()
 
     const payload = {

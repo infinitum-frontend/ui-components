@@ -7,6 +7,7 @@ import {
   NotificationProvider,
   useNotification
 } from './index'
+import { NotificationOptions } from './types'
 import { Button } from 'Components/Button'
 import { Modal } from 'Components/Modal'
 import { Space } from 'Components/Space'
@@ -70,7 +71,12 @@ export const Duration: StoryFn<typeof Notification> = () => {
 export const Type: StoryFn<typeof Notification> = () => {
   const notify = useNotification()
 
-  const types = ['default', 'success', 'warning', 'error']
+  const types: Array<NotificationOptions['type']> = [
+    'default',
+    'success',
+    'warning',
+    'error'
+  ]
 
   return (
     <Space>
@@ -78,7 +84,7 @@ export const Type: StoryFn<typeof Notification> = () => {
         <div key={index}>
           <Button
             onClick={() =>
-              notify(`Текст сообщения типа ${type}`, {
+              notify(`Текст сообщения типа ${type as string}`, {
                 type
               })
             }
