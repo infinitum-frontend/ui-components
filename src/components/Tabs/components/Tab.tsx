@@ -79,7 +79,7 @@ const Tab = <C extends ElementType = 'button'>({
     >
       {BaseComponent}
       <Badge
-        badgeContent={badge}
+        count={badge}
         onClick={() => handleTabClick(id)}
         className={'inf-tab__badge'}
       />
