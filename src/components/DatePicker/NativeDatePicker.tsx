@@ -13,7 +13,10 @@ import './index.scss'
 import { useFormGroup } from 'Components/Form/context/group'
 
 export interface NativeDatePickerProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'onChange' | 'value' | 'min' | 'max'
+  > {
   /**
    * Формат выбираемого времени
    * @default 'date'
@@ -22,8 +25,21 @@ export interface NativeDatePickerProps
     HTMLInputTypeAttribute,
     'date' | 'time' | 'datetime-local' | 'month' | 'week'
   >
-  value?: string
+  /** Дата или строка в формате YYYY-MM-DD */
+  value?: Date | string
+  /** Максимально допустимое значение для выбора. Дата или строка в формате YYYY-MM-DD */
+  max?: Date | string
+  /** Минимально допустимое значение для выбора. Дата или строка в формате YYYY-MM-DD */
+  min?: Date | string
   onChange?: (value: string, e: ChangeEvent) => void
+}
+
+function getFormattedValue(date?: string | Date): string | undefined {
+  if (date instanceof Date) {
+    return date.toISOString().slice(0, 10)
+  }
+
+  return date
 }
 
 /** Компонент нативного выбора даты и времени */
@@ -38,6 +54,8 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
       id,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
+      min,
+      max,
       ...props
     },
     ref
@@ -59,21 +77,25 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
       }
     }
 
+    const formattedValue = getFormattedValue(value)
+
     return (
       <input
         type={type}
         ref={ref}
         role={'calendar'}
-        value={value}
+        value={formattedValue}
         onChange={handleChange}
         className={cn('inf-datepicker', className, {
-          'inf-datepicker--filled': value
+          'inf-datepicker--filled': formattedValue
         })}
         required={required || formGroupData?.required}
         aria-required={ariaRequired || formGroupData?.required}
         aria-invalid={ariaInvalid || formGroupData?.invalid}
         id={id || formGroupData?.id}
         onInvalid={handleInvalid}
+        max={getFormattedValue(max)}
+        min={getFormattedValue(min)}
         {...props}
       />
     )
