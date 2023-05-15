@@ -15,8 +15,10 @@ export interface TableFilterSelectOption {
 }
 
 export interface TableFilterDateOption {
-  from?: string
-  to?: string
+  /** Дата или строка в формате YYYY-MM-DD */
+  from?: Date | string
+  /** Дата или строка в формате YYYY-MM-DD */
+  to?: Date | string
 }
 
 export type TableFilterType = ColumnMeta<any, any>['filterType']

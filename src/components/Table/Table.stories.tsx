@@ -1,9 +1,14 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { Table, ColumnFiltersState, ColumnFilter } from './index'
+import {
+  Table,
+  TableColumnFilter,
+  TableColumnFiltersState,
+  TableRow,
+  TableSelectionStateItem
+} from './index'
 import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
-import { Row, SelectionStateItem } from './components/Table'
 import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtrure'
 import { Button } from '../Button'
 import { Space } from '../Space'
@@ -71,16 +76,27 @@ export const Base: StoryObj<typeof Table> = {
 
 export const Filtering: StoryObj<typeof Table> = {
   render: (args) => {
-    const [filters, setFilters] = useState<ColumnFiltersState>([])
+    const [filters, setFilters] = useState<TableColumnFiltersState>([
+      {
+        id: 'date',
+        filterType: 'date',
+        value: {
+          from: new Date(),
+          to: new Date()
+        }
+      }
+    ])
+
     const [resData, setResData] = useState(TABLE_DATA)
 
-    const handleFiltersChange = (state: ColumnFiltersState): void => {
+    const handleFiltersChange = (state: TableColumnFiltersState): void => {
       let result = TABLE_DATA
       setFilters(state)
       state.forEach((filter) => {
         result = result.filter((item) => {
           if (filter.filterType === 'select') {
-            const filterLabel = (filter as ColumnFilter<'select'>).value.label
+            const filterLabel = (filter as TableColumnFilter<'select'>).value
+              .label
             if (filterLabel === 'Все типы') {
               return true
             }
@@ -127,8 +143,8 @@ export const Filtering: StoryObj<typeof Table> = {
 
 export const Selection: StoryObj<typeof Table> = {
   render: (args) => {
-    const [selection, setSelection] = useState<SelectionStateItem[]>([])
-    const handleChange = (data: SelectionStateItem[]): void => {
+    const [selection, setSelection] = useState<TableSelectionStateItem[]>([])
+    const handleChange = (data: TableSelectionStateItem[]): void => {
       setSelection(data)
       console.log(data)
     }
@@ -153,7 +169,7 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
   render: (args) => {
     const [selected, setSelected] = useState(undefined)
 
-    const handleRowClick = (row: Row<any>): void => {
+    const handleRowClick = (row: TableRow<any>): void => {
       console.log(row)
       setSelected(row.id)
     }
