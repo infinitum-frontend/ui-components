@@ -46,9 +46,13 @@ interface BaseRow {
   style?: CSSProperties
 }
 
-export type TableRow<T extends Record<any, any>> = BaseRow & T
+export type TableRowData<T extends Record<any, any> = Record<any, any>> =
+  BaseRow & T
 
-export type TableSelectionStateItem = TableRow<{ id: string; rowData: any }>
+export interface TableRow<T extends Record<any, any> = Record<any, any>> {
+  id: string
+  rowData: TableRowData<T>
+}
 
 declare module '@tanstack/table-core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

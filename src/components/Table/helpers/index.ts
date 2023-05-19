@@ -1,5 +1,6 @@
 import { Row } from '@tanstack/react-table'
 import { ReactElement } from 'react'
+import { TableRow } from 'Components/Table'
 
 // проверяем по наличию текста в реакт-элементе любой вложенности
 // TODO: не работает вместе с группировкой
@@ -30,5 +31,13 @@ function findTextInElement(
       const children = element.props.children
       return findTextInElement(children, value)
     }
+  }
+}
+
+// маппим данные ряда из формата танстака к нашему формату
+export function mapRowToExternalFormat(row: Row<any>): TableRow<any> {
+  return {
+    id: row.id,
+    rowData: row.original
   }
 }

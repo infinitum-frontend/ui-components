@@ -1,13 +1,16 @@
 import { ReactElement, useState } from 'react'
-import { Table } from '../components/Table'
+import {
+  Table,
+  TableRowData,
+  ColumnDef,
+  TableColumnFiltersState
+} from '../components/Table'
 import { Meta } from '@storybook/react'
 import { SearchInput } from '../components/Input'
-import { ColumnDef, ColumnFiltersState } from '@tanstack/react-table'
 import { Space } from '../components/Space'
 import { Link } from '../components/Link'
 import { Button } from '../components/Button'
 import { Divider } from '../components/Divider'
-import { Row } from '../components/Table/components/Table'
 // @ts-expect-error
 import { ReactComponent as PadlockIcon } from 'Icons/padlock.svg'
 
@@ -26,7 +29,7 @@ export const ShareholdersTableStories = (): ReactElement => {
     email: string
   }
 
-  const columns: Array<ColumnDef<Row<Data>>> = [
+  const columns: Array<ColumnDef<Data>> = [
     {
       id: 'icon',
       cell: (cell) => {
@@ -66,7 +69,7 @@ export const ShareholdersTableStories = (): ReactElement => {
       cell: (cell) => cell.getValue()
     }
   ]
-  const data: Array<Row<Data>> = [
+  const data: Array<TableRowData<Data>> = [
     {
       fio: 'София Алексеева',
       passport: '88e122bf',
@@ -171,7 +174,7 @@ export const ShareholdersTableStories = (): ReactElement => {
   const [rows, setRows] = useState(data)
   const [value1, setValue1] = useState('')
   const [value2, setValue2] = useState('')
-  const [filters, setFilters] = useState<ColumnFiltersState>([])
+  const [filters, setFilters] = useState<TableColumnFiltersState>([])
 
   const applyFilters = (): void => {
     let result = data
@@ -195,7 +198,7 @@ export const ShareholdersTableStories = (): ReactElement => {
     setValue1(value)
     setFilters((prev) => [
       ...prev.filter((item) => item.id !== 'fio'),
-      { id: 'fio', value }
+      { id: 'fio', value, filterType: 'input' }
     ])
   }
 
@@ -203,7 +206,7 @@ export const ShareholdersTableStories = (): ReactElement => {
     setValue2(value)
     setFilters((prev) => [
       ...prev.filter((item) => item.id !== 'email'),
-      { id: 'email', value }
+      { id: 'email', value, filterType: 'input' }
     ])
   }
 

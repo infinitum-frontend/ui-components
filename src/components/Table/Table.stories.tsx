@@ -3,8 +3,7 @@ import {
   Table,
   TableColumnFilter,
   TableColumnFiltersState,
-  TableRow,
-  TableSelectionStateItem
+  TableRow
 } from './index'
 import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
@@ -143,8 +142,8 @@ export const Filtering: StoryObj<typeof Table> = {
 
 export const Selection: StoryObj<typeof Table> = {
   render: (args) => {
-    const [selection, setSelection] = useState<TableSelectionStateItem[]>([])
-    const handleChange = (data: TableSelectionStateItem[]): void => {
+    const [selection, setSelection] = useState<Array<TableRow<Portfolio>>>([])
+    const handleChange = (data: Array<TableRow<Portfolio>>): void => {
       setSelection(data)
       console.log(data)
     }
@@ -167,7 +166,7 @@ export const Selection: StoryObj<typeof Table> = {
 
 export const WithSelectedRow: StoryObj<typeof Table> = {
   render: (args) => {
-    const [selected, setSelected] = useState(undefined)
+    const [selected, setSelected] = useState('')
 
     const handleRowClick = (row: TableRow<any>): void => {
       console.log(row)

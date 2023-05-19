@@ -22,14 +22,15 @@ import {
   TableColumnFiltersState,
   TableColumnFilterValue,
   TableRow,
-  TableSelectionStateItem
+  TableRowData
 } from 'Components/Table'
+import { mapRowToExternalFormat } from 'Components/Table/helpers'
 
 export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Массив с данными для построения шапки таблицы */
   columns: Array<ColumnDef<any, any>>
   /** Массив с данными для построения тела таблицы */
-  rows: Array<TableRow<any>>
+  rows: Array<TableRowData<any>>
   /** Максимальное количество отображаемых элементов */
   maxLength?: number
   /** Включение сортировки по столбцам */
@@ -47,9 +48,9 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Отображение чекбоксов в 1 колонке */
   withRowSelection?: boolean
   /** Событие изменения чекбоксов */
-  onChangeRowSelection?: (selectionState: TableSelectionStateItem[]) => void
+  onChangeRowSelection?: (selectionState: Array<TableRow<any>>) => void
   /** Состояние выбора рядов через чекбокс */
-  selectionState?: TableSelectionStateItem[]
+  selectionState?: Array<TableRow<any>>
   /**
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id столбца.
    */
@@ -100,6 +101,7 @@ const Table = ({
     }
     onSortingChange?.(newState)
   }
+
   const handleFiltersChange: (
     value: TableColumnFilterValue,
     filterType: ColumnMeta<any, any>['filterType'],
@@ -112,14 +114,15 @@ const Table = ({
     onFiltersChange?.(newState)
   }
 
+  // маппим данные ряда из формата танстака к нашему формату
   const handleRowSelection: OnChangeFn<RowSelectionState> = (callback) => {
     const newTanstackSelectionState =
       typeof callback === 'function' ? callback(tanstackSelectionState) : {}
 
-    const rowSelectionState: TableSelectionStateItem[] = []
+    const rowSelectionState: Array<TableRow<any>> = []
     Object.keys(newTanstackSelectionState).forEach((key) => {
-      const { id, original } = table.getRow(key)
-      rowSelectionState.push({ id, rowData: original })
+      const row = mapRowToExternalFormat(table.getRow(key))
+      rowSelectionState.push(row)
     })
 
     onChangeRowSelection?.(rowSelectionState)

@@ -2,18 +2,21 @@
 import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
+import { TableRow } from 'Components/Table'
+import { mapRowToExternalFormat } from 'Components/Table/helpers'
 
 interface TableBodyProps {
+  // тут для ряда используется внутренний тип танстака - это верно, не менять.
   rows: Array<Row<any>>
-  selectedRow?: string | number | ((row: Row<any>) => boolean)
-  onRowClick?: (row: Row<any>) => void
+  selectedRow?: string | number | ((row: TableRow<any>) => boolean)
+  onRowClick?: (row: TableRow<any>) => void
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
 
 const checkSelected = (
-  row: Row<any>,
-  selectedRow?: string | number | ((row: Row<any>) => boolean)
+  row: TableRow<any>,
+  selectedRow?: string | number | ((row: TableRow<any>) => boolean)
 ): boolean => {
   if (typeof selectedRow === 'function') {
     return selectedRow(row)
@@ -34,11 +37,14 @@ const TableBody = ({
           <tr
             key={row.id}
             className={cn(row.original.className, {
-              'inf-table__row--selected': checkSelected(row, selectedRow),
+              'inf-table__row--selected': checkSelected(
+                mapRowToExternalFormat(row),
+                selectedRow
+              ),
               'inf-table__row--interactive': Boolean(onRowClick)
             })}
             style={row.original.style}
-            onClick={() => onRowClick?.(row)}
+            onClick={() => onRowClick?.(mapRowToExternalFormat(row))}
           >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
