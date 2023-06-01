@@ -3,6 +3,11 @@ import React, { useState } from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Modal } from './index'
 import { Button } from 'Components/Button'
+import {
+  NotificationContainer,
+  NotificationProvider,
+  useNotification
+} from '../Notification'
 
 const meta: Meta<typeof Modal> = {
   title: 'Overlay/Modal',
@@ -150,6 +155,50 @@ export const ContentOverflow: StoryObj<typeof Modal> = {
           <Modal.Footer>
             <Button variant="secondary">Добавить настройку</Button>
           </Modal.Footer>
+        </Modal>
+      </>
+    )
+  }
+}
+
+export const ModalWithNotification: StoryObj<typeof Modal> = {
+  decorators: [
+    (Story) => {
+      return (
+        <NotificationProvider>
+          <Story />
+          <NotificationContainer />
+        </NotificationProvider>
+      )
+    }
+  ],
+  render: (args) => {
+    const [isOpened, setIsOpened] = useState(false)
+    const notify = useNotification()
+
+    return (
+      <>
+        <Button onClick={() => setIsOpened(true)}>
+          Открыть модальное окно
+        </Button>
+        <Modal {...args} open={isOpened} onClose={() => setIsOpened(false)}>
+          <Modal.Header>
+            <Modal.Title>
+              При закрытии/нажатии на модификацию модальное окно не будет
+              закрыто
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Button
+              onClick={() =>
+                notify(`some message ${new Date().getTime()}`, {
+                  duration: 10000
+                })
+              }
+            >
+              Открыть нотификацию
+            </Button>
+          </Modal.Body>
         </Modal>
       </>
     )

@@ -17,6 +17,7 @@ import {
   FloatingOverlay,
   FloatingPortal
 } from '@floating-ui/react'
+import { NOTIFICATION_CONTAINER_CLASSNAME } from 'Components/Notification/components/NotificationContainer/NotificationContainer'
 
 export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
@@ -55,7 +56,16 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     })
     const dismiss = useDismiss(context, {
       escapeKey: closeOnEsc,
-      outsidePress: closeOnClickOutside,
+      outsidePress: (e) => {
+        const el = e.target as HTMLElement
+
+        // если нажатый элемент находится внутри компонента нотификации, не триггерим закрытие модалки
+        if (el.closest(`.${NOTIFICATION_CONTAINER_CLASSNAME as string}`)) {
+          return false
+        }
+
+        return closeOnClickOutside
+      },
       outsidePressEvent: 'mousedown'
     })
     const role = useRole(context)
