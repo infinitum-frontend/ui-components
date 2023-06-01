@@ -6,6 +6,8 @@ import cn from 'classnames'
 import { NotificationOptions } from '../../types'
 import { FloatingPortal } from '@floating-ui/react'
 
+export const NOTIFICATION_CONTAINER_CLASSNAME = 'inf-notification-container'
+
 export interface NotificationContainerProps
   extends ComponentPropsWithoutRef<'div'> {
   className?: string
@@ -21,7 +23,7 @@ const NotificationContainer = React.forwardRef<
     <FloatingPortal>
       <div
         ref={ref}
-        className={cn('inf-notification-container', className)}
+        className={cn(NOTIFICATION_CONTAINER_CLASSNAME, className)}
         {...props}
       >
         {notifications?.map(
