@@ -163,7 +163,7 @@ export const PhoneMask: StoryFn<typeof Input> = () => {
         inputMode="numeric"
       />
       <span style={{ color: 'darkred', marginTop: '6px' }}>
-        Значение: {value}
+        Значение1: {value}
       </span>
     </>
   )
