@@ -1,39 +1,10 @@
-import {
-  ComponentPropsWithoutRef,
-  ComponentPropsWithRef,
-  ElementType,
-  PropsWithChildren,
-  ReactElement,
-  WeakValidationMap
-} from 'react'
+import { ComponentPropsWithRef, ElementType } from 'react'
 
-export type PolymorphicComponent<C extends ElementType, Props = {}> = Omit<
-  PropsWithChildren<Props & { as?: C }>,
-  'children'
-> &
-  Omit<ComponentPropsWithoutRef<C>, keyof Props>
+export type PolymorphicComponent<C extends ElementType, Props = {}> = Props &
+  Omit<ComponentPropsWithRef<C>, keyof Props> & { as?: C }
 
 export type PolymorphicRef<C extends ElementType> =
   ComponentPropsWithRef<C>['ref']
-
-export interface PolymorphicComponentWithRef<
-  DefaultTag extends ElementType,
-  Props = {}
-> {
-  <C extends ElementType = DefaultTag>(
-    props: PolymorphicComponent<C, Props> & { ref?: PolymorphicRef<C> }
-  ): ReactElement | null
-  propTypes?:
-    | WeakValidationMap<PolymorphicComponent<DefaultTag, Props>>
-    | undefined
-  defaultProps?:
-    | Partial<
-        PropsWithChildren<Props & { as?: DefaultTag }> &
-          ComponentPropsWithRef<DefaultTag>
-      >
-    | undefined
-  displayName?: string | undefined
-}
 
 export type SpaceVariants =
   | 'xxsmall'
@@ -65,26 +36,27 @@ export type SpaceVariants =
     */
 
 // forwardRef component:
-/*
-    export interface TextProps {
-      gap?: string
-    }
+// export interface TextProps {
+//   tone?: string
+// }
+//
+// function BaseText<C extends ElementType = 'div'>(
+//   props: PolymorphicComponent<C, TextProps>,
+//   ref: PolymorphicRef<C>
+// ): ReactElement {
+//   // пропы деструктурируем в теле компонента, тк в аргументах функции это ломает отображение таблицы пропов
+//   const {
+//     as,
+//     tone
+//   } = props
+//   const Component = as || 'div'
+//
+//   return (
+//     <Component ref={ref}>
+//   {children}
+//   </Component>
+// )
+// }
 
-    const Text: PolymorphicComponentWithRef<'div', TextProps> = forwardRef(
-      <C extends ElementType = 'div'>(
-        { as, children, ...props }: PolymorphicComponent<C, TextProps>,
-        ref?: PolymorphicRef<C>
-      ): ReactElement => {
-        const Component = as || 'div'
-        return (
-          <Component ref={ref} {...props}>
-            {children}
-         </Component>
-        )
-      }
-    )
-
-    Text.displayName = 'Text'
-
-    export default Text
-    */
+// Экспорт именнованный, тк с дефолтным пропы отказываются появляться(https://github.com/storybookjs/storybook/issues/9556)
+// export const Space = forwardRef(BaseSpace) as typeof BaseSpace

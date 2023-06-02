@@ -13,7 +13,7 @@ export default meta
 const Template: StoryFn<typeof SideNav> = (args) => {
   return (
     <SideNav {...args}>
-      <SideNav.Item active as="a" href="https://specdep.ru/" target="_blank">
+      <SideNav.Item active href="https://specdep.ru/" target="_blank">
         Входящие
       </SideNav.Item>
       <SideNav.Item as="a" href="https://specdep.ru/">

@@ -1,11 +1,8 @@
-import './Space.scss'
-import React, { ElementType } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ElementType, forwardRef, ReactElement } from 'react'
 import cn from 'classnames'
-import {
-  PolymorphicComponent,
-  PolymorphicComponentWithRef,
-  PolymorphicRef
-} from '~/src/utils/types'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
+import './Space.scss'
 
 export interface SpaceProps {
   /**
@@ -45,50 +42,49 @@ export interface SpaceProps {
   fullWidth?: boolean
 }
 
-const Space: PolymorphicComponentWithRef<'div', SpaceProps> = React.forwardRef(
-  <C extends ElementType = 'div'>(
-    {
-      as,
-      children,
+// TODO: gapX, gapY
+function BaseSpace<C extends ElementType = 'div'>(
+  props: PolymorphicComponent<C, SpaceProps>,
+  ref: PolymorphicRef<C>
+): ReactElement {
+  // пропы деструктурируем в теле компонента, тк в аргументах функции это ломает отображение таблицы пропов
+  const {
+    as = 'div',
+    className,
+    gap = 'small',
+    direction = 'vertical',
+    wrap,
+    fullWidth,
+    align,
+    justify,
+    children,
+    ...rest
+  } = props
+  const getClassNames = (): string => {
+    return cn(
+      'inf-space',
       className,
-      gap = 'small',
-      direction = 'vertical',
-      align,
-      justify,
-      fullWidth = false,
-      wrap = false,
-      ...props
-    }: PolymorphicComponent<C, SpaceProps>,
-    ref: PolymorphicRef<C>
-  ) => {
-    const getClassNames: () => string = () => {
-      return cn(
-        'inf-space',
-        className,
-        `inf-space--gap-${gap as string}`,
-        `inf-space--direction-${direction as string}`,
-        {
-          'inf-space--wrap': wrap,
-          'inf-space--full-width': fullWidth,
-          [`inf-space--align-${align as string}`]: align,
-          [`inf-space--justify-${justify as string}`]: justify
-        }
-      )
-    }
-
-    const Component = as || 'div'
-
-    return (
-      <Component ref={ref} className={getClassNames()} {...props}>
-        {children}
-      </Component>
+      `inf-space--gap-${gap as string}`,
+      `inf-space--direction-${direction as string}`,
+      {
+        'inf-space--wrap': wrap,
+        'inf-space--full-width': fullWidth,
+        [`inf-space--align-${align as string}`]: align,
+        [`inf-space--justify-${justify as string}`]: justify
+      }
     )
   }
-)
 
-Space.displayName = 'Space'
+  const Component = as
 
+  return (
+    <Component ref={ref} className={getClassNames()} {...rest}>
+      {children}
+    </Component>
+  )
+}
+
+// We use typecasting to force args table to show up in Storybook
+// Экспорт именнованный, тк с дефолтным пропы отказываются появляться(https://github.com/storybookjs/storybook/issues/9556)
 /** Компонент для вертикальной и горизонтальной раскладки элементов */
-export default Space
-
-// TODO: gapX, gapY
+export const Space = forwardRef(BaseSpace) as typeof BaseSpace

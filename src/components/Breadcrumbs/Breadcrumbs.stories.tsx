@@ -5,7 +5,10 @@ import { Breadcrumbs } from './index'
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: 'Components/Breadcrumbs',
-  component: Breadcrumbs
+  component: Breadcrumbs,
+  args: {
+    as: 'div'
+  }
 }
 
 export default meta

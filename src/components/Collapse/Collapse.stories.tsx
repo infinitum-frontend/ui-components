@@ -1,7 +1,7 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { Collapse } from './index'
 import Text from '../Text/Text'
-import Button from '../Button/Button'
+import { Button } from '../Button'
 import { useState } from 'react'
 
 const meta: Meta<typeof Collapse> = {
