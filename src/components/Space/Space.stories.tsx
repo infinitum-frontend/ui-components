@@ -14,6 +14,9 @@ const ComponentMeta: Meta<typeof Space> = {
         excludeDecorators: true
       }
     }
+  },
+  args: {
+    as: 'div'
   }
 }
 

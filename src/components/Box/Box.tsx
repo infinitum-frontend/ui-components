@@ -1,39 +1,54 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {
+  CSSProperties,
+  ElementType,
+  forwardRef,
+  ReactElement
+} from 'react'
 import './Box.scss'
 import cn from 'classnames'
-import { SpaceVariants } from '~/src/utils/types'
+import {
+  PolymorphicComponent,
+  PolymorphicRef,
+  SpaceVariants
+} from '~/src/utils/types'
 
-export interface BoxProps extends ComponentPropsWithoutRef<'div'> {
-  className?: string
-  as?: React.ElementType
+export interface BoxProps {
   background?: 'base' | 'secondary' | 'inverse'
   padding?: SpaceVariants
 }
 
-const Box = React.forwardRef<HTMLDivElement, BoxProps>(
-  ({ className, children, as = 'div', padding, background, ...props }, ref) => {
-    const Component = as
+function BaseBox<C extends ElementType = 'div'>(
+  props: PolymorphicComponent<C, BoxProps>,
+  ref: PolymorphicRef<C>
+): ReactElement {
+  const {
+    className,
+    children,
+    as = 'div',
+    padding,
+    background,
+    ...rest
+  } = props
+  const Component = as
 
-    const styles = {
-      padding: padding ? `var(--inf-space-${padding as string})` : false,
-      backgroundColor: background
-        ? `var(--inf-color-background-${background as string})`
-        : false
-    }
-
-    return (
-      <Component
-        ref={ref}
-        className={cn('inf-box', className)}
-        style={styles}
-        {...props}
-      >
-        {children}
-      </Component>
-    )
+  const styles = {
+    padding: padding ? `var(--inf-space-${padding as string})` : false,
+    backgroundColor: background
+      ? `var(--inf-color-background-${background as string})`
+      : false
   }
-)
 
-Box.displayName = 'Box'
+  return (
+    <Component
+      ref={ref}
+      className={cn('inf-box', className)}
+      style={styles as CSSProperties}
+      {...rest}
+    >
+      {children}
+    </Component>
+  )
+}
 
-export default Box
+export const Box = forwardRef(BaseBox) as typeof BaseBox

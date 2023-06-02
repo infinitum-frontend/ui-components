@@ -12,8 +12,8 @@ import {
   TableFilterSelectOption,
   TableFilterType
 } from 'Components/Table'
-import Space from 'Components/Space/Space'
-import Button from '../../Button/Button'
+import { Space } from 'Components/Space'
+import { Button } from 'Components/Button'
 import Input from '../../Input/Input'
 import NativeDatePicker from 'Components/DatePicker/NativeDatePicker'
 import Form from 'Components/Form/components/Form'

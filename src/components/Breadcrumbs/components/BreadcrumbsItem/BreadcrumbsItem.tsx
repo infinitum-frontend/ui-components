@@ -1,29 +1,31 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ElementType, forwardRef, ReactElement } from 'react'
 import './BreadcrumbsItem.scss'
 import cn from 'classnames'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
-export interface BreadcrumbsItemProps extends ComponentPropsWithoutRef<'a'> {
-  className?: string
-  as?: React.ElementType<any>
-}
+function BaseBreadcrumbsItem<C extends ElementType = 'span'>(
+  props: PolymorphicComponent<C>,
+  ref: PolymorphicRef<C>
+): ReactElement {
+  const { className, children, as = 'span', ...rest } = props
 
-const BreadcrumbsItem = React.forwardRef<
-  HTMLAnchorElement,
-  BreadcrumbsItemProps
->(({ className, children, as = 'span', ...props }, ref) => {
   const Component = as
 
   return (
     <Component
       ref={ref}
       className={cn('inf-breadcrumbs-item', className)}
-      {...props}
+      {...rest}
     >
       {children}
     </Component>
   )
-})
+}
 
+export const BreadcrumbsItem = forwardRef(
+  BaseBreadcrumbsItem
+) as typeof BaseBreadcrumbsItem
+
+// @ts-expect-error
 BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
-
-export default BreadcrumbsItem

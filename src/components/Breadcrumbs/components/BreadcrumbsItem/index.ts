@@ -1,1 +1,1 @@
-export { default as BreadcrumbsItem } from './BreadcrumbsItem'
+export { BreadcrumbsItem } from './BreadcrumbsItem'

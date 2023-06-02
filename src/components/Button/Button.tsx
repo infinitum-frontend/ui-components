@@ -1,14 +1,11 @@
-import React, { ReactNode } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ElementType, forwardRef, ReactElement, ReactNode } from 'react'
 import cn from 'classnames'
 import { Loader, Size, Variant } from '../Loader'
 import './Button.scss'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
-export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
-  /**
-   * Элемент для рендеринга
-   * @default 'button'
-   */
-  as?: React.ElementType<any>
+export interface ButtonProps {
   /**
    * Содержимое
    */
@@ -51,74 +48,65 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   after?: ReactNode
 }
 
-/** Компонент кнопки, используемый для инициализации различных действий */
-const Button = React.forwardRef<
-  HTMLAnchorElement | HTMLButtonElement,
-  ButtonProps
->(
-  (
-    {
-      children,
-      className,
-      as = 'button',
-      variant = 'primary',
-      size = 'medium',
-      loading = false,
-      block = false,
-      before,
-      after,
-      icon,
-      ...props
-    },
-    ref
-  ) => {
-    const Component = as
+function BaseButton<C extends ElementType = 'button'>(
+  props: PolymorphicComponent<C, ButtonProps>,
+  ref: PolymorphicRef<C>
+): ReactElement {
+  const {
+    children,
+    className,
+    as = 'button',
+    variant = 'primary',
+    size = 'medium',
+    loading = false,
+    block = false,
+    before,
+    after,
+    icon,
+    ...rest
+  } = props
 
-    return (
-      <Component
-        ref={ref}
-        className={cn(
-          'inf-button',
-          className,
-          `inf-button--variant-${variant}`,
-          `inf-button--size-${size}`,
-          {
-            'inf-button--block': block,
-            'inf-button--loading': loading,
-            'inf-button--square': icon
-          }
+  const Component = as
+
+  return (
+    <Component
+      ref={ref}
+      className={cn(
+        'inf-button',
+        className,
+        `inf-button--variant-${variant as string}`,
+        `inf-button--size-${size as string}`,
+        {
+          'inf-button--block': block,
+          'inf-button--loading': loading,
+          'inf-button--square': icon
+        }
+      )}
+      type="button"
+      {...rest}
+    >
+      <span className="inf-button__content">
+        {icon ? (
+          <span className="inf-button__icon">{icon}</span>
+        ) : (
+          <>
+            {before && <span className="inf-button__before">{before}</span>}
+            <span className="inf-button__text">{children}</span>
+            {after && <span className="inf-button__after">{after}</span>}
+          </>
         )}
-        type="button"
-        {...props}
-      >
-        <span className="inf-button__content">
-          {icon ? (
-            <span className="inf-button__icon">{icon}</span>
-          ) : (
-            <>
-              {before && <span className="inf-button__before">{before}</span>}
-              <span className="inf-button__text">{children}</span>
-              {after && <span className="inf-button__after">{after}</span>}
-            </>
-          )}
-        </span>
+      </span>
 
-        {loading && (
-          <Loader
-            className="inf-button__loader"
-            size={Size.Compact}
-            variant={Variant.Unset}
-          />
-        )}
-      </Component>
-    )
-  }
-)
-
-Button.displayName = 'Button'
-
-Button.defaultProps = {
-  disabled: false
+      {loading && (
+        <Loader
+          className="inf-button__loader"
+          size={Size.Compact}
+          variant={Variant.Unset}
+        />
+      )}
+    </Component>
+  )
 }
 
-export default Button
+/** Компонент кнопки, используемый для инициализации различных действий */
+export const Button = forwardRef(BaseButton) as typeof BaseButton
