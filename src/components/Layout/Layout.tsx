@@ -20,6 +20,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
 
 Layout.displayName = 'Layout'
 
+/** Компонент для упорядочивания контентных блоков */
 export default Object.assign(Layout, {
   Header: LayoutHeader,
   Body: LayoutBody

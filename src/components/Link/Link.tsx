@@ -12,6 +12,7 @@ export interface LinkProps extends React.ComponentPropsWithoutRef<'a'> {
   variant?: 'primary'
 }
 
+/** Компонент ссылки */
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ({ as = 'a', children = '', className = '', ...props }, ref) => {
     const getClassNames: () => string = () => {

@@ -88,6 +88,7 @@ const Space: PolymorphicComponentWithRef<'div', SpaceProps> = React.forwardRef(
 
 Space.displayName = 'Space'
 
+/** Компонент для вертикальной и горизонтальной раскладки элементов */
 export default Space
 
 // TODO: gapX, gapY

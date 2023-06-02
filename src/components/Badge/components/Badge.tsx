@@ -19,6 +19,7 @@ export interface BadgeProps {
   maxCount?: number
 }
 
+/** Компонент для отображения числовых значений и привлечения внимания к важным показателям */
 const Badge = forwardRef<
   HTMLSpanElement,
   ComponentPropsWithoutRef<'span'> & BadgeProps

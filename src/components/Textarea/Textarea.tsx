@@ -38,7 +38,7 @@ export interface TextareaProps
   block?: boolean
 }
 
-/** Компонент Textarea */
+/** Компонент ввода для написания объемного текста */
 const Textarea = ({
   resize = 'none',
   block = false,

@@ -51,6 +51,7 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   after?: ReactNode
 }
 
+/** Компонент кнопки, используемый для инициализации различных действий */
 const Button = React.forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
   ButtonProps

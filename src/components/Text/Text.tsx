@@ -21,6 +21,7 @@ export interface TextProps extends React.ComponentPropsWithoutRef<'div'> {
   uppercase?: boolean
 }
 
+/** Компонент для отображения текста */
 const Text = React.forwardRef<HTMLDivElement, TextProps>(
   (
     {

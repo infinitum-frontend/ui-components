@@ -53,6 +53,7 @@ export interface PaginationProps extends ComponentPropsWithoutRef<'div'> {
   nextLabel?: string
 }
 
+/** Постраничная навигация */
 const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
   (
     {

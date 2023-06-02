@@ -20,6 +20,7 @@ export interface CollapseProps extends ComponentProps<'div'> {
 export const TRANSITION_DURATION_DEFAULT = 200
 export const TRANSITION_FUNCTION_DEFAULT = 'ease-out'
 
+/** Компонент для создания сворачиваемого контента */
 const Collapse = ({
   collapsed = true,
   transitionFn = TRANSITION_FUNCTION_DEFAULT,

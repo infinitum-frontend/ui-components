@@ -17,6 +17,7 @@ export interface HeadingProps extends ComponentPropsWithoutRef<HeadingTag> {
   hasMargin?: boolean
 }
 
+/** Компонент заголовка */
 const Heading = React.forwardRef<HTMLDivElement, HeadingProps>(
   (
     {

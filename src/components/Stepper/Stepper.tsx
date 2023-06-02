@@ -21,6 +21,7 @@ const getStatusByIndex = (
   return current > index ? 'completed' : 'pending'
 }
 
+/** Визуальный индикатор пошагового прогресса */
 const Stepper = ({
   steps = [],
   current = 0,

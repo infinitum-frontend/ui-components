@@ -8,6 +8,7 @@ export interface DividerProps extends ComponentPropsWithoutRef<'hr'> {
   variant?: 'default' | 'secondary'
 }
 
+/** Компонент для визуального разделения контента */
 const Divider = React.forwardRef<HTMLHRElement, DividerProps>(
   (
     { className, orientation = 'horizontal', variant = 'default', ...props },

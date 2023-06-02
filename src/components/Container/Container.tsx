@@ -4,10 +4,12 @@ import './Container.scss'
 
 export interface ContainerProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
+  /** Занимает полную ширину */
   fluid?: boolean
   children: React.ReactNode
 }
 
+/** Компонент для создания адаптивного контейнера для контента */
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, fluid, children, ...props }, ref) => {
     return (

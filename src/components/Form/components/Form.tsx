@@ -64,6 +64,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
 
 Form.displayName = 'Form'
 
+/** Компонент для создания интерактивных и удобных форм ввода, упрощающий пользователям ввод и отправку данных с проверками и настраиваемыми полями */
 export default Object.assign(Form, {
   Group: FormGroup,
   Item: FormItem,

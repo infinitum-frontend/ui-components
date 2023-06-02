@@ -54,6 +54,7 @@ const Menu = <C extends ElementType = 'ul'>({
   )
 }
 
+/** Список элементов меню */
 export default Object.assign(Menu, {
   Item: MenuItem
 })

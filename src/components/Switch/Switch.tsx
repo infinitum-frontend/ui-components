@@ -34,6 +34,7 @@ export type SwitchProps = Omit<
   onChange?: (checked: boolean, event?: ChangeEvent<HTMLInputElement>) => void
 }
 
+/** Компонент переключатель */
 export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
   (
     {

@@ -49,6 +49,7 @@ export interface RadioProps
   >
 }
 
+/** Компонент для выбора одного элемента из списка */
 const Radio = forwardRef<HTMLLabelElement, RadioProps>(
   (
     {

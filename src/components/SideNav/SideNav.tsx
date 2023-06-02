@@ -19,6 +19,7 @@ const SideNav = React.forwardRef<HTMLElement, SideNavProps>(
 
 SideNav.displayName = 'SideNav'
 
+/** Компонент боковой панели навигации для удобного доступа к различным разделам приложения */
 export default Object.assign(SideNav, {
   Item: SideNavItem
 })
