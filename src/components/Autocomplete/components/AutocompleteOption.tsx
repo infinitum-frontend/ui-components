@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import MenuItem, { MenuItemProps } from 'Components/Menu/components/MenuItem'
-import { IAutocompleteOption } from 'Components/Autocomplete/typings'
+import { IAutocompleteOption } from 'Components/Autocomplete/types'
 
 export type AutocompleteOptionProps = Omit<
   ComponentPropsWithoutRef<'button'>,

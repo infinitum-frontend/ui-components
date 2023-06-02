@@ -1,0 +1,11 @@
+@import '../../../Select/style/button.scss';
+.inf-autocomplete-button {
+  input {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    left: 0;
+    margin: 0;
+    z-index: -1;
+  }
+}

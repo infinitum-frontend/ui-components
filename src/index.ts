@@ -35,15 +35,17 @@ import { SideNav } from 'Components/SideNav'
 import { PageLayout } from 'Components/PageLayout'
 import { Table } from 'Components/Table'
 import {
-  NotificationProvider,
-  useNotification,
+  Notification,
   NotificationContainer,
-  Notification
+  NotificationProvider,
+  useNotification
 } from 'Components/Notification'
+import { Autocomplete } from 'Components/Autocomplete'
 import useUpdateEffect from 'Hooks/useUpdateEffect'
 import useIsFirstRender from 'Hooks/useIsFirstRender'
 
 export {
+  Autocomplete,
   Button,
   Table,
   Input,
