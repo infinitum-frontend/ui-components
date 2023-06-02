@@ -15,6 +15,7 @@ export interface StatusViewProps extends ComponentPropsWithoutRef<'div'> {
   icon?: ReactNode
 }
 
+/** Компонент для отображения статуса */
 const StatusView = ({
   className,
   children,

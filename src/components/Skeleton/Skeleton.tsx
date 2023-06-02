@@ -7,6 +7,7 @@ export interface SkeletonProps {
   role?: string
 }
 
+/** Компонент заполнитель, используемый для указания положения и макета контента, который загружается или еще не доступен */
 const Skeleton: React.FunctionComponent<SkeletonProps> = ({
   className,
   role = 'skeleton'

@@ -36,6 +36,7 @@ const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
+/** Хлебные крошки — компонент навигации, который помогает пользователю понять иерархию между уровнями и вернуться на предыдщие этапы. */
 export default Object.assign(Breadcrumbs, {
   Item: BreadcrumbsItem
 })

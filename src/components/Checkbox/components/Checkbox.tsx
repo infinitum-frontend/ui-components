@@ -60,7 +60,7 @@ export interface CheckboxProps
 
 // TODO: добавить расположение лейбла
 
-/** Компонент чекбокса */
+/** Компонент чекбокса для выбора опциональных парамтеров */
 const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
   (
     {

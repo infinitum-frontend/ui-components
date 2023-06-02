@@ -13,9 +13,6 @@ export interface LoaderProps extends ComponentPropsWithoutRef<'div'> {
   variant?: Variant
 }
 
-/**
- * Индикатор загрузки
- */
 const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
   (
     { className, size = Size.Regular, variant = Variant.Primary, ...props },
@@ -61,6 +58,7 @@ const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
 
 Loader.displayName = 'Loader'
 
+/** Индикатор загрузки */
 export default Object.assign(Loader, {
   Container: LoaderContainer
 })

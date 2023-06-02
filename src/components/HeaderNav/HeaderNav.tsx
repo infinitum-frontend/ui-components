@@ -19,6 +19,7 @@ const HeaderNav = React.forwardRef<HTMLElement, HeaderNavProps>(
 
 HeaderNav.displayName = 'HeaderNav'
 
+/** Компонент панели навигации для удобного доступа к различным разделам приложения */
 export default Object.assign(HeaderNav, {
   Item: HeaderNavItem
 })

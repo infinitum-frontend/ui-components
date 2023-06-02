@@ -57,6 +57,7 @@ const List = <C extends ElementType = 'ul'>({
   )
 }
 
+/** Упорядоченный список */
 export default Object.assign(List, {
   Item: ListItem
 })

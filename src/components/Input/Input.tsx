@@ -25,9 +25,7 @@ import { mergeRefs } from 'react-merge-refs'
  * raw mask value
  */
 
-/**
- * Компонент поля ввода
- */
+/** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {

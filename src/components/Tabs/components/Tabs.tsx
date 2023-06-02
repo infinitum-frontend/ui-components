@@ -70,6 +70,7 @@ const Tabs = ({
   )
 }
 
+/** Компонент для навигации между блоками с контентом */
 export default Object.assign(Tabs, {
   Tab,
   List: TabList,

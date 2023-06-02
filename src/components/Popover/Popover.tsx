@@ -97,6 +97,7 @@ function Popover({
   )
 }
 
+/** Всплывающий контент с возможностью взаимодействия */
 export default Object.assign(Popover, {
   Trigger: PopoverTrigger,
   Content: PopoverContent

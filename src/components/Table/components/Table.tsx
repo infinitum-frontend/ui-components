@@ -61,6 +61,7 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   // // enableGrouping?: boolean
 }
 
+/** Компонент многофункциональной таблицы */
 const Table = ({
   columns = [],
   rows,

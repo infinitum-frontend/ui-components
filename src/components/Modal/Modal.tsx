@@ -120,6 +120,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
 Modal.displayName = 'Modal'
 
+/** Модальное окно */
 export default Object.assign(Modal, {
   Header: ModalHeader,
   Body: ModalBody,

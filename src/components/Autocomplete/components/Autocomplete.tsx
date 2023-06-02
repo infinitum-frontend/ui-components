@@ -211,6 +211,7 @@ const Autocomplete = ({
   )
 }
 
+/** Компонент выпадающего списка, позволяющий пользователям фильтровать элементы в соответствии с введенным запросом . */
 export default Object.assign(Autocomplete, {
   Button: AutocompleteButton,
   Dropdown: AutocompleteDropdown,

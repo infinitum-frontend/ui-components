@@ -39,6 +39,7 @@ export interface TooltipProps extends React.ComponentPropsWithoutRef<'div'> {
   variant?: 'default' | 'inverted'
 }
 
+/** Всплывающий контент с текстовой информацией */
 const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
   (
     {
