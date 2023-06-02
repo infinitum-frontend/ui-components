@@ -9,6 +9,8 @@ import { Select } from '../Select'
 import { Radio, RadioGroup } from '../Radio'
 import { Textarea } from '../Textarea'
 import { Switch } from '../Switch'
+import { Autocomplete } from '../Autocomplete'
+import { AutocompleteBaseOptions } from '../Autocomplete/fixtures'
 
 const meta: Meta<typeof Form> = {
   title: 'Form/Form',
@@ -77,6 +79,7 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
     const [fullName, setFullName] = useState<string>('')
     const [phone, setPhone] = useState<string>('')
     const [entityType, setEntityType] = useState<string>('')
+    const [serviceType, setServiceType] = useState<string | number>('')
     const [subscription, setSubscription] = useState<boolean>(false)
 
     const handleSubmit: FormEventHandler = (e): void => {
@@ -133,6 +136,17 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
                   { label: 'Акции', value: '1' },
                   { label: 'Облигации', value: '2' }
                 ]}
+              />
+            </Form.Item>
+          </Form.Group>
+
+          <Form.Group direction={'horizontal'} required>
+            <Form.Label>Вид услуги</Form.Label>
+            <Form.Item>
+              <Autocomplete
+                onChange={(value) => setServiceType(value)}
+                options={AutocompleteBaseOptions}
+                selectedValue={serviceType}
               />
             </Form.Item>
           </Form.Group>

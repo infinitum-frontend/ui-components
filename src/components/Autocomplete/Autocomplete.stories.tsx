@@ -1,8 +1,8 @@
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Autocomplete } from './index'
 import { useState } from 'react'
-import { IAutocompleteOption } from './typings'
-import { AutocompleteBaseOptions } from './fixture'
+import { IAutocompleteOption } from './types'
+import { AutocompleteBaseOptions } from './fixtures'
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Form/Autocomplete',
@@ -33,6 +33,13 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
 
 export const Playground = {
   render: Template
+}
+
+export const Disabled = {
+  render: Template,
+  args: {
+    disabled: true
+  }
 }
 
 export const ControlledVariant: StoryObj<typeof Autocomplete> = {

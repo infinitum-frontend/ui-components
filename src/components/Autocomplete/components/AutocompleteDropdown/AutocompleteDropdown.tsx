@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import { FloatingPortal } from '@floating-ui/react'
 import cn from 'classnames'
-import '../style/dropdown.scss'
+import './AutocompleteDropdown.scss'
 
 export interface AutocompleteDropdownProps
   extends ComponentPropsWithoutRef<'div'> {}

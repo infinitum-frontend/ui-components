@@ -21,7 +21,7 @@ import {
   useFloating,
   useInteractions
 } from '@floating-ui/react'
-import { IAutocompleteOption } from 'Components/Autocomplete/typings'
+import { IAutocompleteOption } from 'Components/Autocomplete/types'
 
 export interface AutocompleteProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
@@ -33,6 +33,10 @@ export interface AutocompleteProps
   onChange?: (value: IAutocompleteOption['value']) => void
   /** Плейсхолдер, отображаемый в случае, когда ни одно из значений не выбрано */
   buttonPlaceholder?: string
+  /** Состояние недоступности */
+  disabled?: boolean
+  /** необходимость заполнения */
+  required?: boolean
   /** Плейсхолдер, отображаемый в инпуте */
   inputPlaceholder?: string
   /** Функция для фильтрации опций. По умолчанию идет нечувствительная к регистру фильтрация по вхождению в строку */
@@ -51,6 +55,8 @@ const Autocomplete = ({
   options = [],
   opened = false,
   onChange,
+  disabled,
+  required,
   buttonPlaceholder = 'Выберите',
   inputPlaceholder,
   selectedValue,
@@ -64,6 +70,10 @@ const Autocomplete = ({
   const [filteredOptions, setFilteredOptions] = useState(options)
 
   useEffect(() => {
+    if (opened && disabled) {
+      return
+    }
+
     setOpen(opened)
   }, [opened])
 
@@ -150,6 +160,9 @@ const Autocomplete = ({
     handleButtonClick,
     handleOptionClick,
     handleInputSubmit,
+    disabled,
+    required,
+    selectedValue,
     buttonRef: refs.setReference,
     getReferenceProps,
     dropdownRef: refs.setFloating,
@@ -165,6 +178,7 @@ const Autocomplete = ({
       <AutocompleteContext.Provider value={autocompleteContext}>
         <div>
           <AutocompleteButton
+            disabled={disabled}
             onClick={handleButtonClick}
             placeholder={buttonPlaceholder}
           >
