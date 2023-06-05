@@ -1,9 +1,6 @@
 .inf-heading {
-  font-family: var(--inf-font-family-base);
-
   &--level-1 {
-    font-size: var(--inf-heading-level-1-size);
-    line-height: var(--inf-heading-level-1-line-height);
+    font: var(--inf-font-h1);
 
     &.inf-heading--has-margin {
       margin-bottom: 40px;
@@ -11,8 +8,7 @@
   }
 
   &--level-2 {
-    font-size: var(--inf-heading-level-2-size);
-    line-height: var(--inf-heading-level-2-line-height);
+    font: var(--inf-font-h2);
 
     &.inf-heading--has-margin {
       margin-bottom: 24px;
@@ -20,8 +16,7 @@
   }
 
   &--level-3 {
-    font-size: var(--inf-heading-level-3-size);
-    line-height: var(--inf-heading-level-3-line-height);
+    font: var(--inf-font-h3);
 
     &.inf-heading--has-margin {
       margin-bottom: 16px;
@@ -29,17 +24,7 @@
   }
 
   &--level-4 {
-    font-size: var(--inf-heading-level-4-size);
-    line-height: var(--inf-heading-level-4-line-height);
-
-    &.inf-heading--has-margin {
-      margin-bottom: 12px;
-    }
-  }
-
-  &--level-5 {
-    font-size: var(--inf-heading-level-5-size);
-    line-height: var(--inf-heading-level-5-line-height);
+    font: var(--inf-font-h4);
 
     &.inf-heading--has-margin {
       margin-bottom: 12px;
@@ -68,19 +53,19 @@
     text-align: right;
   }
 
-  &--weight-light {
-    font-weight: var(--inf-font-weight-light);
-  }
+  // &--weight-light {
+  //   font-weight: var(--inf-font-weight-light);
+  // }
 
-  &--weight-normal {
-    font-weight: var(--inf-font-weight-normal);
-  }
+  // &--weight-normal {
+  //   font-weight: var(--inf-font-weight-normal);
+  // }
 
-  &--weight-bold {
-    font-weight: var(--inf-font-weight-bold);
-  }
+  // &--weight-bold {
+  //   font-weight: var(--inf-font-weight-bold);
+  // }
 
-  &--weight-extrabold {
-    font-weight: var(--inf-font-weight-extrabold);
-  }
+  // &--weight-extrabold {
+  //   font-weight: var(--inf-font-weight-extrabold);
+  // }
 }

@@ -8,6 +8,7 @@
   line-height: 1;
 
   &:hover {
-    border-color: transparent;
+    // border-color: transparent;
+    color: var(--inf-color-text-link-hover);
   }
 }

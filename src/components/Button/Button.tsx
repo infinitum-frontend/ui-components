@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ElementType, forwardRef, ReactElement, ReactNode } from 'react'
 import cn from 'classnames'
-import { Loader, Size, Variant } from '../Loader'
+import { Loader } from '../Loader'
+import { Variant, Size } from './enums'
 import './Button.scss'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
@@ -17,11 +18,11 @@ export interface ButtonProps {
   /**
    * Вариант оформления
    */
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
+  variant?: Variant
   /**
    * Размер
    */
-  size?: 'small' | 'medium' | 'large'
+  size?: Size
   /**
    * Состояние недоступности
    */
@@ -56,8 +57,8 @@ function BaseButton<C extends ElementType = 'button'>(
     children,
     className,
     as = 'button',
-    variant = 'primary',
-    size = 'medium',
+    variant = Variant.Primary,
+    size = Size.Medium,
     loading = false,
     block = false,
     before,
@@ -100,8 +101,8 @@ function BaseButton<C extends ElementType = 'button'>(
       {loading && (
         <Loader
           className="inf-button__loader"
-          size={Size.Compact}
-          variant={Variant.Unset}
+          size={Loader.Size.Compact}
+          variant={Loader.Variant.Unset}
         />
       )}
     </Component>
@@ -109,4 +110,10 @@ function BaseButton<C extends ElementType = 'button'>(
 }
 
 /** Компонент кнопки, используемый для инициализации различных действий */
-export const Button = forwardRef(BaseButton) as typeof BaseButton
+export const Button = Object.assign(
+  forwardRef(BaseButton) as typeof BaseButton,
+  {
+    Variant,
+    Size
+  }
+)

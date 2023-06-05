@@ -12,7 +12,7 @@ export const preview: Preview = {
     },
 
     backgrounds: {
-      default: 'clean',
+      default: 'light',
       values: [
         {
           name: 'clean',

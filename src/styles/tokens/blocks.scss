@@ -1,0 +1,45 @@
+:root {
+  /* Spacing */
+  --inf-spacing-xsmall: 4px;
+  --inf-spacing-small: 8px;
+  --inf-spacing-medium: 16px;
+  --inf-spacing-large: 24px;
+  --inf-spacing-xlarge: 32px;
+  --inf-spacing-xxlarge: 48px;
+  --inf-spacing-xxxlarge: 72px;
+
+  /* Box-shadow */
+  --inf-box-shadow-small: -1px 4px 3px rgba(10, 62, 102, 0.1),
+    -5px 0px 10px rgba(10, 51, 102, 0.1);
+  --inf-box-shadow-medium: -4px 5px 10px rgba(10, 51, 102, 0.3);
+
+  /* Border-radius */
+  --inf-border-radius-small: 4px;
+  --inf-border-radius-medium: 8px;
+  --inf-border-radius-large: 16px;
+
+  /* Z-index */
+  --inf-z-index-header: 100;
+  --inf-z-index-footer: 100;
+  --inf-z-index-bottom-bar: 100;
+  --inf-z-index-modal: 150;
+  --inf-z-index-popover: 200;
+  --inf-z-index-tooltip: 200;
+  --inf-z-index-dropdown: 200;
+  --inf-z-index-notification: 200;
+
+  /* TBD */
+  --inf-control-height-medium: 32px;
+  --inf-control-height-small: 28px; // нет в макете
+  --inf-control-height-large: 36px; // нет в макете
+  --inf-spacing-checked-group: 2px;
+
+  /* Deprecated */
+  --inf-space-xxsmall: 4px;
+  --inf-space-xsmall: 8px;
+  --inf-space-small: 12px;
+  --inf-space-medium: 16px;
+  --inf-space-large: 24px;
+  --inf-space-xlarge: 32px;
+  --inf-space-xxlarge: 40px;
+}

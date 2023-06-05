@@ -95,12 +95,6 @@ export const Direction: StoryObj<typeof Space> = {
 export const Gap: StoryObj<typeof Space> = {
   render: ({ ...args }) => (
     <>
-      <Text>xxsmall</Text>
-      <Space {...args} gap="xxsmall">
-        <Button>Кнопка</Button>
-        <Button>Кнопка</Button>
-        <Button>Кнопка</Button>
-      </Space>
       <Text>xsmall</Text>
       <Space {...args} gap="xsmall">
         <Button>Кнопка</Button>
@@ -108,7 +102,7 @@ export const Gap: StoryObj<typeof Space> = {
         <Button>Кнопка</Button>
       </Space>
       <Text>small</Text>
-      <Space {...args} gap="small">
+      <Space {...args} gap="xsmall">
         <Button>Кнопка</Button>
         <Button>Кнопка</Button>
         <Button>Кнопка</Button>
@@ -127,6 +121,18 @@ export const Gap: StoryObj<typeof Space> = {
       </Space>
       <Text>xlarge</Text>
       <Space {...args} gap="xlarge">
+        <Button>Кнопка</Button>
+        <Button>Кнопка</Button>
+        <Button>Кнопка</Button>
+      </Space>
+      <Text>xxlarge</Text>
+      <Space {...args} gap="xxlarge">
+        <Button>Кнопка</Button>
+        <Button>Кнопка</Button>
+        <Button>Кнопка</Button>
+      </Space>
+      <Text>xxxlarge</Text>
+      <Space {...args} gap="xxxlarge">
         <Button>Кнопка</Button>
         <Button>Кнопка</Button>
         <Button>Кнопка</Button>

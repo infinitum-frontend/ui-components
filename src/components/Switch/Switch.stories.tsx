@@ -15,7 +15,6 @@ const Template: StoryFn<typeof Switch> = ({ ...args }) => {
   const [isChecked, setIsChecked] = useState(true)
 
   function handleChange(): void {
-    console.log('change', isChecked)
     setIsChecked(!isChecked)
   }
 

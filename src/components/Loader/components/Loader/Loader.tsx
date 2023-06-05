@@ -60,5 +60,7 @@ Loader.displayName = 'Loader'
 
 /** Индикатор загрузки */
 export default Object.assign(Loader, {
-  Container: LoaderContainer
+  Container: LoaderContainer,
+  Size,
+  Variant
 })

@@ -1,0 +1,81 @@
+:root {
+  /* Base */
+  --inf-color-infinitum-red: #f53a3a;
+  --inf-color-infinitum-red-dark: #cc2d32;
+  --inf-color-infinitum-red-light: #ff6666;
+  --inf-color-infinitum-red-lightest: #ffa8a8;
+
+  --inf-color-cold-grey: #738f99;
+  --inf-color-cold-grey-dark: #46626b;
+  --inf-color-cold-grey-light: #b8d1d9;
+  --inf-color-cold-grey-lightest: #e6f1f5;
+
+  --inf-color-green: #1dbf6e;
+  --inf-color-green-dark: #029161;
+  --inf-color-green-light: #48e697;
+  --inf-color-green-lightest: #84f2bb;
+
+  --inf-color-black: #1f2021;
+  --inf-color-gray: #717375;
+  --inf-color-gray-light: #c8cacc;
+  --inf-color-gray-lighter: #e9ebed;
+  --inf-color-gray-lighest: #f2f4f5;
+  --inf-color-white: #fff;
+
+  /* Semantic */
+  --inf-color-primary: var(--inf-color-infinitum-red);
+  --inf-color-primary-hover: var(--inf-color-infinitum-red-dark);
+  --inf-color-primary-active: var(--inf-color-infinitum-red-light);
+
+  --inf-color-secondary: #738f99;
+  --inf-color-secondary-dark: #46626b;
+  --inf-color-secondary-light: #b8d1d9;
+  --inf-color-secondary-lightest: #e6f1f5;
+  --inf-color-secondary-hover: var(--inf-color-secondary-light);
+  --inf-color-secondary-active: var(--inf-color-secondary-dark);
+
+  --inf-color-success: #1dbf6e;
+  --inf-color-success-dark: #029161;
+  --inf-color-success-light: #48e697;
+  --inf-color-success-lightest: #84f2bb;
+
+  /* Text */
+  --inf-color-text: var(--inf-color-black);
+  --inf-color-text-secondary: var(--inf-color-gray);
+  --inf-color-text-tertiary: var(--inf-color-gray-light);
+  --inf-color-text-inverse: #fff;
+  --inf-color-text-success: var(--inf-color-success-dark);
+  --inf-color-text-warning: #e6a302;
+  --inf-color-text-danger: #fc673a;
+  --inf-color-text-link: var(--inf-color-secondary);
+  --inf-color-text-link-hover: var(--inf-color-secondary-dark);
+
+  /* Icon */
+  --inf-color-icon: var(--inf-color-black);
+  --inf-color-icon-secondary: var(--inf-color-gray-light);
+  --inf-color-icon-inverse: #fff;
+
+  /* Background */
+  --inf-color-background-page: var(--inf-color-gray-lighest);
+  --inf-color-background-default: var(--inf-color-white);
+  --inf-color-background-secondary: var(--inf-color-gray-lighest);
+  --inf-color-background-hover: var(--inf-color-cold-grey-lightest);
+  --inf-color-background-inverse: var(--inf-color-black);
+
+  /* Border */
+  --inf-color-border-default: var(--inf-color-gray-light);
+  --inf-color-border-secondary: var(--inf-color-gray-lighter);
+
+  /* ---------- TDB ---------- */
+  --inf-color-text-control: #46626b;
+  --inf-color-border-hover: #46626b;
+  --inf-color-border-focused: #46626b;
+  --inf-control-color-border-active: #738f99;
+  --inf-control-background-color-hover: #e6f1f5;
+  --inf-color-text-on-primary: #fff;
+  --inf-color-text-on-secondary: #fff;
+  --inf-color-text-quaternary: #c8cacc;
+  --inf-color-background-control-disabled: var(
+    --inf-color-background-secondary
+  );
+}

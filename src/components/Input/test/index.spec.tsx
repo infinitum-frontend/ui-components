@@ -194,13 +194,13 @@ describe('border', () => {
   it('should be regular on plain input', () => {
     const { el } = renderComponent(<Input />)
     expect(el.className).toContain('inf-input--br-regular')
-    expect(el).toHaveStyle('border-radius: var(--inf-border-radius-medium);')
+    expect(el).toHaveStyle('border-radius: var(--inf-border-radius-small);')
   })
 
   it('should be regular on complex input', () => {
     const { el } = renderComponent(<Input prefix={'prefix'} />)
     expect(el.className).toContain('inf-input-wrapper--br-regular')
-    expect(el).toHaveStyle('border-radius: var(--inf-border-radius-medium);')
+    expect(el).toHaveStyle('border-radius: var(--inf-border-radius-small);')
   })
 
   it('should support noBorder on plain input', () => {

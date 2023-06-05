@@ -1,16 +1,16 @@
 .inf-tooltip {
-  border-radius: var(--inf-border-radius-medium);
-  padding: var(--inf-space-xxsmall) var(--inf-space-xsmall);
+  border-radius: var(--inf-border-radius-small);
+  padding: var(--inf-spacing-xsmall) var(--inf-spacing-small);
   z-index: var(--inf-z-index-tooltip);
   --inf-tooltip-arrow-size: 8px;
 
   &--variant-default {
-    background-color: var(--inf-color-background-base);
+    background-color: var(--inf-color-background-default);
     color: var(--inf-color-text);
     border: 1px solid var(--inf-color-border-default);
 
     .inf-tooltip__arrow {
-      background-color: var(--inf-color-background-base);
+      background-color: var(--inf-color-background-default);
 
       &--direction-bottom {
         border-right: 1px solid var(--inf-color-border-default);

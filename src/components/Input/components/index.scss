@@ -1,4 +1,4 @@
-@import "../common.scss";
+@import '../common.scss';
 .inf-input {
   outline: none;
   cursor: text;
@@ -39,7 +39,7 @@
     height: var(--inf-control-height-medium);
     font-size: var(--inf-text-size-small);
     padding: var(--inf-input-padding-vertical-medium)
-    var(--inf-input-padding-horizontal-medium);
+      var(--inf-input-padding-horizontal-medium);
   }
 
   &--status-error {
@@ -47,7 +47,7 @@
   }
 
   &--br-regular {
-    border-radius: var(--inf-border-radius-medium);
+    border-radius: var(--inf-border-radius-small);
   }
 
   &--no-border {

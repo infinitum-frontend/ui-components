@@ -2,7 +2,7 @@
   z-index: var(--inf-z-index-header);
   min-height: var(--inf-height-header);
   height: var(--inf-height-header);
-  background-color: var(--light-color); // TODO:
+  background-color: var(--inf-color-background-default);
   box-shadow: 0 0.0625rem 0.625rem rgba(10, 62, 102, 0.1);
 
   &--sticky {

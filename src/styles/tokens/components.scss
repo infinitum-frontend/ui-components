@@ -1,0 +1,51 @@
+:root {
+  /* Input */
+  --inf-input-padding-horizontal-medium: 12px;
+  --inf-input-padding-vertical-medium: 4px;
+  --inf-input-color-background-disabled: var(
+    --inf-color-background-control-disabled
+  );
+  --inf-color-border-input: var(--inf-color-gray-light);
+  --inf-color-border-input-error: #f53a3a;
+  --inf-color-border-input-active: #46626b;
+
+  /*  Select */
+  --inf-select-items-border-radius-regular: var(--inf-border-radius-small);
+  --inf-select-items-padding-horizontal-small: 6px;
+  --inf-select-items-padding-horizontal-medium: 0px;
+  --inf-select-items-padding-vertical-small: 3px;
+  --inf-select-items-padding-vertical-medium: 8px;
+  --inf-select-item-background-hover: darkred;
+  --inf-select-item-border-radius: var(--inf-border-radius-small);
+  --inf-select-item-space: 4px;
+
+  /* Checkbox */
+  --inf-checkbox-color-border: var(--inf-color-border-default);
+  --inf-checkbox-color-border-hover: var(--inf-control-color-border-active);
+  --inf-checkbox-color-border-active: var(--inf-control-color-border-active);
+
+  --inf-checkbox-color-background: white;
+  --inf-checkbox-color-background-active: #b8d1d9;
+  --inf-checkbox-color-background-disabled: var(
+    --inf-color-background-control-disabled
+  );
+
+  --inf-checkbox-checked-color-background: #f53a50;
+  --inf-checkbox-checked-color-background-hover: #ff6673;
+  --inf-checkbox-checked-color-background-active: #cc2d32;
+  --inf-checkbox-checked-color-background-disabled: var(--inf-color-gray-light);
+
+  /* Radio */
+  --inf-radio-color-border: var(--inf-color-black);
+  --inf-radio-color-border-hover: var(--inf-control-color-border-active);
+  --inf-radio-color-border-active: var(--inf-control-color-border-active);
+  --inf-radio-color-border-disabled: var(--inf-color-border-default);
+
+  --inf-radio-color-background-hover: #e6f1f5;
+  --inf-radio-color-background-active: #b8d1d9;
+  --inf-radio-color-background-checked: #f53a50;
+  --inf-radio-color-background-checked-disabled: var(--inf-color-gray-light);
+
+  /* Modal */
+  --inf-modal-backdrop-background: rgba(0, 0, 0, 0.3);
+}
