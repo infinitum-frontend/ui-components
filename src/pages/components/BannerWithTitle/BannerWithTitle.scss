@@ -1,0 +1,12 @@
+.banner-with-title {
+  height: 176px;
+  background-size: cover;
+  padding: var(--inf-spacing-large);
+  display: flex;
+  align-items: center;
+
+  &__title {
+    max-width: 500px;
+    font: var(--inf-font-h2) !important;
+  }
+}
