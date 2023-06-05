@@ -18,8 +18,8 @@
 }
 
 .inf-modal {
-  background-color: #fff;
-  border: 1px solid #c8cacc;
+  background-color: var(--inf-color-background-default);
+  border: 1px solid var(--inf-color-border-default);
   border-radius: 10px;
   position: relative;
   max-width: 95vw;

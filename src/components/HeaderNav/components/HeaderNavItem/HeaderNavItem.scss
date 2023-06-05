@@ -1,8 +1,7 @@
 .inf-header-nav-item {
   display: inline-flex;
   align-items: center;
-  font-weight: var(--inf-font-weight-normal);
-  font-size: var(--inf-text-size-xsmall);
+  font: var(--inf-font-overline-1);
   line-height: 20px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -14,11 +13,11 @@
   transition: color 0.2s;
 
   @include hover-active {
-    color: var(--inf-color-primary-light);
+    color: var(--inf-color-primary-active);
   }
 
   &--active {
     font-weight: var(--inf-font-weight-extrabold);
-    border-bottom: 2px solid var(--inf-color-primary-dark);
+    border-bottom: 2px solid var(--inf-color-primary-hover);
   }
 }

@@ -20,7 +20,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border-radius: var(--inf-border-radius-medium);
+  border-radius: var(--inf-border-radius-small);
   transition: background-color 0.2s;
   background: none;
   position: relative;
@@ -35,27 +35,27 @@
 
   &--variant-primary {
     background-color: var(--inf-color-primary);
-    color: #fff;
+    color: var(--inf-color-text-on-primary);
 
     &:hover {
-      background-color: var(--inf-color-primary-light);
+      background-color: var(--inf-color-primary-hover);
     }
 
     &:active {
-      background-color: var(--inf-color-primary-dark);
+      background-color: var(--inf-color-primary-active);
     }
   }
 
   &--variant-secondary {
-    background-color: #738f99;
-    color: #fff;
+    background-color: var(--inf-color-secondary);
+    color: var(--inf-color-text-on-secondary);
 
     &:hover {
-      background-color: #b8d1d9;
+      background-color: var(--inf-color-secondary-hover);
     }
 
     &:active {
-      background-color: #46626b;
+      background-color: var(--inf-color-secondary-active);
     }
   }
 
@@ -87,7 +87,7 @@
   &:disabled {
     background-color: var(--inf-color-background-control-disabled);
     border-color: var(--inf-color-background-control-disabled);
-    color: var(--inf-color-text-quaternary);
+    color: var(--inf-color-text-tertiary);
     pointer-events: none;
     cursor: default;
   }
@@ -154,6 +154,6 @@
 
   .inf-button__after:not(:first-child),
   .inf-button__before:not(:last-child) + .inf-button__text {
-    margin-left: var(--inf-space-xsmall);
+    margin-left: var(--inf-spacing-small);
   }
 }

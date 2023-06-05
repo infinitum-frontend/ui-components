@@ -19,13 +19,12 @@
   --item-gap: 12px;
   --badge-gap: 6px;
 
-
   &:hover {
-    color: var(--inf-color-primary-light);
+    color: var(--inf-color-primary-hover);
   }
 
   &:active {
-    color: var(--inf-color-primary-dark);
+    color: var(--inf-color-primary-active);
   }
 
   &--disabled {
@@ -36,7 +35,7 @@
     position: absolute;
     bottom: -1px;
     left: 0;
-    background-color: var(--inf-color-primary-dark);
+    background-color: var(--inf-color-primary-hover);
     display: block;
     height: 2px;
     width: 100%;
@@ -59,10 +58,10 @@
     }
 
     &.inf-tab--disabled {
-      color: #E9EBED;
+      color: #e9ebed;
 
       .inf-tab__underline {
-        background-color: #E9EBED;
+        background-color: #e9ebed;
       }
     }
   }
@@ -124,7 +123,7 @@
     pointer-events: none;
 
     .inf-badge-sup {
-      background-color: #FFA8A8;
+      background-color: #ffa8a8;
     }
   }
 

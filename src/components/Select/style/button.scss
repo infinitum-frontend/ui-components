@@ -5,10 +5,10 @@
   user-select: none;
   appearance: none;
   text-align: left;
-  background-color: var(--inf-color-background-base);
-  border-radius: var(--inf-border-radius-medium);
+  background-color: var(--inf-color-background-default);
+  border-radius: var(--inf-border-radius-small);
   border: 1px solid var(--inf-color-border-default);
-  padding: 7px 28px  7px var(--inf-input-padding-horizontal-medium);
+  padding: 7px 28px 7px var(--inf-input-padding-horizontal-medium);
   line-height: 18px;
   height: var(--inf-control-height-medium);
   font-size: var(--inf-text-size-small);

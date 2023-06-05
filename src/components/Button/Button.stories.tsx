@@ -34,7 +34,7 @@ export const Secondary = {
   render: Template,
 
   args: {
-    variant: 'secondary'
+    variant: Button.Variant.Secondary
   }
 }
 
@@ -42,7 +42,7 @@ export const Tertiary = {
   render: Template,
 
   args: {
-    variant: 'tertiary'
+    variant: Button.Variant.Tertiary
   }
 }
 
@@ -50,7 +50,7 @@ export const Ghost = {
   render: Template,
 
   args: {
-    variant: 'ghost'
+    variant: Button.Variant.Ghost
   }
 }
 
@@ -58,7 +58,7 @@ export const GhostWithIcon = {
   render: Template,
 
   args: {
-    variant: 'ghost',
+    variant: Button.Variant.Ghost,
     after: <DownloadIcon />
   }
 }
@@ -107,9 +107,9 @@ export const Icon: StoryObj<typeof Button> = {
 export const Sizes: StoryObj<typeof Button> = {
   render: (args) => (
     <>
-      <Button {...args} size="large" />
-      <Button {...args} size="medium" />
-      <Button {...args} size="small" />
+      <Button {...args} size={Button.Size.Large} />
+      <Button {...args} size={Button.Size.Medium} />
+      <Button {...args} size={Button.Size.Small} />
     </>
   ),
 

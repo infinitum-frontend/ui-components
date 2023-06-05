@@ -97,4 +97,34 @@ const fontWeight = {
   extrabold: '800'
 }
 
-export { color, typography, fontWeight, fontSize }
+const spacing = {
+  xsmall: '4px',
+  small: '8px',
+  medium: '16px',
+  large: '24px',
+  xlarge: '32px',
+  xxlarge: '48px',
+  xxxlarge: '72px'
+}
+
+const boxShadow = {
+  small:
+    '-1px 4px 3px rgba(10, 62, 102, 0.1),-5px 0px 10px rgba(10, 51, 102, 0.1)',
+  medium: '-4px 5px 10px rgba(10, 51, 102, 0.3)'
+}
+
+const borderRadius = {
+  small: '4px',
+  medium: '8px',
+  large: '16px'
+}
+
+export {
+  color,
+  typography,
+  fontWeight,
+  fontSize,
+  spacing,
+  boxShadow,
+  borderRadius
+}

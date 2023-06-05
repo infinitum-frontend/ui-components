@@ -19,15 +19,27 @@ export const Playground = {
   render: Template
 }
 
-export const Sizes: StoryObj<typeof Text> = {
+export const Variants: StoryObj<typeof Text> = {
   render: (args) => (
     <>
-      <Text {...args} size="xlarge" />
-      <Text {...args} size="large" />
-      <Text {...args} size="medium" />
-      <Text {...args} size="small" />
-      <Text {...args} size="xsmall" />
-      <Text {...args} size="xxsmall" />
+      <Text size={Text.Size.Large} weight={Text.Weight.Bold}>
+        Subtitle 1
+      </Text>
+      <Text size={Text.Size.Medium} weight={Text.Weight.Bold}>
+        Subtitle 2
+      </Text>
+      <Text size={Text.Size.Small} weight={Text.Weight.Bold}>
+        Subtitle 3
+      </Text>
+      <Text size={Text.Size.Medium} weight={Text.Weight.Bold}>
+        Body 1
+      </Text>
+      <Text size={Text.Size.Small} weight={Text.Weight.Bold}>
+        Body 2
+      </Text>
+      <Text size={Text.Size.XSmall} weight={Text.Weight.Bold} uppercase>
+        Overline 1
+      </Text>
     </>
   ),
 

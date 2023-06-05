@@ -1,28 +1,23 @@
 .inf-text {
   font-family: var(--inf-font-family-base);
 
-  &--size-medium {
-    font-size: var(--inf-text-size-medium);
-  }
-
   &--size-xsmall {
-    font-size: var(--inf-text-size-xsmall);
-  }
-
-  &--size-xxsmall {
-    font-size: var(--inf-text-size-xxsmall);
+    font-size: var(--inf-font-size-overline-1);
+    line-height: var(--inf-font-line-height-overline-1);
   }
 
   &--size-small {
-    font-size: var(--inf-text-size-small);
+    font-size: var(--inf-font-size-body-2);
+    line-height: var(--inf-font-line-height-body-2);
+  }
+
+  &--size-medium {
+    font-size: var(--inf-font-size-body-1);
+    line-height: var(--inf-font-line-height-body-1);
   }
 
   &--size-large {
-    font-size: var(--inf-text-size-large);
-  }
-
-  &--size-xlarge {
-    font-size: var(--inf-text-size-xlarge);
+    font-size: var(--inf-font-size-subtitle-1);
   }
 
   &--uppercase {
@@ -47,20 +42,12 @@
     text-align: right;
   }
 
-  &--weight-light {
-    font-weight: var(--inf-font-weight-light);
-  }
-
   &--weight-normal {
     font-weight: var(--inf-font-weight-normal);
   }
 
   &--weight-bold {
     font-weight: var(--inf-font-weight-bold);
-  }
-
-  &--weight-extrabold {
-    font-weight: var(--inf-font-weight-extrabold);
   }
 
   &--tone-default {

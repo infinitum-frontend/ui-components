@@ -1,5 +1,13 @@
 import { Meta, ColorPalette, ColorItem, Typeset } from '@storybook/blocks'
-import { color, fontSize, fontWeight } from '../tokens'
+import {
+  color,
+  fontSize,
+  fontWeight,
+  boxShadow,
+  borderRadius,
+  spacing
+} from '../tokens'
+import { Space } from '../components/Space'
 
 <Meta title="Intro/Дизайн-токены" />
 
@@ -22,3 +30,47 @@ import { color, fontSize, fontWeight } from '../tokens'
   fontWeight={fontWeight.normal}
   sampleText="Съешь ещё этих мягких французских булок, да выпей чаю"
 />
+
+## Тени
+
+<Space direction="horizontal" gap="xlarge" style={{ marginTop: '30px' }}>
+  {Object.keys(boxShadow).map((key) => (
+    <div
+      style={{
+        boxShadow: boxShadow[key],
+        width: '200px',
+        height: '200px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold'
+      }}
+    >
+      {key}
+    </div>
+  ))}
+</Space>
+
+## Скругление
+
+<Space direction="horizontal" gap="xlarge" style={{ marginTop: '30px' }}>
+  {Object.keys(borderRadius).map((key) => (
+    <div
+      style={{
+        border: '2px solid red',
+        borderRadius: borderRadius[key],
+        width: '100px',
+        height: '100px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}
+    >
+      <div style={{ fontWeight: 'bold' }}>{key}</div>
+      <div>{borderRadius[key]}</div>
+    </div>
+  ))}
+</Space>
+
+## Отступы

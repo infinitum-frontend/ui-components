@@ -6,13 +6,13 @@
   position: relative;
 
   @include hover-active {
-    background-color: var(--inf-control-background-color-hover);
+    background-color: var(--inf-color-background-hover);
   }
 
   &--active {
     &::before {
       content: '';
-      border-left: 3px solid var(--inf-color-primary-dark);
+      border-left: 3px solid var(--inf-color-primary-hover);
       position: absolute;
       left: 0;
       top: 0;

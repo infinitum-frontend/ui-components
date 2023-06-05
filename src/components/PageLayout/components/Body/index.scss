@@ -2,6 +2,7 @@
   width: 100%;
   flex-grow: 1;
   display: flex;
+  justify-content: center;
 
   &--size-medium {
     max-width: 1400px;
@@ -19,6 +20,6 @@
   &__box {
     display: flex;
     // padding-bottom: var(--bottom-bar-height);
-    background-color: #fff;
+    background-color: var(--inf-color-background-default);
   }
 }

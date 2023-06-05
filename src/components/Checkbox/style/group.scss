@@ -5,7 +5,7 @@
     flex-direction: column;
 
     > * + * {
-      margin-top: var(--inf-spacing-checked-group);
+      margin-top: var(--inf-spacing-xsmall);
     }
   }
 }

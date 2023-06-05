@@ -1,7 +1,7 @@
 @import './mixins.scss';
 @import './reset.scss';
 @import './fonts.scss';
-@import './tokens.scss';
+@import './tokens/index.scss';
 
 html,
 body {
@@ -13,6 +13,7 @@ body {
 }
 
 body {
+  background-color: var(--inf-color-background-page);
   color: var(--inf-color-text);
   font-family: var(--inf-font-family-base);
 }

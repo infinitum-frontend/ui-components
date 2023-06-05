@@ -7,15 +7,14 @@ import React, {
 } from 'react'
 import './Box.scss'
 import cn from 'classnames'
-import {
-  PolymorphicComponent,
-  PolymorphicRef,
-  SpaceVariants
-} from '~/src/utils/types'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
+import { Background, BorderRadius, BoxShadow, Padding } from './enums'
 
 export interface BoxProps {
-  background?: 'base' | 'secondary' | 'inverse'
-  padding?: SpaceVariants
+  background?: Background
+  padding?: Padding
+  borderRadius?: BorderRadius
+  boxShadow?: BoxShadow
 }
 
 function BaseBox<C extends ElementType = 'div'>(
@@ -28,12 +27,20 @@ function BaseBox<C extends ElementType = 'div'>(
     as = 'div',
     padding,
     background,
+    borderRadius,
+    boxShadow,
     ...rest
   } = props
   const Component = as
 
   const styles = {
-    padding: padding ? `var(--inf-space-${padding as string})` : false,
+    padding: padding ? `var(--inf-spacing-${padding as string})` : false,
+    borderRadius: borderRadius
+      ? `var(--inf-border-radius-${borderRadius as string})`
+      : false,
+    boxShadow: boxShadow
+      ? `var(--inf-box-shadow-${boxShadow as string})`
+      : false,
     backgroundColor: background
       ? `var(--inf-color-background-${background as string})`
       : false
@@ -51,4 +58,9 @@ function BaseBox<C extends ElementType = 'div'>(
   )
 }
 
-export const Box = forwardRef(BaseBox) as typeof BaseBox
+export const Box = Object.assign(forwardRef(BaseBox) as typeof BaseBox, {
+  Background,
+  BorderRadius,
+  BoxShadow,
+  Padding
+})
