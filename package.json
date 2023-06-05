@@ -49,8 +49,7 @@
     "react-dom": "^18.2.0",
     "react-merge-refs": "^2.0.1",
     "react-transition-group": "^4.4.5",
-    "sass": "^1.56.1",
-    "storybook-addon-themes": "^6.1.0"
+    "sass": "^1.56.1"
   },
   "sideEffects": false,
   "devDependencies": {
@@ -67,6 +66,7 @@
     "@storybook/react": "^7.0.18",
     "@storybook/react-vite": "^7.0.18",
     "@storybook/theming": "^7.0.18",
+    "storybook-addon-themes": "^6.1.0",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
