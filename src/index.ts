@@ -1,11 +1,7 @@
 import { Button } from './components/Button'
 import { Input, SearchInput } from './components/Input'
 import { Select, selectDataFormatter } from './components/Select'
-import {
-  Loader,
-  Size as LoaderSize,
-  Variant as LoaderVariant
-} from './components/Loader'
+import { Loader } from './components/Loader'
 import { Radio, RadioGroup } from './components/Radio'
 import { Checkbox, CheckboxGroup } from './components/Checkbox'
 import { Text } from './components/Text'
@@ -52,8 +48,6 @@ export {
   Select,
   selectDataFormatter,
   Loader,
-  LoaderSize,
-  LoaderVariant,
   Radio,
   RadioGroup,
   Checkbox,
