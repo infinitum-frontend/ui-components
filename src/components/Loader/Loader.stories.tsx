@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
-import { Loader, Size, Variant } from './index'
+import { Loader } from './index'
 
 const meta: Meta<typeof Loader> = {
   title: 'Components/Loader',
@@ -66,7 +66,7 @@ export const Sizes: StoryObj<typeof Loader> = {
           }}
         >
           <code>Compact(17.5x17.5)</code>
-          <Loader size={Size.Compact} />
+          <Loader size="compact" />
         </div>
         <div
           style={{
@@ -90,7 +90,7 @@ export const Sizes: StoryObj<typeof Loader> = {
           }}
         >
           <code>Large(70x70)</code>
-          <Loader size={Size.Large} />
+          <Loader size="large" />
         </div>
       </div>
     )
@@ -117,7 +117,7 @@ export const Variants: StoryObj<typeof Loader> = {
           }}
         >
           <code>Primary</code>
-          <Loader variant={Variant.Primary} />
+          <Loader variant="primary" />
         </div>
         <div
           style={{
@@ -129,7 +129,7 @@ export const Variants: StoryObj<typeof Loader> = {
           }}
         >
           <code>Unset</code>
-          <Loader variant={Variant.Unset} />
+          <Loader variant="unset" />
         </div>
       </div>
     )
