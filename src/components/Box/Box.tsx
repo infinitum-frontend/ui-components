@@ -8,7 +8,7 @@ import React, {
 import './Box.scss'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
-import { Background, BorderRadius, BoxShadow, Padding } from './enums'
+import { Background, BorderRadius, BoxShadow, Padding } from './types'
 
 export interface BoxProps {
   background?: Background
@@ -58,9 +58,4 @@ function BaseBox<C extends ElementType = 'div'>(
   )
 }
 
-export const Box = Object.assign(forwardRef(BaseBox) as typeof BaseBox, {
-  Background,
-  BorderRadius,
-  BoxShadow,
-  Padding
-})
+export const Box = forwardRef(BaseBox) as typeof BaseBox

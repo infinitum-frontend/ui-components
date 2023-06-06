@@ -2,7 +2,6 @@
 import React, { ElementType, forwardRef, ReactElement, ReactNode } from 'react'
 import cn from 'classnames'
 import { Loader } from '../Loader'
-import { Variant, Size } from './enums'
 import './Button.scss'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
@@ -18,11 +17,11 @@ export interface ButtonProps {
   /**
    * Вариант оформления
    */
-  variant?: Variant
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
   /**
    * Размер
    */
-  size?: Size
+  size?: 'small' | 'medium' | 'large'
   /**
    * Состояние недоступности
    */
@@ -57,8 +56,8 @@ function BaseButton<C extends ElementType = 'button'>(
     children,
     className,
     as = 'button',
-    variant = Variant.Primary,
-    size = Size.Medium,
+    variant = 'primary',
+    size = 'medium',
     loading = false,
     block = false,
     before,
@@ -99,21 +98,11 @@ function BaseButton<C extends ElementType = 'button'>(
       </span>
 
       {loading && (
-        <Loader
-          className="inf-button__loader"
-          size={Loader.Size.Compact}
-          variant={Loader.Variant.Unset}
-        />
+        <Loader className="inf-button__loader" size="compact" variant="unset" />
       )}
     </Component>
   )
 }
 
 /** Компонент кнопки, используемый для инициализации различных действий */
-export const Button = Object.assign(
-  forwardRef(BaseButton) as typeof BaseButton,
-  {
-    Variant,
-    Size
-  }
-)
+export const Button = forwardRef(BaseButton) as typeof BaseButton

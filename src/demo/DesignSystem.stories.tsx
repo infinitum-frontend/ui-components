@@ -2,18 +2,18 @@
 import * as React from 'react'
 import { Button } from '../components/Button'
 import { Space } from '../components/Space'
-import { Text } from '../components/Text'
-import { Heading } from '../components/Heading'
-import { Input } from '../components/Input'
-import { Divider } from '../components/Divider'
+// import { Text } from '../components/Text'
+// import { Heading } from '../components/Heading'
+// import { Input } from '../components/Input'
+// import { Divider } from '../components/Divider'
 import { PageLayout } from '../components/PageLayout'
 import { HeaderNav } from '../components/HeaderNav'
 import { Logo } from '../components/Logo'
-import { Link } from '../components/Link'
-import { Box } from '../components/Box'
-import { Modal } from '../components/Modal'
+// import { Link } from '../components/Link'
+// import { Box } from '../components/Box'
+// import { Modal } from '../components/Modal'
 import {
-  useNotification,
+  // useNotification,
   NotificationContainer,
   NotificationProvider
 } from '../components/Notification'
@@ -37,8 +37,8 @@ export default ComponentMeta
 
 export const DesignSystem: StoryObj = {
   render: () => {
-    const [isModalOpen, setIsModalOpen] = React.useState(false)
-    const notify = useNotification()
+    // const [isModalOpen, setIsModalOpen] = React.useState(false)
+    // const notify = useNotification()
 
     return (
       <PageLayout>
@@ -66,10 +66,10 @@ export const DesignSystem: StoryObj = {
           </PageLayout.Aside>
 
           <PageLayout.Content>
-            <Box padding={Box.Padding.Large}>
+            {/* <Box padding="large">
               <Space>
                 <Space>
-                  <Text size={Text.Size.Large} weight={Text.Weight.Bold}>
+                  <Text size="large" weight="bold">
                     Типографика
                   </Text>
                   <Heading level={Heading.Level.H1}>Heading 1</Heading>
@@ -236,7 +236,7 @@ export const DesignSystem: StoryObj = {
                   </Space>
                 </Space>
               </Space>
-            </Box>
+            </Box> */}
           </PageLayout.Content>
         </PageLayout.Body>
       </PageLayout>

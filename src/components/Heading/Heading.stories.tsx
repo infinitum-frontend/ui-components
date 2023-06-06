@@ -31,10 +31,10 @@ export const Playground = {
 export const Levels: StoryObj<typeof Heading> = {
   render: (args) => (
     <>
-      <Heading {...args} level={Heading.Level.H1} />
-      <Heading {...args} level={Heading.Level.H2} />
-      <Heading {...args} level={Heading.Level.H3} />
-      <Heading {...args} level={Heading.Level.H4} />
+      <Heading {...args} level="1" />
+      <Heading {...args} level="2" />
+      <Heading {...args} level="3" />
+      <Heading {...args} level="4" />
     </>
   ),
 
@@ -78,7 +78,7 @@ export const Truncated: StoryObj<typeof Heading> = {
   ),
 
   args: {
-    level: Heading.Level.H1,
+    level: '1',
     truncated: true
   }
 }
@@ -86,35 +86,35 @@ export const Truncated: StoryObj<typeof Heading> = {
 export const Align: StoryObj<typeof Heading> = {
   render: (args) => (
     <>
-      <Heading align={Heading.Align.Left}>Left</Heading>
-      <Heading align={Heading.Align.Center}>Center</Heading>
-      <Heading align={Heading.Align.Right}>Right</Heading>
+      <Heading align="left">Left</Heading>
+      <Heading align="center">Center</Heading>
+      <Heading align="right">Right</Heading>
     </>
   )
 }
 
 export const DifferentTheme: StoryObj<typeof Heading> = {
   render: (args) => (
-    <Space direction="horizontal" gap={Space.Gap.XXLarge}>
+    <Space direction="horizontal" gap="xxlarge">
       <Space>
         <Text>Стандартная тема</Text>
-        <Heading level={Heading.Level.H1}>Заголовок</Heading>
-        <Heading level={Heading.Level.H2}>Заголовок</Heading>
-        <Heading level={Heading.Level.H3}>Заголовок</Heading>
-        <Heading level={Heading.Level.H4}>Заголовок</Heading>
+        <Heading level="1">Заголовок</Heading>
+        <Heading level="2">Заголовок</Heading>
+        <Heading level="3">Заголовок</Heading>
+        <Heading level="4">Заголовок</Heading>
       </Space>
       <Space className="inf-ui-test-theme">
         <Text>Кастомная тема</Text>
-        <Heading level={Heading.Level.H1}>Заголовок</Heading>
-        <Heading level={Heading.Level.H2}>Заголовок</Heading>
-        <Heading level={Heading.Level.H3}>Заголовок</Heading>
-        <Heading level={Heading.Level.H4}>Заголовок</Heading>
+        <Heading level="1">Заголовок</Heading>
+        <Heading level="2">Заголовок</Heading>
+        <Heading level="3">Заголовок</Heading>
+        <Heading level="4">Заголовок</Heading>
       </Space>
     </Space>
   ),
 
   args: {
-    level: Heading.Level.H1,
+    level: '1',
     truncated: true
   }
 }

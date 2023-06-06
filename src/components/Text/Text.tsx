@@ -1,15 +1,22 @@
 import './Text.scss'
 import React, { ReactNode } from 'react'
 import classNames from 'classnames'
-import { Size, Weight, Tone, Align } from './enums'
 
 export interface TextProps extends React.ComponentPropsWithoutRef<'div'> {
   children?: ReactNode
   className?: string
-  size?: Size
-  weight?: Weight
-  tone?: Tone
-  align?: Align
+  size?: 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+  weight?: 'light' | 'normal' | 'bold' | 'extrabold'
+  tone?:
+    | 'default'
+    | 'secondary'
+    | 'tertiary'
+    | 'quaternary'
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | 'inverse'
+  alignment?: 'left' | 'center' | 'right'
   truncated?: boolean
   uppercase?: boolean
 }
@@ -20,9 +27,9 @@ const Text = React.forwardRef<HTMLDivElement, TextProps>(
     {
       children = '',
       className = '',
-      size = Size.Medium,
-      weight = Weight.Normal,
-      align = Align.Left,
+      size = 'medium',
+      weight = 'normal',
+      alignment = 'left',
       tone,
       truncated = false,
       uppercase = false,
@@ -40,7 +47,7 @@ const Text = React.forwardRef<HTMLDivElement, TextProps>(
           'inf-text--uppercase': uppercase,
           'inf-text--truncated': truncated,
           [`inf-text--tone-${tone as string}`]: tone,
-          [`inf-text--align-${align}`]: align !== Align.Left
+          [`inf-text--align-${alignment}`]: alignment !== 'left'
         }
       )
     }
@@ -55,9 +62,4 @@ const Text = React.forwardRef<HTMLDivElement, TextProps>(
 
 Text.displayName = 'Text'
 
-export default Object.assign(Text, {
-  Size,
-  Tone,
-  Weight,
-  Align
-})
+export default Text

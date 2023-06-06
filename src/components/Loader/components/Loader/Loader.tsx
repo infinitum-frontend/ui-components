@@ -2,22 +2,18 @@ import React, { ComponentPropsWithoutRef } from 'react'
 import LoaderContainer from '../Container/LoaderСontainer'
 import './Loader.scss'
 import cn from 'classnames'
-import { Size, Variant } from '../../enums'
 
 export interface LoaderProps extends ComponentPropsWithoutRef<'div'> {
   /** Дополнительный className */
   className?: string
   /** Размер */
-  size?: Size
+  size?: 'compact' | 'regular' | 'large'
   /** Вариант оформления */
-  variant?: Variant
+  variant?: 'primary' | 'unset'
 }
 
 const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
-  (
-    { className, size = Size.Regular, variant = Variant.Primary, ...props },
-    ref
-  ) => {
+  ({ className, size = 'regular', variant = 'primary', ...props }, ref) => {
     return (
       <span
         ref={ref}
@@ -60,7 +56,5 @@ Loader.displayName = 'Loader'
 
 /** Индикатор загрузки */
 export default Object.assign(Loader, {
-  Container: LoaderContainer,
-  Size,
-  Variant
+  Container: LoaderContainer
 })

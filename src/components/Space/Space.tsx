@@ -2,26 +2,32 @@
 import React, { ElementType, forwardRef, ReactElement } from 'react'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
-import { Gap, Direction, Align, Justify } from './enums'
 import './Space.scss'
 
 export interface SpaceProps {
   /**
    * Расстояние между блоками
    */
-  gap?: Gap
+  gap?:
+    | 'xxsmall'
+    | 'xsmall'
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'xlarge'
+    | 'xxlarge'
   /**
    * Направление раскладки
    */
-  direction?: Direction
+  direction?: 'vertical' | 'horizontal'
   /**
    * Выравние по оси (Flexbox align-items)
    */
-  align?: Align
+  align?: 'baseline' | 'start' | 'end' | 'center'
   /**
    * Выравние по оси (Flexbox justify-content)
    */
-  justify?: Justify
+  justify?: 'center' | 'start' | 'end' | 'space-between' | 'space-around'
   /**
    * Перенос на новый ряд при переполнении (Flexbox wrap)
    */
@@ -45,8 +51,8 @@ function BaseSpace<C extends ElementType = 'div'>(
   const {
     as = 'div',
     className,
-    gap = Gap.Medium,
-    direction = Direction.Vertical,
+    gap = 'small',
+    direction = 'vertical',
     wrap,
     fullWidth,
     align,
@@ -81,9 +87,4 @@ function BaseSpace<C extends ElementType = 'div'>(
 // We use typecasting to force args table to show up in Storybook
 // Экспорт именнованный, тк с дефолтным пропы отказываются появляться(https://github.com/storybookjs/storybook/issues/9556)
 /** Компонент для вертикальной и горизонтальной раскладки элементов */
-export const Space = Object.assign(forwardRef(BaseSpace) as typeof BaseSpace, {
-  Gap,
-  Direction,
-  Align,
-  Justify
-})
+export const Space = forwardRef(BaseSpace) as typeof BaseSpace
