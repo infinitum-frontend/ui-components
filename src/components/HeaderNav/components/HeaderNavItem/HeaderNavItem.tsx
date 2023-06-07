@@ -29,9 +29,7 @@ function BaseHeaderNavItem<C extends ElementType = 'a'>(
   )
 }
 
-export const HeaderNavItem = forwardRef(
-  BaseHeaderNavItem
-) as typeof BaseHeaderNavItem
-
-// @ts-expect-error
+const HeaderNavItem = forwardRef(BaseHeaderNavItem)
 HeaderNavItem.displayName = 'HeaderNav.Item'
+
+export default HeaderNavItem as typeof BaseHeaderNavItem

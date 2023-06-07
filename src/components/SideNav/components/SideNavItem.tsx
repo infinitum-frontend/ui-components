@@ -27,7 +27,7 @@ function BaseSideNavItem<C extends ElementType = 'a'>(
   )
 }
 
-export const SideNavItem = forwardRef(BaseSideNavItem) as typeof BaseSideNavItem
-
-// @ts-expect-error
+const SideNavItem = forwardRef(BaseSideNavItem)
 SideNavItem.displayName = 'SideNav.Item'
+
+export default SideNavItem as typeof BaseSideNavItem

@@ -104,5 +104,7 @@ function BaseButton<C extends ElementType = 'button'>(
   )
 }
 
+const Button = forwardRef(BaseButton)
+
 /** Компонент кнопки, используемый для инициализации различных действий */
-export const Button = forwardRef(BaseButton) as typeof BaseButton
+export default Button as typeof BaseButton

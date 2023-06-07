@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
-import { Link } from './Link'
+import { Link } from './index'
 import { Meta, StoryFn } from '@storybook/react'
 
 const ComponentMeta: Meta<typeof Link> = {

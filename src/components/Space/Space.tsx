@@ -84,7 +84,9 @@ function BaseSpace<C extends ElementType = 'div'>(
   )
 }
 
+const Space = forwardRef(BaseSpace)
+
 // We use typecasting to force args table to show up in Storybook
 // Экспорт именнованный, тк с дефолтным пропы отказываются появляться(https://github.com/storybookjs/storybook/issues/9556)
 /** Компонент для вертикальной и горизонтальной раскладки элементов */
-export const Space = forwardRef(BaseSpace) as typeof BaseSpace
+export default Space as typeof BaseSpace

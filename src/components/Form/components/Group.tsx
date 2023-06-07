@@ -11,7 +11,7 @@ import FormGroupContext, {
 } from 'Components/Form/context/group'
 import cn from 'classnames'
 import '../style/group.scss'
-import { Space, SpaceProps } from 'Components/Space/Space'
+import { Space, SpaceProps } from 'Components/Space'
 
 export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
   /** Направление раскладки */

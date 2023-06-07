@@ -1,1 +1,1 @@
-export { HeaderNavItem } from './HeaderNavItem'
+export { default as HeaderNavItem } from './HeaderNavItem'

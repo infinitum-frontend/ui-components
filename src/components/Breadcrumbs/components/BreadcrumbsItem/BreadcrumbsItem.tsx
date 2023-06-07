@@ -23,9 +23,7 @@ function BaseBreadcrumbsItem<C extends ElementType = 'span'>(
   )
 }
 
-export const BreadcrumbsItem = forwardRef(
-  BaseBreadcrumbsItem
-) as typeof BaseBreadcrumbsItem
-
-// @ts-expect-error
+const BreadcrumbsItem = forwardRef(BaseBreadcrumbsItem)
 BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
+
+export default BreadcrumbsItem as typeof BaseBreadcrumbsItem
