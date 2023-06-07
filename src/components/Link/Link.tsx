@@ -28,5 +28,7 @@ function BaseLink<C extends ElementType = 'a'>(
   )
 }
 
+const Link = forwardRef(BaseLink)
+
 /** Компонент ссылки */
-export const Link = forwardRef(BaseLink) as typeof BaseLink
+export default Link as typeof BaseLink

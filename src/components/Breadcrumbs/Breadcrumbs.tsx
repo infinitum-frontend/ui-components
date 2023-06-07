@@ -27,9 +27,12 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
   )
 }
 
-const Breadcrumbs = forwardRef(BaseBreadcrumbs) as typeof BaseBreadcrumbs
-
 /** Хлебные крошки — компонент навигации, который помогает пользователю понять иерархию между уровнями и вернуться на предыдщие этапы. */
-export default Object.assign(Breadcrumbs, {
-  Item: BreadcrumbsItem
-})
+const Breadcrumbs = Object.assign(
+  forwardRef(BaseBreadcrumbs) as typeof BaseBreadcrumbs,
+  {
+    Item: BreadcrumbsItem
+  }
+)
+
+export default Breadcrumbs

@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithoutRef } from 'react'
-import { SideNavItem } from './components/SideNavItem'
+import SideNavItem from './components/SideNavItem'
 import './SideNav.scss'
 import cn from 'classnames'
 

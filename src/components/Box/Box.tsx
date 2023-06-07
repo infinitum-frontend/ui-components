@@ -58,4 +58,6 @@ function BaseBox<C extends ElementType = 'div'>(
   )
 }
 
-export const Box = forwardRef(BaseBox) as typeof BaseBox
+const Box = forwardRef(BaseBox) as typeof BaseBox
+
+export default Box

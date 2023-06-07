@@ -18,4 +18,6 @@ function BaseCard<C extends ElementType = 'div'>(
   )
 }
 
-export const Card = forwardRef(BaseCard) as typeof BaseCard
+const Card = forwardRef(BaseCard)
+
+export default Card as typeof BaseCard
