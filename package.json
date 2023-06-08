@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "scripts": {
     "build": "rm -rf dist && vite build && npm run ts-compile",
-    "ts-compile": "tsc && tscpaths -p tsconfig.json -s ./src",
+    "ts-compile": "tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src",
     "build-storybook": "storybook build -o public",
     "storybook": "storybook dev -p 6006",
     "build-tokens": "rm -rf dist/themes && ts-node themes/build/index.ts",
@@ -20,7 +20,7 @@
     "*.{tsx,ts}": [
       "eslint --ext .tsx,.ts",
       "prettier --check",
-      "tsc"
+      "npm run ts-compile"
     ]
   },
   "repository": {
