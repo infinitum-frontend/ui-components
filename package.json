@@ -19,7 +19,8 @@
   "lint-staged": {
     "*.{tsx,ts}": [
       "eslint --ext .tsx,.ts",
-      "prettier --check"
+      "prettier --check",
+      "tsc"
     ]
   },
   "repository": {
