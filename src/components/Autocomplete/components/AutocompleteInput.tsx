@@ -1,5 +1,7 @@
 import { FormEventHandler, forwardRef, ReactElement } from 'react'
-import SearchInput, { SearchInputProps } from 'Components/Input/SearchInput'
+import SearchInput, {
+  SearchInputProps
+} from 'Components/Input/components/SearchInput'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 
 export interface AutocompleteInputProps extends SearchInputProps {}

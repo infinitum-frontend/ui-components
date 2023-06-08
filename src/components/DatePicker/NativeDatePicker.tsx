@@ -9,7 +9,7 @@ import React, {
   ReactElement
 } from 'react'
 import cn from 'classnames'
-import './index.scss'
+import './Datepicker.scss'
 import { useFormGroup } from 'Components/Form/context/group'
 
 export interface NativeDatePickerProps

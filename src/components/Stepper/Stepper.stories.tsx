@@ -1,6 +1,6 @@
 import { StoryObj, Meta } from '@storybook/react'
 import { Stepper } from './index'
-import { StepProps } from './Step'
+import { StepperItemProps } from './components/StepperItem'
 import { Text } from '../Text'
 import { Link } from '../Link'
 import { Space } from '../Space'
@@ -10,7 +10,7 @@ const meta: Meta<typeof Stepper> = {
   component: Stepper
 }
 
-const getSteps: (direction: 'vertical' | 'horizontal') => StepProps[] = (
+const getSteps: (direction: 'vertical' | 'horizontal') => StepperItemProps[] = (
   direction
 ) => [
   {

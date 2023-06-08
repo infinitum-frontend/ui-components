@@ -7,7 +7,7 @@ import { CSSProperties } from 'react'
 
 export * from '@tanstack/react-table'
 
-export { default as Table } from './components/Table'
+export { default as Table } from './Table'
 
 export interface TableFilterSelectOption {
   label: string
@@ -66,4 +66,4 @@ declare module '@tanstack/table-core' {
   // }
 }
 
-export type { TableProps } from './components/Table'
+export type { TableProps } from './Table'

@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
-import Step, { StepProps } from './Step'
+import StepperItem, { StepperItemProps } from './components/StepperItem'
 import cn from 'classnames'
-import './index.scss'
+import './Stepper.scss'
 
 export interface StepperProps {
   /** Массив существующих этапов */
-  steps: StepProps[]
+  steps: StepperItemProps[]
   /** Текущий шаг. Все предыдущие шаги считаются выполненными. status, указанный в элементе Step, имеет приоритет над этим свойством  */
   current?: number
   /** Урезанный вариант (отображается оборванный соединитель после завершающего элемента). Последний элемент при должнен быть завершенным. */
@@ -17,7 +17,7 @@ export interface StepperProps {
 const getStatusByIndex = (
   current: number,
   index: number
-): StepProps['status'] => {
+): StepperItemProps['status'] => {
   return current > index ? 'completed' : 'pending'
 }
 
@@ -31,7 +31,7 @@ const Stepper = ({
   return (
     <div className={cn('inf-stepper', `inf-stepper--direction-${direction}`)}>
       {steps.map((step, index) => (
-        <Step
+        <StepperItem
           key={step.id}
           {...step}
           direction={direction}

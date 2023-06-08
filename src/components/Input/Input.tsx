@@ -10,12 +10,12 @@ import React, {
   KeyboardEventHandler
 } from 'react'
 import classNames from 'classnames'
-import './index.scss'
-import { InputProps } from './interface'
+import './Input.scss'
+import { InputProps } from './types'
 import { ReactComponent as ClearIcon } from 'Icons/bx-x.svg'
 // eslint-disable-next-line import/no-named-default
 import debounceFn from 'lodash.debounce'
-import BaseInput from 'Components/Input/components/BaseInput'
+import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { useFormGroup } from 'Components/Form/context/group'
 import { mergeRefs } from 'react-merge-refs'
 

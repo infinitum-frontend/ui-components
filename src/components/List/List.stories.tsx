@@ -12,7 +12,7 @@ import {
   ListBase,
   ListWithNestedSelection,
   ListWithStatuses
-} from './example'
+} from './fixtures'
 import { TextProps } from '../Text/Text'
 import { ReactNode } from 'react'
 

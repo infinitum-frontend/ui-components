@@ -6,7 +6,7 @@ import React, {
   TextareaHTMLAttributes
 } from 'react'
 import cn from 'classnames'
-import './index.scss'
+import './Textarea.scss'
 import { useFormGroup } from 'Components/Form/context/group'
 
 export interface TextareaProps

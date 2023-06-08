@@ -8,7 +8,7 @@ import {
 import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
-import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtrure'
+import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtures'
 import { Button } from '../Button'
 import { Space } from '../Space'
 

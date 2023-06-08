@@ -1,5 +1,6 @@
-import maskInput from './mask'
+import maskInput from './helpers/mask'
 import Input from './Input'
-import SearchInput from './SearchInput'
+import SearchInput from './components/SearchInput/'
 
+// TODO Input.Search ?
 export { Input, maskInput, SearchInput }

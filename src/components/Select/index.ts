@@ -1,4 +1,4 @@
-import Select from './components/Select'
-import selectDataFormatter from './formatter'
+import Select from './Select'
+import selectDataFormatter from './helpers/formatter'
 
 export { Select, selectDataFormatter }

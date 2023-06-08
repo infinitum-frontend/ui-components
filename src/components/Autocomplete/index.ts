@@ -1,2 +1,2 @@
-export { default as Autocomplete } from './components/Autocomplete'
+export { default as Autocomplete } from './Autocomplete'
 export * from './types'

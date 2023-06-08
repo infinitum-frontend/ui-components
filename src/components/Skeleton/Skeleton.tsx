@@ -1,4 +1,4 @@
-import './index.scss'
+import './Skeleton.scss'
 import React from 'react'
 import cn from 'classnames'
 

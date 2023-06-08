@@ -3,7 +3,7 @@ import { selectDataFormatter } from '../index'
 import {
   SelectOptionsUnformatted,
   SelectOptionsWithExtraKeys
-} from '../fixture'
+} from '../fixtures'
 
 describe('formatter', () => {
   it('should support base formatting', () => {
