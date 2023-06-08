@@ -1,3 +1,5 @@
+/* Naming formula: --p-color-element-role-variant-state */
+
 :root {
   /* Base */
   --inf-color-infinitum-red: #f53a3a;
@@ -40,15 +42,19 @@
   --inf-color-success-lightest: #84f2bb;
 
   /* Text */
-  --inf-color-text: var(--inf-color-black);
+  --inf-color-text-primary: var(--inf-color-black);
+  --inf-color-text: var(--inf-color-black); // TODO: remove
   --inf-color-text-secondary: var(--inf-color-gray);
   --inf-color-text-tertiary: var(--inf-color-gray-light);
   --inf-color-text-inverse: #fff;
+  // --inf-color-text-inverse-secondary: #ccc;
+  --inf-color-text-link: var(--inf-color-secondary);
+  --inf-color-text-link-hover: var(--inf-color-secondary-dark);
+  --inf-color-text-link-disabled: var(--inf-color-secondary-light);
   --inf-color-text-success: var(--inf-color-success-dark);
   --inf-color-text-warning: #e6a302;
   --inf-color-text-danger: #fc673a;
-  --inf-color-text-link: var(--inf-color-secondary);
-  --inf-color-text-link-hover: var(--inf-color-secondary-dark);
+  --inf-color-text-on-color: #fff;
 
   /* Icon */
   --inf-color-icon: var(--inf-color-black);
@@ -72,8 +78,6 @@
   --inf-color-border-focused: #46626b;
   --inf-control-color-border-active: #738f99;
   --inf-control-background-color-hover: #e6f1f5;
-  --inf-color-text-on-primary: #fff;
-  --inf-color-text-on-secondary: #fff;
   --inf-color-text-quaternary: #c8cacc;
   --inf-color-background-control-disabled: var(
     --inf-color-background-secondary

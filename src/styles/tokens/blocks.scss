@@ -1,5 +1,15 @@
 :root {
   /* Spacing */
+  --inf-space-xxsmall: 4px;
+  --inf-space-xsmall: 8px;
+  --inf-space-small: 12px;
+  --inf-space-medium: 16px;
+  --inf-space-large: 24px;
+  --inf-space-xlarge: 32px;
+  --inf-space-xxlarge: 48px;
+  --inf-space-xxxlarge: 72px;
+
+  // TODO: remove
   --inf-spacing-xsmall: 4px;
   --inf-spacing-small: 8px;
   --inf-spacing-medium: 16px;
@@ -33,13 +43,4 @@
   --inf-control-height-small: 28px; // нет в макете
   --inf-control-height-large: 36px; // нет в макете
   --inf-spacing-checked-group: 2px;
-
-  /* Deprecated */
-  --inf-space-xxsmall: 4px;
-  --inf-space-xsmall: 8px;
-  --inf-space-small: 12px;
-  --inf-space-medium: 16px;
-  --inf-space-large: 24px;
-  --inf-space-xlarge: 32px;
-  --inf-space-xxlarge: 40px;
 }

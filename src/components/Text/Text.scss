@@ -2,8 +2,8 @@
   font-family: var(--inf-font-family-base);
 
   &--size-xsmall {
-    font-size: var(--inf-font-size-overline-1);
-    line-height: var(--inf-font-line-height-overline-1);
+    font-size: var(--inf-font-size-overline);
+    line-height: var(--inf-font-line-height-overline);
   }
 
   &--size-small {
@@ -20,6 +20,48 @@
     font-size: var(--inf-font-size-subtitle-1);
   }
 
+  &--variant-heading-1 {
+    font: var(--inf-font-h1);
+  }
+
+  &--variant-heading-2 {
+    font: var(--inf-font-h2);
+  }
+
+  &--variant-heading-3 {
+    font: var(--inf-font-h3);
+  }
+
+  &--variant-heading-4 {
+    font: var(--inf-font-h4);
+  }
+
+  &--variant-subtitle-1 {
+    font: var(--inf-font-subtitle-1);
+  }
+
+  &--variant-subtitle-2 {
+    font: var(--inf-font-subtitle-2);
+  }
+
+  &--variant-subtitle-3 {
+    font: var(--inf-font-subtitle-3);
+  }
+
+  &--variant-body-1 {
+    font: var(--inf-font-body-1);
+  }
+
+  &--variant-body-2 {
+    font: var(--inf-font-body-2);
+  }
+
+  &--variant-overline {
+    font: var(--inf-font-overline);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
   &--uppercase {
     text-transform: uppercase;
   }
@@ -30,16 +72,24 @@
     overflow: hidden;
   }
 
-  &--align-center {
+  &--alignment-center {
     text-align: center;
   }
 
-  &--align-left {
+  &--alignment-left {
     text-align: left;
   }
 
-  &--align-right {
+  &--alignment-right {
     text-align: right;
+  }
+
+  &--alignment-justify {
+    text-align: justify;
+  }
+
+  &--weight-light {
+    font-weight: var(--inf-font-weight-light);
   }
 
   &--weight-normal {
@@ -48,6 +98,10 @@
 
   &--weight-bold {
     font-weight: var(--inf-font-weight-bold);
+  }
+
+  &--weight-extrabold {
+    font-weight: var(--inf-font-weight-extrabold);
   }
 
   &--tone-default {
@@ -80,5 +134,37 @@
 
   &--tone-inverse {
     color: var(--inf-color-text-inverse);
+  }
+
+  &--color-primary {
+    color: var(--inf-color-text-primary);
+  }
+
+  &--color-secondary {
+    color: var(--inf-color-text-secondary);
+  }
+
+  &--color-tertiary {
+    color: var(--inf-color-text-tertiary);
+  }
+
+  &--color-inverse {
+    color: var(--inf-color-text-inverse);
+  }
+
+  &--color-success {
+    color: var(--inf-color-text-success);
+  }
+
+  &--color-danger {
+    color: var(--inf-color-text-danger);
+  }
+
+  &--color-warning {
+    color: var(--inf-color-text-warning);
+  }
+
+  &--color-link {
+    color: var(--inf-color-text-link);
   }
 }

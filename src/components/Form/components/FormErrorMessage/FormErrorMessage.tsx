@@ -1,22 +1,22 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { forwardRef, ReactElement } from 'react'
-import Text, { TextProps } from 'Components/Text/Text'
+import React, { forwardRef, ReactElement, PropsWithChildren } from 'react'
 import cn from 'classnames'
+import './FormErrorMessage.scss'
 
-export interface FormErrorMessageProps extends Omit<TextProps, 'tone'> {}
+export interface FormErrorMessageProps extends PropsWithChildren {
+  className?: string
+}
 
 const FormErrorMessage = forwardRef<HTMLDivElement, FormErrorMessageProps>(
-  ({ children, className, size = 'small', ...props }, ref): ReactElement => {
+  ({ children, className, ...props }, ref): ReactElement => {
     return (
-      <Text
+      <div
         ref={ref}
-        className={cn(className, 'inf-form-hint')}
-        size={size}
-        tone={'danger'}
+        className={cn('inf-form-error-message', className)}
         {...props}
       >
         {children}
-      </Text>
+      </div>
     )
   }
 )

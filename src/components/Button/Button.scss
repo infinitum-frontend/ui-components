@@ -35,7 +35,7 @@
 
   &--variant-primary {
     background-color: var(--inf-color-primary);
-    color: var(--inf-color-text-on-primary);
+    color: var(--inf-color-text-on-color);
 
     &:hover {
       background-color: var(--inf-color-primary-hover);
@@ -48,7 +48,7 @@
 
   &--variant-secondary {
     background-color: var(--inf-color-secondary);
-    color: var(--inf-color-text-on-secondary);
+    color: var(--inf-color-text-on-color);
 
     &:hover {
       background-color: var(--inf-color-secondary-hover);

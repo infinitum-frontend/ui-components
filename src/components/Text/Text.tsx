@@ -1,65 +1,53 @@
-import './Text.scss'
-import React, { ReactNode } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { ElementType, forwardRef, ReactElement } from 'react'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import classNames from 'classnames'
+import { TextProps } from './types'
+import './Text.scss'
 
-export interface TextProps extends React.ComponentPropsWithoutRef<'div'> {
-  children?: ReactNode
-  className?: string
-  size?: 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
-  weight?: 'light' | 'normal' | 'bold' | 'extrabold'
-  tone?:
-    | 'default'
-    | 'secondary'
-    | 'tertiary'
-    | 'quaternary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'inverse'
-  alignment?: 'left' | 'center' | 'right'
-  truncated?: boolean
-  uppercase?: boolean
-}
+function BaseText<C extends ElementType = 'div'>(
+  props: PolymorphicComponent<C, TextProps>,
+  ref: PolymorphicRef<C>
+): ReactElement {
+  const {
+    children = '',
+    className = '',
+    variant = 'body-1',
+    size,
+    weight,
+    alignment = 'left',
+    tone,
+    color,
+    truncated = false,
+    uppercase = false,
+    ...rest
+  } = props
 
-/** Компонент для отображения текста */
-const Text = React.forwardRef<HTMLDivElement, TextProps>(
-  (
-    {
-      children = '',
-      className = '',
-      size = 'medium',
-      weight = 'normal',
-      alignment = 'left',
-      tone,
-      truncated = false,
-      uppercase = false,
-      ...props
-    },
-    ref
-  ) => {
-    const getClassNames: () => string = () => {
-      return classNames(
-        'inf-text',
-        className,
-        `inf-text--size-${size}`,
-        `inf-text--weight-${weight}`,
-        {
-          'inf-text--uppercase': uppercase,
-          'inf-text--truncated': truncated,
-          [`inf-text--tone-${tone as string}`]: tone,
-          [`inf-text--align-${alignment}`]: alignment !== 'left'
-        }
-      )
-    }
+  // TODO: map size to variant and tone to color
 
-    return (
-      <div ref={ref} className={getClassNames()} {...props}>
-        {children}
-      </div>
+  const getClassNames: () => string = () => {
+    return classNames(
+      'inf-text',
+      className,
+      `inf-text--size-${size as string}`,
+      `inf-text--variant-${variant as string}`,
+      {
+        'inf-text--uppercase': uppercase,
+        'inf-text--truncated': truncated,
+        [`inf-text--color-${color as string}`]: color,
+        [`inf-text--weight-${weight as string}`]: weight,
+        [`inf-text--alignment-${alignment as string}`]: alignment !== 'left'
+      }
     )
   }
-)
 
-Text.displayName = 'Text'
+  return (
+    <div ref={ref} className={getClassNames()} {...rest}>
+      {children}
+    </div>
+  )
+}
 
-export default Text
+const Text = forwardRef(BaseText)
+/** Компонент для отображения текста */
+export default Text as typeof BaseText
