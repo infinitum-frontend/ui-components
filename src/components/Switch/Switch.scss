@@ -15,7 +15,7 @@
 
     &:focus {
       + .inf-switch__switch {
-        outline: 2px solid #49c8ff;
+        outline: var(--inf-border-focus);
       }
     }
   }

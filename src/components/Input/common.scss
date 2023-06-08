@@ -1,4 +1,5 @@
-input, textarea {
+input,
+textarea {
   font-family: var(--inf-font-family-base);
   border-radius: 0;
   padding-inline-start: 0;
@@ -12,20 +13,20 @@ input, textarea {
     margin: 0;
   }
 
-  &[type="search"]::-webkit-search-decoration,
-  &[type="search"]::-webkit-search-cancel-button,
-  &[type="search"]::-webkit-search-results-button,
-  &[type="search"]::-webkit-search-results-decoration {
-    -webkit-appearance:none;
+  &[type='search']::-webkit-search-decoration,
+  &[type='search']::-webkit-search-cancel-button,
+  &[type='search']::-webkit-search-results-button,
+  &[type='search']::-webkit-search-results-decoration {
+    -webkit-appearance: none;
   }
 
   /* Firefox */
-  &[type=number] {
+  &[type='number'] {
     -moz-appearance: textfield;
   }
 
   /* iOS */
-  input[type="search"] {
+  input[type='search'] {
     -webkit-appearance: none;
   }
 
@@ -42,7 +43,7 @@ input, textarea {
   }
 
   &:focus-visible {
-    outline: 2px solid #49c8ff;
+    outline: var(--inf-border-focus);
   }
 
   &::placeholder {

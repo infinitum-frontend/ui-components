@@ -11,27 +11,36 @@
   }
 
   &:hover {
-    & input[type=checkbox] ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
-      border-color: var(--inf-checkbox-color-border-hover)
+    &
+      input[type='checkbox']
+      ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
+      border-color: var(--inf-checkbox-color-border-hover);
     }
 
-    & input[type=checkbox]:checked ~ .inf-checkbox__box {
+    & input[type='checkbox']:checked ~ .inf-checkbox__box {
       border-color: transparent;
       background-color: var(--inf-checkbox-checked-color-background-hover);
     }
   }
 
   &:active {
-    & input[type=checkbox] ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
+    &
+      input[type='checkbox']
+      ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
       border-color: var(--inf-checkbox-color-border-active);
       background-color: var(--inf-checkbox-color-background-active);
 
-      svg:not(.inf-checkbox input[type='checkbox']:checked ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) svg) {
+      svg:not(
+          .inf-checkbox
+            input[type='checkbox']:checked
+            ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled)
+            svg
+        ) {
         visibility: hidden;
       }
     }
 
-    & input[type=checkbox]:checked ~ .inf-checkbox__box {
+    & input[type='checkbox']:checked ~ .inf-checkbox__box {
       border-color: transparent;
       background-color: var(--inf-checkbox-checked-color-background-active);
 
@@ -66,7 +75,7 @@
     background-color: var(--inf-checkbox-color-background);
     border-radius: var(--inf-border-radius-small);
     position: relative;
-    top: .2em;
+    top: 0.2em;
 
     &--disabled {
       cursor: unset;
@@ -102,9 +111,8 @@
     //appearance: none;
 
     &:focus-visible ~ .inf-checkbox__box {
-      outline: 2px solid #49c8ff;
+      outline: var(--inf-border-focus);
     }
-
 
     &:checked ~ .inf-checkbox__box {
       border-color: transparent;

@@ -1,12 +1,12 @@
 .inf-breadcrumbs-item {
   position: relative;
   font-size: var(--inf-text-size-medium);
-  color: var(--inf-color-text-control);
+  color: var(--inf-color-text-link);
   text-decoration: none;
   transition: color 0.2s;
 
-  &:hover {
-    color: var(--inf-color-text-secondary);
+  @include hover {
+    color: var(--inf-color-text-link-hover);
   }
 
   &:not(:last-child)::after {
