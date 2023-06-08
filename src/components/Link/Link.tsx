@@ -4,16 +4,17 @@ import classNames from 'classnames'
 import './Link.scss'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LinkProps {
-  className?: string
-  variant?: 'primary'
+  // underline: 'always' | 'hover' | 'none'
+  // weight?: 'normal' | 'bold'
 }
 
 function BaseLink<C extends ElementType = 'a'>(
   props: PolymorphicComponent<C, LinkProps>,
   ref: PolymorphicRef<C>
 ): ReactElement {
-  const { as = 'a', children = '', className = '', ...rest } = props
+  const { as = 'a', children, className, ...rest } = props
 
   const getClassNames: () => string = () => {
     return classNames('inf-link', className)

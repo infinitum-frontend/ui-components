@@ -5,8 +5,8 @@
 
   &:hover {
     & .inf-radio__box:not(.inf-radio__box--disabled) {
-        border-color: var(--inf-radio-color-border-hover);
-        background-color: var(--inf-radio-color-background-hover);
+      border-color: var(--inf-radio-color-border-hover);
+      background-color: var(--inf-radio-color-background-hover);
     }
   }
 
@@ -69,9 +69,8 @@
     //appearance: none;
 
     &:focus-visible ~ .inf-radio__box {
-      outline: 2px solid #49c8ff;
+      outline: var(--inf-border-focus);
     }
-
 
     &:checked ~ .inf-radio__box {
       border-color: transparent;
@@ -89,6 +88,5 @@
         }
       }
     }
-
   }
 }

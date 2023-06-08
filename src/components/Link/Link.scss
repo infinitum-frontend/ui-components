@@ -7,8 +7,9 @@
   width: max-content;
   line-height: 1;
 
-  &:hover {
-    // border-color: transparent;
+  @include hover {
     color: var(--inf-color-text-link-hover);
   }
+
+  @include focus-styles;
 }

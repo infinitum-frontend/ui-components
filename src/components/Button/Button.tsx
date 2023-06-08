@@ -18,6 +18,8 @@ export interface ButtonProps {
    * Вариант оформления
    */
   variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
+  // outlined?: boolean TODO:
+  // plain?: boolean TODO:
   /**
    * Размер
    */

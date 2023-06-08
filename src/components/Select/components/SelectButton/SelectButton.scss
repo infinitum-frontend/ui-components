@@ -22,7 +22,7 @@
   }
 
   &--focused {
-    outline: 2px solid #49c8ff;
+    outline: var(--inf-border-focus);
   }
 
   &--disabled {
