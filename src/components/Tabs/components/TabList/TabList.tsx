@@ -2,7 +2,7 @@
 import React, { ComponentPropsWithoutRef, ReactElement } from 'react'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
 import cn from 'classnames'
-import '../style/list.scss'
+import './TabList.scss'
 
 export interface TabListProps extends ComponentPropsWithoutRef<'div'> {}
 

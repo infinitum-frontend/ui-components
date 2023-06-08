@@ -1,0 +1,16 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Components/Tabs/WithRouting" />
+
+```html
+Использование табов с компонентом роутера:
+<Tabs>
+  <Tabs.List>
+    {tabs.map => (
+      <NavLink to={tab.to} key={tab.name}>
+    {({ isActive }) => (<Tabs.Tab active={isActive}>{tab.name}</Tabs.Tab>)}
+      </NavLink>
+      )}
+  </Tabs.List>
+</Tabs>
+```

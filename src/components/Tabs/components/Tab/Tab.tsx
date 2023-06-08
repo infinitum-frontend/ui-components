@@ -2,7 +2,7 @@
 import React, { ElementType, ReactElement, useEffect, useId } from 'react'
 import cn from 'classnames'
 import useTabsContext from 'Components/Tabs/context/useTabsContext'
-import '../style/index.scss'
+import './Tab.scss'
 import { PolymorphicComponent } from '~/src/utils/types'
 import { Badge } from 'Components/Badge'
 

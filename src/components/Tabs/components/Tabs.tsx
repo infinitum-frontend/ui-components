@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
-import Tab from 'Components/Tabs/components/Tab'
-import TabPanel from 'Components/Tabs/components/Panel'
-import TabPanels from 'Components/Tabs/components/Panels'
-import TabList from 'Components/Tabs/components/List'
+import Tab from './Tab'
+import TabPanel from './Panel'
+import TabPanels from './Panels'
+import TabList from './TabList'
 import TabsContext, { ITabsContext } from 'Components/Tabs/context/TabsContext'
 
 export interface TabsProps

@@ -28,9 +28,16 @@ export const parameters = {
   },
   options: {
     storySort: {
+      includeNames: true,
       order: [
         'Intro',
+        ['Старт', 'Дизайн-токены'],
         'Components',
+        // отображаем все истории, затем отображаем Tabs и сортируем в указанном порядке.
+        // если нужно другие сторисы сортировать, дописываем их аналогичным образом: ['*', 'Table', 'Tabs', ['Docs', 'WithRouting', '*']]
+        // единственная проблема - если сториса где то по центру, придется вручную писать все предыдущие/последующие сторис
+        // https://github.com/storybookjs/storybook/issues/16573
+        ['*', 'Tabs', ['Docs', 'WithRouting', '*']],
         'Typography',
         'Form',
         'Overlay',
