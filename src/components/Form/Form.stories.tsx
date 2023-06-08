@@ -6,7 +6,7 @@ import { Button } from '../Button'
 import { Checkbox } from '../Checkbox'
 import { Input, maskInput } from '../Input'
 import { Select } from '../Select'
-import { Radio, RadioGroup } from '../Radio'
+import { Radio } from '../Radio'
 import { Textarea } from '../Textarea'
 import { Switch } from '../Switch'
 import { Autocomplete } from '../Autocomplete'
@@ -174,7 +174,7 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
           <Form.Group direction={'horizontal'} required>
             <Form.Label>Ограничение в обороте</Form.Label>
             <Form.Item>
-              <RadioGroup
+              <Radio.Group
                 name={'restrictions'}
                 value={restrictionType}
                 onChange={(value) => setRestrictionType(value)}
@@ -182,7 +182,7 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
                 <Radio value={'1'}>Ограничено</Radio>
                 <Radio value={'2'}>Не ограничено</Radio>
                 <Radio value={'3'}>Не указано</Radio>
-              </RadioGroup>
+              </Radio.Group>
             </Form.Item>
           </Form.Group>
 

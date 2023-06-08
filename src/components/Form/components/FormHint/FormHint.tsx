@@ -1,26 +1,18 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { forwardRef, ReactElement } from 'react'
+import React, { forwardRef, PropsWithChildren, ReactElement } from 'react'
 import cn from 'classnames'
-import Text, { TextProps } from 'Components/Text/Text'
 import './FormHint.scss'
 
-export interface FormHintProps extends TextProps {}
+export interface FormHintProps extends PropsWithChildren {
+  className?: string
+}
 
 const FormHint = forwardRef<HTMLDivElement, FormHintProps>(
-  (
-    { children, className, size = 'small', tone = 'tertiary', ...props },
-    ref
-  ): ReactElement => {
+  ({ children, className, ...props }, ref): ReactElement => {
     return (
-      <Text
-        ref={ref}
-        className={cn(className, 'inf-form-hint')}
-        size={size}
-        tone={tone}
-        {...props}
-      >
+      <div ref={ref} className={cn('inf-form-hint', className)} {...props}>
         {children}
-      </Text>
+      </div>
     )
   }
 )
