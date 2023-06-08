@@ -1,7 +1,7 @@
 import React from 'react'
 import cn from 'classnames'
 import useTimeout from 'Hooks/useTimeout'
-import { useNotificationDispatchContext } from '../../NotificationContext'
+import { useNotificationDispatchContext } from '../../context/NotificationContext'
 import { NotificationProps, ActionKind } from '../../types'
 import { CloseButton } from 'Components/CloseButton'
 import './Notification.scss'

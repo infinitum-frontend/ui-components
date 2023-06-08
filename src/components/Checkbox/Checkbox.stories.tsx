@@ -1,5 +1,5 @@
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
-import { Checkbox, CheckboxGroup } from './index'
+import { Checkbox } from './index'
 import { action } from '@storybook/addon-actions'
 import { Space } from '../Space'
 import { useState } from 'react'
@@ -38,6 +38,27 @@ export const Playground = {
   render: Template
 }
 
+export const Group: StoryObj<typeof Checkbox.Group> = {
+  render: (args) => {
+    const [checked, setChecked] = useState<string[]>(['2'])
+    const handleChange = (val: string[]): void => {
+      setChecked(val)
+    }
+    return (
+      <>
+        <Checkbox.Group onChange={handleChange} value={checked}>
+          <Checkbox value="1">
+            Облигации внешних облигационных займов РФ
+          </Checkbox>
+          <Checkbox value="2">Облигации государственных компаний</Checkbox>
+          <Checkbox value="3">Облигации государственных корпораций</Checkbox>
+        </Checkbox.Group>
+        <div style={{ marginTop: '12px' }}>Выбрано: [{checked}]</div>
+      </>
+    )
+  }
+}
+
 export const Indeterminate: StoryObj<typeof Checkbox> = {
   render: (args) => {
     const [indeterminate, setIndeterminate] = useState(true)
@@ -65,7 +86,7 @@ export const Indeterminate: StoryObj<typeof Checkbox> = {
         >
           Категории по юрисдикции
         </Checkbox>
-        <CheckboxGroup
+        <Checkbox.Group
           onChange={handleChange}
           value={checkedList}
           style={{ marginLeft: '20px', marginTop: '6px' }}
@@ -75,7 +96,7 @@ export const Indeterminate: StoryObj<typeof Checkbox> = {
               {option.label}
             </Checkbox>
           ))}
-        </CheckboxGroup>
+        </Checkbox.Group>
       </>
     )
   }

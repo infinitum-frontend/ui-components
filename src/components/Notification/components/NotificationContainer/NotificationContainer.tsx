@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import Notification from '../Notification/Notification'
-import { useNotificationStateContext } from '../../NotificationContext'
+import { useNotificationStateContext } from '../../context/NotificationContext'
 import './NotificationContainer.scss'
 import cn from 'classnames'
 import { NotificationOptions } from '../../types'

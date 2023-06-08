@@ -2,7 +2,7 @@
 import React, { ComponentProps, ReactElement, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import cn from 'classnames'
-import './index.scss'
+import './Collapse.scss'
 
 export interface CollapseProps extends ComponentProps<'div'> {
   /** Состояние (схлопнут/развернут)  */

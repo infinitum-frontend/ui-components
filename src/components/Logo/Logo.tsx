@@ -5,7 +5,7 @@ import { ReactComponent as LogoFullMono } from './assets/logo-full-mono.svg'
 import { ReactComponent as LogoFullNoCaption } from './assets/logo-full-no-caption.svg'
 import { ReactComponent as LogoFullInverse } from './assets/logo-full-inverse.svg'
 import { ReactComponent as LogoShort } from './assets/logo-short.svg'
-import './index.scss'
+import './Logo.scss'
 
 export interface LogoProps extends ComponentPropsWithoutRef<'div'> {
   variant?: 'default' | 'no-caption' | 'monochrome' | 'inverse' | 'short'

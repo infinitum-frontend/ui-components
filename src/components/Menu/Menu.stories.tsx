@@ -17,7 +17,7 @@ import {
   MenuBase,
   MenuWithNestedSelection,
   MenuWithStatuses
-} from './example'
+} from './fixtures'
 import { TextProps } from '../Text/Text'
 
 const meta: Meta<typeof Menu> = {

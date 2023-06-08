@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
-import Menu, { MenuProps } from 'Components/Menu/components/Menu'
+import { Menu, MenuProps } from 'Components/Menu'
 import cn from 'classnames'
 
 export type AutocompleteOptionsProps = MenuProps &

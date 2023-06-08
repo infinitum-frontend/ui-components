@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import cn from 'classnames'
-import { BadgeProps } from 'Components/Badge/components/Badge'
-import '../style/sup.scss'
+import { BadgeProps } from 'Components/Badge/Badge'
+import './BadgeSup.scss'
 
 export interface BadgeSupProps extends Omit<BadgeProps, ''> {
   standalone?: boolean

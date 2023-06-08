@@ -2,9 +2,9 @@
 import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import { Select, selectDataFormatter } from './index'
-import { SelectOption } from './interface'
+import { SelectOption } from './types'
 import { useState } from 'react'
-import { SelectBaseOptions, SelectOptionsRawLong } from './fixture'
+import { SelectBaseOptions, SelectOptionsRawLong } from './fixtures'
 
 const meta: Meta<typeof Select> = {
   title: 'Form/Select',
