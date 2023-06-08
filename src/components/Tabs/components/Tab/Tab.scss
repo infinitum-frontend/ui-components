@@ -51,7 +51,6 @@
     font-weight: 800;
     color: var(--inf-color-text-tertiary);
     --badge-gap: 4px;
-    --item-gap: 20px;
 
     &.inf-tab--active {
       color: var(--inf-color-text);
@@ -73,7 +72,6 @@
     font-weight: normal;
     letter-spacing: 0.1em;
     --badge-gap: 6px;
-    --item-gap: 24px;
 
     &.inf-tab--active {
       color: var(--inf-color-text);
@@ -94,7 +92,6 @@
     font-weight: 800;
     line-height: 29px;
     --badge-gap: 4px;
-    --item-gap: 12px;
 
     .inf-tab__underline {
       height: 3px;
@@ -109,10 +106,6 @@
       }
     }
   }
-
-  &:not(:first-child) {
-    margin-left: var(--item-gap);
-  }
 }
 
 .inf-tab-wrapper {
@@ -125,21 +118,5 @@
     .inf-badge-sup {
       background-color: #ffa8a8;
     }
-  }
-
-  &--variant-default {
-    --item-gap: 20px;
-  }
-
-  &--variant-underline {
-    --item-gap: 12px;
-  }
-
-  &--variant-uppercase {
-    --item-gap: 24px;
-  }
-
-  &:not(:first-child) {
-    margin-left: var(--item-gap);
   }
 }
