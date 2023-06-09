@@ -87,14 +87,14 @@ function BaseBox<C extends ElementType = 'div'>(
       : undefined || padding
       ? `var(--inf-space-${padding as string})`
       : undefined || undefined,
-    paddingLeft: paddingTop
+    paddingLeft: paddingLeft
       ? `var(--inf-space-${paddingLeft as string})`
       : undefined || paddingX
       ? `var(--inf-space-${paddingX as string})`
       : undefined || padding
       ? `var(--inf-space-${padding as string})`
       : undefined || undefined,
-    paddingRight: paddingTop
+    paddingRight: paddingRight
       ? `var(--inf-space-${paddingRight as string})`
       : undefined || paddingX
       ? `var(--inf-space-${paddingX as string})`
