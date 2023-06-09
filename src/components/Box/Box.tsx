@@ -5,17 +5,10 @@ import React, {
   forwardRef,
   ReactElement
 } from 'react'
-import './Box.scss'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
-import { Background, BorderRadius, BoxShadow, Padding } from './types'
-
-export interface BoxProps {
-  background?: Background
-  padding?: Padding
-  borderRadius?: BorderRadius
-  boxShadow?: BoxShadow
-}
+import { BoxProps } from './types'
+import './Box.scss'
 
 function BaseBox<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C, BoxProps>,
@@ -26,24 +19,89 @@ function BaseBox<C extends ElementType = 'div'>(
     children,
     as = 'div',
     padding,
+    paddingX,
+    paddingY,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft,
     background,
+    color,
+    borderColor,
+    borderWidth,
+    borderTopWidth,
+    borderBottomWidth,
+    borderRightWidth,
+    borderLeftWidth,
     borderRadius,
     boxShadow,
+    overflow,
+    overflowX,
+    overflowY,
+    style,
     ...rest
   } = props
   const Component = as
 
+  const borderStyleValue =
+    borderColor ||
+    borderWidth ||
+    borderTopWidth ||
+    borderBottomWidth ||
+    borderLeftWidth ||
+    borderRightWidth
+      ? 'solid'
+      : undefined
+
   const styles = {
-    padding: padding ? `var(--inf-spacing-${padding as string})` : false,
+    borderStyle: borderStyleValue,
+    borderColor: borderColor
+      ? `var(--inf-color-border-${borderColor as string})`
+      : undefined,
+    borderWidth: borderWidth
+      ? `var(--inf-border-width-${borderWidth as string})`
+      : undefined,
     borderRadius: borderRadius
       ? `var(--inf-border-radius-${borderRadius as string})`
-      : false,
+      : undefined,
     boxShadow: boxShadow
       ? `var(--inf-box-shadow-${boxShadow as string})`
-      : false,
+      : undefined,
     backgroundColor: background
       ? `var(--inf-color-background-${background as string})`
-      : false
+      : undefined,
+    color: background ? `var(--inf-color-text-${color as string})` : undefined,
+    overflowX: overflowX || overflow || undefined,
+    overflowY: overflowY || overflow || undefined,
+    paddingTop: paddingTop
+      ? `var(--inf-space-${paddingTop as string})`
+      : undefined || paddingY
+      ? `var(--inf-space-${paddingY as string})`
+      : undefined || padding
+      ? `var(--inf-space-${padding as string})`
+      : undefined || undefined,
+    paddingBottom: paddingBottom
+      ? `var(--inf-space-${paddingBottom as string})`
+      : undefined || paddingY
+      ? `var(--inf-space-${paddingY as string})`
+      : undefined || padding
+      ? `var(--inf-space-${padding as string})`
+      : undefined || undefined,
+    paddingLeft: paddingTop
+      ? `var(--inf-space-${paddingLeft as string})`
+      : undefined || paddingX
+      ? `var(--inf-space-${paddingX as string})`
+      : undefined || padding
+      ? `var(--inf-space-${padding as string})`
+      : undefined || undefined,
+    paddingRight: paddingTop
+      ? `var(--inf-space-${paddingRight as string})`
+      : undefined || paddingX
+      ? `var(--inf-space-${paddingX as string})`
+      : undefined || padding
+      ? `var(--inf-space-${padding as string})`
+      : undefined || undefined,
+    ...style
   }
 
   return (
@@ -58,6 +116,6 @@ function BaseBox<C extends ElementType = 'div'>(
   )
 }
 
-const Box = forwardRef(BaseBox) as typeof BaseBox
+const Box = forwardRef(BaseBox)
 
-export default Box
+export default Box as typeof BaseBox

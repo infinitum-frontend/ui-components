@@ -1,4 +1,5 @@
 import { Button } from 'Components/Button'
+import { Box } from 'Components/Box'
 import { Input, SearchInput } from './components/Input'
 import { Select, selectDataFormatter } from './components/Select'
 import { Loader } from './components/Loader'
@@ -43,6 +44,7 @@ import useIsFirstRender from 'Hooks/useIsFirstRender'
 export {
   Autocomplete,
   Button,
+  Box,
   Table,
   Input,
   Select,
