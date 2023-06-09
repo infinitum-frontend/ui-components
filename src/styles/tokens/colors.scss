@@ -62,7 +62,9 @@
   --inf-color-icon-inverse: #fff;
 
   /* Background */
-  --inf-color-background-page: var(--inf-color-gray-lighest);
+  --inf-color-background-body: var(
+    --inf-color-gray-lighest
+  ); // TODO: background-body?
   --inf-color-background-default: var(--inf-color-white);
   --inf-color-background-secondary: var(--inf-color-gray-lighest);
   --inf-color-background-hover: var(--inf-color-cold-grey-lightest);

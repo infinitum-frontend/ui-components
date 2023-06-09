@@ -14,6 +14,7 @@ export type SpaceVariants =
   | 'large'
   | 'xlarge'
   | 'xxlarge'
+  | 'xxxlarge'
 
 // examples
 
