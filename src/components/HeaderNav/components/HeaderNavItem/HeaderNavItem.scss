@@ -2,6 +2,7 @@
   display: inline-flex;
   align-items: center;
   font: var(--inf-font-overline);
+  font-size: 12px; // TODO: вынести в токены типографики
   line-height: 20px;
   text-transform: uppercase;
   letter-spacing: 0.04em;

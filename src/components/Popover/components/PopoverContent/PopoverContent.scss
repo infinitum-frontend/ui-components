@@ -8,7 +8,7 @@
 
   border-radius: var(--inf-border-radius-small);
   z-index: var(--inf-z-index-popover); // TODO: не место здесь
-  padding: var(--inf-space-small);
+  padding: var(--inf-space-medium);
 
   &--no-padding {
     padding: 0;

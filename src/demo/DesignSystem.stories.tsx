@@ -2,23 +2,37 @@
 import * as React from 'react'
 import { Button } from '../components/Button'
 import { Space } from '../components/Space'
-// import { Text } from '../components/Text'
+import { Text } from '../components/Text'
 // import { Heading } from '../components/Heading'
 // import { Input } from '../components/Input'
 // import { Divider } from '../components/Divider'
 import { PageLayout } from '../components/PageLayout'
 import { HeaderNav } from '../components/HeaderNav'
 import { Logo } from '../components/Logo'
+import { Form } from '../components/Form'
+import { Input } from '../components/Input'
+import { Textarea } from '../components/Textarea'
+import { Divider } from '../components/Divider'
+import { Link } from '../components/Link'
+import { Popover } from '../components/Popover'
+import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 // import { Link } from '../components/Link'
-// import { Box } from '../components/Box'
+import { Box } from '../components/Box'
 // import { Modal } from '../components/Modal'
 import {
-  // useNotification,
+  useNotification,
   NotificationContainer,
   NotificationProvider
 } from '../components/Notification'
 import { SideNav } from '../components/SideNav'
 import { Meta, StoryObj } from '@storybook/react'
+import { Table, TableRow } from '../components/Table'
+import {
+  TABLE_DATA,
+  TYPE_FILTER_ITEMS,
+  Portfolio
+} from '../components/Table/fixtures'
+import { ColumnDef } from '@tanstack/react-table'
 
 const ComponentMeta: Meta<typeof Button> = {
   title: 'Demo/Design System',
@@ -38,19 +52,77 @@ export default ComponentMeta
 export const DesignSystem: StoryObj = {
   render: () => {
     // const [isModalOpen, setIsModalOpen] = React.useState(false)
-    // const notify = useNotification()
+    const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false)
+    const [selection, setSelection] = React.useState<
+      Array<TableRow<Portfolio>>
+    >([])
+    const [selected, setSelected] = React.useState('')
+
+    const notify = useNotification()
+
+    const handleChange = (data: Array<TableRow<Portfolio>>): void => {
+      setSelection(data)
+    }
+    const handleRowClick = (row: TableRow<any>): void => {
+      setSelected(row.id)
+    }
 
     return (
       <PageLayout>
         <PageLayout.Header sticky containerWidth="large">
-          <Space direction="horizontal" gap="xlarge">
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'grid',
+              gridTemplateColumns: '300px 1fr auto',
+              alignItems: 'center'
+            }}
+          >
             <Logo style={{ width: '140px' }} />
             <HeaderNav>
               <HeaderNav.Item active>Пункт меню 1</HeaderNav.Item>
               <HeaderNav.Item>Пункт меню 2</HeaderNav.Item>
               <HeaderNav.Item>Пункт меню 3</HeaderNav.Item>
             </HeaderNav>
-          </Space>
+
+            <Popover open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
+              <Popover.Trigger onClick={() => setIsUserMenuOpen((v) => !v)}>
+                <Button
+                  variant="ghost"
+                  after={
+                    <ArrowDownIcon
+                      style={{
+                        transform: isUserMenuOpen ? 'rotate(180deg)' : ''
+                      }}
+                    />
+                  }
+                >
+                  Константин Константинопольский
+                </Button>
+              </Popover.Trigger>
+              <Popover.Content variant="inverse">
+                <Space gap="small" style={{ width: '235px' }}>
+                  <Space gap="xxsmall">
+                    <Text variant="subtitle-2">Иван Иванов</Text>
+                    <Text color="tertiary">Проверяющий портфели</Text>
+                  </Space>
+                  <Space gap="xxsmall">
+                    <Text color="secondary">Логин</Text>
+                    <Text>specdep/byndyusoft11</Text>
+                  </Space>
+                  <Space gap="xxsmall">
+                    <Text color="secondary">E-mail</Text>
+                    <Text>byndyusoft11@specdep.ru</Text>
+                  </Space>
+                  <Space gap="xxsmall">
+                    <Text color="secondary">Телефон</Text>
+                    <Text>+79999999999</Text>
+                  </Space>
+                </Space>
+              </Popover.Content>
+            </Popover>
+          </div>
         </PageLayout.Header>
 
         <PageLayout.Body containerWidth="large">
@@ -65,7 +137,63 @@ export const DesignSystem: StoryObj = {
             </SideNav>
           </PageLayout.Aside>
 
-          <PageLayout.Content>
+          <PageLayout.Content style={{ paddingTop: 'var(--inf-space-xlarge)' }}>
+            <Space gap="large">
+              <Table
+                columns={tableColumns}
+                rows={TABLE_DATA}
+                withRowSelection={true}
+                onChangeRowSelection={handleChange}
+                selectionState={selection}
+                selectedRow={selected}
+                onRowClick={handleRowClick}
+              />
+
+              <Divider />
+
+              <Space style={{ padding: '0 var(--inf-space-large)' }}>
+                <Button
+                  variant="secondary"
+                  onClick={() => notify('Lorem ipsum dolor sit amet.')}
+                >
+                  Кнопка 1
+                </Button>
+                <Text>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Quod, molestias.{' '}
+                  <Link as="a" href="javascript:void(0);">
+                    Читать далее ...
+                  </Link>
+                </Text>
+              </Space>
+
+              <Divider />
+
+              <Box paddingX="large" style={{ maxWidth: '400px' }}>
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Имя</Form.Label>
+                    <Input />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Фамилия</Form.Label>
+                    <Input status="error" />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Отчество</Form.Label>
+                    <Input disabled />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>О себе</Form.Label>
+                    <Textarea />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>О них</Form.Label>
+                    <Textarea status="error" />
+                  </Form.Group>
+                </Form>
+              </Box>
+            </Space>
             {/* <Box padding="large">
               <Space>
                 <Space>
@@ -202,7 +330,7 @@ export const DesignSystem: StoryObj = {
                       borderRadius={Box.BorderRadius.Medium}
                     >
                       <Space>
-                        <Text tone={Text.Tone.Inverse}>
+                        <Text color={Text.color.Inverse}>
                           it amet consectetur adipisicing elit. Ut, facere
                           alias. Est atque unde maxime molestias quas excepturi
                           assumenda. Modi?
@@ -259,3 +387,48 @@ export const DesignSystem: StoryObj = {
     backgrounds: { default: 'light' }
   }
 }
+
+const tableColumns: Array<ColumnDef<Portfolio, any>> = [
+  {
+    header: 'Портфель',
+    id: 'portfolio',
+    accessorKey: 'portfolio',
+    // для рендеринга html
+    // cell: info => info.getValue(),
+    // для фильтрации по тексту по вложенным реакт-элементам
+    // filterFn: 'elIncludesString',
+    meta: {
+      filterType: 'input'
+    }
+  },
+  {
+    header: 'Показатель',
+    id: 'mark',
+    accessorKey: 'mark'
+  },
+  {
+    header: 'Тип',
+    id: 'type',
+    accessorKey: 'type',
+    meta: {
+      filterType: 'select',
+      filterItems: TYPE_FILTER_ITEMS
+    }
+  },
+  {
+    header: 'Статус',
+    id: 'status',
+    accessorKey: 'status',
+    meta: {
+      filterType: 'select'
+    }
+  },
+  {
+    header: 'Дата',
+    id: 'date',
+    accessorKey: 'date',
+    meta: {
+      filterType: 'date'
+    }
+  }
+]
