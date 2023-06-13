@@ -30,7 +30,7 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
   (
     {
       direction = 'vertical',
-      gap = 'xsmall',
+      gap = 'xxsmall',
       required = false,
       children,
       className,

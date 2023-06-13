@@ -8,9 +8,7 @@
   border: 1px solid var(--inf-color-border-default);
   border-radius: var(--inf-border-radius-small);
   transition: border-color 0.2s;
-  font-weight: var(--inf-font-weight-normal);
-  font-size: var(--inf-text-size-small);
-  line-height: 18px;
+  font: var(--inf-font-body-2);
   padding: 7px 12px;
   background-color: inherit;
   overflow: hidden;
@@ -18,29 +16,33 @@
 
   &:hover {
     border-color: var(--inf-color-border-hover);
-
-    &::placeholder {
-      color: var(--inf-color-text-control);
-    }
   }
 
   &:focus {
-    border-color: var(--inf-color-border-focused);
+    border-color: var(--inf-color-border-active);
   }
 
   &:disabled {
-    background-color: var(--inf-input-color-background-disabled);
+    background-color: var(--inf-color-background-disabled);
     pointer-events: none;
     border-color: transparent;
-    color: var(--inf-color-text-quaternary);
+    color: var(--inf-color-text-tertiary);
 
     &::placeholder {
-      color: var(--inf-color-text-quaternary);
+      color: var(--inf-color-text-tertiary);
     }
   }
 
   &--status-error {
-    border-color: var(--inf-color-primary);
+    border-color: var(--inf-color-border-danger);
+
+    &:hover {
+      border-color: var(--inf-color-border-danger);
+    }
+
+    &:focus {
+      border-color: var(--inf-color-border-danger);
+    }
   }
 
   &--block {
@@ -48,7 +50,7 @@
   }
 
   &--filled {
-    border-color: var(--inf-color-border-focused);
+    border-color: var(--inf-color-border-active);
   }
 
   &--resize-both {

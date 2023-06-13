@@ -52,7 +52,7 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /** Состояние выбора рядов через чекбокс */
   selectionState?: Array<TableRow<any>>
   /**
-   * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id столбца.
+   * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id ряда.
    */
   selectedRow?: string | number | ((row: TableRow<any>) => boolean)
   onRowClick?: (row: TableRow<any>) => void

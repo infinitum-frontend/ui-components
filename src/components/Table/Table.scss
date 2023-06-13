@@ -33,7 +33,7 @@
   tbody {
     tr {
       &:hover {
-        background-color: var(--inf-control-background-color-hover);
+        background-color: var(--inf-color-background-hover);
       }
 
       &.inf-table__row--interactive {
@@ -41,7 +41,7 @@
       }
 
       &.inf-table__row--selected {
-        background-color: #e6f1f5;
+        background-color: var(--inf-color-background-selected);
       }
 
       &.inf-table__group-label {

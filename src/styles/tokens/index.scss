@@ -4,7 +4,18 @@
 @import './components.scss';
 
 :root {
-  /* МПК */
+  --inf-header-height: 46px;
+  --inf-height-header: 56px;
+  --inf-height-bottom-bar: 3rem;
+
+  /* МПК TODO: выпилить */
+  --container-width: 80rem;
+  --container-padding: 2.5rem;
+  --footer-height: 3rem;
+  --page-side-margin: 5rem;
+  --status-width: 155px;
+  --default-verticalPlace: 0.5rem;
+
   --brand-color: #e54350;
   --brand-light-color: #ff5764;
   --brand-dark-color: #c42f3b;
@@ -57,29 +68,4 @@
     hue-rotate(150deg) brightness(83%) contrast(89%);
   --filter-gray-2-normal: invert(51%) sepia(0%) saturate(5142%)
     hue-rotate(279deg) brightness(85%) contrast(79%);
-
-  --inf-header-height: 46px;
-  --inf-height-header: 56px;
-  --inf-height-bottom-bar: 3rem;
-}
-
-.inf-ui-test-theme {
-  --inf-font-h1: 500 60px / 60px Arial;
-  --inf-font-h2: 500 40px / 40px Arial;
-  --inf-font-h3: 500 30px / 30px Arial;
-  --inf-font-h4: 500 20px / 20px Arial;
-}
-
-.inf-ui-theme-dark {
-  --inf-color-text: #eee;
-  --inf-color-text-secondary: #ddd;
-  --inf-color-text-inverse: #111;
-  --inf-color-background-body: #333;
-  --inf-color-background-default: #222;
-  --inf-color-background-secondary: #333;
-  --inf-color-background-hover: #555;
-  --inf-color-background-inverse: #ddd;
-  --inf-color-primary: var(--inf-color-infinitum-red-dark);
-  --inf-color-primary-hover: var(--inf-color-infinitum-red);
-  --inf-color-border-default: #444;
 }

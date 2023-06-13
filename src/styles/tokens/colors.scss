@@ -24,6 +24,13 @@
   --inf-color-gray-lighest: #f2f4f5;
   --inf-color-white: #fff;
 
+  --inf-color-orange-100: #fff6f4;
+  --inf-color-orange-200: #ffdcd1;
+  --inf-color-orange-300: #ffbba7;
+  --inf-color-orange-400: #ff9273;
+  --inf-color-orange-500: #fc673a;
+  --inf-color-orange-600: #dd4a18;
+
   /* Semantic */
   --inf-color-primary: var(--inf-color-infinitum-red);
   --inf-color-primary-hover: var(--inf-color-infinitum-red-dark);
@@ -41,19 +48,24 @@
   --inf-color-success-light: #48e697;
   --inf-color-success-lightest: #84f2bb;
 
+  --inf-color-danger: #f53a3a;
+
+  --inf-color-warning: #e6a302;
+
   /* Text */
   --inf-color-text-primary: var(--inf-color-black);
   --inf-color-text: var(--inf-color-black); // TODO: remove
   --inf-color-text-secondary: var(--inf-color-gray);
   --inf-color-text-tertiary: var(--inf-color-gray-light);
+  --inf-color-text-disabled: var(--inf-color-gray-light);
   --inf-color-text-inverse: #fff;
   // --inf-color-text-inverse-secondary: #ccc;
   --inf-color-text-link: var(--inf-color-secondary);
   --inf-color-text-link-hover: var(--inf-color-secondary-dark);
   --inf-color-text-link-disabled: var(--inf-color-secondary-light);
   --inf-color-text-success: var(--inf-color-success-dark);
-  --inf-color-text-warning: #e6a302;
-  --inf-color-text-danger: #fc673a;
+  --inf-color-text-warning: var(--inf-color-warning);
+  --inf-color-text-danger: var(--inf-color-danger);
   --inf-color-text-on-color: #fff;
 
   /* Icon */
@@ -62,22 +74,24 @@
   --inf-color-icon-inverse: #fff;
 
   /* Background */
-  --inf-color-background-body: var(
-    --inf-color-gray-lighest
-  ); // TODO: background-body?
+  --inf-color-background-body: var(--inf-color-gray-lighest);
   --inf-color-background-default: var(--inf-color-white);
   --inf-color-background-secondary: var(--inf-color-gray-lighest);
   --inf-color-background-hover: var(--inf-color-cold-grey-lightest);
+  --inf-color-background-selected: var(--inf-color-cold-grey);
   --inf-color-background-inverse: var(--inf-color-black);
+  --inf-color-background-disabled: var(--inf-color-gray-lighest);
 
   /* Border */
-  --inf-color-border-default: var(--inf-color-gray-light);
+  --inf-color-border-default: var(--inf-color-gray-light); // -primary ?
   --inf-color-border-secondary: var(--inf-color-gray-lighter);
+  --inf-color-border-danger: var(--inf-color-danger);
   --inf-color-border-focus: #7abfff;
+  --inf-color-border-hover: var(--inf-color-cold-grey-dark);
+  --inf-color-border-active: var(--inf-color-cold-grey-dark);
 
   /* ---------- TDB ---------- */
   --inf-color-text-control: #46626b;
-  --inf-color-border-hover: #46626b;
   --inf-color-border-focused: #46626b;
   --inf-control-color-border-active: #738f99;
   --inf-control-background-color-hover: #e6f1f5;
@@ -85,4 +99,5 @@
   --inf-color-background-control-disabled: var(
     --inf-color-background-secondary
   );
+  // --inf-color-control-active: var(--inf-color-primary); TODO: нужен?
 }
