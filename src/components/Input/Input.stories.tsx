@@ -4,8 +4,6 @@ import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import { Input, SearchInput, maskInput } from './index'
 import { action } from '@storybook/addon-actions'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
-// @ts-expect-error
-import { useArgs } from '@storybook/client-api'
 
 const meta: Meta<typeof Input> = {
   title: 'Form/Input',
@@ -31,28 +29,23 @@ const meta: Meta<typeof Input> = {
     },
     prefix: {
       control: 'text'
+    },
+    value: {
+      control: false
     }
   }
 }
 export default meta
 
 const Template: StoryFn<typeof Input> = ({ ...args }) => {
-  const [{ value }, updateArgs] = useArgs()
-
-  const handleInput: (val: string | undefined) => void = (val) => {
-    // экшен не работает. Он работает только если в шаблоне вызывать
-    action('input')
-    updateArgs({ value: val })
-  }
-
   return (
     <Input
       style={{ width: '200px' }}
       {...args}
-      value={value}
+      value={undefined}
       onFocus={action('focus')}
       onBlur={action('blur')}
-      onInput={handleInput}
+      onInput={action('input')}
     />
   )
 }
@@ -109,14 +102,19 @@ export const WithClearButton = {
 
 export const Debounced: StoryObj<typeof Input> = {
   render: (args) => {
-    const [{ value }, updateArgs] = useArgs()
+    const [value, setValue] = useState('')
 
-    const handleInput: (val: string | undefined) => void = (val) => {
-      updateArgs({ value: val })
+    const handleInput: (val: string) => void = (val) => {
+      setValue(val)
     }
     return (
       <div>
-        <Input {...args} allowClear={true} onInput={handleInput} />
+        <Input
+          {...args}
+          value={value}
+          allowClear={true}
+          onInput={handleInput}
+        />
         <span style={{ color: 'darkred', marginTop: '6px' }}>
           Значение: {value}
         </span>
@@ -132,8 +130,7 @@ export const Debounced: StoryObj<typeof Input> = {
 export const Formatter: StoryObj<typeof Input> = {
   render: (args) => {
     const [value, setValue] = useState<string | undefined>('')
-    const formatter = (value?: string): string | undefined =>
-      value?.toUpperCase()
+    const formatter = (value: string): string => value?.toUpperCase()
 
     const handleInput = (value: string | undefined): void => {
       setValue(value)
