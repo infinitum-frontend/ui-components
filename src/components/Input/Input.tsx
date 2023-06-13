@@ -61,9 +61,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
-    const [localValue, setLocalValue] = useState(
-      debounce && !value ? '' : value
-    )
+    const [localValue, setLocalValue] = useState(value || '')
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -87,14 +85,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         e.currentTarget.setCustomValidity('')
       }
 
+      const target = e.target as HTMLInputElement
+      // если нет синхронизации с внешним значением, тогда используем внутреннее
+      if (value === undefined) {
+        setLocalValue(getFormattedValue(target.value))
+      }
+
       if (onInput !== undefined) {
-        const target = e.target as HTMLInputElement
-        // обновляем локальное значение только когда есть дебаунс, чтобы не вызывать лишние ререндеры
         if (debounce) {
           setLocalValue(getFormattedValue(target.value))
           debouncedInput(getFormattedValue(target.value), e)
         } else {
-          onInput(getFormattedValue(target.value) || '', e)
+          onInput(getFormattedValue(target.value), e)
         }
       }
     }
@@ -134,9 +136,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const handleClear: () => void = () => {
-      if (debounce) {
-        setLocalValue('')
-      }
+      setLocalValue('')
       onInput?.('')
       inputRef.current?.focus()
     }
@@ -149,9 +149,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     // хелперы
-    const composedValue = debounce ? localValue : value
+    const composedValue = debounce ? localValue : value || localValue
 
-    const getFormattedValue: (val?: string) => string | undefined = (val) => {
+    const getFormattedValue: (val: string) => string = (val = '') => {
       if (formatter !== undefined) {
         return formatter(val)
       }

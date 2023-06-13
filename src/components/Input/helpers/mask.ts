@@ -1,6 +1,6 @@
 type MaskInputType = 'phone' | 'email' | 'bankCard'
 
-function bankCardMask(value: string | undefined): string | undefined {
+function bankCardMask(value: string): string {
   if (!value) return ''
 
   return (
@@ -13,7 +13,7 @@ function bankCardMask(value: string | undefined): string | undefined {
   )
 }
 
-function phoneMask(value: string | undefined): string | undefined {
+function phoneMask(value: string): string {
   if (!value) return ''
 
   function prefixNumber(str: string): string {
@@ -69,10 +69,7 @@ function phoneMask(value: string | undefined): string | undefined {
   //   .replace(/(-\d{5})\d+?$/, '$1')
 }
 
-function maskInput(
-  value: string | undefined,
-  type: MaskInputType
-): string | undefined {
+function maskInput(value: string = '', type: MaskInputType): string {
   if (type === 'bankCard') {
     return bankCardMask(value)
   } else if (type === 'phone') {
