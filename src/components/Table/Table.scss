@@ -7,19 +7,17 @@
     text-align: left;
     vertical-align: top;
     color: var(--inf-color-text-secondary);
-    font-weight: var(--inf-font-weight-normal);
-    font-size: var(--inf-text-size-small);
+    // TODO: пока аналогично body, ожидаем дизайна
+    font: var(--inf-font-body-2);
     position: relative;
+    padding: var(--inf-space-xxsmall) var(--inf-space-medium)
+      var(--inf-space-small) 0;
 
     &:hover .inf-table-header__resizer {
       opacity: 1;
     }
   }
 
-  th {
-    padding: var(--inf-space-xxsmall) var(--inf-space-medium)
-      var(--inf-space-small) 0;
-  }
   td {
     padding: var(--inf-space-xxsmall) var(--inf-space-medium)
       var(--inf-space-xxsmall) 0;
@@ -32,6 +30,8 @@
 
   tbody {
     tr {
+      font: var(--inf-font-body-2);
+
       &:hover {
         background-color: var(--inf-color-background-hover);
       }
