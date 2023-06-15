@@ -1,27 +1,16 @@
+@import '../../styles/common/text-field.scss';
+
 .inf-input-wrapper {
   box-sizing: border-box;
   outline: none;
   cursor: text;
-  width: 100%;
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--inf-color-border-default);
-  transition: border-color 0.2s;
-  font-family: var(--inf-font-family-base);
-  font-weight: var(--inf-font-weight-normal);
 
-  &:hover {
-    border-color: var(--inf-color-border-hover);
-
-    input::placeholder {
-      color: var(--inf-color-text-control);
-    }
-  }
-
+  // TBD
   &--size-medium {
     line-height: 18px;
     height: var(--inf-control-height-medium);
-    font-size: var(--inf-text-size-small);
     padding: var(--inf-input-padding-vertical-medium)
       var(--inf-input-padding-horizontal-medium);
   }
@@ -40,39 +29,6 @@
     &:focus-visible {
       outline: none;
     }
-  }
-
-  // TODO: другим способом сделать специфичнее, чем .inf-input:hover
-  &--focused {
-    border-color: var(--inf-color-border-focused) !important;
-    outline: var(--inf-border-focus);
-  }
-
-  &--br-regular {
-    border-radius: var(--inf-border-radius-small);
-  }
-
-  &--no-border {
-    border: none;
-  }
-
-  &--disabled {
-    background-color: var(--inf-input-color-background-disabled);
-    pointer-events: none;
-    border-color: transparent !important;
-    color: var(----inf-color-text-quaternary);
-
-    input::placeholder {
-      color: var(----inf-color-text-quaternary);
-    }
-  }
-
-  &--filled {
-    border-color: var(--inf-color-border-focused);
-  }
-
-  &--status-error {
-    border-color: var(--inf-color-primary);
   }
 
   &__prefix,

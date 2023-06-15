@@ -1,40 +1,18 @@
+@import '../../../../styles/common/text-field.scss';
+
 .inf-select-button {
   position: relative;
-  width: 100%;
   cursor: pointer;
   user-select: none;
   appearance: none;
   text-align: left;
   background-color: var(--inf-color-background-default);
-  border-radius: var(--inf-border-radius-small);
-  border: 1px solid var(--inf-color-border-default);
   padding: 7px 28px 7px var(--inf-input-padding-horizontal-medium);
   line-height: 18px;
   height: var(--inf-control-height-medium);
-  font-size: var(--inf-text-size-small);
-  font-family: var(--inf-font-family-base);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-
-  &--selected {
-    border-color: var(--inf-control-color-border-active);
-  }
-
-  &--focused {
-    outline: var(--inf-border-focus);
-  }
-
-  &--disabled {
-    border-color: transparent;
-    background-color: var(--inf-color-background-control-disabled);
-    color: var(--inf-color-text-tertiary);
-    pointer-events: none;
-  }
-
-  &--status-error {
-    border-color: var(--inf-color-primary);
-  }
 
   &__arrow {
     position: absolute;
@@ -47,8 +25,12 @@
     transform: translateY(-50%);
     right: 10px;
 
-    &--selected {
-      color: var(--inf-control-color-border-active);
+    &--active {
+      color: var(--inf-color-border-active);
+    }
+
+    &--disabled {
+      color: var(--inf-color-text-disabled);
     }
   }
 }

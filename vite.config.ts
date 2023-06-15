@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react(), viteSvgr()],
   resolve: {
     alias: {
+      '~': resolve(__dirname, './'),
       '@': resolve(__dirname, './'),
       Components: resolve(__dirname, './src/components/'),
       Icons: resolve(__dirname, './src/icons/'),

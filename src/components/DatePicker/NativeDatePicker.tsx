@@ -11,6 +11,7 @@ import React, {
 import cn from 'classnames'
 import './Datepicker.scss'
 import { useFormGroup } from 'Components/Form/context/group'
+import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 
 export interface NativeDatePickerProps
   extends Omit<
@@ -86,9 +87,15 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
         role={'calendar'}
         value={formattedValue}
         onChange={handleChange}
-        className={cn('inf-datepicker', className, {
-          'inf-datepicker--filled': formattedValue
-        })}
+        className={cn(
+          'inf-datepicker',
+          TextFieldClasses.main,
+          TextFieldClasses.borderRadius.regular,
+          className,
+          {
+            [TextFieldClasses.filled]: formattedValue
+          }
+        )}
         required={required || formGroupData?.required}
         aria-required={ariaRequired || formGroupData?.required}
         aria-invalid={ariaInvalid || formGroupData?.invalid}

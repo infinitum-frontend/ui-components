@@ -7,6 +7,7 @@ import React, {
 import cn from 'classnames'
 import './SelectButton.scss'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 
 export interface SelectButtonProps extends ComponentPropsWithoutRef<'button'> {
   status?: 'error'
@@ -26,11 +27,13 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
         type={'button'}
         className={cn(
           'inf-select-button',
+          TextFieldClasses.main,
+          TextFieldClasses.borderRadius.regular,
           {
-            [`inf-select-button--status-${status as string}`]: status,
-            'inf-select-button--focused': focused && !disabled,
-            'inf-select-button--selected': selected,
-            'inf-select-button--disabled': disabled
+            [TextFieldClasses.status[status as 'error']]: status,
+            [TextFieldClasses.focused]: focused && !disabled,
+            [TextFieldClasses.filled]: selected,
+            [TextFieldClasses.disabled]: disabled
           },
           className
         )}
@@ -39,7 +42,8 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       >
         <span
           className={cn('inf-select-button__arrow', {
-            'inf-select-button__arrow--selected': selected
+            'inf-select-button__arrow--active': selected,
+            'inf-select-button__arrow--disabled': disabled
           })}
         >
           <ArrowDownIcon width={'10px'} height={'5px'} />

@@ -1,0 +1,49 @@
+.inf-text-field {
+  border: 1px solid var(--inf-color-border-default);
+  transition: border-color 0.2s;
+  font: var(--inf-font-body-2);
+  width: 100%;
+
+  @include hover {
+    border-color: var(--inf-color-border-hover);
+  }
+
+  // TODO: другим способом сделать специфичнее, чем :hover
+  &:focus,
+  &--focused {
+    border-color: var(--inf-color-border-active) !important;
+    outline: var(--inf-border-focus);
+  }
+
+  &:disabled,
+  &--disabled {
+    background-color: var(--inf-color-background-disabled);
+    pointer-events: none;
+    border-color: transparent !important;
+    color: var(--inf-color-text-disabled);
+  }
+
+  &--filled {
+    border-color: var(--inf-color-border-active);
+  }
+
+  &--no-border {
+    border: none;
+  }
+
+  &--br-regular {
+    border-radius: var(--inf-border-radius-small);
+  }
+
+  &--status-error {
+    border-color: var(--inf-color-border-danger);
+
+    @include hover {
+      border-color: var(--inf-color-border-danger);
+    }
+
+    &:focus {
+      border-color: var(--inf-color-border-danger);
+    }
+  }
+}

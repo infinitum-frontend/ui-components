@@ -1,55 +1,13 @@
-@import '../../common.scss';
+@import '../../../../styles/common/text-field.scss';
 
 .inf-input {
   outline: none;
   cursor: text;
-  width: 100%;
-  border: 1px solid var(--inf-color-border-default);
-  transition: border-color 0.2s;
-  font: var(--inf-font-body-2);
 
-  &:hover {
-    border-color: var(--inf-color-border-hover);
-  }
-
-  &:focus {
-    border-color: var(--inf-color-border-active);
-  }
-
-  &:disabled {
-    background-color: var(--inf-color-background-disabled);
-    pointer-events: none;
-    border-color: transparent !important;
-    color: var(--inf-color-text-tertiary);
-  }
-
-  &--filled {
-    border-color: var(--inf-color-border-active);
-  }
-
+  // TBD
   &--size-medium {
     height: var(--inf-control-height-medium);
     padding: var(--inf-input-padding-vertical-medium)
       var(--inf-input-padding-horizontal-medium);
-  }
-
-  &--status-error {
-    border-color: var(--inf-color-border-danger);
-
-    &:hover {
-      border-color: var(--inf-color-border-danger);
-    }
-
-    &:focus {
-      border-color: var(--inf-color-border-danger);
-    }
-  }
-
-  &--br-regular {
-    border-radius: var(--inf-border-radius-small);
-  }
-
-  &--no-border {
-    border: none;
   }
 }

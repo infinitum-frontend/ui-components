@@ -18,6 +18,7 @@ import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { useFormGroup } from 'Components/Form/context/group'
 import { mergeRefs } from 'react-merge-refs'
+import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 
 /**
  * TODO:
@@ -163,14 +164,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       return classNames(
         'inf-input-wrapper',
         `inf-input-wrapper--size-${size}`,
+        TextFieldClasses.main,
         className,
         {
-          'inf-input-wrapper--disabled': disabled,
-          'inf-input-wrapper--focused': isFocused,
-          'inf-input-wrapper--no-border': noBorder,
-          'inf-input-wrapper--filled': composedValue,
-          [`inf-input-wrapper--br-${borderRadius}`]: borderRadius !== 'unset',
-          [`inf-input-wrapper--status-${status as string}`]: status
+          [TextFieldClasses.disabled]: disabled,
+          [TextFieldClasses.focused]: isFocused,
+          [TextFieldClasses.noBorder]: noBorder,
+          [TextFieldClasses.filled]: composedValue,
+          [TextFieldClasses.borderRadius[borderRadius]]:
+            borderRadius !== 'unset',
+          [TextFieldClasses.status[status as 'error']]: status
         }
       )
     }

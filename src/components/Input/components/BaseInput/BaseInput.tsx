@@ -3,6 +3,7 @@ import React, { forwardRef, ReactElement } from 'react'
 import { BaseInputProps } from 'Components/Input/types'
 import cn from 'classnames'
 import './BaseInput.scss'
+import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 
 const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   (
@@ -24,13 +25,14 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   ): ReactElement => {
     const classNames = cn(
       'inf-input',
-      className,
       `inf-input--size-${size as string}`,
+      TextFieldClasses.main,
+      className,
       {
-        'inf-input--filled': value,
-        'inf-input--no-border': noBorder,
-        [`inf-input--status-${status as string}`]: status,
-        [`inf-input--br-${borderRadius as string}`]: borderRadius
+        [TextFieldClasses.filled]: value,
+        [TextFieldClasses.noBorder]: noBorder,
+        [TextFieldClasses.status[status as 'error']]: status,
+        [TextFieldClasses.borderRadius[borderRadius]]: borderRadius
       }
     )
     return (
