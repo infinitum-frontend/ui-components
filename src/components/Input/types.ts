@@ -33,7 +33,7 @@ export interface BaseInputProps
 }
 
 export interface InputProps
-  extends Omit<BaseInputProps, 'prefix' | 'onBlur' | 'onInput'> {
+  extends Omit<BaseInputProps, 'prefix' | 'onBlur' | 'onChange' | 'onInput'> {
   /**
    * Количество миллисекунд для отложенного вызова onInput
    * @type number
@@ -61,6 +61,7 @@ export interface InputProps
   formatter?: (value: string) => string
   onFocus?: FocusEventHandler<HTMLInputElement>
   onInput?: (value: string, e?: FormEvent<HTMLInputElement>) => void
+  onChange?: (value: string, e?: FormEvent<HTMLInputElement>) => void
   onBlur?: (
     e?: FocusEvent<HTMLInputElement> | MouseEvent<HTMLSpanElement>
   ) => void

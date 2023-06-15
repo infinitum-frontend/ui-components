@@ -14,8 +14,8 @@ const meta: Meta<typeof Input> = {
     size: 'medium'
   },
   argTypes: {
-    onInput: {
-      action: 'input',
+    onChange: {
+      action: 'change',
       control: false
     },
     onFocus: {
@@ -45,7 +45,7 @@ const Template: StoryFn<typeof Input> = ({ ...args }) => {
       value={undefined}
       onFocus={action('focus')}
       onBlur={action('blur')}
-      onInput={action('input')}
+      onChange={action('change')}
     />
   )
 }
@@ -104,7 +104,7 @@ export const Debounced: StoryObj<typeof Input> = {
   render: (args) => {
     const [value, setValue] = useState('')
 
-    const handleInput: (val: string) => void = (val) => {
+    const handleChange: (val: string) => void = (val) => {
       setValue(val)
     }
     return (
@@ -113,7 +113,7 @@ export const Debounced: StoryObj<typeof Input> = {
           {...args}
           value={value}
           allowClear={true}
-          onInput={handleInput}
+          onChange={handleChange}
         />
         <span style={{ color: 'darkred', marginTop: '6px' }}>
           Значение: {value}
@@ -132,11 +132,11 @@ export const Formatter: StoryObj<typeof Input> = {
     const [value, setValue] = useState<string | undefined>('')
     const formatter = (value: string): string => value?.toUpperCase()
 
-    const handleInput = (value: string | undefined): void => {
+    const handleChange = (value: string | undefined): void => {
       setValue(value)
     }
 
-    return <Input formatter={formatter} value={value} onInput={handleInput} />
+    return <Input formatter={formatter} value={value} onChange={handleChange} />
   }
 }
 
@@ -154,7 +154,7 @@ export const PhoneMask: StoryFn<typeof Input> = () => {
       <Input
         formatter={(value) => maskInput(value, 'phone')}
         value={value}
-        onInput={setValue}
+        onChange={setValue}
         placeholder="Номер телефона"
         type="tel"
         inputMode="numeric"
