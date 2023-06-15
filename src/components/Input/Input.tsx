@@ -40,6 +40,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       disabled = false,
       status,
       onInput,
+      onChange,
       onFocus,
       onSubmit,
       onBlur,
@@ -72,33 +73,36 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const debouncedInput = useCallback(
       debounceFn((val, e) => {
-        if (onInput) {
-          onInput(val, e)
-        }
+        onInput?.(val, e)
+        onChange?.(val, e)
       }, debounce),
       [debounce]
     )
 
     // обработка событий
-    const handleInput: FormEventHandler<HTMLInputElement> = (e) => {
+    const handleChange: FormEventHandler<HTMLInputElement> = (e) => {
       if (formGroupContext) {
         formGroupContext.setInvalid?.(!e.currentTarget.checkValidity())
         e.currentTarget.setCustomValidity('')
       }
 
-      const target = e.target as HTMLInputElement
+      const domValue = (e.target as HTMLInputElement).value
+      const formattedDomValue = getFormattedValue(domValue)
       // если нет синхронизации с внешним значением, тогда используем внутреннее
       if (value === undefined) {
-        setLocalValue(getFormattedValue(target.value))
+        setLocalValue(formattedDomValue)
       }
 
-      if (onInput !== undefined) {
-        if (debounce) {
-          setLocalValue(getFormattedValue(target.value))
-          debouncedInput(getFormattedValue(target.value), e)
-        } else {
-          onInput(getFormattedValue(target.value), e)
-        }
+      if (!onInput || !onChange) {
+        return
+      }
+
+      if (debounce) {
+        setLocalValue(formattedDomValue)
+        debouncedInput(formattedDomValue, e)
+      } else {
+        onInput?.(formattedDomValue, e)
+        onChange?.(formattedDomValue, e)
       }
     }
 
@@ -222,7 +226,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={id || formGroupContext?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          onInput={handleInput}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
           required={isRequired}
           aria-required={formGroupContext?.required || ariaRequired}
@@ -257,7 +261,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={id || formGroupContext?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          onInput={handleInput}
+          onChange={handleChange}
           onInvalid={handleInvalid}
           required={isRequired}
           ref={mergedRef}

@@ -12,10 +12,14 @@ import { useFormGroup } from 'Components/Form/context/group'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 
 export interface TextareaProps
-  extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onInput'> {
+  extends Omit<
+    TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'onInput' | 'onChange'
+  > {
   /** Значение */
   value?: string
   onInput?: (value: string, event: FormEvent<HTMLTextAreaElement>) => void
+  onChange?: (value: string, event: FormEvent<HTMLTextAreaElement>) => void
   /** Состояние (ошибка) */
   status?: 'error'
   /**
@@ -50,6 +54,7 @@ const Textarea = ({
   className,
   status,
   onInput,
+  onChange,
   id,
   required = false,
   'aria-required': ariaRequired,
@@ -59,7 +64,7 @@ const Textarea = ({
   const [localValue, setLocalValue] = useState(value || '')
   const formGroupData = useFormGroup()
 
-  const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
+  const handleChange: FormEventHandler<HTMLTextAreaElement> = (e) => {
     if (formGroupData) {
       e.currentTarget.setCustomValidity('')
       formGroupData.setInvalid?.(!e.currentTarget.checkValidity())
@@ -69,6 +74,7 @@ const Textarea = ({
     if (value === undefined) {
       setLocalValue(domValue)
     }
+    onChange?.(domValue, e)
     onInput?.(domValue, e)
   }
 
@@ -98,7 +104,7 @@ const Textarea = ({
       className={classNames}
       value={value || localValue}
       id={id || formGroupData?.id}
-      onInput={handleInput}
+      onChange={handleChange}
       onInvalid={handleInvalid}
       disabled={disabled}
       required={formGroupData?.required || required}
