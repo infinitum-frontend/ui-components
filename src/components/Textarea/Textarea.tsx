@@ -3,11 +3,13 @@ import React, {
   FormEvent,
   FormEventHandler,
   ReactElement,
-  TextareaHTMLAttributes
+  TextareaHTMLAttributes,
+  useState
 } from 'react'
 import cn from 'classnames'
 import './Textarea.scss'
 import { useFormGroup } from 'Components/Form/context/group'
+import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 
 export interface TextareaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onInput'> {
@@ -54,6 +56,7 @@ const Textarea = ({
   'aria-invalid': ariaInvalid,
   ...props
 }: TextareaProps): ReactElement => {
+  const [localValue, setLocalValue] = useState(value || '')
   const formGroupData = useFormGroup()
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
@@ -61,7 +64,12 @@ const Textarea = ({
       e.currentTarget.setCustomValidity('')
       formGroupData.setInvalid?.(!e.currentTarget.checkValidity())
     }
-    onInput?.((e.target as HTMLTextAreaElement).value, e)
+
+    const domValue = (e.target as HTMLTextAreaElement).value
+    if (value === undefined) {
+      setLocalValue(domValue)
+    }
+    onInput?.(domValue, e)
   }
 
   const handleInvalid: FormEventHandler<HTMLTextAreaElement> = (e) => {
@@ -71,18 +79,24 @@ const Textarea = ({
     }
   }
 
-  const classNames = cn('inf-textarea', 'inf-input-common', className, {
-    'inf-textarea--block': block,
-    'inf-textarea--filled': value,
-    [`inf-textarea--status-${status as string}`]: status,
-    [`inf-textarea--resize-${resize as string}`]: resize
-  })
+  const classNames = cn(
+    'inf-textarea',
+    TextFieldClasses.main,
+    TextFieldClasses.borderRadius.regular,
+    className,
+    {
+      'inf-textarea--block': block,
+      [TextFieldClasses.filled]: value || localValue,
+      [TextFieldClasses.status[status as 'error']]: status,
+      [`inf-textarea--resize-${resize as string}`]: resize
+    }
+  )
 
   return (
     <textarea
       placeholder={placeholder}
       className={classNames}
-      value={value}
+      value={value || localValue}
       id={id || formGroupData?.id}
       onInput={handleInput}
       onInvalid={handleInvalid}

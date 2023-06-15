@@ -1,56 +1,18 @@
-@import '../Input/common.scss';
+@import '../../styles/common/text-field.scss';
+
 .inf-textarea {
   box-sizing: border-box;
   outline: none;
   cursor: text;
   display: block;
-  width: 100%;
-  border: 1px solid var(--inf-color-border-default);
-  border-radius: var(--inf-border-radius-small);
-  transition: border-color 0.2s;
   font: var(--inf-font-body-2);
   padding: 7px 12px;
   background-color: inherit;
   overflow: hidden;
   resize: none;
 
-  &:hover {
-    border-color: var(--inf-color-border-hover);
-  }
-
-  &:focus {
-    border-color: var(--inf-color-border-active);
-  }
-
-  &:disabled {
-    background-color: var(--inf-color-background-disabled);
-    pointer-events: none;
-    border-color: transparent;
-    color: var(--inf-color-text-tertiary);
-
-    &::placeholder {
-      color: var(--inf-color-text-tertiary);
-    }
-  }
-
-  &--status-error {
-    border-color: var(--inf-color-border-danger);
-
-    &:hover {
-      border-color: var(--inf-color-border-danger);
-    }
-
-    &:focus {
-      border-color: var(--inf-color-border-danger);
-    }
-  }
-
   &--block {
     width: 100%;
-  }
-
-  &--filled {
-    border-color: var(--inf-color-border-active);
   }
 
   &--resize-both {
