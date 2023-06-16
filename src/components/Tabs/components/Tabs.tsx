@@ -6,21 +6,26 @@ import TabPanels from './Panels'
 import TabList from './TabList'
 import TabsContext, { ITabsContext } from 'Components/Tabs/context/TabsContext'
 
+// TODO:
+// анимация движения подчеркивания
+// увеличение жирности текста без сдвига (подсмотреть у carbon)
+// стили для :focus
+
 export interface TabsProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   /** Индекс выбранного элемента */
   selectedIndex?: number
   /** Событие клика на элемент */
   onChange?: (index: number) => void
-  /** Вариант визуального оформления */
-  variant?: 'default' | 'uppercase' | 'underline'
+  /** Размер */
+  size?: 'small' | 'medium'
 }
 
 const Tabs = ({
   selectedIndex = 0,
   onChange,
   className,
-  variant = 'default',
+  size = 'medium',
   children,
   ...props
 }: TabsProps): ReactElement => {
@@ -59,7 +64,7 @@ const Tabs = ({
     registerPanel,
     unregisterPanel,
     handleTabClick,
-    variant
+    size
   }
   return (
     <TabsContext.Provider value={context}>

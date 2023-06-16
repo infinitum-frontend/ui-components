@@ -81,6 +81,7 @@
   --inf-color-background-selected: var(--inf-color-cold-grey);
   --inf-color-background-inverse: var(--inf-color-black);
   --inf-color-background-disabled: var(--inf-color-gray-lighest);
+  --inf-color-background-accent: var(--inf-color-primary);
 
   /* Border */
   --inf-color-border-default: var(--inf-color-gray-light); // -primary ?
@@ -89,6 +90,9 @@
   --inf-color-border-focus: #7abfff;
   --inf-color-border-hover: var(--inf-color-cold-grey-dark);
   --inf-color-border-active: var(--inf-color-cold-grey-dark);
+  --inf-color-border-accent: var(
+    --inf-color-primary
+  ); // inf-color-border-selected?
 
   /* ---------- TDB ---------- */
   --inf-color-text-control: #46626b;

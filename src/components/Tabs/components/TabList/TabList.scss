@@ -1,21 +1,4 @@
 .inf-tab-list {
   display: flex;
-  --item-gap: 12px;
-
-  &--variant-default {
-    --item-gap: 20px;
-  }
-
-  &--variant-underline {
-    --item-gap: 12px;
-    border-bottom: 1px solid #C8CACC;
-  }
-
-  &--variant-uppercase {
-    --item-gap: 24px;
-  }
-
-  > * + * {
-    margin-left: var(--item-gap);
-  }
+  border-bottom: 1px solid var(--inf-color-border-default);
 }

@@ -1,7 +1,8 @@
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Tabs } from './index'
-import { Space } from '../Space'
 import { useState } from 'react'
+import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
+import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
 
 const meta: Meta<typeof Tabs> = {
   title: 'Components/Tabs',
@@ -17,18 +18,19 @@ const meta: Meta<typeof Tabs> = {
 export default meta
 
 const Template: StoryFn<typeof Tabs> = (args) => {
-  const handleChange = (value: number): void => {
-    console.log('handleChange', value)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const handleChange = (index: number): void => {
+    setSelectedIndex(index)
   }
 
   return (
-    <Tabs {...args} onChange={handleChange}>
+    <Tabs {...args} selectedIndex={selectedIndex} onChange={handleChange}>
       <Tabs.List>
         <Tabs.Tab>Контроль структуры</Tabs.Tab>
         <Tabs.Tab>Статистический</Tabs.Tab>
-        <Tabs.Tab>Состава по доле владения</Tabs.Tab>
+        <Tabs.Tab disabled>Состава по доле владения</Tabs.Tab>
       </Tabs.List>
-      <Tabs.Panels>
+      <Tabs.Panels style={{ padding: '16px 8px' }}>
         <Tabs.Panel>
           2311. Имущество, составляющее фонд, может быть инвестировано в
           облигации юридических лиц
@@ -65,119 +67,51 @@ export const ManualActiveHandling: StoryObj<typeof Tabs> = {
   }
 }
 
-export const AllVariants: StoryObj<typeof Tabs> = {
-  render: (args) => {
-    return (
-      <Space gap={'xlarge'}>
-        <div>
-          <code>default</code>
-          <Tabs variant={'default'}>
-            <Tabs.List>
-              <Tabs.Tab>Контроль структуры</Tabs.Tab>
-              <Tabs.Tab>Статистический</Tabs.Tab>
-              <Tabs.Tab>Состава по доле владения</Tabs.Tab>
-            </Tabs.List>
-          </Tabs>
-        </div>
-        <div>
-          <code>underline</code>
-          <Tabs variant={'underline'}>
-            <Tabs.List>
-              <Tabs.Tab>Контроль структуры</Tabs.Tab>
-              <Tabs.Tab>Статистический</Tabs.Tab>
-              <Tabs.Tab>Состава по доле владения</Tabs.Tab>
-            </Tabs.List>
-          </Tabs>
-        </div>
-        <div>
-          <code>uppercase</code>
-          <Tabs variant={'uppercase'}>
-            <Tabs.List>
-              <Tabs.Tab>Контроль структуры</Tabs.Tab>
-              <Tabs.Tab>Статистический</Tabs.Tab>
-              <Tabs.Tab>Состава по доле владения</Tabs.Tab>
-            </Tabs.List>
-          </Tabs>
-        </div>
-      </Space>
-    )
-  }
-}
-
-export const Disabled: StoryObj<typeof Tabs> = {
-  render: (args) => {
-    return (
-      <Space gap={'xlarge'}>
-        <div>
-          <code>default</code>
-          <Tabs variant={'default'}>
-            <Tabs.List>
-              <Tabs.Tab disabled={true}>Контроль структуры</Tabs.Tab>
-              <Tabs.Tab disabled={true}>Статистический</Tabs.Tab>
-            </Tabs.List>
-          </Tabs>
-        </div>
-        <div>
-          <code>underline</code>
-          <Tabs variant={'underline'}>
-            <Tabs.List>
-              <Tabs.Tab disabled={true}>Контроль структуры</Tabs.Tab>
-              <Tabs.Tab disabled={true}>Статистический</Tabs.Tab>
-            </Tabs.List>
-          </Tabs>
-        </div>
-        <div>
-          <code>uppercase</code>
-          <Tabs variant={'uppercase'}>
-            <Tabs.List>
-              <Tabs.Tab disabled={true}>Контроль структуры</Tabs.Tab>
-              <Tabs.Tab disabled={true}>Статистический</Tabs.Tab>
-            </Tabs.List>
-          </Tabs>
-        </div>
-      </Space>
-    )
-  }
-}
-
 export const WithBadge: StoryObj<typeof Tabs> = {
   render: (args) => {
     return (
-      <Space gap={'xlarge'}>
-        <Tabs variant={'default'}>
-          <Tabs.List>
-            <Tabs.Tab badge={8} disabled={true}>
-              Контроль структуры
-            </Tabs.Tab>
-            <Tabs.Tab badge={'+2'} disabled={true}>
-              Статистический
-            </Tabs.Tab>
-            <Tabs.Tab badge={'Важно!'}>Состава по доле владения</Tabs.Tab>
-          </Tabs.List>
-        </Tabs>
-        <Tabs variant={'underline'}>
-          <Tabs.List>
-            <Tabs.Tab badge={8} disabled={true} type={'reset'}>
-              Контроль структуры
-            </Tabs.Tab>
-            <Tabs.Tab badge={'+2'} disabled={true}>
-              Статистический
-            </Tabs.Tab>
-            <Tabs.Tab badge={'Важно!'}>Состава по доле владения</Tabs.Tab>
-          </Tabs.List>
-        </Tabs>
-        <Tabs variant={'uppercase'}>
-          <Tabs.List>
-            <Tabs.Tab badge={8} disabled={true}>
-              Контроль структуры
-            </Tabs.Tab>
-            <Tabs.Tab badge={'+2'} disabled={true}>
-              Статистический
-            </Tabs.Tab>
-            <Tabs.Tab badge={'Важно!'}>Состава по доле владения</Tabs.Tab>
-          </Tabs.List>
-        </Tabs>
-      </Space>
+      <Tabs>
+        <Tabs.List>
+          <Tabs.Tab badge={8}>Контроль структуры</Tabs.Tab>
+          <Tabs.Tab badge="Важно!">Состава по доле владения</Tabs.Tab>
+          <Tabs.Tab badge="+2" disabled>
+            Статистический
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    )
+  }
+}
+
+export const WithIcon: StoryObj<typeof Tabs> = {
+  render: (args) => {
+    return (
+      <Tabs>
+        <Tabs.List>
+          <Tabs.Tab icon={<FilterIcon />} badge={8}>
+            Контроль структуры
+          </Tabs.Tab>
+          <Tabs.Tab icon={<DownloadIcon />} badge="Важно!">
+            Состава по доле владения
+          </Tabs.Tab>
+          <Tabs.Tab badge="+2" disabled>
+            Статистический
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    )
+  }
+}
+export const IconOnly: StoryObj<typeof Tabs> = {
+  render: (args) => {
+    return (
+      <Tabs>
+        <Tabs.List>
+          <Tabs.Tab icon={<FilterIcon />} />
+          <Tabs.Tab icon={<DownloadIcon />} />
+          <Tabs.Tab icon={<DownloadIcon />} disabled />
+        </Tabs.List>
+      </Tabs>
     )
   }
 }
