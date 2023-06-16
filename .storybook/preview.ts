@@ -37,7 +37,13 @@ export const parameters = {
         // если нужно другие сторисы сортировать, дописываем их аналогичным образом: ['*', 'Table', 'Tabs', ['Docs', 'WithRouting', '*']]
         // единственная проблема - если сториса где то по центру, придется вручную писать все предыдущие/последующие сторис
         // https://github.com/storybookjs/storybook/issues/16573
-        ['*', 'Tabs', ['Docs', 'WithRouting', '*']],
+        [
+          '*',
+          'Table',
+          ['Docs', 'CustomMarkup', '*'],
+          'Tabs',
+          ['Docs', 'WithRouting', '*']
+        ],
         'Typography',
         'Form',
         'Overlay',
