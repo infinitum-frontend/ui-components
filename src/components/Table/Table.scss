@@ -6,10 +6,12 @@
   th {
     text-align: left;
     vertical-align: top;
+    // TODO: цвет заголовка и иконок изменен с #738f99 на #717375
     color: var(--inf-color-text-secondary);
     // TODO: пока аналогично body, ожидаем дизайна
     font: var(--inf-font-body-2);
     position: relative;
+    // TODO: странные паддинги, проработать дизайн
     padding: var(--inf-space-xxsmall) var(--inf-space-medium)
       var(--inf-space-small) 0;
 
@@ -52,6 +54,14 @@
           padding: 0 6px;
         }
       }
+    }
+  }
+
+  &--bordered {
+    td,
+    th {
+      padding: var(--inf-space-xsmall);
+      border: 1px solid var(--inf-color-border-default);
     }
   }
 }
