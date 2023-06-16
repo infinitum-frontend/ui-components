@@ -1,122 +1,69 @@
 .inf-tab {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  @include button-reset;
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   text-decoration: none;
-  box-sizing: border-box;
-  background-color: transparent;
-  border: none;
   display: inline-flex;
+  gap: var(--inf-space-xsmall);
   align-items: center;
-  font-family: var(--inf-font-family-base);
-  padding: 0;
   position: relative;
-  --item-gap: 12px;
-  --badge-gap: 6px;
+  color: var(--inf-color-text-secondary);
 
-  &:hover {
-    color: var(--inf-color-primary-hover);
+  @include hover {
+    color: var(--inf-color-text-primary);
   }
 
-  &:active {
-    color: var(--inf-color-primary-active);
+  &--active {
+    color: var(--inf-color-text-primary);
   }
 
   &--disabled {
+    color: var(--inf-color-text-disabled);
     pointer-events: none;
+  }
+
+  &--size-medium {
+    font: var(--inf-font-body-1);
+    padding: var(--inf-space-xsmall) var(--inf-space-small);
+  }
+
+  &--size-small {
+    font: var(--inf-font-body-2);
+    padding: var(--inf-space-xxsmall) var(--inf-space-xsmall);
   }
 
   &__underline {
     position: absolute;
     bottom: -1px;
     left: 0;
-    background-color: var(--inf-color-primary-hover);
+    background-color: var(--inf-color-border-accent);
     display: block;
     height: 2px;
     width: 100%;
   }
 
-  &__badge {
-    margin-left: var(--badge-gap);
-  }
-
-  &--variant-default {
-    line-height: 22px;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--inf-color-text-tertiary);
-    --badge-gap: 4px;
-
-    &.inf-tab--active {
-      color: var(--inf-color-text);
-    }
-
-    &.inf-tab--disabled {
-      color: #e9ebed;
-
-      .inf-tab__underline {
-        background-color: #e9ebed;
-      }
+  &__icon {
+    display: flex;
+    svg {
+      width: 20px;
+      height: 20px;
     }
   }
 
-  &--variant-uppercase {
-    text-transform: uppercase;
-    line-height: 35px;
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: 0.1em;
-    --badge-gap: 6px;
+  // // хак чтобы при увеличении жирности текста при ховере элемент не сдвигал соседние элементы в лейауте
+  // // https://css-tricks.com/bold-on-hover-without-the-layout-shift/
+  // &::after {
+  //   content: attr(data-text);
+  //   content: attr(data-text) / '';
+  //   height: 0;
+  //   visibility: hidden;
+  //   overflow: hidden;
+  //   user-select: none;
+  //   pointer-events: none;
+  //   font-weight: var(--inf-font-weight-bold);
 
-    &.inf-tab--active {
-      color: var(--inf-color-text);
-      font-weight: bold;
-    }
-
-    &.inf-tab--disabled {
-      color: var(--inf-color-text-quaternary);
-
-      .inf-tab__underline {
-        background-color: var(--inf-color-border-default);
-      }
-    }
-  }
-
-  &--variant-underline {
-    font-size: 18px;
-    font-weight: 800;
-    line-height: 29px;
-    --badge-gap: 4px;
-
-    .inf-tab__underline {
-      height: 3px;
-      bottom: 0;
-    }
-
-    &.inf-tab--disabled {
-      color: var(--inf-color-text-quaternary);
-
-      .inf-tab__underline {
-        background-color: var(--inf-color-border-default);
-      }
-    }
-  }
-}
-
-.inf-tab-wrapper {
-  display: inline-flex;
-  align-items: center;
-
-  &--disabled {
-    pointer-events: none;
-
-    .inf-badge-sup {
-      background-color: #ffa8a8;
-    }
-  }
+  //   @media speech {
+  //     display: none;
+  //   }
+  // }
 }
