@@ -93,7 +93,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         setLocalValue(formattedDomValue)
       }
 
-      if (!onInput || !onChange) {
+      if (!onInput && !onChange) {
         return
       }
 
