@@ -14,7 +14,7 @@ import './TableHeader.scss'
 import {
   TableColumnFiltersState,
   TableColumnFilterValue
-} from 'Components/Table'
+} from 'Components/Table/types'
 
 interface TableHeaderProps {
   table: Table<any>

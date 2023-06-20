@@ -2,7 +2,7 @@
 import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
-import { TableRow } from 'Components/Table'
+import { TableRow } from 'Components/Table/types'
 import { mapRowToExternalFormat } from 'Components/Table/helpers'
 
 interface TableBodyProps {

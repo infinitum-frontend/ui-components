@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
 import Menu from 'Components/Menu/Menu'
-import { TableFilterSelectOption } from 'Components/Table'
+import { TableFilterSelectOption } from 'Components/Table/types'
 
 interface HeaderFilterSelectProps {
   onChange: (item: any) => void

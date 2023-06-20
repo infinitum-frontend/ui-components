@@ -1,6 +1,6 @@
 import { Row } from '@tanstack/react-table'
 import { ReactElement } from 'react'
-import { TableRow } from 'Components/Table'
+import { TableRow } from 'Components/Table/types'
 
 // проверяем по наличию текста в реакт-элементе любой вложенности
 // TODO: не работает вместе с группировкой

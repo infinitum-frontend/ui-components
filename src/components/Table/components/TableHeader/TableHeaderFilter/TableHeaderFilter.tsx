@@ -11,7 +11,7 @@ import {
   TableFilterDateOption,
   TableFilterSelectOption,
   TableFilterType
-} from 'Components/Table'
+} from 'Components/Table/types'
 import { Space } from 'Components/Space'
 import { Button } from 'Components/Button'
 import Input from '../../../../Input/Input'
