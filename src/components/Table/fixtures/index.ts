@@ -1,4 +1,4 @@
-import { TableFilterSelectOption } from 'Components/Table'
+import { TableFilterSelectOption } from 'Components/Table/types'
 
 export const TYPE_FILTER_ITEMS: TableFilterSelectOption[] = [
   {

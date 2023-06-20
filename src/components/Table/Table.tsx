@@ -6,7 +6,7 @@ import {
   useReactTable,
   SortingState,
   getSortedRowModel,
-  OnChangeFn,
+  OnChangeFn as TanstackOnChangeFn,
   Column,
   getFacetedUniqueValues,
   RowSelectionState,
@@ -21,8 +21,11 @@ import {
   TableColumnFiltersState,
   TableColumnFilterValue,
   TableRow,
-  TableRowData
-} from 'Components/Table/index'
+  TableRowData,
+  TableSelectedRow,
+  TableSelectionState,
+  OnChangeFn
+} from './types'
 import { mapRowToExternalFormat } from './helpers'
 import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'
@@ -39,24 +42,24 @@ export interface TableProps extends TableBaseProps {
   /** Начальное состояние сортировки */
   sortingState?: SortingState
   /** Событие изменения состояния сортировки */
-  onSortingChange?: (sortingState: SortingState) => void
+  onSortingChange?: OnChangeFn<SortingState>
   // TODO: sorting mode auto
   withFiltering?: boolean
   /** Событие изменения состояния фильтров */
-  onFiltersChange?: (state: TableColumnFiltersState) => void
+  onFiltersChange?: OnChangeFn<TableColumnFiltersState>
   /** Начальное состояние фильтров */
   filtersState?: TableColumnFiltersState
   /** Отображение чекбоксов в 1 колонке */
   withRowSelection?: boolean
   /** Событие изменения чекбоксов */
-  onChangeRowSelection?: (selectionState: Array<TableRow<any>>) => void
+  onChangeRowSelection?: OnChangeFn<TableSelectionState<any>>
   /** Состояние выбора рядов через чекбокс */
-  selectionState?: Array<TableRow<any>>
+  selectionState?: TableSelectionState<any>
   /**
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id ряда.
    */
-  selectedRow?: string | number | ((row: TableRow<any>) => boolean)
-  onRowClick?: (row: TableRow<any>) => void
+  selectedRow?: TableSelectedRow
+  onRowClick?: OnChangeFn<TableRow>
   resizeMode?: ColumnResizeMode
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
@@ -99,7 +102,7 @@ const Table = ({
   )
 
   // ==================== handlers ====================
-  const handleSortingChange: OnChangeFn<SortingState> = (state) => {
+  const handleSortingChange: TanstackOnChangeFn<SortingState> = (state) => {
     let newState
     if (typeof state === 'function') {
       newState = state(sortingState)
@@ -122,7 +125,9 @@ const Table = ({
   }
 
   // маппим данные ряда из формата танстака к нашему формату
-  const handleRowSelection: OnChangeFn<RowSelectionState> = (callback) => {
+  const handleRowSelection: TanstackOnChangeFn<RowSelectionState> = (
+    callback
+  ) => {
     const newTanstackSelectionState =
       typeof callback === 'function' ? callback(tanstackSelectionState) : {}
 
