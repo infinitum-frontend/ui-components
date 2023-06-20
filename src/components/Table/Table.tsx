@@ -1,17 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, TableHTMLAttributes, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import {
+  Column,
   ColumnDef,
+  ColumnMeta,
+  ColumnResizeMode,
   getCoreRowModel,
-  useReactTable,
-  SortingState,
+  getFacetedUniqueValues,
   getSortedRowModel,
   OnChangeFn as TanstackOnChangeFn,
-  Column,
-  getFacetedUniqueValues,
   RowSelectionState,
-  ColumnResizeMode,
-  ColumnMeta
+  SortingState,
+  useReactTable
 } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeader from './components/TableHeader'
@@ -23,9 +23,9 @@ import {
   TableRow,
   TableRowData,
   TableSelectedRow,
-  TableSelectionState,
-  OnChangeFn
+  TableSelectionState
 } from './types'
+import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
 import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'

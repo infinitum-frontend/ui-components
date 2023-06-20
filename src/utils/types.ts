@@ -6,6 +6,8 @@ export type PolymorphicComponent<C extends ElementType, Props = {}> = Props &
 export type PolymorphicRef<C extends ElementType> =
   ComponentPropsWithRef<C>['ref']
 
+export type OnChangeFn<TValue, TResult = void> = (value: TValue) => TResult
+
 export type SpaceVariants =
   | 'xxsmall'
   | 'xsmall'

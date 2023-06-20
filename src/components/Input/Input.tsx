@@ -143,6 +143,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const handleClear: () => void = () => {
       setLocalValue('')
       onInput?.('')
+      onChange?.('')
       inputRef.current?.focus()
     }
 

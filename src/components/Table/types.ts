@@ -2,9 +2,6 @@ import { ColumnMeta, RowData } from '@tanstack/react-table'
 import { ColumnFilter as TanstackColumnFilter } from '@tanstack/table-core/build/lib/features/Filters'
 import { CSSProperties } from 'react'
 
-// Общие типы
-export type OnChangeFn<T> = (value: T) => void
-
 // ФИЛЬТРАЦИЯ
 export interface TableFilterSelectOption {
   label: string

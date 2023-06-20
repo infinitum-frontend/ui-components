@@ -20,15 +20,12 @@
     "outDir": "dist",
     "baseUrl": "./",
     "paths": {
-      "~/*": [
-        "./*"
-      ],
-      "@/*": [
-        "./*"
-      ],
+      "~/*": ["./*"],
+      "@/*": ["./*"],
       "Components/*": ["./src/components/*"],
       "Icons/*": ["./src/icons/*"],
       "Hooks/*": ["./src/hooks/*"],
+      "Utils/*": ["./src/utils/*"],
       "Test/*": ["./test/*"]
     }
   },
