@@ -7,7 +7,8 @@ import React, {
   useRef,
   useCallback,
   MouseEventHandler,
-  KeyboardEventHandler
+  KeyboardEventHandler,
+  useContext
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -16,9 +17,10 @@ import { ReactComponent as ClearIcon } from 'Icons/bx-x.svg'
 // eslint-disable-next-line import/no-named-default
 import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
-import { useFormGroup } from 'Components/Form/context/group'
 import { mergeRefs } from 'react-merge-refs'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
+import FormGroupContext from 'Components/Form/context/group'
+import FormContext from 'Components/Form/context/form'
 
 /**
  * TODO:
@@ -37,7 +39,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className = '',
       placeholder = 'Введите значение',
       borderRadius = 'regular',
-      disabled = false,
+      disabled: disabledProp = false,
       status,
       onInput,
       onChange,
@@ -69,7 +71,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const wrapperRef = useRef<HTMLSpanElement>(null)
     const mergedRef = mergeRefs([inputRef, ref])
 
-    const formGroupContext = useFormGroup()
+    const formGroupContext = useContext(FormGroupContext)
+    const formContext = useContext(FormContext)
+    const disabled = disabledProp || formContext?.disabled
 
     const debouncedInput = useCallback(
       debounceFn((val, e) => {

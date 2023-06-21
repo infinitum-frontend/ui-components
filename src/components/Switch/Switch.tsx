@@ -3,10 +3,12 @@ import React, {
   InputHTMLAttributes,
   ChangeEvent,
   ReactNode,
-  forwardRef
+  forwardRef,
+  useContext
 } from 'react'
 import cn from 'classnames'
 import './Switch.scss'
+import FormContext from 'Components/Form/context/form'
 
 // TODO:
 // defaultChecked
@@ -39,7 +41,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
   (
     {
       checked = false,
-      disabled,
+      disabled: disabledProp,
       label,
       name,
       value,
@@ -49,6 +51,9 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
     },
     ref
   ) => {
+    const formContext = useContext(FormContext)
+    const disabled = disabledProp || formContext?.disabled
+
     function handleChange(e: ChangeEvent<HTMLInputElement>): void {
       if (onChange) {
         onChange(e.target.checked, e)

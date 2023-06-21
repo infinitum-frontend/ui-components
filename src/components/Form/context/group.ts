@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext } from 'react'
 
 export interface IFormGroupContext {
   id?: string
@@ -9,9 +9,5 @@ export interface IFormGroupContext {
 }
 
 const FormGroupContext = createContext<IFormGroupContext | null>(null)
-
-export function useFormGroup(): IFormGroupContext | null {
-  return useContext(FormGroupContext)
-}
 
 export default FormGroupContext

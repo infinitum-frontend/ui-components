@@ -1,9 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ElementType, forwardRef, ReactElement, ReactNode } from 'react'
+import React, {
+  ElementType,
+  forwardRef,
+  ReactElement,
+  ReactNode,
+  useContext
+} from 'react'
 import cn from 'classnames'
 import { Loader } from '../Loader'
 import './Button.scss'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
+import FormContext from 'Components/Form/context/form'
 
 export interface ButtonProps {
   /**
@@ -65,9 +72,12 @@ function BaseButton<C extends ElementType = 'button'>(
     before,
     after,
     icon,
+    disabled: disabledProp,
     ...rest
   } = props
 
+  const formContext = useContext(FormContext)
+  const disabled = disabledProp || formContext?.disabled
   const Component = as
 
   return (
@@ -85,6 +95,7 @@ function BaseButton<C extends ElementType = 'button'>(
         }
       )}
       type="button"
+      disabled={disabled}
       {...rest}
     >
       <span className="inf-button__content">

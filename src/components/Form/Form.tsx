@@ -16,10 +16,10 @@ import FormItem from './components/FormItem'
 import FormErrorMessage from './components/FormErrorMessage'
 
 export interface FormProps extends ComponentPropsWithRef<'form'> {
-  /**
-   * Расстояние между блоками
-   */
+  /** Расстояние между блоками */
   gap?: SpaceProps['gap']
+  /** Состояние недоступности */
+  disabled?: boolean
   /** Ширина лейбла (валидное значение css-width) */
   labelWidth?: CSSProperties['width']
 }
@@ -32,6 +32,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
       labelWidth = '',
       onSubmit,
       className,
+      disabled,
       ...props
     },
     ref
@@ -42,7 +43,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
     }
 
     const context = {
-      labelWidth
+      labelWidth,
+      disabled
     }
 
     return (
