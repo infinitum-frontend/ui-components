@@ -7,15 +7,17 @@ import React, {
   FormEventHandler,
   forwardRef,
   InputHTMLAttributes,
-  ReactElement
+  ReactElement,
+  useContext
 } from 'react'
 import './Checkbox.scss'
 import { ReactComponent as CheckIcon } from 'Icons/check.svg'
 import { ReactComponent as IndeterminateIcon } from 'Icons/indeterminate.svg'
 import cn from 'classnames'
 import { useCheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup/context'
-import { useFormGroup } from 'Components/Form/context/group'
 import CheckboxGroup from 'Components/Checkbox/components/CheckboxGroup/CheckboxGroup'
+import FormGroupContext from 'Components/Form/context/group'
+import FormContext from 'Components/Form/context/form'
 
 const checkedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'16px'} height={'16px'} />
@@ -65,7 +67,7 @@ export interface CheckboxProps
 const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
   (
     {
-      disabled = false,
+      disabled: disabledProp = false,
       checked,
       defaultChecked = false,
       onChange,
@@ -81,7 +83,10 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     ref
   ): ReactElement => {
     const checkboxGroupData = useCheckboxGroup()
-    const formGroupData = useFormGroup()
+    const formData = useContext(FormContext)
+    const formGroupData = useContext(FormGroupContext)
+
+    const disabled = disabledProp || formData?.disabled
 
     if (checkboxGroupData) {
       checked = Boolean(checkboxGroupData.value.find((el) => el === value))

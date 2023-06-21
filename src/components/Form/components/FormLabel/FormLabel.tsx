@@ -3,11 +3,12 @@ import React, {
   ComponentPropsWithoutRef,
   forwardRef,
   ReactElement,
-  ReactNode
+  ReactNode,
+  useContext
 } from 'react'
-import { useFormGroup } from 'Components/Form/context/group'
-import { useForm } from 'Components/Form/context/form'
 import './FormLabel.scss'
+import FormContext from 'Components/Form/context/form'
+import FormGroupContext from 'Components/Form/context/group'
 
 export interface FormLabelProps extends ComponentPropsWithoutRef<'label'> {
   /** htmlId */
@@ -17,8 +18,8 @@ export interface FormLabelProps extends ComponentPropsWithoutRef<'label'> {
 
 const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
   ({ id, requiredIndicator, style, children, ...props }, ref): ReactElement => {
-    const formData = useForm()
-    const formGroupData = useFormGroup()
+    const formData = useContext(FormContext)
+    const formGroupData = useContext(FormGroupContext)
 
     const htmlFor = id || formGroupData?.id
     const showRequiredIndicator = formGroupData?.required || requiredIndicator

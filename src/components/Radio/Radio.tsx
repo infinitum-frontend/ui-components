@@ -7,13 +7,15 @@ import React, {
   FormEventHandler,
   forwardRef,
   InputHTMLAttributes,
-  ReactElement
+  ReactElement,
+  useContext
 } from 'react'
 import './Radio.scss'
 import useRadioGroup from './components/RadioGroup/context/useRadioGroup'
 import RadioGroup from './components/RadioGroup'
 import cn from 'classnames'
-import { useFormGroup } from 'Components/Form/context/group'
+import FormGroupContext from 'Components/Form/context/group'
+import FormContext from 'Components/Form/context/form'
 
 interface InputProps
   extends DetailedHTMLProps<
@@ -54,7 +56,7 @@ export interface RadioProps
 const Radio = forwardRef<HTMLLabelElement, RadioProps>(
   (
     {
-      disabled = false,
+      disabled: disabledProp = false,
       checked,
       defaultChecked = false,
       onChange,
@@ -68,7 +70,10 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
     ref
   ): ReactElement => {
     const groupData = useRadioGroup()
-    const formGroupData = useFormGroup()
+    const formGroupData = useContext(FormGroupContext)
+    const formData = useContext(FormContext)
+
+    const disabled = disabledProp || formData?.disabled
 
     if (groupData) {
       name = groupData.name

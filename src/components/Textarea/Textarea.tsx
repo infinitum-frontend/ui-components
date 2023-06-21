@@ -4,12 +4,14 @@ import React, {
   FormEventHandler,
   ReactElement,
   TextareaHTMLAttributes,
+  useContext,
   useState
 } from 'react'
 import cn from 'classnames'
 import './Textarea.scss'
-import { useFormGroup } from 'Components/Form/context/group'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
+import FormGroupContext from 'Components/Form/context/group'
+import FormContext from 'Components/Form/context/form'
 
 export interface TextareaProps
   extends Omit<
@@ -48,7 +50,7 @@ export interface TextareaProps
 const Textarea = ({
   resize = 'none',
   block = false,
-  disabled = false,
+  disabled: disabledProp = false,
   placeholder = 'Введите значение',
   value,
   className,
@@ -62,7 +64,10 @@ const Textarea = ({
   ...props
 }: TextareaProps): ReactElement => {
   const [localValue, setLocalValue] = useState(value || '')
-  const formGroupData = useFormGroup()
+  const formData = useContext(FormContext)
+  const formGroupData = useContext(FormGroupContext)
+
+  const disabled = disabledProp || formData?.disabled
 
   const handleChange: FormEventHandler<HTMLTextAreaElement> = (e) => {
     if (formGroupData) {

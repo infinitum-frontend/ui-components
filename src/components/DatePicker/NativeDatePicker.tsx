@@ -6,12 +6,14 @@ import React, {
   forwardRef,
   HTMLInputTypeAttribute,
   InputHTMLAttributes,
-  ReactElement
+  ReactElement,
+  useContext
 } from 'react'
 import cn from 'classnames'
 import './Datepicker.scss'
-import { useFormGroup } from 'Components/Form/context/group'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
+import FormGroupContext from 'Components/Form/context/group'
+import FormContext from 'Components/Form/context/form'
 
 export interface NativeDatePickerProps
   extends Omit<
@@ -57,11 +59,15 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
       'aria-invalid': ariaInvalid,
       min,
       max,
+      disabled: disabledProp,
       ...props
     },
     ref
   ): ReactElement => {
-    const formGroupData = useFormGroup()
+    const formGroupData = useContext(FormGroupContext)
+    const formData = useContext(FormContext)
+
+    const disabled = disabledProp || formData?.disabled
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       if (formGroupData) {
@@ -103,6 +109,7 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
         onInvalid={handleInvalid}
         max={getFormattedValue(max)}
         min={getFormattedValue(min)}
+        disabled={disabled}
         {...props}
       />
     )

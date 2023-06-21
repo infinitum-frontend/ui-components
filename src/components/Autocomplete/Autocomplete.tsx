@@ -2,6 +2,7 @@
 import React, {
   ComponentPropsWithoutRef,
   ReactElement,
+  useContext,
   useEffect,
   useState
 } from 'react'
@@ -22,6 +23,7 @@ import {
   useInteractions
 } from '@floating-ui/react'
 import { IAutocompleteOption } from 'Components/Autocomplete/types'
+import FormContext from 'Components/Form/context/form'
 
 export interface AutocompleteProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
@@ -55,7 +57,7 @@ const Autocomplete = ({
   options = [],
   opened = false,
   onChange,
-  disabled,
+  disabled: disabledProp,
   required,
   buttonPlaceholder = 'Выберите',
   inputPlaceholder,
@@ -68,6 +70,10 @@ const Autocomplete = ({
   const [open, setOpen] = useState<boolean>(opened)
   const [query, setQuery] = useState<string>('')
   const [filteredOptions, setFilteredOptions] = useState(options)
+
+  const formContext = useContext(FormContext)
+
+  const disabled = disabledProp || formContext?.disabled
 
   useEffect(() => {
     if (opened && disabled) {

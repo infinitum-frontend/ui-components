@@ -3,13 +3,14 @@ import React, {
   ComponentPropsWithoutRef,
   FormEventHandler,
   ReactElement,
+  useContext,
   useRef
 } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import './AutocompleteButton.scss'
 import SelectButton from 'Components/Select/components/SelectButton'
 import cn from 'classnames'
-import { useFormGroup } from 'Components/Form/context/group'
+import FormGroupContext from 'Components/Form/context/group'
 
 export interface AutocompleteButtonProps
   extends ComponentPropsWithoutRef<'button'> {
@@ -27,7 +28,7 @@ const AutocompleteButton = ({
 }: AutocompleteButtonProps): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null)
   const context = useAutocompleteContext()
-  const formGroupContext = useFormGroup()
+  const formGroupContext = useContext(FormGroupContext)
 
   const handleInvalid: FormEventHandler<HTMLInputElement> = () => {
     if (formGroupContext) {

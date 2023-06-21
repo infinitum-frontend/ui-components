@@ -8,13 +8,13 @@ import React, {
   useRef,
   FocusEventHandler,
   MouseEventHandler,
-  FormEventHandler
+  FormEventHandler,
+  useContext
 } from 'react'
 import './Select.scss'
 import cn from 'classnames'
 import { SelectProps, SelectOption } from './types'
 import { mergeRefs } from 'react-merge-refs'
-import { useFormGroup } from 'Components/Form/context/group'
 import {
   autoUpdate,
   flip,
@@ -26,6 +26,8 @@ import {
   size
 } from '@floating-ui/react'
 import SelectButton from './components/SelectButton'
+import FormGroupContext from 'Components/Form/context/group'
+import FormContext from 'Components/Form/context/form'
 
 export const defaultSelectItem: SelectOption = {
   value: -1,
@@ -55,7 +57,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       onChange,
       autoFocus = false,
       value,
-      disabled = false,
+      disabled: disabledProp = false,
       placeholder = defaultSelectItem.label as string,
       required = false,
       status,
@@ -71,7 +73,10 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       value ? getIndexByValue(value, options) : 0
     )
 
-    const formGroupData = useFormGroup()
+    const formGroupData = useContext(FormGroupContext)
+    const formData = useContext(FormContext)
+    const disabled = disabledProp || formData?.disabled
+
     const displayRef = useRef<HTMLButtonElement>(null)
     const selectRef = useRef<HTMLSelectElement>(null)
 
