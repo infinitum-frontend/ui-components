@@ -1,0 +1,17 @@
+.file-picker-item {
+  &__name {
+    color: var(--inf-color-text-link);
+    border-bottom: 1px solid currentColor;
+  }
+
+  &__clip-icon {
+    color: var(--inf-color-secondary);
+  }
+
+  // TODO: сделать блок по всей ширине, чтобы крестики были на одном уровне?
+  &__delete-btn {
+    display: inline-flex;
+    margin-bottom: 2px;
+    color: var(--inf-color-text-danger);
+  }
+}

@@ -1,5 +1,6 @@
 import { Button } from 'Components/Button'
 import { Box } from 'Components/Box'
+import { FilePicker } from 'Components/FilePicker'
 import { Input, SearchInput } from './components/Input'
 import { Select, selectDataFormatter } from './components/Select'
 import { Loader } from './components/Loader'
@@ -50,6 +51,7 @@ export {
   Select,
   selectDataFormatter,
   Loader,
+  FilePicker,
   Radio,
   Checkbox,
   Text,
