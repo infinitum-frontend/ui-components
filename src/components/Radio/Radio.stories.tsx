@@ -5,6 +5,7 @@ import Radio from './Radio'
 import { action } from '@storybook/addon-actions'
 import { Box } from '../Box'
 import { useState } from 'react'
+import { Space } from '../Space'
 
 const meta: Meta<typeof Radio> = {
   title: 'Form/Radio',
@@ -23,21 +24,40 @@ const Template: StoryFn<typeof Radio> = (args) => {
 
 export const Group: StoryObj<typeof Radio> = {
   render: (args) => {
-    const [state, setState] = useState<string>('')
-
-    const handleChange = (val: string): void => {
-      setState(val)
-    }
+    const [state1, setState1] = useState<string>('')
+    const [state2, setState2] = useState<string>('')
 
     return (
-      <div>
-        <Radio.Group name={'radio'} value={state} onChange={handleChange}>
-          <Radio value={'1'}>Облигации внешних облигационных займов РФ</Radio>
-          <Radio value={'2'}>Облигации государственных компаний</Radio>
-          <Radio value={'3'}>Облигации государственных корпораций</Radio>
-        </Radio.Group>
-        <div style={{ marginTop: '12px' }}>Выбрано: {state}</div>
-      </div>
+      <Space gap="large">
+        <Space>
+          <code>direction: vertical</code>
+          <Radio.Group
+            name={'radio'}
+            value={state1}
+            onChange={(value) => setState1(value)}
+          >
+            <Radio value={'1'}>Облигации внешних облигационных займов РФ</Radio>
+            <Radio value={'2'}>Облигации государственных компаний</Radio>
+            <Radio value={'3'}>Облигации государственных корпораций</Radio>
+          </Radio.Group>
+          <div style={{ marginTop: '12px' }}>Выбрано: {state1}</div>
+        </Space>
+
+        <Space>
+          <code>direction: horizontal</code>
+          <Radio.Group
+            name={'radio'}
+            value={state2}
+            onChange={(value) => setState2(value)}
+            direction="horizontal"
+          >
+            <Radio value={'1'}>Облигации внешних облигационных займов РФ</Radio>
+            <Radio value={'2'}>Облигации государственных компаний</Radio>
+            <Radio value={'3'}>Облигации государственных корпораций</Radio>
+          </Radio.Group>
+          <div style={{ marginTop: '12px' }}>Выбрано: {state2}</div>
+        </Space>
+      </Space>
     )
   }
 }

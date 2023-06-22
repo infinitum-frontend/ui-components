@@ -15,7 +15,7 @@ export interface RadioGroupProps
   onChange: (value: string, event: ChangeEvent<HTMLInputElement>) => void
   /** Значение выбранной радиокнопки */
   value: string
-  direction?: 'vertical'
+  direction?: 'vertical' | 'horizontal'
   required?: boolean
 }
 
