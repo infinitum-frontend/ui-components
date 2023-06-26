@@ -4,7 +4,7 @@ import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Form } from './index'
 import { Button } from '../Button'
 import { Checkbox } from '../Checkbox'
-import { Input, maskInput } from '../Input'
+import { Input, MaskedInput } from '../Input'
 import { Select } from '../Select'
 import { Radio } from '../Radio'
 import { Textarea } from '../Textarea'
@@ -114,15 +114,7 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
           <Form.Group direction={'horizontal'} required>
             <Form.Label>Номер телефона</Form.Label>
             <Form.Item>
-              <Input
-                name="phone"
-                placeholder="+7(999) 999-99-99"
-                type="tel"
-                formatter={(value) => maskInput(value, 'phone')}
-                minLength={18}
-                value={phone}
-                onInput={(value) => setPhone(value)}
-              />
+              <MaskedInput mask="phone" value={phone} onComplete={setPhone} />
             </Form.Item>
           </Form.Group>
 

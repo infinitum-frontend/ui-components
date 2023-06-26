@@ -1,7 +1,7 @@
 import { Button } from 'Components/Button'
 import { Box } from 'Components/Box'
 import { FilePicker } from 'Components/FilePicker'
-import { Input, SearchInput } from './components/Input'
+import { Input, SearchInput, MaskedInput } from './components/Input'
 import { Select, selectDataFormatter } from './components/Select'
 import { Loader } from './components/Loader'
 import { Radio } from './components/Radio'
@@ -57,6 +57,7 @@ export {
   Text,
   Heading,
   Space,
+  MaskedInput,
   Tabs,
   Textarea,
   NativeDatePicker,

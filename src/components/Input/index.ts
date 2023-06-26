@@ -1,6 +1,6 @@
-import maskInput from './helpers/mask'
 import Input from './Input'
+import MaskedInput from './components/MaskedInput'
 import SearchInput from './components/SearchInput/'
 
 // TODO Input.Search ?
-export { Input, maskInput, SearchInput }
+export { Input, SearchInput, MaskedInput }
