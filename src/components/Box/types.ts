@@ -23,13 +23,13 @@ export interface BoxProps {
   overflowY?: Overflow
 }
 
-export type BoxShadow = 'small' | 'medium'
-export type BorderWidth = 'default'
-export type BorderColor = 'default' | 'secondary'
-export type BorderRadius = 'small' | 'medium' | 'large'
-export type Padding = SpaceVariants
-export type Background = 'default' | 'secondary' | 'inverse'
-export type TextColor =
+type BoxShadow = 'small' | 'medium'
+type BorderWidth = 'default'
+type BorderColor = 'default' | 'secondary'
+type BorderRadius = 'small' | 'medium' | 'large'
+type Padding = SpaceVariants
+type Background = 'default' | 'secondary' | 'inverse'
+type TextColor =
   | 'primary'
   | 'secondary'
   | 'tertiary'
@@ -38,4 +38,4 @@ export type TextColor =
   | 'danger'
   | 'warning'
   | 'inverse' // TODO: использовать тот же тип что и в компоненте Text
-export type Overflow = 'hidden' | 'scroll'
+type Overflow = 'hidden' | 'scroll'

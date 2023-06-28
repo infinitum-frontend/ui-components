@@ -15,7 +15,7 @@ import { ReactComponent as CheckIcon } from 'Icons/check.svg'
 import { ReactComponent as IndeterminateIcon } from 'Icons/indeterminate.svg'
 import cn from 'classnames'
 import { useCheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup/context'
-import CheckboxGroup from 'Components/Checkbox/components/CheckboxGroup/CheckboxGroup'
+import { CheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 

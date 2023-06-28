@@ -1,4 +1,4 @@
-import FilePicker, { IFileData } from './FilePicker'
+import FilePicker, { IFileData, FilePickerProps } from './FilePicker'
 
 export { FilePicker }
-export type { IFileData }
+export type { IFileData, FilePickerProps }

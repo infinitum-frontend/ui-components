@@ -1,1 +1,4 @@
-export { default as Badge } from './Badge'
+import Badge, { BadgeProps } from './Badge'
+
+export { Badge }
+export type { BadgeProps }

@@ -1,4 +1,8 @@
-import { SelectOption, DefaultSelectOption, FormatterOptions } from '../types'
+import {
+  SelectOption,
+  DefaultSelectOption,
+  SelectDataFormatterOptions
+} from '../types'
 import { ReactNode } from 'react'
 
 type ResultElement<T extends Record<string, T[keyof T]>> =
@@ -11,7 +15,7 @@ type ResultElement<T extends Record<string, T[keyof T]>> =
  */
 function selectDataFormatter<
   T extends Record<string, T[keyof T]> = Record<string, any>
->(options: FormatterOptions<T>): SelectOption[] {
+>(options: SelectDataFormatterOptions<T>): SelectOption[] {
   const standardizedArray: Array<SelectOption<T>> = []
 
   const { array, label, value, rest } = options

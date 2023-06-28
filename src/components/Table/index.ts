@@ -1,6 +1,23 @@
-// Сначала экспортируем наши типы, чтобы они были в приоритете над танстаковскими
-export type { OnChangeFn } from 'Utils/types'
-export * from './types'
-export * from '@tanstack/react-table'
+import {
+  CellContext,
+  createColumnHelper,
+  createColumn,
+  createCell,
+  SortingState
+} from '@tanstack/react-table'
+import Table from './Table'
+import { OnChangeFn } from 'Utils/types'
 
-export { default as Table } from './Table'
+// TODO: стандартизировать список экспортов. Добавить нужные при необходимости
+export * from './types'
+export {
+  Table,
+  createColumnHelper as createTableColumnHelper,
+  createCell as createTableCell,
+  createColumn as createTableColumn
+}
+export type {
+  OnChangeFn,
+  CellContext as TableCellContext,
+  SortingState as TableSortingState
+}

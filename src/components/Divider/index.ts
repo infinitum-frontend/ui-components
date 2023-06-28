@@ -1,1 +1,4 @@
-export { default as Divider } from './Divider'
+import Divider, { DividerProps } from './Divider'
+
+export { Divider }
+export type { DividerProps }

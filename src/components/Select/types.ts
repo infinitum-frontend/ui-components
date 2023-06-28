@@ -15,7 +15,9 @@ export type SelectOption<
   T extends ArrayElementConstraints<T> = Record<string, any>
 > = DefaultSelectOption & MappedObject<T>
 
-export interface FormatterOptions<T extends ArrayElementConstraints<T>> {
+export interface SelectDataFormatterOptions<
+  T extends ArrayElementConstraints<T>
+> {
   /**
    * Исходный массив, подлежащий форматированию
    */
