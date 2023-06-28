@@ -39,9 +39,9 @@ export interface TextProps {
   uppercase?: boolean
 }
 
-export type Size = 'xsmall' | 'small' | 'medium' | 'large'
+type Size = 'xsmall' | 'small' | 'medium' | 'large'
 
-export type TextVariant =
+type TextVariant =
   | 'heading-1'
   | 'heading-2'
   | 'heading-3'
@@ -53,11 +53,11 @@ export type TextVariant =
   | 'body-2'
   | 'overline'
 
-export type FontWeight = 'light' | 'normal' | 'bold' | 'extrabold'
+type FontWeight = 'light' | 'normal' | 'bold' | 'extrabold'
 
-export type TextAlign = 'left' | 'center' | 'right' | 'justify'
+type TextAlign = 'left' | 'center' | 'right' | 'justify'
 
-export type TextColor =
+type TextColor =
   | 'primary'
   | 'secondary'
   | 'tertiary'

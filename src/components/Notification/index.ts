@@ -9,3 +9,5 @@ export {
   NotificationProvider,
   useNotification
 }
+
+export type { NotificationProps, NotificationOptions } from './types'
