@@ -5,24 +5,22 @@ import { IMask, useIMask } from 'react-imask'
 
 const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
   phone: {
-    mask: '+{7}(000)000-00-00'
-    // mask: [
-    //   {
-    //     mask: '+{7}(000)000-00-00'
-    //   }
-    //   // TODO: обсудить
-    //   // {
-    //   //   mask: '{8}(000)000-00-00',
-    //   // },
-    // ]
-    // dispatch: (value, masked) => {
-    //   const current = masked.value.concat(value)
-    //   if (current.startsWith('+7(8') || current.startsWith('8')) {
-    //     return masked.compiledMasks[1]
-    //   }
-    //
-    //   return masked.compiledMasks[0]
-    // }
+    mask: [
+      {
+        mask: '+{7}(000)000-00-00'
+      },
+      {
+        mask: '{8}(000)000-00-00'
+      }
+    ],
+    dispatch: (value, masked) => {
+      const current = masked.value.concat(value)
+      if (current.startsWith('+7(8') || current.startsWith('8')) {
+        return masked.compiledMasks[1]
+      }
+
+      return masked.compiledMasks[0]
+    }
   },
   code4Digits: {
     mask: '0 0 0 0'
@@ -43,9 +41,24 @@ const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
         mask: '+{7}(000)000-00-00'
       },
       {
+        mask: '{8}(000)000-00-00'
+      },
+      {
         mask: /^\S*@?\S*$/
       }
-    ]
+    ],
+    dispatch: (value, masked) => {
+      const current = masked.value.concat(value)
+      if (/[a-zA-Z]/.test(current)) {
+        return masked.compiledMasks[2]
+      }
+
+      if (current.startsWith('+7(8') || current.startsWith('8')) {
+        return masked.compiledMasks[1]
+      }
+
+      return masked.compiledMasks[0]
+    }
   } as IMask.MaskedDynamicOptions
 }
 
@@ -108,7 +121,7 @@ export type MaskedInputProps = Omit<InputProps, 'onChange'> & {
 }
 
 // TODO: как работать с required, placeholder, minLength/maxLength, учитывая, что:
-//  если поставить lazy: falze, в качестве значения будет устанавливаться плейсхолдер, и length всегда будет соответствующий
+//  если поставить lazy: false, в качестве значения будет устанавливаться плейсхолдер, и length всегда будет соответствующий
 const MaskedInput = ({
   mask: maskProp,
   onAccept,
