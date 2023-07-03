@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import { Input, MaskedInput, SearchInput } from './index'
 import { action } from '@storybook/addon-actions'
-import { Button } from '../Button'
-import { Loader } from '../Loader'
 import { Space } from '../Space'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 
@@ -75,6 +73,28 @@ export const NoBorder = {
 
   args: {
     noBorder: true
+  }
+}
+
+export const Sizes: StoryObj<typeof Input> = {
+  render: (args) => {
+    return (
+      <div
+        style={{
+          maxWidth: '300px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px'
+        }}
+      >
+        <Input size="medium" placeholder="medium" />
+        <Input size="small" placeholder="small" />
+      </div>
+    )
+  },
+
+  args: {
+    debounce: 1000
   }
 }
 
@@ -156,76 +176,61 @@ export const Masked: StoryFn<typeof Input> = () => {
   const [email, setEmail] = useState('')
   const [card, setCard] = useState('')
   const [phoneOrEmail, setPhoneOrEmail] = useState('')
-  const [loading, setLoading] = useState(false)
 
   return (
     <Space>
-      {loading ? (
-        <Loader.Container overlay>
-          <Loader />
-        </Loader.Container>
-      ) : (
-        <Space direction="horizontal" wrap>
-          <Space>
-            <code>Phone mask</code>
-            <MaskedInput value={phone} onAccept={setPhone} mask="phone" />
-            <span style={{ color: 'darkred', marginTop: '6px' }}>
-              Значение: {phone}
-            </span>
-          </Space>
-          <Space>
-            <code>Четырехзначный код из смс</code>
-            <MaskedInput
-              value={smsCode}
-              onAccept={setSmsCode}
-              mask="code4Digits"
-            />
-            <span style={{ color: 'darkred', marginTop: '6px' }}>
-              Значение: {smsCode}
-            </span>
-          </Space>
-          <Space>
-            <code>cvc code</code>
-            <MaskedInput value={cvcCode} onAccept={setCvcCode} mask="cvc" />
-            <span style={{ color: 'darkred', marginTop: '6px' }}>
-              Значение: {cvcCode}
-            </span>
-          </Space>
-          <Space>
-            <code>email</code>
-            <MaskedInput value={email} onAccept={setEmail} mask="email" />
-            <span style={{ color: 'darkred', marginTop: '6px' }}>
-              Значение: {email}
-            </span>
-          </Space>
-          <Space>
-            <code>bank card</code>
-            <MaskedInput value={card} onAccept={setCard} mask="bankCard" />
-            <span style={{ color: 'darkred', marginTop: '6px' }}>
-              Значение: {card}
-            </span>
-          </Space>
-          <Space>
-            <code>phone or email</code>
-            <MaskedInput
-              value={phoneOrEmail}
-              onAccept={setPhoneOrEmail}
-              mask="phoneOrEmail"
-            />
-            <span style={{ color: 'darkred', marginTop: '6px' }}>
-              Значение: {phoneOrEmail}
-            </span>
-          </Space>
+      <Space direction="horizontal" wrap>
+        <Space>
+          <code>Phone mask</code>
+          <MaskedInput value={phone} onAccept={setPhone} mask="phone" />
+          <span style={{ color: 'darkred', marginTop: '6px' }}>
+            Значение: {phone}
+          </span>
         </Space>
-      )}
-      <Button
-        onClick={() => {
-          setLoading(!loading)
-          setTimeout(() => setLoading(false), 2000)
-        }}
-      >
-        Загрузка
-      </Button>
+        <Space>
+          <code>Четырехзначный код из смс</code>
+          <MaskedInput
+            value={smsCode}
+            onAccept={setSmsCode}
+            mask="code4Digits"
+          />
+          <span style={{ color: 'darkred', marginTop: '6px' }}>
+            Значение: {smsCode}
+          </span>
+        </Space>
+        <Space>
+          <code>cvc code</code>
+          <MaskedInput value={cvcCode} onAccept={setCvcCode} mask="cvc" />
+          <span style={{ color: 'darkred', marginTop: '6px' }}>
+            Значение: {cvcCode}
+          </span>
+        </Space>
+        <Space>
+          <code>email</code>
+          <MaskedInput value={email} onAccept={setEmail} mask="email" />
+          <span style={{ color: 'darkred', marginTop: '6px' }}>
+            Значение: {email}
+          </span>
+        </Space>
+        <Space>
+          <code>bank card</code>
+          <MaskedInput value={card} onAccept={setCard} mask="bankCard" />
+          <span style={{ color: 'darkred', marginTop: '6px' }}>
+            Значение: {card}
+          </span>
+        </Space>
+        <Space>
+          <code>phone or email</code>
+          <MaskedInput
+            value={phoneOrEmail}
+            onAccept={setPhoneOrEmail}
+            mask="phoneOrEmail"
+          />
+          <span style={{ color: 'darkred', marginTop: '6px' }}>
+            Значение: {phoneOrEmail}
+          </span>
+        </Space>
+      </Space>
     </Space>
   )
 }

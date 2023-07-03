@@ -1,18 +1,23 @@
 .inf-text-field {
   border: 1px solid var(--inf-color-border-default);
+  background-color: var(--inf-color-background-default);
   transition: border-color 0.2s;
-  font: var(--inf-font-body-2);
+  font: var(--inf-font-body-1);
   width: 100%;
+
+  input::placeholder,
+  &::placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
 
   @include hover {
     border-color: var(--inf-color-border-hover);
   }
 
-  // TODO: другим способом сделать специфичнее, чем :hover
   &:focus,
+  &:focus-visible,
   &--focused {
-    border-color: var(--inf-color-border-active) !important;
-    outline: var(--inf-border-focus);
+    border-color: var(--inf-color-border-active);
   }
 
   &:disabled,
@@ -23,16 +28,12 @@
     color: var(--inf-color-text-disabled);
   }
 
-  &--filled {
-    border-color: var(--inf-color-border-active);
-  }
-
   &--no-border {
     border: none;
   }
 
   &--br-regular {
-    border-radius: var(--inf-border-radius-small);
+    border-radius: var(--inf-border-radius-medium);
   }
 
   &--status-error {
@@ -45,5 +46,16 @@
     &:focus {
       border-color: var(--inf-color-border-danger);
     }
+  }
+
+  &--size-medium {
+    height: var(--inf-control-height-medium);
+    padding: var(--inf-space-xsmall) var(--inf-space-medium);
+  }
+
+  &--size-small {
+    font: var(--inf-font-body-2);
+    height: var(--inf-control-height-small);
+    padding: var(--inf-space-xxsmall) var(--inf-space-medium);
   }
 }

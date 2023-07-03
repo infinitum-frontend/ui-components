@@ -18,6 +18,7 @@ export interface TextProps {
   weight?: FontWeight
   /**
    * Цвет текста
+   * // TODO: депрекейтед добавили, но поддержку этого пропа убрали
    * @deprecated используй color
    */
   tone?: TextColor

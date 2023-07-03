@@ -14,7 +14,7 @@ export interface BaseInputProps
    * Размер
    * @default medium
    */
-  size?: 'medium'
+  size?: 'medium' | 'small'
   /** Кастомный css-класс */
   className?: string
   /** placeholder */

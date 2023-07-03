@@ -83,10 +83,6 @@ textarea {
     outline: none;
   }
 
-  &:focus-visible {
-    outline: var(--inf-border-focus);
-  }
-
   &::placeholder {
     color: var(--inf-color-border-default);
   }

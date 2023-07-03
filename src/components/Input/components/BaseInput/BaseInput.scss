@@ -1,13 +1,4 @@
-@import '../../../../styles/common/text-field.scss';
-
 .inf-input {
   outline: none;
   cursor: text;
-
-  // TBD
-  &--size-medium {
-    height: var(--inf-control-height-medium);
-    padding: var(--inf-input-padding-vertical-medium)
-      var(--inf-input-padding-horizontal-medium);
-  }
 }

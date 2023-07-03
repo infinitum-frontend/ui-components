@@ -33,7 +33,7 @@
   --inf-checkbox-checked-color-background-disabled: var(--inf-color-gray-light);
 
   /* Radio */
-  --inf-radio-color-border: var(--inf-color-black);
+  --inf-radio-color-border: var(--inf-color-gray-800);
   --inf-radio-color-border-hover: var(--inf-control-color-border-active);
   --inf-radio-color-border-active: var(--inf-control-color-border-active);
   --inf-radio-color-border-disabled: var(--inf-color-border-default);
@@ -41,7 +41,7 @@
   --inf-radio-color-background-hover: #e6f1f5;
   --inf-radio-color-background-active: #b8d1d9;
   --inf-radio-color-background-checked: #f53a50;
-  --inf-radio-color-background-checked-disabled: var(--inf-color-gray-light);
+  --inf-radio-color-background-checked-disabled: var(--inf-color-gray-200);
 
   /* Modal */
   --inf-modal-backdrop-background: rgba(0, 0, 0, 0.3);

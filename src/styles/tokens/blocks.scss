@@ -30,6 +30,7 @@
   --inf-border-radius-small: 4px;
   --inf-border-radius-medium: 8px;
   --inf-border-radius-large: 16px;
+
   --inf-border-focus: 2px solid var(--inf-color-border-focus);
 
   /* Z-index */
@@ -43,8 +44,8 @@
   --inf-z-index-notification: 200;
 
   /* TBD */
-  --inf-control-height-medium: 32px;
-  --inf-control-height-small: 28px; // нет в макете
-  --inf-control-height-large: 36px; // нет в макете
+  --inf-control-height-large: 48px;
+  --inf-control-height-medium: 40px;
+  --inf-control-height-small: 32px;
   --inf-spacing-checked-group: 2px;
 }
