@@ -35,6 +35,7 @@ function BaseText<C extends ElementType = 'div'>(
         'inf-text--uppercase': uppercase,
         'inf-text--truncated': truncated,
         [`inf-text--color-${color as string}`]: color,
+        [`inf-text--tone-${tone as string}`]: tone,
         [`inf-text--weight-${weight as string}`]: weight,
         [`inf-text--alignment-${alignment as string}`]: alignment !== 'left'
       }
