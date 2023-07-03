@@ -13,7 +13,7 @@ import React, {
 import classNames from 'classnames'
 import './Input.scss'
 import { InputProps } from './types'
-import { ReactComponent as ClearIcon } from 'Icons/bx-x.svg'
+import { ReactComponent as ClearIcon } from 'Icons/cross.svg'
 // eslint-disable-next-line import/no-named-default
 import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
@@ -21,12 +21,6 @@ import { mergeRefs } from 'react-merge-refs'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
-
-/**
- * TODO:
- * mask prop
- * raw mask value
- */
 
 /** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -172,10 +166,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const getClassNames: () => string = () => {
       return classNames(
         'inf-input-wrapper',
-        `inf-input-wrapper--size-${size}`,
+        TextFieldClasses.size[size],
         TextFieldClasses.main,
         className,
         {
+          'inf-input-wrapper--clearable': allowClear,
           [TextFieldClasses.disabled]: disabled,
           [TextFieldClasses.focused]: isFocused,
           [TextFieldClasses.noBorder]: noBorder,
@@ -192,11 +187,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         return null
       }
 
+      const iconSize = size === 'medium' ? 24 : 20
+
       const iconNode =
         typeof allowClear === 'object' && allowClear.icon ? (
           allowClear.icon
         ) : (
-          <ClearIcon />
+          <ClearIcon width={iconSize} height={iconSize} />
         )
 
       return (

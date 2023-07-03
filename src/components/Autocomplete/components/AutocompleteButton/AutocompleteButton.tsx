@@ -1,10 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, {
   ComponentPropsWithoutRef,
+  FocusEventHandler,
   FormEventHandler,
   ReactElement,
   useContext,
-  useRef
+  useRef,
+  useState
 } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import './AutocompleteButton.scss'
@@ -26,6 +28,7 @@ const AutocompleteButton = ({
   children,
   ...props
 }: AutocompleteButtonProps): ReactElement => {
+  const [isFocused, setFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const context = useAutocompleteContext()
   const formGroupContext = useContext(FormGroupContext)
@@ -37,14 +40,35 @@ const AutocompleteButton = ({
     }
   }
 
+  // фокус, который поднимается от внутреннего нативного инпута
+  const handleFocus: FocusEventHandler = (e) => {
+    e.preventDefault()
+    setFocused(true)
+  }
+
+  // блюр, который поднимается от внутреннего нативного инпута. Если было нажатие на элементы выпадающего списка, фокус не скидывается
+  const handleBlur: FocusEventHandler = (e) => {
+    const classList = e.relatedTarget?.classList
+    // TODO: работает?
+    if (classList?.contains('inf-select__items')) {
+      console.log('contains')
+      return
+    }
+
+    setFocused(false)
+  }
+
   return (
     <SelectButton
       tabIndex={-1}
       disabled={disabled || context?.disabled}
       onClick={context?.handleButtonClick}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       selected={context?.open || Boolean(children)}
       type={'button'}
       ref={context?.buttonRef}
+      focused={isFocused}
       className={cn(className, 'inf-autocomplete-button')}
       {...context?.getReferenceProps()}
       {...props}

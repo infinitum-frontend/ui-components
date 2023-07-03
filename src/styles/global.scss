@@ -2,6 +2,7 @@
 @import './reset.scss';
 @import './fonts.scss';
 @import './tokens/index.scss';
+@import './common/textField.scss';
 
 html,
 body {
@@ -34,7 +35,7 @@ body {
   --inf-color-background-secondary: #333;
   --inf-color-background-hover: #555;
   --inf-color-background-inverse: #ddd;
-  --inf-color-primary: var(--inf-color-infinitum-red-dark);
-  --inf-color-primary-hover: var(--inf-color-infinitum-red);
+  --inf-color-primary: var(--inf-color-red-500);
+  --inf-color-primary-hover: var(--inf-color-red-400);
   --inf-color-border-default: #444;
 }

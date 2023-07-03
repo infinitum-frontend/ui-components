@@ -106,9 +106,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     // блюр, который поднимается от внутреннего нативного селекта. Если было нажатие на элементы выпадающего списка, фокус не скидывается
     const handleBlur: FocusEventHandler = (e) => {
-      const classList = e.relatedTarget?.classList
-
-      if (classList?.contains('inf-select__items')) {
+      const target = e.relatedTarget
+      if (target?.getAttribute('data-selector') === 'inf-select-items') {
         return
       }
 
@@ -284,7 +283,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
                 left: x ?? 0
               }}
               ref={refs.setFloating}
-              className={cn('inf-select__items')}
+              className="inf-select__items"
+              data-selector="inf-select-items"
               {...getFloatingProps()}
             >
               {Boolean(options.length) &&

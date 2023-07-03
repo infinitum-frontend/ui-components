@@ -10,5 +10,9 @@ export const TextFieldClasses = {
   },
   status: {
     error: 'inf-text-field--status-error'
+  },
+  size: {
+    small: 'inf-text-field--size-small',
+    medium: 'inf-text-field--size-medium'
   }
 }

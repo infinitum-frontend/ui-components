@@ -25,7 +25,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   ): ReactElement => {
     const classNames = cn(
       'inf-input',
-      `inf-input--size-${size as string}`,
+      TextFieldClasses.size[size],
       TextFieldClasses.main,
       className,
       {

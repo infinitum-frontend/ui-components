@@ -2,27 +2,36 @@
 
 :root {
   /* Base */
-  --inf-color-infinitum-red: #f53a3a;
-  --inf-color-infinitum-red-dark: #cc2d32;
-  --inf-color-infinitum-red-light: #ff6666;
-  --inf-color-infinitum-red-lightest: #ffa8a8;
+  --inf-color-gray-100: #f7f9fa;
+  --inf-color-gray-200: #dddedf;
+  --inf-color-gray-300: #adaeaf;
+  --inf-color-gray-400: #8e8f90;
+  --inf-color-gray-500: #707273;
+  --inf-color-gray-600: #545556;
+  --inf-color-gray-700: #373839;
+  --inf-color-gray-800: #1f2021;
 
-  --inf-color-cold-grey: #738f99;
-  --inf-color-cold-grey-dark: #46626b;
-  --inf-color-cold-grey-light: #b8d1d9;
-  --inf-color-cold-grey-lightest: #e6f1f5;
+  --inf-color-blue-100: #e6f9ff;
+  --inf-color-blue-200: #bedee8;
+  --inf-color-blue-300: #9cbac4;
+  --inf-color-blue-400: #7d9ba5;
+  --inf-color-blue-500: #607d86;
+  --inf-color-blue-600: #46626b;
+  --inf-color-blue-700: #29444d;
 
-  --inf-color-green: #1dbf6e;
-  --inf-color-green-dark: #029161;
-  --inf-color-green-light: #48e697;
-  --inf-color-green-lightest: #84f2bb;
+  --inf-color-red-100: #fff6f5;
+  --inf-color-red-200: #ffd6d1;
+  --inf-color-red-300: #ffb5ac;
+  --inf-color-red-400: #ff9086;
+  --inf-color-red-500: #f53a3a;
+  --inf-color-red-600: #d0001b;
 
-  --inf-color-black: #1f2021;
-  --inf-color-gray: #717375;
-  --inf-color-gray-light: #c8cacc;
-  --inf-color-gray-lighter: #e9ebed;
-  --inf-color-gray-lighest: #f2f4f5;
-  --inf-color-white: #fff;
+  --inf-color-green-100: #e8fff2;
+  --inf-color-green-200: #89f9c2;
+  --inf-color-green-300: #67d7a3;
+  --inf-color-green-400: #40b481;
+  --inf-color-green-500: #029161;
+  --inf-color-green-600: #006945;
 
   --inf-color-orange-100: #fff6f4;
   --inf-color-orange-200: #ffdcd1;
@@ -31,68 +40,73 @@
   --inf-color-orange-500: #fc673a;
   --inf-color-orange-600: #dd4a18;
 
+  --inf-color-yellow-100: #fff7ec;
+  --inf-color-yellow-200: #ffe0ae;
+  --inf-color-yellow-300: #ffc256;
+  --inf-color-yellow-400: #e6a302;
+  --inf-color-yellow-500: #c28900;
+
+  --inf-color-black: #1f2021;
+  --inf-color-white: #fff;
+
   /* Semantic */
-  --inf-color-primary: var(--inf-color-infinitum-red);
-  --inf-color-primary-hover: var(--inf-color-infinitum-red-dark);
-  --inf-color-primary-active: var(--inf-color-infinitum-red-light);
+  --inf-color-primary: var(--inf-color-red-500);
+  --inf-color-primary-hover: var(--inf-color-red-400);
+  --inf-color-primary-active: var(--inf-color-red-600);
 
-  --inf-color-secondary: #738f99;
-  --inf-color-secondary-dark: #46626b;
-  --inf-color-secondary-light: #b8d1d9;
-  --inf-color-secondary-lightest: #e6f1f5;
-  --inf-color-secondary-hover: var(--inf-color-secondary-light);
-  --inf-color-secondary-active: var(--inf-color-secondary-dark);
+  --inf-color-secondary: var(--inf-color-blue-600);
+  --inf-color-secondary-hover: var(--inf-color-blue-500);
+  --inf-color-secondary-active: var(--inf-color-blue-700);
 
-  --inf-color-success: #1dbf6e;
-  --inf-color-success-dark: #029161;
-  --inf-color-success-light: #48e697;
-  --inf-color-success-lightest: #84f2bb;
-
-  --inf-color-danger: #f53a3a;
-
-  --inf-color-warning: #e6a302;
+  --inf-color-success: var(--inf-color-green-500);
+  --inf-color-danger: var(--inf-color-orange-500);
+  --inf-color-warning: var(--inf-color-yellow-500);
 
   /* Text */
-  --inf-color-text-primary: var(--inf-color-black);
-  --inf-color-text: var(--inf-color-black); // TODO: remove
-  --inf-color-text-secondary: var(--inf-color-gray);
-  --inf-color-text-tertiary: var(--inf-color-gray-light);
-  --inf-color-text-disabled: var(--inf-color-gray-light);
+  --inf-color-text-primary: var(--inf-color-gray-800);
+  --inf-color-text: var(--inf-color-gray-800); // TODO: remove
+  --inf-color-text-secondary: var(--inf-color-gray-500);
+  --inf-color-text-tertiary: var(--inf-color-gray-300);
+  --inf-color-text-disabled: var(--inf-color-gray-300);
   --inf-color-text-inverse: #fff;
   // --inf-color-text-inverse-secondary: #ccc;
-  --inf-color-text-link: var(--inf-color-secondary);
-  --inf-color-text-link-hover: var(--inf-color-secondary-dark);
-  --inf-color-text-link-disabled: var(--inf-color-secondary-light);
-  --inf-color-text-success: var(--inf-color-success-dark);
+  --inf-color-text-link: var(--inf-color-blue-500);
+  --inf-color-text-link-hover: var(--inf-color-blue-600);
+  --inf-color-text-link-disabled: var(--inf-color-blue-300);
+
+  --inf-color-text-success: var(--inf-color-success);
   --inf-color-text-warning: var(--inf-color-warning);
   --inf-color-text-danger: var(--inf-color-danger);
   --inf-color-text-on-color: #fff;
 
   /* Icon */
-  --inf-color-icon: var(--inf-color-black);
-  --inf-color-icon-secondary: var(--inf-color-gray-light);
+  --inf-color-icon: var(--inf-color-gray-800);
+  --inf-color-icon-secondary: var(--inf-color-gray-300);
   --inf-color-icon-inverse: #fff;
 
   /* Background */
-  --inf-color-background-body: var(--inf-color-gray-lighest);
+  --inf-color-background-body: var(--inf-color-gray-100);
   --inf-color-background-default: var(--inf-color-white);
-  --inf-color-background-secondary: var(--inf-color-gray-lighest);
-  --inf-color-background-hover: var(--inf-color-cold-grey-lightest);
-  --inf-color-background-selected: var(--inf-color-cold-grey);
-  --inf-color-background-inverse: var(--inf-color-black);
-  --inf-color-background-disabled: var(--inf-color-gray-lighest);
-  --inf-color-background-accent: var(--inf-color-primary);
+  --inf-color-background-secondary: var(--inf-color-gray-100);
+  --inf-color-background-inverse: var(--inf-color-gray-800);
+  --inf-color-background-selected: var(--inf-color-blue-400);
+  --inf-color-background-disabled: var(--inf-color-gray-100);
+  --inf-color-background-info: var(--inf-color-blue-100);
+  --inf-color-background-danger: var(--inf-color-orange-100);
+  --inf-color-background-success: var(--inf-color-green-100);
+  --inf-color-background-warning: var(--inf-color-yellow-100);
 
   /* Border */
-  --inf-color-border-default: var(--inf-color-gray-light); // -primary ?
-  --inf-color-border-secondary: var(--inf-color-gray-lighter);
+  --inf-color-border-default: var(--inf-color-gray-200); // -primary ?
+  // TBD
+  --inf-color-border-secondary: var(--inf-color-gray-200);
   --inf-color-border-danger: var(--inf-color-danger);
   --inf-color-border-focus: #7abfff;
-  --inf-color-border-hover: var(--inf-color-cold-grey-dark);
-  --inf-color-border-active: var(--inf-color-cold-grey-dark);
-  --inf-color-border-accent: var(
-    --inf-color-primary
-  ); // inf-color-border-selected?
+  --inf-color-border-hover: var(--inf-color-gray-800);
+  --inf-color-border-active: var(--inf-color-gray-800);
+  // TODO: почему акцентный? как будто выбивается из нейминга
+  --inf-color-border-accent: var(--inf-color-primary);
+  // inf-color-border-selected?
 
   /* ---------- TDB ---------- */
   --inf-color-text-control: #46626b;
