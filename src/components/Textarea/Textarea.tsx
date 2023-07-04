@@ -85,7 +85,9 @@ const Textarea = ({
 
   const handleInvalid: FormEventHandler<HTMLTextAreaElement> = (e) => {
     if (formGroupData) {
-      e.currentTarget.setCustomValidity(formGroupData.invalidMessage || '')
+      e.currentTarget.setCustomValidity(
+        formGroupData.customValidationMessage || ''
+      )
       formGroupData.setInvalid?.(true)
     }
   }

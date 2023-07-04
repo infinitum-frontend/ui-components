@@ -299,7 +299,7 @@ describe('Select in Form', () => {
   it('should apply attrs if FormGroup is required', async () => {
     const { rerender } = renderComponent(
       <Form>
-        <Form.Group required invalidMessage={'Error'}>
+        <Form.Group required customValidationMessage={'Error'}>
           <Select options={SelectBaseOptions} title={title} />
         </Form.Group>
 
@@ -337,7 +337,7 @@ describe('Select in Form', () => {
   it('should not close on label click', async () => {
     renderComponent(
       <Form>
-        <Form.Group required invalidMessage={'Error'}>
+        <Form.Group required customValidationMessage={'Error'}>
           <Form.Label role={'label'}>Label</Form.Label>
           <Select options={SelectBaseOptions} title={title} />
         </Form.Group>

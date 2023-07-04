@@ -80,8 +80,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // обработка событий
     const handleChange: FormEventHandler<HTMLInputElement> = (e) => {
       if (formGroupContext) {
-        formGroupContext.setInvalid?.(!e.currentTarget.checkValidity())
-        e.currentTarget.setCustomValidity('')
+        const input = e.currentTarget
+        input.setCustomValidity('')
+
+        const isValid = input.validity.valid
+        if (isValid) {
+          formGroupContext.setInvalid?.(false)
+        }
       }
 
       const domValue = (e.target as HTMLInputElement).value
@@ -147,7 +152,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handleInvalid: FormEventHandler<HTMLInputElement> = (e): void => {
       if (formGroupContext) {
-        e.currentTarget.setCustomValidity(formGroupContext.invalidMessage || '')
+        e.currentTarget.setCustomValidity(
+          formGroupContext.customValidationMessage || ''
+        )
         formGroupContext.setInvalid?.(true)
       }
     }

@@ -9,6 +9,7 @@ import { Select } from '../Select'
 import { Radio } from '../Radio'
 import { Textarea } from '../Textarea'
 import { Switch } from '../Switch'
+import { Space } from '../Space'
 import { Autocomplete } from '../Autocomplete'
 import { AutocompleteBaseOptions } from '../Autocomplete/fixtures'
 
@@ -27,44 +28,89 @@ const meta: Meta<typeof Form> = {
 export default meta
 
 const Template: StoryFn<typeof Form> = (args) => {
-  const [email, setEmail] = useState('')
-  const [emailError, setEmailError] = useState<boolean>(true)
+  const [name, setName] = useState('')
+  const [error, setError] = useState('')
 
   const handleInput = (value: string): void => {
-    setEmail(value)
-    setEmailError(false)
-  }
+    setName(value)
 
-  const handleSubmit: FormEventHandler = (e): void => {
-    if (!email.length) {
-      setEmailError(true)
-    } else {
-      alert('submit')
+    if (value) {
+      setError('')
     }
   }
 
-  return (
-    <Form {...args} onSubmit={handleSubmit} labelWidth={'150px'}>
-      <Form.Group>
-        <Form.Label>Email</Form.Label>
-        <Form.Item>
-          <Input
-            value={email}
-            onInput={handleInput}
-            status={emailError ? 'error' : undefined}
-          />
-        </Form.Item>
+  const handleSubmit: FormEventHandler = (e): void => {
+    alert('Форма успешно отправлена')
+  }
 
-        {emailError ? (
-          <Form.ErrorMessage>
-            Введен невалидный почтовый адрес
-          </Form.ErrorMessage>
-        ) : (
-          <Form.Hint>Обязательное поле</Form.Hint>
-        )}
-      </Form.Group>
-      <Button type={'submit'}>Отправить</Button>
-    </Form>
+  const handleSubmitWithCustomValidation = (): void => {
+    if (!name.length) {
+      setError('Поле email должно быть заполнено!')
+      return
+    } else if (name.length < 5) {
+      setError('Поле email должно содержать не менее 5 символов!')
+      return
+    }
+
+    alert('Форма успешно отправлена')
+  }
+
+  return (
+    <Space gap="xxlarge">
+      <div>
+        <code style={{ display: 'block', marginBottom: '12px' }}>
+          Базовый случай - валидация отсутствует
+        </code>
+        <Form {...args} onSubmit={handleSubmit} labelWidth="150px">
+          <Form.Group>
+            <Form.Label>Имя</Form.Label>
+            <Input value={name} onInput={handleInput} />
+          </Form.Group>
+          <Button type={'submit'}>Отправить</Button>
+        </Form>
+      </div>
+
+      <div>
+        <code style={{ display: 'block', marginBottom: '12px' }}>
+          Валидируемая форма. В качестве сообщения об ошибке используется
+          нативное сообщение. Для установки обязательности используется проп{' '}
+          <i>required</i> на компоненте Form.Group. Он сделает инпут
+          обязательным, добавит индикатор для лейбла, а также автоматически
+          будет отображать сообщения об ошибках, возникших отправке некорректно
+          заполненной формы. Для установки правил используются нативные способы,
+          такие как minlength, pattern и так далее.
+        </code>
+        <Form {...args} onSubmit={handleSubmit} labelWidth="150px">
+          <Form.Group required>
+            <Form.Label>Имя</Form.Label>
+            <Input minLength={5} value={name} onInput={handleInput} />
+          </Form.Group>
+          <Button type={'submit'}>Отправить</Button>
+        </Form>
+      </div>
+
+      <div>
+        <code style={{ display: 'block', marginBottom: '12px' }}>
+          Форма, валидируемая вручную - допустим, нативные возможности нас не
+          устраивают и хотим сделать все сами. Для этого добавляем лейблу
+          свойства <i>showRequiredIndicator</i> для отображения индикатора.
+          Создаем стейт с ошибками, заполняем его при попытке отправить форму и
+          отображаем ошибки с помощью компонента Form.ErrorMessage
+        </code>
+        <Form
+          {...args}
+          onSubmit={handleSubmitWithCustomValidation}
+          labelWidth="150px"
+        >
+          <Form.Group>
+            <Form.Label showRequiredIndicator>Имя</Form.Label>
+            <Input value={name} onInput={handleInput} />
+            {error && <Form.ErrorMessage>{error}</Form.ErrorMessage>}
+          </Form.Group>
+          <Button type={'submit'}>Отправить</Button>
+        </Form>
+      </div>
+    </Space>
   )
 }
 
@@ -93,11 +139,11 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
           компонентов Input, Textarea, Switch, Select, Radio(для RadioGroup есть
           также проп required, обрабатывающий вложенные радиокнопки), Checkbox
         </code>
-        <Form {...args} onSubmit={handleSubmit} labelWidth={'200px'}>
+        <Form {...args} onSubmit={handleSubmit} labelWidth="200px">
           <Form.Group
             direction={'horizontal'}
             required
-            invalidMessage={'5 цифр без пробелов'}
+            customValidationMessage={'5 цифр без пробелов'}
           >
             <Form.Label>ФИО</Form.Label>
             <Form.Item>
@@ -108,7 +154,6 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
                 onInput={(value) => setFullName(value)}
               />
             </Form.Item>
-            <Form.Hint>5 цифр без пробелов</Form.Hint>
           </Form.Group>
 
           <Form.Group direction={'horizontal'} required>

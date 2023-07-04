@@ -4,7 +4,8 @@ import React, {
   forwardRef,
   ReactElement,
   useId,
-  useState
+  useState,
+  useEffect
 } from 'react'
 import FormGroupContext, {
   IFormGroupContext
@@ -12,6 +13,8 @@ import FormGroupContext, {
 import cn from 'classnames'
 import './FormGroup.scss'
 import { Space, SpaceProps } from 'Components/Space'
+import { useForm } from 'Components/Form/context/form'
+import Form from 'Components/Form/Form'
 
 export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
   /** Направление раскладки */
@@ -20,10 +23,10 @@ export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
    * Расстояние между блоками
    */
   gap?: SpaceProps['gap']
-  /** Обязательность заполнения */
+  /** Отвечает за обязательность заполнения контрола, а также за отображение соответствующего индикатора у лейбла */
   required?: boolean
   /** Сообщение, отображаемое при ошибке валидации */
-  invalidMessage?: string
+  customValidationMessage?: string
 }
 
 const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
@@ -34,17 +37,37 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
       required = false,
       children,
       className,
-      invalidMessage = '',
+      customValidationMessage = '',
       ...props
     }: FormGroupProps,
     ref
   ): ReactElement => {
+    const { form } = useForm()
     const [invalid, setInvalid] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+    const id = `field-${useId()}`
+
+    const field = form?.current?.querySelector(
+      `[id="${id}"`
+    ) as HTMLInputElement
+    const validationMessage = field?.validationMessage || ''
+
+    useEffect(() => {
+      if (!required) {
+        return
+      }
+
+      if (invalid) {
+        setErrorMessage(customValidationMessage || validationMessage)
+      } else {
+        setErrorMessage('')
+      }
+    }, [invalid, validationMessage])
 
     const context: IFormGroupContext = {
-      id: `field-${useId()}`,
+      id,
       required,
-      invalidMessage,
+      customValidationMessage,
       invalid,
       setInvalid
     }
@@ -63,6 +86,9 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
           {...props}
         >
           {children}
+          {errorMessage && (
+            <Form.ErrorMessage>{errorMessage}</Form.ErrorMessage>
+          )}
         </Space>
       </FormGroupContext.Provider>
     )

@@ -116,7 +116,7 @@ describe('Radio in Form', () => {
   it('should support Form props', async () => {
     renderComponent(
       <Form>
-        <Form.Group required invalidMessage={'error'}>
+        <Form.Group required customValidationMessage={'error'}>
           <Radio value={'1'} title={'first'} />
         </Form.Group>
         <Button type={'submit'} />

@@ -91,7 +91,7 @@ describe('Support Form', () => {
   it('should apply attributes', async () => {
     renderComponent(
       <Form>
-        <Form.Group required invalidMessage={'error'}>
+        <Form.Group required customValidationMessage={'error'}>
           <Textarea />
         </Form.Group>
         <Button type={'submit'} />

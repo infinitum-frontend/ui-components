@@ -13,16 +13,19 @@ import FormGroupContext from 'Components/Form/context/group'
 export interface FormLabelProps extends ComponentPropsWithoutRef<'label'> {
   /** htmlId */
   id?: string
-  requiredIndicator?: ReactNode
+  showRequiredIndicator?: boolean
+  customIndicator?: ReactNode
 }
 
 const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
-  ({ id, requiredIndicator, style, children, ...props }, ref): ReactElement => {
+  (
+    { id, showRequiredIndicator, customIndicator, style, children, ...props },
+    ref
+  ): ReactElement => {
     const formData = useContext(FormContext)
     const formGroupData = useContext(FormGroupContext)
 
     const htmlFor = id || formGroupData?.id
-    const showRequiredIndicator = formGroupData?.required || requiredIndicator
 
     return (
       <label
@@ -33,12 +36,12 @@ const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
         style={{ ...style, width: formData?.labelWidth || 'initial' }}
       >
         {children}
-        {showRequiredIndicator ? (
+        {showRequiredIndicator || formGroupData?.required ? (
           <span
             className={'inf-form-label__required-indicator'}
             aria-label={'required'}
           >
-            {requiredIndicator || '*'}
+            {customIndicator || '*'}
           </span>
         ) : null}
       </label>

@@ -147,7 +147,7 @@ describe('CheckboxForm', () => {
   it('should support formContext', async () => {
     renderComponent(
       <Form>
-        <Form.Group required invalidMessage={'Error'}>
+        <Form.Group required customValidationMessage={'Error'}>
           <Checkbox inputProps={{ title: inputTitle }} />
         </Form.Group>
         <Button type={'submit'}>Submit</Button>
