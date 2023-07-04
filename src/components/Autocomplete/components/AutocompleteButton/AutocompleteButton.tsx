@@ -36,7 +36,9 @@ const AutocompleteButton = ({
   const handleInvalid: FormEventHandler<HTMLInputElement> = () => {
     if (formGroupContext) {
       formGroupContext.setInvalid?.(true)
-      inputRef.current?.setCustomValidity(formGroupContext.invalidMessage || '')
+      inputRef.current?.setCustomValidity(
+        formGroupContext.customValidationMessage || ''
+      )
     }
   }
 

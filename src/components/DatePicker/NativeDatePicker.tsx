@@ -79,7 +79,9 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
 
     const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
       if (formGroupData) {
-        e.currentTarget.setCustomValidity(formGroupData.invalidMessage || '')
+        e.currentTarget.setCustomValidity(
+          formGroupData.customValidationMessage || ''
+        )
         formGroupData.setInvalid?.(true)
       }
     }

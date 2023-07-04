@@ -54,7 +54,7 @@ describe('Datepicker in Form', () => {
   it('should support attributes', async () => {
     renderComponent(
       <Form>
-        <Form.Group required invalidMessage={'error'}>
+        <Form.Group required customValidationMessage={'error'}>
           <NativeDatePicker />
         </Form.Group>
         <Button type={'submit'} />

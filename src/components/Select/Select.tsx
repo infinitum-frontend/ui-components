@@ -175,7 +175,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const handleInvalid: FormEventHandler<HTMLSelectElement> = () => {
       if (formGroupData) {
         formGroupData.setInvalid?.(true)
-        selectRef.current?.setCustomValidity(formGroupData.invalidMessage || '')
+        selectRef.current?.setCustomValidity(
+          formGroupData.customValidationMessage || ''
+        )
       }
     }
 

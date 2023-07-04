@@ -78,6 +78,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       className,
       required = false,
       inputProps,
+      id,
       ...props
     },
     ref
@@ -102,7 +103,9 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 
     const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
       if (formGroupData) {
-        e.currentTarget.setCustomValidity(formGroupData.invalidMessage || '')
+        e.currentTarget.setCustomValidity(
+          formGroupData.customValidationMessage || ''
+        )
         formGroupData.setInvalid?.(true)
       }
     }
@@ -139,6 +142,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           checked={checked !== undefined ? checked : undefined}
           onChange={handleChange}
           onInvalid={handleInvalid}
+          id={id || formGroupData?.id}
         />
         <span
           className={cn('inf-checkbox__box', {

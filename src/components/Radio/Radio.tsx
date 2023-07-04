@@ -64,6 +64,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
       value,
       className,
       required = false,
+      id,
       children,
       ...props
     },
@@ -94,7 +95,9 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
 
     const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
       if (formGroupData) {
-        e.currentTarget.setCustomValidity(formGroupData.invalidMessage || '')
+        e.currentTarget.setCustomValidity(
+          formGroupData.customValidationMessage || ''
+        )
         formGroupData.setInvalid?.(true)
       }
     }
@@ -106,6 +109,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
           disabled={disabled}
           name={name}
           value={value}
+          id={id || formGroupData?.id}
           required={formGroupData?.required || required}
           aria-required={formGroupData?.required || required}
           aria-invalid={formGroupData?.invalid || undefined}

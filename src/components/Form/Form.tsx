@@ -4,7 +4,8 @@ import React, {
   CSSProperties,
   FormEventHandler,
   forwardRef,
-  ReactElement
+  ReactElement,
+  useRef
 } from 'react'
 import cn from 'classnames'
 import { Space, SpaceProps } from 'Components/Space'
@@ -14,6 +15,7 @@ import FormGroup from './components/FormGroup'
 import FormHint from './components/FormHint'
 import FormItem from './components/FormItem'
 import FormErrorMessage from './components/FormErrorMessage'
+import { mergeRefs } from 'react-merge-refs'
 
 export interface FormProps extends ComponentPropsWithRef<'form'> {
   /** Расстояние между блоками */
@@ -37,13 +39,23 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
     },
     ref
   ): ReactElement => {
+    const innerRef = useRef<HTMLFormElement>(null)
+
     const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
       e.preventDefault()
+
+      const form = e.target as HTMLFormElement
+      const isValid = form.checkValidity()
+      if (!isValid) {
+        return false
+      }
+
       onSubmit?.(e)
     }
 
     const context = {
       labelWidth,
+      form: innerRef,
       disabled
     }
 
@@ -53,7 +65,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
           as={'form'}
           gap={gap}
           onSubmit={handleSubmit}
-          ref={ref}
+          noValidate={true}
+          ref={mergeRefs([innerRef, ref])}
           className={cn('inf-form', className, {})}
           {...props}
         >
