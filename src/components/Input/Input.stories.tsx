@@ -41,7 +41,7 @@ export default meta
 const Template: StoryFn<typeof Input> = ({ ...args }) => {
   return (
     <Input
-      style={{ width: '200px' }}
+      style={{ width: '250px' }}
       {...args}
       value={undefined}
       onFocus={action('focus')}
