@@ -1,6 +1,4 @@
 import {
-  FocusEvent,
-  MouseEvent,
   FocusEventHandler,
   InputHTMLAttributes,
   ReactNode,
@@ -62,7 +60,5 @@ export interface InputProps
   onFocus?: FocusEventHandler<HTMLInputElement>
   onInput?: (value: string, e?: FormEvent<HTMLInputElement>) => void
   onChange?: (value: string, e?: FormEvent<HTMLInputElement>) => void
-  onBlur?: (
-    e?: FocusEvent<HTMLInputElement> | MouseEvent<HTMLSpanElement>
-  ) => void
+  onBlur?: FocusEventHandler<HTMLInputElement>
 }
