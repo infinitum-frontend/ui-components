@@ -20,6 +20,7 @@ function BaseText<C extends ElementType = 'div'>(
     color,
     truncated = false,
     uppercase = false,
+    as = 'div',
     ...rest
   } = props
 
@@ -42,10 +43,12 @@ function BaseText<C extends ElementType = 'div'>(
     )
   }
 
+  const Component = as
+
   return (
-    <div ref={ref} className={getClassNames()} {...rest}>
+    <Component ref={ref} className={getClassNames()} {...rest}>
       {children}
-    </div>
+    </Component>
   )
 }
 

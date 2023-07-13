@@ -7,7 +7,8 @@ const ComponentMeta: Meta<typeof Text> = {
   title: 'Typography/Text',
   component: Text,
   args: {
-    children: 'Съешь ещё этих мягких французских булок, да выпей чаю'
+    children: 'Съешь ещё этих мягких французских булок, да выпей чаю',
+    as: 'div'
   }
 }
 
