@@ -1,8 +1,8 @@
-import { FocusEventHandler, ReactElement, useEffect, useMemo } from 'react'
+import { ReactElement, useContext, useEffect, useMemo } from 'react'
 import { InputProps } from 'Components/Input/types'
 import { IMask, useIMask } from 'react-imask'
-import BaseInput from 'Components/Input/components/BaseInput'
 import Input from 'Components/Input/Input'
+import FormGroupContext from 'Components/Form/context/group'
 
 const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -24,18 +24,18 @@ const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
     }
   } as IMask.MaskedDynamicOptions,
   code4Digits: {
-    mask: '0 0 0 0'
+    mask: '0000'
   },
   cvc: {
-    mask: '0 0 0',
+    mask: '000',
     displayChar: '*'
   },
   email: {
     mask: /^\w*@?\w*\.?\w{0,4}$/
   },
-  bankCard: {
-    mask: '0000 0000 0000 0000'
-  },
+  // bankCard: {
+  //   mask: '0000 0000 0000 0000'
+  // },
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   phoneOrEmail: {
     mask: [
@@ -139,10 +139,22 @@ const MaskedInput = ({
     [maskProp]
   )
 
-  const { ref, value, setUnmaskedValue, maskRef } = useIMask(
+  const formGroupContext = useContext(FormGroupContext)
+
+  const { ref, value, setUnmaskedValue } = useIMask(
     { ...mask },
     {
       onAccept: (value, maskRef) => {
+        if (formGroupContext) {
+          const input = (maskRef.el as IMask.HTMLMaskElement)
+            .input as HTMLInputElement
+          input.setCustomValidity('')
+
+          const isValid = input.validity.valid
+          if (isValid) {
+            formGroupContext.setInvalid?.(false)
+          }
+        }
         let result = maskRef.unmaskedValue
 
         // TODO: если формат номера 10 знаков, это не нужно
@@ -157,41 +169,41 @@ const MaskedInput = ({
     }
   )
 
-  const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
-    const mask = maskRef.current.masked.mask
-    // Устанавливаем значение-плейсхолдер при фокусе
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    maskRef.current.updateOptions({
-      lazy: false,
-      mask: Array.isArray(mask)
-        ? mask.map((m) => ({
-            ...m,
-            lazy: false
-          }))
-        : mask
-    } as IMask.AnyMaskedOptions)
-
-    maskRef.current.alignCursor() // ставим курсор в правильное положение
-
-    onFocus?.(e)
-  }
-
-  const handleBlur: FocusEventHandler<HTMLInputElement> = (e): void => {
-    const mask = maskRef.current.masked.mask
-    // Убираем значение-плейсхолдер при блюре
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    maskRef.current.updateOptions({
-      lazy: true,
-      mask: Array.isArray(mask)
-        ? mask.map((m) => ({
-            ...m,
-            lazy: true
-          }))
-        : mask
-    } as IMask.AnyMaskedOptions)
-
-    onBlur?.(e)
-  }
+  // const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
+  //   const mask = maskRef.current.masked.mask
+  //   // Устанавливаем значение-плейсхолдер при фокусе
+  //   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  //   maskRef.current.updateOptions({
+  //     lazy: false,
+  //     mask: Array.isArray(mask)
+  //       ? mask.map((m) => ({
+  //           ...m,
+  //           lazy: false
+  //         }))
+  //       : mask
+  //   } as IMask.AnyMaskedOptions)
+  //
+  //   maskRef.current.alignCursor() // ставим курсор в правильное положение
+  //
+  //   onFocus?.(e)
+  // }
+  //
+  // const handleBlur: FocusEventHandler<HTMLInputElement> = (e): void => {
+  //   const mask = maskRef.current.masked.mask
+  //   // Убираем значение-плейсхолдер при блюре
+  //   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  //   maskRef.current.updateOptions({
+  //     lazy: true,
+  //     mask: Array.isArray(mask)
+  //       ? mask.map((m) => ({
+  //           ...m,
+  //           lazy: true
+  //         }))
+  //       : mask
+  //   } as IMask.AnyMaskedOptions)
+  //
+  //   onBlur?.(e)
+  // }
 
   useEffect(() => {
     // Если по какой то причине у нас размонтировался компонент(например, условный рендеринг), синхронизируем значение маски с пропом
@@ -204,23 +216,18 @@ const MaskedInput = ({
     }
   }, [value])
 
-  const Component = mask.displayChar ? BaseInput : Input
+  const composedValue = value || valueProp
 
   return (
     // TODO: пока такое решение, будет коряво для инпута с displayChar. Может потом придет решение
-    // @ts-expect-error
-    <Component
+    <Input
       {...props}
       ref={ref}
-      // imask не умеет сихнронизироваться с controlled компонентами при использовании этой фичи
-      // https://github.com/uNmAnNeR/imaskjs/issues/552
-      // https://github.com/uNmAnNeR/imaskjs/issues/463
-      // https://github.com/uNmAnNeR/imaskjs/issues/365
-      value={mask.displayChar ? undefined : value || valueProp}
+      value={composedValue}
+      defaultValue={mask.displayChar ? composedValue : undefined}
       placeholder={placeholder || placeholderProp}
-      onChange={() => {}}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      // onFocus={handleFocus}
+      // onBlur={handleBlur}
     />
   )
 }

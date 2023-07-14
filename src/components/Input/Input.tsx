@@ -5,7 +5,6 @@ import React, {
   ReactNode,
   useState,
   useRef,
-  useCallback,
   MouseEventHandler,
   KeyboardEventHandler,
   useContext
@@ -15,7 +14,6 @@ import './Input.scss'
 import { InputProps } from './types'
 import { ReactComponent as ClearIcon } from 'Icons/cross.svg'
 // eslint-disable-next-line import/no-named-default
-import debounceFn from 'lodash.debounce'
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { mergeRefs } from 'react-merge-refs'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
@@ -27,6 +25,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       style,
+      defaultValue,
       value,
       formatter,
       size = 'medium',
@@ -48,7 +47,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onPostfixClick, // не покрыто тестами
       allowClear = false,
       noBorder = false,
-      debounce = 0, // не покрыто тестами
       id,
       required = false,
       'aria-required': ariaRequired,
@@ -59,7 +57,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
-    const [localValue, setLocalValue] = useState(value || '')
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -68,14 +65,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const formGroupContext = useContext(FormGroupContext)
     const formContext = useContext(FormContext)
     const disabled = disabledProp || formContext?.disabled
-
-    const debouncedInput = useCallback(
-      debounceFn((val, e) => {
-        onInput?.(val, e)
-        onChange?.(val, e)
-      }, debounce),
-      [debounce]
-    )
 
     // обработка событий
     const handleChange: FormEventHandler<HTMLInputElement> = (e) => {
@@ -90,23 +79,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
 
       const domValue = (e.target as HTMLInputElement).value
-      const formattedDomValue = getFormattedValue(domValue)
-      // если нет синхронизации с внешним значением, тогда используем внутреннее
-      if (value === undefined) {
-        setLocalValue(formattedDomValue)
-      }
+      const formattedDomValue = getFormattedValue(domValue) || ''
 
       if (!onInput && !onChange) {
         return
       }
 
-      if (debounce) {
-        setLocalValue(formattedDomValue)
-        debouncedInput(formattedDomValue, e)
-      } else {
-        onInput?.(formattedDomValue, e)
-        onChange?.(formattedDomValue, e)
-      }
+      onInput?.(formattedDomValue, e)
+      onChange?.(formattedDomValue, e)
     }
 
     const handleWrapperClick: MouseEventHandler<HTMLSpanElement> = (
@@ -119,12 +99,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handlePrefixClick: MouseEventHandler<HTMLSpanElement> = (e) => {
       e.stopPropagation()
-      onPrefixClick?.(getFormattedValue(composedValue))
+      onPrefixClick?.(getFormattedValue(value))
     }
 
     const handlePostfixClick: MouseEventHandler<HTMLSpanElement> = (e) => {
       e.stopPropagation()
-      onPostfixClick?.(getFormattedValue(composedValue))
+      onPostfixClick?.(getFormattedValue(value))
     }
 
     const handleFocus: FocusEventHandler<HTMLInputElement> = (e) => {
@@ -144,10 +124,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const handleClear: () => void = () => {
-      setLocalValue('')
+      if (inputRef.current) {
+        inputRef.current.value = ''
+        inputRef.current.focus()
+      }
       onInput?.('')
       onChange?.('')
-      inputRef.current?.focus()
     }
 
     const handleInvalid: FormEventHandler<HTMLInputElement> = (e): void => {
@@ -159,11 +141,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
     }
 
-    // хелперы
-    const composedValue = debounce ? localValue : value || localValue
-
-    const getFormattedValue: (val: string) => string = (val = '') => {
-      if (formatter !== undefined) {
+    const getFormattedValue: (val?: string) => string | undefined = (val) => {
+      if (formatter !== undefined && val !== undefined) {
         return formatter(val)
       }
 
@@ -177,11 +156,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         TextFieldClasses.main,
         className,
         {
-          'inf-input-wrapper--clearable': allowClear,
+          'inf-input-wrapper--slot-before': prefix,
+          'inf-input-wrapper--slot-after': postfix || allowClear,
           [TextFieldClasses.disabled]: disabled,
           [TextFieldClasses.focused]: isFocused,
           [TextFieldClasses.noBorder]: noBorder,
-          [TextFieldClasses.filled]: composedValue,
+          [TextFieldClasses.filled]: inputRef.current?.value,
           [TextFieldClasses.borderRadius[borderRadius]]:
             borderRadius !== 'unset',
           [TextFieldClasses.status[status as 'error']]: status
@@ -204,12 +184,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )
 
       return (
-        <span
-          onClick={handleClear}
-          className={classNames('inf-input-wrapper__clear-button', {
-            'inf-input-wrapper__clear-button--hidden': !composedValue
-          })}
-        >
+        <span onClick={handleClear} className="inf-input-wrapper__clear-button">
           {iconNode}
         </span>
       )
@@ -219,10 +194,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isBaseInput = !prefix && !allowClear && !postfix
 
+    const controlledValue =
+      defaultValue !== undefined ? undefined : getFormattedValue(value)
+
     if (isBaseInput) {
       return (
         <BaseInput
-          value={getFormattedValue(composedValue)}
+          value={controlledValue}
+          defaultValue={defaultValue}
           style={style}
           className={className}
           placeholder={isFocused ? '' : placeholder}
@@ -263,7 +242,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
 
         <BaseInput
-          value={getFormattedValue(composedValue)}
+          value={controlledValue}
+          defaultValue={defaultValue}
           placeholder={isFocused ? '' : placeholder}
           onKeyDown={handleKeyDown}
           disabled={disabled}

@@ -9,6 +9,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   (
     {
       value,
+      defaultValue,
       placeholder,
       borderRadius = 'unset',
       disabled,
@@ -29,7 +30,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       TextFieldClasses.main,
       className,
       {
-        [TextFieldClasses.filled]: value,
+        [TextFieldClasses.filled]: value || defaultValue,
         [TextFieldClasses.noBorder]: noBorder,
         [TextFieldClasses.status[status as 'error']]: status,
         [TextFieldClasses.borderRadius[borderRadius]]: borderRadius
@@ -38,6 +39,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
     return (
       <input
         value={value}
+        defaultValue={defaultValue}
         className={classNames}
         placeholder={placeholder}
         disabled={disabled}

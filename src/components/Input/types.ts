@@ -32,11 +32,6 @@ export interface BaseInputProps
 
 export interface InputProps
   extends Omit<BaseInputProps, 'prefix' | 'onBlur' | 'onChange' | 'onInput'> {
-  /**
-   * Количество миллисекунд для отложенного вызова onInput
-   * @type number
-   */
-  debounce?: number
   /** Элемент префикс */
   prefix?: ReactNode
   /** Кастомный класс префикса */
