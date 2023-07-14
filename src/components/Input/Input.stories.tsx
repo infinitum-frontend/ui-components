@@ -4,6 +4,10 @@ import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import { Input, MaskedInput, SearchInput } from './index'
 import { action } from '@storybook/addon-actions'
 import { Space } from '../Space'
+import { Loader } from '../Loader'
+import { Button } from '../Button'
+import { Text } from '../Text'
+import { Form } from '../Form'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 
 const meta: Meta<typeof Input> = {
@@ -38,12 +42,12 @@ const meta: Meta<typeof Input> = {
 }
 export default meta
 
-const Template: StoryFn<typeof Input> = ({ ...args }) => {
+// eslint-disable-next-line react/prop-types
+const Template: StoryFn<typeof Input> = ({ value, ...args }) => {
   return (
     <Input
       style={{ width: '250px' }}
       {...args}
-      value={undefined}
       onFocus={action('focus')}
       onBlur={action('blur')}
       onChange={action('change')}
@@ -57,6 +61,68 @@ export const Playground = {
   args: {
     className: 'custom-class',
     value: ''
+  }
+}
+
+export const UncontrolledAndControlled = {
+  render: () => {
+    const [value, setValue] = useState('')
+    const [isLoading, setLoading] = useState(false)
+    return (
+      <Space align="center">
+        {isLoading ? (
+          <Loader style={{ height: '240px' }} />
+        ) : (
+          <Space direction="horizontal" gap="xxlarge" justify="space-between">
+            <Space justify="space-between" gap="xsmall">
+              <Text color="success">
+                <code>
+                  Контролируемый вариант. Работает через связку value + onChange
+                  с обновлением внешнего стейта
+                  <br />
+                  <br />
+                  Сохраняет значение при условном рендеринге, т.к. внешнего
+                  стейт присутствует
+                </code>
+              </Text>
+              <div>
+                <Text>Значение: {value}</Text>
+                <Input value={value} onChange={setValue} />
+              </div>
+            </Space>
+            <Space justify="space-between" gap="xsmall">
+              <Text color="danger">
+                <code>
+                  Неконтролируемый вариант.
+                  <br />
+                  <br />
+                  Можно задать defaultValue в качестве начального значения. На
+                  value таком случае компонент не реагирует.
+                  <br />
+                  <br />
+                  Если указать value, но не обновлять его снаружи, то ввод будет
+                  невозможен.
+                  <br />
+                  <br />
+                  Теряет значение при условном рендеринге, т.к. внешнего стейта
+                  нет
+                </code>
+              </Text>
+              <Input />
+            </Space>
+          </Space>
+        )}
+        <Button
+          variant="tertiary"
+          onClick={() => {
+            setLoading(true)
+            setTimeout(() => setLoading(false), 1000)
+          }}
+        >
+          Условный рендеринг
+        </Button>
+      </Space>
+    )
   }
 }
 
@@ -91,10 +157,6 @@ export const Sizes: StoryObj<typeof Input> = {
         <Input size="small" placeholder="small" />
       </div>
     )
-  },
-
-  args: {
-    debounce: 1000
   }
 }
 
@@ -123,33 +185,6 @@ export const WithClearButton = {
   }
 }
 
-export const Debounced: StoryObj<typeof Input> = {
-  render: (args) => {
-    const [value, setValue] = useState('')
-
-    const handleChange: (val: string) => void = (val) => {
-      setValue(val)
-    }
-    return (
-      <div>
-        <Input
-          {...args}
-          value={value}
-          allowClear={true}
-          onChange={handleChange}
-        />
-        <span style={{ color: 'darkred', marginTop: '6px' }}>
-          Значение: {value}
-        </span>
-      </div>
-    )
-  },
-
-  args: {
-    debounce: 1000
-  }
-}
-
 export const Formatter: StoryObj<typeof Input> = {
   render: (args) => {
     const [value, setValue] = useState<string | undefined>('')
@@ -174,52 +209,49 @@ export const Masked: StoryFn<typeof Input> = () => {
   const [smsCode, setSmsCode] = useState('')
   const [cvcCode, setCvcCode] = useState('')
   const [email, setEmail] = useState('')
-  const [card, setCard] = useState('')
   const [phoneOrEmail, setPhoneOrEmail] = useState('')
+
+  const handleSubmit = (): void => {
+    console.log('submit')
+  }
 
   return (
     <Space>
-      <Space direction="horizontal" wrap>
-        <Space>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group required>
           <code>Phone mask</code>
           <MaskedInput value={phone} onAccept={setPhone} mask="phone" />
           <span style={{ color: 'darkred', marginTop: '6px' }}>
             Значение: {phone}
           </span>
-        </Space>
-        <Space>
+        </Form.Group>
+        <Form.Group required>
           <code>Четырехзначный код из смс</code>
           <MaskedInput
             value={smsCode}
             onAccept={setSmsCode}
+            minLength={4}
             mask="code4Digits"
           />
           <span style={{ color: 'darkred', marginTop: '6px' }}>
             Значение: {smsCode}
           </span>
-        </Space>
-        <Space>
+        </Form.Group>
+        <Form.Group required>
           <code>cvc code</code>
           <MaskedInput value={cvcCode} onAccept={setCvcCode} mask="cvc" />
           <span style={{ color: 'darkred', marginTop: '6px' }}>
             Значение: {cvcCode}
           </span>
-        </Space>
-        <Space>
+        </Form.Group>
+        <Form.Group required>
           <code>email</code>
           <MaskedInput value={email} onAccept={setEmail} mask="email" />
           <span style={{ color: 'darkred', marginTop: '6px' }}>
             Значение: {email}
           </span>
-        </Space>
-        <Space>
-          <code>bank card</code>
-          <MaskedInput value={card} onAccept={setCard} mask="bankCard" />
-          <span style={{ color: 'darkred', marginTop: '6px' }}>
-            Значение: {card}
-          </span>
-        </Space>
-        <Space>
+        </Form.Group>
+        <Form.Group required>
           <code>phone or email</code>
           <MaskedInput
             value={phoneOrEmail}
@@ -229,8 +261,10 @@ export const Masked: StoryFn<typeof Input> = () => {
           <span style={{ color: 'darkred', marginTop: '6px' }}>
             Значение: {phoneOrEmail}
           </span>
-        </Space>
-      </Space>
+        </Form.Group>
+
+        <Button type="submit">Submit</Button>
+      </Form>
     </Space>
   )
 }
