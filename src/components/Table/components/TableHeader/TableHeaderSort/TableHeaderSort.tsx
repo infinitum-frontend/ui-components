@@ -10,7 +10,7 @@ const TableHeaderSort = ({
   header: Header<any, any>
 }): ReactElement => {
   return (
-    <span>
+    <span className="inf-table-header__sort">
       {{
         asc: <SortIcon style={{ transform: 'rotate(180deg)' }} />,
         desc: <SortIcon />

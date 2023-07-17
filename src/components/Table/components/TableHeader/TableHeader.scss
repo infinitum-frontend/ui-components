@@ -1,5 +1,11 @@
 .inf-table-header {
-  display: flex;
+  &__item {
+    display: flex;
+
+    &--interactive {
+      cursor: pointer;
+    }
+  }
 
   &__wrapper {
     display: flex;
@@ -11,12 +17,12 @@
     }
   }
 
-  &__sort-icon {
-    opacity: 0.2;
+  &__sort {
+    display: flex;
   }
 
-  &--interactive {
-    cursor: pointer;
+  &__sort-icon {
+    opacity: 0.2;
   }
 
   &__resizer {

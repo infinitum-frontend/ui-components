@@ -119,6 +119,7 @@ export const Filtering: StoryObj<typeof Table> = {
     return (
       <div>
         <Button
+          style={{ marginBottom: '20px' }}
           onClick={() => {
             setFilters([])
             setResData(TABLE_DATA)

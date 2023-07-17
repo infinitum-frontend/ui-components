@@ -182,7 +182,7 @@ export const InPopover: StoryObj<typeof Menu> = {
           </Button>
         </Popover.Trigger>
         <Popover.Content hasPadding={false} style={{ width: '150px' }}>
-          <Menu borderRadius="regular">
+          <Menu>
             <Menu.Item as="a" target="_blank" href="https://specdep.ru/">
               Настройки
             </Menu.Item>

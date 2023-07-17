@@ -2,18 +2,21 @@
   border-collapse: collapse;
   width: 100%;
   font-family: var(--inf-font-family-base);
+  border: 1px solid var(--inf-color-border-default);
+  border-radius: var(--inf-border-radius-small);
+
+  thead {
+    background-color: var(--inf-color-background-secondary);
+    border-bottom: 1px solid var(--inf-color-border-default);
+  }
 
   th {
     text-align: left;
     vertical-align: top;
-    // TODO: цвет заголовка и иконок изменен с #738f99 на #717375
     color: var(--inf-color-text-secondary);
-    // TODO: пока аналогично body, ожидаем дизайна
-    font: var(--inf-font-body-2);
+    font: var(--inf-font-body-1);
+    padding: var(--inf-space-medium);
     position: relative;
-    // TODO: странные паддинги, проработать дизайн
-    padding: var(--inf-space-xxsmall) var(--inf-space-medium)
-      var(--inf-space-small) 0;
 
     &:hover .inf-table-header__resizer {
       opacity: 1;
@@ -21,20 +24,16 @@
   }
 
   td {
-    padding: var(--inf-space-xxsmall) var(--inf-space-medium)
-      var(--inf-space-xxsmall) 0;
-  }
-
-  td:first-child,
-  th:first-child {
-    padding-left: var(--inf-space-medium);
+    padding: var(--inf-space-medium);
+    font: var(--inf-font-body-1);
+    color: var(--inf-color-text-primary);
   }
 
   tbody {
     tr {
       font: var(--inf-font-body-2);
 
-      &:hover {
+      @include hover {
         background-color: var(--inf-color-background-hover);
       }
 
@@ -53,6 +52,10 @@
         td {
           padding: 0 6px;
         }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--inf-color-border-default);
       }
     }
   }

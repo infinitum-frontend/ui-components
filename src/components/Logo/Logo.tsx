@@ -9,11 +9,12 @@ import './Logo.scss'
 
 export interface LogoProps extends ComponentPropsWithoutRef<'div'> {
   variant?: 'default' | 'no-caption' | 'monochrome' | 'inverse' | 'short'
+  prefix?: string
 }
 
 /** Логотип */
 const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
-  ({ className, variant = 'default', ...props }, ref) => {
+  ({ className, variant = 'default', prefix, ...props }, ref) => {
     let template
     if (variant === 'short') {
       template = <LogoShort />
@@ -28,7 +29,14 @@ const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
     }
 
     return (
-      <div ref={ref} className={cn('inf-logo', className)} {...props}>
+      <div
+        ref={ref}
+        className={cn('inf-logo', className, {
+          'inf-logo--inverse': variant === 'inverse'
+        })}
+        {...props}
+      >
+        {prefix && <span className="inf-logo__prefix">{prefix}</span>}
         {template}
       </div>
     )
