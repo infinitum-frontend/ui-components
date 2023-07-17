@@ -3,7 +3,7 @@
 exports[`Autocomplete > should match snapshot 1`] = `
 <div>
   <button
-    class="inf-select-button"
+    class="inf-select-button inf-text-field inf-text-field--br-regular inf-autocomplete-button"
     tabindex="-1"
     type="button"
   >
@@ -26,6 +26,10 @@ exports[`Autocomplete > should match snapshot 1`] = `
       </svg>
     </span>
     Кнопка
+    <input
+      type="text"
+      value=""
+    />
   </button>
 </div>
 `;
@@ -52,7 +56,7 @@ exports[`Autocomplete Option > should match snapshot 1`] = `
 
 exports[`AutocompleteButton > should match snapshot > button 1`] = `
 <button
-  class="inf-select-button"
+  class="inf-select-button inf-text-field inf-text-field--br-regular inf-autocomplete-button"
   tabindex="-1"
   title="title"
   type="button"
@@ -76,5 +80,9 @@ exports[`AutocompleteButton > should match snapshot > button 1`] = `
     </svg>
   </span>
   Кнопка
+  <input
+    type="text"
+    value=""
+  />
 </button>
 `;

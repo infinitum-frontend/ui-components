@@ -2,7 +2,7 @@
 
 exports[`input > matches snapshot 1`] = `
 <input
-  class="inf-input inf-input--size-medium inf-input--br-regular"
+  class="inf-input inf-text-field--size-medium inf-text-field inf-text-field--br-regular"
   placeholder="Введите значение"
   value=""
 />

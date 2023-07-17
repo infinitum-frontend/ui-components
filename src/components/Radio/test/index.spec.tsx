@@ -2,7 +2,7 @@ import { it, describe, vi, expect } from 'vitest'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderComponent } from '../../../../testSetup'
-import { Radio, RadioGroup } from '../index'
+import { Radio } from '../index'
 import { Form } from '../../Form'
 import { Button } from '../../Button'
 
@@ -72,7 +72,7 @@ describe('Radio', () => {
 describe('Radio in Group', () => {
   it('should support group props', () => {
     renderComponent(
-      <RadioGroup
+      <Radio.Group
         name={'group'}
         required={true}
         value={'1'}
@@ -80,7 +80,7 @@ describe('Radio in Group', () => {
       >
         <Radio value={'1'} title={'first'} />
         <Radio value={'2'} title={'second'} />
-      </RadioGroup>
+      </Radio.Group>
     )
 
     const [first, second] = screen.queryAllByRole('radio')
@@ -99,10 +99,15 @@ describe('Radio in Group', () => {
       event = e
     })
     renderComponent(
-      <RadioGroup name={'group'} required={true} value={''} onChange={onChange}>
+      <Radio.Group
+        name={'group'}
+        required={true}
+        value={''}
+        onChange={onChange}
+      >
         <Radio value={'1'} />
         <Radio value={'2'} />
-      </RadioGroup>
+      </Radio.Group>
     )
 
     const [first] = screen.queryAllByRole('radio')

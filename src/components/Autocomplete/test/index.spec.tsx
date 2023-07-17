@@ -6,6 +6,7 @@ import { AutocompleteBaseOptions } from '../fixtures'
 import userEvent from '@testing-library/user-event'
 import AutocompleteContext, { IAutocompleteContext } from '../context'
 import { createRef } from 'react'
+import { TextFieldClasses } from '../../../utils/textFieldClasses'
 
 const user = userEvent.setup()
 const buttonPlaceholder = 'Кнопка'
@@ -271,7 +272,7 @@ describe('AutocompleteButton', () => {
 
     const button = screen.queryByText(buttonPlaceholder) as HTMLElement
     expect(button).toHaveAttribute('name', context.getReferenceProps().name)
-    expect(button).toHaveClass('inf-select-button--selected')
+    expect(button).toHaveClass(TextFieldClasses.filled)
     expect((context.buttonRef?.current as HTMLButtonElement).tagName).toBe(
       'BUTTON'
     )
