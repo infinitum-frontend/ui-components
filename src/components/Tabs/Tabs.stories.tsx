@@ -1,5 +1,6 @@
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Tabs } from './index'
+import { Space } from 'Components/Space'
 import { useState } from 'react'
 import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
 import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
@@ -56,7 +57,7 @@ export const ManualActiveHandling: StoryObj<typeof Tabs> = {
     const [active, setActive] = useState(1)
 
     return (
-      <Tabs onChange={(value) => setActive(value)}>
+      <Tabs {...args} onChange={(value) => setActive(value)}>
         <Tabs.List>
           <Tabs.Tab active={active === 0}>Контроль структуры</Tabs.Tab>
           <Tabs.Tab active={active === 1}>Статистический</Tabs.Tab>
@@ -70,7 +71,7 @@ export const ManualActiveHandling: StoryObj<typeof Tabs> = {
 export const WithBadge: StoryObj<typeof Tabs> = {
   render: (args) => {
     return (
-      <Tabs>
+      <Tabs {...args}>
         <Tabs.List>
           <Tabs.Tab badge={8}>Контроль структуры</Tabs.Tab>
           <Tabs.Tab badge="Важно!">Состава по доле владения</Tabs.Tab>
@@ -86,7 +87,7 @@ export const WithBadge: StoryObj<typeof Tabs> = {
 export const WithIcon: StoryObj<typeof Tabs> = {
   render: (args) => {
     return (
-      <Tabs>
+      <Tabs {...args}>
         <Tabs.List>
           <Tabs.Tab icon={<FilterIcon />} badge={8}>
             Контроль структуры
@@ -102,16 +103,40 @@ export const WithIcon: StoryObj<typeof Tabs> = {
     )
   }
 }
+
 export const IconOnly: StoryObj<typeof Tabs> = {
   render: (args) => {
     return (
-      <Tabs>
+      <Tabs {...args}>
         <Tabs.List>
           <Tabs.Tab icon={<FilterIcon />} />
           <Tabs.Tab icon={<DownloadIcon />} />
           <Tabs.Tab icon={<DownloadIcon />} disabled />
         </Tabs.List>
       </Tabs>
+    )
+  }
+}
+
+export const Sizes: StoryObj<typeof Tabs> = {
+  render: (args) => {
+    return (
+      <Space>
+        <Tabs size="medium">
+          <Tabs.List>
+            <Tabs.Tab>Контроль структуры</Tabs.Tab>
+            <Tabs.Tab>Статистический</Tabs.Tab>
+            <Tabs.Tab disabled>Состава по доле владения</Tabs.Tab>
+          </Tabs.List>
+        </Tabs>
+        <Tabs size="small">
+          <Tabs.List>
+            <Tabs.Tab>Контроль структуры</Tabs.Tab>
+            <Tabs.Tab>Статистический</Tabs.Tab>
+            <Tabs.Tab disabled>Состава по доле владения</Tabs.Tab>
+          </Tabs.List>
+        </Tabs>
+      </Space>
     )
   }
 }

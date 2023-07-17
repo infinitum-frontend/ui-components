@@ -85,10 +85,11 @@
   --inf-color-icon-inverse: #fff;
 
   /* Background */
-  --inf-color-background-body: var(--inf-color-gray-100);
+  --inf-color-background-body: var(--inf-color-white);
   --inf-color-background-default: var(--inf-color-white);
   --inf-color-background-secondary: var(--inf-color-gray-100);
   --inf-color-background-inverse: var(--inf-color-gray-800);
+  --inf-color-background-hover: var(--inf-color-gray-100);
   --inf-color-background-selected: var(--inf-color-blue-400);
   --inf-color-background-disabled: var(--inf-color-gray-100);
   --inf-color-background-info: var(--inf-color-blue-100);

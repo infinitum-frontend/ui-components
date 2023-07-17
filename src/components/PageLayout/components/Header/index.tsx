@@ -20,7 +20,10 @@ const PageLayoutHeader = React.forwardRef<HTMLElement, PageLayoutHeaderProps>(
         })}
         {...props}
       >
-        <PageLayoutContainer width={containerWidth}>
+        <PageLayoutContainer
+          className="inf-page-layout-header__container"
+          width={containerWidth}
+        >
           {children}
         </PageLayoutContainer>
       </header>

@@ -18,6 +18,13 @@ export const Playground = {
   render: Template
 }
 
+export const WithPrefix = {
+  render: Template,
+  args: {
+    prefix: 'ЛКИ'
+  }
+}
+
 export const NoCaption = {
   render: Template,
 

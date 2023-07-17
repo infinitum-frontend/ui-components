@@ -1,8 +1,22 @@
 .inf-logo {
   display: inline-flex;
+  align-items: center;
+  height: 48px;
 
   svg {
     width: 100%;
-    height: auto;
+    height: 100%;
+  }
+
+  &__prefix {
+    font: var(--inf-font-subtitle-2);
+    color: var(--inf-color-text-secondary);
+    margin-right: var(--inf-space-xsmall);
+  }
+
+  &--inverse {
+    .inf-logo__prefix {
+      color: var(--inf-color-text-inverse);
+    }
   }
 }

@@ -3,10 +3,17 @@
   min-height: var(--inf-height-header);
   height: var(--inf-height-header);
   background-color: var(--inf-color-background-default);
+  border-bottom: 1px solid var(--inf-color-border-default);
   box-shadow: 0 0.0625rem 0.625rem rgba(10, 62, 102, 0.1);
 
   &--sticky {
     position: sticky;
     top: 0;
+  }
+
+  &__container {
+    > * {
+      height: 100%;
+    }
   }
 }

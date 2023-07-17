@@ -64,7 +64,7 @@ const TableHeader = ({
   }
 
   return (
-    <thead>
+    <thead className="inf-table-header">
       {table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header) => (
@@ -79,8 +79,10 @@ const TableHeader = ({
               {header.isPlaceholder ? null : (
                 <>
                   <div
-                    className={cn('inf-table-header', {
-                      'inf-table-header--interactive': canSort(header.column)
+                    className={cn('inf-table-header__item', {
+                      'inf-table-header__item--interactive': canSort(
+                        header.column
+                      )
                     })}
                   >
                     <span

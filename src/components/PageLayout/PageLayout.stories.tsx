@@ -18,7 +18,7 @@ const Template: StoryFn<typeof PageLayout> = (args) => {
   return (
     <PageLayout {...args}>
       <PageLayout.Header sticky containerWidth="large">
-        <Space direction="horizontal" gap="xlarge">
+        <Space direction="horizontal" gap="xlarge" align="center">
           <Logo style={{ width: '140px' }} />
           <HeaderNav>
             <HeaderNav.Item active>Пункт меню 1</HeaderNav.Item>
