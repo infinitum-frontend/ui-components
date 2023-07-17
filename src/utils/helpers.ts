@@ -15,3 +15,7 @@ export function pluralize(count: number, variants: string[]): string {
       : cases[count % 10 < 5 ? count % 10 : 5]
   ]
 }
+
+export function capitalize(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1)
+}

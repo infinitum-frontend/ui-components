@@ -1,0 +1,30 @@
+.inf-calendar-item {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+  border-radius: var(--inf-border-radius-medium);
+
+  @include hover {
+    background-color: var(--inf-color-gray-200);
+  }
+
+  &--selected {
+    color: var(--inf-color-text-inverse);
+    background-color: var(--inf-color-primary);
+
+    @include hover {
+      background-color: var(--inf-color-primary);
+    }
+  }
+
+  &--empty {
+    cursor: unset;
+    pointer-events: none;
+
+    @include hover {
+      background-color: transparent;
+    }
+  }
+}

@@ -1,4 +1,7 @@
-import NativeDatePicker, { NativeDatePickerProps } from './NativeDatePicker'
+import NativeDatePicker, {
+  NativeDatePickerProps
+} from './components/NaviteDatePicker/NativeDatePicker'
+import DatePicker, { DatepickerProps } from './DatePicker'
 
-export { NativeDatePicker }
-export type { NativeDatePickerProps }
+export { NativeDatePicker, DatePicker }
+export type { NativeDatePickerProps, DatepickerProps }

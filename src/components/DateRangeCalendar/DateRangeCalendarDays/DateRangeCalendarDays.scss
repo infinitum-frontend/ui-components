@@ -1,0 +1,71 @@
+.inf-date-range-calendar-days {
+  &__week, &__weekdays {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(7, 32px);
+    grid-template-rows: 32px;
+    gap: 4px 0;
+  }
+
+  &__week {
+    font: var(--inf-font-body-1);
+  }
+
+  &__weekdays {
+    font: var(--inf-font-subtitle-2);
+    // TODO: token
+    color: #707273;
+    text-align: center;
+  }
+
+  // TODO обсудить радиусы при ховере
+  &__item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+
+    @include hover {
+      background-color: var(--inf-color-gray-200);
+    }
+
+    &--hovered {
+      background-color: var(--inf-color-gray-200);
+      border-radius: 0;
+
+      @include hover {
+        border-radius: 0;
+      }
+    }
+
+    &--from {
+      color: var(--inf-color-text-inverse);
+      background-color: var(--inf-color-primary);
+      border-radius: var(--inf-border-radius-medium) 0 0 var(--inf-border-radius-medium);
+
+      @include hover {
+        background-color: var(--inf-color-primary);
+      }
+    }
+
+    &--to {
+      color: var(--inf-color-text-inverse);
+      background-color: var(--inf-color-primary);
+      border-radius: 0 var(--inf-border-radius-medium) var(--inf-border-radius-medium) 0;
+
+      @include hover {
+        background-color: var(--inf-color-primary);
+      }
+    }
+
+    &--empty {
+      cursor: unset;
+      pointer-events: none;
+
+      @include hover {
+        background-color: transparent;
+      }
+    }
+  }
+}

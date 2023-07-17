@@ -10,8 +10,8 @@ import React, {
   useContext
 } from 'react'
 import cn from 'classnames'
-import './Datepicker.scss'
-import { TextFieldClasses } from '~/src/utils/textFieldClasses'
+import './NativeDatePicker.scss'
+import { TextFieldClasses } from 'Utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 
@@ -96,7 +96,7 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
         value={formattedValue}
         onChange={handleChange}
         className={cn(
-          'inf-datepicker',
+          'inf-native-datepicker',
           TextFieldClasses.main,
           TextFieldClasses.borderRadius.regular,
           className,
