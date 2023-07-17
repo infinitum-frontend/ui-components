@@ -7,22 +7,25 @@ import { TextFieldClasses } from '../../../utils/textFieldClasses'
 
 describe('input', () => {
   it('should render', () => {
-    const { el } = renderComponent(<Input />)
-    expect(el).toBeDefined()
-    expect(el.className).toContain('inf-input')
+    renderComponent(<Input />)
+    const input = screen.queryByRole('textbox')
+    expect(input).toBeDefined()
+    expect(input).toHaveClass('inf-input')
   })
 
   it('should render as plain input by default', () => {
-    const { el } = renderComponent(<Input />)
-    expect(el).toBeEmptyDOMElement()
-    expect(el.tagName).toBe('INPUT')
+    renderComponent(<Input />)
+    const input = screen.queryByRole('textbox') as HTMLInputElement
+    expect(input).toBeEmptyDOMElement()
+    expect(input.tagName).toBe('INPUT')
   })
 
-  it('should render as complex input by default', () => {
-    const { el } = renderComponent(<Input prefix={'prefix'} />)
-    const inputEl = el.querySelector('input') as HTMLInputElement
-    expect(el).not.toBeEmptyDOMElement()
-    expect(el).toContainHTML(inputEl.outerHTML)
+  it('should render as complex input, if prefix, postfix or allowClear applied', () => {
+    renderComponent(<Input prefix={'prefix'} role="wrapper" />)
+    const wrapper = screen.queryByRole('wrapper')
+    const input = screen.queryByRole('textbox') as HTMLInputElement
+    expect(wrapper).not.toBeEmptyDOMElement()
+    expect(wrapper).toContainHTML(input.outerHTML)
   })
 
   it('matches snapshot', () => {
@@ -42,8 +45,8 @@ describe('className', () => {
     const { el } = renderComponent(
       <Input className={'custom-class'} prefix={'prefix'} />
     )
-    expect(el.className).toContain('custom-class')
-    expect(el.className).toContain('inf-input')
+    expect(el).toHaveClass('custom-class')
+    expect(el).toHaveClass('inf-input-wrapper')
   })
 })
 
@@ -70,6 +73,26 @@ describe('size', () => {
   it('should support size on complex input', () => {
     const { el } = renderComponent(<Input prefix={'prefix'} />)
     expect(el)
+  })
+})
+
+describe('uncontrolled input', () => {
+  it('should be uncontrolled by default', async () => {
+    const { el } = renderComponent(<Input />)
+    const user = userEvent.setup()
+    await user.type(el, 'Акции')
+    expect(el).toHaveValue('Акции')
+  })
+  it('should support defaultValue', () => {
+    const { el } = renderComponent(<Input defaultValue="Акции" />)
+    expect(el).toHaveValue('Акции')
+  })
+
+  it('should prefer defaultValue over value', async () => {
+    const { el } = renderComponent(
+      <Input defaultValue="Акции" value="Облигации" />
+    )
+    expect(el).toHaveValue('Акции')
   })
 })
 
