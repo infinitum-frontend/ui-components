@@ -7,11 +7,21 @@ export default defineConfig({
   plugins: [react(), viteSvgr()],
   resolve: {
     alias: {
+      '~': resolve(__dirname, './'),
       '@': resolve(__dirname, './'),
       Components: resolve(__dirname, './src/components/'),
       Icons: resolve(__dirname, './src/icons/'),
       Hooks: resolve(__dirname, './src/hooks/'),
       Test: resolve(__dirname, './test/')
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData(source: string, fp: string) {
+          return `@import "@/src/styles/global.scss";\n${source}`
+        }
+      }
     }
   },
   test: {

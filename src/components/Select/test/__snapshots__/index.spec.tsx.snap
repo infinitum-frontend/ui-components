@@ -2,7 +2,7 @@
 
 exports[`select > should match snapshot 1`] = `
 <button
-  class="inf-select-button inf-select"
+  class="inf-select-button inf-text-field inf-text-field--br-regular inf-select"
   tabindex="-1"
   title="select"
   type="button"

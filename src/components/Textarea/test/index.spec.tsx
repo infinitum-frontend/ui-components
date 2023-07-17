@@ -5,6 +5,7 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Form } from '../../Form'
 import { Button } from '../../Button'
+import { TextFieldClasses } from '../../../utils/textFieldClasses'
 
 const user = userEvent.setup()
 
@@ -23,7 +24,7 @@ describe('Textarea', () => {
 
   it('should support error status', () => {
     const { el } = renderComponent(<Textarea status={'error'} />)
-    expect(el.className).toContain('inf-textarea--status-error')
+    expect(el).toHaveClass(TextFieldClasses.status.error)
     expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
   })
 
@@ -58,7 +59,7 @@ describe('Textarea', () => {
 
   it('should support filled state', () => {
     const { el } = renderComponent(<Textarea value={'textarea'} />)
-    expect(el).toHaveClass('inf-textarea--filled')
+    expect(el).toHaveClass(TextFieldClasses.filled)
   })
 })
 

@@ -7,6 +7,7 @@ import { defaultSelectItem } from '../Select'
 import userEvent from '@testing-library/user-event'
 import { Form } from '../../Form'
 import { Button } from '../../Button'
+import { TextFieldClasses } from '../../../utils/textFieldClasses'
 
 const title = 'select'
 const user = userEvent.setup()
@@ -52,7 +53,7 @@ describe('select', () => {
     )
 
     const wrapper = screen.queryByTitle(title)
-    expect(wrapper).toHaveClass('inf-select-button--focused')
+    expect(wrapper).toHaveClass(TextFieldClasses.focused)
 
     expect(screen.queryAllByRole('listitem')[0]).toBeInTheDocument()
   })
@@ -84,7 +85,7 @@ describe('select', () => {
 
     const button = screen.queryByTitle(title)
     expect(button).toBeDisabled()
-    expect(button).toHaveClass('inf-select-button--disabled')
+    expect(button).toHaveClass(TextFieldClasses.disabled)
     expect(screen.queryByRole('combobox')).toBeDisabled()
   })
 
@@ -121,7 +122,7 @@ describe('select', () => {
       <Select options={SelectBaseOptions} status={'error'} title={title} />
     )
     expect(screen.queryByTitle(title)).toHaveClass(
-      'inf-select-button--status-error'
+      TextFieldClasses.status.error
     )
   })
 })
@@ -140,9 +141,7 @@ describe('Select actions', () => {
     act(() => {
       screen.queryByRole('combobox')?.focus()
     })
-    expect(screen.queryByRole('button')).toHaveClass(
-      'inf-select-button--focused'
-    )
+    expect(screen.queryByRole('button')).toHaveClass(TextFieldClasses.focused)
   })
 
   it('should support blur', () => {
@@ -168,11 +167,11 @@ describe('Select actions', () => {
     )
     const button = screen.queryByRole('button') as HTMLButtonElement
     await user.click(button)
-    expect(button).toHaveClass('inf-select-button--focused')
+    expect(button).toHaveClass(TextFieldClasses.focused)
     expect(screen.queryByRole('list')).toBeInTheDocument()
     await user.click(screen.queryByRole('link') as HTMLElement)
 
-    expect(button).not.toHaveClass('inf-select-button--focused')
+    expect(button).not.toHaveClass(TextFieldClasses.focused)
     expect(screen.queryByRole('list')).not.toBeInTheDocument()
   })
 
@@ -247,19 +246,20 @@ describe('Select actions', () => {
   })
 
   it('should support Tab press', async () => {
+    const user = userEvent.setup()
     renderComponent(<Select options={SelectBaseOptions} />)
     const button = screen.queryByRole('button') as HTMLButtonElement
     await user.tab()
-    expect(button).toHaveClass('inf-select-button--focused')
+    expect(button).toHaveClass(TextFieldClasses.focused)
     await user.tab()
-    expect(button).not.toHaveClass('inf-select-button--focused')
+    expect(button).not.toHaveClass(TextFieldClasses.focused)
 
     await user.click(button)
     await user.tab()
-    expect(button).toHaveClass('inf-select-button--focused')
+    expect(button).toHaveClass(TextFieldClasses.focused)
     expect(screen.queryByRole('list')).not.toBeInTheDocument()
     await user.tab()
-    expect(button).not.toHaveClass('inf-select-button--focused')
+    expect(button).not.toHaveClass(TextFieldClasses.focused)
   })
 })
 
@@ -281,7 +281,7 @@ describe('Select Items', () => {
     await user.click(button)
     await user.click(screen.queryAllByRole('listitem')[0])
 
-    expect(button).toHaveClass('inf-select-button--focused')
+    expect(button).toHaveClass(TextFieldClasses.focused)
     expect(document.activeElement).toHaveClass('inf-select')
   })
 

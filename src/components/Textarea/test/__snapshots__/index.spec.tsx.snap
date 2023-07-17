@@ -2,7 +2,7 @@
 
 exports[`Textarea > should match snapshot 1`] = `
 <textarea
-  class="inf-textarea inf-input-common inf-textarea--resize-none"
+  class="inf-textarea inf-text-field inf-text-field--br-regular inf-textarea--resize-none"
   placeholder="Введите значение"
 />
 `;

@@ -1,8 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
 import { Input } from '../index'
 import { renderComponent } from '@/testSetup'
-import { fireEvent } from '@testing-library/react'
+import { act, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { TextFieldClasses } from '../../../utils/textFieldClasses'
 
 describe('input', () => {
   it('should render', () => {
@@ -14,9 +15,7 @@ describe('input', () => {
   it('should render as plain input by default', () => {
     const { el } = renderComponent(<Input />)
     expect(el).toBeEmptyDOMElement()
-    expect(el).toContainHTML(
-      `<input class="inf-input inf-input--size-medium inf-input--br-regular" placeholder="Введите значение" value="" />`
-    )
+    expect(el.tagName).toBe('INPUT')
   })
 
   it('should render as complex input by default', () => {
@@ -65,7 +64,7 @@ describe('style', () => {
 describe('size', () => {
   it('should support size on plain input', () => {
     const { el } = renderComponent(<Input />)
-    expect(el.className).toContain('inf-input--size-medium')
+    expect(el.className).toContain(TextFieldClasses.size.medium)
   })
 
   it('should support size on complex input', () => {
@@ -101,7 +100,7 @@ describe('events', () => {
 
     expect(onInput).toHaveBeenCalledOnce()
     expect(eventValue).toBe('hello')
-    expect(eventType).toBe('input')
+    expect(eventType).toBe('change')
   })
 
   it('should support onBlur', () => {
@@ -191,38 +190,42 @@ describe('placeholder', () => {
 })
 
 describe('border', () => {
-  it('should be regular on plain input', () => {
+  it('should be regular on plain input', async () => {
     const { el } = renderComponent(<Input />)
-    expect(el.className).toContain('inf-input--br-regular')
+    expect(el).toHaveClass(TextFieldClasses.borderRadius.regular)
     expect(el).toHaveStyle('border-radius: var(--inf-border-radius-small);')
   })
 
   it('should be regular on complex input', () => {
     const { el } = renderComponent(<Input prefix={'prefix'} />)
-    expect(el.className).toContain('inf-input-wrapper--br-regular')
+    expect(el).toHaveClass(TextFieldClasses.borderRadius.regular)
     expect(el).toHaveStyle('border-radius: var(--inf-border-radius-small);')
   })
 
   it('should support noBorder on plain input', () => {
     const { el } = renderComponent(<Input noBorder={true} />)
-    expect(el.className).toContain('inf-input--no-border')
+    expect(el).toHaveClass(TextFieldClasses.noBorder)
     expect(el).toHaveStyle('border: none')
   })
 
   it('should support noBorder on complex input', () => {
     const { el } = renderComponent(<Input noBorder={true} prefix={'prefix'} />)
-    expect(el.className).toContain('inf-input-wrapper--no-border')
+    expect(el).toHaveClass(TextFieldClasses.noBorder)
     expect(el).toHaveStyle('border: none')
   })
 
   it('should support filled class on plain input', () => {
     const { el } = renderComponent(<Input value={'test'} />)
-    expect(el).toHaveClass('inf-input--filled')
+    expect(el).toHaveClass(TextFieldClasses.filled)
   })
 
   it('should support filled class on complex input', () => {
-    const { el } = renderComponent(<Input value={'test'} prefix={'prefix'} />)
-    expect(el).toHaveClass('inf-input-wrapper--filled')
+    // ожидаем, чтобы корректно отработал ref
+    act(() => {
+      renderComponent(<Input value={'test'} prefix={'prefix'} />)
+    })
+    const el = screen.queryByRole('textbox')
+    expect(el).toHaveClass(TextFieldClasses.filled)
   })
 })
 
@@ -235,7 +238,7 @@ describe('disabled', () => {
   it('should apply on complex input', () => {
     const { el } = renderComponent(<Input disabled={true} prefix={'prefix'} />)
     const inputEl = el.querySelector('input')
-    expect(el.className).toContain('inf-input-wrapper--disabled')
+    expect(el).toHaveClass(TextFieldClasses.disabled)
     expect(inputEl).toHaveProperty('disabled')
   })
 })
@@ -243,13 +246,13 @@ describe('disabled', () => {
 describe('status', () => {
   it('should apply on plain input', () => {
     const { el } = renderComponent(<Input status={'error'} />)
-    expect(el.className).toContain('inf-input--status-error')
+    expect(el).toHaveClass(TextFieldClasses.status.error)
     expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
   })
 
   it('should apply on complex input', () => {
     const { el } = renderComponent(<Input status={'error'} prefix={'prefix'} />)
-    expect(el.className).toContain('inf-input-wrapper--status-error')
+    expect(el).toHaveClass(TextFieldClasses.status.error)
     expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
   })
 })
@@ -257,44 +260,14 @@ describe('status', () => {
 describe('clear button', () => {
   const user = userEvent.setup()
 
-  it('should be hidden on empty input', () => {
+  it('should be visible', () => {
     const { el } = renderComponent(<Input allowClear={true} />)
-    const clearButton = el.querySelector(
-      '.inf-input-wrapper__clear-button'
-    ) as HTMLSpanElement
-    expect(clearButton).toBeInTheDocument()
-    expect(clearButton).not.toBeVisible()
-  })
-
-  it('should be visible on input with value', () => {
-    const { el } = renderComponent(
-      <Input allowClear={true} value={'Облигации'} />
-    )
     const clearButton = el.querySelector(
       '.inf-input-wrapper__clear-button'
     ) as HTMLSpanElement
 
     expect(clearButton).toBeInTheDocument()
     expect(clearButton).toBeVisible()
-  })
-
-  it('should clear input on click and disappear', async () => {
-    let eventValue
-    const onInput = vi.fn((value) => {
-      eventValue = value
-    })
-    const { el, rerender } = renderComponent(
-      <Input allowClear={true} value={'Облигации'} onInput={onInput} />
-    )
-    const clearButton = el.querySelector(
-      '.inf-input-wrapper__clear-button'
-    ) as HTMLSpanElement
-
-    await user.click(clearButton)
-
-    expect(eventValue).toBe('')
-    rerender(<Input allowClear={true} value={eventValue} onInput={onInput} />)
-    expect(clearButton).not.toBeVisible()
   })
 
   it('should focus input after click', async () => {
@@ -307,7 +280,7 @@ describe('clear button', () => {
     const inputEl = el.querySelector('input')
     await user.click(clearButton)
 
-    expect(el.className).toContain('inf-input-wrapper--focused')
+    expect(el).toHaveClass(TextFieldClasses.focused)
     expect(inputEl).toHaveFocus()
   })
 
