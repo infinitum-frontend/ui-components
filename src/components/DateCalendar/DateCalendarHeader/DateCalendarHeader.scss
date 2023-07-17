@@ -1,0 +1,37 @@
+.inf-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__control {
+    font: var(--inf-font-subtitle-3);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: var(--inf-border-radius-medium);
+
+    @include hover {
+      background-color: var(--inf-color-gray-200);
+    }
+
+    &--selected {
+      background-color: var(--inf-color-gray-200);
+    }
+  }
+
+  &__arrow {
+    &--hidden {
+      pointer-events: none;
+      visibility: hidden;
+    }
+  }
+}

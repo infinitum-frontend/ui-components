@@ -1,10 +1,10 @@
 import { StoryFn, Meta } from '@storybook/react'
-import { NativeDatePicker } from './index'
+import { NativeDatePicker, DatePicker } from './index'
 import { useState } from 'react'
 
-const meta: Meta<typeof NativeDatePicker> = {
+const meta: Meta<typeof DatePicker> = {
   title: 'Form/DatePicker',
-  component: NativeDatePicker,
+  component: DatePicker,
   args: {
     disabled: false
   }
@@ -12,21 +12,30 @@ const meta: Meta<typeof NativeDatePicker> = {
 
 export default meta
 
-const Template: StoryFn<typeof NativeDatePicker> = (args) => {
+const Template: StoryFn<typeof DatePicker> = (args) => {
   const [value, setValue] = useState('')
 
   return (
     <>
-      <NativeDatePicker
-        {...args}
-        value={value}
-        onChange={(val) => setValue(val)}
-      />
-      <div>{value}</div>
+      <DatePicker {...args} value={value} onChange={setValue} />
+      <span>Значение: {value}</span>
     </>
   )
 }
 
 export const Playground = {
   render: Template
+}
+
+export const NativeDatepicker = {
+  render: () => {
+    const [value, setValue] = useState('')
+
+    return (
+      <>
+        <NativeDatePicker value={value} onChange={(val) => setValue(val)} />
+        <div>{value}</div>
+      </>
+    )
+  }
 }

@@ -15,7 +15,7 @@ import {
 import { Space } from 'Components/Space'
 import { Button } from 'Components/Button'
 import Input from '../../../../Input/Input'
-import NativeDatePicker from 'Components/DatePicker/NativeDatePicker'
+import NativeDatePicker from 'Components/DatePicker/components/NaviteDatePicker/NativeDatePicker'
 import Form from 'Components/Form/Form'
 import './TableHeaderFilter.scss'
 import useUpdateEffect from 'Hooks/useUpdateEffect'

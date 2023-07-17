@@ -1,0 +1,8 @@
+.inf-calendar-months {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 32px);
+  gap: var(--inf-space-xlarge) 0;
+}

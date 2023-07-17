@@ -141,7 +141,7 @@ const MaskedInput = ({
 
   const formGroupContext = useContext(FormGroupContext)
 
-  const { ref, value, setUnmaskedValue } = useIMask(
+  const { ref, value, setUnmaskedValue, unmaskedValue } = useIMask(
     { ...mask },
     {
       onAccept: (value, maskRef) => {
@@ -215,6 +215,13 @@ const MaskedInput = ({
       setUnmaskedValue(valueProp)
     }
   }, [value])
+
+  useEffect(() => {
+    // Если значение изменено снаружи, синхронизируем
+    if (unmaskedValue !== valueProp) {
+      setUnmaskedValue(valueProp)
+    }
+  }, [valueProp])
 
   const composedValue = value || valueProp
 
