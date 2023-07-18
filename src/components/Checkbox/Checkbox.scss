@@ -88,7 +88,7 @@
     }
 
     &--indeterminate:not(.inf-checkbox__box--disabled) {
-      border-color: transparent;
+      border: none;
       background-color: var(--inf-checkbox-checked-color-background);
 
       svg {
@@ -115,7 +115,7 @@
     }
 
     &:checked ~ .inf-checkbox__box {
-      border-color: transparent;
+      border: none;
       background-color: var(--inf-checkbox-checked-color-background);
     }
 
