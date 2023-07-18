@@ -92,10 +92,11 @@
   --inf-color-background-hover: var(--inf-color-gray-100);
   --inf-color-background-selected: var(--inf-color-blue-400);
   --inf-color-background-disabled: var(--inf-color-gray-100);
-  --inf-color-background-info: var(--inf-color-blue-100);
-  --inf-color-background-danger: var(--inf-color-orange-100);
-  --inf-color-background-success: var(--inf-color-green-100);
-  --inf-color-background-warning: var(--inf-color-yellow-100);
+  --inf-color-background-neutral: var(--inf-color-gray-300);
+  --inf-color-background-info: var(--inf-color-blue-500);
+  --inf-color-background-danger: var(--inf-color-orange-500);
+  --inf-color-background-success: var(--inf-color-green-500);
+  --inf-color-background-warning: var(--inf-color-yellow-400);
 
   /* Border */
   --inf-color-border-default: var(--inf-color-gray-200); // -primary ?
