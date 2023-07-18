@@ -1,25 +1,6 @@
 .inf-text {
   font-family: var(--inf-font-family-base);
 
-  &--size-xsmall {
-    font-size: var(--inf-font-size-overline);
-    line-height: var(--inf-font-line-height-overline);
-  }
-
-  &--size-small {
-    font-size: var(--inf-font-size-body-2);
-    line-height: var(--inf-font-line-height-body-2);
-  }
-
-  &--size-medium {
-    font-size: var(--inf-font-size-body-1);
-    line-height: var(--inf-font-line-height-body-1);
-  }
-
-  &--size-large {
-    font-size: var(--inf-font-size-subtitle-1);
-  }
-
   &--variant-heading-1 {
     font: var(--inf-font-h1);
   }
@@ -102,38 +83,6 @@
 
   &--weight-extrabold {
     font-weight: var(--inf-font-weight-extrabold);
-  }
-
-  &--tone-default {
-    color: var(--inf-color-text);
-  }
-
-  &--tone-secondary {
-    color: var(--inf-color-text-secondary);
-  }
-
-  &--tone-tertiary {
-    color: var(--inf-color-text-tertiary);
-  }
-
-  &--tone-quaternary {
-    color: var(--inf-color-text-quaternary);
-  }
-
-  &--tone-danger {
-    color: var(--inf-color-text-danger);
-  }
-
-  &--tone-success {
-    color: var(--inf-color-text-success);
-  }
-
-  &--tone-warning {
-    color: var(--inf-color-text-warning);
-  }
-
-  &--tone-inverse {
-    color: var(--inf-color-text-inverse);
   }
 
   &--color-primary {

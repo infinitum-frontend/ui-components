@@ -5,6 +5,16 @@ import classNames from 'classnames'
 import { TextProps } from './types'
 import './Text.scss'
 
+const SizeToVariant: Record<
+  NonNullable<TextProps['size']>,
+  TextProps['variant']
+> = {
+  xsmall: 'overline',
+  small: 'body-2',
+  medium: 'body-1',
+  large: 'subtitle-1'
+}
+
 function BaseText<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C, TextProps>,
   ref: PolymorphicRef<C>
@@ -24,19 +34,19 @@ function BaseText<C extends ElementType = 'div'>(
     ...rest
   } = props
 
-  // TODO: map size to variant and tone to color
+  const composedColor = color || tone
+  // @ts-expect-error тк variant задан по умолчанию, делаем так, чтобы size сработал при его наличии
+  const composedVariant = SizeToVariant[size] || variant
 
   const getClassNames: () => string = () => {
     return classNames(
       'inf-text',
       className,
-      `inf-text--size-${size as string}`,
-      `inf-text--variant-${variant as string}`,
+      `inf-text--variant-${composedVariant as string}`,
       {
         'inf-text--uppercase': uppercase,
         'inf-text--truncated': truncated,
-        [`inf-text--color-${color as string}`]: color,
-        [`inf-text--tone-${tone as string}`]: tone,
+        [`inf-text--color-${composedColor as string}`]: composedColor,
         [`inf-text--weight-${weight as string}`]: weight,
         [`inf-text--alignment-${alignment as string}`]: alignment !== 'left'
       }
