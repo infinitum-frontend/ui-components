@@ -63,10 +63,6 @@
     z-index: -1;
     width: 16px;
     height: 16px;
-    // TODO: вернуть после реализации кастомной валидации
-    //width: 0;
-    //height: 0;
-    //appearance: none;
 
     &:focus-visible ~ .inf-radio__box {
       outline: var(--inf-border-focus);
