@@ -21,11 +21,10 @@ describe('input', () => {
   })
 
   it('should render as complex input, if prefix, postfix or allowClear applied', () => {
-    renderComponent(<Input prefix={'prefix'} role="wrapper" />)
-    const wrapper = screen.queryByRole('wrapper')
+    const { el } = renderComponent(<Input prefix={'prefix'} />)
     const input = screen.queryByRole('textbox') as HTMLInputElement
-    expect(wrapper).not.toBeEmptyDOMElement()
-    expect(wrapper).toContainHTML(input.outerHTML)
+    expect(el).not.toBeEmptyDOMElement()
+    expect(el).toContainHTML(input.outerHTML)
   })
 
   it('matches snapshot', () => {
