@@ -23,9 +23,7 @@ describe('NativeDatePicker', () => {
     const onChange = vi.fn()
     renderComponent(<NativeDatePicker onChange={onChange} />)
 
-    act(() => {
-      ;(screen.queryByRole('calendar') as HTMLInputElement).focus()
-    })
+    act(() => (screen.queryByRole('calendar') as HTMLInputElement).focus())
     await user.keyboard('1984-09-14')
 
     expect(onChange).toHaveBeenCalledOnce()
@@ -39,7 +37,7 @@ describe('NativeDatePicker', () => {
   it('should support className', () => {
     renderComponent(<NativeDatePicker className={'custom-class'} />)
     expect(screen.queryByRole('calendar')).toHaveClass(
-      'custom-class inf-datepicker'
+      'custom-class inf-native-datepicker'
     )
   })
 

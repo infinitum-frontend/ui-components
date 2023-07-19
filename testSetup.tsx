@@ -1,5 +1,5 @@
-import { expect, afterEach, beforeAll } from 'vitest'
-import { cleanup, render } from '@testing-library/react'
+import { expect, beforeAll } from 'vitest'
+import { render } from '@testing-library/react'
 import matchers from '@testing-library/jest-dom/matchers'
 import { ReactElement, JSXElementConstructor } from 'react'
 
@@ -25,9 +25,15 @@ beforeAll(() => {
     unobserve(): any {}
     disconnect(): any {}
   }
+
+  // https://github.com/testing-library/react-testing-library/issues/95#issuecomment-392879866
+  // https://github.com/vuejs/vue-test-utils/issues/319
+  if (!HTMLElement.prototype.scrollTo) {
+    HTMLElement.prototype.scrollTo = () => {}
+  }
 })
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
-afterEach(() => {
-  cleanup()
-})
+// afterEach(() => {
+//   cleanup()
+// })
