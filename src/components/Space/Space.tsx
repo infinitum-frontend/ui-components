@@ -51,7 +51,7 @@ function BaseSpace<C extends ElementType = 'div'>(
   const {
     as = 'div',
     className,
-    gap = 'small',
+    gap = 'medium',
     direction = 'vertical',
     wrap,
     fullWidth,

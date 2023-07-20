@@ -3,7 +3,8 @@ import {
   createColumnHelper,
   createColumn,
   createCell,
-  SortingState
+  SortingState,
+  ColumnDef
 } from '@tanstack/react-table'
 import Table from './Table'
 import { OnChangeFn } from 'Utils/types'
@@ -19,5 +20,6 @@ export {
 export type {
   OnChangeFn,
   CellContext as TableCellContext,
-  SortingState as TableSortingState
+  SortingState as TableSortingState,
+  ColumnDef as TableColumnDef
 }

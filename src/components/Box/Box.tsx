@@ -38,6 +38,7 @@ function BaseBox<C extends ElementType = 'div'>(
     overflow,
     overflowX,
     overflowY,
+    cursor,
     style,
     ...rest
   } = props
@@ -73,6 +74,7 @@ function BaseBox<C extends ElementType = 'div'>(
     color: background ? `var(--inf-color-text-${color as string})` : undefined,
     overflowX: overflowX || overflow || undefined,
     overflowY: overflowY || overflow || undefined,
+    cursor: cursor || undefined,
     paddingTop: paddingTop
       ? `var(--inf-space-${paddingTop as string})`
       : undefined || paddingY
