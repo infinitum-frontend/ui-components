@@ -1,23 +1,19 @@
 .inf-breadcrumbs-item {
   position: relative;
-  font-size: var(--inf-text-size-medium);
-  color: var(--inf-color-text-link);
+  font: var(--inf-font-subtitle-2);
+  color: var(--inf-color-text-secondary);
   text-decoration: none;
   transition: color 0.2s;
 
   @include hover {
-    color: var(--inf-color-text-link-hover);
+    color: var(--inf-color-text-primary);
   }
 
-  &:not(:last-child)::after {
-    content: '/';
-    width: 8px;
-    padding: var(--inf-spacing-small);
-    flex-shrink: 0;
-    text-align: center;
+  &:not(:last-child) {
+    cursor: pointer;
   }
 
   &:last-child {
-    color: var(--inf-color-text);
+    color: var(--inf-color-text-tertiary);
   }
 }

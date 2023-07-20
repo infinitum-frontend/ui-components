@@ -1,6 +1,17 @@
 .inf-card {
-  background-color: #fff;
-  border: 1px solid #c8cacc;
-  border-radius: 8px;
-  padding: 24px;
+  background-color: var(--inf-color-background-default);
+  box-shadow: var(--inf-box-shadow-medium);
+  border-radius: var(--inf-border-radius-small);
+
+  &--size-medium {
+    padding: var(--inf-space-medium);
+  }
+
+  &--size-large {
+    padding: var(--inf-space-large);
+  }
+
+  &--outline-danger {
+    border: 2px solid var(--inf-color-border-danger);
+  }
 }

@@ -21,10 +21,12 @@
   /* Box-shadow */
   --inf-box-shadow-small: -1px 4px 3px rgba(10, 62, 102, 0.1),
     -5px 0px 10px rgba(10, 51, 102, 0.1);
-  --inf-box-shadow-medium: -4px 5px 10px rgba(10, 51, 102, 0.3);
+  --inf-box-shadow-medium: 0px 4px 30px 0px rgba(0, 0, 0, 0.1),
+    0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 
   /* Border-width */
   --inf-border-width-default: 1px;
+  --inf-border-width-thick: 2px;
 
   /* Border-radius */
   --inf-border-radius-xsmall: 4px;

@@ -1,9 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ElementType, forwardRef, ReactElement } from 'react'
+import React, {
+  ElementType,
+  forwardRef,
+  ReactElement,
+  Children,
+  Fragment
+} from 'react'
 import { BreadcrumbsItem } from './components/BreadcrumbsItem'
 import './Breadcrumbs.scss'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
+import { ReactComponent as ChevronRightIcon } from 'Icons/chevronRight.svg'
 
 // TODO: aria-current
 // ol / li
@@ -13,6 +20,7 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
   ref: PolymorphicRef<C>
 ): ReactElement {
   const { className, children, as = 'nav', ...rest } = props
+  const arrayChildren = Children.toArray(children)
   const Component = as
 
   return (
@@ -22,7 +30,17 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
       aria-label="Breadcrumb"
       {...rest}
     >
-      {children}
+      {Children.map(arrayChildren, (child, index) => {
+        const isLast = index === arrayChildren.length - 1
+        return (
+          <Fragment key={index}>
+            {child}
+            {!isLast && (
+              <ChevronRightIcon className="inf-breadcrumbs__separator" />
+            )}
+          </Fragment>
+        )
+      })}
     </Component>
   )
 }

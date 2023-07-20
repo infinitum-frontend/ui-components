@@ -1,8 +1,13 @@
 .inf-breadcrumbs {
-  &__list {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  flex-wrap: wrap;
+
+  &__separator {
+    width: 20px;
+    height: 20px;
+    color: var(--inf-color-text-tertiary);
+    margin: 0 var(--inf-space-xsmall);
   }
 }

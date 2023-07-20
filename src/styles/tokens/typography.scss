@@ -12,6 +12,7 @@
   --inf-font-size-subtitle-3: 14px;
   --inf-font-size-body-1: 16px;
   --inf-font-size-body-2: 14px;
+  --inf-font-size-body-3: 12px;
   --inf-font-size-overline: 10px;
 
   --inf-font-weight-light: 300;
@@ -28,15 +29,16 @@
   --inf-font-line-height-subtitle-3: 18px;
   --inf-font-line-height-body-1: 20px;
   --inf-font-line-height-body-2: 18px;
+  --inf-font-line-height-body-3: 16px;
   --inf-font-line-height-overline: 14px;
 
-  --inf-font-h1: var(--inf-font-weight-extrabold) var(--inf-font-size-h1) /
+  --inf-font-h1: var(--inf-font-weight-bold) var(--inf-font-size-h1) /
     var(--inf-font-line-height-h1) var(--inf-font-family-base);
-  --inf-font-h2: var(--inf-font-weight-extrabold) var(--inf-font-size-h2) /
+  --inf-font-h2: var(--inf-font-weight-bold) var(--inf-font-size-h2) /
     var(--inf-font-line-height-h2) var(--inf-font-family-base);
-  --inf-font-h3: var(--inf-font-weight-extrabold) var(--inf-font-size-h3) /
+  --inf-font-h3: var(--inf-font-weight-bold) var(--inf-font-size-h3) /
     var(--inf-font-line-height-h3) var(--inf-font-family-base);
-  --inf-font-h4: var(--inf-font-weight-extrabold) var(--inf-font-size-h4) /
+  --inf-font-h4: var(--inf-font-weight-bold) var(--inf-font-size-h4) /
     var(--inf-font-line-height-h4) var(--inf-font-family-base);
 
   --inf-font-subtitle-1: var(--inf-font-weight-bold)
@@ -52,6 +54,8 @@
     var(--inf-font-line-height-body-1) var(--inf-font-family-base);
   --inf-font-body-2: var(--inf-font-weight-normal) var(--inf-font-size-body-2) /
     var(--inf-font-line-height-body-2) var(--inf-font-family-base);
+  --inf-font-body-3: var(--inf-font-weight-normal) var(--inf-font-size-body-3) /
+    var(--inf-font-line-height-body-3) var(--inf-font-family-base);
   --inf-font-overline: var(--inf-font-weight-normal)
     var(--inf-font-size-overline) / var(--inf-font-line-height-overline)
     var(--inf-font-family-base);

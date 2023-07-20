@@ -1,4 +1,5 @@
 import { SpaceVariants } from '~/src/utils/types'
+import { CSSProperties } from 'react'
 
 export interface BoxProps {
   background?: Background
@@ -21,10 +22,11 @@ export interface BoxProps {
   overflow?: Overflow
   overflowX?: Overflow
   overflowY?: Overflow
+  cursor?: Cursor
 }
 
 type BoxShadow = 'small' | 'medium'
-type BorderWidth = 'default'
+type BorderWidth = 'default' | 'thick'
 type BorderColor = 'default' | 'secondary'
 type BorderRadius = 'small' | 'medium' | 'large'
 type Padding = SpaceVariants
@@ -38,4 +40,5 @@ type TextColor =
   | 'danger'
   | 'warning'
   | 'inverse' // TODO: использовать тот же тип что и в компоненте Text
-type Overflow = 'hidden' | 'scroll'
+type Overflow = Extract<CSSProperties['overflow'], 'hidden' | 'scroll'>
+type Cursor = Extract<CSSProperties['cursor'], 'pointer'>
