@@ -13,7 +13,7 @@ export interface IFileData {
 
 // TODO: макс количество, размер, ограничение форматов загружаемого файла, disabled состояние
 export interface FilePickerProps {
-  files: IFileData[]
+  files?: IFileData[]
   onChange?: (files: IFileData[]) => void
   onGetFile?: (file: IFileData) => void
   onDeleteFile?: (file: IFileData) => void

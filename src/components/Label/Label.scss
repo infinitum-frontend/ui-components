@@ -4,7 +4,9 @@
   width: max-content;
   border-radius: var(--inf-border-radius-medium);
   color: var(--inf-color-text-on-color);
-  font: var(--inf-font-subtitle-2);
+  font-size: var(--inf-font-size-subtitle-2);
+  font-weight: var(--inf-font-weight-bold);
+  line-height: normal;
   padding: var(--inf-space-xxsmall) var(--inf-space-small);
 
   &--variant-neutral {
