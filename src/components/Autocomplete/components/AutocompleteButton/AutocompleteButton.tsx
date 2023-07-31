@@ -5,6 +5,7 @@ import React, {
   FormEventHandler,
   ReactElement,
   useContext,
+  useEffect,
   useRef,
   useState
 } from 'react'
@@ -33,6 +34,12 @@ const AutocompleteButton = ({
   const context = useAutocompleteContext()
   const formGroupContext = useContext(FormGroupContext)
 
+  useEffect(() => {
+    if (!context?.open) {
+      setFocused(false)
+    }
+  }, [context?.open])
+
   const handleInvalid: FormEventHandler<HTMLInputElement> = () => {
     if (formGroupContext) {
       formGroupContext.setInvalid?.(true)
@@ -42,18 +49,16 @@ const AutocompleteButton = ({
     }
   }
 
-  // фокус, который поднимается от внутреннего нативного инпута
   const handleFocus: FocusEventHandler = (e) => {
     e.preventDefault()
     setFocused(true)
   }
 
-  // блюр, который поднимается от внутреннего нативного инпута. Если было нажатие на элементы выпадающего списка, фокус не скидывается
   const handleBlur: FocusEventHandler = (e) => {
-    const classList = e.relatedTarget?.classList
-    // TODO: работает?
-    if (classList?.contains('inf-select__items')) {
-      console.log('contains')
+    if (
+      e.relatedTarget?.getAttribute('data-selector') ===
+      'inf-autocomplete-input'
+    ) {
       return
     }
 
