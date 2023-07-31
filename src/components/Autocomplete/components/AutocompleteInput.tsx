@@ -16,7 +16,14 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
       onSubmit?.(e)
     }
 
-    return <SearchInput onSubmit={handleSubmit} {...props} ref={ref} />
+    return (
+      <SearchInput
+        onSubmit={handleSubmit}
+        data-selector="inf-autocomplete-input"
+        {...props}
+        ref={ref}
+      />
+    )
   }
 )
 
