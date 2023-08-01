@@ -1,7 +1,5 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import { usePagination } from './usePagination'
-import { Button } from 'Components/Button'
-import { Text } from 'Components/Text'
 import { ReactComponent as ChevronLeftIcon } from 'Icons/chevronLeft.svg'
 import { ReactComponent as ChevronRightIcon } from 'Icons/chevronRight.svg'
 import './Pagination.scss'
@@ -100,12 +98,13 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     if (variant === 'pagination') {
       return (
         <div ref={ref} className={cn('inf-pagination', className)} {...props}>
-          <Button
-            variant="tertiary"
+          <button
+            className="inf-pagination__button inf-pagination__button--square"
             disabled={isPrevDisabled}
             onClick={onPrevious}
-            icon={<ChevronLeftIcon />}
-          />
+          >
+            <ChevronLeftIcon />
+          </button>
 
           {paginationRange.map((pageNumber, index) => {
             // Точки
@@ -114,50 +113,52 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             }
             // Страницы
             return (
-              <Button
-                className="inf-pagination__page-button"
+              <button
+                className={cn(
+                  'inf-pagination__button inf-pagination__button--square',
+                  {
+                    'inf-pagination__button--active': pageNumber === currentPage
+                  }
+                )}
                 key={index}
-                variant={pageNumber === currentPage ? 'secondary' : 'tertiary'}
                 disabled={disabled}
                 onClick={() => onPageChange(pageNumber as number)}
               >
                 {pageNumber}
-              </Button>
+              </button>
             )
           })}
 
-          <Button
-            className="inf-pagination__next-button"
-            variant="tertiary"
+          <button
+            className="inf-pagination__button inf-pagination__button--square"
             disabled={isNextDisabled}
             onClick={onNext}
-            icon={<ChevronRightIcon />}
-          />
+          >
+            <ChevronRightIcon />
+          </button>
         </div>
       )
     } else {
       return (
         <div ref={ref} className={cn('inf-pagination', className)} {...props}>
-          <Button
-            className="inf-pagination__prev-button"
-            variant="tertiary"
+          <button
+            className="inf-pagination__button"
             disabled={isPrevDisabled}
             onClick={onPrevious}
           >
             {prevLabel}
-          </Button>
-          <Button
-            className="inf-pagination__next-button"
-            variant="tertiary"
+          </button>
+          <button
+            className="inf-pagination__button"
             disabled={isNextDisabled}
             onClick={onNext}
           >
             {nextLabel}
-          </Button>
-          <Text className="inf-pagination__text" size="medium" tone="tertiary">
+          </button>
+          <div className="inf-pagination__text">
             {(currentPage - 1) * pageSize + 1}–{currentPage * pageSize}{' '}
             {entitylabel} из {totalCount}
-          </Text>
+          </div>
         </div>
       )
     }
