@@ -3,7 +3,44 @@
   align-items: center;
   gap: var(--inf-space-xsmall);
 
-  &__page-button {
-    aspect-ratio: 1 / 1;
+  &__button {
+    @include button-reset;
+    height: var(--inf-control-height-small);
+    background-color: var(--inf-background-default);
+    border: 1px solid var(--inf-color-border-default);
+    border-radius: var(--inf-border-radius-small);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--inf-color-text-primary);
+    font-size: var(--inf-font-size-body-1);
+    font-weight: var(--inf-font-weight-bold);
+    padding: var(--inf-space-small);
+    transition: .2s;
+
+    @include hover-active {
+      &:not(.inf-pagination__button--active) {
+        background-color: var(--inf-color-gray-200); // TODO: переменную с назначением
+      }
+    }
+
+    &--active {
+      background-color: var(--inf-color-secondary);
+      color: var(--inf-color-text-on-color);
+      border-color: var(--inf-color-secondary);
+    }
+
+    &--square {
+      width: var(--inf-control-height-small);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__text {
+    color: var(--inf-color-text-secondary);
+    font: var(--inf-font-body-1);
   }
 }
