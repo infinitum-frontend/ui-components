@@ -9,7 +9,8 @@ import React, {
   FocusEventHandler,
   MouseEventHandler,
   FormEventHandler,
-  useContext
+  useContext,
+  useId
 } from 'react'
 import './Select.scss'
 import cn from 'classnames'
@@ -72,6 +73,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const [activeItem, setActiveItem] = useState(
       value ? getIndexByValue(value, options) : 0
     )
+
+    const prefix = useId()
 
     const formGroupData = useContext(FormGroupContext)
     const formData = useContext(FormContext)
@@ -266,7 +269,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           >
             <option value={''} />
             {options.map((option) => (
-              <option value={option.value} key={option.value}>
+              <option value={option.value} key={prefix + String(option.value)}>
                 {option.label}
               </option>
             ))}
@@ -292,7 +295,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
               {Boolean(options.length) &&
                 options.map((option, index) => (
                   <li
-                    key={option.value}
+                    key={String(option.value) + prefix}
                     title={typeof option.label === 'string' ? option.label : ''}
                     onMouseOver={() => handleItemMouseOver(index)}
                     onClick={() => handleItemSelect(option.value)}

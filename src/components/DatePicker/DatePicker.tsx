@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useState } from 'react'
+import React, { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
 import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
 import {
   autoUpdate,
@@ -14,8 +14,10 @@ import './DatePicker.scss'
 import { parseDate, parseLocalDateString } from 'Utils/date'
 import MaskedInput from 'Components/Input/components/MaskedInput'
 import { DateCalendar } from 'Components/DateCalendar'
+import cn from 'classnames'
 
-export interface DatepickerProps {
+export interface DatepickerProps
+  extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
   disabled?: boolean
   /** Дата или строка в формате dd.mm.yyyy(ru-Ru locale) */
   value?: string | Date
@@ -25,7 +27,9 @@ export interface DatepickerProps {
 const DatePicker = ({
   disabled,
   value,
-  onChange
+  onChange,
+  className,
+  ...props
 }: DatepickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
 
@@ -48,8 +52,9 @@ const DatePicker = ({
     <>
       <div
         ref={refs.setReference}
+        className={cn('inf-datepicker', className)}
+        {...props}
         {...getReferenceProps()}
-        className="inf-datepicker"
       >
         <MaskedInput
           placeholder="__.__.____"
