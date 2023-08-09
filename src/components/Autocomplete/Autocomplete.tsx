@@ -64,7 +64,8 @@ const Autocomplete = ({
   selectedValue,
   filterFn,
   onOpenChange,
-  children
+  children,
+  ...props
 }: AutocompleteProps): ReactElement => {
   // ==================== state ====================
   const [open, setOpen] = useState<boolean>(opened)
@@ -182,7 +183,7 @@ const Autocomplete = ({
   if (options?.length) {
     return (
       <AutocompleteContext.Provider value={autocompleteContext}>
-        <div>
+        <div {...props}>
           <AutocompleteButton
             disabled={disabled}
             onClick={handleButtonClick}
@@ -212,7 +213,7 @@ const Autocomplete = ({
 
   return (
     <AutocompleteContext.Provider value={autocompleteContext}>
-      <div>{children}</div>
+      <div {...props}>{children}</div>
     </AutocompleteContext.Provider>
   )
 }
