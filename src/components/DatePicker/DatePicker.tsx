@@ -21,6 +21,8 @@ export interface DatepickerProps
   disabled?: boolean
   /** Дата или строка в формате dd.mm.yyyy(ru-Ru locale) */
   value?: string | Date
+  /** Плейсхолдер для внутреннего инпута */
+  placeholder?: string
   onChange?: (date: string) => void
 }
 
@@ -29,6 +31,7 @@ const DatePicker = ({
   value,
   onChange,
   className,
+  placeholder = '__.__.____',
   ...props
 }: DatepickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -57,7 +60,7 @@ const DatePicker = ({
         {...getReferenceProps()}
       >
         <MaskedInput
-          placeholder="__.__.____"
+          placeholder={placeholder}
           mask={{
             // @ts-expect-error
             mask: Date
