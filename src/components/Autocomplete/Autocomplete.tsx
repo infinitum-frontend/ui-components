@@ -24,6 +24,8 @@ import {
 } from '@floating-ui/react'
 import { IAutocompleteOption } from 'Components/Autocomplete/types'
 import FormContext from 'Components/Form/context/form'
+import cn from 'classnames'
+import './Autocomplete.scss'
 
 export interface AutocompleteProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
@@ -65,6 +67,7 @@ const Autocomplete = ({
   filterFn,
   onOpenChange,
   children,
+  className,
   ...props
 }: AutocompleteProps): ReactElement => {
   // ==================== state ====================
@@ -183,7 +186,7 @@ const Autocomplete = ({
   if (options?.length) {
     return (
       <AutocompleteContext.Provider value={autocompleteContext}>
-        <div {...props}>
+        <div className={cn('inf-autocomplete', className)} {...props}>
           <AutocompleteButton
             disabled={disabled}
             onClick={handleButtonClick}
@@ -213,7 +216,9 @@ const Autocomplete = ({
 
   return (
     <AutocompleteContext.Provider value={autocompleteContext}>
-      <div {...props}>{children}</div>
+      <div className={cn('inf-autocomplete', className)} {...props}>
+        {children}
+      </div>
     </AutocompleteContext.Provider>
   )
 }
