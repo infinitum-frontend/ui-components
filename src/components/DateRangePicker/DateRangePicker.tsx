@@ -9,16 +9,20 @@ import {
   useFloating,
   useInteractions
 } from '@floating-ui/react'
-import MaskedInput from '../Input/components/MaskedInput'
 import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
-import { parseDate, parseLocalDateString } from 'Utils/date'
-import DateRangeCalendar from 'Components/DateRangeCalendar/DateRangeCalendar'
+import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
+import DateRangeCalendar, {
+  DateRangeCalendarValue
+} from 'Components/DateRangeCalendar/DateRangeCalendar'
+import MaskedInput from 'Components/Input/components/MaskedInput'
 
+/** Строка в формате YYYY-MM-DD */
 export type DateRangePickerValue = [string | Date, string | Date]
 export interface DateRangePickerProps {
   disabled?: boolean
   value: DateRangePickerValue
-  onChange: (dateArray: DateRangePickerValue) => void
+  /** Строка в формате YYYY-MM-DD */
+  onChange: (dateArray: [string, string]) => void
 }
 
 const DateRangePicker = ({
@@ -52,7 +56,13 @@ const DateRangePicker = ({
         <MaskedInput
           placeholder="__.__.____—__.__.____"
           onComplete={(value) => {
-            onChange?.(value.split('—') as unknown as [Date, Date])
+            onChange?.(
+              value
+                .split('—')
+                .map((localDateString) =>
+                  formatDateToISO(parseLocalDateString(localDateString) as Date)
+                ) as [string, string]
+            )
           }}
           onAccept={(value) => {
             if (!value) {
@@ -82,7 +92,9 @@ const DateRangePicker = ({
               return string
             }
           }}
-          value={value.map((v) => parseDate(v)).join('')}
+          value={value
+            .map((v) => (v ? createDate(v).toLocaleDateString() : ''))
+            .join('')}
           postfix={<IconCalendar />}
           onPostfixClick={() => setOpened((prev) => !prev)}
           onFocus={() => setOpened(true)}
@@ -100,13 +112,17 @@ const DateRangePicker = ({
             }}
             className="inf-datepicker__dropdown"
             value={
-              value.map((el) => parseLocalDateString(parseDate(el))) as [
-                Date,
-                Date
-              ]
+              value.map((el) =>
+                el ? createDate(el) : undefined
+              ) as DateRangeCalendarValue
             }
-            onChange={(date) => {
-              onChange?.(date)
+            onChange={(dateArray) => {
+              onChange?.(
+                dateArray.map((date) => formatDateToISO(date)) as [
+                  string,
+                  string
+                ]
+              )
               setOpened(false)
             }}
             ref={refs.setFloating}

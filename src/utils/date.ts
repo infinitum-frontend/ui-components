@@ -110,6 +110,7 @@ export function getYearsList(from = 1900, to = 2099): number[] {
   return matrix
 }
 
+/** Создание объекта Date из строки DD.MM.YYYY */
 export function parseLocalDateString(value: string): Date | undefined {
   const dateParts = value.split('.')
   if (dateParts.length !== 3) {
@@ -121,10 +122,18 @@ export function parseLocalDateString(value: string): Date | undefined {
   return new Date(year, month - 1, day)
 }
 
-export function parseDate(value?: Date | string): string {
+/** Создание объекта Date из строки YYYY-MM-DD или другого объекта Date */
+export function createDate(value: string | Date): Date {
   if (value instanceof Date) {
-    return value.toLocaleDateString()
+    return value
   }
 
-  return value || ''
+  return new Date(value)
+}
+
+/** Форматирование объекта Date к строке формата `YYYY-MM-DD` */
+export function formatDateToISO(value: Date): string {
+  // учитываем часовой пояс, чтобы не изменилась дата, когда обережем данные о времени у ISO формата
+  const timezoneOffset = value.getTimezoneOffset() * 60000
+  return new Date(value.getTime() - timezoneOffset).toISOString().split('T')[0]
 }
