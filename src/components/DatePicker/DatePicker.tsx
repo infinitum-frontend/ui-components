@@ -11,7 +11,7 @@ import {
   useInteractions
 } from '@floating-ui/react'
 import './DatePicker.scss'
-import { parseDate, parseLocalDateString } from 'Utils/date'
+import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
 import MaskedInput from 'Components/Input/components/MaskedInput'
 import { DateCalendar } from 'Components/DateCalendar'
 import cn from 'classnames'
@@ -19,10 +19,11 @@ import cn from 'classnames'
 export interface DatepickerProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
   disabled?: boolean
-  /** Дата или строка в формате dd.mm.yyyy(ru-Ru locale) */
+  /** Дата или строка в формате YYYY-MM-DD */
   value?: string | Date
   /** Плейсхолдер для внутреннего инпута */
   placeholder?: string
+  /** Строка в формате YYYY-MM-DD */
   onChange?: (date: string) => void
 }
 
@@ -50,7 +51,7 @@ const DatePicker = ({
   ])
 
   // ============================= render =============================
-  const localValue = parseDate(value)
+  const displayValue = value ? createDate(value).toLocaleDateString() : ''
   return (
     <>
       <div
@@ -65,14 +66,16 @@ const DatePicker = ({
             // @ts-expect-error
             mask: Date
           }}
-          onComplete={(value) => onChange?.(value)}
+          onComplete={(val) => {
+            onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
+          }}
           onAccept={(value) => {
             if (!value) {
               onChange?.(value)
             }
           }}
           postfix={<IconCalendar />}
-          value={localValue}
+          value={displayValue}
           onPostfixClick={() => setOpened((prev) => !prev)}
           disabled={disabled}
           onFocus={() => setOpened(true)}
@@ -89,9 +92,9 @@ const DatePicker = ({
               left: x ?? 0
             }}
             className="inf-datepicker__dropdown"
-            value={parseLocalDateString(localValue) || new Date()}
+            value={value ? createDate(value) : new Date()}
             onChange={(date) => {
-              onChange?.(date.toLocaleDateString())
+              onChange?.(formatDateToISO(date))
               setOpened(false)
             }}
             ref={refs.setFloating}

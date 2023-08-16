@@ -21,7 +21,7 @@ export type DateRangeCalendarValue = [Date | undefined, Date | undefined]
 export interface DateRangeCalendarProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   value: DateRangeCalendarValue
-  onChange: (date: [Date, Date]) => void
+  onChange: (dateArray: [Date, Date]) => void
 }
 
 const DateRangeCalendar = forwardRef<HTMLDivElement, DateRangeCalendarProps>(
