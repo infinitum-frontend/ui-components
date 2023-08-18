@@ -4,8 +4,7 @@ import React, {
   FormEventHandler,
   ReactElement,
   TextareaHTMLAttributes,
-  useContext,
-  useState
+  useContext
 } from 'react'
 import cn from 'classnames'
 import './Textarea.scss'
@@ -52,6 +51,7 @@ const Textarea = ({
   block = false,
   disabled: disabledProp = false,
   placeholder = 'Введите значение',
+  defaultValue,
   value,
   className,
   status,
@@ -63,7 +63,6 @@ const Textarea = ({
   'aria-invalid': ariaInvalid,
   ...props
 }: TextareaProps): ReactElement => {
-  const [localValue, setLocalValue] = useState(value || '')
   const formData = useContext(FormContext)
   const formGroupData = useContext(FormGroupContext)
 
@@ -76,9 +75,6 @@ const Textarea = ({
     }
 
     const domValue = (e.target as HTMLTextAreaElement).value
-    if (value === undefined) {
-      setLocalValue(domValue)
-    }
     onChange?.(domValue, e)
     onInput?.(domValue, e)
   }
@@ -99,7 +95,6 @@ const Textarea = ({
     className,
     {
       'inf-textarea--block': block,
-      [TextFieldClasses.filled]: value || localValue,
       [TextFieldClasses.status[status as 'error']]: status,
       [`inf-textarea--resize-${resize as string}`]: resize
     }
@@ -109,7 +104,8 @@ const Textarea = ({
     <textarea
       placeholder={placeholder}
       className={classNames}
-      value={value || localValue}
+      defaultValue={defaultValue}
+      value={value}
       id={id || formGroupData?.id}
       onChange={handleChange}
       onInvalid={handleInvalid}
