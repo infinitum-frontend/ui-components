@@ -68,6 +68,17 @@ export const Inverted: StoryFn<typeof Popover> = () => {
   )
 }
 
+export const TriggerHover: StoryObj<typeof Popover> = () => {
+  return (
+    <Popover trigger="hover">
+      <Popover.Trigger>
+        <Button>Trigger</Button>
+      </Popover.Trigger>
+      <Popover.Content>Lorem ipsum dolor sit amet.</Popover.Content>
+    </Popover>
+  )
+}
+
 export const UserMenu1: StoryObj<typeof Popover> = {
   render: () => {
     const [isOpen, setIsOpen] = useState(true)

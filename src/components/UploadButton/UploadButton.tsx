@@ -1,17 +1,21 @@
-import { ReactElement, ChangeEvent } from 'react'
-import uniqueId from 'lodash/uniqueId'
+import { ReactElement, ChangeEvent, useId } from 'react'
 import { Button } from 'Components/Button'
 
-const UploadButton = (props: {
+interface UploadButtonProps {
   onChange: (e: FileList) => void
-}): ReactElement => {
-  const domId: string = uniqueId('upload-btn-')
+  multiple?: boolean
+}
+const UploadButton = ({
+  onChange,
+  multiple
+}: UploadButtonProps): ReactElement => {
+  const domId: string = useId()
 
   const handleChange = (e: ChangeEvent): void => {
     const target = e.target as HTMLInputElement
 
     if (target.files?.length) {
-      props.onChange(target.files)
+      onChange(target.files)
     }
 
     target.value = '' // for onChange with same filename
@@ -26,7 +30,13 @@ const UploadButton = (props: {
       >
         Прикрепить...
       </Button>
-      <input type="file" multiple id={domId} hidden onChange={handleChange} />
+      <input
+        type="file"
+        multiple={multiple}
+        id={domId}
+        hidden
+        onChange={handleChange}
+      />
     </div>
   )
 }

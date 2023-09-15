@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { forwardRef, HTMLProps, ComponentPropsWithoutRef } from 'react'
+import React, { forwardRef, ComponentPropsWithoutRef } from 'react'
 import { usePopoverContext } from '../../usePopoverContext'
 import {
   useMergeRefs,
@@ -34,7 +34,11 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
     return (
       <FloatingPortal>
         {context.open && (
-          <FloatingFocusManager context={floatingContext} modal={false}>
+          <FloatingFocusManager
+            context={floatingContext}
+            modal={false}
+            returnFocus={context.trigger !== 'hover'} // при снятии ховера не возвращаем фокус на элемент-триггер(https://github.com/floating-ui/floating-ui/issues/1999)
+          >
             <div
               ref={ref}
               style={{
