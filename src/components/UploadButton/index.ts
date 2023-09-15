@@ -1,3 +1,3 @@
 import UploadButton from './UploadButton'
 
-export default UploadButton
+export { UploadButton }

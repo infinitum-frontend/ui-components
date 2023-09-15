@@ -10,12 +10,15 @@ import {
   useDismiss,
   useRole,
   useInteractions,
-  Placement
+  Placement,
+  useHover,
+  safePolygon
 } from '@floating-ui/react'
 import { OffsetOptions } from '@floating-ui/core'
 import PopoverTrigger from './components/PopoverTrigger'
 import PopoverContent from './components/PopoverContent'
 import { PopoverContext } from './usePopoverContext'
+import { PopoverTriggerType, UsePopover } from 'Components/Popover/types'
 
 export interface PopoverProps {
   defaultOpen?: boolean
@@ -26,6 +29,7 @@ export interface PopoverProps {
    * Значение отступа от триггера https://floating-ui.com/docs/offset
    */
   offset?: OffsetOptions
+  trigger?: PopoverTriggerType
 }
 
 export function usePopover({
@@ -33,8 +37,9 @@ export function usePopover({
   open: controlledOpen,
   onOpenChange: setControlledOpen,
   placement = 'bottom',
-  offset: offsetProp = 6
-}: PopoverProps = {}): any {
+  offset: offsetProp = 6,
+  trigger = 'click'
+}: PopoverProps = {}): UsePopover {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const [labelId, setLabelId] = useState<string | undefined>()
   const [descriptionId, setDescriptionId] = useState<string | undefined>()
@@ -59,12 +64,16 @@ export function usePopover({
   const context = data.context
 
   const click = useClick(context, {
-    enabled: controlledOpen == null
+    enabled: controlledOpen === undefined && trigger === 'click'
   })
   const dismiss = useDismiss(context)
   const role = useRole(context)
+  const hover = useHover(context, {
+    enabled: trigger === 'hover',
+    handleClose: safePolygon() // не закрываем при наведении на всплывающий контент
+  })
 
-  const interactions = useInteractions([click, dismiss, role])
+  const interactions = useInteractions([click, dismiss, role, hover])
 
   return useMemo(
     () => ({
@@ -73,6 +82,7 @@ export function usePopover({
       ...interactions,
       ...data,
       labelId,
+      trigger,
       descriptionId,
       setLabelId,
       setDescriptionId

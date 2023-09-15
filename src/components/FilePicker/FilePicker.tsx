@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import UploadButton from './components/UploadButton'
+import { UploadButton } from '../UploadButton'
 import Space from 'Components/Space/Space'
 import uniqueId from 'lodash/uniqueId'
 import FilePickerItem from './components/FilePickerItem'
@@ -73,7 +73,7 @@ const FilePicker = ({
         </Space>
       )}
 
-      <UploadButton onChange={handleChange} />
+      <UploadButton onChange={handleChange} multiple />
     </Space>
   )
 }

@@ -1,19 +1,13 @@
-import React, { createContext, useContext } from 'react'
-import { usePopover } from './Popover'
+import { createContext, useContext } from 'react'
+import { UsePopover } from 'Components/Popover/types'
 
-export type ContextType =
-  | (ReturnType<typeof usePopover> & {
-      setLabelId: React.Dispatch<React.SetStateAction<string | undefined>>
-      setDescriptionId: React.Dispatch<React.SetStateAction<string | undefined>>
-    })
-  | null
+type PopoverContextType = UsePopover | null
+export const PopoverContext = createContext<PopoverContextType>(null)
 
-export const PopoverContext = createContext<ContextType>(null)
+export const usePopoverContext = (): UsePopover => {
+  const context = useContext<PopoverContextType>(PopoverContext)
 
-export const usePopoverContext = (): ContextType => {
-  const context = useContext(PopoverContext)
-
-  if (context == null) {
+  if (!context) {
     throw new Error('Popover components must be wrapped in <Popover />')
   }
 
