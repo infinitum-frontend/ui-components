@@ -51,4 +51,7 @@ export interface UsePopover {
   getReferenceProps: (
     userProps?: React.HTMLProps<Element>
   ) => Record<string, unknown>
+  returnFocus?: boolean
+  /** Куда нужно установить фокус при открытии */
+  initialFocus?: number | React.MutableRefObject<HTMLElement | null>
 }

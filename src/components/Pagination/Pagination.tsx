@@ -102,6 +102,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             className="inf-pagination__button inf-pagination__button--square"
             disabled={isPrevDisabled}
             onClick={onPrevious}
+            type="button"
           >
             <ChevronLeftIcon />
           </button>
@@ -123,6 +124,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
                 key={index}
                 disabled={disabled}
                 onClick={() => onPageChange(pageNumber as number)}
+                type="button"
               >
                 {pageNumber}
               </button>
@@ -133,6 +135,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             className="inf-pagination__button inf-pagination__button--square"
             disabled={isNextDisabled}
             onClick={onNext}
+            type="button"
           >
             <ChevronRightIcon />
           </button>
@@ -145,6 +148,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             className="inf-pagination__button"
             disabled={isPrevDisabled}
             onClick={onPrevious}
+            type="button"
           >
             {prevLabel}
           </button>
@@ -152,6 +156,7 @@ const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             className="inf-pagination__button"
             disabled={isNextDisabled}
             onClick={onNext}
+            type="button"
           >
             {nextLabel}
           </button>

@@ -27,6 +27,10 @@ export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   closeOnClickOutside?: boolean
   closeOnEsc?: boolean
   hasCloseButton?: boolean
+  /** Нужно ли вешать фокус на referenceElement при закрытии модалки */
+  returnFocus?: boolean
+  /** Куда нужно установить фокус при открытии */
+  initialFocus?: number | React.MutableRefObject<HTMLElement | null>
 }
 
 const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
@@ -40,6 +44,8 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       closeOnEsc = true,
       children,
       size = 'medium',
+      returnFocus = true,
+      initialFocus = 0,
       ...props
     },
     ref
@@ -86,7 +92,11 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             lockScroll
             data-status={status}
           >
-            <FloatingFocusManager context={context}>
+            <FloatingFocusManager
+              context={context}
+              returnFocus={returnFocus}
+              initialFocus={initialFocus}
+            >
               <div
                 ref={refs.setFloating}
                 className={cn(

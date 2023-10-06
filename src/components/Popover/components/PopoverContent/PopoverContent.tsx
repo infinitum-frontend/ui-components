@@ -37,7 +37,10 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
           <FloatingFocusManager
             context={floatingContext}
             modal={false}
-            returnFocus={context.trigger !== 'hover'} // при снятии ховера не возвращаем фокус на элемент-триггер(https://github.com/floating-ui/floating-ui/issues/1999)
+            initialFocus={context.initialFocus}
+            returnFocus={
+              context.trigger === 'hover' ? false : context.returnFocus
+            } // при снятии ховера не возвращаем фокус на элемент-триггер(https://github.com/floating-ui/floating-ui/issues/1999)
           >
             <div
               ref={ref}
