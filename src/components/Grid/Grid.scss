@@ -1,0 +1,38 @@
+.inf-grid {
+  display: grid;
+
+  @supports (width: min(var(--minimum), 100%)) {
+    grid-template-columns: repeat(
+      var(--row-fill-method),
+      minmax(min(var(--minimum), 100%), 1fr)
+    );
+  }
+
+  &--gap-xxsmall {
+    gap: var(--inf-space-xxsmall);
+  }
+
+  &--gap-xsmall {
+    gap: var(--inf-space-xsmall);
+  }
+
+  &--gap-small {
+    gap: var(--inf-space-small);
+  }
+
+  &--gap-medium {
+    gap: var(--inf-space-medium);
+  }
+
+  &--gap-large {
+    gap: var(--inf-space-large);
+  }
+
+  &--gap-xlarge {
+    gap: var(--inf-space-xlarge);
+  }
+
+  &--gap-xxlarge {
+    gap: var(--inf-space-xxlarge);
+  }
+}

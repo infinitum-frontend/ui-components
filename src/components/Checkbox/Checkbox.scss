@@ -1,10 +1,8 @@
 .inf-checkbox {
   display: inline-flex;
   align-items: baseline;
-  width: max-content;
   position: relative;
   cursor: pointer;
-  height: 20px;
 
   &--disabled {
     pointer-events: none;
