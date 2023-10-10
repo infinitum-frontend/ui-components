@@ -45,7 +45,8 @@
   "sideEffects": false,
   "peerDependencies": {
     "react-dom": ">=16.9.0",
-    "react": ">=16.9.0"
+    "react": ">=16.9.0",
+    "@tanstack/react-table": "^8.9.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
@@ -62,7 +63,6 @@
     "@storybook/react": "^7.0.6",
     "@storybook/react-vite": "^7.0.6",
     "@storybook/theming": "^7.0.6",
-    "@tanstack/react-table": "^8.9.3",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
