@@ -30,6 +30,10 @@ export interface PopoverProps {
    */
   offset?: OffsetOptions
   trigger?: PopoverTriggerType
+  /** Нужно ли вешать фокус на referenceElement при закрытии модалки */
+  returnFocus?: boolean
+  /** Куда нужно установить фокус при открытии */
+  initialFocus?: number | React.MutableRefObject<HTMLElement | null>
 }
 
 export function usePopover({
@@ -38,7 +42,9 @@ export function usePopover({
   onOpenChange: setControlledOpen,
   placement = 'bottom',
   offset: offsetProp = 6,
-  trigger = 'click'
+  trigger = 'click',
+  returnFocus = true,
+  initialFocus = 0
 }: PopoverProps = {}): UsePopover {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const [labelId, setLabelId] = useState<string | undefined>()
@@ -79,6 +85,8 @@ export function usePopover({
     () => ({
       open,
       setOpen,
+      returnFocus,
+      initialFocus,
       ...interactions,
       ...data,
       labelId,
@@ -87,7 +95,16 @@ export function usePopover({
       setLabelId,
       setDescriptionId
     }),
-    [open, setOpen, interactions, data, labelId, descriptionId]
+    [
+      open,
+      setOpen,
+      interactions,
+      data,
+      labelId,
+      descriptionId,
+      returnFocus,
+      initialFocus
+    ]
   )
 }
 
