@@ -1,5 +1,3 @@
-import DropdownMenu, { DropdownMenuProps } from './DropdownMenu'
-import { DropdownMenuItemProps } from './components/Item/DropdownMenuItem'
+import DropdownMenu from './DropdownMenu'
 
 export { DropdownMenu }
-export type { DropdownMenuProps, DropdownMenuItemProps }
