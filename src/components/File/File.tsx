@@ -1,11 +1,11 @@
 import { ReactElement } from 'react'
-import { ReactComponent as IconX } from 'Icons/bx-x.svg'
+import { ReactComponent as IconX } from 'Icons/cross.svg'
 import { ReactComponent as IconFile } from 'Icons/file.svg'
 import { ReactComponent as IconDownload } from 'Icons/download.svg'
 import './File.scss'
+import { Loader } from 'Components/Loader'
 
 export interface FileProps {
-  // file: File
   name: string
   extension: string
   size: number
@@ -14,23 +14,20 @@ export interface FileProps {
   onDeleteFile?: () => void
   deletable?: boolean
   downloadable?: boolean
+  loading?: boolean
 }
 
 const File = ({
-  // file,
   onGetFile = () => {},
   onDeleteFile = () => {},
   deletable = false,
   downloadable = false,
+  loading = false,
   name,
   extension,
   size,
   unit
 }: FileProps): ReactElement => {
-  // const { name, size, type } = file
-
-  // const fileSizeMB = Math.round((size / 1024 ** 2) * 10) / 10
-
   return (
     <div className="file">
       <div className="file__media">
@@ -44,7 +41,9 @@ const File = ({
         </div>
       </div>
 
-      {deletable && (
+      {loading ? (
+        <Loader className="file__loader" size="compact" variant="unset" />
+      ) : deletable ? (
         <button
           type="button"
           className="file__button"
@@ -54,16 +53,19 @@ const File = ({
         >
           <IconX className="file__button-icon" />
         </button>
+      ) : (
+        downloadable && (
+          <button
+            type="button"
+            className="file__button"
+            onClick={() => {
+              onGetFile()
+            }}
+          >
+            <IconDownload className="file__button-icon" />
+          </button>
+        )
       )}
-      <button
-        type="button"
-        className="file__button"
-        onClick={() => {
-          onGetFile()
-        }}
-      >
-        <IconDownload className="file__button-icon" />
-      </button>
     </div>
   )
 }

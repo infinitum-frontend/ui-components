@@ -6,22 +6,47 @@ import { File } from './index'
 const meta: Meta<typeof File> = {
   title: 'Components/File',
   component: File,
-  args: {}
+  args: {
+    name: 'Средней важности документ',
+    size: 3.4,
+    extension: 'pdf',
+    unit: 'mb'
+  }
 }
 
 export default meta
 
 const Template: StoryFn<typeof File> = (args) => {
-  return (
-    <File
-      name="Средней важности документ"
-      size={3.4}
-      extension="pdf"
-      unit="mb"
-    />
-  )
+  return <File {...args} />
 }
 
 export const Playground = {
   render: Template
+}
+
+export const Downloadable = {
+  render: Template,
+  args: {
+    downloadable: true,
+    onGetFile: () => {
+      alert('download file')
+    }
+  }
+}
+
+export const Deletable = {
+  render: Template,
+  args: {
+    deletable: true,
+    onDeleteFile: () => {
+      alert('delete file')
+    }
+  }
+}
+
+export const Loading = {
+  render: Template,
+  args: {
+    loading: true
+  }
 }
