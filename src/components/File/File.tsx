@@ -13,7 +13,6 @@ export interface FileProps {
   onGetFile?: () => void
   onDeleteFile?: () => void
   deletable?: boolean
-  downloadable?: boolean
   loading?: boolean
 }
 
@@ -21,7 +20,6 @@ const File = ({
   onGetFile = () => {},
   onDeleteFile = () => {},
   deletable = false,
-  downloadable = false,
   loading = false,
   name,
   extension,
@@ -54,17 +52,15 @@ const File = ({
           <IconX className="file__button-icon" />
         </button>
       ) : (
-        downloadable && (
-          <button
-            type="button"
-            className="file__button"
-            onClick={() => {
-              onGetFile()
-            }}
-          >
-            <IconDownload className="file__button-icon" />
-          </button>
-        )
+        <button
+          type="button"
+          className="file__button"
+          onClick={() => {
+            onGetFile()
+          }}
+        >
+          <IconDownload className="file__button-icon" />
+        </button>
       )}
     </div>
   )

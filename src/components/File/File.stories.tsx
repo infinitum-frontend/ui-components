@@ -24,16 +24,6 @@ export const Playground = {
   render: Template
 }
 
-export const Downloadable = {
-  render: Template,
-  args: {
-    downloadable: true,
-    onGetFile: () => {
-      alert('download file')
-    }
-  }
-}
-
 export const Deletable = {
   render: Template,
   args: {
