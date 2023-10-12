@@ -4,7 +4,8 @@
   align-items: center;
   border: 1px solid var(--inf-color-border-default);
   border-radius: var(--inf-border-radius-small);
-  padding: var(--inf-space-xxsmall);
+  padding: var(--inf-space-xxsmall) var(--inf-space-xsmall)
+    var(--inf-space-xxsmall) var(--inf-space-xxsmall);
 
   &__media {
     width: 40px;
@@ -22,6 +23,12 @@
     width: 24px;
     height: 24px;
     color: var(--inf-color-text-secondary); // TODO: icon token?
+  }
+
+  &__middle {
+    display: flex;
+    flex-direction: column;
+    gap: var(--inf-space-xxsmall);
   }
 
   &__title {
@@ -49,6 +56,7 @@
     margin-bottom: 2px;
     color: var(--inf-color-text-tertiary);
     transition: color 0.2s;
+    margin-right: calc(var(--inf-space-xxsmall) * -1);
 
     @include hover-active {
       color: var(--inf-color-text-secondary);
@@ -58,5 +66,9 @@
   &__button-icon {
     width: 20px;
     height: 20px;
+  }
+
+  &__loader {
+    margin-right: var(--inf-space-xxsmall);
   }
 }
