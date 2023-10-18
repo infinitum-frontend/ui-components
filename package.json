@@ -46,13 +46,13 @@
   "peerDependencies": {
     "@tanstack/react-table": "^8.9.3",
     "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "react-dom": ">=16.9.0",
+    "@floating-ui/react": "^0.18.1",
+    "@radix-ui/react-dropdown-menu": "^2.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
-    "@floating-ui/react": "^0.18.1",
     "@popperjs/core": "^2.11.6",
-    "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@storybook/addon-a11y": "^7.0.6",
     "@storybook/addon-actions": "^7.0.6",
     "@storybook/addon-essentials": "^7.0.6",
