@@ -60,8 +60,8 @@
   }
 
   &--variant-tertiary {
-    color: #46626b;
-    border: 1px solid #46626b;
+    color: var(--inf-color-secondary);
+    border: 1px solid var(--inf-color-secondary);
 
     &:hover {
       background-color: #e6f1f5;
@@ -73,14 +73,14 @@
   }
 
   &--variant-ghost {
-    color: var(--inf-color-text-secondary);
+    color: var(--inf-color-secondary);
 
     &:hover {
-      color: var(--inf-color-text-tertiary);
+      color: var(--inf-color-secondary-hover);
     }
 
     &:active {
-      color: var(--inf-color-text-tertiary);
+      color: var(--inf-color-secondary-active);
     }
   }
 
