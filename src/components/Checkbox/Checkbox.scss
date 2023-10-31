@@ -70,7 +70,7 @@
     background-color: var(--inf-checkbox-color-background);
     border-radius: var(--inf-border-radius-xsmall);
     position: relative;
-    top: 0.3em;
+    top: 0.2em;
 
     &--disabled {
       cursor: unset;
@@ -100,7 +100,7 @@
     z-index: -1;
     width: 20px;
     height: 20px;
-    top: 0.3em;
+    top: 0.2em;
 
     &:focus-visible ~ .inf-checkbox__box {
       outline: var(--inf-border-focus);
