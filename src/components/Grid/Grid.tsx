@@ -22,6 +22,28 @@ export interface GridProps {
     | 'xlarge'
     | 'xxlarge'
   /**
+   * Расстояние между рядами
+   */
+  rowGap?:
+    | 'xxsmall'
+    | 'xsmall'
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'xlarge'
+    | 'xxlarge'
+  /**
+   * Расстояние между колонками
+   */
+  columnGap?:
+  | 'xxsmall'
+  | 'xsmall'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+  /**
    * Минимальная ширина колонки
    * @example 250px
    */
@@ -56,6 +78,8 @@ function BaseGrid<C extends ElementType = 'div'>(
     min = '250px',
     gap = 'medium',
     rowFillMethod = 'auto-fit',
+    rowGap,
+    columnGap,
     templateColumns,
     templateRows,
     alignItems,
@@ -69,10 +93,19 @@ function BaseGrid<C extends ElementType = 'div'>(
   return (
     <Component
       ref={ref}
-      className={cn('inf-grid', [
-        `
-      inf-grid--gap-${gap as string}`
-      ])}
+      className={cn(
+        'inf-grid',
+        className,
+        {[
+          `
+        inf-grid--row-gap-${rowGap as string}`
+        ]: rowGap,
+        [
+          `
+        inf-grid--column-gap-${columnGap as string}`
+        ]: columnGap},
+        `inf-grid--gap-${gap as string}`
+      )}
       style={{
         '--minimum': min,
         '--row-fill-method': rowFillMethod,
