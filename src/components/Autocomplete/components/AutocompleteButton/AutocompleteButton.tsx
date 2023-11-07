@@ -3,6 +3,7 @@ import React, {
   ComponentPropsWithoutRef,
   FocusEventHandler,
   FormEventHandler,
+  MouseEvent,
   ReactElement,
   useContext,
   useEffect,
@@ -69,7 +70,6 @@ const AutocompleteButton = ({
     <SelectButton
       tabIndex={-1}
       disabled={disabled || context?.disabled}
-      onClick={context?.handleButtonClick}
       onFocus={handleFocus}
       onBlur={handleBlur}
       selected={context?.open || Boolean(children)}
@@ -77,7 +77,14 @@ const AutocompleteButton = ({
       ref={context?.buttonRef}
       focused={isFocused}
       className={cn(className, 'inf-autocomplete-button')}
-      {...context?.getReferenceProps()}
+      {...context?.getReferenceProps({
+        onClick(e) {
+          e.stopPropagation()
+          if (context?.handleButtonClick) {
+            context.handleButtonClick(e as MouseEvent<HTMLButtonElement>)
+          }
+        }
+      })}
       {...props}
     >
       {children || placeholder}

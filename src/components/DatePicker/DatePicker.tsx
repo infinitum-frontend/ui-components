@@ -1,5 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
+import React, {
+  ComponentPropsWithoutRef,
+  ReactElement,
+  useState,
+  MouseEvent
+} from 'react'
 import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
 import {
   autoUpdate,
@@ -33,6 +38,7 @@ const DatePicker = ({
   onChange,
   className,
   placeholder = '__.__.____',
+  onClick,
   ...props
 }: DatepickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -58,7 +64,13 @@ const DatePicker = ({
         ref={refs.setReference}
         className={cn('inf-datepicker', className)}
         {...props}
-        {...getReferenceProps()}
+        {...getReferenceProps({
+          onClick(e) {
+            e.stopPropagation()
+
+            onClick?.(e as MouseEvent<HTMLDivElement>)
+          }
+        })}
       >
         <MaskedInput
           placeholder={placeholder}
@@ -98,7 +110,11 @@ const DatePicker = ({
               setOpened(false)
             }}
             ref={refs.setFloating}
-            {...getFloatingProps()}
+            {...getFloatingProps({
+              onClick(e) {
+                e.stopPropagation()
+              }
+            })}
           />
         )}
       </FloatingPortal>
