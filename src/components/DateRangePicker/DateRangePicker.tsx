@@ -50,7 +50,11 @@ const DateRangePicker = ({
     <>
       <div
         ref={refs.setReference}
-        {...getReferenceProps()}
+        {...getReferenceProps({
+          onClick(e) {
+            e.stopPropagation()
+          }
+        })}
         className="inf-datepicker"
       >
         <MaskedInput
@@ -126,7 +130,11 @@ const DateRangePicker = ({
               setOpened(false)
             }}
             ref={refs.setFloating}
-            {...getFloatingProps()}
+            {...getFloatingProps({
+              onClick(e) {
+                e.stopPropagation()
+              }
+            })}
           />
         )}
       </FloatingPortal>

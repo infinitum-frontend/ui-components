@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactElement } from 'react'
+import { ComponentPropsWithoutRef, ReactElement, MouseEvent } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import { FloatingPortal } from '@floating-ui/react'
 import cn from 'classnames'
@@ -12,6 +12,7 @@ const AutocompleteDropdown = ({
   children,
   className,
   style,
+  onClick,
   ...props
 }: AutocompleteDropdownProps): ReactElement => {
   const context = useAutocompleteContext()
@@ -22,7 +23,14 @@ const AutocompleteDropdown = ({
         <div
           className={cn('inf-autocomplete-dropdown', className)}
           ref={context?.dropdownRef}
-          {...context?.getFloatingProps()}
+          {...context?.getFloatingProps({
+            onClick(e) {
+              e.stopPropagation()
+              if (onClick) {
+                onClick(e as MouseEvent<HTMLDivElement>)
+              }
+            }
+          })}
           style={{
             ...style,
             position: 'absolute',

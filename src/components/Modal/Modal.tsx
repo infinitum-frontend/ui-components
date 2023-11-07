@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef, MouseEvent } from 'react'
 import ModalBody from './components/ModalBody'
 import ModalHeader from './components/ModalHeader'
 import ModalFooter from './components/ModalFooter'
@@ -46,6 +46,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       size = 'medium',
       returnFocus = true,
       initialFocus = 0,
+      onClick,
       ...props
     },
     ref
@@ -107,7 +108,12 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                 aria-labelledby={headingId}
                 aria-describedby={descriptionId}
                 data-status={status}
-                {...getFloatingProps()}
+                {...getFloatingProps({
+                  onClick(e) {
+                    e.stopPropagation()
+                    onClick?.(e as MouseEvent<HTMLDivElement>)
+                  }
+                })}
                 {...props}
               >
                 {hasCloseButton && (

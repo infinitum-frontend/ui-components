@@ -1,9 +1,9 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, MouseEvent } from 'react'
 import { ExtendedRefs, useInteractions } from '@floating-ui/react'
 import { IAutocompleteOption } from 'Components/Autocomplete/types'
 
 export interface IAutocompleteContext {
-  handleButtonClick?: () => void
+  handleButtonClick?: (e: MouseEvent<HTMLButtonElement>) => void
   handleOptionClick?: (value: IAutocompleteOption['value']) => void
   handleInputSubmit?: () => void
   disabled?: boolean

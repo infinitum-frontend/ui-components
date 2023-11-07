@@ -30,6 +30,17 @@ const TableBody = ({
   selectedRow,
   onRowClick
 }: TableBodyProps): ReactElement => {
+  const handleRowClick = (
+    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
+    row: Row<any>
+  ): void => {
+    // клик на ряд срабатывает только в случае, если клик был на элемент внутри ячейки таблицы
+    if (!(e.target as HTMLElement).closest('td')) {
+      return
+    }
+
+    onRowClick?.(mapRowToExternalFormat(row))
+  }
   return (
     <tbody>
       {rows.map((row) => {
@@ -44,7 +55,7 @@ const TableBody = ({
               'inf-table__row--interactive': Boolean(onRowClick)
             })}
             style={row.original.style}
-            onClick={() => onRowClick?.(mapRowToExternalFormat(row))}
+            onClick={(e) => handleRowClick(e, row)}
           >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>

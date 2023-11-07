@@ -246,12 +246,15 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           focused={isFocused}
           status={status}
           onFocus={handleFocus}
-          onClick={handleClick}
           onBlur={handleBlur}
           title={typeof displayValue === 'string' ? displayValue : ''}
           className={cn(className, 'inf-select')}
           {...getReferenceProps({
-            onKeyDown: handleKeyDown
+            onKeyDown: handleKeyDown,
+            onClick(e) {
+              e.stopPropagation()
+              handleClick(e as any)
+            }
           })}
           {...props}
         >
@@ -290,7 +293,11 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
               ref={refs.setFloating}
               className="inf-select__items"
               data-selector="inf-select-items"
-              {...getFloatingProps()}
+              {...getFloatingProps({
+                onClick(e) {
+                  e.stopPropagation()
+                }
+              })}
             >
               {Boolean(options.length) &&
                 options.map((option, index) => (

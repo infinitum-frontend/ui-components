@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { forwardRef, ComponentPropsWithoutRef } from 'react'
+import React, { forwardRef, ComponentPropsWithoutRef, MouseEvent } from 'react'
 import { usePopoverContext } from '../../usePopoverContext'
 import {
   useMergeRefs,
@@ -24,6 +24,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
       children,
       style,
       className,
+      onClick,
       ...props
     }: PopoverContentProps,
     propRef
@@ -61,7 +62,13 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
               )}
               aria-labelledby={context.labelId}
               aria-describedby={context.descriptionId}
-              {...context.getFloatingProps(props)}
+              {...context.getFloatingProps({
+                ...props,
+                onClick(e) {
+                  e.stopPropagation()
+                  onClick?.(e as MouseEvent<HTMLDivElement>)
+                }
+              })}
             >
               {children}
             </div>
