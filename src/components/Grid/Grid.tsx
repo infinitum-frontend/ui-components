@@ -36,13 +36,13 @@ export interface GridProps {
    * Расстояние между колонками
    */
   columnGap?:
-  | 'xxsmall'
-  | 'xsmall'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xlarge'
-  | 'xxlarge'
+    | 'xxsmall'
+    | 'xsmall'
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'xlarge'
+    | 'xxlarge'
   /**
    * Минимальная ширина колонки
    * @example 250px
@@ -96,14 +96,12 @@ function BaseGrid<C extends ElementType = 'div'>(
       className={cn(
         'inf-grid',
         className,
-        {[
-          `
-        inf-grid--row-gap-${rowGap as string}`
-        ]: rowGap,
-        [
-          `
-        inf-grid--column-gap-${columnGap as string}`
-        ]: columnGap},
+        {
+          [`
+        inf-grid--row-gap-${rowGap as string}`]: rowGap,
+          [`
+        inf-grid--column-gap-${columnGap as string}`]: columnGap
+        },
         `inf-grid--gap-${gap as string}`
       )}
       style={{

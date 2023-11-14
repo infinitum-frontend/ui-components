@@ -2,7 +2,6 @@
 import React, {
   ReactElement,
   ReactNode,
-  MouseEvent,
   cloneElement,
   useState,
   useRef,
@@ -51,7 +50,6 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       open: controlledOpen,
       onOpenChange: setControlledOpen,
       variant = 'default',
-      onClick,
       ...props
     },
     propRef
@@ -127,11 +125,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     const triggerProps = {
       ref: refs.setReference,
-      ...getReferenceProps({
-        onClick(e) {
-          e.stopPropagation()
-        }
-      }),
+      ...getReferenceProps(),
       'data-tooltip-state': open ? 'open' : 'closed'
     }
 
@@ -151,13 +145,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
                 left: x ?? 0,
                 visibility: context.x == null ? 'hidden' : 'visible'
               }}
-              {...getFloatingProps({
-                ...props,
-                onClick(e) {
-                  e.stopPropagation()
-                  onClick?.(e as MouseEvent<HTMLDivElement>)
-                }
-              })}
+              {...getFloatingProps(props)}
             >
               <div
                 className={cn(
