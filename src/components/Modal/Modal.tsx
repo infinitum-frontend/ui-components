@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, MouseEvent } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
 import ModalBody from './components/ModalBody'
 import ModalHeader from './components/ModalHeader'
 import ModalFooter from './components/ModalFooter'
@@ -46,7 +46,6 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       size = 'medium',
       returnFocus = true,
       initialFocus = 0,
-      onClick,
       ...props
     },
     ref
@@ -90,6 +89,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           <FloatingOverlay
             ref={ref}
             className="inf-modal-container"
+            onClick={(e) => e.stopPropagation()}
             lockScroll
             data-status={status}
           >
@@ -108,12 +108,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                 aria-labelledby={headingId}
                 aria-describedby={descriptionId}
                 data-status={status}
-                {...getFloatingProps({
-                  onClick(e) {
-                    e.stopPropagation()
-                    onClick?.(e as MouseEvent<HTMLDivElement>)
-                  }
-                })}
+                {...getFloatingProps()}
                 {...props}
               >
                 {hasCloseButton && (

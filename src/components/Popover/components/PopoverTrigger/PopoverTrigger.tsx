@@ -4,8 +4,7 @@ import React, {
   isValidElement,
   cloneElement,
   ReactNode,
-  HTMLProps,
-  MouseEvent
+  HTMLProps
 } from 'react'
 import { useMergeRefs } from '@floating-ui/react'
 import { usePopoverContext } from '../../usePopoverContext'
@@ -17,7 +16,7 @@ export interface PopoverTriggerProps {
 const PopoverTrigger = forwardRef<
   HTMLElement,
   HTMLProps<HTMLElement> & PopoverTriggerProps
->(function PopoverTrigger({ children, onClick, ...props }, propRef) {
+>(function PopoverTrigger({ children, ...props }, propRef) {
   const context = usePopoverContext()
   const childrenRef = (children as any).ref
   const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef])
@@ -27,10 +26,6 @@ const PopoverTrigger = forwardRef<
       children,
       context.getReferenceProps({
         ref,
-        onClick(e) {
-          e.stopPropagation()
-          onClick?.(e as MouseEvent<HTMLDivElement>)
-        },
         ...props,
         ...children.props,
         'data-popover-state': context.open ? 'open' : 'closed'
