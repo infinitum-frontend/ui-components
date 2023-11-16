@@ -120,6 +120,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
       if (e.key === 'Enter' && onSubmit) {
         onSubmit(e)
+        e.currentTarget?.blur()
+        setFocus(false)
       }
     }
 

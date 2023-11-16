@@ -30,6 +30,11 @@ export interface DatepickerProps
   placeholder?: string
   /** Строка в формате YYYY-MM-DD */
   onChange?: (date: string) => void
+  /** Строка в формате YYYY-MM-DD */
+  min?: string
+  /** Строка в формате YYYY-MM-DD */
+  max?: string
+  required?: boolean
 }
 
 const DatePicker = ({
@@ -39,6 +44,9 @@ const DatePicker = ({
   className,
   placeholder = '__.__.____',
   onClick,
+  min,
+  max,
+  required,
   ...props
 }: DatepickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -88,6 +96,7 @@ const DatePicker = ({
           }}
           postfix={<IconCalendar />}
           value={displayValue}
+          required={required}
           onPostfixClick={() => setOpened((prev) => !prev)}
           disabled={disabled}
           onFocus={() => setOpened(true)}
@@ -103,6 +112,8 @@ const DatePicker = ({
               top: y ?? 0,
               left: x ?? 0
             }}
+            min={min}
+            max={max}
             className="inf-datepicker__dropdown"
             value={value ? createDate(value) : new Date()}
             onChange={(date) => {

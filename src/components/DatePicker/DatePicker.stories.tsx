@@ -17,7 +17,13 @@ const Template: StoryFn<typeof DatePicker> = (args) => {
 
   return (
     <>
-      <DatePicker {...args} value={value} onChange={setValue} />
+      <DatePicker
+        {...args}
+        value={value}
+        onChange={setValue}
+        min="2023-11-15"
+        max="2023-11-20"
+      />
       <span>Значение: {value}</span>
     </>
   )

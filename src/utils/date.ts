@@ -52,7 +52,11 @@ export interface DayMatrixInfo {
   disabled?: boolean
 }
 // Получить по дате массив, состоящий из подмассивов с неделями, где элементами являются конкретные дни
-export function getDaysMatrix(date: Date): DayMatrixInfo[][] {
+export function getDaysMatrix(
+  date: Date,
+  min?: string,
+  max?: string
+): DayMatrixInfo[][] {
   const activeYear = date.getFullYear()
   const activeMonth = date.getMonth()
   const firstDayInMonth = new Date(activeYear, activeMonth, 1)
@@ -78,9 +82,11 @@ export function getDaysMatrix(date: Date): DayMatrixInfo[][] {
 
       const day = date.getDate()
 
+      console.log('calling with', min, max)
       matrix[week].push({
         day,
-        date
+        date,
+        disabled: isDayDisabled(date, min, max)
       })
     }
   }
@@ -136,4 +142,16 @@ export function formatDateToISO(value: Date): string {
   // учитываем часовой пояс, чтобы не изменилась дата, когда обережем данные о времени у ISO формата
   const timezoneOffset = value.getTimezoneOffset() * 60000
   return new Date(value.getTime() - timezoneOffset).toISOString().split('T')[0]
+}
+
+export function isDateValid(dateStr: string): boolean {
+  return Boolean(dateStr) && !Number.isNaN(new Date(dateStr))
+}
+
+function isDayDisabled(date: Date, min?: string, max?: string): boolean {
+  const isBeforeMin =
+    min && isDateValid(min) && new Date(min).getDate() > date?.getDate()
+  const isAfterMax =
+    max && isDateValid(max) && new Date(max).getDate() < date?.getDate()
+  return Boolean(isBeforeMin || isAfterMax)
 }

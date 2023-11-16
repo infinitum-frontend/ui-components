@@ -151,6 +151,7 @@ const Table = ({
               <Checkbox
                 checked={Boolean(table.getIsAllRowsSelected())}
                 indeterminate={table.getIsSomeRowsSelected()}
+                onClick={(e) => e.stopPropagation()}
                 onChange={(value, e) =>
                   table.getToggleAllRowsSelectedHandler().call({}, e)
                 }
@@ -163,6 +164,7 @@ const Table = ({
                 <Checkbox
                   checked={row.getIsSelected()}
                   indeterminate={row.getIsSomeSelected()}
+                  onClick={(e) => e.stopPropagation()}
                   onChange={row.getToggleSelectedHandler()}
                 />
               </div>
