@@ -50,7 +50,6 @@ const Template: StoryFn<typeof Input> = ({ value, ...args }) => {
       {...args}
       onFocus={action('focus')}
       onBlur={action('blur')}
-      onSubmit={() => console.log('submit')}
       onChange={action('change')}
     />
   )

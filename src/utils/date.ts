@@ -82,7 +82,6 @@ export function getDaysMatrix(
 
       const day = date.getDate()
 
-      console.log('calling with', min, max)
       matrix[week].push({
         day,
         date,
