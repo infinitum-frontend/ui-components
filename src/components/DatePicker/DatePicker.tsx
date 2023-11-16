@@ -34,7 +34,6 @@ export interface DatepickerProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
-  required?: boolean
 }
 
 const DatePicker = ({
@@ -46,7 +45,6 @@ const DatePicker = ({
   onClick,
   min,
   max,
-  required,
   ...props
 }: DatepickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -96,7 +94,6 @@ const DatePicker = ({
           }}
           postfix={<IconCalendar />}
           value={displayValue}
-          required={required}
           onPostfixClick={() => setOpened((prev) => !prev)}
           disabled={disabled}
           onFocus={() => setOpened(true)}
