@@ -149,8 +149,8 @@ export function isDateValid(dateStr: string): boolean {
 
 function isDayDisabled(date: Date, min?: string, max?: string): boolean {
   const isBeforeMin =
-    min && isDateValid(min) && new Date(min).getDate() > date?.getDate()
+    min && isDateValid(min) && new Date(min).getTime() > date?.getTime()
   const isAfterMax =
-    max && isDateValid(max) && new Date(max).getDate() < date?.getDate()
+    max && isDateValid(max) && new Date(max).getTime() < date?.getTime()
   return Boolean(isBeforeMin || isAfterMax)
 }
