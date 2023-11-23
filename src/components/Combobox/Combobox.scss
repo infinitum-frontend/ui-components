@@ -1,0 +1,18 @@
+.inf-combobox {
+  &__counter {
+    display: flex;
+    gap: var(--inf-space-xxsmall);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--inf-border-radius-small);
+    background-color: var(--inf-color-background-inverse);
+    padding: 0 4px 0 8px;
+    height: 24px;
+    min-width: 24px;
+    width: max-content;
+  }
+
+  &__tags {
+    margin-top: var(--inf-space-medium);
+  }
+}

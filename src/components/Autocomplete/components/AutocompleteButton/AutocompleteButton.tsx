@@ -14,11 +14,14 @@ import './AutocompleteButton.scss'
 import SelectButton from 'Components/Select/components/SelectButton'
 import cn from 'classnames'
 import FormGroupContext from 'Components/Form/context/group'
+import { IAutocompleteOption } from '../../types'
 
 export interface AutocompleteButtonProps
   extends ComponentPropsWithoutRef<'button'> {
   /** Плейсхолдер, отображаемый в случае, когда не передан слот */
   placeholder?: string
+  /** Выбранное значение. Берем отсюда или из контекста */
+  value?: IAutocompleteOption['value']
 }
 
 /** Компонент кнопки-триггера для вызова выпадающего списка */
@@ -27,12 +30,15 @@ const AutocompleteButton = ({
   disabled,
   className,
   children,
+  value,
   ...props
 }: AutocompleteButtonProps): ReactElement => {
   const [isFocused, setFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const context = useAutocompleteContext()
   const formGroupContext = useContext(FormGroupContext)
+
+  const selectedValue = value || context?.selectedValue || ''
 
   useEffect(() => {
     if (!context?.open) {
@@ -82,7 +88,7 @@ const AutocompleteButton = ({
     >
       {children || placeholder}
       <input
-        value={context?.selectedValue}
+        value={selectedValue}
         onChange={() => null}
         type="text"
         required={context?.required || formGroupContext?.required}

@@ -69,8 +69,8 @@
     color: white;
     background-color: var(--inf-checkbox-color-background);
     border-radius: var(--inf-border-radius-xsmall);
-    position: relative;
-    top: 0.2em;
+    // position: relative;
+    // top: 0.2em;
 
     &--disabled {
       cursor: unset;
