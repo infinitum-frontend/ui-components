@@ -70,11 +70,12 @@ const Combobox = ({
 
   const checkedCount = checkedList.length
   return (
-    <Autocomplete className="inf-combobox" {...props}>
-      <Autocomplete.Button
-        placeholder={placeholder}
-        value={checkedList[0] || undefined}
-      >
+    <Autocomplete
+      className="inf-combobox"
+      {...props}
+      selectedValue={checkedList[0]}
+    >
+      <Autocomplete.Button placeholder={placeholder}>
         {checkedCount > 0 ? (
           <Space direction="horizontal" align="center">
             <Text color="inverse" className="inf-combobox__counter">

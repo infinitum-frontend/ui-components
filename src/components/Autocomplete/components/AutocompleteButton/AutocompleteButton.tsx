@@ -37,8 +37,9 @@ const AutocompleteButton = ({
   const inputRef = useRef<HTMLInputElement>(null)
   const context = useAutocompleteContext()
   const formGroupContext = useContext(FormGroupContext)
-
-  const selectedValue = value || context?.selectedValue || ''
+  const selectedValue = Array.isArray(context?.selectedValue)
+    ? context?.selectedValue[0]
+    : context?.selectedValue || ''
 
   useEffect(() => {
     if (!context?.open) {
@@ -83,7 +84,7 @@ const AutocompleteButton = ({
       ref={context?.buttonRef}
       focused={isFocused}
       className={cn(className, 'inf-autocomplete-button')}
-      {...context?.getReferenceProps()}
+      {...(context?.getReferenceProps ? context?.getReferenceProps() : {})}
       {...props}
     >
       {children || placeholder}

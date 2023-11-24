@@ -10,12 +10,14 @@ export interface IAutocompleteContext {
   required?: boolean
   buttonRef?: ExtendedRefs<HTMLButtonElement>['setReference']
   dropdownRef?: ExtendedRefs<HTMLDivElement>['setFloating']
-  getReferenceProps: ReturnType<typeof useInteractions>['getReferenceProps']
-  getFloatingProps: ReturnType<typeof useInteractions>['getFloatingProps']
+  getReferenceProps?: ReturnType<typeof useInteractions>['getReferenceProps']
+  getFloatingProps?: ReturnType<typeof useInteractions>['getFloatingProps']
   x?: number | null
   y?: number | null
   open?: boolean
-  selectedValue?: IAutocompleteOption['value']
+  selectedValue?:
+    | IAutocompleteOption['value']
+    | Array<IAutocompleteOption['value']>
   // setActiveItem?: (value: IAutocompleteOption['value']) => void
   // activeItem?: IAutocompleteOption['value']
   // registerOption: (value: IAutocompleteOption['value']) => void
