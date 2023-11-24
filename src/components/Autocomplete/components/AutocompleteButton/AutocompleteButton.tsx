@@ -84,7 +84,7 @@ const AutocompleteButton = ({
       ref={context?.buttonRef}
       focused={isFocused}
       className={cn(className, 'inf-autocomplete-button')}
-      {...(context?.getReferenceProps ? context?.getReferenceProps() : {})}
+      {...context?.getReferenceProps()}
       {...props}
     >
       {children || placeholder}
