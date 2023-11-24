@@ -1,0 +1,29 @@
+.inf-tag {
+  font: var(--inf-font-body-1);
+  color: var(--inf-color-text-primary);
+  border: 1px solid var(--inf-color-border-default);
+  background-color: var(--inf-color-background-secondary);
+  border-radius: var(--inf-border-radius-xsmall);
+  padding: 6px var(--inf-space-xsmall);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--inf-space-xxsmall);
+
+  &__remove-button {
+    display: flex;
+    color: var(--inf-color-icon-secondary);
+    cursor: pointer;
+    padding: 6px;
+    margin: -6px;
+    transition: color 0.2s;
+
+    @include hover {
+      color: var(--inf-color-text-secondary);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

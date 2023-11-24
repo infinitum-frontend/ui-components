@@ -33,6 +33,9 @@ const AutocompleteButton = ({
   const inputRef = useRef<HTMLInputElement>(null)
   const context = useAutocompleteContext()
   const formGroupContext = useContext(FormGroupContext)
+  const selectedValue = Array.isArray(context?.selectedValue)
+    ? context?.selectedValue[0]
+    : context?.selectedValue || ''
 
   useEffect(() => {
     if (!context?.open) {
@@ -82,7 +85,7 @@ const AutocompleteButton = ({
     >
       {children || placeholder}
       <input
-        value={context?.selectedValue}
+        value={selectedValue}
         onChange={() => null}
         type="text"
         required={context?.required || formGroupContext?.required}
