@@ -21,10 +21,14 @@ export interface DateCalendarProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   value: Date
   onChange: (date: Date) => void
+  /** Строка в формате YYYY-MM-DD */
+  min?: string
+  /** Строка в формате YYYY-MM-DD */
+  max?: string
 }
 
 const DateCalendar = forwardRef<HTMLDivElement, DateCalendarProps>(
-  ({ value, onChange, className, ...props }, ref) => {
+  ({ value, onChange, min, max, className, ...props }, ref) => {
     const [localDate, setLocalDate] = useState(value)
     const [selectedView, setSelectedView] = useState<'day' | 'month' | 'year'>(
       'day'
@@ -85,6 +89,8 @@ const DateCalendar = forwardRef<HTMLDivElement, DateCalendarProps>(
             value={value}
             onChange={handleDayClick}
             displayValue={localDate}
+            min={min}
+            max={max}
           />
         )}
 

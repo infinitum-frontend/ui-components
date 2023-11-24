@@ -8,14 +8,18 @@ export interface CalendarDaysProps {
   displayValue: Date
   value?: Date
   onChange: (date: Date) => void
+  min?: string
+  max?: string
 }
 
 const DateCalendarDays = ({
   displayValue,
   value = new Date(),
-  onChange
+  onChange,
+  min,
+  max
 }: CalendarDaysProps): ReactElement => {
-  const days = getDaysMatrix(displayValue)
+  const days = getDaysMatrix(displayValue, min, max)
 
   return (
     <div className="inf-calendar-days">
@@ -37,7 +41,8 @@ const DateCalendarDays = ({
               className={cn('inf-calendar-item', {
                 'inf-calendar-item--selected':
                   el.date.toLocaleDateString() === value?.toLocaleDateString(),
-                'inf-calendar-item--empty': !el.day
+                'inf-calendar-item--empty': !el.day,
+                'inf-calendar-item__disabled': el.disabled
               })}
               onClick={() => {
                 if (el.date) {
