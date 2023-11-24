@@ -121,6 +121,7 @@ const Combobox = ({
             <Menu.Item as="label" key={option.value}>
               <Menu.Item.Icon>
                 <Checkbox
+                  className="inf-combobox__checkbox"
                   checked={Boolean(checkedList.find((i) => i === option.value))}
                   onChange={(checked) => handleChange(checked, option.value)}
                 />
