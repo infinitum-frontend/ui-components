@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement } from 'react'
+import React, { CSSProperties, ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
 import { TableRow } from 'Components/Table/types'
@@ -10,6 +10,7 @@ interface TableBodyProps {
   rows: Array<Row<any>>
   selectedRow?: string | number | ((row: TableRow<any>) => boolean)
   onRowClick?: (row: TableRow<any>) => void
+  verticalAlignBody: CSSProperties['verticalAlign']
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
@@ -28,7 +29,8 @@ const checkSelected = (
 const TableBody = ({
   rows,
   selectedRow,
-  onRowClick
+  onRowClick,
+  verticalAlignBody
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -58,7 +60,12 @@ const TableBody = ({
             onClick={(e) => handleRowClick(e, row)}
           >
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
+              <td
+                key={cell.id}
+                style={{
+                  verticalAlign: verticalAlignBody
+                }}
+              >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}

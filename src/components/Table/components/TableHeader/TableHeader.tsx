@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { MouseEvent, ReactElement } from 'react'
+import React, { CSSProperties, MouseEvent, ReactElement } from 'react'
 import {
   Column,
   ColumnMeta,
@@ -27,6 +27,7 @@ interface TableHeaderProps {
     column: Column<any>
   ) => void
   resizeMode?: ColumnResizeMode
+  verticalAlignHead?: CSSProperties['verticalAlign']
 }
 
 const TableHeader = ({
@@ -35,7 +36,8 @@ const TableHeader = ({
   withFiltering = false,
   filtersState = [],
   onFiltersChange,
-  resizeMode
+  resizeMode,
+  verticalAlignHead
 }: TableHeaderProps): ReactElement => {
   const handleColumnClick = (e: MouseEvent, column: Column<any>): void => {
     if (withSorting) {
@@ -72,6 +74,7 @@ const TableHeader = ({
               key={header.id}
               colSpan={header.colSpan}
               style={{
+                verticalAlign: verticalAlignHead,
                 // обработка ширины столбцов
                 width: header.getSize()
               }}

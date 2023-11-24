@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useMemo } from 'react'
+import React, { CSSProperties, ReactElement, useMemo } from 'react'
 import {
   Column,
   ColumnDef,
@@ -35,6 +35,12 @@ export interface TableProps extends TableBaseProps {
   columns?: Array<ColumnDef<any, any>>
   /** Массив с данными для построения тела таблицы */
   rows?: Array<TableRowData<any>>
+  /** Скругление границ таблицы */
+  borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
+  /** CSS свойство vertical-align для шапки */
+  verticalAlignHead?: CSSProperties['verticalAlign']
+  /** CSS свойство vertical-align для рядов */
+  verticalAlignBody?: CSSProperties['verticalAlign']
   /** Максимальное количество отображаемых элементов */
   maxLength?: number
   /** Включение сортировки по столбцам */
@@ -70,6 +76,9 @@ const Table = ({
   columns = [],
   rows = [],
   className,
+  borderRadius,
+  verticalAlignHead = 'top',
+  verticalAlignBody,
   maxLength,
   withSorting,
   onSortingChange,
@@ -202,6 +211,7 @@ const Table = ({
   return (
     <table
       className={cn('inf-table', className, {
+        [`inf-table--border-radius-${borderRadius as string}`]: borderRadius,
         'inf-table--bordered': props.bordered
       })}
       {...props}
@@ -213,12 +223,14 @@ const Table = ({
         filtersState={filtersState}
         onFiltersChange={handleFiltersChange}
         resizeMode={resizeMode}
+        verticalAlignHead={verticalAlignHead}
       />
       <TableBody
         rows={tableRows}
         selectedRow={selectedRow}
         onRowClick={onRowClick}
         // grouping={enableGrouping}
+        verticalAlignBody={verticalAlignBody}
       />
     </table>
   )
