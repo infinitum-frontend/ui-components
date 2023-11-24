@@ -23,14 +23,16 @@ const AutocompleteDropdown = ({
         <div
           className={cn('inf-autocomplete-dropdown', className)}
           ref={context?.dropdownRef}
-          {...context?.getFloatingProps({
-            onClick(e) {
-              e.stopPropagation()
-              if (onClick) {
-                onClick(e as MouseEvent<HTMLDivElement>)
-              }
-            }
-          })}
+          {...(context?.getFloatingProps
+            ? context?.getFloatingProps({
+                onClick(e) {
+                  e.stopPropagation()
+                  if (onClick) {
+                    onClick(e as MouseEvent<HTMLDivElement>)
+                  }
+                }
+              })
+            : {})}
           style={{
             ...style,
             position: 'absolute',
