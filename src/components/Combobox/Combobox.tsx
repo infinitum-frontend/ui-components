@@ -23,6 +23,11 @@ export interface ComboboxProps
   showTags?: boolean
 }
 
+const filterFn = (options: SelectOption[], value: string): SelectOption[] =>
+  options.filter((option) =>
+    (option.label as string)?.toLowerCase().match(value.toLowerCase())
+  )
+
 const Combobox = ({
   options = [],
   placeholder,
@@ -36,7 +41,7 @@ const Combobox = ({
   const [searchQuery, setSearchQuery] = useState('')
 
   useUpdateEffect(() => {
-    setFilteredOptions(options)
+    setFilteredOptions(filterFn(options, searchQuery))
   }, [options])
 
   const checkedOptions = options.filter((option) => {
@@ -45,11 +50,7 @@ const Combobox = ({
 
   const handleSearchChange = (value: string): void => {
     setSearchQuery(value)
-    setFilteredOptions(
-      options.filter((option) =>
-        (option.label as string)?.toLowerCase().match(value.toLowerCase())
-      )
-    )
+    setFilteredOptions(filterFn(options, value))
   }
 
   const handleChange = (checked: Boolean, value: CheckedItem): void => {
