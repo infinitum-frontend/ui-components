@@ -1,8 +1,8 @@
 .inf-link {
   display: inline-block;
   color: var(--inf-color-text-link);
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   cursor: pointer;
   width: max-content;
   line-height: 1;
@@ -12,4 +12,8 @@
   }
 
   @include focus-styles;
+
+  &--display-inline {
+    display: inline;
+  }
 }

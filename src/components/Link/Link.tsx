@@ -6,6 +6,8 @@ import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LinkProps {
+  /** CSS свойство display: inline */
+  displayInline?: boolean
   // underline: 'always' | 'hover' | 'none'
   // weight?: 'normal' | 'bold'
 }
@@ -14,10 +16,12 @@ function BaseLink<C extends ElementType = 'a'>(
   props: PolymorphicComponent<C, LinkProps>,
   ref: PolymorphicRef<C>
 ): ReactElement {
-  const { as = 'a', children, className, ...rest } = props
+  const { as = 'a', children, className, displayInline, ...rest } = props
 
   const getClassNames: () => string = () => {
-    return classNames('inf-link', className)
+    return classNames('inf-link', className, {
+      'inf-link--display-inline': displayInline
+    })
   }
 
   const Component = as
