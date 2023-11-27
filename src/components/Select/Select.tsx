@@ -59,6 +59,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       autoFocus = false,
       value,
       disabled: disabledProp = false,
+      loading = false,
       placeholder = defaultSelectItem.label as string,
       required = false,
       status,
@@ -242,6 +243,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           tabIndex={-1}
           ref={mergeRefs([ref, refs.setReference, displayRef])}
           disabled={disabled}
+          loading={loading}
           selected={isValueExists}
           focused={isFocused}
           status={status}
