@@ -28,7 +28,7 @@
   }
 
   &--scrollable {
-    overflow-y: scroll;
+    overflow-y: auto;
 
     &::-webkit-scrollbar {
       width: 7px;

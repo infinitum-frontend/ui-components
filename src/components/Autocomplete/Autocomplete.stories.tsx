@@ -2,11 +2,14 @@ import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Autocomplete } from './index'
 import { useState } from 'react'
 import { IAutocompleteOption } from './types'
-import { AutocompleteBaseOptions } from './fixtures'
+import { AutocompleteBaseOptions, AutocompleteLongOptions } from './fixtures'
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Form/Autocomplete',
   component: Autocomplete,
+  args: {
+    options: AutocompleteBaseOptions
+  },
   subcomponents: {
     'Autocomplete.Button': Autocomplete.Button,
     'Autocomplete.Input': Autocomplete.Input,
@@ -25,7 +28,6 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
     <Autocomplete
       {...args}
       onChange={(value) => setSelectedItem(value)}
-      options={AutocompleteBaseOptions}
       selectedValue={selectedItem}
     />
   )
@@ -33,6 +35,14 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
 
 export const Playground = {
   render: Template
+}
+
+export const Scrollable = {
+  render: Template,
+  args: {
+    maxHeight: 200,
+    options: AutocompleteLongOptions
+  }
 }
 
 export const Disabled = {
