@@ -1,6 +1,8 @@
 .inf-select-button {
   position: relative;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   user-select: none;
   appearance: none;
   text-align: left;
