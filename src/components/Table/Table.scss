@@ -66,6 +66,7 @@
       border: 1px solid var(--inf-color-border-default);
     }
   }
+
   &--border-radius-xsmall{
     border-collapse: separate;
     border-spacing: 0;
@@ -86,6 +87,7 @@
       border-bottom-right-radius: var(--inf-border-radius-xsmall);
     }
   }
+
   &--border-radius-small{
     border-collapse: separate;
     border-spacing: 0;
@@ -106,6 +108,7 @@
       border-bottom-right-radius: var(--inf-border-radius-small);
     }
   }
+
   &--border-radius-medium {
     border-collapse: separate;
     border-spacing: 0;
@@ -126,6 +129,7 @@
       border-bottom-right-radius: var(--inf-border-radius-medium);
     }
   }
+
   &--border-radius-large {
     border-collapse: separate;
     border-spacing: 0;
@@ -145,5 +149,17 @@
     tbody tr:last-child td:last-child {
       border-bottom-right-radius: var(--inf-border-radius-large);
     }
+  }
+
+  $vertical-align-values: ("baseline", "bottom", "middle", "sub", "super", "text-bottom", "text-top", "top");
+
+  @mixin vertical-align($vertical-align-value) {
+    &--vertical-align-#{$vertical-align-value} td {
+      vertical-align: #{$vertical-align-value};
+    }
+  }
+
+  @each $vertical-align-value in $vertical-align-values {
+    @include vertical-align($vertical-align-value);
   }
 }

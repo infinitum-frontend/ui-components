@@ -13,7 +13,8 @@ import TableHeaderSort from './TableHeaderSort'
 import './TableHeader.scss'
 import {
   TableColumnFiltersState,
-  TableColumnFilterValue
+  TableColumnFilterValue,
+  TableVerticalAlignValue
 } from 'Components/Table/types'
 
 interface TableHeaderProps {
@@ -27,7 +28,7 @@ interface TableHeaderProps {
     column: Column<any>
   ) => void
   resizeMode?: ColumnResizeMode
-  verticalAlignHead?: CSSProperties['verticalAlign']
+  verticalAlignHead?: TableVerticalAlignValue
 }
 
 const TableHeader = ({
@@ -66,7 +67,12 @@ const TableHeader = ({
   }
 
   return (
-    <thead className="inf-table-header">
+    <thead
+      className={cn('inf-table-header', {
+        [`inf-table-header--vertical-align-${verticalAlignHead as string}`]:
+          verticalAlignHead
+      })}
+    >
       {table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header) => (
@@ -74,7 +80,6 @@ const TableHeader = ({
               key={header.id}
               colSpan={header.colSpan}
               style={{
-                verticalAlign: verticalAlignHead,
                 // обработка ширины столбцов
                 width: header.getSize()
               }}

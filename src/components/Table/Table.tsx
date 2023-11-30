@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { CSSProperties, ReactElement, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import {
   Column,
   ColumnDef,
@@ -23,7 +23,8 @@ import {
   TableRow,
   TableRowData,
   TableSelectedRow,
-  TableSelectionState
+  TableSelectionState,
+  TableVerticalAlignValue
 } from './types'
 import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
@@ -38,9 +39,9 @@ export interface TableProps extends TableBaseProps {
   /** Скругление границ таблицы */
   borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
   /** CSS свойство vertical-align для шапки */
-  verticalAlignHead?: CSSProperties['verticalAlign']
+  verticalAlignHead?: TableVerticalAlignValue
   /** CSS свойство vertical-align для рядов */
-  verticalAlignBody?: CSSProperties['verticalAlign']
+  verticalAlignBody?: TableVerticalAlignValue
   /** Максимальное количество отображаемых элементов */
   maxLength?: number
   /** Включение сортировки по столбцам */
