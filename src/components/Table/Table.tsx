@@ -63,6 +63,8 @@ export interface TableProps extends TableBaseProps {
   resizeMode?: ColumnResizeMode
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
+  /** Состояние loading */
+  loading?: boolean
 }
 
 /** Компонент многофункциональной таблицы */
@@ -84,6 +86,7 @@ const Table = ({
   onRowClick,
   resizeMode,
   // enableGrouping = false,
+  loading = false,
   children,
   ...props
 }: TableProps): ReactElement => {
@@ -220,6 +223,7 @@ const Table = ({
         rows={tableRows}
         selectedRow={selectedRow}
         onRowClick={onRowClick}
+        loading={loading}
         // grouping={enableGrouping}
       />
     </table>

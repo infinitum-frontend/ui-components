@@ -4,12 +4,15 @@ import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
 import { TableRow } from 'Components/Table/types'
 import { mapRowToExternalFormat } from 'Components/Table/helpers'
+import { Skeleton } from '~/src/components/Skeleton'
+import { borderRadius } from '~/src/tokens'
 
 interface TableBodyProps {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
   rows: Array<Row<any>>
   selectedRow?: string | number | ((row: TableRow<any>) => boolean)
   onRowClick?: (row: TableRow<any>) => void
+  loading?: boolean
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
@@ -28,7 +31,8 @@ const checkSelected = (
 const TableBody = ({
   rows,
   selectedRow,
-  onRowClick
+  onRowClick,
+  loading
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -59,7 +63,17 @@ const TableBody = ({
           >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                {loading ? (
+                  <Skeleton
+                    style={{
+                      borderRadius: borderRadius.large,
+                      height: '20px',
+                      width: '100%'
+                    }}
+                  />
+                ) : (
+                  flexRender(cell.column.columnDef.cell, cell.getContext())
+                )}
               </td>
             ))}
           </tr>
