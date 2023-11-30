@@ -21,6 +21,8 @@ export interface ComboboxProps
   required?: boolean
   onChange?: (checkedList: CheckedItem[]) => void
   showTags?: boolean
+  /** Максимальная высота контента, после которой начинается скролл */
+  maxHeight?: number
 }
 
 const filterFn = (options: SelectOption[], value: string): SelectOption[] =>
@@ -35,6 +37,7 @@ const Combobox = ({
   onChange,
   showTags,
   displayValue,
+  maxHeight,
   ...props
 }: ComboboxProps): ReactElement => {
   const [filteredOptions, setFilteredOptions] = useState(options)
@@ -73,6 +76,7 @@ const Combobox = ({
   return (
     <Autocomplete
       className="inf-combobox"
+      maxHeight={maxHeight}
       {...props}
       selectedValue={checkedList[0]}
     >
