@@ -6,13 +6,12 @@
   border-radius: var(--inf-border-radius-small);
 
   thead {
-    background-color: var(--inf-color-background-secondary);
     border-bottom: 1px solid var(--inf-color-border-default);
   }
 
   th {
+    background-color: var(--inf-color-background-secondary);
     text-align: left;
-    vertical-align: top;
     color: var(--inf-color-text-secondary);
     font: var(--inf-font-body-1);
     padding: var(--inf-space-medium);
@@ -66,5 +65,101 @@
       padding: var(--inf-space-xsmall);
       border: 1px solid var(--inf-color-border-default);
     }
+  }
+
+  &--border-radius-xsmall{
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--inf-border-radius-xsmall);
+    thead tr th:first-child {
+      border-top-left-radius: var(--inf-border-radius-xsmall);
+    }
+    thead tr th:last-child {
+      border-top-right-radius: var(--inf-border-radius-xsmall);
+    }
+    tbody tr td {
+      border-top: 1px solid var(--inf-color-border-default);
+    }
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: var(--inf-border-radius-xsmall);
+    }
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: var(--inf-border-radius-xsmall);
+    }
+  }
+
+  &--border-radius-small{
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--inf-border-radius-small);
+    thead tr th:first-child {
+      border-top-left-radius: var(--inf-border-radius-small);
+    }
+    thead tr th:last-child {
+      border-top-right-radius: var(--inf-border-radius-small);
+    }
+    tbody tr td {
+      border-top: 1px solid var(--inf-color-border-default);
+    }
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: var(--inf-border-radius-small);
+    }
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: var(--inf-border-radius-small);
+    }
+  }
+
+  &--border-radius-medium {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--inf-border-radius-medium);
+    thead tr th:first-child {
+      border-top-left-radius: var(--inf-border-radius-medium);
+    }
+    thead tr th:last-child {
+      border-top-right-radius: var(--inf-border-radius-medium);
+    }
+    tbody tr td {
+      border-top: 1px solid var(--inf-color-border-default);
+    }
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: var(--inf-border-radius-medium);
+    }
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: var(--inf-border-radius-medium);
+    }
+  }
+
+  &--border-radius-large {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--inf-border-radius-large);
+    thead tr th:first-child {
+      border-top-left-radius: var(--inf-border-radius-large);
+    }
+    thead tr th:last-child {
+      border-top-right-radius: var(--inf-border-radius-large);
+    }
+    tbody tr td {
+      border-top: 1px solid var(--inf-color-border-default);
+    }
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: var(--inf-border-radius-large);
+    }
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: var(--inf-border-radius-large);
+    }
+  }
+
+  $vertical-align-values: ("baseline", "bottom", "middle", "sub", "super", "text-bottom", "text-top", "top");
+
+  @mixin vertical-align($vertical-align-value) {
+    &--vertical-align-#{$vertical-align-value} td {
+      vertical-align: #{$vertical-align-value};
+    }
+  }
+
+  @each $vertical-align-value in $vertical-align-values {
+    @include vertical-align($vertical-align-value);
   }
 }

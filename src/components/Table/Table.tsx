@@ -23,7 +23,8 @@ import {
   TableRow,
   TableRowData,
   TableSelectedRow,
-  TableSelectionState
+  TableSelectionState,
+  TableVerticalAlignValue
 } from './types'
 import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
@@ -35,6 +36,12 @@ export interface TableProps extends TableBaseProps {
   columns?: Array<ColumnDef<any, any>>
   /** Массив с данными для построения тела таблицы */
   rows?: Array<TableRowData<any>>
+  /** Скругление границ таблицы */
+  borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
+  /** CSS свойство vertical-align для шапки */
+  verticalAlignHead?: TableVerticalAlignValue
+  /** CSS свойство vertical-align для рядов */
+  verticalAlignBody?: TableVerticalAlignValue
   /** Максимальное количество отображаемых элементов */
   maxLength?: number
   /** Включение сортировки по столбцам */
@@ -70,6 +77,9 @@ const Table = ({
   columns = [],
   rows = [],
   className,
+  borderRadius,
+  verticalAlignHead = 'top',
+  verticalAlignBody,
   maxLength,
   withSorting,
   onSortingChange,
@@ -204,6 +214,7 @@ const Table = ({
   return (
     <table
       className={cn('inf-table', className, {
+        [`inf-table--border-radius-${borderRadius as string}`]: borderRadius,
         'inf-table--bordered': props.bordered
       })}
       {...props}
@@ -215,12 +226,14 @@ const Table = ({
         filtersState={filtersState}
         onFiltersChange={handleFiltersChange}
         resizeMode={resizeMode}
+        verticalAlignHead={verticalAlignHead}
       />
       <TableBody
         rows={tableRows}
         selectedRow={selectedRow}
         onRowClick={onRowClick}
         // grouping={enableGrouping}
+        verticalAlignBody={verticalAlignBody}
       />
     </table>
   )

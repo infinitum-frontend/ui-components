@@ -69,3 +69,15 @@ declare module '@tanstack/table-core' {
   //   elIncludesString: FilterFn<unknown>
   // }
 }
+
+export type TableVerticalAlignValue = Extract<
+  | 'baseline'
+  | 'bottom'
+  | 'middle'
+  | 'sub'
+  | 'super'
+  | 'text-bottom'
+  | 'text-top'
+  | 'top',
+  CSSProperties['verticalAlign']
+>
