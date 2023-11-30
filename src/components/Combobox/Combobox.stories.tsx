@@ -43,6 +43,13 @@ export const Playground = {
   }
 }
 
+export const Scrollable = {
+  render: Template,
+  args: {
+    maxHeight: 200
+  }
+}
+
 export const InForm: StoryObj<typeof Combobox> = {
   render: (args) => {
     const [name, setName] = React.useState('')

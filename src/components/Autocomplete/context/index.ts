@@ -18,6 +18,7 @@ export interface IAutocompleteContext {
   selectedValue?:
     | IAutocompleteOption['value']
     | Array<IAutocompleteOption['value']>
+  maxHeight?: number
   // setActiveItem?: (value: IAutocompleteOption['value']) => void
   // activeItem?: IAutocompleteOption['value']
   // registerOption: (value: IAutocompleteOption['value']) => void

@@ -49,6 +49,8 @@ export interface AutocompleteProps
   opened?: boolean
   /** Событие изменения состояния отображения выпадающего контента. Только для контролируемого варианта */
   onOpenChange?: (value: boolean) => void
+  /** Максимальная высота контента, после которой начинается скролл */
+  maxHeight?: number
 }
 
 // const getIndexByValue = (value: IAutocompleteOption['value'], options: Array<IAutocompleteOption['value']>): number => {
@@ -68,6 +70,7 @@ const Autocomplete = ({
   onOpenChange,
   children,
   className,
+  maxHeight,
   ...props
 }: AutocompleteProps): ReactElement => {
   // ==================== state ====================
@@ -179,7 +182,8 @@ const Autocomplete = ({
     getFloatingProps,
     x,
     y,
-    open
+    open,
+    maxHeight
   }
 
   // ==================== render ====================
