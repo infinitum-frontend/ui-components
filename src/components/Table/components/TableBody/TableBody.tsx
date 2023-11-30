@@ -2,7 +2,7 @@
 import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
-import { TableRow } from 'Components/Table/types'
+import { TableRow, TableVerticalAlignValue } from 'Components/Table/types'
 import { mapRowToExternalFormat } from 'Components/Table/helpers'
 import { Skeleton } from '~/src/components/Skeleton'
 import { borderRadius } from '~/src/tokens'
@@ -13,6 +13,7 @@ interface TableBodyProps {
   selectedRow?: string | number | ((row: TableRow<any>) => boolean)
   onRowClick?: (row: TableRow<any>) => void
   loading?: boolean
+  verticalAlignBody?: TableVerticalAlignValue
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
@@ -32,7 +33,8 @@ const TableBody = ({
   rows,
   selectedRow,
   onRowClick,
-  loading
+  loading,
+  verticalAlignBody
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -52,6 +54,8 @@ const TableBody = ({
           <tr
             key={row.id}
             className={cn(row.original.className, {
+              [`inf-table--vertical-align-${verticalAlignBody as string}`]:
+                verticalAlignBody,
               'inf-table__row--selected': checkSelected(
                 mapRowToExternalFormat(row),
                 selectedRow
