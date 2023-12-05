@@ -32,7 +32,6 @@ const NotificationContainer = React.forwardRef<
   NotificationContainerProps
 >(({ className, ...props }, ref) => {
   const { notifications } = useNotificationStateContext()
-  console.log('notifications', notifications)
 
   return (
     <Provider>
