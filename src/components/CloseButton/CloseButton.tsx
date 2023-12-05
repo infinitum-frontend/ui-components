@@ -3,7 +3,7 @@ import cn from 'classnames'
 import './CloseButton.scss'
 
 export interface CloseButtonProps extends ComponentPropsWithoutRef<'button'> {
-  onClick: () => void
+  onClick?: () => void
   className?: string
   size?: 'small' | 'medium'
 }

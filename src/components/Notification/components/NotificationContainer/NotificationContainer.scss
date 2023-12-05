@@ -1,10 +1,16 @@
 .inf-notification-container {
+  --inf-notification-viewport-padding: 25px;
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 0;
+  right: 0;
+  padding: var(--inf-notification-viewport-padding);
   display: flex;
   flex-direction: column;
   gap: var(--inf-space-medium);
-  min-width: 200px;
+  width: 400px;
+  max-width: 100vw;
+  margin: 0;
+  list-style: none;
+  outline: none;
   z-index: var(--inf-z-index-notification);
 }

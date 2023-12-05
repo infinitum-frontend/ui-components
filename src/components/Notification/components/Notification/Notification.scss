@@ -1,27 +1,112 @@
 .inf-notification {
+  --inf-notification-type-accent-color: unset;
+
   position: relative;
   background-color: var(--inf-color-background-default);
-  border-radius: var(--inf-border-radius-small);
   box-shadow: var(--inf-box-shadow-medium);
-  padding: var(--inf-space-small) var(--inf-space-medium);
-  border: 1px solid var(--inf-color-border-secondary);
-  max-width: 500px;
+  padding: var(--inf-space-medium);
+  border-left: 3px solid var(--inf-color-border-secondary);
+  max-width: 400px;
   display: flex;
+  border-color: var(--inf-notification-type-accent-color);
+  display: flex;
+  gap: var(--inf-space-xsmall);
+
+  @keyframes hide {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(
+        calc(100% + var(--inf-notification-viewport-padding))
+      );
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes swipeOut {
+    from {
+      transform: translateX(var(--radix-toast-swipe-end-x));
+    }
+    to {
+      transform: translateX(
+        calc(100% + var(--inf-notification-viewport-padding))
+      );
+    }
+  }
+
+  &[data-state='open'] {
+    animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &[data-state='closed'] {
+    animation: hide 100ms ease-in;
+  }
+
+  &[data-swipe='move'] {
+    transform: translateX(var(--radix-toast-swipe-move-x));
+  }
+
+  &[data-swipe='cancel'] {
+    transform: translateX(0);
+    transition: transform 200ms ease-out;
+  }
+
+  &[data-swipe='end'] {
+    animation: swipeOut 100ms ease-out;
+  }
+
+  &--type-default {
+    --inf-notification-type-accent-color: var(--inf-color-background-neutral);
+  }
+
+  &--type-info {
+    --inf-notification-type-accent-color: var(--inf-color-background-info);
+  }
 
   &--type-success {
-    border-color: green;
+    --inf-notification-type-accent-color: var(--inf-color-background-success);
   }
 
   &--type-warning {
-    border-color: yellow;
+    --inf-notification-type-accent-color: var(--inf-color-background-warning);
   }
 
   &--type-error {
-    border-color: red;
+    --inf-notification-type-accent-color: var(--inf-color-background-danger);
+  }
+
+  &__icon {
+    display: flex;
+    color: var(--inf-notification-type-accent-color);
   }
 
   &__text {
-    padding-right: 50px;
+    flex-grow: 1;
+    padding-right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--inf-space-small);
+
+    &--with-extra-padding {
+      padding-top: 2px;
+    }
+  }
+
+  &__title {
+    font: var(--inf-font-subtitle-2);
+  }
+
+  &__message {
+    font: var(--inf-font-body-1);
   }
 
   &__close-btn {
