@@ -86,8 +86,7 @@ export const Type: StoryFn<typeof Notification> = () => {
           <Button
             onClick={() =>
               notify(`Текст сообщения типа ${type as string}`, {
-                type,
-                duration: 0
+                type
               })
             }
           >
