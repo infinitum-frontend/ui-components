@@ -53,14 +53,13 @@ const Notification = React.forwardRef<HTMLLIElement, NotificationProps>(
         duration={duration}
         onOpenChange={handleOpenChange}
       >
-        <div className="inf-notification__icon">
-          {IconComponent && IconComponent}
-        </div>
+        {IconComponent && (
+          <div className="inf-notification__icon">{IconComponent}</div>
+        )}
 
         <div
-          className={cn('inf-notification__text', {
-            'inf-notification__text--with-extra-padding':
-              IconComponent && !title
+          className={cn('inf-notification__body', {
+            'inf-notification__body--with-extra-padding': IconComponent
           })}
         >
           {title && (
