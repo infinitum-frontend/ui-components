@@ -22,13 +22,21 @@ export interface NotificationOptions {
    */
   message?: Message
   /**
-   * Время (в мс) до автоматического закрытия, если null, то автоматически не закрывается
+   * Заголовок
    */
-  duration?: number | null
+  title?: string
+  /**
+   * Время (в мс) до автоматического закрытия
+   */
+  duration?: number
   /**
    * Тип сообщения
    */
-  type?: 'default' | 'success' | 'error' | 'warning'
+  type?: 'default' | 'info' | 'success' | 'error' | 'warning'
+  /**
+   * Слот для кнопки
+   */
+  actionSlot?: ReactNode
 }
 
 export interface ReducerState {
