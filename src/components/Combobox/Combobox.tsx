@@ -122,7 +122,7 @@ const Combobox = ({
           onChange={handleSearchChange}
           allowClear={true}
         />
-        <Menu maxHeight={350}>
+        <Menu maxHeight={maxHeight}>
           {filteredOptions.map((option) => (
             <Menu.Item as="label" key={option.value}>
               <Menu.Item.Icon>
