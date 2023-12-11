@@ -76,7 +76,6 @@ const Combobox = ({
   return (
     <Autocomplete
       className="inf-combobox"
-      maxHeight={maxHeight}
       {...props}
       selectedValue={checkedList[0]}
     >
