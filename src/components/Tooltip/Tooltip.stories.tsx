@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useState, ReactElement, useRef } from 'react'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
-import { Tooltip } from './index'
+import { Tooltip, TooltipProps } from './index'
 import { Button } from '../Button'
 import { omitKeyFromObject } from '../../utils/helpers'
 
@@ -23,7 +23,9 @@ const decorator = (Story): ReactElement => (
       position: 'absolute',
       top: '50%',
       left: '50%',
-      transform: 'translate(-50%, -50%)'
+      transform: 'translate(-50%, -50%)',
+      display: 'flex',
+      gap: '20px'
     }}
   >
     {Story()}
@@ -81,20 +83,52 @@ export const DefaultOpen: StoryObj<typeof Tooltip> = {
   decorators: [decorator]
 }
 
-export const Inverted: StoryObj<typeof Tooltip> = {
+const placementOptions: string[] = [
+  'top-start',
+  'top',
+  'top-end',
+  'right-start',
+  'right',
+  'right-end',
+  'bottom-start',
+  'bottom',
+  'bottom-end',
+  'left-start',
+  'left',
+  'left-end'
+]
+
+export const Placements: StoryObj<typeof Tooltip> = {
   render: () => {
     return (
-      <Tooltip
-        variant="inverted"
-        defaultOpen
-        content="Lorem ipsum dolor sit amet."
+      <div
+        style={{
+          display: 'grid',
+          gap: '4px',
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+          alignContent: 'center',
+          gridTemplateAreas:
+            '".             top-start   top         top-end     .            "' +
+            '"left-start    .             .             .             right-start    "' +
+            '"left        .             .             .             right        "' +
+            '"left-end .             .             .             right-end "' +
+            '".             bottom-start   bottom         bottom-end     .            "'
+        }}
       >
-        <Button>Trigger</Button>
-      </Tooltip>
+        {placementOptions.map((placement) => (
+          <Tooltip
+            key={placement}
+            placement={placement as TooltipProps['placement']}
+            content="Lorem ipsum dolor"
+          >
+            <Button style={{ gridArea: placement }}>{placement}</Button>
+          </Tooltip>
+        ))}
+      </div>
     )
-  },
-
-  decorators: [decorator]
+  }
 }
 
 export const PointerEvent: StoryFn<typeof Tooltip> = () => {
