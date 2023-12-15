@@ -1,8 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { useState } from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Autocomplete } from './index'
-import { useState } from 'react'
 import { IAutocompleteOption } from './types'
 import { AutocompleteBaseOptions, AutocompleteLongOptions } from './fixtures'
+import { Form } from 'Components/Form'
+import { Input } from 'Components/Input'
+import { Button } from 'Components/Button'
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Form/Autocomplete',
@@ -109,6 +113,35 @@ export const ControlledVariant: StoryObj<typeof Autocomplete> = {
           </Autocomplete.Options>
         </Autocomplete.Dropdown>
       </Autocomplete>
+    )
+  }
+}
+
+export const Required: StoryObj<typeof Autocomplete> = {
+  render: (args) => {
+    const [selectedItem, setSelectedItem] = useState<string | number>('')
+    const [inputVal, setInputVal] = useState('')
+
+    const handleSubmit = (): void => {
+      alert('submit')
+    }
+
+    return (
+      <Form onSubmit={handleSubmit}>
+        <Form.Group required>
+          <Form.Label>Поле</Form.Label>
+          <Autocomplete
+            {...args}
+            onChange={(value) => setSelectedItem(value)}
+            selectedValue={selectedItem}
+          />
+        </Form.Group>
+        <Form.Group required>
+          <Form.Label>Поле</Form.Label>
+          <Input value={inputVal} onChange={setInputVal} />
+        </Form.Group>
+        <Button type="submit">Отправить</Button>
+      </Form>
     )
   }
 }
