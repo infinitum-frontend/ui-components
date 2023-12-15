@@ -4,9 +4,9 @@ import React, {
   FocusEventHandler,
   FormEventHandler,
   ReactElement,
+  RefObject,
   useContext,
   useEffect,
-  useRef,
   useState
 } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
@@ -19,6 +19,7 @@ export interface AutocompleteButtonProps
   extends ComponentPropsWithoutRef<'button'> {
   /** Плейсхолдер, отображаемый в случае, когда не передан слот */
   placeholder?: string
+  forwardedInputRef?: RefObject<HTMLInputElement>
 }
 
 /** Компонент кнопки-триггера для вызова выпадающего списка */
@@ -27,15 +28,15 @@ const AutocompleteButton = ({
   disabled,
   className,
   children,
+  forwardedInputRef,
   ...props
 }: AutocompleteButtonProps): ReactElement => {
   const [isFocused, setFocused] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
   const context = useAutocompleteContext()
   const formGroupContext = useContext(FormGroupContext)
   const selectedValue = Array.isArray(context?.selectedValue)
     ? context?.selectedValue[0]
-    : context?.selectedValue || ''
+    : context?.selectedValue ?? ''
 
   useEffect(() => {
     if (!context?.open) {
@@ -46,7 +47,7 @@ const AutocompleteButton = ({
   const handleInvalid: FormEventHandler<HTMLInputElement> = () => {
     if (formGroupContext) {
       formGroupContext.setInvalid?.(true)
-      inputRef.current?.setCustomValidity(
+      forwardedInputRef?.current?.setCustomValidity(
         formGroupContext.customValidationMessage || ''
       )
     }
@@ -85,6 +86,7 @@ const AutocompleteButton = ({
     >
       {children || placeholder}
       <input
+        ref={forwardedInputRef}
         value={selectedValue}
         onChange={() => null}
         type="text"
