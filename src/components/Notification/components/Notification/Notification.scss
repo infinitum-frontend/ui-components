@@ -1,5 +1,5 @@
 .inf-notification {
-  --inf-notification-type-accent-color: unset;
+  --inf-notification-type-accent-color: var(--inf-color-background-neutral);
 
   position: relative;
   background-color: var(--inf-color-background-default);
@@ -62,10 +62,6 @@
 
   &[data-swipe='end'] {
     animation: swipeOut 100ms ease-out;
-  }
-
-  &--type-default {
-    --inf-notification-type-accent-color: var(--inf-color-background-neutral);
   }
 
   &--type-info {
