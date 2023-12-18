@@ -23,13 +23,14 @@
   border-radius: 10px;
   position: relative;
   max-width: 95vw;
+  padding: var(--inf-space-large);
 
   &--size-small {
     width: 453px;
   }
 
   &--size-medium {
-    width: 885px;
+    width: 684px;
   }
 
   &--size-large {
