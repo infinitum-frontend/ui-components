@@ -32,7 +32,7 @@ export interface NotificationOptions {
   /**
    * Тип сообщения
    */
-  type?: 'default' | 'info' | 'success' | 'error' | 'warning'
+  type?: 'info' | 'success' | 'error' | 'warning'
   /**
    * Слот для кнопки
    */

@@ -13,15 +13,7 @@ import './Notification.scss'
  */
 const Notification = React.forwardRef<HTMLLIElement, NotificationProps>(
   (
-    {
-      className,
-      message,
-      title,
-      id,
-      duration = 5000,
-      type = 'default',
-      actionSlot
-    },
+    { className, message, title, id, duration = 5000, type, actionSlot },
     ref
   ) => {
     const dispatch = useNotificationDispatchContext()
@@ -32,15 +24,14 @@ const Notification = React.forwardRef<HTMLLIElement, NotificationProps>(
       }
     }
 
-    const iconsMap: Record<string, React.ReactElement | undefined> = {
-      default: undefined,
+    const iconsMap: Record<string, React.ReactElement> = {
       info: <ExclamationMarkInCircleIcon />,
       success: <CheckInCircleIcon />,
       warning: <ExclamationMarkInCircleIcon />,
       error: <ExclamationMarkInCircleIcon />
     }
 
-    const IconComponent = iconsMap[type]
+    const IconComponent = type ? iconsMap[type] : undefined
 
     return (
       <ToastPrimitives.Root
@@ -48,7 +39,7 @@ const Notification = React.forwardRef<HTMLLIElement, NotificationProps>(
         className={cn(
           'inf-notification',
           className,
-          `inf-notification--type-${type}`
+          `inf-notification--type-${type as string}`
         )}
         duration={duration}
         onOpenChange={handleOpenChange}
