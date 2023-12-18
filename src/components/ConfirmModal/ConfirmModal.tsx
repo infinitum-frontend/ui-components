@@ -88,5 +88,7 @@ const ConfirmModal = React.forwardRef<HTMLDivElement, ConfirmModalProps>(
 
 ConfirmModal.displayName = 'ConfirmModal'
 
-/** Модальное окно c подтверждением */
+/**
+ * ConfirmModal вид модального окна, который используется для получения подтверждения от пользователя
+ */
 export default ConfirmModal
