@@ -21,8 +21,7 @@
     cursor: pointer;
     user-select: none;
     margin-left: 8px;
-    font-size: var(--inf-text-size-small);
-    line-height: 20px;
+    font: var(--inf-font-body-1);
 
     &--disabled {
       cursor: unset;

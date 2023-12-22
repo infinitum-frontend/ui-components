@@ -18,8 +18,8 @@ RadioBoxProps): ReactElement => {
       borderRadius="small"
       borderColor="default"
       borderWidth="default"
-      paddingY="xsmall"
-      paddingX="small"
+      paddingY="small"
+      paddingX="medium"
       cursor="pointer"
       // {...props}
     >
