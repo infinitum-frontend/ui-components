@@ -89,3 +89,27 @@ export const Disabled: StoryObj<typeof Radio> = {
     )
   }
 }
+
+export const WithBox: StoryObj<typeof Radio> = {
+  render: () => {
+    const [selectedValue, setSelectedValue] = useState('1')
+
+    return (
+      <Radio.Group
+        name="some-value"
+        value={selectedValue}
+        onChange={(value) => setSelectedValue(value)}
+      >
+        <Radio.Box>
+          <Radio value="1">Облигации внешних облигационных займов РФ</Radio>
+        </Radio.Box>
+        <Radio.Box>
+          <Radio value="2">Облигации государственных компаний</Radio>
+        </Radio.Box>
+        <Radio.Box>
+          <Radio value="3">Облигации государственных корпораций</Radio>
+        </Radio.Box>
+      </Radio.Group>
+    )
+  }
+}
