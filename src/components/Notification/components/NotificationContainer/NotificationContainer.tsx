@@ -45,7 +45,7 @@ const NotificationContainer = React.forwardRef<
             />
           )
         )}
-        <Viewport />
+        <Viewport className={className} />
       </>
     </Provider>
   )

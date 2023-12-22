@@ -8,6 +8,13 @@ import { ReactComponent as ExclamationMarkInCircleIcon } from 'Icons/exclamation
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import './Notification.scss'
 
+const iconsMap: Record<string, React.ReactElement> = {
+  info: <ExclamationMarkInCircleIcon />,
+  success: <CheckInCircleIcon />,
+  warning: <ExclamationMarkInCircleIcon />,
+  error: <ExclamationMarkInCircleIcon />
+}
+
 /**
  * Всплывающее окно с сообщением
  */
@@ -22,13 +29,6 @@ const Notification = React.forwardRef<HTMLLIElement, NotificationProps>(
       if (!open) {
         dispatch({ type: ActionKind.Delete, payload: { id } })
       }
-    }
-
-    const iconsMap: Record<string, React.ReactElement> = {
-      info: <ExclamationMarkInCircleIcon />,
-      success: <CheckInCircleIcon />,
-      warning: <ExclamationMarkInCircleIcon />,
-      error: <ExclamationMarkInCircleIcon />
     }
 
     const IconComponent = type ? iconsMap[type] : undefined
