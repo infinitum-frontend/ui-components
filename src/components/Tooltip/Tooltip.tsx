@@ -36,6 +36,9 @@ export interface TooltipProps extends React.ComponentPropsWithoutRef<'div'> {
   placement?: Placement
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  /**
+   * @deprecated
+   */
   variant?: 'default' | 'inverted'
 }
 
@@ -49,7 +52,6 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       defaultOpen = false,
       open: controlledOpen,
       onOpenChange: setControlledOpen,
-      variant = 'default',
       ...props
     },
     propRef
@@ -137,7 +139,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         <FloatingPortal>
           {open && (
             <div
-              className={cn('inf-tooltip', `inf-tooltip--variant-${variant}`)}
+              className="inf-tooltip"
               ref={tooltipRef}
               style={{
                 position: strategy,
