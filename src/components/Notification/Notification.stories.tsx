@@ -13,7 +13,7 @@ import { Modal } from 'Components/Modal'
 import { Space } from 'Components/Space'
 
 const meta: Meta<typeof Notification> = {
-  title: 'Components/Notification',
+  title: 'Overlay/Notification',
   component: Notification,
   decorators: [
     (Story) => {
@@ -149,6 +149,26 @@ export const LongMessage: StoryFn<typeof Notification> = () => {
     >
       Notify
     </Button>
+  )
+}
+
+export const WithTextOverflow: StoryFn<typeof Notification> = () => {
+  const notify = useNotification()
+
+  function handleClick(): void {
+    notify('Текст уведомления', {
+      title:
+        'ИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомление',
+      message:
+        'ИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомление',
+      type: 'info'
+    })
+  }
+
+  return (
+    <>
+      <Button onClick={() => handleClick()}>Notify</Button>
+    </>
   )
 }
 
