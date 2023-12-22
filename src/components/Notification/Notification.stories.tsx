@@ -29,7 +29,7 @@ const meta: Meta<typeof Notification> = {
 
 export default meta
 
-const Template: StoryFn<typeof Notification> = (args) => {
+const Template: StoryFn<typeof Notification> = () => {
   const notify = useNotification()
 
   return (
