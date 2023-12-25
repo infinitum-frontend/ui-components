@@ -3,13 +3,6 @@
   align-items: center;
   position: relative;
 
-  &:hover {
-    & .inf-radio__box:not(.inf-radio__box--disabled) {
-      border-color: var(--inf-radio-color-border-hover);
-      background-color: var(--inf-radio-color-background-hover);
-    }
-  }
-
   &:active {
     & .inf-radio__box:not(.inf-radio__box--disabled) {
       border-color: var(--inf-radio-color-border-active);
@@ -82,6 +75,16 @@
           background-color: transparent;
         }
       }
+    }
+  }
+}
+
+.inf-radio,
+.inf-radio-box {
+  @include hover {
+    & .inf-radio__box:not(.inf-radio__box--disabled) {
+      border-color: var(--inf-radio-color-border-hover);
+      background-color: var(--inf-radio-color-background-hover);
     }
   }
 }
