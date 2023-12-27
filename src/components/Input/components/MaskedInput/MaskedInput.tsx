@@ -230,7 +230,6 @@ const MaskedInput = ({
     <Input
       {...props}
       ref={ref}
-      includeWrapper
       value={composedValue}
       defaultValue={mask.displayChar ? composedValue : undefined}
       placeholder={placeholder || placeholderProp}
