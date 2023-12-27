@@ -46,6 +46,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       postfixClass = '',
       onPostfixClick, // не покрыто тестами
       allowClear = false,
+      includeWrapper = false,
       noBorder = false,
       id,
       required = false,
@@ -194,7 +195,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isRequired = required || formGroupContext?.required
 
-    const isBaseInput = !prefix && !allowClear && !postfix
+    const isBaseInput = includeWrapper
+      ? false
+      : !prefix && !allowClear && !postfix
 
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)
