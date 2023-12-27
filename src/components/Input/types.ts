@@ -46,6 +46,11 @@ export interface InputProps
   onPostfixClick?: (value?: string) => void
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
+  /** Нужно ли добавлять инпуту обертку
+   * Свойство специфичное, нужно для того, чтобы в зависимости от наличия/отсутствия префиксов/постфиксов
+   * не рендерился разный контент
+   */
+  includeWrapper?: boolean
   /**
    * Функция, применяющаяся для форматирования значения
    * @param value {string}
