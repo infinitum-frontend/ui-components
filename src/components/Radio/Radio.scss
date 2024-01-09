@@ -3,13 +3,6 @@
   align-items: center;
   position: relative;
 
-  &:hover {
-    & .inf-radio__box:not(.inf-radio__box--disabled) {
-      border-color: var(--inf-radio-color-border-hover);
-      background-color: var(--inf-radio-color-background-hover);
-    }
-  }
-
   &:active {
     & .inf-radio__box:not(.inf-radio__box--disabled) {
       border-color: var(--inf-radio-color-border-active);
@@ -21,8 +14,7 @@
     cursor: pointer;
     user-select: none;
     margin-left: 8px;
-    font-size: var(--inf-text-size-small);
-    line-height: 20px;
+    font: var(--inf-font-body-1);
 
     &--disabled {
       cursor: unset;
@@ -83,6 +75,16 @@
           background-color: transparent;
         }
       }
+    }
+  }
+}
+
+.inf-radio,
+.inf-radio-box {
+  @include hover {
+    & .inf-radio__box:not(.inf-radio__box--disabled) {
+      border-color: var(--inf-radio-color-border-hover);
+      background-color: var(--inf-radio-color-background-hover);
     }
   }
 }

@@ -13,9 +13,10 @@ import React, {
 import './Radio.scss'
 import useRadioGroup from './components/RadioGroup/context/useRadioGroup'
 import RadioGroup from './components/RadioGroup'
-import cn from 'classnames'
+import RadioBox from './components/Box/RadioBox'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
+import cn from 'classnames'
 
 interface InputProps
   extends DetailedHTMLProps<
@@ -140,5 +141,6 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
 Radio.displayName = 'Radio'
 
 export default Object.assign(Radio, {
-  Group: RadioGroup
+  Group: RadioGroup,
+  Box: RadioBox
 })
