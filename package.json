@@ -23,9 +23,8 @@
       "npm run ts-compile"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/vinderman/ui-components.git"
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@infinitum-frontend"
   },
   "husky": {
     "hooks": {
