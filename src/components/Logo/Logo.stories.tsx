@@ -25,11 +25,11 @@ export const WithPrefix = {
   }
 }
 
-export const NoCaption = {
+export const CompanyGroup = {
   render: Template,
 
   args: {
-    variant: 'no-caption'
+    variant: 'company-group'
   }
 }
 
@@ -53,10 +53,10 @@ export const Monochrome = {
   }
 }
 
-export const Short = {
+export const LogoOnly = {
   render: Template,
 
   args: {
-    variant: 'short'
+    variant: 'logo-only'
   }
 }
