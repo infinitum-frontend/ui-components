@@ -13,36 +13,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
-      - run: npm run build
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist-without-markdown
-          path: |
-            dist
-            !dist/**/*.md
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to GitHub Packages
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@infinitum-frontend'
-      - name: Download a single artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: dist-without-markdown
       - run: npm ci
+      - run: npm run build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
