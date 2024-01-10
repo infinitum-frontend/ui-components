@@ -34,15 +34,15 @@ function App() {
 }
 ```
 
-## Установка конфига для публикации
+## Публикация новой версии с помощью Github Actions
 
-```text
-npm config set @infinitum-frontend:registry=https://npm.pkg.github.com/
+1. Переключиться на ветку main `git checkout origin/main && git pull`
+2. Поднять версию пакета `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git] -m "Bump to: {new_version}`. Команда автоматически создаст тег с соответствующей версией
+3. Запушить изменения вместе с тегами `git push --tags`
+4. Перейти на страницу тега в Github и создать из него релиз
+5. После создания релиза в Github Actions автоматически запустится пайплайн на публикацию пакета в Github Package Registry
 
-npm config set //npm.pkg.github.com/:_authToken={github_access_token}
-```
-
-## Публикация новой версии
+## Публикация новой версии вручную
 
 1. `git checkout origin/main && git pull`
 2. `npm i`
@@ -50,3 +50,11 @@ npm config set //npm.pkg.github.com/:_authToken={github_access_token}
 4. `npm run build`
 5. `npm publish`
 6. `git push`
+
+## Установка конфига для публикации для публикации вручную
+
+```text
+npm config set @infinitum-frontend:registry=https://npm.pkg.github.com/
+
+npm config set //npm.pkg.github.com/:_authToken={github_access_token}
+```
