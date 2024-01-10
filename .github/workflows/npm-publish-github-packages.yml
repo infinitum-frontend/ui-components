@@ -1,9 +1,8 @@
 name: Публикация в Package Registry при создании нового релиза
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
   build:
