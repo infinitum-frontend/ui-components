@@ -12,21 +12,18 @@ export interface LogoProps extends ComponentPropsWithoutRef<'div'> {
   prefix?: string
 }
 
+const logoVariantIconMap = {
+  default: <LogoFull />,
+  'logo-only': <LogoOnly />,
+  monochrome: <LogoFullMono />,
+  inverse: <LogoFullInverse />,
+  'company-group': <LogoFullCompanyGroup />
+}
+
 /** Логотип */
 const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
   ({ className, variant = 'default', prefix, ...props }, ref) => {
-    let template
-    if (variant === 'logo-only') {
-      template = <LogoOnly />
-    } else if (variant === 'monochrome') {
-      template = <LogoFullMono />
-    } else if (variant === 'inverse') {
-      template = <LogoFullInverse />
-    } else if (variant === 'company-group') {
-      template = <LogoFullCompanyGroup />
-    } else {
-      template = <LogoFull />
-    }
+    const template = logoVariantIconMap[variant]
 
     return (
       <div
