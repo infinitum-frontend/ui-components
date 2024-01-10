@@ -30,7 +30,7 @@ npm i @infinitum-frontend/ui-components
 import { Button } from '@infinitum-frontend/ui-components'
 
 function App() {
-  return <Button>Нажми на меня</Button>
+  return <Button>Кнопка</Button>
 }
 ```
 
