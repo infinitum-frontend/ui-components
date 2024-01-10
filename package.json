@@ -26,6 +26,10 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@infinitum-frontend"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infinitum-frontend/ui-components.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
