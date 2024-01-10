@@ -1,4 +1,8 @@
-import ConfirmModal, { ConfirmModalProps } from './ConfirmModal'
+import ConfirmModal, {
+  ConfirmModalProps,
+  ConfirmationOptions
+} from './ConfirmModal'
+import { useConfirm, ConfirmModalProvider } from './ConfirmModalService'
 
-export { ConfirmModal }
-export type { ConfirmModalProps }
+export { ConfirmModal, ConfirmModalProvider, useConfirm }
+export type { ConfirmModalProps, ConfirmationOptions }

@@ -13,7 +13,7 @@ import { Modal } from 'Components/Modal'
 import { Space } from 'Components/Space'
 
 const meta: Meta<typeof Notification> = {
-  title: 'Components/Notification',
+  title: 'Overlay/Notification',
   component: Notification,
   decorators: [
     (Story) => {
@@ -29,7 +29,7 @@ const meta: Meta<typeof Notification> = {
 
 export default meta
 
-const Template: StoryFn<typeof Notification> = (args) => {
+const Template: StoryFn<typeof Notification> = () => {
   const notify = useNotification()
 
   return (
@@ -46,7 +46,7 @@ export const Playground = {
 export const Duration: StoryFn<typeof Notification> = () => {
   const notify = useNotification()
 
-  const durations = [5000, 1000, null]
+  const durations = [5000, 1000]
 
   return (
     <Space>
@@ -55,7 +55,7 @@ export const Duration: StoryFn<typeof Notification> = () => {
           <div>duration: {duration || 'null'}</div>
           <Button
             onClick={() =>
-              notify(`Текст сообщения с задержкой ${duration || 'null'}`, {
+              notify(`Текст сообщения с задержкой ${duration}`, {
                 duration
               })
             }
@@ -73,6 +73,7 @@ export const Type: StoryFn<typeof Notification> = () => {
 
   const types: Array<NotificationOptions['type']> = [
     'default',
+    'info',
     'success',
     'warning',
     'error'
@@ -97,6 +98,44 @@ export const Type: StoryFn<typeof Notification> = () => {
   )
 }
 
+export const WithTitleAndMessage: StoryFn<typeof Notification> = () => {
+  const notify = useNotification()
+
+  function handleClick(): void {
+    notify('Текст уведомления', {
+      title: 'Информационное уведомление',
+      type: 'info'
+    })
+  }
+
+  return (
+    <>
+      <Button onClick={() => handleClick()}>Notify</Button>
+    </>
+  )
+}
+
+export const WithActionSlot: StoryFn<typeof Notification> = () => {
+  const notify = useNotification()
+
+  function handleClick(): void {
+    notify('Текст уведомления', {
+      title: 'Информационное уведомление',
+      actionSlot: (
+        <Button onClick={() => alert('Клик')} size="small" variant="tertiary">
+          Действие
+        </Button>
+      )
+    })
+  }
+
+  return (
+    <>
+      <Button onClick={() => handleClick()}>Notify</Button>
+    </>
+  )
+}
+
 export const LongMessage: StoryFn<typeof Notification> = () => {
   const notify = useNotification()
 
@@ -104,15 +143,32 @@ export const LongMessage: StoryFn<typeof Notification> = () => {
     <Button
       onClick={() =>
         notify(
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis inventore quas aspernatur repudiandae voluptate rerum distinctio libero minima minus cupiditate.',
-          {
-            duration: null
-          }
+          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis inventore quas aspernatur repudiandae voluptate rerum distinctio libero minima minus cupiditate.'
         )
       }
     >
       Notify
     </Button>
+  )
+}
+
+export const WithTextOverflow: StoryFn<typeof Notification> = () => {
+  const notify = useNotification()
+
+  function handleClick(): void {
+    notify('Текст уведомления', {
+      title:
+        'ИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомление',
+      message:
+        'ИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомлениеИнформационноеУведомление',
+      type: 'info'
+    })
+  }
+
+  return (
+    <>
+      <Button onClick={() => handleClick()}>Notify</Button>
+    </>
   )
 }
 

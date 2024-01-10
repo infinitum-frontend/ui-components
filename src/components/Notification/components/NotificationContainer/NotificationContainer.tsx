@@ -1,17 +1,31 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React from 'react'
 import Notification from '../Notification/Notification'
 import { useNotificationStateContext } from '../../context/NotificationContext'
 import './NotificationContainer.scss'
 import cn from 'classnames'
 import { NotificationOptions } from '../../types'
-import { FloatingPortal } from '@floating-ui/react'
+import * as ToastPrimitives from '@radix-ui/react-toast'
 
 export const NOTIFICATION_CONTAINER_CLASSNAME = 'inf-notification-container'
 
-export interface NotificationContainerProps
-  extends ComponentPropsWithoutRef<'div'> {
+export interface NotificationContainerProps {
   className?: string
 }
+
+const Provider = ToastPrimitives.Provider
+
+const Viewport = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Viewport>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport> &
+    NotificationContainerProps
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Viewport
+    ref={ref}
+    className={cn(NOTIFICATION_CONTAINER_CLASSNAME, className)}
+    {...props}
+  />
+))
+Viewport.displayName = 'NotificationContainerViewport'
 
 const NotificationContainer = React.forwardRef<
   HTMLDivElement,
@@ -20,12 +34,8 @@ const NotificationContainer = React.forwardRef<
   const { notifications } = useNotificationStateContext()
 
   return (
-    <FloatingPortal>
-      <div
-        ref={ref}
-        className={cn(NOTIFICATION_CONTAINER_CLASSNAME, className)}
-        {...props}
-      >
+    <Provider>
+      <>
         {notifications?.map(
           (notification: { id: string; options: NotificationOptions }) => (
             <Notification
@@ -35,8 +45,9 @@ const NotificationContainer = React.forwardRef<
             />
           )
         )}
-      </div>
-    </FloatingPortal>
+        <Viewport className={className} />
+      </>
+    </Provider>
   )
 })
 

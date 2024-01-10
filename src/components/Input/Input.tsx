@@ -194,38 +194,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isRequired = required || formGroupContext?.required
 
-    const isBaseInput = !prefix && !allowClear && !postfix
-
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)
-
-    if (isBaseInput) {
-      return (
-        <BaseInput
-          value={controlledValue}
-          defaultValue={defaultValue}
-          style={style}
-          className={className}
-          placeholder={isFocused ? '' : placeholder}
-          disabled={disabled}
-          size={size}
-          noBorder={noBorder}
-          onInvalid={handleInvalid}
-          borderRadius={borderRadius}
-          status={status}
-          id={id || formGroupContext?.id}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          required={isRequired}
-          aria-required={formGroupContext?.required || ariaRequired}
-          aria-invalid={formGroupContext?.invalid || ariaInvalid}
-          ref={mergedRef}
-          {...restProps}
-        />
-      )
-    }
 
     return (
       <span

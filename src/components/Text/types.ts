@@ -57,7 +57,7 @@ type FontWeight = 'light' | 'normal' | 'bold' | 'extrabold'
 
 type TextAlign = 'left' | 'center' | 'right' | 'justify'
 
-type TextColor =
+export type TextColor =
   | 'primary'
   | 'secondary'
   | 'tertiary'
