@@ -1,5 +1,5 @@
 <p style="text-align: center" align="center">
-<img src="src/components/Logo/assets/logo-full-no-caption.svg" alt="">
+<img src="src/components/Logo/assets/logo-full.svg" alt="">
 </p>
 
 <h1 align="center" style="text-align: center">UI-библиотека React-компонентов Инфинитум</h1>
@@ -19,8 +19,8 @@
 npm i @infinitum-frontend/ui-components
 ```
 
-3. Добавляем в глобальные стили/рутовый компонент стили библиотеки `import '@@infinitum-frontend/ui-components/dist/style.css'`
-4. Добавляем типы в `tsconfig.json` в секцию `include`: `"node_modules/@@infinitum-frontend/ui-components/types"`
+3. Добавляем в глобальные стили/рутовый компонент стили библиотеки `import '@infinitum-frontend/ui-components/dist/style.css'`
+4. Добавляем типы в `tsconfig.json` в секцию `include`: `"node_modules/@infinitum-frontend/ui-components/types"`
 
 ## Использование
 
