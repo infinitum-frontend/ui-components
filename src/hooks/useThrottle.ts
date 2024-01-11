@@ -1,8 +1,8 @@
 import throttle from 'lodash.throttle'
 
 interface ThrottleSettings {
-  leading?: boolean | undefined
-  trailing?: boolean | undefined
+  leading?: boolean
+  trailing?: boolean
 }
 
 export default function useThrottle(

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import useThrottle from 'Hooks/useThrottle'
 
 export interface UseWindowScrollOptions {
-  throttle?: number
+  throttleDelay?: number
 }
 
 export interface UseWindowScrollResult {
@@ -11,7 +11,7 @@ export interface UseWindowScrollResult {
 }
 
 export default function useWindowScroll({
-  throttle = 0
+  throttleDelay = 0
 }: UseWindowScrollOptions = {}): UseWindowScrollResult {
   const [state, setState] = useState({
     x: window.scrollX,
@@ -20,7 +20,7 @@ export default function useWindowScroll({
 
   const throttleFn = useThrottle(() => {
     setState({ x: window.scrollX, y: window.scrollY })
-  }, throttle)
+  }, throttleDelay)
 
   useEffect(() => {
     throttleFn()

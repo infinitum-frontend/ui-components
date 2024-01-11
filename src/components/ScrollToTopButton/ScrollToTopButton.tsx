@@ -8,22 +8,22 @@ import cn from 'classnames'
 export interface ScrollToTopButtonProps {
   /** проскроленное растояние, после которого отображется кнопка, px */
   visibilityThreshold?: number
-  /** отступ от верхнего края, px */
-  offset?: number
+  /** отступ от верхнего края при скролле, px */
+  scrollMarginTop?: number
 }
 
 const ScrollToTopButton = ({
   visibilityThreshold = 200,
-  offset = 0
+  scrollMarginTop = 0
 }: ScrollToTopButtonProps): ReactElement => {
-  const { y } = useWindowScroll({ throttle: 300 })
+  const { y } = useWindowScroll({ throttleDelay: 300 })
 
   const handeClick = (): void => {
-    window.scrollTo({ top: offset, behavior: 'smooth' })
+    window.scrollTo({ top: scrollMarginTop, behavior: 'smooth' })
   }
 
-  const classNames = cn('scroll-to-top-button', {
-    'scroll-to-top-button--hidden': y < visibilityThreshold
+  const classNames = cn('inf-scroll-to-top-button', {
+    'inf-scroll-to-top-button--hidden': y < visibilityThreshold
   })
 
   return (
