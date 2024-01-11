@@ -27,17 +27,32 @@ export const Playground = {
 }
 
 export const Vertical: StoryObj<typeof Divider> = {
-  render: (args) => {
+  render: () => {
     return (
       <Space direction="horizontal">
         <Text>Lorem ipsum dolor sit amet.</Text>
-        <Divider {...args} />
+        <Divider orientation="vertical" />
         <Text>Lorem ipsum dolor, sit amet consectetur adipisicing.</Text>
       </Space>
     )
-  },
+  }
+}
 
+export const WithText: StoryObj<typeof Divider> = {
+  render: Template,
   args: {
-    orientation: 'vertical'
+    children: 'Это текст'
+  }
+}
+
+export const VerticalWithText: StoryObj<typeof Divider> = {
+  render: () => {
+    return (
+      <Space direction="horizontal">
+        <Text>Lorem ipsum dolor sit amet.</Text>
+        <Divider orientation="vertical">Это текст</Divider>
+        <Text>Lorem ipsum dolor, sit amet consectetur adipisicing.</Text>
+      </Space>
+    )
   }
 }
