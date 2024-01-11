@@ -8,6 +8,16 @@
   --border-color: var(--inf-color-border-default);
   --border-width: var(--inf-border-width-default);
 
+  &::before {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  &::after {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
   &--orientation-horizontal {
     flex-direction: row;
     width: 100%;
@@ -24,16 +34,6 @@
       border-right-color: var(--border-color);
       display: flex;
       flex-grow: 1;
-    }
-
-    &::before {
-      margin-right: 0;
-      margin-bottom: 0;
-    }
-
-    &::after {
-      margin-top: 0;
-      margin-left: 0;
     }
 
     &.inf-divider--has-content {
@@ -56,7 +56,6 @@
     &::after {
       content: '';
       min-height: 8px;
-      // border-top-width: var(--inf-border-width-default);
       border-right-width: var(--border-width);
       border-right-style: solid;
       border-right-color: var(--border-color);
@@ -65,16 +64,6 @@
       border-right-color: var(--border-color);
       display: flex;
       flex-grow: 1;
-    }
-
-    &::before {
-      margin-right: 0;
-      margin-bottom: 0;
-    }
-
-    &::after {
-      margin-top: 0;
-      margin-left: 0;
     }
 
     &.inf-divider--has-content {
