@@ -1,20 +1,22 @@
 .inf-divider {
   position: relative;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   flex-grow: 1;
-  width: 100%;
+  align-items: center;
   text-align: center;
+
   --border-color: var(--inf-color-border-default);
+  --border-width: var(--inf-border-width-default);
 
   &--orientation-horizontal {
+    flex-direction: row;
+    width: 100%;
+
     &::before,
     &::after {
       content: '';
       min-width: 8px;
-      // border-top-width: var(--inf-border-width-default);
-      border-top-width: thin;
+      border-top-width: var(--border-width);
       border-top-style: solid;
       border-top-color: var(--border-color);
       border-bottom-color: var(--border-color);
@@ -48,19 +50,14 @@
   &--orientation-vertical {
     height: 100%;
     min-height: 20px;
-    position: relative;
-    display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
-    text-align: center;
 
     &::before,
     &::after {
       content: '';
       min-height: 8px;
       // border-top-width: var(--inf-border-width-default);
-      border-right-width: thin;
+      border-right-width: var(--border-width);
       border-right-style: solid;
       border-right-color: var(--border-color);
       border-bottom-color: var(--border-color);
