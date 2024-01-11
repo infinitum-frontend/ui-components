@@ -1,6 +1,5 @@
 .inf-card {
   background-color: var(--inf-color-background-default);
-  box-shadow: var(--inf-box-shadow-medium);
   border-radius: var(--inf-border-radius-small);
 
   &--size-medium {
@@ -9,6 +8,14 @@
 
   &--size-large {
     padding: var(--inf-space-large);
+  }
+
+  &--variant-shadow {
+    box-shadow: var(--inf-box-shadow-medium);
+  }
+
+  &--variant-outline {
+    border: 1px solid var(--inf-color-border-default);
   }
 
   &--outline-danger {

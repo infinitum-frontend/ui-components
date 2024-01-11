@@ -28,7 +28,7 @@ export interface BoxProps {
 
 type BoxShadow = 'small' | 'medium'
 type BorderWidth = 'default' | 'thick'
-type BorderColor = 'default' | 'secondary'
+type BorderColor = 'default' | 'secondary' | 'danger'
 type BorderRadius = 'small' | 'medium' | 'large'
 type Padding = SpaceVariants
 type Background = 'default' | 'secondary' | 'inverse'
