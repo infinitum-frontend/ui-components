@@ -1,6 +1,6 @@
 {
   "name": "@infinitum-frontend/ui-components",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "build": "rm -rf dist && vite build && npm run ts-compile",
     "ts-compile": "tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src",
@@ -25,6 +25,10 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@infinitum-frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infinitum-frontend/ui-components.git"
   },
   "husky": {
     "hooks": {
