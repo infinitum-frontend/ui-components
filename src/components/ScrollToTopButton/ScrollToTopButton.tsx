@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import Button from 'Components/Button/Button'
 import { ReactComponent as IconArrowTop } from 'Icons/arrow-top.svg'
 import './ScrollToTopButton.scss'
-import { useWindowScroll } from 'Hooks/useWindowScroll'
+import useWindowScroll from 'Hooks/useWindowScroll'
 import cn from 'classnames'
 
 export interface ScrollToTopButtonProps {

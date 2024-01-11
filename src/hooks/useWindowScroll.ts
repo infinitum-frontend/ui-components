@@ -10,7 +10,7 @@ export interface UseWindowScrollResult {
   y: number
 }
 
-export function useWindowScroll({
+export default function useWindowScroll({
   throttle = 0
 }: UseWindowScrollOptions = {}): UseWindowScrollResult {
   const [state, setState] = useState({
