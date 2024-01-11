@@ -5,7 +5,7 @@
   color: var(--inf-color-text-primary);
   box-shadow: 0 4px 30px 0 #0000001a, 0 0 10px 0 #0000001a;
 
-  @mixin hover {
+  @include hover {
     background-color: var(--inf-color-background-secondary);
     color: var(--inf-color-text-primary);
   }
