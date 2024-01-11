@@ -27,6 +27,13 @@ export const Playground = {
   render: Template
 }
 
+export const WithText: StoryObj<typeof Divider> = {
+  render: Template,
+  args: {
+    children: 'Это текст'
+  }
+}
+
 export const Vertical: StoryObj<typeof Divider> = {
   render: () => {
     return (
@@ -79,13 +86,6 @@ export const Vertical: StoryObj<typeof Divider> = {
         </Grid>
       </Grid>
     )
-  }
-}
-
-export const WithText: StoryObj<typeof Divider> = {
-  render: Template,
-  args: {
-    children: 'Это текст'
   }
 }
 
