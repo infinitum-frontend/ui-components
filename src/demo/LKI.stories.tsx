@@ -8,10 +8,14 @@ import { Logo } from '../components/Logo'
 import { Text } from '../components/Text'
 import { Tabs } from '../components/Tabs'
 import { Input } from '../components/Input'
+import { Link } from '../components/Link'
 import { Box } from '../components/Box'
+import { Grid } from '../components/Grid'
 import { Radio } from '../components/Radio'
 import { Card } from '../components/Card'
 import { File } from '../components/File'
+import { Divider } from '../components/Divider'
+import { Form } from '../components/Form'
 import { Button } from '../components/Button'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { Label, LabelProps } from '../components/Label'
@@ -190,6 +194,7 @@ export const MeetingDetails: StoryObj = {
                         name={name}
                         extension={extension}
                         size={size}
+                        unit={''}
                       />
                     ))}
                   </Space>
@@ -319,6 +324,217 @@ export const MeetingDetails: StoryObj = {
                     <div>Вопрос 1: {question1}</div>
                     <div>Вопрос 2: {question2}</div>
                   </div>
+                </Space>
+              </Space>
+            </Box>
+          </PageLayout.Content>
+        </PageLayout.Body>
+      </PageLayout>
+    )
+  }
+}
+
+export const Login: StoryObj = {
+  render: () => {
+    return (
+      <PageLayout>
+        <PageLayout.Header containerWidth="medium">
+          <Space direction="horizontal" align="center" gap="xxlarge">
+            <Logo prefix="ЛКИ" />
+          </Space>
+        </PageLayout.Header>
+
+        <PageLayout.Body containerWidth="medium">
+          <PageLayout.Content>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: 'calc(100vh - var(--inf-height-header)'
+              }}
+            >
+              <Card size="large" style={{ width: '448px' }}>
+                <Space gap="medium">
+                  <Text variant="heading-3">Вход в систему</Text>
+                  <Space gap="large">
+                    <Button variant="tertiary" block>
+                      Войти через ГосУслуги
+                    </Button>
+                    <Divider />
+                    <Form gap="large">
+                      <Space gap="medium">
+                        <Form.Group>
+                          <Form.Label>Введите почту или номер</Form.Label>
+                          <Input placeholder="Почта или номер" />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Введите пароль</Form.Label>
+                          <Input placeholder="Пароль" />
+                        </Form.Group>
+                      </Space>
+                      <Space gap="medium">
+                        <Button variant="primary" block>
+                          Войти
+                        </Button>
+                        <Space direction="horizontal" justify="space-between">
+                          <Link>Восстановить пароль</Link>
+                          <Link>Инструкция</Link>
+                        </Space>
+                      </Space>
+                    </Form>
+                  </Space>
+                </Space>
+              </Card>
+            </div>
+          </PageLayout.Content>
+        </PageLayout.Body>
+      </PageLayout>
+    )
+  }
+}
+
+export const Registration: StoryObj = {
+  render: () => {
+    return (
+      <PageLayout>
+        <PageLayout.Header containerWidth="medium">
+          <Space direction="horizontal" align="center" gap="xxlarge">
+            <Logo prefix="ЛКИ" />
+          </Space>
+        </PageLayout.Header>
+
+        <PageLayout.Body containerWidth="small">
+          <PageLayout.Content>
+            <Box paddingY="xxlarge">
+              <Space gap="large">
+                <Text variant="heading-3">Регистрация</Text>
+                <Form>
+                  <Space gap="large">
+                    <Space direction="horizontal" gap="large">
+                      <Form.Group required>
+                        <Form.Label>Фамилия</Form.Label>
+                        <Input defaultValue="Гончаров" disabled />
+                      </Form.Group>
+                      <Form.Group required>
+                        <Form.Label>Имя</Form.Label>
+                        <Input defaultValue="Павел" disabled />
+                      </Form.Group>
+                    </Space>
+                    <Form.Group>
+                      <Form.Label>Отчество</Form.Label>
+                      <Input defaultValue="Романович" disabled />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Имя</Form.Label>
+                      <Input
+                        defaultValue="email@mail.ru"
+                        postfix={
+                          <Link href="ya.ru" target="_blank">
+                            Подтвердить
+                          </Link>
+                        }
+                      />
+                    </Form.Group>
+                  </Space>
+                  <Space direction="horizontal">
+                    <Button variant="primary">Продолжить</Button>
+                    <Button variant="tertiary">Закрыть</Button>
+                  </Space>
+                </Form>
+              </Space>
+            </Box>
+          </PageLayout.Content>
+        </PageLayout.Body>
+      </PageLayout>
+    )
+  }
+}
+
+export const ProfileUpdate: StoryObj = {
+  render: () => {
+    return (
+      <PageLayout>
+        <PageLayout.Header containerWidth="medium">
+          <Space direction="horizontal" align="center" gap="xxlarge">
+            <Logo prefix="ЛКИ" />
+          </Space>
+        </PageLayout.Header>
+
+        <PageLayout.Body containerWidth="medium">
+          <PageLayout.Content
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <Box paddingY="xxlarge">
+              <Space gap="large">
+                <Text variant="heading-2">Обновление профиля</Text>
+                <div>
+                  На портале Госуслуг у вашего пользоватля указаны другие
+                  данные. Обновить сведения в личном кабинете по даннным с
+                  Госуслуг?
+                </div>
+                <Grid templateColumns="1fr 1fr" gap="large">
+                  <Space gap="medium">
+                    <Text variant="heading-3">В личном кабинете</Text>
+                    <Card>
+                      <Grid
+                        templateColumns="1fr 1fr"
+                        columnGap="xxlarge"
+                        rowGap="large"
+                      >
+                        <Text variant="body-1" color="secondary">
+                          Фамилия
+                        </Text>
+                        <Text variant="body-1">Гончаров</Text>
+                        <Text variant="body-1" color="secondary">
+                          Имя
+                        </Text>
+                        <Text variant="body-1">Павел</Text>
+                        <Text variant="body-1" color="secondary">
+                          Отчество
+                        </Text>
+                        <Text variant="body-1">Романович</Text>
+                        <Text variant="body-1" color="secondary">
+                          Электронная почта
+                        </Text>
+                        <Text variant="body-1">email@mail.ru</Text>
+                      </Grid>
+                    </Card>
+                  </Space>
+                  <Space gap="medium">
+                    <Text variant="heading-3">На Госуслугах</Text>
+                    <Card>
+                      <Grid
+                        templateColumns="1fr 1fr"
+                        columnGap="xxlarge"
+                        rowGap="large"
+                      >
+                        <Text variant="body-1" color="secondary">
+                          Фамилия
+                        </Text>
+                        <Text variant="body-1">Гончаров</Text>
+                        <Text variant="body-1" color="secondary">
+                          Имя
+                        </Text>
+                        <Text variant="body-1">Павел</Text>
+                        <Text variant="body-1" color="secondary">
+                          Отчество
+                        </Text>
+                        <Text variant="body-1">Романович</Text>
+                        <Text variant="body-1" color="secondary">
+                          Электронная почта
+                        </Text>
+                        <Text variant="body-1" color="danger">
+                          mail.mail@mail.ru
+                        </Text>
+                      </Grid>
+                    </Card>
+                  </Space>
+                </Grid>
+                <Space direction="horizontal" gap="large">
+                  <Button variant="primary">Обновить</Button>
+                  <Button variant="tertiary">Не обновлять</Button>
                 </Space>
               </Space>
             </Box>

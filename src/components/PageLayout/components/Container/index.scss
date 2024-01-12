@@ -3,6 +3,14 @@
   height: 100%;
   flex-grow: 1;
 
+  &--size-small {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
   &--size-medium {
     max-width: 1400px;
     margin-left: auto;

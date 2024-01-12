@@ -5,7 +5,7 @@ import cn from 'classnames'
 export interface PageLayoutContainerProps
   extends ComponentPropsWithoutRef<'div'> {
   className?: string
-  width?: 'large' | 'medium'
+  width?: 'small' | 'large' | 'medium'
 }
 
 const PageLayoutContainer = React.forwardRef<

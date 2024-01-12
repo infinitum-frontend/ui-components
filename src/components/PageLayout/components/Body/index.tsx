@@ -5,7 +5,7 @@ import PageLayoutContainer from '../Container'
 
 export interface PageLayoutBodyProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
-  containerWidth?: 'large' | 'medium'
+  containerWidth?: 'small' | 'large' | 'medium'
 }
 
 const PageLayoutBody = React.forwardRef<HTMLDivElement, PageLayoutBodyProps>(
