@@ -28,6 +28,7 @@ import FormContext from 'Components/Form/context/form'
 import FormGroupContext from 'Components/Form/context/group'
 import cn from 'classnames'
 import './Autocomplete.scss'
+import escapeRegExp from 'lodash.escaperegexp'
 
 export interface AutocompleteProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
@@ -53,6 +54,8 @@ export interface AutocompleteProps
   onOpenChange?: (value: boolean) => void
   /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
+  /** Подсветка текста при поиске */
+  searchHighlighting?: boolean
 }
 
 // const getIndexByValue = (value: IAutocompleteOption['value'], options: Array<IAutocompleteOption['value']>): number => {
@@ -73,6 +76,7 @@ const Autocomplete = ({
   children,
   className,
   maxHeight,
+  searchHighlighting,
   ...props
 }: AutocompleteProps): ReactElement => {
   // ==================== state ====================
@@ -136,6 +140,19 @@ const Autocomplete = ({
       formGroupContext.setInvalid?.(false)
     }
     onChange?.(value)
+  }
+
+  function getTextWithHighlighting(text: string, query?: string): string {
+    if (text && query) {
+      const result = text.replace(
+        new RegExp(escapeRegExp(query), 'gi'),
+        '<span class="inf-autocomplete__highlight">$&</span>'
+      )
+
+      return result
+    }
+
+    return text
   }
 
   // TODO: работа с KeyDown
@@ -221,11 +238,23 @@ const Autocomplete = ({
               allowClear={true}
             />
             <AutocompleteOptions>
-              {filteredOptions?.map((option) => (
-                <AutocompleteOption value={option.value} key={option.value}>
-                  {option.label}
-                </AutocompleteOption>
-              ))}
+              {filteredOptions?.map((option) =>
+                searchHighlighting ? (
+                  <AutocompleteOption
+                    value={option.value}
+                    key={option.value}
+                    dangerouslySetInnerHTML={{
+                      __html: `<span>
+                      ${getTextWithHighlighting(option.label as string, query)}
+                    </span>`
+                    }}
+                  />
+                ) : (
+                  <AutocompleteOption value={option.value} key={option.value}>
+                    {option.label}
+                  </AutocompleteOption>
+                )
+              )}
             </AutocompleteOptions>
           </AutocompleteDropdown>
         </div>

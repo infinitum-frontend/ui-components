@@ -1,3 +1,7 @@
 .inf-autocomplete {
   width: 100%;
+
+  &__highlight {
+    color: var(--inf-color-primary)
+  }
 }

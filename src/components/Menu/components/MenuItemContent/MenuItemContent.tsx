@@ -9,13 +9,26 @@ export interface MenuItemContentProps {
    */
   stretched?: boolean
   children?: ReactNode
+  textWithHighlighting?: string
 }
 
 const MenuItemContent = ({
   stretched = true,
-  children
+  children,
+  textWithHighlighting
 }: MenuItemContentProps): ReactElement => {
-  return (
+  return textWithHighlighting ? (
+    <div
+      className={cn('inf-menu-item-content', {
+        'inf-menu-item-content--unstretched': !stretched
+      })}
+      dangerouslySetInnerHTML={{
+        __html: `<span>
+            ${textWithHighlighting}
+          </span>`
+      }}
+    />
+  ) : (
     <div
       className={cn('inf-menu-item-content', {
         'inf-menu-item-content--unstretched': !stretched
