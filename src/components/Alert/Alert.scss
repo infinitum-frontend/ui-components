@@ -1,7 +1,7 @@
 .inf-alert {
   display: flex;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: var(--inf-border-radius-small);
+  padding: var(--inf-space-small);
 
   &--variant-info {
     color: var(--inf-color-blue-500);
@@ -30,6 +30,6 @@
 
   &__before {
     display: flex;
-    margin-right: 4px;
+    margin-right: var(--inf-space-xxsmall);
   }
 }
