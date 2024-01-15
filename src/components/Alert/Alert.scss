@@ -1,0 +1,35 @@
+.inf-alert {
+  display: flex;
+  border-radius: var(--inf-border-radius-small);
+  padding: var(--inf-space-small);
+
+  &--variant-info {
+    color: var(--inf-color-blue-500);
+    background-color: var(--inf-color-blue-100);
+  }
+
+  &--variant-danger {
+    color: var(--inf-color-danger);
+    background-color: var(--inf-color-orange-100);
+  }
+
+  &--variant-success {
+    color: var(--inf-color-success);
+    background-color: var(--inf-color-green-100);
+  }
+
+  &--variant-warning {
+    color: var(--inf-color-yellow-300);
+    background-color: var(--inf-color-yellow-100);
+  }
+
+  &--variant-neutral {
+    color: var(--inf-color-gray-500);
+    background-color: var(--inf-color-background-secondary);
+  }
+
+  &__before {
+    display: flex;
+    margin-right: var(--inf-space-xxsmall);
+  }
+}
