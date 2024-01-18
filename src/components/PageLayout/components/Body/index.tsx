@@ -1,7 +1,7 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import './index.scss'
 import cn from 'classnames'
-import PageLayoutContainer from '../Container'
+import { Container } from 'Components/Container'
 
 export interface PageLayoutBodyProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
@@ -12,16 +12,15 @@ export interface PageLayoutBodyProps extends ComponentPropsWithoutRef<'div'> {
 }
 
 const PageLayoutBody = React.forwardRef<HTMLDivElement, PageLayoutBodyProps>(
-  ({ className, children, containerWidth, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
     return (
-      <PageLayoutContainer
+      <Container
         ref={ref}
         className={cn('inf-page-layout-body', className)}
-        width={containerWidth}
         {...props}
       >
         <div className="inf-page-layout-body__box">{children}</div>
-      </PageLayoutContainer>
+      </Container>
     )
   }
 )
