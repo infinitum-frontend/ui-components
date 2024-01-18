@@ -1,7 +1,17 @@
-import { ComponentPropsWithRef, ElementType } from 'react'
+import {
+  ComponentPropsWithRef,
+  ComponentPropsWithoutRef,
+  ElementType
+} from 'react'
 
-export type PolymorphicComponent<C extends ElementType, Props = {}> = Props &
-  Omit<ComponentPropsWithRef<C>, keyof Props> & { as?: C }
+export type PolymorphicComponent<
+  C extends ElementType = 'div',
+  Props = {}
+> = Props &
+  Omit<ComponentPropsWithoutRef<C>, keyof Props> & {
+    as?: C
+    ref?: PolymorphicRef<C>
+  }
 
 export type PolymorphicRef<C extends ElementType> =
   ComponentPropsWithRef<C>['ref']

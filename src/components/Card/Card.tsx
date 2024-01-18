@@ -51,7 +51,6 @@ function BaseCard<C extends ElementType = 'div'>(
     borderColor = 'danger'
   }
   return (
-    // @ts-expect-error
     <Box
       ref={ref}
       className={cn('inf-card', className)}
