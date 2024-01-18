@@ -1,4 +1,11 @@
 .inf-page-layout-content {
   flex-grow: 1;
   background-color: var(--inf-color-background-default);
+  padding: var(--inf-space-xxlarge) 0;
+
+  &--center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

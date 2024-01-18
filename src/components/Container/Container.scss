@@ -1,43 +1,27 @@
-:root {
-  --inf-container-inner-padding: 0.5rem;
-}
-
 .inf-container {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-left: var(--inf-container-inner-padding);
-  padding-right: var(--inf-container-inner-padding);
-}
+  padding-left: 24px;
+  padding-right: 24px;
 
-@media (min-width: 576px) {
-  .inf-container {
-    max-width: calc(576px - 2 * var(--inf-container-inner-padding));
+  &--size-xsmall {
+    max-width: calc(var(--inf-container-width-xsmall) + 48px);
   }
-}
 
-@media (min-width: 768px) {
-  .inf-container {
-    max-width: calc(768px - 2 * var(--inf-container-inner-padding));
+  &--size-small {
+    max-width: calc(var(--inf-container-width-small) + 48px);
   }
-}
 
-@media (min-width: 992px) {
-  .inf-container {
-    max-width: calc(992px - 2 * var(--inf-container-inner-padding));
+  &--size-medium {
+    max-width: calc(var(--inf-container-width-medium) + 48px);
   }
-}
 
-@media (min-width: 1280px) {
-  .inf-container {
-    max-width: calc(1280px - 2 * var(--inf-container-inner-padding));
+  &--size-large {
+    max-width: calc(var(--inf-container-width-large) + 48px);
   }
-}
 
-.inf-container--fluid {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: var(--inf-container-inner-padding);
-  padding-left: var(--inf-container-inner-padding);
+  &--size-xlarge {
+    max-width: calc(var(--inf-container-width-xlarge) + 48px);
+  }
 }

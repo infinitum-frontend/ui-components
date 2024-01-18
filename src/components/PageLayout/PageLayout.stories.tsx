@@ -3,9 +3,10 @@ import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { PageLayout } from './index'
 import { HeaderNav } from '../HeaderNav'
-import { SideNav } from '../SideNav'
 import { Logo } from '../Logo'
 import { Space } from '../Space'
+import { Card } from '../Card'
+import { Container } from '../Container'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Layout/PageLayout',
@@ -17,7 +18,7 @@ export default meta
 const Template: StoryFn<typeof PageLayout> = (args) => {
   return (
     <PageLayout {...args}>
-      <PageLayout.Header sticky containerWidth="large">
+      <PageLayout.Header sticky>
         <Space direction="horizontal" gap="xlarge" align="center">
           <Logo style={{ width: '140px' }} />
           <HeaderNav>
@@ -27,33 +28,10 @@ const Template: StoryFn<typeof PageLayout> = (args) => {
           </HeaderNav>
         </Space>
       </PageLayout.Header>
-      <PageLayout.Body containerWidth="large">
-        <PageLayout.Aside style={{ padding: '12px 0' }}>
-          <SideNav>
-            <SideNav.Item as="a" href="https://specdep.ru/" target="_blank">
-              Входящие
-            </SideNav.Item>
-            <SideNav.Item active as="a" href="https://specdep.ru/">
-              Исходящие
-            </SideNav.Item>
-            <SideNav.Item as="a" href="https://specdep.ru/">
-              Отчетность
-            </SideNav.Item>
-            <SideNav.Item as="a" href="https://specdep.ru/">
-              Документы для отправки
-            </SideNav.Item>
-            <SideNav.Item as="a" href="https://specdep.ru/">
-              Черновики
-            </SideNav.Item>
-            <SideNav.Item as="a" href="https://specdep.ru/">
-              Локальный справочник контрагентов
-            </SideNav.Item>
-          </SideNav>
-        </PageLayout.Aside>
+      <PageLayout.Body>
         <PageLayout.Content>
           <div
             style={{
-              padding: '20px',
               display: 'flex',
               flexDirection: 'column',
               gap: '20px'
@@ -71,9 +49,6 @@ const Template: StoryFn<typeof PageLayout> = (args) => {
           </div>
         </PageLayout.Content>
       </PageLayout.Body>
-      {/* <PageLayout.BottomBar containerWidth="large">
-        Bottom Bar
-      </PageLayout.BottomBar> */}
     </PageLayout>
   )
 }
@@ -82,7 +57,42 @@ export const Playground = {
   render: Template,
 
   parameters: {
-    layout: 'fullscreen',
-    backgrounds: { default: 'light' }
+    layout: 'fullscreen'
   }
+}
+
+export const CenteredContent: StoryFn<typeof PageLayout> = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <Space direction="horizontal" gap="xlarge" align="center">
+          <Logo style={{ width: '140px' }} />
+        </Space>
+      </PageLayout.Header>
+      <PageLayout.Body>
+        <PageLayout.Content centerContent>
+          <Container size="xsmall">
+            <Card size="large">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Excepturi magni ipsa natus? Sequi veniam dolor eveniet temporibus
+              magni amet rerum cupiditate nihil nisi accusantium dicta quidem,
+              unde earum eaque atque obcaecati at sunt minus repudiandae quod,
+              id, enim iusto dolore! Facilis itaque beatae ullam dolore,
+              excepturi, rerum consectetur error ea necessitatibus officia
+              alias. Qui eos magnam dolore corporis! Eligendi nesciunt aperiam
+              iure dolores itaque atque omnis officia! Quos minus et, aliquid
+              dolorem accusantium amet, placeat omnis doloribus quaerat non
+              error mollitia quod porro alias laborum recusandae est at animi
+              qui ipsa expedita nam ipsum facilis nobis! Cupiditate corporis eos
+              eligendi?
+            </Card>
+          </Container>
+        </PageLayout.Content>
+      </PageLayout.Body>
+    </PageLayout>
+  )
+}
+
+CenteredContent.parameters = {
+  layout: 'fullscreen'
 }

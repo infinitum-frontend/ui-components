@@ -4,11 +4,11 @@
   flex-grow: 1;
 
   &--size-medium {
-    max-width: 1400px;
+    max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: var(--inf-space-large);
+    padding-right: var(--inf-space-large);
   }
 
   &--size-large {

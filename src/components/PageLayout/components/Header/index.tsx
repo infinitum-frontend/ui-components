@@ -7,6 +7,9 @@ export interface PageLayoutHeaderProps
   extends ComponentPropsWithoutRef<'header'> {
   className?: string
   sticky?: boolean
+  /**
+   * @deprecated
+   */
   containerWidth?: 'large' | 'medium'
 }
 

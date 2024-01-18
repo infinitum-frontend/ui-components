@@ -5,6 +5,9 @@ import PageLayoutContainer from '../Container'
 
 export interface PageLayoutBodyProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
+  /**
+   * @deprecated
+   */
   containerWidth?: 'large' | 'medium'
 }
 
