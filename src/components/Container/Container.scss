@@ -2,26 +2,27 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  --padding: var(--inf-space-large);
+  padding-left: var(--padding);
+  padding-right: var(--padding);
 
   &--size-xsmall {
-    max-width: calc(var(--inf-container-width-xsmall) + 48px);
+    max-width: calc(var(--inf-container-width-xsmall) + (var(--padding) * 2));
   }
 
   &--size-small {
-    max-width: calc(var(--inf-container-width-small) + 48px);
+    max-width: calc(var(--inf-container-width-small) + (var(--padding) * 2));
   }
 
   &--size-medium {
-    max-width: calc(var(--inf-container-width-medium) + 48px);
+    max-width: calc(var(--inf-container-width-medium) + (var(--padding) * 2));
   }
 
   &--size-large {
-    max-width: calc(var(--inf-container-width-large) + 48px);
+    max-width: calc(var(--inf-container-width-large) + (var(--padding) * 2));
   }
 
   &--size-xlarge {
-    max-width: calc(var(--inf-container-width-xlarge) + 48px);
+    max-width: calc(var(--inf-container-width-xlarge) + (var(--padding) * 2));
   }
 }

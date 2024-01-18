@@ -14,13 +14,15 @@ export interface ContainerProps extends ComponentPropsWithoutRef<'div'> {
 
 /** Контейнер ограничивающий ширину контента */
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, size = 'xlarge', children, ...props }, ref) => {
+  ({ className, size = 'xlarge', fluid, children, ...props }, ref) => {
+    const sizeClass = fluid
+      ? 'inf-container--size-fluid'
+      : `inf-container--size-${size as string}`
+
     return (
       <div
         ref={ref}
-        className={cn('inf-container', className, {
-          [`inf-container--size-${size as string}`]: size
-        })}
+        className={cn('inf-container', className, sizeClass)}
         {...props}
       >
         {children}
