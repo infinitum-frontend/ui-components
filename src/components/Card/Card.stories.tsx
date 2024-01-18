@@ -30,16 +30,24 @@ export const Playground = {
   render: Template
 }
 
-export const PaddingLarge = {
+export const Large = {
   render: Template,
   args: {
     size: 'large'
   }
 }
 
+export const Shadow = {
+  render: Template,
+  args: {
+    variant: 'shadow'
+  }
+}
+
 export const OutlineDanger = {
   render: Template,
   args: {
-    outlineVariant: 'danger'
+    outlineVariant: 'danger',
+    variant: 'shadown'
   }
 }
