@@ -4,21 +4,25 @@ import './Container.scss'
 
 export interface ContainerProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
-  /** Занимает полную ширину */
+  /** Занимает полную ширину
+   * @deprecated
+   */
   fluid?: boolean
+  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'fluid'
   children: React.ReactNode
 }
 
-/** Компонент для создания адаптивного контейнера для контента */
+/** Контейнер ограничивающий ширину контента */
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, fluid, children, ...props }, ref) => {
+  ({ className, size = 'xlarge', fluid, children, ...props }, ref) => {
+    const sizeClass = fluid
+      ? 'inf-container--size-fluid'
+      : `inf-container--size-${size as string}`
+
     return (
       <div
         ref={ref}
-        className={cn(
-          fluid ? 'inf-container--fluid' : 'inf-container',
-          className
-        )}
+        className={cn('inf-container', className, sizeClass)}
         {...props}
       >
         {children}
