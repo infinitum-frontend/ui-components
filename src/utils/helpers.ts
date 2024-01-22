@@ -1,3 +1,5 @@
+import escapeRegExp from 'lodash.escaperegexp'
+
 export function omitKeyFromObject<
   T extends Record<any, any>,
   K extends keyof T
@@ -18,4 +20,17 @@ export function pluralize(count: number, variants: string[]): string {
 
 export function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1)
+}
+
+export function getTextWithHighlighting(text: string, query?: string): string {
+  if (text && query) {
+    const result = text.replace(
+      new RegExp(escapeRegExp(query), 'gi'),
+      '<span class="inf-text-highlight">$&</span>'
+    )
+
+    return result
+  }
+
+  return text
 }

@@ -1,41 +1,28 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react'
 import './MenuItemContent.scss'
 import cn from 'classnames'
 
-export interface MenuItemContentProps {
+export interface MenuItemContentProps extends ComponentPropsWithoutRef<'div'> {
   /** Занимает всю доступную ширину
    * @default true
    */
   stretched?: boolean
   children?: ReactNode
-  textWithHighlighting?: string
 }
 
 const MenuItemContent = ({
   stretched = true,
   children,
-  textWithHighlighting
+  ...props
 }: MenuItemContentProps): ReactElement => {
-  return textWithHighlighting ? (
+  return (
     <div
       className={cn('inf-menu-item-content', {
         'inf-menu-item-content--unstretched': !stretched
       })}
-      dangerouslySetInnerHTML={{
-        __html: `<span>
-            ${textWithHighlighting}
-          </span>`
-      }}
+      {...props}
     />
-  ) : (
-    <div
-      className={cn('inf-menu-item-content', {
-        'inf-menu-item-content--unstretched': !stretched
-      })}
-    >
-      {children}
-    </div>
   )
 }
 

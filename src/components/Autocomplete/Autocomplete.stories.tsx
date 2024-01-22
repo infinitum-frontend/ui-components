@@ -103,6 +103,8 @@ export const ControlledVariant: StoryObj<typeof Autocomplete> = {
           <Autocomplete.Options>
             {filteredItems.map((option) => (
               <Autocomplete.Option
+                query={query}
+                searchHighlighting
                 onClick={handleClick}
                 key={option.value}
                 value={option.value}

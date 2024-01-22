@@ -9,7 +9,7 @@ import useUpdateEffect from 'Hooks/useUpdateEffect'
 import { ReactComponent as CrossIcon } from 'Icons/cross.svg'
 import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
 import './Combobox.scss'
-import escapeRegExp from 'lodash.escaperegexp'
+import { getTextWithHighlighting } from '~/src/utils/helpers'
 
 export type CheckedItem = SelectOption['value']
 
@@ -54,19 +54,6 @@ const Combobox = ({
   const checkedOptions = options.filter((option) => {
     return checkedList.find((item) => item === option.value)
   })
-
-  function getTextWithHighlighting(text: string, query?: string): string {
-    if (text && query) {
-      const result = text.replace(
-        new RegExp(escapeRegExp(query), 'gi'),
-        '<span class="inf-combobox__highlight">$&</span>'
-      )
-
-      return result
-    }
-
-    return text
-  }
 
   const handleSearchChange = (value: string): void => {
     setSearchQuery(value)
@@ -148,18 +135,24 @@ const Combobox = ({
                   onChange={(checked) => handleChange(checked, option.value)}
                 />
               </Menu.Item.Icon>
-              <Menu.Item.Content
-                textWithHighlighting={
-                  searchHighlighting
-                    ? getTextWithHighlighting(
-                        option.label as string,
-                        searchQuery
-                      )
-                    : undefined
-                }
-              >
-                {option.label}
-              </Menu.Item.Content>
+              {searchHighlighting ? (
+                <Menu.Item.Content
+                  dangerouslySetInnerHTML={{
+                    __html: `<span>
+                      ${
+                        getTextWithHighlighting(
+                          option.label as string,
+                          searchQuery
+                        ) as string
+                      }
+                    </span>`
+                  }}
+                >
+                  {option.label}
+                </Menu.Item.Content>
+              ) : (
+                <Menu.Item.Content>{option.label}</Menu.Item.Content>
+              )}
             </Menu.Item>
           ))}
         </Menu>
