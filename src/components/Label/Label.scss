@@ -1,6 +1,7 @@
 .inf-label {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   width: max-content;
   border-radius: var(--inf-border-radius-medium);
   color: var(--inf-color-text-on-color);
