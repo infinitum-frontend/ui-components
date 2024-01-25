@@ -4,7 +4,6 @@ import React, {
   ReactElement,
   useContext,
   useEffect,
-  useRef,
   useState
 } from 'react'
 import AutocompleteButton from 'Components/Autocomplete/components/AutocompleteButton'
@@ -25,9 +24,9 @@ import {
 } from '@floating-ui/react'
 import { IAutocompleteOption } from 'Components/Autocomplete/types'
 import FormContext from 'Components/Form/context/form'
-import FormGroupContext from 'Components/Form/context/group'
 import cn from 'classnames'
 import './Autocomplete.scss'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 export interface AutocompleteProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
@@ -81,9 +80,7 @@ const Autocomplete = ({
   const [filteredOptions, setFilteredOptions] = useState(options)
 
   const formContext = useContext(FormContext)
-  const formGroupContext = useContext(FormGroupContext)
-
-  const inputRef = useRef<HTMLInputElement>(null)
+  const { resetControlValidity } = useFormControlHandlers()
 
   const disabled = disabledProp || formContext?.disabled
 
@@ -131,9 +128,8 @@ const Autocomplete = ({
 
   const handleChange = (value: IAutocompleteOption['value']): void => {
     const hasValue = value != null
-    if (formGroupContext && hasValue) {
-      inputRef.current?.setCustomValidity('')
-      formGroupContext.setInvalid?.(false)
+    if (hasValue) {
+      resetControlValidity()
     }
     onChange?.(value)
   }
@@ -209,7 +205,6 @@ const Autocomplete = ({
             disabled={disabled}
             onClick={handleButtonClick}
             placeholder={buttonPlaceholder}
-            forwardedInputRef={inputRef}
           >
             {options?.find((option) => option.value === selectedValue)?.label}
           </AutocompleteButton>

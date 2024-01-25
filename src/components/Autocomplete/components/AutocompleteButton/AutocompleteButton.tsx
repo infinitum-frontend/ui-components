@@ -2,7 +2,6 @@
 import React, {
   ComponentPropsWithoutRef,
   FocusEventHandler,
-  FormEventHandler,
   ReactElement,
   RefObject,
   useContext,
@@ -14,6 +13,7 @@ import './AutocompleteButton.scss'
 import SelectButton from 'Components/Select/components/SelectButton'
 import cn from 'classnames'
 import FormGroupContext from 'Components/Form/context/group'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 export interface AutocompleteButtonProps
   extends ComponentPropsWithoutRef<'button'> {
@@ -38,20 +38,13 @@ const AutocompleteButton = ({
     ? context?.selectedValue[0]
     : context?.selectedValue ?? ''
 
+  const { onControlInvalid } = useFormControlHandlers()
+
   useEffect(() => {
     if (!context?.open) {
       setFocused(false)
     }
   }, [context?.open])
-
-  const handleInvalid: FormEventHandler<HTMLInputElement> = () => {
-    if (formGroupContext) {
-      formGroupContext.setInvalid?.(true)
-      forwardedInputRef?.current?.setCustomValidity(
-        formGroupContext.customValidationMessage || ''
-      )
-    }
-  }
 
   const handleFocus: FocusEventHandler = (e) => {
     e.preventDefault()
@@ -94,7 +87,7 @@ const AutocompleteButton = ({
         aria-required={context?.required || formGroupContext?.required}
         aria-invalid={formGroupContext?.invalid || undefined}
         id={formGroupContext?.id}
-        onInvalid={handleInvalid}
+        onInvalid={onControlInvalid}
       />
     </SelectButton>
   )

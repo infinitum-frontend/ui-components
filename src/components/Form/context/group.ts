@@ -4,6 +4,7 @@ export interface IFormGroupContext {
   id?: string
   required?: boolean
   customValidationMessage?: string
+  setErrorMessage: (value: string) => void
   invalid?: boolean
   setInvalid?: (value: boolean) => void
 }
