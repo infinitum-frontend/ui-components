@@ -1,4 +1,4 @@
-import { Meta, Unstyled, ArgTypes, Canvas } from '@storybook/blocks'
+import { Meta, Unstyled, ArgTypes } from '@storybook/blocks'
 import Table from './Table'
 import TableBase from 'Components/Table/components/TableBase'
 
@@ -10,7 +10,7 @@ import TableBase from 'Components/Table/components/TableBase'
 При этом функционал, связанный с сортировкой, фильтрацией, селекцией, изменением размера становится недоступным, а также отпадает необходимость создавать объекты columns и data и передавать их в таблицу.
 
 <Unstyled>
-  <Table bordered>
+  <Table>
     <thead>
       <tr>
         <th>Заголовок 1</th>
@@ -28,7 +28,7 @@ import TableBase from 'Components/Table/components/TableBase'
 
 {/* prettier-ignore-start */}
 ```html
-<Table bordered>
+<Table>
   <thead>
     <tr>
       <th>Заголовок 1</th>

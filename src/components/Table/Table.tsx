@@ -98,7 +98,16 @@ const Table = ({
   ...props
 }: TableProps): ReactElement => {
   if (children) {
-    return <TableBase {...props}>{children}</TableBase>
+    return (
+      <TableBase
+        verticalAlignBody={verticalAlignBody}
+        verticalAlignHead={verticalAlignHead}
+        borderRadius={borderRadius}
+        {...props}
+      >
+        {children}
+      </TableBase>
+    )
   }
 
   // Приводим состояние селекции столбцом к формату танстака(объект ключ-id ряда, значение-boolean)
