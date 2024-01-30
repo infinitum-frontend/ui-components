@@ -77,6 +77,10 @@ export interface TableProps extends TableBaseProps {
    */
   selectedRow?: TableSelectedRow
   onRowClick?: OnChangeFn<TableRow>
+  /** Изменение ширины колонок
+   * @value onChange изменение "вживую" при растягивании
+   * @value onEnd изменение при отжатии кнопки мыши
+   */
   resizeMode?: ColumnResizeMode
   // /** Включена ли группировка */
   // // enableGrouping?: boolean

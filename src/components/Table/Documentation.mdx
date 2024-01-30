@@ -29,12 +29,10 @@ interface Portfolio {
 const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
-    id: 'portfolio',
     accessorKey: 'portfolio'
   },
   {
     header: 'Показатель',
-    id: 'mark',
     accessorKey: 'mark'
   }
 ]
@@ -77,7 +75,7 @@ const columns: Array<ColumnDef<SomeInterface, any>> = [
   [Подробнее об API колонок](https://tanstack.com/table/latest/docs/api/core/column-def)
 </h4>
 
-2. Для описания рядов необходимо передать в проп <strong>rows</strong> массив с элементами для наполнения. Тип элемента должен быть аналогичен тому, что передан в <strong>columns</strong> Пример:
+2. Для наполнения таблицы необходимо передать в проп <strong>rows</strong> массив с элементами для наполнения. Тип элемента должен быть аналогичен тому, что передан в <strong>columns</strong> Пример:
 
 <strong>Пример кода:</strong>
 
@@ -103,7 +101,7 @@ const rows: Array<TableRowData<Portfolio>> = [
 
 <Canvas of={TableStories.Base} />
 
-Также имеется возможность указанному ряду применить `style` и `className`. Для этого в модель данных нужно добавить className/style определенному ряду:
+Также имеется возможность к указанному ряду применить `style` и `className`. Для этого в модель данных нужно добавить className/style определенному ряду:
 
 ```typescript jsx
 import { CSSProperties } from 'react'
@@ -285,6 +283,10 @@ type selectedRow = TableSelectedRow // id выбранного ряда, или 
 ## Ресайзинг колонок
 
 Для изменения размера колонок используется проп `resizeMode`
+
+Значения:
+ - `onChange` изменение "вживую" при растягивании
+ - `onEnd` изменение при отжатии кнопки мыши
 
 <Canvas of={TableStories.Resizing} />
 
