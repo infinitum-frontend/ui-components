@@ -4,16 +4,32 @@ import React, {
   forwardRef,
   ReactElement,
   Children,
-  Fragment
+  Fragment,
+  ReactNode
 } from 'react'
 import { BreadcrumbsItem } from './components/BreadcrumbsItem'
 import './Breadcrumbs.scss'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
-import { ReactComponent as ChevronRightIcon } from 'Icons/chevronRight.svg'
+import { BreadcrumbsShowMoreButton } from './components/BreadcrumbsShowMoreButton'
+import { BreadcrumbsSeparator } from './components/BreadcrumbsSeparator'
 
 // TODO: aria-current
 // ol / li
+
+// проверяем, есть ли среди детей на 1 уровне или на 2(если контент передается через Fragment) компонент BreadcrumbsSeparator
+// если сепаратора нет, добавляем его внутри компонента
+function checkSeparator(children: ReactNode[]): boolean {
+  if (children.length === 1) {
+    return !(children[0] as ReactElement).props?.children?.find(
+      (child: any) => child?.type?.name === 'BreadcrumbsSeparator'
+    )
+  } else {
+    return !children.find(
+      (child: any) => child?.type?.name === 'BreadcrumbsSeparator'
+    )
+  }
+}
 
 function BaseBreadcrumbs<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C>,
@@ -21,6 +37,8 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
 ): ReactElement {
   const { className, children, as = 'nav', ...rest } = props
   const arrayChildren = Children.toArray(children)
+  const shouldAddSeparators = checkSeparator(arrayChildren)
+
   const Component = as
 
   return (
@@ -30,17 +48,18 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
       aria-label="Breadcrumb"
       {...rest}
     >
-      {Children.map(arrayChildren, (child, index) => {
-        const isLast = index === arrayChildren.length - 1
-        return (
-          <Fragment key={index}>
-            {child}
-            {!isLast && (
-              <ChevronRightIcon className="inf-breadcrumbs__separator" />
-            )}
-          </Fragment>
-        )
-      })}
+      {/* TODO: отрисовку через Children считаю deprecated, лучше использовать компонент Separator, который можно дальше расширить */}
+      {shouldAddSeparators
+        ? Children.map(arrayChildren, (child, index) => {
+            const isLast = index === arrayChildren.length - 1
+            return (
+              <Fragment key={index}>
+                {child}
+                {!isLast && <BreadcrumbsSeparator />}
+              </Fragment>
+            )
+          })
+        : children}
     </Component>
   )
 }
@@ -49,7 +68,9 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
 const Breadcrumbs = Object.assign(
   forwardRef(BaseBreadcrumbs) as typeof BaseBreadcrumbs,
   {
-    Item: BreadcrumbsItem
+    Item: BreadcrumbsItem,
+    Separator: BreadcrumbsSeparator,
+    ShowMoreButton: BreadcrumbsShowMoreButton
   }
 )
 

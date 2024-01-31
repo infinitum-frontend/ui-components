@@ -1,1 +1,3 @@
-export { default as Breadcrumbs } from './Breadcrumbs'
+import Breadcrumbs from './Breadcrumbs'
+import useSplittedBreadcrumbs from './hooks/useSplittedBreadcrumbs'
+export { useSplittedBreadcrumbs, Breadcrumbs }

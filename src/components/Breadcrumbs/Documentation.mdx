@@ -1,0 +1,153 @@
+import { Meta, Canvas } from '@storybook/blocks'
+import * as BreadcrumbsStories from './Breadcrumbs.stories'
+
+<Meta of={BreadcrumbsStories} name="Documentation" />
+
+### Компонент навигации, который помогает пользователю понять иерархию между уровнями и вернуться на предыдщие этапы
+
+## Базовый вариант
+
+Для описания внутренного контента существуют внутренние компоненты `Breadcrumbs.Item` и `Breadcrumbs.Separator`.
+
+<strong>Пример кода</strong>
+
+```typescript jsx
+import { Breadcrumbs } from './index'
+
+return (
+  <Breadcrumbs>
+    <Breadcrumbs.Item>Элемент 1</Breadcrumbs.Item>
+    <Breadcrumbs.Separator />
+    <Breadcrumbs.Item>Элемент 2</Breadcrumbs.Item>
+    <Breadcrumbs.Separator />
+    <Breadcrumbs.Item>Элемент 3</Breadcrumbs.Item>
+  </Breadcrumbs>
+)
+```
+
+<Canvas of={BreadcrumbsStories.Playground} />
+
+#### На текущий момент, если в `children` на 1 или 2 уровне вложенности `НЕ` передан ни один компонент `Breadcrumbs.Separator`, тогда компонент автоматически добавит сепараторы.
+
+Данное поведение планируется полностью удалить после правок на проектах
+
+Пример кода, в котором `Separator` будет автоматически добавлен:
+
+```typescript jsx
+import { Breadcrumbs } from './index'
+
+return (
+  <Breadcrumbs>
+    <Breadcrumbs.Item>Элемент 1</Breadcrumbs.Item>
+    <Breadcrumbs.Item>Элемент 2</Breadcrumbs.Item>
+    <Breadcrumbs.Item>Элемент 3</Breadcrumbs.Item>
+  </Breadcrumbs>
+)
+
+// ИЛИ
+return (
+  <Breadcrumbs>
+    <Fragment>
+      <Breadcrumbs.Item>Элемент 1</Breadcrumbs.Item>
+      <Breadcrumbs.Item>Элемент 2</Breadcrumbs.Item>
+      <Breadcrumbs.Item>Элемент 3</Breadcrumbs.Item>
+    </Fragment>
+  </Breadcrumbs>
+)
+```
+
+## Вариант со "скрытыми" элементами
+
+Для реализации функционал со скрытием части элементов используется хук `useSplittedBreadcrumbs`. Хук принимает аргументы:
+`items` - массив любого типа, из которого будут создаваться элементы навигации
+`maxVisibleCount` - число, определяющее, сколько элементов будет отображаться на экране
+Также хук принимает дженерик `T`, описывающий тип массива `items`
+
+Хук возращает следующую информацию:
+
+```typescript jsx
+function useSplittedBreadcrumbs<T>(
+  items: T[],
+  maxVisibleCount: number
+): {
+  hasHiddenItems: boolean // Есть ли спрятанные элементы
+  firstItem: T // первый элемент
+  hiddenItems: T[] // спрятанные элементы
+  lastItems: T[] // оставшиеся элементы, идущие после спрятанного
+} {
+  return
+}
+```
+
+Также для данного случая предоставляется компонент `Breadcrumbs.ShowMoreButton`, в качестве триггера для отображения спрятанных элементов
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import { Breadcrumbs, DropdownMenu, useSplittedBreadcrumbs } from './index'
+
+const breadcrumbItems: Array<{
+  title: string
+  href?: string
+}> = [
+  {
+    title: 'Главная',
+    href: 'https://specdep.ru'
+  },
+  {
+    title: 'Проверяемые лица',
+    href: 'https://specdep.ru'
+  },
+  {
+    title: 'Хальмеев Александр'
+  },
+  {
+    title: 'Леонид Хенкин'
+  },
+  { title: 'Александр Круглов' }
+]
+
+const { hasHiddenItems, firstItem, hiddenItems, lastItems } =
+  useSplittedBreadcrumbs(breadcrumbItems, 3)
+
+return (
+  <Breadcrumbs>
+    {hasHiddenItems ? (
+      <>
+        <Breadcrumbs.Item as={firstItem.as} href={firstItem.href}>
+          {firstItem.title}
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <DropdownMenu>
+          <DropdownMenu.Trigger>
+            <Breadcrumbs.ShowMoreButton />
+          </DropdownMenu.Trigger>
+
+          <DropdownMenu.Content>
+            {hiddenItems.map((item) => (
+              <DropdownMenu.Item key={item.title}>
+                {item.title}
+              </DropdownMenu.Item>
+            ))}
+          </DropdownMenu.Content>
+        </DropdownMenu>
+        <Breadcrumbs.Separator />
+        {lastItems.map((item, index) => (
+          <Fragment key={item.title}>
+            <Breadcrumbs.Item>{item.title}</Breadcrumbs.Item>
+            {index !== lastItems.length - 1 && <Breadcrumbs.Separator />}
+          </Fragment>
+        ))}
+      </>
+    ) : (
+      breadcrumbItems.map((item) => (
+        <Breadcrumbs.Item key={item.title} href={item.href}>
+          {item.title}
+        </Breadcrumbs.Item>
+      ))
+    )}
+  </Breadcrumbs>
+)
+```
+
+<Canvas of={BreadcrumbsStories.WithHiddenItems} />

@@ -15,5 +15,6 @@
 
   &:last-child {
     color: var(--inf-color-text-tertiary);
+    pointer-events: none;
   }
 }

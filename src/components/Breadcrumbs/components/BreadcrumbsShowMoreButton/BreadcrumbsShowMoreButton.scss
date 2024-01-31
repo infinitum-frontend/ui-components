@@ -1,0 +1,12 @@
+.inf-breadcrumbs-show-more-button {
+  width: 32px;
+  height: 20px;
+  cursor: pointer;
+  text-align: center;
+  color: var(--inf-color-gray-500);
+  border-radius: var(--inf-border-radius-small);
+
+  @include hover {
+    background-color: var(--inf-color-gray-100);
+  }
+}
