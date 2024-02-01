@@ -2,6 +2,11 @@
 import * as React from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Loader } from './index'
+import LoaderContainer from './components/Container'
+import { useState } from 'react'
+import { Space } from '../Space'
+import { Input } from '../Input'
+import { Form } from '../Form'
 
 const meta: Meta<typeof Loader> = {
   title: 'Components/Loader',
@@ -26,12 +31,33 @@ export const Playground = {
   }
 }
 
-export const Container: StoryObj<typeof Loader> = {
+export const FullHeight: StoryObj<typeof Loader> = {
   render: (args) => {
     return (
       <Loader.Container fullHeight>
         <Loader />
       </Loader.Container>
+    )
+  }
+}
+
+export const CustomHeight: StoryObj<typeof LoaderContainer> = {
+  render: (args) => {
+    const [height, setHeight] = useState('300')
+
+    return (
+      <Space>
+        <Form.Label>Введите высоту, в px</Form.Label>
+        <Input
+          value={height}
+          onChange={setHeight}
+          placeholder="Введите высоту"
+          type="number"
+        />
+        <Loader.Container height={Number(height)}>
+          <Loader />
+        </Loader.Container>
+      </Space>
     )
   }
 }
