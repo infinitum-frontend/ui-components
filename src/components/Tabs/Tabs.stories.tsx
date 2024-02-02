@@ -4,6 +4,7 @@ import { Space } from 'Components/Space'
 import { useState } from 'react'
 import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
 import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
+import { Badge } from '../Badge'
 
 const meta: Meta<typeof Tabs> = {
   title: 'Components/Tabs',
@@ -73,10 +74,12 @@ export const WithBadge: StoryObj<typeof Tabs> = {
     return (
       <Tabs {...args}>
         <Tabs.List>
-          <Tabs.Tab badge={8}>Контроль структуры</Tabs.Tab>
-          <Tabs.Tab badge="Важно!">Состава по доле владения</Tabs.Tab>
-          <Tabs.Tab badge="+2" disabled>
-            Статистический
+          <Tabs.Tab>Контроль структуры {<Badge count={8} />}</Tabs.Tab>
+          <Tabs.Tab>
+            Состава по доле владения {<Badge count="Важно" />}
+          </Tabs.Tab>
+          <Tabs.Tab disabled>
+            Статистический <Badge count="+2" />
           </Tabs.Tab>
         </Tabs.List>
       </Tabs>
@@ -89,15 +92,9 @@ export const WithIcon: StoryObj<typeof Tabs> = {
     return (
       <Tabs {...args}>
         <Tabs.List>
-          <Tabs.Tab icon={<FilterIcon />} badge={8}>
-            Контроль структуры
-          </Tabs.Tab>
-          <Tabs.Tab icon={<DownloadIcon />} badge="Важно!">
-            Состава по доле владения
-          </Tabs.Tab>
-          <Tabs.Tab badge="+2" disabled>
-            Статистический
-          </Tabs.Tab>
+          <Tabs.Tab icon={<FilterIcon />}>Контроль структуры</Tabs.Tab>
+          <Tabs.Tab icon={<DownloadIcon />}>Состава по доле владения</Tabs.Tab>
+          <Tabs.Tab disabled>Статистический</Tabs.Tab>
         </Tabs.List>
       </Tabs>
     )
