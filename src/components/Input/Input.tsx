@@ -19,6 +19,7 @@ import { mergeRefs } from 'react-merge-refs'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 /** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -64,19 +65,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const formGroupContext = useContext(FormGroupContext)
     const formContext = useContext(FormContext)
+    const { onControlInvalid, onControlChange } = useFormControlHandlers()
     const disabled = disabledProp || formContext?.disabled
 
     // обработка событий
     const handleChange: FormEventHandler<HTMLInputElement> = (e) => {
-      if (formGroupContext) {
-        const input = e.currentTarget
-        input.setCustomValidity('')
-
-        const isValid = input.validity.valid
-        if (isValid) {
-          formGroupContext.setInvalid?.(false)
-        }
-      }
+      onControlChange(e)
 
       const domValue = (e.target as HTMLInputElement).value
       const formattedDomValue = getFormattedValue(domValue) || ''
@@ -132,15 +126,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
       onInput?.('')
       onChange?.('')
-    }
-
-    const handleInvalid: FormEventHandler<HTMLInputElement> = (e): void => {
-      if (formGroupContext) {
-        e.currentTarget.setCustomValidity(
-          formGroupContext.customValidationMessage || ''
-        )
-        formGroupContext.setInvalid?.(true)
-      }
     }
 
     const getFormattedValue: (val?: string) => string | undefined = (val) => {
@@ -223,7 +208,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
-          onInvalid={handleInvalid}
+          onInvalid={onControlInvalid}
           required={isRequired}
           ref={mergedRef}
           aria-invalid={formGroupContext?.invalid || ariaInvalid}
