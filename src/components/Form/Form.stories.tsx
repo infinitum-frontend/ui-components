@@ -12,6 +12,7 @@ import { Switch } from '../Switch'
 import { Space } from '../Space'
 import { Autocomplete } from '../Autocomplete'
 import { AutocompleteBaseOptions } from '../Autocomplete/fixtures'
+import { Combobox } from '../Combobox'
 
 const meta: Meta<typeof Form> = {
   title: 'Form/Form',
@@ -127,6 +128,7 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
     const [entityType, setEntityType] = useState<string>('')
     const [serviceType, setServiceType] = useState<string | number>('')
     const [subscription, setSubscription] = useState<boolean>(false)
+    const [comboboxState, setComboboxState] = useState<string[]>([])
 
     const handleSubmit: FormEventHandler = (e): void => {
       alert('submit')
@@ -188,16 +190,25 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
             </Form.Item>
           </Form.Group>
 
+          <Form.Group required direction="horizontal">
+            <Form.Label>Вид услуги 2</Form.Label>
+            <Combobox
+              checkedList={comboboxState}
+              // @ts-expect-error
+              onChange={setComboboxState}
+              options={AutocompleteBaseOptions}
+            />
+          </Form.Group>
+
           <Form.Group direction={'horizontal'} required>
             <Form.Label>Комментарий в ТЗ</Form.Label>
-            <Form.Item>
-              <Textarea
-                resize={'vertical'}
-                maxLength={10}
-                value={comment}
-                onInput={(value) => setComment(value)}
-              />
-            </Form.Item>
+            <Textarea
+              resize={'vertical'}
+              minLength={5}
+              maxLength={10}
+              value={comment}
+              onInput={(value) => setComment(value)}
+            />
             <Form.Hint>Комментарий виден только сотрудникам</Form.Hint>
           </Form.Group>
 
