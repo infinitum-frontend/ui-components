@@ -42,7 +42,10 @@ export interface TableProps extends TableBaseProps {
   verticalAlignHead?: TableVerticalAlignValue
   /** CSS свойство vertical-align для рядов */
   verticalAlignBody?: TableVerticalAlignValue
-  /** Максимальное количество отображаемых элементов */
+  /**
+   * @deprecated
+   * Максимальное количество отображаемых элементов
+   */
   maxLength?: number
   /** Включение сортировки по столбцам */
   withSorting?: boolean
@@ -51,10 +54,17 @@ export interface TableProps extends TableBaseProps {
   /** Событие изменения состояния сортировки */
   onSortingChange?: OnChangeFn<SortingState>
   // TODO: sorting mode auto
+  /** @deprecated */
   withFiltering?: boolean
-  /** Событие изменения состояния фильтров */
+  /**
+   * @deprecated
+   * Событие изменения состояния фильтров
+   */
   onFiltersChange?: OnChangeFn<TableColumnFiltersState>
-  /** Начальное состояние фильтров */
+  /**
+   * @deprecated
+   * Начальное состояние фильтров
+   */
   filtersState?: TableColumnFiltersState
   /** Отображение чекбоксов в 1 колонке */
   withRowSelection?: boolean
@@ -67,6 +77,10 @@ export interface TableProps extends TableBaseProps {
    */
   selectedRow?: TableSelectedRow
   onRowClick?: OnChangeFn<TableRow>
+  /** Изменение ширины колонок
+   * @value onChange изменение "вживую" при растягивании
+   * @value onEnd изменение при отжатии кнопки мыши
+   */
   resizeMode?: ColumnResizeMode
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
