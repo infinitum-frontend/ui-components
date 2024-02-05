@@ -51,10 +51,9 @@ export const CustomHeight: StoryObj<typeof LoaderContainer> = {
         <Input
           value={height}
           onChange={setHeight}
-          placeholder="Введите высоту"
-          type="number"
+          placeholder="Введите высоту, являющуюся валидным CSS свойством"
         />
-        <Loader.Container height={Number(height)}>
+        <Loader.Container height={height}>
           <Loader />
         </Loader.Container>
       </Space>
