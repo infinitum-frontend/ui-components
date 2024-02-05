@@ -1,10 +1,12 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef, CSSProperties } from 'react'
 import './LoaderContainer.scss'
 import cn from 'classnames'
 
 export interface LoaderContainerProps extends ComponentPropsWithoutRef<'div'> {
   /** Дополнительный className */
   className?: string
+  /** Высота контейнера */
+  height?: CSSProperties['height']
   /** На всю высоту контейнера */
   fullHeight?: Boolean
   /** Абсолютное позиционирование с фоном */
@@ -13,7 +15,7 @@ export interface LoaderContainerProps extends ComponentPropsWithoutRef<'div'> {
 
 /** Обертка для позиционирования Loader */
 const LoaderContainer = React.forwardRef<HTMLDivElement, LoaderContainerProps>(
-  ({ className, children, overlay, fullHeight, ...props }, ref) => {
+  ({ className, children, overlay, fullHeight, height, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -21,6 +23,7 @@ const LoaderContainer = React.forwardRef<HTMLDivElement, LoaderContainerProps>(
           'inf-loader-container--overlay': overlay,
           'inf-loader-container--full-height': fullHeight
         })}
+        style={{ minHeight: height }}
         {...props}
       >
         {children}
