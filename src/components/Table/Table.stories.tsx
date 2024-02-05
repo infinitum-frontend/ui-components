@@ -1,14 +1,9 @@
 import { StoryObj, Meta } from '@storybook/react'
-import {
-  Table,
-  TableColumnFilter,
-  TableColumnFiltersState,
-  TableRow
-} from './index'
+import { Table, TableRow } from './index'
 import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
-import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtures'
+import { Portfolio, TABLE_DATA } from './fixtures'
 import { Button } from '../Button'
 import { Space } from '../Space'
 
@@ -24,14 +19,7 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
     id: 'portfolio',
-    accessorKey: 'portfolio',
-    // для рендеринга html
-    // cell: info => info.getValue(),
-    // для фильтрации по тексту по вложенным реакт-элементам
-    // filterFn: 'elIncludesString',
-    meta: {
-      filterType: 'input'
-    }
+    accessorKey: 'portfolio'
   },
   {
     header: 'Показатель',
@@ -41,27 +29,17 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Тип',
     id: 'type',
-    accessorKey: 'type',
-    meta: {
-      filterType: 'select',
-      filterItems: TYPE_FILTER_ITEMS
-    }
+    accessorKey: 'type'
   },
   {
     header: 'Статус',
     id: 'status',
-    accessorKey: 'status',
-    meta: {
-      filterType: 'select'
-    }
+    accessorKey: 'status'
   },
   {
     header: 'Дата',
     id: 'date',
-    accessorKey: 'date',
-    meta: {
-      filterType: 'date'
-    }
+    accessorKey: 'date'
   }
 ]
 
@@ -73,73 +51,73 @@ export const Base: StoryObj<typeof Table> = {
   }
 }
 
-export const Filtering: StoryObj<typeof Table> = {
-  render: (args) => {
-    const [filters, setFilters] = useState<TableColumnFiltersState>([
-      {
-        id: 'date',
-        filterType: 'date',
-        value: {
-          from: new Date(),
-          to: new Date()
-        }
-      }
-    ])
-
-    const [resData, setResData] = useState(TABLE_DATA)
-
-    const handleFiltersChange = (state: TableColumnFiltersState): void => {
-      let result = TABLE_DATA
-      setFilters(state)
-      state.forEach((filter) => {
-        result = result.filter((item) => {
-          if (filter.filterType === 'select') {
-            const filterLabel = (filter as TableColumnFilter<'select'>).value
-              .label
-            if (filterLabel === 'Все типы') {
-              return true
-            }
-            return Boolean(
-              item[filter.id as keyof typeof item].match(filterLabel)
-            )
-          }
-
-          if (filter.filterType === 'input') {
-            return Boolean(
-              item[filter.id as keyof typeof item].match(filter.value as string)
-            )
-          }
-
-          return false
-        })
-      })
-
-      setResData(result)
-    }
-    return (
-      <div>
-        <Button
-          style={{ marginBottom: '20px' }}
-          onClick={() => {
-            setFilters([])
-            setResData(TABLE_DATA)
-          }}
-        >
-          Сбросить фильтры
-        </Button>
-        <Table
-          {...args}
-          withFiltering
-          withSorting
-          onFiltersChange={handleFiltersChange}
-          filtersState={filters}
-          columns={columns}
-          rows={resData}
-        />
-      </div>
-    )
-  }
-}
+// export const Filtering: StoryObj<typeof Table> = {
+//   render: (args) => {
+//     const [filters, setFilters] = useState<TableColumnFiltersState>([
+//       {
+//         id: 'date',
+//         filterType: 'date',
+//         value: {
+//           from: new Date(),
+//           to: new Date()
+//         }
+//       }
+//     ])
+//
+//     const [resData, setResData] = useState(TABLE_DATA)
+//
+//     const handleFiltersChange = (state: TableColumnFiltersState): void => {
+//       let result = TABLE_DATA
+//       setFilters(state)
+//       state.forEach((filter) => {
+//         result = result.filter((item) => {
+//           if (filter.filterType === 'select') {
+//             const filterLabel = (filter as TableColumnFilter<'select'>).value
+//               .label
+//             if (filterLabel === 'Все типы') {
+//               return true
+//             }
+//             return Boolean(
+//               item[filter.id as keyof typeof item].match(filterLabel)
+//             )
+//           }
+//
+//           if (filter.filterType === 'input') {
+//             return Boolean(
+//               item[filter.id as keyof typeof item].match(filter.value as string)
+//             )
+//           }
+//
+//           return false
+//         })
+//       })
+//
+//       setResData(result)
+//     }
+//     return (
+//       <div>
+//         <Button
+//           style={{ marginBottom: '20px' }}
+//           onClick={() => {
+//             setFilters([])
+//             setResData(TABLE_DATA)
+//           }}
+//         >
+//           Сбросить фильтры
+//         </Button>
+//         <Table
+//           {...args}
+//           withFiltering
+//           withSorting
+//           onFiltersChange={handleFiltersChange}
+//           filtersState={filters}
+//           columns={columns}
+//           rows={resData}
+//         />
+//       </div>
+//     )
+//   }
+// }
 
 export const Selection: StoryObj<typeof Table> = {
   render: (args) => {
