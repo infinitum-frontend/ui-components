@@ -4,6 +4,8 @@ import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
 import { TableRow, TableVerticalAlignValue } from 'Components/Table/types'
 import { mapRowToExternalFormat } from 'Components/Table/helpers'
+import { Skeleton } from '~/src/components/Skeleton'
+import { borderRadius } from '~/src/tokens'
 
 interface TableBodyProps {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
@@ -13,6 +15,7 @@ interface TableBodyProps {
   verticalAlignBody?: TableVerticalAlignValue
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
+  loading?: boolean
 }
 
 const checkSelected = (
@@ -30,7 +33,8 @@ const TableBody = ({
   rows,
   selectedRow,
   onRowClick,
-  verticalAlignBody
+  verticalAlignBody,
+  loading
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -63,7 +67,17 @@ const TableBody = ({
           >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                {loading ? (
+                  <Skeleton
+                    style={{
+                      borderRadius: borderRadius.large,
+                      height: '20px',
+                      width: '100%'
+                    }}
+                  />
+                ) : (
+                  flexRender(cell.column.columnDef.cell, cell.getContext())
+                )}
               </td>
             ))}
           </tr>

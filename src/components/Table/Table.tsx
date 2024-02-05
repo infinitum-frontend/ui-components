@@ -84,6 +84,8 @@ export interface TableProps extends TableBaseProps {
   resizeMode?: ColumnResizeMode
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
+  /** Состояние loading */
+  loading?: boolean
 }
 
 /** Компонент многофункциональной таблицы */
@@ -107,6 +109,7 @@ const Table = ({
   selectedRow,
   onRowClick,
   resizeMode,
+  loading = false,
   // enableGrouping = false,
   children,
   ...props
@@ -257,6 +260,7 @@ const Table = ({
         onRowClick={onRowClick}
         // grouping={enableGrouping}
         verticalAlignBody={verticalAlignBody}
+        loading={loading}
       />
     </table>
   )
