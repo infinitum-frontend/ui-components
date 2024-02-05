@@ -2,7 +2,6 @@
 import React, {
   ChangeEvent,
   ChangeEventHandler,
-  FormEventHandler,
   forwardRef,
   HTMLInputTypeAttribute,
   InputHTMLAttributes,
@@ -13,6 +12,7 @@ import cn from 'classnames'
 import { TextFieldClasses } from 'Utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 export interface NativeDatePickerProps
   extends Omit<
@@ -65,24 +65,13 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
   ): ReactElement => {
     const formGroupData = useContext(FormGroupContext)
     const formData = useContext(FormContext)
+    const { onControlChange, onControlInvalid } = useFormControlHandlers()
 
     const disabled = disabledProp || formData?.disabled
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-      if (formGroupData) {
-        e.currentTarget.setCustomValidity('')
-        formGroupData.setInvalid?.(!e.currentTarget.checkValidity())
-      }
+      onControlChange(e)
       onChange?.(e.target.value, e)
-    }
-
-    const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
-      if (formGroupData) {
-        e.currentTarget.setCustomValidity(
-          formGroupData.customValidationMessage || ''
-        )
-        formGroupData.setInvalid?.(true)
-      }
     }
 
     const formattedValue = getFormattedValue(value)
@@ -108,7 +97,7 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
         aria-required={ariaRequired || formGroupData?.required}
         aria-invalid={ariaInvalid || formGroupData?.invalid}
         id={id || formGroupData?.id}
-        onInvalid={handleInvalid}
+        onInvalid={onControlInvalid}
         max={getFormattedValue(max)}
         min={getFormattedValue(min)}
         disabled={disabled}

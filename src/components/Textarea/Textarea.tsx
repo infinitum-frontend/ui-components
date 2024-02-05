@@ -11,6 +11,7 @@ import './Textarea.scss'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 export interface TextareaProps
   extends Omit<
@@ -65,27 +66,16 @@ const Textarea = ({
 }: TextareaProps): ReactElement => {
   const formData = useContext(FormContext)
   const formGroupData = useContext(FormGroupContext)
+  const { onControlChange, onControlInvalid } = useFormControlHandlers()
 
   const disabled = disabledProp || formData?.disabled
 
   const handleChange: FormEventHandler<HTMLTextAreaElement> = (e) => {
-    if (formGroupData) {
-      e.currentTarget.setCustomValidity('')
-      formGroupData.setInvalid?.(!e.currentTarget.checkValidity())
-    }
+    onControlChange(e)
 
     const domValue = (e.target as HTMLTextAreaElement).value
     onChange?.(domValue, e)
     onInput?.(domValue, e)
-  }
-
-  const handleInvalid: FormEventHandler<HTMLTextAreaElement> = (e) => {
-    if (formGroupData) {
-      e.currentTarget.setCustomValidity(
-        formGroupData.customValidationMessage || ''
-      )
-      formGroupData.setInvalid?.(true)
-    }
   }
 
   const classNames = cn(
@@ -108,7 +98,7 @@ const Textarea = ({
       value={value}
       id={id || formGroupData?.id}
       onChange={handleChange}
-      onInvalid={handleInvalid}
+      onInvalid={onControlInvalid}
       disabled={disabled}
       required={formGroupData?.required || required}
       aria-required={formGroupData?.required || ariaRequired}
