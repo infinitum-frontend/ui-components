@@ -6,6 +6,7 @@ import { Text } from '../Text'
 import { Portfolio, TABLE_DATA } from './fixtures'
 import { Button } from '../Button'
 import { Space } from '../Space'
+import { Checkbox } from '../Checkbox'
 
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
@@ -218,5 +219,48 @@ export const WithSorting: StoryObj<typeof Table> = {
 export const Resizing: StoryObj<typeof Table> = {
   render: (args) => {
     return <Table resizeMode={'onChange'} columns={columns} rows={TABLE_DATA} />
+  }
+}
+
+const getDefaultColumnsVisibility = (): Record<string, boolean> => {
+  const result: Record<string, boolean> = {}
+  columns.forEach((column) => {
+    result[column.id as string] = true
+  })
+
+  return result
+}
+
+export const ColumnVisibility: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [columnVisibility, setColumnVisibility] = useState(
+      getDefaultColumnsVisibility()
+    )
+    return (
+      <Space>
+        <Space direction="horizontal">
+          {columns.map((column) => (
+            <Checkbox
+              key={column.id}
+              // @ts-expect-error
+              checked={columnVisibility[column.id]}
+              onChange={(value) =>
+                setColumnVisibility((prev) => ({
+                  ...prev,
+                  [column.id as string]: value
+                }))
+              }
+            >
+              {column.header as string}
+            </Checkbox>
+          ))}
+        </Space>
+        <Table
+          columns={columns}
+          rows={TABLE_DATA}
+          columnVisibility={columnVisibility}
+        />
+      </Space>
+    )
   }
 }
