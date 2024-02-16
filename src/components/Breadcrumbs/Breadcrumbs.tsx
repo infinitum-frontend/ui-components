@@ -33,6 +33,28 @@ export interface BreadcrumbsProps<C extends ElementType> {
   items?: Array<IBreadcrumbsItem<C>>
 }
 
+const BreadcrumbsItemsMapper = ({
+  items
+}: {
+  items: Array<IBreadcrumbsItem<any>>
+}): ReactElement => {
+  return (
+    <>
+      {items.map((item, index) => {
+        const isLast = index === items.length - 1
+        return (
+          <Fragment key={index}>
+            <BreadcrumbsItem {...item} key={item.title}>
+              {item.title}
+            </BreadcrumbsItem>
+            {!isLast && <BreadcrumbsSeparator />}
+          </Fragment>
+        )
+      })}
+    </>
+  )
+}
+
 function BaseBreadcrumbs<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C, BreadcrumbsProps<C>>,
   ref: PolymorphicRef<C>
@@ -105,24 +127,10 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
             </DropdownMenu.Content>
           </DropdownMenu>
           <BreadcrumbsSeparator />
-          {lastItems.map((item) => (
-            <BreadcrumbsItem {...item} key={item.title}>
-              {item.title}
-            </BreadcrumbsItem>
-          ))}
+          <BreadcrumbsItemsMapper items={lastItems} />
         </Fragment>
       ) : (
-        items.map((item, index) => {
-          const isLast = index === items.length - 1
-          return (
-            <Fragment key={index}>
-              <BreadcrumbsItem {...item} key={item.title}>
-                {item.title}
-              </BreadcrumbsItem>
-              {!isLast && <BreadcrumbsSeparator />}
-            </Fragment>
-          )
-        })
+        <BreadcrumbsItemsMapper items={items} />
       )}
     </Component>
   )

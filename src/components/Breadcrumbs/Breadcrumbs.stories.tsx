@@ -3,7 +3,6 @@ import * as React from 'react'
 import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { Breadcrumbs } from './index'
 import { IBreadcrumbsItem } from './Breadcrumbs'
-import { Link, LinkProps } from '../Link'
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: 'Components/Breadcrumbs',
@@ -32,30 +31,32 @@ export const Playground = {
   render: Template
 }
 
-const breadcrumbItems: Array<IBreadcrumbsItem<typeof Link, LinkProps, 'a'>> = [
+const breadcrumbItems: Array<IBreadcrumbsItem<'a'>> = [
   {
     title: 'Главная',
-    as: Link
+    as: 'a',
+    href: 'https://specdep.ru'
   },
   {
-    title: 'test',
-    as: Link
+    title: 'Прасс Павел',
+    as: 'a',
+    href: 'https://specdep.ru'
   },
   {
     title: 'Хальмеев Александр',
-    as: Link,
+    as: 'a',
     href: 'https://specdep.ru'
   },
   {
     title: 'Леонид Хенкин',
-    as: Link,
+    as: 'a',
     href: 'https://specdep.ru'
   },
-  { title: 'Александр Круглов', as: Link, href: 'https://specdep.ru' }
+  { title: 'Александр Круглов', as: 'a', href: 'https://specdep.ru' }
 ]
 
 export const WithHiddenItems: StoryObj<typeof Breadcrumbs> = {
   render: (args) => {
-    return <Breadcrumbs items={breadcrumbItems} maxVisibleCount={2} />
+    return <Breadcrumbs items={breadcrumbItems} maxVisibleCount={3} />
   }
 }
