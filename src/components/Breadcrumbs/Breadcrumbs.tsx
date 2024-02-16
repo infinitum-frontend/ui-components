@@ -4,42 +4,75 @@ import React, {
   forwardRef,
   ReactElement,
   Children,
-  Fragment,
-  ReactNode
+  Fragment
 } from 'react'
 import { BreadcrumbsItem } from './components/BreadcrumbsItem'
 import './Breadcrumbs.scss'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
-import { BreadcrumbsShowMoreButton } from './components/BreadcrumbsShowMoreButton'
-import { BreadcrumbsSeparator } from './components/BreadcrumbsSeparator'
+import useSplittedBreadcrumbs from './hooks/useSplittedBreadcrumbs'
+import { DropdownMenu } from 'Components/DropdownMenu'
+import { BreadcrumbsSeparator } from 'Components/Breadcrumbs/components/BreadcrumbsSeparator'
+import { BreadcrumbsShowMoreButton } from 'Components/Breadcrumbs/components/BreadcrumbsShowMoreButton'
 
 // TODO: aria-current
 // ol / li
 
-// проверяем, есть ли среди детей на 1 уровне или на 2(если контент передается через Fragment) компонент BreadcrumbsSeparator
-// если сепаратора нет, добавляем его внутри компонента
-function checkSeparator(children: ReactNode[]): boolean {
-  if (children.length === 1) {
-    return !(children[0] as ReactElement).props?.children?.find(
-      (child: any) => child?.type?.name === 'BreadcrumbsSeparator'
-    )
-  } else {
-    return !children.find(
-      (child: any) => child?.type?.name === 'BreadcrumbsSeparator'
-    )
-  }
+export type IBreadcrumbsItem<
+  C extends ElementType,
+  Props = {},
+  HtmlElement extends keyof JSX.IntrinsicElements = any
+> = {
+  title: string
+} & C extends keyof JSX.IntrinsicElements
+  ? PolymorphicComponent<C>
+  : PolymorphicComponent<C, Props> & JSX.IntrinsicElements[HtmlElement]
+
+export interface BreadcrumbsProps<C extends ElementType> {
+  maxVisibleCount?: number
+  items?: Array<IBreadcrumbsItem<C>>
 }
 
 function BaseBreadcrumbs<C extends ElementType = 'div'>(
-  props: PolymorphicComponent<C>,
+  props: PolymorphicComponent<C, BreadcrumbsProps<C>>,
   ref: PolymorphicRef<C>
 ): ReactElement {
-  const { className, children, as = 'nav', ...rest } = props
-  const arrayChildren = Children.toArray(children)
-  const shouldAddSeparators = checkSeparator(arrayChildren)
+  const {
+    className,
+    children,
+    as = 'nav',
+    maxVisibleCount = 0,
+    items = [],
+    ...rest
+  } = props
 
   const Component = as
+
+  if (!items.length) {
+    const arrayChildren = Children.toArray(children)
+
+    return (
+      <Component
+        ref={ref}
+        className={cn('inf-breadcrumbs', className)}
+        aria-label="Breadcrumb"
+        {...rest}
+      >
+        {Children.map(arrayChildren, (child, index) => {
+          const isLast = index === arrayChildren.length - 1
+          return (
+            <Fragment key={index}>
+              {child}
+              {!isLast && <BreadcrumbsSeparator />}
+            </Fragment>
+          )
+        })}
+      </Component>
+    )
+  }
+
+  const { hasHiddenItems, hiddenItems, lastItems, firstItem } =
+    useSplittedBreadcrumbs(items, maxVisibleCount)
 
   return (
     <Component
@@ -48,18 +81,49 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
       aria-label="Breadcrumb"
       {...rest}
     >
-      {/* TODO: отрисовку через Children считаю deprecated, лучше использовать компонент Separator, который можно дальше расширить */}
-      {shouldAddSeparators
-        ? Children.map(arrayChildren, (child, index) => {
-            const isLast = index === arrayChildren.length - 1
-            return (
-              <Fragment key={index}>
-                {child}
-                {!isLast && <BreadcrumbsSeparator />}
-              </Fragment>
-            )
-          })
-        : children}
+      {hasHiddenItems ? (
+        <Fragment>
+          <BreadcrumbsItem {...firstItem}>{firstItem.title}</BreadcrumbsItem>
+          <BreadcrumbsSeparator />
+          <DropdownMenu>
+            <DropdownMenu.Trigger>
+              <BreadcrumbsShowMoreButton />
+            </DropdownMenu.Trigger>
+
+            <DropdownMenu.Content>
+              {hiddenItems.map((item) => {
+                const Component = item.as || 'div'
+                return (
+                  // TODO: asChild мержит и стили DropdownItem, и Link. Плюс Link занимает не всю ширину. Как такое обрабатывать?
+                  <DropdownMenu.Item key={item.title} asChild>
+                    {/* Мержатся стили, возможно будут проблемы с визуалом(например, focus-visible у Link.
+                     Можно будет решить через кастомный className на конечном проекте */}
+                    <Component {...item}>{item.title}</Component>
+                  </DropdownMenu.Item>
+                )
+              })}
+            </DropdownMenu.Content>
+          </DropdownMenu>
+          <BreadcrumbsSeparator />
+          {lastItems.map((item) => (
+            <BreadcrumbsItem {...item} key={item.title}>
+              {item.title}
+            </BreadcrumbsItem>
+          ))}
+        </Fragment>
+      ) : (
+        items.map((item, index) => {
+          const isLast = index === items.length - 1
+          return (
+            <Fragment key={index}>
+              <BreadcrumbsItem {...item} key={item.title}>
+                {item.title}
+              </BreadcrumbsItem>
+              {!isLast && <BreadcrumbsSeparator />}
+            </Fragment>
+          )
+        })
+      )}
     </Component>
   )
 }
@@ -68,9 +132,7 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
 const Breadcrumbs = Object.assign(
   forwardRef(BaseBreadcrumbs) as typeof BaseBreadcrumbs,
   {
-    Item: BreadcrumbsItem,
-    Separator: BreadcrumbsSeparator,
-    ShowMoreButton: BreadcrumbsShowMoreButton
+    Item: BreadcrumbsItem
   }
 )
 
