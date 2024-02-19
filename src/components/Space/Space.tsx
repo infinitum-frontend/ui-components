@@ -35,14 +35,14 @@ export interface SpaceProps {
   /**
    * Разделитель
    */
-  // TODO: divider?: React.ReactNode
+  // TODO: IDD-308 divider?: React.ReactNode
   /**
    * На всю ширину контейнера
    */
   fullWidth?: boolean
 }
 
-// TODO: gapX, gapY
+// TODO: IDD-308 gapX, gapY
 function BaseSpace<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C, SpaceProps>,
   ref: PolymorphicRef<C>

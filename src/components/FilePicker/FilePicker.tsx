@@ -7,11 +7,11 @@ import FilePickerItem from './components/FilePickerItem'
 export interface IFileData {
   id: string
   name: string
-  // TODO: обсудить дополнительные пропы - для ссылки на файл(когда есть сохраненный на сервере список, и на клиент приходит лишь id/name/href)
+  // TODO: IDD-306  обсудить дополнительные пропы - для ссылки на файл(когда есть сохраненный на сервере список, и на клиент приходит лишь id/name/href)
   fileForm?: File // for upload binary
 }
 
-// TODO: макс количество, размер, ограничение форматов загружаемого файла, disabled состояние
+// TODO: IDD-306  макс количество, размер, ограничение форматов загружаемого файла, disabled состояние
 export interface FilePickerProps {
   files?: IFileData[]
   onChange?: (files: IFileData[]) => void
@@ -45,7 +45,7 @@ const FilePicker = ({
   }
 
   const handleGetFile = (file: IFileData): void => {
-    // TODO: Проработать. В макетах файлы являются "ссылками", т.е. в теории их можно скачать/перейти по ним
+    // TODO: IDD-306 Проработать. В макетах файлы являются "ссылками", т.е. в теории их можно скачать/перейти по ним
     if (!file.fileForm) {
       onGetFile?.(file)
     } else {
