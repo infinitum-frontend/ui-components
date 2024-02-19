@@ -1,13 +1,13 @@
 import React, {
   FocusEventHandler,
-  FormEventHandler,
   ReactElement,
   ReactNode,
   useState,
   useRef,
   MouseEventHandler,
   KeyboardEventHandler,
-  useContext
+  useContext,
+  ChangeEventHandler
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -35,6 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       borderRadius = 'regular',
       disabled: disabledProp = false,
       status,
+      onClear,
       onInput,
       onChange,
       onFocus,
@@ -69,11 +70,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const disabled = disabledProp || formContext?.disabled
 
     // обработка событий
-    const handleChange: FormEventHandler<HTMLInputElement> = (e) => {
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       onControlChange(e)
 
-      const domValue = (e.target as HTMLInputElement).value
-      const formattedDomValue = getFormattedValue(domValue) || ''
+      const formattedDomValue = getFormattedValue(e.target.value) || ''
 
       if (!onInput && !onChange) {
         return
@@ -124,8 +124,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         inputRef.current.value = ''
         inputRef.current.focus()
       }
-      onInput?.('')
-      onChange?.('')
+      onClear?.()
     }
 
     const getFormattedValue: (val?: string) => string | undefined = (val) => {
