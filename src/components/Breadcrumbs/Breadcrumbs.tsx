@@ -12,7 +12,7 @@ import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import { ReactComponent as ChevronRightIcon } from 'Icons/chevronRight.svg'
 
-// TODO: aria-current
+// TODO: aria-current IDD-302
 // ol / li
 
 function BaseBreadcrumbs<C extends ElementType = 'div'>(
