@@ -8,7 +8,6 @@ import React, {
   useRef,
   FocusEventHandler,
   MouseEventHandler,
-  FormEventHandler,
   useContext,
   useId
 } from 'react'
@@ -29,6 +28,7 @@ import {
 import SelectButton from './components/SelectButton'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 export const defaultSelectItem: SelectOption = {
   value: -1,
@@ -78,6 +78,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     const formGroupData = useContext(FormGroupContext)
     const formData = useContext(FormContext)
+    const { onControlInvalid, resetControlValidity } = useFormControlHandlers()
     const disabled = disabledProp || formData?.disabled
 
     const displayRef = useRef<HTMLButtonElement>(null)
@@ -175,25 +176,13 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       setActiveItem(index)
     }
 
-    const handleInvalid: FormEventHandler<HTMLSelectElement> = () => {
-      if (formGroupData) {
-        formGroupData.setInvalid?.(true)
-        selectRef.current?.setCustomValidity(
-          formGroupData.customValidationMessage || ''
-        )
-      }
-    }
-
     const submit = (index: number): void => {
       if (index < 0) {
         return
       }
 
       setOpened(false)
-      if (formGroupData) {
-        formGroupData.setInvalid?.(false)
-        selectRef.current?.setCustomValidity('')
-      }
+      resetControlValidity()
       onChange?.(options[index])
     }
 
@@ -267,8 +256,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             disabled={disabled}
             id={formGroupData?.id}
             value={value}
-            onInvalid={handleInvalid}
-            onChange={() => null}
+            onInvalid={onControlInvalid}
+            onChange={() => {}}
           >
             <option value={''} />
             {options.map((option) => (

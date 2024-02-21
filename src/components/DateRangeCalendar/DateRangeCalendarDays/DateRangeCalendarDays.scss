@@ -1,5 +1,6 @@
 .inf-date-range-calendar-days {
-  &__week, &__weekdays {
+  &__week,
+  &__weekdays {
     display: grid;
     align-items: center;
     grid-template-columns: repeat(7, 32px);
@@ -13,12 +14,10 @@
 
   &__weekdays {
     font: var(--inf-font-subtitle-2);
-    // TODO: token
-    color: #707273;
+    color: var(--inf-color-text-secondary);
     text-align: center;
   }
 
-  // TODO обсудить радиусы при ховере
   &__item {
     display: inline-flex;
     justify-content: center;
@@ -42,7 +41,8 @@
     &--from {
       color: var(--inf-color-text-inverse);
       background-color: var(--inf-color-primary);
-      border-radius: var(--inf-border-radius-medium) 0 0 var(--inf-border-radius-medium);
+      border-radius: var(--inf-border-radius-medium) 0 0
+        var(--inf-border-radius-medium);
 
       @include hover {
         background-color: var(--inf-color-primary);
@@ -52,7 +52,8 @@
     &--to {
       color: var(--inf-color-text-inverse);
       background-color: var(--inf-color-primary);
-      border-radius: 0 var(--inf-border-radius-medium) var(--inf-border-radius-medium) 0;
+      border-radius: 0 var(--inf-border-radius-medium)
+        var(--inf-border-radius-medium) 0;
 
       @include hover {
         background-color: var(--inf-color-primary);

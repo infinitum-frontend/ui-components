@@ -4,8 +4,7 @@ import React, {
   forwardRef,
   ReactElement,
   useId,
-  useState,
-  useEffect
+  useState
 } from 'react'
 import FormGroupContext, {
   IFormGroupContext
@@ -13,7 +12,6 @@ import FormGroupContext, {
 import cn from 'classnames'
 import './FormGroup.scss'
 import { Space, SpaceProps } from 'Components/Space'
-import { useForm } from 'Components/Form/context/form'
 import Form from 'Components/Form/Form'
 
 export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
@@ -42,32 +40,15 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
     }: FormGroupProps,
     ref
   ): ReactElement => {
-    const { form } = useForm()
     const [invalid, setInvalid] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const id = `field-${useId()}`
-
-    const field = form?.current?.querySelector(
-      `[id="${id}"`
-    ) as HTMLInputElement
-    const validationMessage = field?.validationMessage || ''
-
-    useEffect(() => {
-      if (!required) {
-        return
-      }
-
-      if (invalid) {
-        setErrorMessage(customValidationMessage || validationMessage)
-      } else {
-        setErrorMessage('')
-      }
-    }, [invalid, validationMessage])
 
     const context: IFormGroupContext = {
       id,
       required,
       customValidationMessage,
+      setErrorMessage,
       invalid,
       setInvalid
     }

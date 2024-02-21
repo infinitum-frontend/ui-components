@@ -15,7 +15,7 @@ import { DropdownMenu } from 'Components/DropdownMenu'
 import { BreadcrumbsSeparator } from 'Components/Breadcrumbs/components/BreadcrumbsSeparator'
 import { BreadcrumbsShowMoreButton } from 'Components/Breadcrumbs/components/BreadcrumbsShowMoreButton'
 
-// TODO: aria-current
+// TODO: aria-current IDD-302
 // ol / li
 
 export type IBreadcrumbsItem<

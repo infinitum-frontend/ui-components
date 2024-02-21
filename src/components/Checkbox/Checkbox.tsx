@@ -4,7 +4,6 @@ import React, {
   ChangeEventHandler,
   ComponentPropsWithoutRef,
   DetailedHTMLProps,
-  FormEventHandler,
   forwardRef,
   InputHTMLAttributes,
   ReactElement,
@@ -18,6 +17,7 @@ import { useCheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup/c
 import { CheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 const checkedIcon = <CheckIcon width={'16px'} height={'16px'} />
 const indeterminateIcon = <IndeterminateIcon width={'16px'} height={'16px'} />
@@ -61,8 +61,6 @@ export interface CheckboxProps
   >
 }
 
-// TODO: добавить расположение лейбла
-
 /** Компонент чекбокса для выбора опциональных парамтеров */
 const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
   (
@@ -86,6 +84,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     const checkboxGroupData = useCheckboxGroup()
     const formData = useContext(FormContext)
     const formGroupData = useContext(FormGroupContext)
+    const { onControlChange, onControlInvalid } = useFormControlHandlers()
 
     const disabled = disabledProp || formData?.disabled
 
@@ -95,19 +94,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       checkboxGroupData?.onChange?.(value, e) ?? onChange?.(e.target.checked, e)
-      if (formGroupData) {
-        e.target.setCustomValidity('')
-        formGroupData.setInvalid?.(!e.target.checked)
-      }
-    }
-
-    const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
-      if (formGroupData) {
-        e.currentTarget.setCustomValidity(
-          formGroupData.customValidationMessage || ''
-        )
-        formGroupData.setInvalid?.(true)
-      }
+      onControlChange(e)
     }
 
     const getAriaCheckedAttr: () => InputProps['aria-checked'] = () => {
@@ -141,7 +128,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
           onChange={handleChange}
-          onInvalid={handleInvalid}
+          onInvalid={onControlInvalid}
           id={id || formGroupData?.id}
         />
         <span

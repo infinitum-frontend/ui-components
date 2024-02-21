@@ -1,0 +1,414 @@
+import { ArgTypes, Meta, Unstyled, Canvas } from '@storybook/blocks'
+import Table from './Table'
+import TableBase from './components/TableBase'
+import * as TableStories from './Table.stories'
+
+<Meta of={TableStories} name="Documentation" />
+
+### Компонент таблицы является оберткой для библиотеки [@tanstack/react-table](https://tanstack.com/table/latest/docs/introduction)
+
+<br />
+
+### Общий список пропов
+
+<ArgTypes of={TableStories} />
+
+## Описание контента таблицы:<br />
+
+1. Для описания колонок и содержимого ячейки для каждой колонки используется проп <strong>columns</strong> с типом `Array<ColumnDef<T>`, в качестве дженерика передается модель данных, которая будет использоваться для наполнения таблицы. Например:
+
+```typescript jsx
+import { ColumnDef } from '@tanstack/react-table'
+
+interface Portfolio {
+  portfolio: string
+  mark: string
+  type: string
+  status: string
+}
+
+const columns: Array<ColumnDef<Portfolio, any>> = [
+  {
+    header: 'Портфель',
+    accessorKey: 'portfolio'
+  },
+  {
+    header: 'Показатель',
+    accessorKey: 'mark'
+  }
+]
+```
+
+Если имеется необходимость использовать в ячейке не просто значение какого-либо поля, а что-то кастомное, тогда следует использовать для отрисовки поле `cell`
+Например, поле `Портфель` из вышеописанного интерфейса является объектом, содержащим ссылку на публичный портфель:
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import { ColumnDef } from '@tanstack/react-table'
+import Link from '../Link'
+
+interface SomeInterface {
+  portfolio: {
+    link: 'https://link.com'
+  }
+}
+
+const columns: Array<ColumnDef<SomeInterface, any>> = [
+  {
+    header: 'Портфель',
+    id: 'portfolio',
+    cell: (context) => {
+      const { link } = context.row.original.portfolio
+
+      return <Link to={link}>Портфолио</Link>
+    }
+  }
+]
+```
+
+<h4>
+  [ColumnHelpers](https://tanstack.com/table/latest/docs/guide/column-defs#column-helpers){' '}
+  <strong>мы не используем</strong>
+</h4>
+<h4>
+  {' '}
+  [Подробнее об API колонок](https://tanstack.com/table/latest/docs/api/core/column-def)
+</h4>
+
+2. Для наполнения таблицы необходимо передать в проп <strong>rows</strong> массив с элементами для наполнения. Тип элемента должен быть аналогичен тому, что передан в <strong>columns</strong> Пример:
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import { TableRowData } from './types'
+
+interface Portfolio {
+  portfolio: string
+  mark: string
+  type: string
+  status: string
+}
+
+const rows: Array<TableRowData<Portfolio>> = [
+  {
+    portfolio: 'ОПИФ Открытие — Telecommunicaton Index',
+    mark: '2335',
+    type: 'УВНР',
+    status: 'Сформировано'
+  }
+]
+```
+
+<Canvas of={TableStories.Base} />
+
+Также имеется возможность к указанному ряду применить `style` и `className`. Для этого в модель данных нужно добавить className/style определенному ряду:
+
+```typescript jsx
+import { CSSProperties } from 'react'
+import { TableRowData } from './types'
+interface BaseRow {
+  className?: string
+  style?: CSSProperties
+}
+
+const data: Array<TableRowData<any>> = [
+  {
+    fio: 'София Алексеева',
+    passport: '88e122bf',
+    address: '622031, Нижегородская область, город Дмитров, въезд Сталина, 95',
+    nationality: 'Россия',
+    email: 'ananij.efremov@orehov.org'
+  },
+  {
+    fio: 'Илья Соколов',
+    passport: 'dea813b0',
+    address: '620178, Амурская область, город Лотошино, бульвар Гоголя, 54',
+    nationality: 'Казахстан',
+    className: 'custom-class',
+    style: { backgroundColor: '#E9EBED' },
+    email: 'gennadij71@abramova.ru'
+  }
+]
+```
+
+## Сортировка
+
+Для реализации сортировки используются следующие пропы:
+
+```typescript
+import { SortingState } from '@tanstack/react-table'
+import { OnChangeFn } from './types'
+
+type withSorting = boolean // включение сортировки
+type sortingState = SortingState // состояние сортировки
+type onSortingChange = OnChangeFn<SortingState> // обработка изменения сортировки
+```
+
+Сортировка реализуется за пределами таблицы. Т.е. ожидается, что при изменении параметров сортировки в таблицу будет передан проп `rows` с актуальными данными, а таблица лишь хранит и отображает состояние сортировки
+По умолчанию сортировка включается для всех столбцов. Для ее отключения у конкретных столбцов необходимо в описание `columns` добавить поле `enableSorting: false` [enableSorting](https://tanstack.com/table/latest/docs/api/features/sorting#enablesorting)
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import Table from './Table'
+interface Portfolio {
+  portfolio: string
+  mark: string
+  type: string
+  status: string
+}
+
+import { ReactElement, useState } from 'react'
+import { ColumnDef, SortingState } from '@tanstack/react-table'
+import { TABLE_DATA } from './index'
+
+const columns: Array<ColumnDef<Portfolio, any>> = [
+  {
+    header: 'Портфель',
+    id: 'portfolio',
+    accessorKey: 'portfolio'
+  },
+  {
+    header: 'Показатель',
+    id: 'mark',
+    accessorKey: 'mark'
+  }
+]
+
+const Component = (): ReactElement => {
+  const [sorting, setSorting] = useState<SortingState>([])
+  return (
+    <Table
+      columns={columns}
+      rows={TABLE_DATA}
+      withSorting
+      sortingState={sorting}
+      onSortingChange={setSorting}
+    />
+  )
+}
+```
+
+<Canvas of={TableStories.WithSorting} />
+
+## Фильтрация
+
+На текущий момент вся фильтрация реализуется вне таблицы, никакие пропы для этого не задействуются.
+
+## Выбор рядов(селекция)
+
+Для реализации выбора рядов используются следующие пропы:
+
+```typescript
+import { OnChangeFn, TableSelectionState } from './types'
+
+type withSelection = boolean // включение селекции(отображение чекбокса в первой колонке таблицы
+type selectionState = TableSelectionState<T = any> // состояние селекции(в качестве дженерика в TableSelectionState передается модель данных для наполнение таблицы(по аналогии с column)
+type onChangeRowSelection = OnChangeFn<TableSelectionState<any>> // обработка изменения сортировки
+```
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import Table from './Table'
+interface Portfolio {
+  portfolio: string
+  mark: string
+  type: string
+  status: string
+}
+
+import { ReactElement, useState } from 'react'
+import { ColumnDef } from '@tanstack/react-table'
+import { TABLE_DATA } from './index'
+import { TableRow } from './types'
+
+const columns: Array<ColumnDef<Portfolio, any>> = [
+  {
+    header: 'Портфель',
+    id: 'portfolio',
+    accessorKey: 'portfolio'
+  },
+  {
+    header: 'Показатель',
+    id: 'mark',
+    accessorKey: 'mark'
+  }
+]
+
+const Component = (): ReactElement => {
+  const [selection, setSelection] = useState<Array<TableRow<Portfolio>>>([])
+  const handleChange = (data: Array<TableRow<Portfolio>>): void => {
+    setSelection(data)
+  }
+
+  return (
+    <div>
+      <Table
+        withRowSelection
+        onChangeRowSelection={handleChange}
+        selectionState={selection}
+        columns={columns}
+        rows={TABLE_DATA}
+      />
+      <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
+    </div>
+  )
+}
+```
+
+`В консоли отображается детальная информация о выбранных рядах`
+
+<Canvas of={TableStories.Selection} />
+
+## Клик на ряд
+
+В таблице имеется возможность клика на конкретный ряд(для перехода по ссылке, открытия детальной информации и других кейсов)
+
+Для реализации используются следующие пропы:
+
+```typescript
+import { OnChangeFn, TableRow, TableSelectedRow } from './types'
+
+type onRowClick = OnChangeFn<TableRow> // обработка клика на ряд
+type selectedRow = TableSelectedRow // id выбранного ряда, или функция, для выбора того, какой ряд является выбранным на данный момент. Данный проп может использоваться для подсвечивания выбранного ряда
+```
+
+На данный момент визуал пропа `selectedRow` не согласован дизайном
+
+`В консоли отображается детальная информация об активном ряде`
+
+<Canvas of={TableStories.WithSelectedRow} />
+
+## Ресайзинг колонок
+
+Для изменения размера колонок используется проп `resizeMode`
+
+Значения:
+
+- `onChange` изменение "вживую" при растягивании
+- `onEnd` изменение при отжатии кнопки мыши
+
+<Canvas of={TableStories.Resizing} />
+
+## Видимость столбцов. ColumnVisibility
+
+Для отображения/скрытия столбцов используется проп `columnVisibility`. Для работы с видимостью столбцов при их описании обязательно задать `id` каждому элементу.
+Все состояние и обработка должны храниться снаружи компонента `Table`, внутрь же передается только текущее состояние видимости.
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import Table from './Table'
+interface Portfolio {
+  portfolio: string
+  mark: string
+  type: string
+  status: string
+}
+
+import { ReactElement, useState } from 'react'
+import { ColumnDef } from '@tanstack/react-table'
+import { Checkbox, Space, TABLE_DATA } from './index'
+
+const columns: Array<ColumnDef<Portfolio, any>> = [
+  {
+    header: 'Портфель',
+    id: 'portfolio',
+    accessorKey: 'portfolio'
+  },
+  {
+    header: 'Показатель',
+    id: 'mark',
+    accessorKey: 'mark'
+  }
+]
+
+// функция для получения начального состояния видимости столбцов
+const getDefaultColumnsVisibility = (): Record<string, boolean> => {
+  const result: Record<string, boolean> = {}
+  columns.forEach((column) => {
+    result[column.id as string] = true
+  })
+
+  return result
+}
+
+const Component = (): ReactElement => {
+  const [columnVisibility, setColumnVisibility] = useState(
+    getDefaultColumnsVisibility()
+  )
+
+  return (
+    <Space>
+      <Space direction="horizontal">
+        {columns.map((column) => (
+          <Checkbox
+            key={column.id}
+            checked={columnVisibility[column.id]}
+            onChange={(value) =>
+              setColumnVisibility((prev) => ({
+                ...prev,
+                [column.id as string]: value
+              }))
+            }
+          >
+            {column.header as string}
+          </Checkbox>
+        ))}
+      </Space>
+      <Table
+        columns={columns}
+        rows={TABLE_DATA}
+        columnVisibility={columnVisibility}
+      />
+    </Space>
+  )
+}
+```
+
+<Canvas of={TableStories.ColumnVisibility} />
+
+## Кастомный вариант таблицы
+
+Если в таблицу передается проп `children`, появляется возможность создать легковесную таблицу произвольного формата.
+При этом функционал, связанный с сортировкой, фильтрацией, селекцией, изменением размера становится недоступным, а также отпадает необходимость создавать объекты columns и data и передавать их в таблицу.
+
+<Unstyled>
+  <Table bordered>
+    <thead>
+      <tr>
+        <th>Заголовок 1</th>
+        <th>Заголовок 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ячейка 1</td>
+        <td>Ячейка 2</td>
+      </tr>
+    </tbody>
+  </Table>
+</Unstyled>
+
+{/* prettier-ignore-start */}
+```html
+<Table bordered>
+  <thead>
+    <tr>
+      <th>Заголовок 1</th>
+      <th>Заголовок 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ячейка 1</td>
+      <td>Ячейка 2</td>
+    </tr>
+  </tbody>
+</Table>
+```
+{/* prettier-ignore-end */}
+
+<ArgTypes of={TableBase} />

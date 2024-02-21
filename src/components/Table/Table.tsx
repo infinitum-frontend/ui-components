@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useEffect, useMemo } from 'react'
 import {
   Column,
   ColumnDef,
@@ -42,7 +42,10 @@ export interface TableProps extends TableBaseProps {
   verticalAlignHead?: TableVerticalAlignValue
   /** CSS свойство vertical-align для рядов */
   verticalAlignBody?: TableVerticalAlignValue
-  /** Максимальное количество отображаемых элементов */
+  /**
+   * @deprecated
+   * Максимальное количество отображаемых элементов
+   */
   maxLength?: number
   /** Включение сортировки по столбцам */
   withSorting?: boolean
@@ -51,10 +54,17 @@ export interface TableProps extends TableBaseProps {
   /** Событие изменения состояния сортировки */
   onSortingChange?: OnChangeFn<SortingState>
   // TODO: sorting mode auto
+  /** @deprecated */
   withFiltering?: boolean
-  /** Событие изменения состояния фильтров */
+  /**
+   * @deprecated
+   * Событие изменения состояния фильтров
+   */
   onFiltersChange?: OnChangeFn<TableColumnFiltersState>
-  /** Начальное состояние фильтров */
+  /**
+   * @deprecated
+   * Начальное состояние фильтров
+   */
   filtersState?: TableColumnFiltersState
   /** Отображение чекбоксов в 1 колонке */
   withRowSelection?: boolean
@@ -67,7 +77,16 @@ export interface TableProps extends TableBaseProps {
    */
   selectedRow?: TableSelectedRow
   onRowClick?: OnChangeFn<TableRow>
+  /** Изменение ширины колонок
+   * @value onChange изменение "вживую" при растягивании
+   * @value onEnd изменение при отжатии кнопки мыши
+   */
   resizeMode?: ColumnResizeMode
+  /** видимость колонок
+   * в качестве данных передается объект с ключами, соответствующими id колонок,
+   * имеющим булевы значения, отражающими видимость колонки
+   */
+  columnVisibility?: Record<string, boolean>
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -93,6 +112,7 @@ const Table = ({
   selectedRow,
   onRowClick,
   resizeMode,
+  columnVisibility = {},
   // enableGrouping = false,
   children,
   ...props
@@ -204,7 +224,8 @@ const Table = ({
     getCoreRowModel: getCoreRowModel(),
     state: {
       rowSelection: tanstackSelectionState,
-      sorting: sortingState
+      sorting: sortingState,
+      columnVisibility
     },
     manualFiltering: true,
     manualSorting: true,
@@ -215,6 +236,10 @@ const Table = ({
     getFacetedUniqueValues: getFacetedUniqueValues()
     // getSubRows: (row) => row?.subRows,
   })
+
+  useEffect(() => {
+    table.setColumnVisibility(columnVisibility)
+  }, [columnVisibility])
 
   const tableRows = maxLength
     ? table.getRowModel().rows.slice(0, maxLength)

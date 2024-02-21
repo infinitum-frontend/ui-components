@@ -13,9 +13,8 @@
   }
 
   &__weekdays {
-    // TODO: token
     font: var(--inf-font-subtitle-2);
-    color: #707273;
+    color: var(--inf-color-text-secondary);
     text-align: center;
   }
 }

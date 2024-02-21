@@ -4,7 +4,6 @@ import React, {
   ChangeEventHandler,
   ComponentPropsWithoutRef,
   DetailedHTMLProps,
-  FormEventHandler,
   forwardRef,
   InputHTMLAttributes,
   ReactElement,
@@ -17,6 +16,7 @@ import RadioBox from './components/Box/RadioBox'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import cn from 'classnames'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 interface InputProps
   extends DetailedHTMLProps<
@@ -74,6 +74,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
     const groupData = useRadioGroup()
     const formGroupData = useContext(FormGroupContext)
     const formData = useContext(FormContext)
+    const { onControlInvalid, onControlChange } = useFormControlHandlers()
 
     const disabled = disabledProp || formData?.disabled
 
@@ -88,19 +89,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
         ? groupData.onChange?.(value || '', e)
         : onChange?.(e.target.checked, e)
 
-      if (formGroupData) {
-        e.target.setCustomValidity('')
-        formGroupData.setInvalid?.(!e.target.checked)
-      }
-    }
-
-    const handleInvalid: FormEventHandler<HTMLInputElement> = (e) => {
-      if (formGroupData) {
-        e.currentTarget.setCustomValidity(
-          formGroupData.customValidationMessage || ''
-        )
-        formGroupData.setInvalid?.(true)
-      }
+      onControlChange(e)
     }
 
     return (
@@ -116,7 +105,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
           aria-invalid={formGroupData?.invalid || undefined}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
-          onInvalid={handleInvalid}
+          onInvalid={onControlInvalid}
           onChange={handleChange}
         />
         <span

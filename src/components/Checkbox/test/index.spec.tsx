@@ -65,7 +65,6 @@ describe('Checkbox', () => {
     expect(onChange).toBeCalledWith(checked, event)
   })
 
-  // TODO: обратиться в vitest за поддержкой. Или в svgr?
   // it('should show icon on checked', () => {
   //   const { el } = renderComponent<CheckboxProps>(Checkbox, {
   //     defaultChecked: true

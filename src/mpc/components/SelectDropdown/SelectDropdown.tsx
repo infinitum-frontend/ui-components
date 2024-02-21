@@ -73,7 +73,6 @@ function Dropdown(props: {
   }
 
   const handleDocumentClick = (event: MouseEvent): void => {
-    // TODO: to hook
     if (
       referenceRef.current?.contains(event.target as Node) ||
       popperRef.current?.contains(event.target as Node)
