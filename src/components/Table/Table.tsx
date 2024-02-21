@@ -7,7 +7,6 @@ import {
   ColumnResizeMode,
   getCoreRowModel,
   getFacetedUniqueValues,
-  getSortedRowModel,
   OnChangeFn as TanstackOnChangeFn,
   RowSelectionState,
   SortingState,
@@ -52,7 +51,7 @@ export interface TableProps extends TableBaseProps {
   /** Начальное состояние сортировки */
   sortingState?: SortingState
   /** Событие изменения состояния сортировки */
-  onSortingChange?: OnChangeFn<SortingState>
+  onSortingChange?: (state: SortingState) => void
   // TODO: sorting mode auto
   /** @deprecated */
   withFiltering?: boolean
@@ -141,14 +140,8 @@ const Table = ({
   )
 
   // ==================== handlers ====================
-  const handleSortingChange: TanstackOnChangeFn<SortingState> = (state) => {
-    let newState
-    if (typeof state === 'function') {
-      newState = state(sortingState)
-    } else {
-      newState = state
-    }
-    onSortingChange?.(newState)
+  const handleSortingChange: (state: SortingState) => void = (state) => {
+    onSortingChange?.(state)
   }
 
   const handleFiltersChange: (
@@ -228,18 +221,11 @@ const Table = ({
       columnVisibility
     },
     manualFiltering: true,
-    manualSorting: true,
     // manualGrouping: enableGrouping,
-    onSortingChange: handleSortingChange,
     onRowSelectionChange: handleRowSelection,
-    getSortedRowModel: getSortedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues()
     // getSubRows: (row) => row?.subRows,
   })
-
-  useEffect(() => {
-    table.setColumnVisibility(columnVisibility)
-  }, [columnVisibility])
 
   const tableRows = maxLength
     ? table.getRowModel().rows.slice(0, maxLength)
@@ -257,6 +243,8 @@ const Table = ({
         table={table}
         withSorting={withSorting}
         withFiltering={withFiltering}
+        sortingState={sortingState}
+        onSortingChange={handleSortingChange}
         filtersState={filtersState}
         onFiltersChange={handleFiltersChange}
         resizeMode={resizeMode}
