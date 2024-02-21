@@ -26,6 +26,7 @@ export interface DatepickerProps
   disabled?: boolean
   /** Дата или строка в формате YYYY-MM-DD */
   value?: string | Date
+  required?: boolean
   /** Плейсхолдер для внутреннего инпута */
   placeholder?: string
   /** Строка в формате YYYY-MM-DD */
@@ -84,6 +85,7 @@ const DatePicker = ({
             // @ts-expect-error
             mask: Date
           }}
+          pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
           onComplete={(val) => {
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
           }}

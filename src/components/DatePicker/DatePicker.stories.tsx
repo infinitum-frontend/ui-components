@@ -1,6 +1,8 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { NativeDatePicker, DatePicker } from './index'
 import { useState } from 'react'
+import { Form } from '../Form'
+import { Button } from '../Button'
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Form/DatePicker',
@@ -36,6 +38,25 @@ export const NativeDatepicker = {
         <NativeDatePicker value={value} onChange={(val) => setValue(val)} />
         <div>{value}</div>
       </>
+    )
+  }
+}
+
+export const InForm = {
+  render: () => {
+    const [value, setValue] = useState('')
+    return (
+      <Form
+        onSubmit={() => {
+          console.log('handleSubmit')
+        }}
+      >
+        <Form.Group required>
+          <DatePicker value={value} onChange={setValue} />
+        </Form.Group>
+
+        <Button type="submit">Click me</Button>
+      </Form>
     )
   }
 }
