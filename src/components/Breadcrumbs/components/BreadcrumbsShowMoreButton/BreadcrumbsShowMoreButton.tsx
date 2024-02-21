@@ -3,17 +3,17 @@ import cn from 'classnames'
 import './BreadcrumbsShowMoreButton.scss'
 
 const BreadcrumbsShowMoreButton = forwardRef<
-  HTMLDivElement,
-  ComponentPropsWithoutRef<'div'>
+  HTMLButtonElement,
+  ComponentPropsWithoutRef<'button'>
 >(({ className, ...props }, ref) => {
   return (
-    <div
+    <button
       className={cn('inf-breadcrumbs-show-more-button', className)}
       ref={ref}
       {...props}
     >
       ...
-    </div>
+    </button>
   )
 })
 
