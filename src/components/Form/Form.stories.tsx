@@ -134,8 +134,6 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
       alert('submit')
     }
 
-    console.log(phone)
-
     return (
       <>
         <code style={{ display: 'block', marginBottom: '12px' }}>

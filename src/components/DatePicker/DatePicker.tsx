@@ -20,6 +20,7 @@ import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
 import MaskedInput from 'Components/Input/components/MaskedInput'
 import { DateCalendar } from 'Components/DateCalendar'
 import cn from 'classnames'
+import NativeDatePicker from './components/NaviteDatePicker/NativeDatePicker'
 
 export interface DatepickerProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
@@ -44,6 +45,7 @@ const DatePicker = ({
   className,
   placeholder = '__.__.____',
   onClick,
+  required,
   min,
   max,
   ...props
@@ -65,6 +67,7 @@ const DatePicker = ({
 
   // ============================= render =============================
   const displayValue = value ? createDate(value).toLocaleDateString() : ''
+  const displayValueForHiddenInput = value ? createDate(value) : ''
   return (
     <>
       <div
@@ -85,7 +88,6 @@ const DatePicker = ({
             // @ts-expect-error
             mask: Date
           }}
-          pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
           onComplete={(val) => {
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
           }}
@@ -99,6 +101,14 @@ const DatePicker = ({
           onPostfixClick={() => setOpened((prev) => !prev)}
           disabled={disabled}
           onFocus={() => setOpened(true)}
+        />
+        {/* Скрытый нативный датапикер, необходимый для корректной работы валидации */}
+        <NativeDatePicker
+          className={'inf-datepicker__hidden-input'}
+          min={min}
+          max={max}
+          value={displayValueForHiddenInput}
+          required={required}
         />
       </div>
       <FloatingPortal>

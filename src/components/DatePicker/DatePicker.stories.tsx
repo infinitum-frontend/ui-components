@@ -52,7 +52,7 @@ export const InForm = {
         }}
       >
         <Form.Group required>
-          <DatePicker value={value} onChange={setValue} />
+          <DatePicker value={value} onChange={setValue} min={'2020-04-20'} />
         </Form.Group>
 
         <Button type="submit">Click me</Button>
