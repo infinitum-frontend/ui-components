@@ -42,7 +42,7 @@ const DateCalendarDays = ({
                 'inf-calendar-item--selected':
                   el.date.toLocaleDateString() === value?.toLocaleDateString(),
                 'inf-calendar-item--empty': !el.day,
-                'inf-calendar-item__disabled': el.disabled
+                'inf-calendar-item--disabled': el.disabled
               })}
               onClick={() => {
                 if (el.date) {

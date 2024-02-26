@@ -3,7 +3,8 @@ import React, {
   ComponentPropsWithoutRef,
   ReactElement,
   useState,
-  MouseEvent
+  MouseEvent,
+  useContext
 } from 'react'
 import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
 import {
@@ -21,6 +22,8 @@ import MaskedInput from 'Components/Input/components/MaskedInput'
 import { DateCalendar } from 'Components/DateCalendar'
 import cn from 'classnames'
 import NativeDatePicker from './components/NaviteDatePicker/NativeDatePicker'
+import FormGroupContext from 'Components/Form/context/group'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 export interface DatepickerProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
@@ -45,12 +48,15 @@ const DatePicker = ({
   className,
   placeholder = '__.__.____',
   onClick,
-  required,
+  required: requiredProp,
   min,
   max,
   ...props
 }: DatepickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
+  const formGroupContext = useContext(FormGroupContext)
+  const { resetControlValidity } = useFormControlHandlers()
+  const required = requiredProp || formGroupContext?.required
 
   // ============================= floating =============================
   const { x, y, refs, context } = useFloating({
@@ -88,7 +94,9 @@ const DatePicker = ({
             // @ts-expect-error
             mask: Date
           }}
+          pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
           onComplete={(val) => {
+            resetControlValidity()
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
           }}
           onAccept={(value) => {
