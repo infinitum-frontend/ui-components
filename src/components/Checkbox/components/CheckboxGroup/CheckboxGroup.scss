@@ -5,7 +5,7 @@
     flex-direction: column;
 
     > * + * {
-      margin-top: var(--inf-spacing-xsmall);
+      margin-top: var(--inf-space-xxsmall);
     }
   }
 }
