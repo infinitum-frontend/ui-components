@@ -1,4 +1,4 @@
-import { Row } from '@tanstack/react-table'
+import { Column, Row, SortingState } from '@tanstack/react-table'
 import { ReactElement } from 'react'
 import { TableRow } from 'Components/Table/types'
 
@@ -39,5 +39,19 @@ export function mapRowToExternalFormat(row: Row<any>): TableRow<any> {
   return {
     id: row.id,
     rowData: row.original
+  }
+}
+
+export function getNextSorting(
+  sortingState: SortingState,
+  column: Column<any, unknown>,
+  onSortingChange: (state: SortingState) => void
+): void {
+  if (sortingState.length === 0 || sortingState[0].id !== column.id) {
+    onSortingChange([{ id: column.id, desc: true }])
+  } else if (sortingState[0].id === column.id && sortingState[0].desc) {
+    onSortingChange([{ id: column.id, desc: false }])
+  } else {
+    onSortingChange([])
   }
 }

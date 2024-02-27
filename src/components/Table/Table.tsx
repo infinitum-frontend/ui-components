@@ -51,7 +51,7 @@ export interface TableProps extends TableBaseProps {
   /** Начальное состояние сортировки */
   sortingState?: SortingState
   /** Событие изменения состояния сортировки */
-  onSortingChange?: (state: SortingState) => void
+  onSortingChange?: OnChangeFn<SortingState>
   // TODO: sorting mode auto
   /** @deprecated */
   withFiltering?: boolean

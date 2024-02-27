@@ -17,6 +17,7 @@ import {
   TableColumnFilterValue,
   TableVerticalAlignValue
 } from 'Components/Table/types'
+import { getNextSorting } from '../../helpers'
 
 interface TableHeaderProps {
   table: Table<any>
@@ -46,14 +47,9 @@ const TableHeader = ({
   verticalAlignHead
 }: TableHeaderProps): ReactElement => {
   const handleColumnClick = (e: MouseEvent, column: Column<any>): void => {
+    console.log(column)
     if (withSorting) {
-      if (sortingState.length === 0 || sortingState[0].id !== column.id) {
-        onSortingChange([{ id: column.id, desc: true }])
-      } else if (sortingState[0].id === column.id && sortingState[0].desc) {
-        onSortingChange([{ id: column.id, desc: false }])
-      } else {
-        onSortingChange([])
-      }
+      getNextSorting(sortingState, column, onSortingChange)
     }
   }
 
