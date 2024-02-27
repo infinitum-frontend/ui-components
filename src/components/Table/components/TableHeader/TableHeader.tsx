@@ -47,7 +47,6 @@ const TableHeader = ({
   verticalAlignHead
 }: TableHeaderProps): ReactElement => {
   const handleColumnClick = (e: MouseEvent, column: Column<any>): void => {
-    console.log(column)
     if (withSorting) {
       getNextSorting(sortingState, column, onSortingChange)
     }
