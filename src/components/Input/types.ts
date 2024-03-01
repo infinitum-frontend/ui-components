@@ -1,8 +1,8 @@
 import {
+  ChangeEvent,
   FocusEventHandler,
   InputHTMLAttributes,
-  ReactNode,
-  FormEvent
+  ReactNode
 } from 'react'
 
 export interface BaseInputProps
@@ -46,6 +46,7 @@ export interface InputProps
   onPostfixClick?: (value?: string) => void
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
+  onClear?: () => void
   /**
    * Функция, применяющаяся для форматирования значения
    * @param value {string}
@@ -53,7 +54,7 @@ export interface InputProps
    */
   formatter?: (value: string) => string
   onFocus?: FocusEventHandler<HTMLInputElement>
-  onInput?: (value: string, e?: FormEvent<HTMLInputElement>) => void
-  onChange?: (value: string, e?: FormEvent<HTMLInputElement>) => void
+  onInput?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onBlur?: FocusEventHandler<HTMLInputElement>
 }
