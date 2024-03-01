@@ -38,6 +38,10 @@ export const parameters = {
         // единственная проблема - если сториса где то по центру, придется вручную писать все предыдущие/последующие сторис
         // https://github.com/storybookjs/storybook/issues/16573
         [
+          'Alert',
+          'Badge',
+          'Breadcrumbs',
+          ['Docs', 'Documentation', '*'],
           '*',
           'Table',
           ['Docs', 'CustomMarkup', '*'],
