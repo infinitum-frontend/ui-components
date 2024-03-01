@@ -15,7 +15,7 @@ body {
 
 body {
   background-color: var(--inf-color-background-body);
-  color: var(--inf-color-text);
+  color: var(--inf-color-text-primary);
   font-family: var(--inf-font-family-base);
 }
 
@@ -27,7 +27,7 @@ body {
 }
 
 .inf-ui-theme-dark {
-  --inf-color-text: #eee;
+  --inf-color-text-primary: #eee;
   --inf-color-text-secondary: #ddd;
   --inf-color-text-inverse: #111;
   --inf-color-background-body: #333;
