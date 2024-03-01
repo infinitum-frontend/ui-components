@@ -1,12 +1,14 @@
 .inf-dropdown-menu-content {
   min-width: 220px;
-  background-color: var(--inf-background-default);
+  background-color: var(--inf-color-background-default);
+  color: var(--inf-color-text-primary);
   border-radius: var(--inf-border-radius-small);
   padding: var(--inf-space-xsmall) 0;
   box-shadow: var(--inf-box-shadow-medium);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+  z-index: var(--inf-z-index-dropdown);
 
   &[data-side='top'] {
     animation-name: slideDownAndFade;
@@ -31,6 +33,7 @@
   position: relative;
   user-select: none;
   outline: none;
+  cursor: pointer;
 
   &[data-disabled] {
     color: var(--inf-color-text-disabled);

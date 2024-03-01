@@ -1,1 +1,5 @@
-export { default as Breadcrumbs } from './Breadcrumbs'
+import Breadcrumbs from './Breadcrumbs'
+import type { BreadcrumbsProps, IBreadcrumbsItem } from './Breadcrumbs'
+
+export { Breadcrumbs }
+export type { BreadcrumbsProps, IBreadcrumbsItem }
