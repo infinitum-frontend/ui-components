@@ -154,6 +154,6 @@
 
   .inf-button__after:not(:first-child),
   .inf-button__before:not(:last-child) + .inf-button__text {
-    margin-left: var(--inf-spacing-small);
+    margin-left: var(--inf-space-xsmall);
   }
 }
