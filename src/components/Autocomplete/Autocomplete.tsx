@@ -52,6 +52,8 @@ export interface AutocompleteProps
   onOpenChange?: (value: boolean) => void
   /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
+  /** Подсветка текста при поиске */
+  searchHighlighting?: boolean
 }
 
 // const getIndexByValue = (value: IAutocompleteOption['value'], options: Array<IAutocompleteOption['value']>): number => {
@@ -72,6 +74,7 @@ const Autocomplete = ({
   children,
   className,
   maxHeight,
+  searchHighlighting = false,
   ...props
 }: AutocompleteProps): ReactElement => {
   // ==================== state ====================
@@ -217,7 +220,12 @@ const Autocomplete = ({
             />
             <AutocompleteOptions>
               {filteredOptions?.map((option) => (
-                <AutocompleteOption value={option.value} key={option.value}>
+                <AutocompleteOption
+                  value={option.value}
+                  key={option.value}
+                  query={query}
+                  searchHighlighting={searchHighlighting}
+                >
                   {option.label}
                 </AutocompleteOption>
               ))}

@@ -20,4 +20,8 @@
     // TODO: селектор внутреннего элемента плохо
     top: 0;
   }
+
+  &__highlight {
+    color: var(--inf-color-primary)
+  }
 }

@@ -2,6 +2,7 @@ import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import MenuItem, { MenuItemProps } from 'Components/Menu/components/MenuItem'
 import { IAutocompleteOption } from 'Components/Autocomplete/types'
+import { getTextWithHighlighting } from '~/src/utils/helpers'
 
 export type AutocompleteOptionProps = Omit<
   ComponentPropsWithoutRef<'button'>,
@@ -10,6 +11,8 @@ export type AutocompleteOptionProps = Omit<
   Omit<MenuItemProps, 'onClick'> & {
     value?: IAutocompleteOption['value']
     onClick?: (value: IAutocompleteOption['value']) => void
+    searchHighlighting: boolean
+    query?: string
   }
 
 const AutocompleteOption = ({
@@ -17,6 +20,8 @@ const AutocompleteOption = ({
   value = '',
   children,
   className,
+  searchHighlighting,
+  query,
   ...props
 }: AutocompleteOptionProps): ReactElement => {
   const context = useAutocompleteContext()
@@ -34,7 +39,23 @@ const AutocompleteOption = ({
   //   context?.setActiveItem?.(value)
   // }
 
-  return (
+  return searchHighlighting ? (
+    <MenuItem
+      as={'button'}
+      onClick={handleClick as any}
+      className={className}
+      dangerouslySetInnerHTML={{
+        __html: `<span>
+        ${getTextWithHighlighting(children as string, query) as string}
+      </span>`
+      }}
+      // onMouseOver={handleMouseOver}
+      // className={cn('inf-autocomplete-option', {
+      //   'inf-autocomplete-option--active': active
+      // })}
+      {...props}
+    />
+  ) : (
     <MenuItem
       as={'button'}
       onClick={handleClick as any}

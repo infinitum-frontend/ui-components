@@ -9,6 +9,7 @@ import useUpdateEffect from 'Hooks/useUpdateEffect'
 import { ReactComponent as CrossIcon } from 'Icons/cross.svg'
 import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
 import './Combobox.scss'
+import { getTextWithHighlighting } from '~/src/utils/helpers'
 
 export type CheckedItem = SelectOption['value']
 
@@ -23,6 +24,8 @@ export interface ComboboxProps
   showTags?: boolean
   /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
+  /** Подсветка текста при поиске */
+  searchHighlighting?: boolean
 }
 
 const filterFn = (options: SelectOption[], value: string): SelectOption[] =>
@@ -38,6 +41,7 @@ const Combobox = ({
   showTags,
   displayValue,
   maxHeight,
+  searchHighlighting,
   ...props
 }: ComboboxProps): ReactElement => {
   const [filteredOptions, setFilteredOptions] = useState(options)
@@ -130,7 +134,24 @@ const Combobox = ({
                   onChange={(checked) => handleChange(checked, option.value)}
                 />
               </Menu.Item.Icon>
-              <Menu.Item.Content>{option.label}</Menu.Item.Content>
+              {searchHighlighting ? (
+                <Menu.Item.Content
+                  dangerouslySetInnerHTML={{
+                    __html: `<span>
+                      ${
+                        getTextWithHighlighting(
+                          option.label as string,
+                          searchQuery
+                        ) as string
+                      }
+                    </span>`
+                  }}
+                >
+                  {option.label}
+                </Menu.Item.Content>
+              ) : (
+                <Menu.Item.Content>{option.label}</Menu.Item.Content>
+              )}
             </Menu.Item>
           ))}
         </Menu>
