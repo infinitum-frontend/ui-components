@@ -4,7 +4,8 @@ import React, {
   forwardRef,
   ReactElement,
   Children,
-  Fragment
+  Fragment,
+  ReactNode
 } from 'react'
 import { BreadcrumbsItem } from './components/BreadcrumbsItem'
 import './Breadcrumbs.scss'
@@ -55,6 +56,18 @@ const BreadcrumbsItemsMapper = ({
   )
 }
 
+const getChildrenToRender = (children: ReactNode[]): ReactNode[] => {
+  const arrayChildren = Children.toArray(children)
+
+  // Обрабатываем кейс, когда нам необходимо обернуть крошки во фрагмент
+  const isWrappedByFragment =
+    (arrayChildren[0] as ReactElement)?.type === Fragment
+
+  return isWrappedByFragment
+    ? (arrayChildren[0] as ReactElement).props.children
+    : arrayChildren
+}
+
 function BaseBreadcrumbs<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C, BreadcrumbsProps<C>>,
   ref: PolymorphicRef<C>
@@ -71,7 +84,7 @@ function BaseBreadcrumbs<C extends ElementType = 'div'>(
   const Component = as
 
   if (!items.length) {
-    const arrayChildren = Children.toArray(children)
+    const arrayChildren = getChildrenToRender(children)
 
     return (
       <Component
