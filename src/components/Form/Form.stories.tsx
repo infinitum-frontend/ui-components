@@ -161,7 +161,7 @@ export const WithNativeValidation: StoryObj<typeof Form> = {
           <Form.Group direction={'horizontal'} required>
             <Form.Label>Номер телефона</Form.Label>
             <Form.Item>
-              <MaskedInput mask="phone" value={phone} onComplete={setPhone} />
+              <MaskedInput mask="phone" value={phone} onAccept={setPhone} />
             </Form.Item>
           </Form.Group>
 

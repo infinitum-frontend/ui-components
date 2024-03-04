@@ -2,7 +2,6 @@ import { ReactElement, useEffect, useMemo } from 'react'
 import { InputProps } from 'Components/Input/types'
 import { IMask, useIMask } from 'react-imask'
 import Input from 'Components/Input/Input'
-import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -139,15 +138,10 @@ const MaskedInput = ({
     [maskProp]
   )
 
-  const { resetControlValidity } = useFormControlHandlers()
-
   const { ref, value, setUnmaskedValue, unmaskedValue } = useIMask(
     { ...mask },
     {
       onAccept: (value, maskRef) => {
-        if (value) {
-          resetControlValidity()
-        }
         let result = maskRef.unmaskedValue
 
         // TODO: если формат номера 10 знаков, это не нужно
