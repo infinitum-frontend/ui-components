@@ -5,10 +5,15 @@ import { DateRangePicker, DateRangePickerValue } from './index'
 import { useState } from 'react'
 import { Form } from '../Form'
 import { Button } from '../Button'
+import { addYears, formatDateToISO } from '../../utils/date'
 
 const meta: Meta<typeof DateRangePicker> = {
   title: 'Form/DateRangePicker',
-  component: DateRangePicker
+  component: DateRangePicker,
+  args: {
+    min: formatDateToISO(new Date()),
+    max: formatDateToISO(addYears(new Date(), 1))
+  }
 }
 
 export default meta
@@ -22,19 +27,18 @@ export const Playground = {
   render: Template
 }
 
-export const InForm = {
-  render: () => {
+export const InForm: StoryFn<typeof DateRangePicker> = {
+  render: (args) => {
     const [value, setValue] = useState<DateRangePickerValue>(['', ''])
     return (
       <Form onSubmit={() => console.log('submit')}>
         <Form.Group required>
           <DateRangePicker
+            {...args}
             value={value}
             onChange={(v) => {
               setValue(v)
             }}
-            min={'2024-02-15'}
-            max={'2024-03-15'}
           />
         </Form.Group>
 

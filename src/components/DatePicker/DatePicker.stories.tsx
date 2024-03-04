@@ -8,7 +8,8 @@ const meta: Meta<typeof DatePicker> = {
   title: 'Form/DatePicker',
   component: DatePicker,
   args: {
-    disabled: false
+    disabled: false,
+    min: '2020-04-20'
   }
 }
 
@@ -42,8 +43,8 @@ export const NativeDatepicker = {
   }
 }
 
-export const InForm = {
-  render: () => {
+export const InForm: StoryFn<typeof DatePicker> = {
+  render: (args) => {
     const [value, setValue] = useState('')
     return (
       <Form
@@ -52,7 +53,7 @@ export const InForm = {
         }}
       >
         <Form.Group required>
-          <DatePicker value={value} onChange={setValue} min={'2020-04-20'} />
+          <DatePicker {...args} value={value} onChange={setValue} />
         </Form.Group>
 
         <Button type="submit">Click me</Button>
