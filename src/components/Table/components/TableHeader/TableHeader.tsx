@@ -5,6 +5,7 @@ import {
   ColumnMeta,
   ColumnResizeMode,
   flexRender,
+  SortingState,
   Table
 } from '@tanstack/react-table'
 import cn from 'classnames'
@@ -16,11 +17,14 @@ import {
   TableColumnFilterValue,
   TableVerticalAlignValue
 } from 'Components/Table/types'
+import { getNextSorting } from '../../helpers'
 
 interface TableHeaderProps {
   table: Table<any>
   withSorting?: boolean
   withFiltering?: boolean
+  sortingState: SortingState
+  onSortingChange: (state: SortingState) => void
   filtersState: TableColumnFiltersState
   onFiltersChange?: (
     value: TableColumnFilterValue,
@@ -35,6 +39,8 @@ const TableHeader = ({
   table,
   withSorting = false,
   withFiltering = false,
+  sortingState = [],
+  onSortingChange,
   filtersState = [],
   onFiltersChange,
   resizeMode,
@@ -42,7 +48,7 @@ const TableHeader = ({
 }: TableHeaderProps): ReactElement => {
   const handleColumnClick = (e: MouseEvent, column: Column<any>): void => {
     if (withSorting) {
-      column.getToggleSortingHandler()?.call({}, e)
+      onSortingChange(getNextSorting(sortingState, column))
     }
   }
 
@@ -55,7 +61,7 @@ const TableHeader = ({
   }
 
   const canSort = (column: Column<any>): boolean => {
-    return withSorting && column.getCanSort()
+    return withSorting && Boolean(column.columnDef.enableSorting)
   }
 
   const canFilter = (column: Column<any>): boolean => {
@@ -102,7 +108,10 @@ const TableHeader = ({
                         header.getContext()
                       )}
                       {canSort(header.column) && (
-                        <TableHeaderSort header={header} />
+                        <TableHeaderSort
+                          header={header}
+                          sortingState={sortingState}
+                        />
                       )}
                     </span>
                     {canFilter(header.column) && (

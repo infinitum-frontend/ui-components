@@ -20,27 +20,32 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
     id: 'portfolio',
-    accessorKey: 'portfolio'
+    accessorKey: 'portfolio',
+    enableSorting: true
   },
   {
     header: 'Показатель',
     id: 'mark',
-    accessorKey: 'mark'
+    accessorKey: 'mark',
+    enableSorting: true
   },
   {
     header: 'Тип',
     id: 'type',
-    accessorKey: 'type'
+    accessorKey: 'type',
+    enableSorting: true
   },
   {
     header: 'Статус',
     id: 'status',
-    accessorKey: 'status'
+    accessorKey: 'status',
+    enableSorting: true
   },
   {
     header: 'Дата',
     id: 'date',
-    accessorKey: 'date'
+    accessorKey: 'date',
+    enableSorting: true
   }
 ]
 
