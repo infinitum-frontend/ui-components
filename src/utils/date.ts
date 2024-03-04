@@ -138,7 +138,7 @@ export function createDate(value: string | Date): Date {
 
 /** Форматирование объекта Date к строке формата `YYYY-MM-DD` */
 export function formatDateToISO(value: Date): string {
-  // учитываем часовой пояс, чтобы не изменилась дата, когда обережем данные о времени у ISO формата
+  // учитываем часовой пояс, чтобы не изменилась дата, когда обрежем данные о времени у ISO формата
   const timezoneOffset = value.getTimezoneOffset() * 60000
   return new Date(value.getTime() - timezoneOffset).toISOString().split('T')[0]
 }

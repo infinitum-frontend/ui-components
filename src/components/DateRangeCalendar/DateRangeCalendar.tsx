@@ -22,10 +22,14 @@ export interface DateRangeCalendarProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
   value: DateRangeCalendarValue
   onChange: (dateArray: [Date, Date]) => void
+  /** Строка в формате YYYY-MM-DD */
+  min?: string
+  /** Строка в формате YYYY-MM-DD */
+  max?: string
 }
 
 const DateRangeCalendar = forwardRef<HTMLDivElement, DateRangeCalendarProps>(
-  ({ value, onChange, className, ...props }, ref) => {
+  ({ value, onChange, className, min, max, ...props }, ref) => {
     // значение, с помощью которого идет изменение внутренней даты в календаре без изменения внешних значений (перелистывание недели, смена года)
     const [displayValue, setDisplayValue] = useState(value[0] || new Date())
     // внутренний интервал дат
@@ -100,6 +104,8 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, DateRangeCalendarProps>(
             value={localDate}
             displayValue={displayValue}
             onChange={handleDayClick}
+            min={min}
+            max={max}
           />
         )}
 

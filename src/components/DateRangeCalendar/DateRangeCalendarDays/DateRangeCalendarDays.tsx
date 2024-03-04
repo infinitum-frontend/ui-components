@@ -8,15 +8,19 @@ export interface CalendarDaysRangeProps {
   displayValue: Date
   onChange?: ([from, to]: DateRangeCalendarValue) => void
   value: DateRangeCalendarValue
+  min?: string
+  max?: string
 }
 
 const DateRangeCalendarDays = ({
   displayValue,
   value,
-  onChange
+  onChange,
+  min,
+  max
 }: CalendarDaysRangeProps): ReactElement => {
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>()
-  const days = getDaysMatrix(displayValue)
+  const days = getDaysMatrix(displayValue, min, max)
 
   const handleClick = (date: Date): void => {
     const length = value.filter(Boolean).length
@@ -74,7 +78,8 @@ const DateRangeCalendarDays = ({
                   el.date.toLocaleDateString() ===
                   value[1]?.toLocaleDateString(),
                 'inf-date-range-calendar-days__item--hovered': getHovered(el),
-                'inf-date-range-calendar-days__item--empty': !el.day
+                'inf-date-range-calendar-days__item--empty': !el.day,
+                'inf-date-range-calendar-days__item--disabled': el.disabled
               })}
               onMouseEnter={() => {
                 if (!el.disabled) {

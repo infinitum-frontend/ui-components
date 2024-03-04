@@ -112,6 +112,6 @@ const DateCalendar = forwardRef<HTMLDivElement, DateCalendarProps>(
   }
 )
 
-DateCalendar.displayName = 'Calendar'
+DateCalendar.displayName = 'DateCalendar'
 
 export default DateCalendar
