@@ -44,14 +44,13 @@ export function mapRowToExternalFormat(row: Row<any>): TableRow<any> {
 
 export function getNextSorting(
   sortingState: SortingState,
-  column: Column<any, unknown>,
-  onSortingChange: (state: SortingState) => void
-): void {
+  column: Column<any, unknown>
+): [{ id: string; desc: boolean }] | [] {
   if (sortingState.length === 0 || sortingState[0].id !== column.id) {
-    onSortingChange([{ id: column.id, desc: true }])
+    return [{ id: column.id, desc: true }]
   } else if (sortingState[0].id === column.id && sortingState[0].desc) {
-    onSortingChange([{ id: column.id, desc: false }])
+    return [{ id: column.id, desc: false }]
   } else {
-    onSortingChange([])
+    return []
   }
 }

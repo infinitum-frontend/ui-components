@@ -48,7 +48,7 @@ const TableHeader = ({
 }: TableHeaderProps): ReactElement => {
   const handleColumnClick = (e: MouseEvent, column: Column<any>): void => {
     if (withSorting) {
-      getNextSorting(sortingState, column, onSortingChange)
+      onSortingChange(getNextSorting(sortingState, column))
     }
   }
 
