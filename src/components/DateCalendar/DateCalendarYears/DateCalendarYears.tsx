@@ -9,7 +9,6 @@ export interface CalendarYearsProps {
   onChange: (year: number) => void
 }
 
-// TODO: вынес наружу, чтобы не делать лишних вычислений
 const years = getYearsList()
 
 const DateCalendarYears = ({

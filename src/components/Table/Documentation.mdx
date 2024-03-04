@@ -10,6 +10,7 @@ import * as TableStories from './Table.stories'
 <br />
 
 ### Общий список пропов
+
 <ArgTypes of={TableStories} />
 
 ## Описание контента таблицы:<br />
@@ -285,10 +286,89 @@ type selectedRow = TableSelectedRow // id выбранного ряда, или 
 Для изменения размера колонок используется проп `resizeMode`
 
 Значения:
- - `onChange` изменение "вживую" при растягивании
- - `onEnd` изменение при отжатии кнопки мыши
+
+- `onChange` изменение "вживую" при растягивании
+- `onEnd` изменение при отжатии кнопки мыши
 
 <Canvas of={TableStories.Resizing} />
+
+## Видимость столбцов. ColumnVisibility
+
+Для отображения/скрытия столбцов используется проп `columnVisibility`. Для работы с видимостью столбцов при их описании обязательно задать `id` каждому элементу.
+Все состояние и обработка должны храниться снаружи компонента `Table`, внутрь же передается только текущее состояние видимости.
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import Table from './Table'
+interface Portfolio {
+  portfolio: string
+  mark: string
+  type: string
+  status: string
+}
+
+import { ReactElement, useState } from 'react'
+import { ColumnDef } from '@tanstack/react-table'
+import { Checkbox, Space, TABLE_DATA } from './index'
+
+const columns: Array<ColumnDef<Portfolio, any>> = [
+  {
+    header: 'Портфель',
+    id: 'portfolio',
+    accessorKey: 'portfolio'
+  },
+  {
+    header: 'Показатель',
+    id: 'mark',
+    accessorKey: 'mark'
+  }
+]
+
+// функция для получения начального состояния видимости столбцов
+const getDefaultColumnsVisibility = (): Record<string, boolean> => {
+  const result: Record<string, boolean> = {}
+  columns.forEach((column) => {
+    result[column.id as string] = true
+  })
+
+  return result
+}
+
+const Component = (): ReactElement => {
+  const [columnVisibility, setColumnVisibility] = useState(
+    getDefaultColumnsVisibility()
+  )
+
+  return (
+    <Space>
+      <Space direction="horizontal">
+        {columns.map((column) => (
+          <Checkbox
+            key={column.id}
+            checked={columnVisibility[column.id]}
+            onChange={(value) =>
+              setColumnVisibility((prev) => ({
+                ...prev,
+                [column.id as string]: value
+              }))
+            }
+          >
+            {column.header as string}
+          </Checkbox>
+        ))}
+      </Space>
+      <Table
+        columns={columns}
+        rows={TABLE_DATA}
+        columnVisibility={columnVisibility}
+      />
+    </Space>
+  )
+}
+```
+
+<Canvas of={TableStories.ColumnVisibility} />
 
 ## Кастомный вариант таблицы
 

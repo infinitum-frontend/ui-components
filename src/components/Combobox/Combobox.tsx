@@ -84,7 +84,6 @@ const Combobox = ({
           <Space direction="horizontal" align="center">
             <Text color="inverse" className="inf-combobox__counter">
               {checkedCount}
-              {/* TODO: сверить с макетом */}
               <CrossIcon
                 color="gray"
                 onClick={(e) => {

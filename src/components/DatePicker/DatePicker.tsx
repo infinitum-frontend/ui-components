@@ -10,6 +10,7 @@ import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
 import {
   autoUpdate,
   flip,
+  FloatingFocusManager,
   FloatingPortal,
   offset,
   useDismiss,
@@ -121,29 +122,35 @@ const DatePicker = ({
       </div>
       <FloatingPortal>
         {isOpened && !disabled && (
-          <DateCalendar
-            style={{
-              position: 'absolute',
-              overflowX: 'hidden',
-              overflowY: 'hidden',
-              top: y ?? 0,
-              left: x ?? 0
-            }}
-            min={min}
-            max={max}
-            className="inf-datepicker__dropdown"
-            value={value ? createDate(value) : new Date()}
-            onChange={(date) => {
-              onChange?.(formatDateToISO(date))
-              setOpened(false)
-            }}
-            ref={refs.setFloating}
-            {...getFloatingProps({
-              onClick(e) {
-                e.stopPropagation()
-              }
-            })}
-          />
+          <FloatingFocusManager
+            context={context}
+            initialFocus={-1}
+            returnFocus={false}
+          >
+            <DateCalendar
+              style={{
+                position: 'absolute',
+                overflowX: 'hidden',
+                overflowY: 'hidden',
+                top: y ?? 0,
+                left: x ?? 0
+              }}
+              min={min}
+              max={max}
+              className="inf-datepicker__dropdown"
+              value={value ? createDate(value) : new Date()}
+              onChange={(date) => {
+                onChange?.(formatDateToISO(date))
+                setOpened(false)
+              }}
+              ref={refs.setFloating}
+              {...getFloatingProps({
+                onClick(e) {
+                  e.stopPropagation()
+                }
+              })}
+            />
+          </FloatingFocusManager>
         )}
       </FloatingPortal>
     </>

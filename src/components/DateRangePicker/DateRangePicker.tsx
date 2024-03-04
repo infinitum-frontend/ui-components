@@ -8,6 +8,7 @@ import React, {
 import {
   autoUpdate,
   flip,
+  FloatingFocusManager,
   FloatingPortal,
   offset,
   useDismiss,
@@ -139,38 +140,44 @@ const DateRangePicker = ({
       </div>
       <FloatingPortal>
         {isOpened && !disabled && (
-          <DateRangeCalendar
-            style={{
-              position: 'absolute',
-              overflowX: 'hidden',
-              overflowY: 'hidden',
-              top: y ?? 0,
-              left: x ?? 0
-            }}
-            min={min}
-            max={max}
-            className="inf-datepicker__dropdown"
-            value={
-              value.map((el) =>
-                el ? createDate(el) : undefined
-              ) as DateRangeCalendarValue
-            }
-            onChange={(dateArray) => {
-              onChange?.(
-                dateArray.map((date) => formatDateToISO(date)) as [
-                  string,
-                  string
-                ]
-              )
-              setOpened(false)
-            }}
-            ref={refs.setFloating}
-            {...getFloatingProps({
-              onClick(e) {
-                e.stopPropagation()
+          <FloatingFocusManager
+            context={context}
+            returnFocus={false}
+            initialFocus={-1}
+          >
+            <DateRangeCalendar
+              style={{
+                position: 'absolute',
+                overflowX: 'hidden',
+                overflowY: 'hidden',
+                top: y ?? 0,
+                left: x ?? 0
+              }}
+              min={min}
+              max={max}
+              className="inf-datepicker__dropdown"
+              value={
+                value.map((el) =>
+                  el ? createDate(el) : undefined
+                ) as DateRangeCalendarValue
               }
-            })}
-          />
+              onChange={(dateArray) => {
+                onChange?.(
+                  dateArray.map((date) => formatDateToISO(date)) as [
+                    string,
+                    string
+                  ]
+                )
+                setOpened(false)
+              }}
+              ref={refs.setFloating}
+              {...getFloatingProps({
+                onClick(e) {
+                  e.stopPropagation()
+                }
+              })}
+            />
+          </FloatingFocusManager>
         )}
       </FloatingPortal>
     </>

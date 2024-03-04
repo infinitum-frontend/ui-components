@@ -134,7 +134,7 @@ const Autocomplete = ({
     onChange?.(value)
   }
 
-  // TODO: работа с KeyDown
+  // TODO: работа с KeyDown IDD-98
   // const handleKeyDown: KeyboardEventHandler = (e) => {
   //   const currentIndex = getIndexByValue(activeItem, internalOptions)
   //   e.preventDefault()

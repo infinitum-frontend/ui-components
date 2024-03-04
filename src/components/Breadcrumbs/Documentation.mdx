@@ -1,0 +1,94 @@
+import { Meta, Canvas } from '@storybook/blocks'
+import * as BreadcrumbsStories from './Breadcrumbs.stories'
+
+<Meta of={BreadcrumbsStories} name="Documentation" />
+
+### Компонент навигации, который помогает пользователю понять иерархию между уровнями и вернуться на предыдщие этапы
+
+## Базовый вариант
+
+Для описания внутренного контента существуют внутренние компоненты `Breadcrumbs.Item`. Разделитель добавляется автоматически.
+
+<strong>Пример кода</strong>
+
+```typescript jsx
+import { Breadcrumbs } from './index'
+
+return (
+  <Breadcrumbs>
+    <Breadcrumbs.Item>Элемент 1</Breadcrumbs.Item>
+    <Breadcrumbs.Item>Элемент 2</Breadcrumbs.Item>
+    <Breadcrumbs.Item>Элемент 3</Breadcrumbs.Item>
+  </Breadcrumbs>
+)
+```
+
+<Canvas of={BreadcrumbsStories.Playground} />
+```
+
+## Вариант со "скрытыми" элементами
+
+Для реализации функционал со скрытием части элементов используются пропы:
+`items` - массив типа `IBreadcrumbsItem<C, Props, HtmlElement>`, из которого будут создаваться элементы навигации
+`maxVisibleCount` - число, определяющее, сколько элементов будет отображаться на экране
+
+Тип IBreadcrumbsItem принимает от 1 до 3 аргументов.
+
+```text
+C - ElementType. Сюда передается либо нативный элемент(`'a'`, `'div'`) или тип компонента(`typeof Link`). Если передается компонент, являющийся полиморфным, то для лучше поддержки ts используются другие 2 необязательных дженерика
+Props - пропы компонента
+HtmlElement - тип нативного элемента
+
+Пример:
+items: Array<IBreadcrumbsItem<typeof Link, LinkProps, 'a'> = []
+```
+
+<strong>Пример кода:</strong>
+
+```typescript jsx
+import { Breadcrumbs } from './index'
+import { IBreadcrumbsItem } from './Breadcrumbs'
+
+const visitedSubjects: Array<{
+  title: string
+  subjectType: 1 | 2
+  subjectId: number
+}> = [
+  {
+    title: 'ООО Ромашка',
+    subjectType: 2,
+    subjectId: 1
+  },
+  {
+    title: 'Иванов Иван',
+    subjectType: 1,
+    subjectId: 2
+  },
+  {
+    title: 'Хальмеев Александр',
+    subjectType: 1,
+    subjectId: 3
+  },
+  {
+    title: 'Хенкин Леонид',
+    subjectType: 1,
+    subjectId: 4
+  },
+  {
+    title: 'Круглов Александр',
+    subjectType: 1,
+    subjectId: 5
+  }
+]
+
+const mappedToBreadcrumbsItems: Array<IBreadcrumbsItem<'a'>> =
+  visitedSubjects.map((subject) => ({
+    title: subject.title,
+    as: 'a',
+    href: 'https://www.specdep.ru'
+  }))
+
+return <Breadcrumbs items={mappedToBreadcrumbsItems} maxVisibleCount={3} />
+```
+
+<Canvas of={BreadcrumbsStories.WithHiddenItems} />

@@ -12,7 +12,7 @@
     height: 40px;
     background-color: var(
       --inf-color-gray-200
-    ); // TODO: семантическую переменную
+    ); // TODO: IDD-306 семантическую переменную
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
   &__icon {
     width: 24px;
     height: 24px;
-    color: var(--inf-color-text-secondary); // TODO: icon token?
+    color: var(--inf-color-text-secondary); // TODO: IDD-306 icon token?
   }
 
   &__middle {
@@ -33,7 +33,7 @@
 
   &__title {
     font: var(--inf-font-body-2);
-    color: var(--inf-color-text);
+    color: var(--inf-color-text-primary);
   }
 
   &__caption {
@@ -46,7 +46,7 @@
     color: var(--inf-color-secondary);
   }
 
-  // TODO: сделать блок по всей ширине, чтобы крестики были на одном уровне?
+  // TODO: IDD-306 сделать блок по всей ширине, чтобы крестики были на одном уровне?
   &__button {
     width: 32px;
     height: 32px;
