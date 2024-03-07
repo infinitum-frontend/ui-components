@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useMemo } from 'react'
 import { InputProps } from 'Components/Input/types'
 import { IMask, useIMask } from 'react-imask'
 import Input from 'Components/Input/Input'
+import useIsFirstRender from 'Hooks/useIsFirstRender'
 
 const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -133,6 +134,7 @@ const MaskedInput = ({
   onBlur,
   ...props
 }: MaskedInputProps): ReactElement => {
+  const isFirstRender = useIsFirstRender()
   const { mask, maskType, placeholder } = useMemo(
     () => getMaskDescription(maskProp),
     [maskProp]
@@ -141,7 +143,13 @@ const MaskedInput = ({
   const { ref, value, setUnmaskedValue, unmaskedValue } = useIMask(
     { ...mask },
     {
-      onAccept: (value, maskRef) => {
+      onAccept: (value, maskRef, e) => {
+        const isValueChanged = value !== valueProp
+
+        if (isFirstRender && !isValueChanged) {
+          return
+        }
+
         let result = maskRef.unmaskedValue
 
         // TODO: если формат номера 10 знаков, это не нужно
