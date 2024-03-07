@@ -16,13 +16,15 @@ export default function useFormControlHandlers(): {
     HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
   > = (e) => {
     if (formGroupContext) {
-      const isValid = e.currentTarget.checkValidity()
+      const isValid = e.currentTarget.validity.valid
       const errorMessage =
         formGroupContext.customValidationMessage ||
         e.currentTarget.validationMessage
 
-      formGroupContext.setErrorMessage?.(isValid ? '' : errorMessage)
-      formGroupContext.setInvalid?.(!isValid)
+      if (formGroupContext.invalid) {
+        formGroupContext.setErrorMessage?.(isValid ? '' : errorMessage)
+        formGroupContext.setInvalid?.(!isValid)
+      }
     }
   }
 
