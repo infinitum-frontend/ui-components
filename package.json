@@ -55,8 +55,6 @@
     "react-dom": ">=16.9.0"
   },
   "devDependencies": {
-    "@types/lodash.throttle": "^4.1.9",
-    "lodash.throttle": "^4.1.1",
     "@babel/core": "^7.20.5",
     "@popperjs/core": "^2.11.6",
     "@storybook/addon-a11y": "^7.0.6",
@@ -77,6 +75,7 @@
     "@types/common-tags": "^1.8.1",
     "@types/fs-extra": "^9.0.13",
     "@types/lodash.debounce": "^4.0.7",
+    "@types/lodash.throttle": "^4.1.9",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@types/react-transition-group": "^4.4.5",
@@ -100,9 +99,10 @@
     "jsdom": "^20.0.3",
     "lint-staged": "^13.1.0",
     "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "prettier": "^2.8.3",
     "react-custom-scrollbars-2": "^4.5.0",
-    "react-imask": "^6.6.3",
+    "react-imask": "^7.5.0",
     "react-merge-refs": "^2.0.2",
     "react-popper": "^2.3.0",
     "react-transition-group": "^4.4.5",
