@@ -108,7 +108,6 @@ const DateRangePicker = ({
             // @ts-expect-error
             mask: Date,
             pattern: 'd{.}`m{.}`Y{—}`d{.}`m{.}`Y',
-            // @ts-expect-error
             format: formatterFn,
             // @ts-expect-error
             parse: function (string) {

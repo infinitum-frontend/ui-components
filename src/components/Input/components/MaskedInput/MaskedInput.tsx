@@ -1,28 +1,29 @@
-import { ReactElement, useEffect, useMemo } from 'react'
+import { ReactElement, Ref, useEffect, useMemo } from 'react'
 import { InputProps } from 'Components/Input/types'
-import { IMask, useIMask } from 'react-imask'
+import { ExtractMaskOpts, ReactMaskOpts, useIMask } from 'react-imask'
 import Input from 'Components/Input/Input'
 import useIsFirstRender from 'Hooks/useIsFirstRender'
 
-const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+type MaskType = 'phone' | 'code4Digits' | 'cvc' | 'email' | 'phoneOrEmail'
+
+function preparePhoneValue(value: string): string {
+  const digitsOnlyValue = value.replaceAll(/\D/g, '')
+  if (digitsOnlyValue?.length === 11 && digitsOnlyValue.startsWith('8')) {
+    return digitsOnlyValue.substring(1)
+  }
+
+  return value
+}
+
+const MaskTypes: Record<MaskType, ReactMaskOpts> = {
   phone: {
     mask: [
       {
         mask: '+{7}(000)000-00-00'
-      },
-      {
-        mask: '{8}(000)000-00-00'
       }
     ],
-    dispatch: (value, { unmaskedValue, compiledMasks }) => {
-      if (unmaskedValue.startsWith('8') || unmaskedValue.startsWith('78')) {
-        return compiledMasks[1]
-      }
-
-      return compiledMasks[0]
-    }
-  } as IMask.MaskedDynamicOptions,
+    prepare: preparePhoneValue
+  },
   code4Digits: {
     mask: '0000'
   },
@@ -43,43 +44,43 @@ const MaskTypes: Record<string, IMask.AnyMaskedOptions> = {
         mask: '+{7}(000)000-00-00'
       },
       {
-        mask: '{8}(000)000-00-00'
-      },
-      {
         mask: /^\S*@?\S*$/
       }
     ],
-    dispatch: (value, { compiledMasks, unmaskedValue, value: maskValue }) => {
-      const nextValue = maskValue.concat(value)
-      if (/[a-zA-Z]/.test(nextValue)) {
-        return compiledMasks[2]
+    prepare: preparePhoneValue,
+    dispatch: (value, masked, flags, tail) => {
+      // const lettersRegex = /[^+(\d)]+/
+      const lettersRegex = /[a-zA-Z]/
+      // @ts-expect-error
+      const tailValue = tail?.value || ''
+      const nextValue = masked.unmaskedValue.concat(value)
+
+      if (lettersRegex.test(nextValue) || lettersRegex.test(tailValue)) {
+        return masked.compiledMasks[1]
       }
 
-      if (unmaskedValue.startsWith('8') || unmaskedValue.startsWith('78')) {
-        return compiledMasks[1]
-      }
-
-      return compiledMasks[0]
+      return masked.compiledMasks[0]
     }
-  } as IMask.MaskedDynamicOptions
+  }
 }
 
-type MaskType = Exclude<MaskedInputProps['mask'], IMask.AllMaskedOptions> | ''
-
 const getMaskDescription = (
-  mask: MaskedInputProps['mask']
+  maskProp: MaskedInputProps['mask']
 ): {
-  mask: IMask.AllMaskedOptions
-  maskType: MaskType
+  mask: ReactMaskOpts
+  maskType: MaskType | ''
   placeholder: string
 } => {
-  let maskType: MaskType = ''
-  if (typeof mask === 'string') {
-    maskType = mask
-    mask = MaskTypes[mask] as IMask.AllMaskedOptions
+  let maskType: MaskType | '' = ''
+  let mask: ReactMaskOpts
+  if (typeof maskProp === 'string') {
+    maskType = maskProp
+    mask = MaskTypes[maskProp]
     if (!mask) {
       console.error('No definition for mask ', maskType)
     }
+  } else {
+    mask = maskProp as ReactMaskOpts
   }
 
   let placeholder = ''
@@ -99,8 +100,6 @@ const getMaskDescription = (
     case 'email':
       placeholder = 'example@mail.ru'
       break
-    case 'bankCard':
-      placeholder = '____ ____ ____ ____'
   }
 
   return { mask, maskType, placeholder }
@@ -114,8 +113,7 @@ export type MaskedInputProps = Omit<InputProps, 'onChange'> & {
     | 'cvc'
     | 'email'
     | 'phoneOrEmail'
-    | 'bankCard'
-    | IMask.AllMaskedOptions
+    | MaskedInputProps
   /** Событие изменения данных */
   onAccept?: (value: string) => void
   /** Событие успешного заполнения данных */
@@ -224,9 +222,13 @@ const MaskedInput = ({
     // TODO: пока такое решение, будет коряво для инпута с displayChar. Может потом придет решение
     <Input
       {...props}
-      ref={ref}
+      ref={ref as unknown as Ref<HTMLInputElement>}
       value={composedValue}
-      defaultValue={mask.displayChar ? composedValue : undefined}
+      defaultValue={
+        (mask as ExtractMaskOpts<any, any>).displayChar
+          ? composedValue
+          : undefined
+      }
       placeholder={placeholder || placeholderProp}
       // onFocus={handleFocus}
       // onBlur={handleBlur}
