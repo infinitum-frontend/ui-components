@@ -1,0 +1,9 @@
+.inf-page-layout-footer {
+  background-color: var(--inf-color-background-default);
+  border-top: 1px solid var(--inf-color-border-default);
+  padding: var(--inf-space-large) 0;
+
+  &__container {
+    height: 100%;
+  }
+}
