@@ -24,7 +24,6 @@ import {
   NotificationContainer,
   NotificationProvider
 } from '../components/Notification'
-import { SideNav } from '../components/SideNav'
 import { Meta, StoryObj } from '@storybook/react'
 import { Table, TableRow } from '../components/Table'
 import {
@@ -69,7 +68,7 @@ export const DesignSystem: StoryObj = {
 
     return (
       <PageLayout>
-        <PageLayout.Header sticky containerWidth="large">
+        <PageLayout.Header>
           <div
             style={{
               width: '100%',
@@ -80,6 +79,7 @@ export const DesignSystem: StoryObj = {
             }}
           >
             <Logo style={{ width: '140px' }} />
+
             <HeaderNav>
               <HeaderNav.Item active>Пункт меню 1</HeaderNav.Item>
               <HeaderNav.Item>Пункт меню 2</HeaderNav.Item>
@@ -101,7 +101,7 @@ export const DesignSystem: StoryObj = {
                   Константин Константинопольский
                 </Button>
               </Popover.Trigger>
-              <Popover.Content variant="inverse">
+              <Popover.Content>
                 <Space gap="small" style={{ width: '235px' }}>
                   <Space gap="xxsmall">
                     <Text variant="subtitle-2">Иван Иванов</Text>
@@ -125,19 +125,8 @@ export const DesignSystem: StoryObj = {
           </div>
         </PageLayout.Header>
 
-        <PageLayout.Body containerWidth="large">
-          <PageLayout.Aside>
-            <SideNav>
-              <SideNav.Item>Входящие</SideNav.Item>
-              <SideNav.Item active>Исходящие</SideNav.Item>
-              <SideNav.Item>Отчетность</SideNav.Item>
-              <SideNav.Item>Документы для отправки</SideNav.Item>
-              <SideNav.Item>Черновики</SideNav.Item>
-              <SideNav.Item>Локальный справочник контрагентов</SideNav.Item>
-            </SideNav>
-          </PageLayout.Aside>
-
-          <PageLayout.Content style={{ paddingTop: 'var(--inf-space-xlarge)' }}>
+        <PageLayout.Body>
+          <PageLayout.Content>
             <Space gap="large">
               <Table
                 columns={tableColumns}

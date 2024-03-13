@@ -1,53 +1,276 @@
-/* Naming formula: --p-color-element-role-variant-state */
+/* Naming formula: --inf-color-type-role-variant-state */
 
 :root {
-  /* Base */
-  --inf-color-gray-100: #f7f9fa;
-  --inf-color-gray-200: #dddedf;
-  --inf-color-gray-300: #adaeaf;
-  --inf-color-gray-400: #8e8f90;
-  --inf-color-gray-500: #707273;
-  --inf-color-gray-600: #545556;
-  --inf-color-gray-700: #373839;
-  --inf-color-gray-800: #1f2021;
-
-  --inf-color-blue-100: #e6f9ff;
-  --inf-color-blue-200: #bedee8;
-  --inf-color-blue-300: #9cbac4;
-  --inf-color-blue-400: #7d9ba5;
-  --inf-color-blue-500: #607d86;
-  --inf-color-blue-600: #46626b;
-  --inf-color-blue-700: #29444d;
-
-  --inf-color-red-100: #fff6f5;
-  --inf-color-red-200: #ffd6d1;
-  --inf-color-red-300: #ffb5ac;
-  --inf-color-red-400: #ff9086;
-  --inf-color-red-500: #f53a3a;
-  --inf-color-red-600: #d0001b;
-
-  --inf-color-green-100: #e8fff2;
-  --inf-color-green-200: #89f9c2;
-  --inf-color-green-300: #67d7a3;
-  --inf-color-green-400: #40b481;
-  --inf-color-green-500: #029161;
-  --inf-color-green-600: #006945;
-
-  --inf-color-orange-100: #fff6f4;
-  --inf-color-orange-200: #ffdcd1;
-  --inf-color-orange-300: #ffbba7;
-  --inf-color-orange-400: #ff9273;
-  --inf-color-orange-500: #fc673a;
-  --inf-color-orange-600: #dd4a18;
-
-  --inf-color-yellow-100: #fff7ec;
-  --inf-color-yellow-200: #ffe0ae;
-  --inf-color-yellow-300: #ffc256;
-  --inf-color-yellow-400: #e6a302;
-  --inf-color-yellow-500: #c28900;
-
   --inf-color-black: #1f2021;
   --inf-color-white: #fff;
+
+  /* Палитра светлая */
+  --inf-color-gray-50: #f1f1f1;
+  --inf-color-gray-100: #d5d5d5;
+  --inf-color-gray-200: #bbbbbb;
+  --inf-color-gray-300: #a0a0a0;
+  --inf-color-gray-400: #878787;
+  --inf-color-gray-500: #6e6e6e;
+  --inf-color-gray-600: #575757;
+  --inf-color-gray-700: #404040;
+  --inf-color-gray-800: #2b2b2b;
+  --inf-color-gray-900: #171717;
+
+  --inf-color-brand-50: #fef2f2;
+  --inf-color-brand-100: #fde0e0;
+  --inf-color-brand-200: #fdcece;
+  --inf-color-brand-300: #fcbcbc;
+  --inf-color-brand-400: #fbaaaa;
+  --inf-color-brand-500: #fa9696;
+  --inf-color-brand-600: #f98484;
+  --inf-color-brand-700: #f87070;
+  --inf-color-brand-800: #f75c5c;
+  --inf-color-brand-900: #f64a4a;
+
+  --inf-color-red-50: #fdf1f3;
+  --inf-color-red-100: #f9dce2;
+  --inf-color-red-200: #f6c7d1;
+  --inf-color-red-300: #f2b2bf;
+  --inf-color-red-400: #ef9eae;
+  --inf-color-red-500: #eb879b;
+  --inf-color-red-600: #e7728a;
+  --inf-color-red-700: #e35b77;
+  --inf-color-red-800: #e04564;
+  --inf-color-red-900: #dc3053;
+
+  --inf-color-green-50: #eff6f1;
+  --inf-color-green-100: #d9e9de;
+  --inf-color-green-200: #c3ddcb;
+  --inf-color-green-300: #acd0b7;
+  --inf-color-green-400: #96c3a4;
+  --inf-color-green-500: #7db58e;
+  --inf-color-green-600: #67a97b;
+  --inf-color-green-700: #4e9b66;
+  --inf-color-green-800: #358d50;
+  --inf-color-green-900: #1f803d;
+
+  --inf-color-orange-50: #fdf6ee;
+  --inf-color-orange-100: #fbe8d6;
+  --inf-color-orange-200: #f8dbbe;
+  --inf-color-orange-300: #f5cda5;
+  --inf-color-orange-400: #f3c08d;
+  --inf-color-orange-500: #f0b173;
+  --inf-color-orange-600: #eda45a;
+  --inf-color-orange-700: #ea9540;
+  --inf-color-orange-800: #e88625;
+  --inf-color-orange-900: #e5790d;
+
+  --inf-color-blue-50: #eef4fa;
+  --inf-color-blue-100: #d4e5f3;
+  --inf-color-blue-200: #bcd5ec;
+  --inf-color-blue-300: #a2c6e4;
+  --inf-color-blue-400: #89b6dd;
+  --inf-color-blue-500: #6ea5d5;
+  --inf-color-blue-600: #5596ce;
+  --inf-color-blue-700: #3985c6;
+  --inf-color-blue-800: #1e74be;
+  --inf-color-blue-900: #0564b7;
+
+  --inf-color-violet-50: #f8eefc;
+  --inf-color-violet-100: #eed6f8;
+  --inf-color-violet-200: #e5bef4;
+  --inf-color-violet-300: #dba7ef;
+  --inf-color-violet-400: #d18feb;
+  --inf-color-violet-500: #c674e7;
+  --inf-color-violet-600: #bc5ce2;
+  --inf-color-violet-700: #b242de;
+  --inf-color-violet-800: #a728d9;
+  --inf-color-violet-900: #9d10d5;
+
+  --inf-color-teal-50: #edf9f9;
+  --inf-color-teal-100: #d4f0f0;
+  --inf-color-teal-200: #bae7e7;
+  --inf-color-teal-300: #a1dede;
+  --inf-color-teal-400: #87d5d5;
+  --inf-color-teal-500: #6bcbcb;
+  --inf-color-teal-600: #52c2c2;
+  --inf-color-teal-700: #36b9b9;
+  --inf-color-teal-800: #1aafaf;
+  --inf-color-teal-900: #00a6a6;
+
+  /* Палитра темная */
+  --inf-color-gray-50-dark: #f1f1f1;
+  --inf-color-gray-100-dark: #d5d5d5;
+  --inf-color-gray-200-dark: #bbbbbb;
+  --inf-color-gray-300-dark: #a0a0a0;
+  --inf-color-gray-400-dark: #878787;
+  --inf-color-gray-500-dark: #6e6e6e;
+  --inf-color-gray-600-dark: #575757;
+  --inf-color-gray-700-dark: #404040;
+  --inf-color-gray-800-dark: #2b2b2b;
+  --inf-color-gray-900-dark: #171717;
+
+  --inf-color-brand-50-dark: #271b1b;
+  --inf-color-brand-100-dark: #3d2020;
+  --inf-color-brand-200-dark: #532525;
+  --inf-color-brand-300-dark: #6a2a2a;
+  --inf-color-brand-400-dark: #802f2f;
+  --inf-color-brand-500-dark: #983535;
+  --inf-color-brand-600-dark: #af3a3a;
+  --inf-color-brand-700-dark: #c73f3f;
+  --inf-color-brand-800-dark: #e04545;
+  --inf-color-brand-900-dark: #f64a4a;
+
+  --inf-color-red-50-dark: #27191c;
+  --inf-color-red-100-dark: #3e1d23;
+  --inf-color-red-200-dark: #55202b;
+  --inf-color-red-300-dark: #6c2332;
+  --inf-color-red-400-dark: #832739;
+  --inf-color-red-500-dark: #9c2a41;
+  --inf-color-red-600-dark: #b32d49;
+  --inf-color-red-700-dark: #cc3151;
+  --inf-color-red-800-dark: #e53559;
+  --inf-color-red-900-dark: #fc3860;
+
+  --inf-color-green-50-dark: #19221c;
+  --inf-color-green-100-dark: #1b3323;
+  --inf-color-green-200-dark: #1e432a;
+  --inf-color-green-300-dark: #215331;
+  --inf-color-green-400-dark: #236337;
+  --inf-color-green-500-dark: #26753f;
+  --inf-color-green-600-dark: #298546;
+  --inf-color-green-700-dark: #2c974e;
+  --inf-color-green-800-dark: #2ea955;
+  --inf-color-green-900-dark: #31b95c;
+
+  --inf-color-orange-50-dark: #272017;
+  --inf-color-orange-100-dark: #3e2c17;
+  --inf-color-orange-200-dark: #543818;
+  --inf-color-orange-300-dark: #6b4418;
+  --inf-color-orange-400-dark: #825118;
+  --inf-color-orange-500-dark: #9b5e19;
+  --inf-color-orange-600-dark: #b26b19;
+  --inf-color-orange-700-dark: #cb7819;
+  --inf-color-orange-800-dark: #e4861a;
+  --inf-color-orange-900-dark: #fa921a;
+
+  --inf-color-blue-50-dark: #1b2027;
+  --inf-color-blue-100-dark: #202d3e;
+  --inf-color-blue-200-dark: #253955;
+  --inf-color-blue-300-dark: #2a466b;
+  --inf-color-blue-400-dark: #2f5382;
+  --inf-color-blue-500-dark: #34619b;
+  --inf-color-blue-600-dark: #396db2;
+  --inf-color-blue-700-dark: #3f7bcb;
+  --inf-color-blue-800-dark: #4489e4;
+  --inf-color-blue-900-dark: #4996fb;
+
+  --inf-color-violet-50-dark: #231b27;
+  --inf-color-violet-100-dark: #34213e;
+  --inf-color-violet-200-dark: #452755;
+  --inf-color-violet-300-dark: #562c6c;
+  --inf-color-violet-400-dark: #673283;
+  --inf-color-violet-500-dark: #7a399c;
+  --inf-color-violet-600-dark: #8b3eb3;
+  --inf-color-violet-700-dark: #9d45cd;
+  --inf-color-violet-800-dark: #b04be6;
+  --inf-color-violet-900-dark: #c151fd;
+
+  --inf-color-teal-50-dark: #152222;
+  --inf-color-teal-100-dark: #133232;
+  --inf-color-teal-200-dark: #114141;
+  --inf-color-teal-300-dark: #0e5151;
+  --inf-color-teal-400-dark: #0c6161;
+  --inf-color-teal-500-dark: #0a7272;
+  --inf-color-teal-600-dark: #078282;
+  --inf-color-teal-700-dark: #059393;
+  --inf-color-teal-800-dark: #02a4a4;
+  --inf-color-teal-900-dark: #00b4b4;
+
+  /* Text */
+  --inf-color-text-primary: var(--inf-color-gray-900);
+  --inf-color-text-secondary: var(--inf-color-gray-500);
+  --inf-color-text-tertiary: var(--inf-color-gray-300);
+  --inf-color-text-inverse: var(--inf-color-white);
+  --inf-color-text-on-color: var(--inf-color-white);
+  --inf-color-text-error: var(--inf-color-red-900); // TODO: заменили на error
+  --inf-color-text-success: var(--inf-color-green-900);
+  --inf-color-text-warning: var(--inf-color-orange-900);
+  --inf-color-text-info: var(--inf-color-blue-900);
+  --inf-color-text-info-disabled: var(--inf-color-blue-300);
+  --inf-color-text-brand: var(--inf-color-brand-900);
+  --inf-color-text-violet: var(--inf-color-violet-900);
+  --inf-color-text-teal: var(--inf-color-teal-900);
+
+  --inf-color-text-link: var(--inf-color-blue-900);
+  --inf-color-text-link-hover: var(--inf-color-blue-700);
+  --inf-color-text-link-visited: var(--inf-color-violet-700);
+
+  --inf-color-text-danger: var(--inf-color-danger); // TODO: заменили на error
+  // --inf-color-text-inverse-secondary: #ccc;
+  --inf-color-text-disabled: var(--inf-color-gray-300); // TODO:
+
+  /* Icon */
+  --inf-color-icon: var(--inf-color-gray-800);
+  --inf-color-icon-secondary: var(--inf-color-gray-300);
+  --inf-color-icon-inverse: var(--inf-color-white);
+
+  /* Background color */
+  --inf-color-bg: var(--inf-color-white);
+  --inf-color-bg-secondary: var(--inf-color-gray-50);
+  --inf-color-bg-secondary-hover: var(--inf-color-gray-100);
+  --inf-color-bg-inverse: var(--inf-color-gray-900);
+  --inf-color-bg-error-primary: var(--inf-color-red-900);
+  --inf-color-bg-error-secondary: var(--inf-color-red-50);
+  --inf-color-bg-warning-primary: var(--inf-color-orange-900);
+  --inf-color-bg-warning-secondary: var(--inf-color-orange-50);
+  --inf-color-bg-success-primary: var(--inf-color-green-900);
+  --inf-color-bg-success-secondary: var(--inf-color-green-50);
+  --inf-color-bg-info-primary: var(--inf-color-info-900);
+  --inf-color-bg-info-secondary: var(--inf-color-info-50);
+  --inf-color-bg-brand-primary: var(--inf-color-brand-900);
+  --inf-color-bg-brand-secondary: var(--inf-color-brand-50);
+  --inf-color-bg-violet-primary: var(--inf-color-violet-900);
+  --inf-color-bg-violet-secondary: var(--inf-color-violet-50);
+  --inf-color-bg-teal-primary: var(--inf-color-teal-900);
+  --inf-color-bg-teal-secondary: var(--inf-color-teal-50);
+
+  /* Button */
+  --inf-color-bg-button-primary: var(--inf-color-brand-900);
+  --inf-color-bg-button-primary-hover: var(--inf-color-brand-800);
+  --inf-color-bg-button-primary-active: var(--inf-color-brand-700);
+  --inf-color-bg-button-primary-disabled: var(--inf-color-brand-400);
+  --inf-color-bg-button-secondary: var(--inf-color-blue-50);
+  --inf-color-bg-button-secondary-hover: var(--inf-color-blue-100);
+  --inf-color-bg-button-secondary-active: var(--inf-color-blue-200);
+
+  /* Background */ // TODO: сократить название до -bg-
+  --inf-color-background-body: var(--inf-color-white);
+  --inf-color-background-default: var(--inf-color-white);
+  --inf-color-background-secondary: var(--inf-color-gray-500);
+  --inf-color-background-secondary-hover: var(--inf-color-gray-100);
+  --inf-color-background-inverse: var(--inf-color-gray-900);
+  --inf-color-background-error-primary: var(--inf-color-red-900);
+  --inf-color-background-error-secondary: var(--inf-color-red-50);
+  --inf-color-background-warning-primary: var(--inf-color-orange-900);
+  --inf-color-background-warning-secondary: var(--inf-color-orange-50);
+  --inf-color-background-success-primary: var(--inf-color-green-900);
+  --inf-color-background-success-secondary: var(--inf-color-green-50);
+  --inf-color-background-info-primary: var(--inf-color-info-900);
+  --inf-color-background-info-secondary: var(--inf-color-info-50);
+  --inf-color-background-brand-primary: var(--inf-color-brand-900);
+  --inf-color-background-brand-secondary: var(--inf-color-brand-50);
+  --inf-color-background-violet-primary: var(--inf-color-violet-900);
+  --inf-color-background-violet-secondary: var(--inf-color-violet-50);
+  --inf-color-background-teal-primary: var(--inf-color-teal-900);
+  --inf-color-background-teal-secondary: var(--inf-color-teal-50);
+
+  --inf-color-background-danger: var(
+    --inf-color-orange-500
+  ); // TODO: переименовать в error
+  --inf-color-background-success: var(--inf-color-green-500); // TODO
+  --inf-color-background-warning: var(--inf-color-orange-500); // TODO
+
+  --inf-color-background-hover: var(--inf-color-gray-100);
+  --inf-color-background-selected: var(--inf-color-blue-400);
+  --inf-color-background-disabled: var(--inf-color-gray-100);
+  --inf-color-background-neutral: var(--inf-color-gray-300);
+  --inf-color-background-info: var(--inf-color-blue-500);
 
   /* Semantic */
   --inf-color-primary: var(--inf-color-red-500);
@@ -61,41 +284,6 @@
   --inf-color-success: var(--inf-color-green-500);
   --inf-color-danger: var(--inf-color-orange-500);
   --inf-color-warning: var(--inf-color-yellow-500);
-
-  /* Text */
-  --inf-color-text-primary: var(--inf-color-gray-800);
-  --inf-color-text-secondary: var(--inf-color-gray-500);
-  --inf-color-text-tertiary: var(--inf-color-gray-300);
-  --inf-color-text-disabled: var(--inf-color-gray-300);
-  --inf-color-text-inverse: var(--inf-color-white);
-  // --inf-color-text-inverse-secondary: #ccc;
-  --inf-color-text-link: var(--inf-color-blue-500);
-  --inf-color-text-link-hover: var(--inf-color-blue-600);
-  --inf-color-text-link-disabled: var(--inf-color-blue-300);
-
-  --inf-color-text-success: var(--inf-color-success);
-  --inf-color-text-warning: var(--inf-color-warning);
-  --inf-color-text-danger: var(--inf-color-danger);
-  --inf-color-text-on-color: var(--inf-color-white);
-
-  /* Icon */
-  --inf-color-icon: var(--inf-color-gray-800);
-  --inf-color-icon-secondary: var(--inf-color-gray-300);
-  --inf-color-icon-inverse: var(--inf-color-white);
-
-  /* Background */
-  --inf-color-background-body: var(--inf-color-white);
-  --inf-color-background-default: var(--inf-color-white);
-  --inf-color-background-secondary: var(--inf-color-gray-100);
-  --inf-color-background-inverse: var(--inf-color-gray-800);
-  --inf-color-background-hover: var(--inf-color-gray-100);
-  --inf-color-background-selected: var(--inf-color-blue-400);
-  --inf-color-background-disabled: var(--inf-color-gray-100);
-  --inf-color-background-neutral: var(--inf-color-gray-300);
-  --inf-color-background-info: var(--inf-color-blue-500);
-  --inf-color-background-danger: var(--inf-color-orange-500);
-  --inf-color-background-success: var(--inf-color-green-500);
-  --inf-color-background-warning: #ffc256; // TODO: внести в палитру
 
   /* Border */
   --inf-color-border-default: var(--inf-color-gray-200); // -primary ?
@@ -119,4 +307,56 @@
     --inf-color-background-secondary
   );
   // --inf-color-control-active: var(--inf-color-primary); TODO: нужен?
+}
+
+.inf-ui-theme-dark {
+  :root {
+    /* Text */
+    --inf-color-text-primary: var(--inf-color-gray-900-dark);
+    --inf-color-text-secondary: var(--inf-color-gray-500-dark);
+    --inf-color-text-tertiary: var(--inf-color-gray-300-dark);
+    --inf-color-text-inverse: var(--inf-color-white);
+    --inf-color-text-on-color: var(--inf-color-white);
+    --inf-color-text-error: var(--inf-color-red-900-dark);
+    --inf-color-text-success: var(--inf-color-green-900-dark);
+    --inf-color-text-warning: var(--inf-color-orange-900-dark);
+    --inf-color-text-info: var(--inf-color-blue-900-dark);
+    --inf-color-text-info-disabled: var(--inf-color-blue-300-dark);
+    --inf-color-text-brand: var(--inf-color-brand-900-dark);
+    --inf-color-text-violet: var(--inf-color-violet-900-dark);
+    --inf-color-text-teal: var(--inf-color-teal-900-dark);
+
+    --inf-color-text-link: var(--inf-color-blue-900-dark);
+    --inf-color-text-link-hover: var(--inf-color-blue-700-dark);
+    --inf-color-text-link-visited: var(--inf-color-violet-700-dark);
+
+    /* Background color */
+    --inf-color-bg: var(--inf-color-gray-900-dark);
+    --inf-color-bg-secondary: var(--inf-color-gray-800-dark);
+    --inf-color-bg-secondary-hover: var(--inf-color-gray-700-dark);
+    --inf-color-bg-inverse: var(--inf-color-gray-50-dark);
+    --inf-color-bg-error-primary: var(--inf-color-red-900-dark);
+    --inf-color-bg-error-secondary: var(--inf-color-red-50-dark);
+    --inf-color-bg-warning-primary: var(--inf-color-orange-900-dark);
+    --inf-color-bg-warning-secondary: var(--inf-color-orange-50-dark);
+    --inf-color-bg-success-primary: var(--inf-color-green-900-dark);
+    --inf-color-bg-success-secondary: var(--inf-color-green-50-dark);
+    --inf-color-bg-info-primary: var(--inf-color-info-900-dark);
+    --inf-color-bg-info-secondary: var(--inf-color-info-50-dark);
+    --inf-color-bg-brand-primary: var(--inf-color-brand-900-dark);
+    --inf-color-bg-brand-secondary: var(--inf-color-brand-50-dark);
+    --inf-color-bg-violet-primary: var(--inf-color-violet-900-dark);
+    --inf-color-bg-violet-secondary: var(--inf-color-violet-50-dark);
+    --inf-color-bg-teal-primary: var(--inf-color-teal-900-dark);
+    --inf-color-bg-teal-secondary: var(--inf-color-teal-50-dark);
+
+    /* Button */
+    --inf-color-bg-button-primary: var(--inf-color-brand-900-dark);
+    --inf-color-bg-button-primary-hover: var(--inf-color-brand-800-dark);
+    --inf-color-bg-button-primary-active: var(--inf-color-brand-700-dark);
+    --inf-color-bg-button-primary-disabled: var(--inf-color-brand-400-dark);
+    --inf-color-bg-button-secondary: var(--inf-color-blue-50-dark);
+    --inf-color-bg-button-secondary-hover: var(--inf-color-blue-100-dark);
+    --inf-color-bg-button-secondary-active: var(--inf-color-blue-200-dark);
+  }
 }

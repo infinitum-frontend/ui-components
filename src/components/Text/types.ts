@@ -64,5 +64,6 @@ export type TextColor =
   | 'link'
   | 'success'
   | 'danger'
+  | 'error'
   | 'warning'
   | 'inverse'

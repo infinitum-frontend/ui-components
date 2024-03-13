@@ -3,8 +3,7 @@ import * as React from 'react'
 import { Button } from './index'
 import { Space } from '../Space'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
-import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
+import { ReactComponent as PlusIcon } from 'Icons/plus.svg'
 
 const ComponentMeta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -38,14 +37,6 @@ export const Secondary = {
   }
 }
 
-export const Tertiary = {
-  render: Template,
-
-  args: {
-    variant: 'tertiary'
-  }
-}
-
 export const Ghost = {
   render: Template,
 
@@ -59,7 +50,7 @@ export const GhostWithIcon = {
 
   args: {
     variant: 'ghost',
-    after: <DownloadIcon />
+    after: <PlusIcon />
   }
 }
 
@@ -82,16 +73,16 @@ export const Disabled = {
 export const Icon: StoryObj<typeof Button> = {
   render: (args) => (
     <>
-      <Button before={<ArrowDownIcon />} {...args}>
-        Icon Before
-      </Button>
-      <Button after={<ArrowDownIcon />} {...args}>
+      <Button after={<PlusIcon />} {...args}>
         Icon After
       </Button>
-      <Button before={<ArrowDownIcon />} after={<ArrowDownIcon />} {...args}>
+      <Button before={<PlusIcon />} {...args}>
+        Icon Before
+      </Button>
+      <Button before={<PlusIcon />} after={<PlusIcon />} {...args}>
         Icon Before and After
       </Button>
-      <Button icon={<ArrowDownIcon />} {...args} />
+      <Button icon={<PlusIcon />} {...args} />
     </>
   ),
 

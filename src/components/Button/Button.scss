@@ -1,22 +1,20 @@
 .inf-button {
-  font-family: var(--inf-font-family-base);
-  font-size: 14px;
-  font-weight: 400;
+  font: var(--inf-font-body-1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: -webkit-max-content;
   width: max-content;
-  padding: 0 16px;
+  padding: 0 var(--inf-space-medium);
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   text-decoration: none;
-  border: 1px solid transparent;
-  box-shadow: 0 0 0 2px transparent;
+  // border: 1px solid transparent;
+  // box-shadow: 0 0 0 2px transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -29,65 +27,76 @@
     border-color: transparent;
   }
 
-  &:focus-visible {
-    outline: var(--inf-border-focus);
-  }
+  @include focus-styles;
 
   &--variant-primary {
-    background-color: var(--inf-color-primary);
+    background-color: var(--inf-color-bg-button-primary);
     color: var(--inf-color-text-on-color);
 
     &:hover {
-      background-color: var(--inf-color-primary-hover);
+      background-color: var(--inf-color-bg-button-primary-hover);
     }
 
     &:active {
-      background-color: var(--inf-color-primary-active);
+      background-color: var(--inf-color-bg-button-primary-active);
+    }
+
+    &:disabled {
+      background-color: var(--inf-color-bg-button-primary-disabled);
     }
   }
 
   &--variant-secondary {
-    background-color: var(--inf-color-secondary);
-    color: var(--inf-color-text-on-color);
+    background-color: var(--inf-color-bg-button-secondary);
+    color: var(--inf-color-text-info);
 
     &:hover {
-      background-color: var(--inf-color-secondary-hover);
+      background-color: var(--inf-color-bg-button-secondary-hover);
     }
 
     &:active {
-      background-color: var(--inf-color-secondary-active);
+      background-color: var(--inf-color-bg-button-secondary-active);
+    }
+
+    &:disabled {
+      color: var(--inf-color-text-info-disabled);
     }
   }
 
   &--variant-tertiary {
-    color: var(--inf-color-secondary);
-    border: 1px solid var(--inf-color-secondary);
+    background-color: var(--inf-color-bg-button-secondary);
+    color: var(--inf-color-text-info);
 
     &:hover {
-      background-color: #e6f1f5;
+      background-color: var(--inf-color-bg-button-secondary-hover);
     }
 
     &:active {
-      background-color: #738f99;
+      background-color: var(--inf-color-bg-button-secondary-active);
+    }
+
+    &:disabled {
+      color: var(--inf-color-text-info-disabled);
     }
   }
 
   &--variant-ghost {
-    color: var(--inf-color-secondary);
+    color: var(--inf-color-text-info);
 
     &:hover {
-      color: var(--inf-color-secondary-hover);
+      background-color: var(--inf-color-bg-button-secondary-hover);
     }
 
     &:active {
-      color: var(--inf-color-secondary-active);
+      background-color: var(--inf-color-bg-button-secondary-active);
+    }
+
+    &:disabled {
+      color: var(--inf-color-text-info-disabled);
     }
   }
 
   &:disabled {
-    background-color: var(--inf-color-background-control-disabled);
-    border-color: var(--inf-color-background-control-disabled);
-    color: var(--inf-color-text-tertiary);
     pointer-events: none;
     cursor: default;
   }
@@ -110,26 +119,26 @@
   }
 
   &--size-small {
-    height: var(--inf-control-height-small);
+    height: var(--inf-button-height-small);
 
     &.inf-button--square {
-      width: var(--inf-control-height-small);
+      width: var(--inf-button-height-small);
     }
   }
 
   &--size-medium {
-    height: var(--inf-control-height-medium);
+    height: var(--inf-button-height-medium);
 
     &.inf-button--square {
-      width: var(--inf-control-height-medium);
+      width: var(--inf-button-height-medium);
     }
   }
 
   &--size-large {
-    height: var(--inf-control-height-large);
+    height: var(--inf-button-height-large);
 
     &.inf-button--square {
-      width: var(--inf-control-height-large);
+      width: var(--inf-button-height-large);
     }
   }
 
@@ -150,6 +159,11 @@
   &__after,
   &__icon {
     display: flex;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .inf-button__after:not(:first-child),
