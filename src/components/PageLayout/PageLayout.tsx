@@ -6,6 +6,7 @@ import PageLayoutContent from './components/Content'
 import PageLayoutHeader from './components/Header'
 import PageLayoutBottomBar from './components/BottomBar'
 import './PageLayout.scss'
+import PageLayoutFooter from './components/Footer'
 
 export interface PageLayoutProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
@@ -33,5 +34,6 @@ export default Object.assign(PageLayout, {
   Body: PageLayoutBody,
   Aside: PageLayoutAside,
   Content: PageLayoutContent,
-  BottomBar: PageLayoutBottomBar
+  BottomBar: PageLayoutBottomBar,
+  Footer: PageLayoutFooter
 })
