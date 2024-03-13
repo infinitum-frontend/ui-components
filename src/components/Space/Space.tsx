@@ -33,16 +33,15 @@ export interface SpaceProps {
    */
   wrap?: boolean
   /**
-   * Разделитель
-   */
-  // TODO: IDD-308 divider?: React.ReactNode
-  /**
-   * На всю ширину контейнера
+   * На всю ширину контейнера (width: 100%)
    */
   fullWidth?: boolean
+  /**
+   * На всю высоту контейнера (height: 100%)
+   */
+  fullHeight?: boolean
 }
 
-// TODO: IDD-308 gapX, gapY
 function BaseSpace<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C, SpaceProps>,
   ref: PolymorphicRef<C>
@@ -55,6 +54,7 @@ function BaseSpace<C extends ElementType = 'div'>(
     direction = 'vertical',
     wrap,
     fullWidth,
+    fullHeight,
     align,
     justify,
     children,
@@ -69,6 +69,7 @@ function BaseSpace<C extends ElementType = 'div'>(
       {
         'inf-space--wrap': wrap,
         'inf-space--full-width': fullWidth,
+        'inf-space--full-height': fullHeight,
         [`inf-space--align-${align as string}`]: align,
         [`inf-space--justify-${justify as string}`]: justify
       }
