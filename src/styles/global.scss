@@ -14,7 +14,7 @@ body {
 }
 
 body {
-  background-color: var(--inf-color-background-body);
+  background-color: var(--inf-color-bg);
   color: var(--inf-color-text-primary);
   font-family: var(--inf-font-family-base);
 }
@@ -26,23 +26,23 @@ body {
   --inf-font-h4: 500 20px / 20px Arial;
 }
 
-.inf-ui-theme-dark {
-  --inf-color-text-primary: #eee;
-  --inf-color-text-secondary: #ddd;
-  --inf-color-text-inverse: #111;
-  --inf-color-background-body: #333;
-  --inf-color-background-default: #222;
-  --inf-color-background-secondary: #333;
-  --inf-color-background-hover: #555;
-  --inf-color-background-inverse: #ddd;
-  --inf-color-primary: var(--inf-color-red-500);
-  --inf-color-primary-hover: var(--inf-color-red-400);
-  --inf-color-border-default: #444;
+// .inf-ui-theme-dark {
+//   --inf-color-text-primary: #eee;
+//   --inf-color-text-secondary: #ddd;
+//   --inf-color-text-inverse: #111;
+//   --inf-color-background-body: #333;
+//   --inf-color-background-default: #222;
+//   --inf-color-background-secondary: #333;
+//   --inf-color-background-hover: #555;
+//   --inf-color-background-inverse: #ddd;
+//   --inf-color-primary: var(--inf-color-red-500);
+//   --inf-color-primary-hover: var(--inf-color-red-400);
+//   --inf-color-border-default: #444;
 
-  --inf-color-background-button-primary-disabled: #802f2f;
-  --inf-color-background-button-secondary: #1b2027;
-  --inf-color-background-button-secondary-hover: #202d3e;
-  --inf-color-background-button-secondary-active: #253955;
-  --inf-color-text-info: #4996fb;
-  --inf-color-text-info-disabled: #2a466b;
-}
+//   --inf-color-background-button-primary-disabled: #802f2f;
+//   --inf-color-background-button-secondary: #1b2027;
+//   --inf-color-background-button-secondary-hover: #202d3e;
+//   --inf-color-background-button-secondary-active: #253955;
+//   --inf-color-text-info: #4996fb;
+//   --inf-color-text-info-disabled: #2a466b;
+// }

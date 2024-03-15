@@ -34,16 +34,7 @@ import {
 import { ColumnDef } from '@tanstack/react-table'
 
 const ComponentMeta: Meta<typeof Button> = {
-  title: 'Demo/Design System',
-  parameters: {
-    themes: {
-      default: 'light',
-      list: [
-        { name: 'light', class: 'inf-ui-theme-light' },
-        { name: 'dark', class: 'inf-ui-theme-dark' }
-      ]
-    }
-  }
+  title: 'Demo/Design System'
 }
 
 export default ComponentMeta
