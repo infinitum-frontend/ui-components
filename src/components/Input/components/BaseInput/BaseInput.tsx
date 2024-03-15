@@ -30,7 +30,6 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       TextFieldClasses.main,
       className,
       {
-        [TextFieldClasses.filled]: value || defaultValue,
         [TextFieldClasses.noBorder]: noBorder,
         [TextFieldClasses.status[status as 'error']]: status,
         [TextFieldClasses.borderRadius[borderRadius]]: borderRadius

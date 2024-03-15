@@ -1,7 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Autocomplete > should match snapshot 1`] = `
-<div>
+<div
+  class="inf-autocomplete"
+>
   <button
     class="inf-select-button inf-text-field inf-text-field--br-regular inf-autocomplete-button"
     tabindex="-1"

@@ -1,18 +1,22 @@
 import { expect, beforeAll } from 'vitest'
-import { render } from '@testing-library/react'
-import matchers from '@testing-library/jest-dom/matchers'
+import { render, RenderOptions } from '@testing-library/react'
+// import '@testing-library/jest-dom/vitest' for vitest 1.x.x
 import { ReactElement, JSXElementConstructor } from 'react'
+import matchers from '@testing-library/jest-dom/matchers'
 
 // extends Vitest's expect method with methods from react-testing-library
 // https://github.com/testing-library/jest-dom#custom-matchers
 expect.extend(matchers)
 
-export const renderComponent = function (Component: ReactElement): {
+export const renderComponent = function (
+  Component: ReactElement,
+  options?: RenderOptions
+): {
   el: HTMLElement
   container: HTMLElement
   rerender: (ui: ReactElement<any, string | JSXElementConstructor<any>>) => void
 } {
-  const { container, rerender } = render(Component)
+  const { container, rerender } = render(Component, options)
 
   const el = container.firstChild as HTMLElement
 
