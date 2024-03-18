@@ -7,7 +7,7 @@ import {
 } from '~/src/utils/types'
 import cn from 'classnames'
 import './Card.scss'
-import { BoxProps } from '../Box'
+import { Box, BoxProps } from '../Box'
 
 type Size = 'medium' | 'large'
 
@@ -16,8 +16,7 @@ export interface CardProps {
   variant?: 'shadow' | 'outline'
   outlineVariant?: 'danger'
   borderRadius?: BoxProps['borderRadius']
-  hoverable?: boolean
-  disabled?: boolean
+  padding?: BoxProps['padding']
 }
 
 function BaseCard<C extends ElementType = 'div'>(
@@ -32,8 +31,6 @@ function BaseCard<C extends ElementType = 'div'>(
     variant = 'outline',
     outlineVariant,
     borderRadius,
-    disabled,
-    hoverable,
     ...rest
   } = props
 
@@ -54,21 +51,10 @@ function BaseCard<C extends ElementType = 'div'>(
     borderWidth = 'thick'
     borderColor = 'danger'
   }
-
-  const Component = as
-
   return (
-    <Component
+    <Box
       ref={ref}
-      className={cn(
-        'inf-card',
-        className,
-        `inf-button--variant-${variant as string}`,
-        {
-          'inf-card--hoverable': hoverable,
-          'inf-card--didabled': disabled
-        }
-      )}
+      className={cn('inf-card', className)}
       as={as}
       boxShadow={variant === 'outline' ? undefined : 'medium'}
       borderRadius={borderRadius}
@@ -79,7 +65,7 @@ function BaseCard<C extends ElementType = 'div'>(
       {...rest}
     >
       {children}
-    </Component>
+    </Box>
   )
 }
 
