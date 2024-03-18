@@ -31,7 +31,7 @@ export default defineConfig({
     css: true,
     setupFiles: './testSetup.tsx',
     coverage: {
-      provider: 'c8'
+      provider: 'v8'
     }
   }
 })

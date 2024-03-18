@@ -1,9 +1,13 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`input > matches snapshot 1`] = `
-<input
-  class="inf-input inf-text-field--size-medium inf-text-field inf-text-field--br-regular"
-  placeholder="Введите значение"
-  value=""
-/>
+exports[`input > render > matches snapshot 1`] = `
+<span
+  class="inf-input-wrapper inf-text-field--size-medium inf-text-field inf-text-field--br-regular"
+>
+  <input
+    class="inf-input inf-text-field--size-medium inf-text-field "
+    placeholder="Введите значение"
+    value=""
+  />
+</span>
 `;

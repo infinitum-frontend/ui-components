@@ -1,329 +1,473 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { Input } from '../index'
-import { renderComponent } from '@/testSetup'
+import { renderComponent } from '../../../../testSetup'
 import { act, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TextFieldClasses } from '../../../utils/textFieldClasses'
+import { Form } from '../../Form'
 
 describe('input', () => {
-  it('should render', () => {
-    renderComponent(<Input />)
-    const input = screen.queryByRole('textbox')
-    expect(input).toBeDefined()
-    expect(input).toHaveClass('inf-input')
-  })
+  const user = userEvent.setup({})
+  describe('render', () => {
+    it('should render wrapper', () => {
+      const { el } = renderComponent(<Input />)
 
-  it('should render as plain input by default', () => {
-    renderComponent(<Input />)
-    const input = screen.queryByRole('textbox') as HTMLInputElement
-    expect(input).toBeEmptyDOMElement()
-    expect(input.tagName).toBe('INPUT')
-  })
-
-  it('should render as complex input, if prefix, postfix or allowClear applied', () => {
-    const { el } = renderComponent(<Input prefix={'prefix'} />)
-    const input = screen.queryByRole('textbox') as HTMLInputElement
-    expect(el).not.toBeEmptyDOMElement()
-    expect(el).toContainHTML(input.outerHTML)
-  })
-
-  it('matches snapshot', () => {
-    const { el } = renderComponent(<Input />)
-    expect(el).toMatchSnapshot()
-  })
-})
-
-describe('className', () => {
-  it('should apply custom classname on plain input', () => {
-    const { el } = renderComponent(<Input className={'custom-class'} />)
-    expect(el.className).toContain('custom-class')
-    expect(el.className).toContain('inf-input')
-  })
-
-  it('should apply custom classname on complex input', () => {
-    const { el } = renderComponent(
-      <Input className={'custom-class'} prefix={'prefix'} />
-    )
-    expect(el).toHaveClass('custom-class')
-    expect(el).toHaveClass('inf-input-wrapper')
-  })
-})
-
-describe('style', () => {
-  it('should apply style on plain input', () => {
-    const { el } = renderComponent(<Input style={{ width: '100%' }} />)
-    expect(el).toHaveStyle('width: 100%')
-  })
-
-  it('should apply style on complex input', () => {
-    const { el } = renderComponent(
-      <Input style={{ width: '100%' }} prefix={'prefix'} />
-    )
-    expect(el).toHaveStyle('width: 100%')
-  })
-})
-
-describe('size', () => {
-  it('should support size on plain input', () => {
-    const { el } = renderComponent(<Input />)
-    expect(el.className).toContain(TextFieldClasses.size.medium)
-  })
-
-  it('should support size on complex input', () => {
-    const { el } = renderComponent(<Input prefix={'prefix'} />)
-    expect(el)
-  })
-})
-
-describe('uncontrolled input', () => {
-  it('should be uncontrolled by default', async () => {
-    const { el } = renderComponent(<Input />)
-    const user = userEvent.setup()
-    await user.type(el, 'Акции')
-    expect(el).toHaveValue('Акции')
-  })
-  it('should support defaultValue', () => {
-    const { el } = renderComponent(<Input defaultValue="Акции" />)
-    expect(el).toHaveValue('Акции')
-  })
-
-  it('should prefer defaultValue over value', async () => {
-    const { el } = renderComponent(
-      <Input defaultValue="Акции" value="Облигации" />
-    )
-    expect(el).toHaveValue('Акции')
-  })
-})
-
-describe('value', () => {
-  it('should apply value on plain input', () => {
-    const { el } = renderComponent(<Input value={'Акции'} />)
-    expect(el).toHaveValue('Акции')
-  })
-
-  it('should apply value on complex input', () => {
-    const { el } = renderComponent(<Input value={'Акции'} prefix={'prefix'} />)
-    const inputEl = el.querySelector('input')
-    expect(inputEl).toHaveValue('Акции')
-  })
-})
-
-describe('events', () => {
-  it('should support onInput', () => {
-    let eventValue
-    let eventType
-    const onInput = vi.fn((value, e) => {
-      eventValue = value
-      eventType = e.type
+      expect(el).toBeDefined()
+      expect(el).toHaveClass('inf-input-wrapper')
     })
 
-    const { el } = renderComponent(<Input onInput={onInput} />)
-    fireEvent.input(el, { target: { value: 'hello' } })
+    it('should contain input element', () => {
+      const { el } = renderComponent(<Input />)
 
-    expect(onInput).toHaveBeenCalledOnce()
-    expect(eventValue).toBe('hello')
-    expect(eventType).toBe('change')
-  })
-
-  it('should support onBlur', () => {
-    let event
-    const onBlur = vi.fn((e) => {
-      event = e
-    })
-    const { el } = renderComponent(<Input onBlur={onBlur} />)
-    fireEvent.blur(el)
-
-    expect(onBlur).toHaveBeenCalledOnce()
-    expect(onBlur).toBeCalledWith(event)
-  })
-
-  it('should support onFocus', () => {
-    let event
-    const onFocus = vi.fn((e) => {
-      event = e
-    })
-    const { el } = renderComponent(<Input onFocus={onFocus} />)
-    fireEvent.focus(el)
-
-    expect(onFocus).toHaveBeenCalledOnce()
-    expect(onFocus).toHaveBeenCalledWith(event)
-  })
-})
-
-describe('formatter', () => {
-  const defaultValue = 'облигации'
-  it('should transform value', () => {
-    const { el } = renderComponent(
-      <Input formatter={(value) => value?.toUpperCase()} value={defaultValue} />
-    )
-    expect(el).toHaveValue(defaultValue.toUpperCase())
-  })
-
-  it('should emit transformed value', () => {
-    let eventValue
-    const onInput = vi.fn((value) => {
-      eventValue = value
-    })
-    const { el } = renderComponent(
-      <Input formatter={(value) => value?.toUpperCase()} onInput={onInput} />
-    )
-
-    fireEvent.input(el, {
-      target: { value: defaultValue }
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(el).toContainElement(input)
     })
 
-    expect(onInput).toBeCalledTimes(1)
-    expect(eventValue).toBe(defaultValue.toUpperCase())
-  })
-})
+    it('should not contain anything except input without additional props', () => {
+      const { el } = renderComponent(<Input />)
 
-describe('placeholder', () => {
-  const defaultPlaceholder = 'Введите значение'
-
-  it('should be applied on plain input', () => {
-    const { el } = renderComponent(<Input placeholder={defaultPlaceholder} />)
-    expect((el as HTMLInputElement).placeholder).toBe(defaultPlaceholder)
-  })
-
-  it('should be applied on complex input', () => {
-    const { el } = renderComponent(
-      <Input placeholder={defaultPlaceholder} prefix={'prefix'} />
-    )
-
-    const inputEl = el.querySelector('input') as HTMLInputElement
-    expect(inputEl.placeholder).toBe(defaultPlaceholder)
-  })
-
-  it('should be empty on plain focused input', () => {
-    const { el } = renderComponent(<Input placeholder={defaultPlaceholder} />)
-
-    fireEvent.focus(el)
-    expect((el as HTMLInputElement).placeholder).toBe('')
-  })
-
-  it('should be empty on complex focused input', () => {
-    const { el } = renderComponent(
-      <Input placeholder={defaultPlaceholder} prefix={'prefix'} />
-    )
-    const inputEl = el.querySelector('input') as HTMLInputElement
-    fireEvent.click(el)
-    expect(inputEl.placeholder).toBe('')
-  })
-})
-
-describe('border', () => {
-  it('should be regular on plain input', async () => {
-    const { el } = renderComponent(<Input />)
-    expect(el).toHaveClass(TextFieldClasses.borderRadius.regular)
-    expect(el).toHaveStyle('border-radius: var(--inf-border-radius-small);')
-  })
-
-  it('should be regular on complex input', () => {
-    const { el } = renderComponent(<Input prefix={'prefix'} />)
-    expect(el).toHaveClass(TextFieldClasses.borderRadius.regular)
-    expect(el).toHaveStyle('border-radius: var(--inf-border-radius-small);')
-  })
-
-  it('should support noBorder on plain input', () => {
-    const { el } = renderComponent(<Input noBorder={true} />)
-    expect(el).toHaveClass(TextFieldClasses.noBorder)
-    expect(el).toHaveStyle('border: none')
-  })
-
-  it('should support noBorder on complex input', () => {
-    const { el } = renderComponent(<Input noBorder={true} prefix={'prefix'} />)
-    expect(el).toHaveClass(TextFieldClasses.noBorder)
-    expect(el).toHaveStyle('border: none')
-  })
-
-  it('should support filled class on plain input', () => {
-    const { el } = renderComponent(<Input value={'test'} />)
-    expect(el).toHaveClass(TextFieldClasses.filled)
-  })
-
-  it('should support filled class on complex input', () => {
-    // ожидаем, чтобы корректно отработал ref
-    act(() => {
-      renderComponent(<Input value={'test'} prefix={'prefix'} />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(el).toContainHTML(input.outerHTML)
     })
-    const el = screen.queryByRole('textbox')
-    expect(el).toHaveClass(TextFieldClasses.filled)
-  })
-})
 
-describe('disabled', () => {
-  it('should apply on plain input', () => {
-    const { el } = renderComponent(<Input disabled={true} />)
-    expect(el).toHaveProperty('disabled')
-  })
-
-  it('should apply on complex input', () => {
-    const { el } = renderComponent(<Input disabled={true} prefix={'prefix'} />)
-    const inputEl = el.querySelector('input')
-    expect(el).toHaveClass(TextFieldClasses.disabled)
-    expect(inputEl).toHaveProperty('disabled')
-  })
-})
-
-describe('status', () => {
-  it('should apply on plain input', () => {
-    const { el } = renderComponent(<Input status={'error'} />)
-    expect(el).toHaveClass(TextFieldClasses.status.error)
-    expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
-  })
-
-  it('should apply on complex input', () => {
-    const { el } = renderComponent(<Input status={'error'} prefix={'prefix'} />)
-    expect(el).toHaveClass(TextFieldClasses.status.error)
-    expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
-  })
-})
-
-describe('clear button', () => {
-  const user = userEvent.setup()
-
-  it('should be visible', () => {
-    const { el } = renderComponent(<Input allowClear={true} />)
-    const clearButton = el.querySelector(
-      '.inf-input-wrapper__clear-button'
-    ) as HTMLSpanElement
-
-    expect(clearButton).toBeInTheDocument()
-    expect(clearButton).toBeVisible()
-  })
-
-  it('should focus input after click', async () => {
-    const { el } = renderComponent(
-      <Input allowClear={true} value={'Облигации'} />
-    )
-    const clearButton = el.querySelector(
-      '.inf-input-wrapper__clear-button'
-    ) as HTMLSpanElement
-    const inputEl = el.querySelector('input')
-    await user.click(clearButton)
-
-    expect(el).toHaveClass(TextFieldClasses.focused)
-    expect(inputEl).toHaveFocus()
-  })
-
-  it('should not work on disabled', async () => {
-    const onInput = vi.fn()
-    const { el } = renderComponent(
-      <Input
-        allowClear={true}
-        value={'Облигации'}
-        onInput={onInput}
-        disabled={true}
-      />
-    )
-
-    const clearButton = el.querySelector(
-      '.inf-input-wrapper__clear-button'
-    ) as HTMLSpanElement
-
-    await user.click(clearButton).catch((error) => {
-      return error
+    it('matches snapshot', () => {
+      const { el } = renderComponent(<Input />)
+      expect(el).toMatchSnapshot()
     })
-    expect(onInput).toHaveBeenCalledTimes(0)
+  })
+
+  describe('className', () => {
+    it('should apply custom classname on input wrapper', () => {
+      const { el } = renderComponent(<Input className={'custom-class'} />)
+      expect(el.className).toContain('custom-class')
+      expect(el.className).toContain('inf-input-wrapper')
+    })
+  })
+
+  describe('style', () => {
+    it('should apply style on input wrapper', () => {
+      const { el } = renderComponent(
+        <Input style={{ width: '100%', borderRadius: '12px' }} />
+      )
+      expect(el).toHaveStyle({ width: '100%', borderRadius: '12px' })
+    })
+  })
+
+  describe('size', () => {
+    it('should have medium size by default', () => {
+      const { el } = renderComponent(<Input />)
+      expect(el.className).toContain(TextFieldClasses.size.medium)
+    })
+
+    it('should support size', () => {
+      const { el } = renderComponent(<Input size="small" />)
+      expect(el.className).toContain(TextFieldClasses.size.small)
+    })
+  })
+
+  describe('uncontrolled input', () => {
+    it('should be uncontrolled by default', async () => {
+      renderComponent(<Input />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      await user.type(input, 'Акции')
+      expect(input).toHaveValue('Акции')
+    })
+
+    it('should support defaultValue', () => {
+      renderComponent(<Input defaultValue="Акции" />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toHaveValue('Акции')
+    })
+
+    it('should prefer defaultValue over value', async () => {
+      renderComponent(<Input defaultValue="Акции" value="Облигации" />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toHaveValue('Акции')
+    })
+  })
+
+  describe('value', () => {
+    it('should apply value on input', () => {
+      renderComponent(<Input value={'Акции'} />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toHaveValue('Акции')
+    })
+  })
+
+  describe('events', () => {
+    it('should support onInput', async () => {
+      let eventValue
+      let eventType
+      const onInput = vi.fn((value, e) => {
+        eventValue = value
+        eventType = e.type
+      })
+
+      renderComponent(<Input onInput={onInput} />)
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      await user.type(input, 'hello')
+
+      expect(onInput).toHaveBeenCalledTimes(5)
+      expect(eventValue).toBe('hello')
+      expect(eventType).toBe('change')
+    })
+
+    it('should support onChange', async () => {
+      let eventValue
+      let eventType
+
+      const onChange = vi.fn((value, e) => {
+        eventValue = value
+        eventType = e.type
+      })
+
+      renderComponent(<Input onChange={onChange} />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      await user.type(input, 'hello')
+
+      expect(onChange).toHaveBeenCalledTimes(5)
+      expect(eventValue).toBe('hello')
+      expect(eventType).toBe('change')
+    })
+
+    it('should support onBlur', () => {
+      let event
+      const onBlur = vi.fn((e) => {
+        event = e
+      })
+
+      renderComponent(<Input onBlur={onBlur} />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      fireEvent.blur(input)
+
+      expect(onBlur).toHaveBeenCalledOnce()
+      expect(onBlur).toBeCalledWith(event)
+    })
+
+    it('should support onFocus', () => {
+      let event
+      const onFocus = vi.fn((e) => {
+        event = e
+      })
+      renderComponent(<Input onFocus={onFocus} />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      fireEvent.focus(input)
+
+      expect(onFocus).toHaveBeenCalledOnce()
+      expect(onFocus).toHaveBeenCalledWith(event)
+    })
+  })
+
+  describe('formatter', () => {
+    const defaultValue = 'облигации'
+
+    it('should transform value', () => {
+      renderComponent(
+        <Input
+          formatter={(value) => value?.toUpperCase()}
+          value={defaultValue}
+        />
+      )
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toHaveValue(defaultValue.toUpperCase())
+    })
+
+    it('should emit transformed value', async () => {
+      let eventValue
+      const onInput = vi.fn((value) => {
+        eventValue = value
+      })
+
+      renderComponent(
+        <Input formatter={(value) => value?.toUpperCase()} onInput={onInput} />
+      )
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+
+      await user.type(input, defaultValue)
+
+      expect(onInput).toBeCalledTimes(defaultValue.length)
+      expect(eventValue).toBe(defaultValue.toUpperCase())
+    })
+  })
+
+  describe('placeholder', () => {
+    const defaultPlaceholder = 'Введите значение'
+
+    it('should be applied', () => {
+      renderComponent(<Input placeholder={defaultPlaceholder} />)
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input.placeholder).toBe(defaultPlaceholder)
+    })
+
+    it('should be empty on focused input', () => {
+      renderComponent(<Input placeholder={defaultPlaceholder} />)
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+
+      fireEvent.focus(input)
+      expect(input.placeholder).toBe('')
+    })
+  })
+
+  describe('border', () => {
+    it('should be regular by default', async () => {
+      const { el } = renderComponent(<Input />)
+      expect(el).toHaveClass(TextFieldClasses.borderRadius.regular)
+      expect(el).toHaveStyle('border-radius: var(--inf-border-radius-small);')
+    })
+
+    it('should support noBorder', () => {
+      const { el } = renderComponent(<Input noBorder={true} />)
+      expect(el).toHaveClass(TextFieldClasses.noBorder)
+      expect(el).toHaveStyle({ border: 'none' })
+    })
+  })
+
+  describe('disabled', () => {
+    it('should be passed to native input', () => {
+      renderComponent(<Input disabled={true} />)
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toHaveProperty('disabled')
+    })
+
+    it('should apply on wrapper', () => {
+      const { el } = renderComponent(<Input disabled={true} />)
+      expect(el).toHaveClass(TextFieldClasses.disabled)
+    })
+
+    //  TODO: add test to wrapper class on native input disabled state.(case: form fieldset disabled)
+  })
+
+  describe('status', () => {
+    it('should support', () => {
+      const { el } = renderComponent(<Input status={'error'} />)
+      expect(el).toHaveClass(TextFieldClasses.status.error)
+      expect(el).toHaveStyle({ borderColor: 'var(--inf-color-primary);' })
+    })
+  })
+
+  describe('clear button', () => {
+    it('should be visible when prop is passed', async () => {
+      const { el } = renderComponent(<Input allowClear={true} />)
+      const clearButton = el.querySelector(
+        '.inf-input-wrapper__clear-button'
+      ) as HTMLSpanElement
+
+      expect(clearButton).toBeInTheDocument()
+      expect(clearButton).toBeVisible()
+    })
+
+    it('should focus input after click', async () => {
+      const { el } = renderComponent(
+        <Input allowClear={true} value={'Облигации'} />
+      )
+      const clearButton = el.querySelector(
+        '.inf-input-wrapper__clear-button'
+      ) as HTMLSpanElement
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      await user.click(clearButton)
+
+      expect(el).toHaveClass(TextFieldClasses.focused)
+      expect(input).toHaveFocus()
+    })
+
+    it('should not work on disabled', async () => {
+      const onClear = vi.fn()
+      const { el } = renderComponent(
+        <Input
+          allowClear={true}
+          value={'Облигации'}
+          onClear={onClear}
+          disabled={true}
+        />
+      )
+
+      const clearButton = el.querySelector(
+        '.inf-input-wrapper__clear-button'
+      ) as HTMLSpanElement
+
+      await user.hover(clearButton).catch((error) => {
+        return error
+      })
+      expect(onClear).toHaveBeenCalledTimes(0)
+    })
+
+    it('should call onClear event when clicked', async () => {
+      const onClear = vi.fn()
+      const { el } = renderComponent(
+        <Input allowClear={true} value={'Облигации'} onClear={onClear} />
+      )
+      const clearButton = el.querySelector(
+        '.inf-input-wrapper__clear-button'
+      ) as HTMLSpanElement
+
+      await user.click(clearButton)
+
+      expect(onClear).toHaveBeenCalled()
+    })
+  })
+
+  describe('prefix', () => {
+    it('should render', () => {
+      const prefixNode = <span>prefix</span>
+      const { el } = renderComponent(<Input prefix={prefixNode} />)
+      expect(el).toContainHTML('<span>prefix</span>')
+    })
+
+    it('should support click handler', async () => {
+      const prefixNode = <span>prefix</span>
+      const onPrefixClick = vi.fn()
+
+      renderComponent(
+        <Input prefix={prefixNode} onPrefixClick={onPrefixClick} />
+      )
+
+      const prefixEl = screen.getByText('prefix')
+
+      await user.click(prefixEl)
+
+      expect(onPrefixClick).toHaveBeenCalled()
+    })
+  })
+
+  describe('postfix', () => {
+    it('should render', () => {
+      const postfixNode = <span>postfix</span>
+      const { el } = renderComponent(<Input postfix={postfixNode} />)
+      expect(el).toContainHTML('<span>postfix</span>')
+    })
+
+    it('should support click handler', async () => {
+      const postfixNode = <span>postfix</span>
+      const onPostfixClick = vi.fn()
+
+      renderComponent(
+        <Input postfix={postfixNode} onPostfixClick={onPostfixClick} />
+      )
+
+      const postfixEl = screen.getByText('postfix')
+
+      await user.click(postfixEl)
+
+      expect(onPostfixClick).toHaveBeenCalled()
+    })
+  })
+
+  describe('Form', () => {
+    it('should support html attributes when not in form', () => {
+      const onInvalid = vi.fn()
+      renderComponent(
+        <Input
+          required
+          aria-required="true"
+          aria-invalid="true"
+          id="test"
+          onInvalid={onInvalid}
+        />
+      )
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toHaveAttribute('required')
+      expect(input).toHaveAttribute('aria-required')
+      expect(input).toHaveAttribute('aria-invalid')
+      expect(input).toHaveAttribute('id', 'test')
+
+      input.reportValidity()
+      expect(onInvalid).toHaveBeenCalled()
+    })
+
+    it('should support form context props', () => {
+      renderComponent(
+        <Form disabled>
+          <Input />
+        </Form>
+      )
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+
+      expect(input).toHaveAttribute('disabled')
+    })
+
+    it('should support formGroup context props', () => {
+      renderComponent(
+        <Form>
+          <Form.Group required>
+            <Input />
+          </Form.Group>
+        </Form>
+      )
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toHaveAttribute('required')
+      expect(input).toHaveAttribute('id')
+      expect(input).toHaveAttribute('aria-required')
+
+      act(() => {
+        input.reportValidity()
+      })
+
+      expect(input).toHaveAttribute('aria-invalid')
+    })
+
+    it('should call form control handlers', async () => {
+      const errorMessage = 'Введите значение'
+
+      const { el } = renderComponent(
+        <Form>
+          <Form.Group required customValidationMessage={errorMessage}>
+            <Input />
+          </Form.Group>
+        </Form>
+      )
+
+      act(() => {
+        const form = el as HTMLFormElement
+        form.requestSubmit()
+      })
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      const errorEl = screen.queryByText(errorMessage)
+      expect(errorEl).toBeTruthy()
+      expect(input).toBeInvalid()
+
+      await user.type(input, 'test')
+
+      expect(input).toBeValid()
+    })
+
+    it('validation should fired only on invalid event', async () => {
+      const errorMessage = 'Введите значение'
+
+      const { el } = renderComponent(
+        <Form title="form">
+          <Form.Group required={true} customValidationMessage={errorMessage}>
+            <Input pattern="\d{4}" defaultValue="1" />
+          </Form.Group>
+
+          <button type="submit">submit</button>
+        </Form>
+      )
+
+      act(() => {
+        const form = el as HTMLFormElement
+        form.requestSubmit()
+        form.reportValidity()
+      })
+
+      const input = screen.queryByRole('textbox') as HTMLInputElement
+      expect(input).toBeInvalid()
+
+      const errorMessageEl = screen.queryByText(errorMessage)
+      expect(errorMessageEl).toBeInTheDocument()
+
+      await user.type(input, '123')
+      expect(input).toBeValid()
+      expect(errorMessageEl).not.toBeInTheDocument()
+    })
   })
 })

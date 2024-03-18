@@ -1,328 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`date calendar > should match snapshot 1`] = `
-<div
-  class="inf-date-calendar"
-  title="DateCalendar"
->
-  <div
-    class="inf-calendar-header"
-  >
-    <button
-      class="inf-button inf-button--variant-ghost inf-button--size-small inf-button--square"
-      type="button"
-    >
-      <span
-        class="inf-button__content"
-      >
-        <span
-          class="inf-button__icon"
-        >
-          <svg
-            fill="none"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M21 12H3M3 12L6 9M3 12L6 15"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-            />
-          </svg>
-        </span>
-      </span>
-    </button>
-    <div
-      class="inf-calendar-header__wrapper"
-    >
-      <span
-        class="inf-calendar-header__control"
-      >
-        Июль
-      </span>
-      <span
-        class="inf-calendar-header__control"
-      >
-        2023
-      </span>
-    </div>
-    <button
-      class="inf-button inf-button--variant-ghost inf-button--size-small inf-button--square"
-      type="button"
-    >
-      <span
-        class="inf-button__content"
-      >
-        <span
-          class="inf-button__icon"
-        >
-          <svg
-            fill="none"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3 12H21M21 12L18 15M21 12L18 9"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-            />
-          </svg>
-        </span>
-      </span>
-    </button>
-  </div>
-  <div
-    class="inf-calendar-days"
-  >
-    <div
-      class="inf-calendar-days__weekdays"
-    >
-      <span>
-        Пн
-      </span>
-      <span>
-        Вт
-      </span>
-      <span>
-        Ср
-      </span>
-      <span>
-        Чт
-      </span>
-      <span>
-        Пт
-      </span>
-      <span>
-        Сб
-      </span>
-      <span>
-        Вс
-      </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item"
-      >
-        1
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        2
-      </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
-      <span
-        class="inf-calendar-item"
-      >
-        3
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        4
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        5
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        6
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        7
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        8
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        9
-      </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
-      <span
-        class="inf-calendar-item"
-      >
-        10
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        11
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        12
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        13
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        14
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        15
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        16
-      </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
-      <span
-        class="inf-calendar-item"
-      >
-        17
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        18
-      </span>
-      <span
-        class="inf-calendar-item inf-calendar-item--selected"
-      >
-        19
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        20
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        21
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        22
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        23
-      </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
-      <span
-        class="inf-calendar-item"
-      >
-        24
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        25
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        26
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        27
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        28
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        29
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
-        30
-      </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
-      <span
-        class="inf-calendar-item"
-      >
-        31
-      </span>
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-    </div>
-  </div>
-</div>
-`;
-
 exports[`day view > should match snapshot 1`] = `
 <div
   class="inf-date-calendar"
@@ -365,12 +42,12 @@ exports[`day view > should match snapshot 1`] = `
       <span
         class="inf-calendar-header__control"
       >
-        Июль
+        Март
       </span>
       <span
         class="inf-calendar-header__control"
       >
-        2023
+        2024
       </span>
     </div>
     <button
@@ -434,19 +111,16 @@ exports[`day view > should match snapshot 1`] = `
       class="inf-calendar-days__week"
     >
       <span
-        class="inf-calendar-item inf-calendar-item--empty"
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
       />
       <span
-        class="inf-calendar-item inf-calendar-item--empty"
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
       />
       <span
-        class="inf-calendar-item inf-calendar-item--empty"
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
       />
       <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
       />
       <span
         class="inf-calendar-item"
@@ -458,15 +132,15 @@ exports[`day view > should match snapshot 1`] = `
       >
         2
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
         3
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
@@ -497,15 +171,15 @@ exports[`day view > should match snapshot 1`] = `
       >
         9
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
         10
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
@@ -527,7 +201,7 @@ exports[`day view > should match snapshot 1`] = `
         14
       </span>
       <span
-        class="inf-calendar-item"
+        class="inf-calendar-item inf-calendar-item--selected"
       >
         15
       </span>
@@ -536,6 +210,11 @@ exports[`day view > should match snapshot 1`] = `
       >
         16
       </span>
+      <span
+        class="inf-calendar-item"
+      >
+        17
+      </span>
     </div>
     <div
       class="inf-calendar-days__week"
@@ -543,15 +222,10 @@ exports[`day view > should match snapshot 1`] = `
       <span
         class="inf-calendar-item"
       >
-        17
-      </span>
-      <span
-        class="inf-calendar-item"
-      >
         18
       </span>
       <span
-        class="inf-calendar-item inf-calendar-item--selected"
+        class="inf-calendar-item"
       >
         19
       </span>
@@ -575,15 +249,15 @@ exports[`day view > should match snapshot 1`] = `
       >
         23
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
         24
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
@@ -614,33 +288,11 @@ exports[`day view > should match snapshot 1`] = `
       >
         30
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
         31
       </span>
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty"
-      />
     </div>
   </div>
 </div>
@@ -688,12 +340,12 @@ exports[`month view > should match snapshot > monthView 1`] = `
       <span
         class="inf-calendar-header__control inf-calendar-header__control--selected"
       >
-        Июль
+        Март
       </span>
       <span
         class="inf-calendar-header__control"
       >
-        2023
+        2024
       </span>
     </div>
     <button
@@ -739,7 +391,7 @@ exports[`month view > should match snapshot > monthView 1`] = `
       февраль
     </span>
     <span
-      class="inf-calendar-item"
+      class="inf-calendar-item inf-calendar-item--selected"
     >
       март
     </span>
@@ -759,7 +411,7 @@ exports[`month view > should match snapshot > monthView 1`] = `
       июнь
     </span>
     <span
-      class="inf-calendar-item inf-calendar-item--selected"
+      class="inf-calendar-item"
     >
       июль
     </span>
@@ -834,12 +486,12 @@ exports[`year view > should match snapshot > yearView 1`] = `
       <span
         class="inf-calendar-header__control"
       >
-        Июль
+        Март
       </span>
       <span
         class="inf-calendar-header__control inf-calendar-header__control--selected"
       >
-        2023
+        2024
       </span>
     </div>
     <button
@@ -1613,14 +1265,14 @@ exports[`year view > should match snapshot > yearView 1`] = `
       2022
     </span>
     <span
-      class="inf-calendar-item inf-calendar-item--selected"
-      data-selected-year="true"
+      class="inf-calendar-item"
+      data-selected-year="false"
     >
       2023
     </span>
     <span
-      class="inf-calendar-item"
-      data-selected-year="false"
+      class="inf-calendar-item inf-calendar-item--selected"
+      data-selected-year="true"
     >
       2024
     </span>
