@@ -1,5 +1,54 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`select > render > should match snapshot 1`] = `
+<button
+  class="inf-select-button inf-text-field inf-text-field--br-regular inf-select"
+  tabindex="-1"
+  title="Не указано"
+  type="button"
+>
+  <span
+    class="inf-select-button__arrow"
+  >
+    <svg
+      fill="none"
+      height="5px"
+      viewBox="0 0 12 7"
+      width="10px"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1 1L6 6L11 1"
+        stroke="currentColor"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+      />
+    </svg>
+  </span>
+  Не указано
+  <select>
+    <option
+      value=""
+    />
+    <option
+      value="0"
+    >
+      Депозитарные услуги
+    </option>
+    <option
+      value="1"
+    >
+      Спецдепозитарные услуги
+    </option>
+    <option
+      value="2"
+    >
+      Консалтинг и аутсорсинг
+    </option>
+  </select>
+</button>
+`;
+
 exports[`select > should match snapshot 1`] = `
 <button
   class="inf-select-button inf-text-field inf-text-field--br-regular inf-select"

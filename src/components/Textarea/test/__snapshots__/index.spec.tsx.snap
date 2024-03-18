@@ -1,5 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Textarea > render > should match snapshot 1`] = `
+<textarea
+  class="inf-textarea inf-text-field inf-text-field--br-regular inf-textarea--resize-none"
+  placeholder="Введите значение"
+/>
+`;
+
 exports[`Textarea > should match snapshot 1`] = `
 <textarea
   class="inf-textarea inf-text-field inf-text-field--br-regular inf-textarea--resize-none"
