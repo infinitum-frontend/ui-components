@@ -30,7 +30,7 @@ export const Playground = {
   render: Template
 }
 
-export const Sizes: StoryObj<typeof Button> = {
+export const Sizes: StoryObj<typeof Card> = {
   render: (args) => (
     <>
       <Card {...args} size="small">
@@ -53,12 +53,22 @@ export const Sizes: StoryObj<typeof Button> = {
   ]
 }
 
-export const Hoverable = {
-  render: Template,
-  args: {
-    hoverable: true,
-    as: 'button'
-  }
+export const HoverableLink: StoryObj<typeof Card> = {
+  render: (args) => (
+    <Card
+      {...args}
+      style={{ maxWidth: '400px' }}
+      as="a"
+      href="https://specdep.ru"
+      target="blank"
+      hoverable
+    >
+      Card - ссылка
+      <br />
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio iste
+      assumenda, ullam cum iusto harum rem porro beatae earum ab.
+    </Card>
+  )
 }
 
 export const Disabled = {
