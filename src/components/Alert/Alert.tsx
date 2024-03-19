@@ -7,7 +7,15 @@ import { ReactComponent as IconInfo } from 'Icons/info-circle.svg'
 
 export interface AlertProps
   extends Omit<ComponentPropsWithoutRef<'span'>, 'prefix'> {
-  variant: 'info' | 'danger' | 'success' | 'warning' | 'neutral'
+  variant:
+    | 'info'
+    | 'danger'
+    | 'success'
+    | 'warning'
+    | 'neutral'
+    | 'error'
+    | 'violet'
+    | 'teal'
 }
 
 const Alert = ({ children, variant = 'neutral' }: AlertProps): ReactElement => {

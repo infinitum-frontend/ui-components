@@ -80,6 +80,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const formData = useContext(FormContext)
     const { onControlInvalid, resetControlValidity } = useFormControlHandlers()
     const disabled = disabledProp || formData?.disabled
+    const hasError = status === 'error' || formGroupData?.invalid
 
     const displayRef = useRef<HTMLButtonElement>(null)
     const selectRef = useRef<HTMLSelectElement>(null)
@@ -233,7 +234,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           disabled={disabled}
           selected={isValueExists}
           focused={isFocused}
-          status={status}
+          error={hasError}
           onFocus={handleFocus}
           onBlur={handleBlur}
           title={typeof displayValue === 'string' ? displayValue : ''}

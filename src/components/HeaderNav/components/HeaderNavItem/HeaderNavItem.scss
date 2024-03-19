@@ -16,6 +16,8 @@
 
   &--active {
     color: var(--inf-color-text-primary);
-    border-bottom-color: var(--inf-color-bg-brand-primary);
+    border-bottom-color: var(
+      --inf-color-bg-brand-primary
+    ); // TODO Токены: bg или border?
   }
 }

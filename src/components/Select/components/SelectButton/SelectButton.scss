@@ -5,7 +5,7 @@
   appearance: none;
   text-align: left;
   background-color: var(--inf-color-bg-primary);
-  padding: 7px 28px 7px var(--inf-input-padding-horizontal-medium);
+  padding: 7px 28px 7px var(--inf-space-small);
   line-height: 18px;
   height: var(--inf-control-height-medium);
   white-space: nowrap;
@@ -24,11 +24,11 @@
     right: 10px;
 
     &--active {
-      color: var(--inf-color-border-active);
+      color: var(--inf-color-icon-primary);
     }
 
     &--disabled {
-      color: var(--inf-color-text-disabled);
+      color: var(--inf-color-icon-primary-disabled);
     }
   }
 }

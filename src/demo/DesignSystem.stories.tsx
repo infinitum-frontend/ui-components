@@ -11,15 +11,16 @@ import { HeaderNav } from '../components/HeaderNav'
 import { Logo } from '../components/Logo'
 import { Form } from '../components/Form'
 import { Input } from '../components/Input'
-import { Textarea } from '../components/Textarea'
-import { Divider } from '../components/Divider'
-import { Link } from '../components/Link'
+// import { Textarea } from '../components/Textarea'
+// import { Divider } from '../components/Divider'
+import { Alert } from '../components/Alert'
+// import { Link } from '../components/Link'
 import { Select } from '../components/Select'
 import { Grid } from '../components/Grid'
 import { Popover } from '../components/Popover'
 // import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import { ReactComponent as IconPlus } from 'Icons/plus.svg'
 // import { Link } from '../components/Link'
-import { Box } from '../components/Box'
 // import { Modal } from '../components/Modal'
 import {
   useNotification,
@@ -116,52 +117,110 @@ export const DesignSystem: StoryObj = {
             <Space gap="large">
               <Text variant="heading-2">Отчет по портфелю</Text>
               <Card>
-                <Space gap="large">
-                  <Grid gap="medium" templateColumns="repeat(4, 1fr)">
-                    <Form.Group>
-                      <Form.Label>Период проверки</Form.Label>
-                      <DatePicker placeholder="Дата" />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label>Инвестиционные портфель</Form.Label>
-                      <Select
-                        options={[
-                          { value: '1', label: '1' },
-                          { value: '2', label: '2' }
-                        ]}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label>Имя</Form.Label>
-                      <Input placeholder="Введите имя" />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label>Период проверки</Form.Label>
-                      <DatePicker placeholder="Дата" />
-                    </Form.Group>
-                  </Grid>
+                <Form>
+                  <Space gap="large">
+                    <Grid gap="medium" templateColumns="repeat(4, 1fr)">
+                      <Form.Group required>
+                        <Form.Label>Период проверки</Form.Label>
+                        <DatePicker placeholder="Дата" />
+                      </Form.Group>
+                      <Form.Group required>
+                        <Form.Label>Инвестиционные портфель</Form.Label>
+                        <Select
+                          options={[
+                            { value: '1', label: '1' },
+                            { value: '2', label: '2' }
+                          ]}
+                        />
+                      </Form.Group>
+                      <Form.Group required>
+                        <Form.Label>Имя</Form.Label>
+                        <Input placeholder="Введите имя" />
+                      </Form.Group>
+                    </Grid>
 
-                  <Space direction="horizontal" justify="space-between">
-                    <Space direction="horizontal">
-                      <Button variant="primary">Показать результаты</Button>
-                      <Button variant="ghost">Сбросить фильтры</Button>
+                    <Space direction="horizontal" justify="space-between">
+                      <Space direction="horizontal">
+                        <Button variant="primary" type="submit">
+                          Показать результаты
+                        </Button>
+                        <Button variant="ghost">Сбросить фильтры</Button>
+                      </Space>
+                      <Button variant="secondary">Скачать результаты</Button>
                     </Space>
-                    <Button variant="secondary">Скачать результаты</Button>
+                  </Space>
+                </Form>
+              </Card>
+
+              <Space gap="medium">
+                <Space
+                  direction="horizontal"
+                  justify="space-between"
+                  align="center"
+                >
+                  <Text variant="subtitle-1">Найдено 1981 лицо</Text>
+                  <Space direction="horizontal" gap="small">
+                    <Button variant="secondary" icon={<IconPlus />} />
+                    <Button variant="secondary" icon={<IconPlus />} />
+                    <Button variant="secondary" icon={<IconPlus />} />
                   </Space>
                 </Space>
-              </Card>
+
+                <Table
+                  columns={tableColumns}
+                  rows={TABLE_DATA}
+                  withRowSelection={true}
+                  onChangeRowSelection={handleChange}
+                  selectionState={selection}
+                  selectedRow={selected}
+                  onRowClick={handleRowClick}
+                />
+              </Space>
+
+              <div style={{ height: '1000px' }} />
+
+              <Space>
+                <Button onClick={() => notify('Сообщение 1')}>Notify 1</Button>
+                <Button>Notify 1</Button>
+                <Button>Notify 1</Button>
+                <Button>Notify 1</Button>
+                <Button>Notify 1</Button>
+              </Space>
+
+              <Space>
+                <Alert variant="neutral">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis, delectus?
+                </Alert>
+                <Alert variant="info">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis, delectus?
+                </Alert>
+                <Alert variant="error">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis, delectus?
+                </Alert>
+                <Alert variant="success">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis, delectus?
+                </Alert>
+                <Alert variant="warning">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis, delectus?
+                </Alert>
+                <Alert variant="violet">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis, delectus?
+                </Alert>
+                <Alert variant="teal">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis, delectus?
+                </Alert>
+              </Space>
             </Space>
 
-            <Space gap="large">
-              <Table
-                columns={tableColumns}
-                rows={TABLE_DATA}
-                withRowSelection={true}
-                onChangeRowSelection={handleChange}
-                selectionState={selection}
-                selectedRow={selected}
-                onRowClick={handleRowClick}
-              />
+            {/* <Space gap="large">
+
 
               <Divider />
 
@@ -207,7 +266,7 @@ export const DesignSystem: StoryObj = {
                   </Form.Group>
                 </Form>
               </Box>
-            </Space>
+            </Space> */}
             {/* <Box padding="large">
               <Space>
                 <Space>

@@ -105,7 +105,7 @@ const DatePicker = ({
               onChange?.(value)
             }
           }}
-          postfix={<IconCalendar />}
+          postfix={<IconCalendar color="var(--inf-color-icon-primary)" />}
           value={displayValue}
           onPostfixClick={() => setOpened((prev) => !prev)}
           disabled={disabled}

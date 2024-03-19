@@ -1,16 +1,15 @@
 .inf-table {
   border-collapse: collapse;
   width: 100%;
-  font-family: var(--inf-font-family-base);
-  border: 1px solid var(--inf-color-border-default);
+  border: 1px solid var(--inf-color-border-primary);
   border-radius: var(--inf-border-radius-small);
 
   thead {
-    border-bottom: 1px solid var(--inf-color-border-default);
+    border-bottom: 1px solid var(--inf-color-border-primary);
   }
 
   th {
-    background-color: var(--inf-color-background-secondary);
+    background-color: var(--inf-color-bg-secondary);
     text-align: left;
     color: var(--inf-color-text-secondary);
     font: var(--inf-font-body-1);
@@ -33,7 +32,9 @@
       font: var(--inf-font-body-2);
 
       @include hover {
-        background-color: var(--inf-color-background-hover);
+        background-color: var(
+          --inf-color-bg-secondary
+        ); // TODO Токены: secondary-hover не подходит визуально
       }
 
       &.inf-table__row--interactive {
@@ -41,7 +42,9 @@
       }
 
       &.inf-table__row--selected {
-        background-color: var(--inf-color-background-selected);
+        background-color: var(
+          --inf-color-bg-info-secondary
+        ); // TODO Токены: не подходит визуально. Добавить токен inf-color-bg-secondary-selected?
       }
 
       &.inf-table__group-label {
@@ -54,7 +57,7 @@
       }
 
       &:not(:last-child) {
-        border-bottom: 1px solid var(--inf-color-border-default);
+        border-bottom: 1px solid var(--inf-color-border-primary);
       }
     }
   }
@@ -63,11 +66,11 @@
     td,
     th {
       padding: var(--inf-space-xsmall);
-      border: 1px solid var(--inf-color-border-default);
+      border: 1px solid var(--inf-color-border-primary);
     }
   }
 
-  &--border-radius-xsmall{
+  &--border-radius-xsmall {
     border-collapse: separate;
     border-spacing: 0;
     border-radius: var(--inf-border-radius-xsmall);
@@ -78,7 +81,7 @@
       border-top-right-radius: var(--inf-border-radius-xsmall);
     }
     tbody tr td {
-      border-top: 1px solid var(--inf-color-border-default);
+      border-top: 1px solid var(--inf-color-border-primary);
     }
     tbody tr:last-child td:first-child {
       border-bottom-left-radius: var(--inf-border-radius-xsmall);
@@ -88,7 +91,7 @@
     }
   }
 
-  &--border-radius-small{
+  &--border-radius-small {
     border-collapse: separate;
     border-spacing: 0;
     border-radius: var(--inf-border-radius-small);
@@ -99,7 +102,7 @@
       border-top-right-radius: var(--inf-border-radius-small);
     }
     tbody tr td {
-      border-top: 1px solid var(--inf-color-border-default);
+      border-top: 1px solid var(--inf-color-border-primary);
     }
     tbody tr:last-child td:first-child {
       border-bottom-left-radius: var(--inf-border-radius-small);
@@ -120,7 +123,7 @@
       border-top-right-radius: var(--inf-border-radius-medium);
     }
     tbody tr td {
-      border-top: 1px solid var(--inf-color-border-default);
+      border-top: 1px solid var(--inf-color-border-primary);
     }
     tbody tr:last-child td:first-child {
       border-bottom-left-radius: var(--inf-border-radius-medium);
@@ -141,7 +144,7 @@
       border-top-right-radius: var(--inf-border-radius-large);
     }
     tbody tr td {
-      border-top: 1px solid var(--inf-color-border-default);
+      border-top: 1px solid var(--inf-color-border-primary);
     }
     tbody tr:last-child td:first-child {
       border-bottom-left-radius: var(--inf-border-radius-large);
@@ -151,7 +154,16 @@
     }
   }
 
-  $vertical-align-values: ("baseline", "bottom", "middle", "sub", "super", "text-bottom", "text-top", "top");
+  $vertical-align-values: (
+    'baseline',
+    'bottom',
+    'middle',
+    'sub',
+    'super',
+    'text-bottom',
+    'text-top',
+    'top'
+  );
 
   @mixin vertical-align($vertical-align-value) {
     &--vertical-align-#{$vertical-align-value} td {

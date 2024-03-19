@@ -5,7 +5,7 @@
   cursor: pointer;
 
   &--disabled {
-    color: var(--inf-color-text-disabled);
+    color: var(--inf-color-text-tertiary);
     pointer-events: none;
   }
 
@@ -13,12 +13,12 @@
     &
       input[type='checkbox']
       ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
-      border-color: var(--inf-color-primary);
+      border-color: var(--inf-color-border-primary-hover);
     }
 
     & input[type='checkbox']:checked ~ .inf-checkbox__box {
       border-color: transparent;
-      background-color: var(--inf-checkbox-checked-color-background-hover);
+      background-color: var(--inf-color-bg-button-primary-hover);
     }
   }
 
@@ -41,7 +41,9 @@
 
     & input[type='checkbox']:checked ~ .inf-checkbox__box {
       border-color: transparent;
-      background-color: var(--inf-checkbox-checked-color-background-active);
+      background-color: var(
+        --inf-color-bg-button-primary
+      ); // TODO Токены button?
 
       svg {
         visibility: visible;
@@ -65,12 +67,13 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    border: 1px solid var(--inf-checkbox-color-border);
+    border: 1px solid var(--inf-color-border-primary);
     color: white;
-    background-color: var(--inf-checkbox-color-background);
+    background-color: var(--inf-color-bg-primary);
     border-radius: var(--inf-border-radius-xsmall);
     position: relative;
     top: 0.2em;
+    transition: 0.2s;
 
     &--disabled {
       cursor: unset;

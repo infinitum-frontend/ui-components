@@ -72,7 +72,7 @@ export const Type: StoryFn<typeof Notification> = () => {
   const notify = useNotification()
 
   const types: Array<NotificationOptions['type']> = [
-    'default',
+    'neutral',
     'info',
     'success',
     'warning',

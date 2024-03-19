@@ -68,6 +68,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const formContext = useContext(FormContext)
     const { onControlInvalid, onControlChange } = useFormControlHandlers()
     const disabled = disabledProp || formContext?.disabled
+    const hasError = status === 'error' || formGroupContext?.invalid
 
     // обработка событий
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -150,7 +151,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           [TextFieldClasses.filled]: inputRef.current?.value,
           [TextFieldClasses.borderRadius[borderRadius]]:
             borderRadius !== 'unset',
-          [TextFieldClasses.status[status as 'error']]: status
+          [TextFieldClasses.status.error]: hasError
         }
       )
     }

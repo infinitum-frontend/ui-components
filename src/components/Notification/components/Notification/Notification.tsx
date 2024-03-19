@@ -20,7 +20,15 @@ const iconsMap: Record<string, React.ReactElement> = {
  */
 const Notification = React.forwardRef<HTMLLIElement, NotificationProps>(
   (
-    { className, message, title, id, duration = 5000, type, actionSlot },
+    {
+      className,
+      message,
+      title,
+      id,
+      duration = 5000,
+      type = 'neutral',
+      actionSlot
+    },
     ref
   ) => {
     const dispatch = useNotificationDispatchContext()

@@ -10,15 +10,15 @@ import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 
 export interface SelectButtonProps extends ComponentPropsWithoutRef<'button'> {
-  status?: 'error'
   disabled?: boolean
   selected?: boolean
   focused?: boolean
+  error?: boolean
 }
 
 const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
   (
-    { status, selected, focused, disabled, className, children, ...props },
+    { error, selected, focused, disabled, className, children, ...props },
     ref
   ): ReactElement => {
     return (
@@ -30,7 +30,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
           TextFieldClasses.main,
           TextFieldClasses.borderRadius.regular,
           {
-            [TextFieldClasses.status[status as 'error']]: status,
+            [TextFieldClasses.status.error]: error,
             [TextFieldClasses.focused]: focused && !disabled,
             [TextFieldClasses.filled]: selected,
             [TextFieldClasses.disabled]: disabled

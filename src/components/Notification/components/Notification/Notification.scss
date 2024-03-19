@@ -1,8 +1,7 @@
 .inf-notification {
-  --inf-notification-type-accent-color: var(--inf-color-background-neutral);
-
   position: relative;
   background-color: var(--inf-color-bg-primary);
+  color: var(--inf-color-text-primary);
   box-shadow: var(--inf-box-shadow-medium);
   padding: var(--inf-space-medium);
   border-left: 3px solid var(--inf-color-border-secondary);
@@ -64,20 +63,24 @@
     animation: swipeOut 100ms ease-out;
   }
 
+  &--type-neutral {
+    --inf-notification-type-accent-color: var(--inf-color-bg-inverse);
+  }
+
   &--type-info {
-    --inf-notification-type-accent-color: var(--inf-color-background-info);
+    --inf-notification-type-accent-color: var(--inf-color-bg-info-primary);
   }
 
   &--type-success {
-    --inf-notification-type-accent-color: var(--inf-color-background-success);
+    --inf-notification-type-accent-color: var(--inf-color-bg-success-primary);
   }
 
   &--type-warning {
-    --inf-notification-type-accent-color: var(--inf-color-background-warning);
+    --inf-notification-type-accent-color: var(--inf-color-bg-warning-primary);
   }
 
   &--type-error {
-    --inf-notification-type-accent-color: var(--inf-color-background-danger);
+    --inf-notification-type-accent-color: var(--inf-color-bg-error-primary);
   }
 
   &__icon {

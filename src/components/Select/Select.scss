@@ -1,8 +1,8 @@
 .inf-select {
   &__items {
     border-radius: var(--inf-border-radius-small);
-    border: 1px solid var(--inf-color-border-default);
-    background-color: white;
+    border: 1px solid var(--inf-color-border-primary);
+    background-color: var(--inf-color-bg-primary);
     width: 100%;
     list-style-type: none;
     z-index: var(--inf-z-index-dropdown);
@@ -43,12 +43,14 @@
     overflow-x: hidden;
 
     &--active {
-      background-color: var(--inf-control-background-color-hover);
+      background-color: var(
+        --inf-color-bg-secondary
+      ); // TODO Токены -bg-secondary-hover?
     }
 
     &:first-child {
-      border-top-right-radius: var(--inf-select-item-border-radius);
-      border-top-left-radius: var(--inf-select-item-border-radius);
+      border-top-right-radius: var(--inf-border-radius-small);
+      border-top-left-radius: var(--inf-border-radius-small);
     }
   }
 

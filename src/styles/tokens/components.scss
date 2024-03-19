@@ -1,33 +1,16 @@
 :root {
-  /* Input */
-  --inf-input-padding-horizontal-medium: 12px;
-  --inf-input-padding-vertical-medium: 4px;
-  --inf-input-color-background-disabled: var(
-    --inf-color-background-control-disabled
-  );
-
-  /*  Select */
-  --inf-select-items-border-radius-regular: var(--inf-border-radius-small);
-  --inf-select-items-padding-horizontal-small: 6px;
-  --inf-select-items-padding-horizontal-medium: 0px;
-  --inf-select-items-padding-vertical-small: 3px;
-  --inf-select-items-padding-vertical-medium: 8px;
-  --inf-select-item-background-hover: darkred;
-  --inf-select-item-border-radius: var(--inf-border-radius-small);
-  --inf-select-item-space: 4px;
-
   /* Checkbox */
   --inf-checkbox-color-border: var(--inf-color-gray-800);
   --inf-checkbox-color-border-hover: var(--inf-control-color-border-active);
   --inf-checkbox-color-border-active: var(--inf-control-color-border-active);
 
-  --inf-checkbox-color-background: white;
+  --inf-checkbox-color-background: var(--inf-color-bg-primary);
   --inf-checkbox-color-background-active: #b8d1d9;
   --inf-checkbox-color-background-disabled: var(
     --inf-color-background-control-disabled
   );
 
-  --inf-checkbox-checked-color-background: var(--inf-color-primary);
+  --inf-checkbox-checked-color-background: var(--inf-color-bg-brand-primary);
   --inf-checkbox-checked-color-background-hover: #ff6673;
   --inf-checkbox-checked-color-background-active: #cc2d32;
   --inf-checkbox-checked-color-background-disabled: var(--inf-color-red-200);
@@ -42,7 +25,4 @@
   --inf-radio-color-background-active: #b8d1d9;
   --inf-radio-color-background-checked: #f53a50;
   --inf-radio-color-background-checked-disabled: var(--inf-color-gray-200);
-
-  /* Modal */
-  --inf-modal-backdrop-background: rgba(0, 0, 0, 0.3);
 }

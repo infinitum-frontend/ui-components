@@ -1,5 +1,5 @@
 .inf-card {
-  background-color: var(--inf-color-background-default);
+  background-color: var(--inf-color-bg-primary);
   display: block;
   transition: border-color 0.2s;
 
@@ -23,16 +23,16 @@
   }
 
   &--variant-outline {
-    border: 1px solid var(--inf-color-border-default);
+    border: 1px solid var(--inf-color-border-primary);
   }
 
   &--outline-danger {
-    border: 2px solid var(--inf-color-border-danger);
+    border: 2px solid var(--inf-color-border-error);
   }
 
   &--disabled {
-    background-color: var(--inf-color-background-secondary);
-    border-color: var(--inf-color-background-secondary);
+    background-color: var(--inf-color-bg-secondary);
+    border-color: var(--inf-color-bg-secondary);
     pointer-events: none;
   }
 
