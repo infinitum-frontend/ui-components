@@ -1,13 +1,21 @@
 .inf-card {
-  background-color: var(--inf-color-bg-primary);
-  border-radius: var(--inf-border-radius-small);
+  background-color: var(--inf-color-background-default);
+  display: block;
+  transition: border-color 0.2s;
+
+  &--size-small {
+    padding: var(--inf-space-medium);
+    border-radius: var(--inf-border-radius-small);
+  }
 
   &--size-medium {
-    padding: var(--inf-space-medium);
+    padding: var(--inf-space-large);
+    border-radius: var(--inf-border-radius-medium);
   }
 
   &--size-large {
-    padding: var(--inf-space-large);
+    padding: var(--inf-space-xlarge);
+    border-radius: var(--inf-border-radius-medium);
   }
 
   &--variant-shadow {
@@ -20,5 +28,17 @@
 
   &--outline-danger {
     border: 2px solid var(--inf-color-border-danger);
+  }
+
+  &--disabled {
+    background-color: var(--inf-color-background-secondary);
+    border-color: var(--inf-color-background-secondary);
+    pointer-events: none;
+  }
+
+  &--hoverable {
+    @include hover {
+      border-color: var(--inf-color-border-hover);
+    }
   }
 }
