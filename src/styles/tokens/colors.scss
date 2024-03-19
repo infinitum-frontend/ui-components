@@ -300,6 +300,16 @@
   --inf-color-border-accent: var(--inf-color-primary);
   // inf-color-border-selected?
 
+  --inf-color-border-primary: var(--inf-color-gray-100);
+  --inf-color-border-primary-hover: var(--inf-color-gray-900);
+  --inf-color-border-inverse: var(--inf-color-gray-900);
+  --inf-color-border-error: var(--inf-color-red-900);
+  --inf-color-border-warning: var(--inf-color-orange-900);
+  --inf-color-border-success: var(--inf-color-green-900);
+  --inf-color-border-info: var(--inf-color-blue-900);
+  --inf-color-border-violet: var(--inf-color-violet-900);
+  --inf-color-border-teal: var(--inf-color-teal-900);
+
   /* ---------- TDB ---------- */
   --inf-color-text-control: #46626b;
   --inf-color-border-focused: #46626b;
@@ -353,7 +363,7 @@
   --inf-color-bg-teal-primary: var(--inf-color-teal-900-dark);
   --inf-color-bg-teal-secondary: var(--inf-color-teal-50-dark);
 
-  /* Button */
+  /* Button Color */
   --inf-color-bg-button-primary: var(--inf-color-brand-900-dark);
   --inf-color-bg-button-primary-hover: var(--inf-color-brand-800-dark);
   --inf-color-bg-button-primary-active: var(--inf-color-brand-700-dark);
@@ -361,4 +371,15 @@
   --inf-color-bg-button-secondary: var(--inf-color-blue-50-dark);
   --inf-color-bg-button-secondary-hover: var(--inf-color-blue-100-dark);
   --inf-color-bg-button-secondary-active: var(--inf-color-blue-200-dark);
+
+  /* Border Color */
+  --inf-color-border-primary: var(--inf-color-gray-800-dark);
+  --inf-color-border-primary-hover: var(--inf-color-gray-50-dark);
+  --inf-color-border-inverse: var(--inf-color-gray-50-dark);
+  --inf-color-border-error: var(--inf-color-red-900-dark);
+  --inf-color-border-warning: var(--inf-color-orange-900-dark);
+  --inf-color-border-success: var(--inf-color-green-900-dark);
+  --inf-color-border-info: var(--inf-color-blue-900-dark);
+  --inf-color-border-violet: var(--inf-color-violet-900-dark);
+  --inf-color-border-teal: var(--inf-color-teal-900-dark);
 }

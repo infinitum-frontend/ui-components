@@ -55,6 +55,10 @@ export interface ButtonProps {
    * Контент справа от текста
    */
   after?: ReactNode
+  /**
+   * Сделать шириной равной высоте
+   */
+  square?: boolean
 }
 
 function BaseButton<C extends ElementType = 'button'>(
@@ -72,6 +76,7 @@ function BaseButton<C extends ElementType = 'button'>(
     before,
     after,
     icon,
+    square,
     disabled: disabledProp,
     ...rest
   } = props
@@ -91,7 +96,7 @@ function BaseButton<C extends ElementType = 'button'>(
         {
           'inf-button--block': block,
           'inf-button--loading': loading,
-          'inf-button--square': icon
+          'inf-button--square': icon || square
         }
       )}
       type="button"

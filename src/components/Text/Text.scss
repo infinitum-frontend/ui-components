@@ -101,12 +101,8 @@
     color: var(--inf-color-text-inverse);
   }
 
-  &--color-success {
-    color: var(--inf-color-text-success);
-  }
-
-  &--color-danger {
-    color: var(--inf-color-text-danger);
+  &--color-on-color {
+    color: var(--inf-color-text-on-color);
   }
 
   &--color-error {
@@ -115,6 +111,31 @@
 
   &--color-warning {
     color: var(--inf-color-text-warning);
+  }
+
+  &--color-success {
+    color: var(--inf-color-text-success);
+  }
+
+  &--color-danger {
+    // TODO: deprecated
+    color: var(--inf-color-text-danger);
+  }
+
+  &--color-info {
+    color: var(--inf-color-text-info);
+  }
+
+  &--color-brand {
+    color: var(--inf-color-text-brand);
+  }
+
+  &--color-violet {
+    color: var(--inf-color-text-violet);
+  }
+
+  &--color-teal {
+    color: var(--inf-color-text-teal);
   }
 
   &--color-link {

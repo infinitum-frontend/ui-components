@@ -14,8 +14,10 @@ import { Input } from '../components/Input'
 import { Textarea } from '../components/Textarea'
 import { Divider } from '../components/Divider'
 import { Link } from '../components/Link'
+import { Select } from '../components/Select'
+import { Grid } from '../components/Grid'
 import { Popover } from '../components/Popover'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+// import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 // import { Link } from '../components/Link'
 import { Box } from '../components/Box'
 // import { Modal } from '../components/Modal'
@@ -32,6 +34,8 @@ import {
   Portfolio
 } from '../components/Table/fixtures'
 import { ColumnDef } from '@tanstack/react-table'
+import { Card } from '../components/Card'
+import { DatePicker } from '../components/DatePicker'
 
 const ComponentMeta: Meta<typeof Button> = {
   title: 'Demo/Design System'
@@ -79,17 +83,8 @@ export const DesignSystem: StoryObj = {
 
             <Popover open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
               <Popover.Trigger onClick={() => setIsUserMenuOpen((v) => !v)}>
-                <Button
-                  variant="ghost"
-                  after={
-                    <ArrowDownIcon
-                      style={{
-                        transform: isUserMenuOpen ? 'rotate(180deg)' : ''
-                      }}
-                    />
-                  }
-                >
-                  Константин Константинопольский
+                <Button variant="secondary" square>
+                  КИ
                 </Button>
               </Popover.Trigger>
               <Popover.Content>
@@ -118,6 +113,45 @@ export const DesignSystem: StoryObj = {
 
         <PageLayout.Body>
           <PageLayout.Content>
+            <Space gap="large">
+              <Text variant="heading-2">Отчет по портфелю</Text>
+              <Card>
+                <Space gap="large">
+                  <Grid gap="medium" templateColumns="repeat(4, 1fr)">
+                    <Form.Group>
+                      <Form.Label>Период проверки</Form.Label>
+                      <DatePicker placeholder="Дата" />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Инвестиционные портфель</Form.Label>
+                      <Select
+                        options={[
+                          { value: '1', label: '1' },
+                          { value: '2', label: '2' }
+                        ]}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Имя</Form.Label>
+                      <Input placeholder="Введите имя" />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Период проверки</Form.Label>
+                      <DatePicker placeholder="Дата" />
+                    </Form.Group>
+                  </Grid>
+
+                  <Space direction="horizontal" justify="space-between">
+                    <Space direction="horizontal">
+                      <Button variant="primary">Показать результаты</Button>
+                      <Button variant="ghost">Сбросить фильтры</Button>
+                    </Space>
+                    <Button variant="secondary">Скачать результаты</Button>
+                  </Space>
+                </Space>
+              </Card>
+            </Space>
+
             <Space gap="large">
               <Table
                 columns={tableColumns}
@@ -347,6 +381,22 @@ export const DesignSystem: StoryObj = {
             </Box> */}
           </PageLayout.Content>
         </PageLayout.Body>
+
+        <PageLayout.Footer>
+          <Space direction="horizontal" justify="space-between">
+            <Text variant="body-1" color="secondary">
+              © 2006–2024 «ИНФИНИТУМ»
+            </Text>
+            <Space direction="horizontal">
+              <Text variant="body-1" color="secondary">
+                8 800 800 80 80
+              </Text>
+              <Text variant="body-1" color="secondary">
+                sd@specdep.ru
+              </Text>
+            </Space>
+          </Space>
+        </PageLayout.Footer>
       </PageLayout>
     )
   },
