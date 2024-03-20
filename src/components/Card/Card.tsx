@@ -1,21 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ElementType, forwardRef, ReactElement } from 'react'
-import {
-  PolymorphicComponent,
-  PolymorphicRef,
-  SpaceVariants
-} from '~/src/utils/types'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import cn from 'classnames'
 import './Card.scss'
-import { Box, BoxProps } from '../Box'
-
-type Size = 'medium' | 'large'
 
 export interface CardProps {
-  size?: Size
+  size?: 'small' | 'medium' | 'large'
   variant?: 'shadow' | 'outline'
+  hoverable?: boolean
+  disabled?: boolean
   outlineVariant?: 'danger'
-  borderRadius?: BoxProps['borderRadius']
 }
 
 function BaseCard<C extends ElementType = 'div'>(
@@ -29,42 +23,32 @@ function BaseCard<C extends ElementType = 'div'>(
     size = 'medium',
     variant = 'outline',
     outlineVariant,
-    borderRadius,
+    disabled,
+    hoverable,
     ...rest
   } = props
 
-  const sizeToPadding: Record<Size, SpaceVariants> = {
-    medium: 'medium',
-    large: 'large'
-  }
+  const Component = as
 
-  let borderWidth: BoxProps['borderWidth']
-  let borderColor: BoxProps['borderColor']
-
-  if (variant === 'outline') {
-    borderWidth = 'default'
-    borderColor = 'default'
-  }
-
-  if (outlineVariant === 'danger') {
-    borderWidth = 'thick'
-    borderColor = 'danger'
-  }
   return (
-    <Box
+    <Component
       ref={ref}
-      className={cn('inf-card', className)}
       as={as}
-      boxShadow={variant === 'outline' ? undefined : 'medium'}
-      borderRadius={borderRadius}
-      background="default"
-      padding={sizeToPadding[size]}
-      borderWidth={borderWidth}
-      borderColor={borderColor}
+      className={cn(
+        'inf-card',
+        className,
+        `inf-card--variant-${variant as string}`,
+        `inf-card--size-${size as string}`,
+        {
+          'inf-card--hoverable': hoverable,
+          'inf-card--disabled': disabled,
+          [`inf-card--outline-${outlineVariant as string}`]: outlineVariant
+        }
+      )}
       {...rest}
     >
       {children}
-    </Box>
+    </Component>
   )
 }
 
