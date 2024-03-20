@@ -487,6 +487,90 @@
   --inf-color-icon-teal: var(--inf-color-teal-900);
 }
 
+.inf-ui-theme-vk {
+  /* Text */
+  --inf-color-text-primary: #e1e3e6;
+  --inf-color-text-secondary: #c0c6d6;
+  --inf-color-text-tertiary: #c0c6d6;
+  --inf-color-text-inverse: var(--inf-color-gray-900-dark);
+  --inf-color-text-on-color: var(--inf-color-white);
+  --inf-color-text-error: var(--inf-color-red-900-dark);
+  --inf-color-text-success: var(--inf-color-green-900-dark);
+  --inf-color-text-warning: var(--inf-color-orange-900-dark);
+  // --inf-color-text-info: #8b8af7;
+  // --inf-color-text-info-disabled: var(--inf-color-blue-300-dark);
+  --inf-color-text-info: var(--inf-color-blue-900-dark);
+  --inf-color-text-info-disabled: var(--inf-color-blue-300-dark);
+  --inf-color-text-brand: var(--inf-color-brand-900-dark);
+  --inf-color-text-violet: var(--inf-color-violet-900-dark);
+  --inf-color-text-teal: var(--inf-color-teal-900-dark);
+
+  --inf-color-text-link: var(--inf-color-blue-900-dark);
+  --inf-color-text-link-hover: var(--inf-color-blue-700-dark);
+  --inf-color-text-link-visited: var(--inf-color-violet-700-dark);
+
+  /* Background color */
+  --inf-color-bg-page: #141414;
+  --inf-color-bg-primary: #222222;
+  --inf-color-bg-secondary: rgba(73, 79, 96, 0.4);
+  --inf-color-bg-secondary-hover: rgba(73, 79, 96, 0.4);
+  --inf-color-bg-inverse: var(--inf-color-gray-50-dark);
+  --inf-color-bg-error-primary: var(--inf-color-red-900-dark);
+  --inf-color-bg-error-secondary: var(--inf-color-red-50-dark);
+  --inf-color-bg-warning-primary: var(--inf-color-orange-900-dark);
+  --inf-color-bg-warning-secondary: var(--inf-color-orange-50-dark);
+  --inf-color-bg-success-primary: var(--inf-color-green-900-dark);
+  --inf-color-bg-success-secondary: var(--inf-color-green-50-dark);
+  --inf-color-bg-info-primary: var(--inf-color-blue-900-dark);
+  --inf-color-bg-info-secondary: var(--inf-color-blue-50-dark);
+  // --inf-color-bg-brand-primary: #524fea;
+  --inf-color-bg-brand-secondary: #8b8af7;
+  // --inf-color-bg-brand-primary: var(--inf-color-brand-900-dark);
+  // --inf-color-bg-brand-secondary: var(--inf-color-brand-50-dark);
+
+  /* Button Color */
+  // --inf-color-bg-button-primary: #524fea;
+  // --inf-color-bg-button-primary-hover: #524fea;
+  // --inf-color-bg-button-primary-active: #524fea;
+  // --inf-color-bg-button-primary-disabled: #524fea;
+  // --inf-color-bg-button-secondary: var(--inf-color-blue-50-dark);
+  // --inf-color-bg-button-secondary-hover: #8b8af7;
+  // --inf-color-bg-button-secondary-active: #8b8af7;
+
+  --inf-color-bg-button-primary: var(--inf-color-brand-900-dark);
+  --inf-color-bg-button-primary-hover: var(--inf-color-brand-800-dark);
+  --inf-color-bg-button-primary-active: var(--inf-color-brand-700-dark);
+  --inf-color-bg-button-primary-disabled: var(--inf-color-brand-400-dark);
+  --inf-color-bg-button-secondary: var(--inf-color-blue-50-dark);
+  --inf-color-bg-button-secondary-hover: var(--inf-color-blue-100-dark);
+  --inf-color-bg-button-secondary-active: var(--inf-color-blue-200-dark);
+
+  /* Border Color */
+  --inf-color-border-primary: #363738;
+  --inf-color-border-primary-hover: var(--inf-color-gray-50-dark);
+  --inf-color-border-inverse: var(--inf-color-gray-50-dark);
+  --inf-color-border-error: var(--inf-color-red-900-dark);
+  --inf-color-border-warning: var(--inf-color-orange-900-dark);
+  --inf-color-border-success: var(--inf-color-green-900-dark);
+  --inf-color-border-info: var(--inf-color-blue-900-dark);
+  --inf-color-border-violet: var(--inf-color-violet-900-dark);
+  --inf-color-border-teal: var(--inf-color-teal-900-dark);
+
+  /* Icon */
+  --inf-color-icon-primary: var(--inf-color-gray-300-dark);
+  --inf-color-icon-secondary: var(--inf-color-gray-400-dark);
+  --inf-color-icon-primary-hover: var(--inf-color-gray-50-dark);
+  --inf-color-icon-primary-disabled: var(--inf-color-gray-700-dark);
+  --inf-color-icon-inverse: var(--inf-color-gray-900-dark);
+  --inf-color-icon-error: var(--inf-color-error-900-dark);
+  --inf-color-icon-warning: var(--inf-color-warning-900-dark);
+  --inf-color-icon-success: var(--inf-color-success-900-dark);
+  --inf-color-icon-info: var(--inf-color-blue-900-dark);
+  --inf-color-icon-info-disabled: var(--inf-color-blue-300-dark);
+  --inf-color-icon-violet: var(--inf-color-violet-900);
+  --inf-color-icon-teal: var(--inf-color-teal-900);
+}
+
 // TODO: elevation как у reshaped
 // цвет текста кнопок не может быть info, так как кнопка не типа info, нужен отдельный токен
 // токен для table selected row

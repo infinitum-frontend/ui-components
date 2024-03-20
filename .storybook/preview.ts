@@ -14,7 +14,8 @@ export const parameters = {
     list: [
       { name: 'light', class: 'inf-ui-theme-light' },
       { name: 'dark', class: 'inf-ui-theme-dark' },
-      { name: 'reshaped', class: 'inf-ui-theme-reshaped' }
+      { name: 'reshaped', class: 'inf-ui-theme-reshaped' },
+      { name: 'vk', class: 'inf-ui-theme-vk' }
     ]
   },
 
