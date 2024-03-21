@@ -10,6 +10,7 @@
   z-index: var(--inf-z-index-popover); // TODO: не место здесь
   padding: var(--inf-space-medium);
   overflow: hidden;
+  box-shadow: var(--inf-box-shadow-small);
 
   &--no-padding {
     padding: 0;

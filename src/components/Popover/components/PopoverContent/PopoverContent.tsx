@@ -1,5 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { forwardRef, ComponentPropsWithoutRef, MouseEvent } from 'react'
+import React, {
+  forwardRef,
+  ComponentPropsWithoutRef,
+  MouseEvent,
+  CSSProperties
+} from 'react'
 import { usePopoverContext } from '../../usePopoverContext'
 import {
   useMergeRefs,
@@ -13,6 +18,7 @@ export interface PopoverContentProps extends ComponentPropsWithoutRef<'div'> {
   variant?: 'default' | 'inverse'
   hasPadding?: boolean
   hasArrow?: boolean
+  width?: CSSProperties['width']
 }
 
 const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
@@ -21,6 +27,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
       variant = 'default',
       hasPadding = true,
       hasArrow = true,
+      width = 'max-content',
       children,
       style,
       className,
@@ -49,7 +56,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
                 position: context.strategy,
                 top: context.y ?? 0,
                 left: context.x ?? 0,
-                width: 'max-content',
+                width,
                 ...style
               }}
               className={cn(
