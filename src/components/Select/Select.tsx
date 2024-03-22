@@ -63,6 +63,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       required = false,
       status,
       maxItemsCount = 12,
+      'aria-required': ariaRequired,
+      'aria-invalid': ariaInvalid,
       ...props
     }: SelectProps,
     ref
@@ -251,8 +253,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           <select
             ref={selectRef}
             required={formGroupData?.required || required}
-            aria-required={formGroupData?.required || required}
-            aria-invalid={formGroupData?.invalid || undefined}
+            aria-required={formGroupData?.required || required || ariaRequired}
+            aria-invalid={formGroupData?.invalid || ariaInvalid}
             disabled={disabled}
             id={formGroupData?.id}
             value={value}
