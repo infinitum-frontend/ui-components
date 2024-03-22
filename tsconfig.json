@@ -29,6 +29,6 @@
       "Test/*": ["./test/*"]
     }
   },
-  "include": ["src/**/*.tsx", "src/**/*.ts", "definitions.d.ts", "testSetup.tsx"],
+  "include": ["src/**/*.tsx", "src/**/*.ts", "definitions.d.ts"],
   "exclude": ["src/**/*.spec.tsx", "src/**/*.stories.tsx"]
 }
