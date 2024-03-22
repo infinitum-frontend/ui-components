@@ -80,7 +80,7 @@ const getMaskDescription = (
       console.error('No definition for mask ', maskType)
     }
   } else {
-    mask = maskProp as ReactMaskOpts
+    mask = maskProp
   }
 
   let placeholder = ''
@@ -113,7 +113,7 @@ export type MaskedInputProps = Omit<InputProps, 'onChange'> & {
     | 'cvc'
     | 'email'
     | 'phoneOrEmail'
-    | MaskedInputProps
+    | ReactMaskOpts
   /** Событие изменения данных */
   onAccept?: (value: string) => void
   /** Событие успешного заполнения данных */
@@ -128,8 +128,6 @@ const MaskedInput = ({
   onComplete,
   value: valueProp = '',
   placeholder: placeholderProp,
-  onFocus,
-  onBlur,
   ...props
 }: MaskedInputProps): ReactElement => {
   const isFirstRender = useIsFirstRender()
