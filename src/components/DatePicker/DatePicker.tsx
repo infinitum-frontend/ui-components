@@ -92,7 +92,6 @@ const DatePicker = ({
         <MaskedInput
           placeholder={placeholder}
           mask={{
-            // @ts-expect-error
             mask: Date
           }}
           pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
