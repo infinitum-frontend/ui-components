@@ -4,6 +4,7 @@ import { Icon } from './index'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { ReactComponent as IconUser } from 'Icons/user.svg'
 import { Space } from '../Space'
+import { Tooltip } from '../Tooltip'
 
 const ComponentMeta: Meta<typeof Icon> = {
   title: 'Components/Icon',
@@ -47,11 +48,9 @@ export const Sizes: StoryObj<typeof Icon> = {
 export const CustomSize: StoryObj<typeof Icon> = {
   render: (args) => {
     return (
-      <>
-        <Icon {...args}>
-          <IconUser width="80px" height="80px" />
-        </Icon>
-      </>
+      <Icon {...args}>
+        <IconUser width="80px" height="80px" />
+      </Icon>
     )
   }
 }
@@ -84,4 +83,27 @@ export const Colors: StoryObj<typeof Icon> = {
     )
   },
   decorators: [decorator]
+}
+
+export const WithTooltip: StoryObj<typeof Icon> = {
+  render: (args) => {
+    return (
+      <Tooltip content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, id.">
+        <Icon {...args}>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.8332 5.16699H6.83323V0.166992H5.16657V5.16699H0.166565V6.83366H5.16657V11.8337H6.83323V6.83366H11.8332V5.16699Z"
+              fill="currentColor"
+            />
+          </svg>
+        </Icon>
+      </Tooltip>
+    )
+  }
 }
