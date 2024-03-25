@@ -2,20 +2,15 @@
 import React, {
   ReactElement,
   cloneElement,
-  ComponentPropsWithoutRef,
-  CSSProperties
+  PropsWithChildren,
+  Children
 } from 'react'
 import cn from 'classnames'
 import './Icon.scss'
 
-const sizeVariants = ['small', 'medium', 'large'] as const
-
-type Size = (typeof sizeVariants)[number]
-
-export interface IconProps extends ComponentPropsWithoutRef<'svg'> {
+export interface IconProps extends PropsWithChildren {
   className?: string
-  icon: ReactElement
-  size?: Size | CSSProperties['width'] | CSSProperties['height']
+  size?: 'small' | 'medium' | 'large'
   color?:
     | 'primary'
     | 'secondary'
@@ -29,29 +24,21 @@ export interface IconProps extends ComponentPropsWithoutRef<'svg'> {
 /** Обертка для отображения иконки со стилями дизайн-системы */
 const Icon = ({
   className,
-  icon,
+  children,
   size,
   color,
   ...restProps
 }: IconProps): ReactElement => {
-  const isCustomSize = size ? !sizeVariants.includes(size as Size) : false
-
-  const widthHeightProps = isCustomSize
-    ? {
-        width: size,
-        height: size
-      }
-    : {}
-
   const classNames = cn('inf-icon', className, {
     [`inf-icon--size-${size as string}`]: size,
     [`inf-icon--color-${color as string}`]: color
   })
 
-  if (icon) {
-    return cloneElement(icon, {
+  if (children) {
+    const child = Children.only(children) as ReactElement
+
+    return cloneElement(child, {
       className: classNames,
-      ...widthHeightProps,
       ...restProps
     })
   }
