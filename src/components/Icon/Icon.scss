@@ -1,0 +1,46 @@
+.inf-icon {
+  // TODO: вынести цвета и размеры в глобальные токены
+
+  &--size-medium {
+    width: 20px;
+    height: 20px;
+  }
+
+  &--size-small {
+    width: 16px;
+    height: 16px;
+  }
+
+  &--size-large {
+    width: 24px;
+    height: 24px;
+  }
+
+  &--color-primary {
+    color: #a0a0a0;
+  }
+
+  &--color-secondary {
+    color: #6e6e6e;
+  }
+
+  &--color-inverse {
+    color: #fff;
+  }
+
+  &--color-error {
+    color: #dc3053;
+  }
+
+  &--color-warning {
+    color: #e5790d;
+  }
+
+  &--color-success {
+    color: #1f803d;
+  }
+
+  &--color-info {
+    color: #0564b7;
+  }
+}
