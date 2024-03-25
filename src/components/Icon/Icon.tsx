@@ -3,7 +3,9 @@ import React, {
   ReactElement,
   cloneElement,
   PropsWithChildren,
-  Children
+  Children,
+  forwardRef,
+  ComponentPropsWithoutRef
 } from 'react'
 import cn from 'classnames'
 import './Icon.scss'
@@ -22,13 +24,10 @@ export interface IconProps extends PropsWithChildren {
 }
 
 /** Обертка для отображения иконки со стилями дизайн-системы */
-const Icon = ({
-  className,
-  children,
-  size,
-  color,
-  ...restProps
-}: IconProps): ReactElement => {
+const Icon = forwardRef<
+  SVGElement,
+  ComponentPropsWithoutRef<'svg'> & IconProps
+>(({ className, children, size, color, ...restProps }, ref) => {
   const classNames = cn('inf-icon', className, {
     [`inf-icon--size-${size as string}`]: size,
     [`inf-icon--color-${color as string}`]: color
@@ -38,13 +37,14 @@ const Icon = ({
     const child = Children.only(children) as ReactElement
 
     return cloneElement(child, {
+      ref,
       className: classNames,
       ...restProps
     })
   }
 
   return <></>
-}
+})
 
 Icon.displayName = 'Icon'
 
