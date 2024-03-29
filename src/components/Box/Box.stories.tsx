@@ -67,7 +67,7 @@ export const PopoverInverse: StoryObj<typeof Box> = {
         borderRadius="medium"
         padding="medium"
         boxShadow="medium"
-        style={{ maxWidth: '300px' }}
+        maxWidth="300px"
       >
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto,
         tempora?

@@ -39,6 +39,12 @@ function BaseBox<C extends ElementType = 'div'>(
     overflowX,
     overflowY,
     cursor,
+    width,
+    height,
+    maxWidth,
+    maxHeight,
+    minWidth,
+    minHeight,
     style,
     ...rest
   } = props
@@ -103,6 +109,12 @@ function BaseBox<C extends ElementType = 'div'>(
       : undefined || padding
       ? `var(--inf-space-${padding as string})`
       : undefined || undefined,
+    width: width || undefined,
+    height: height || undefined,
+    maxWidth: maxWidth || undefined,
+    maxHeight: maxHeight || undefined,
+    minWidth: minWidth || undefined,
+    minHeight: minHeight || undefined,
     ...style
   }
 
