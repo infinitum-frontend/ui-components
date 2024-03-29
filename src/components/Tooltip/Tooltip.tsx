@@ -5,7 +5,8 @@ import React, {
   cloneElement,
   useState,
   useRef,
-  isValidElement
+  isValidElement,
+  CSSProperties
 } from 'react'
 import {
   useFloating,
@@ -40,6 +41,7 @@ export interface TooltipProps extends React.ComponentPropsWithoutRef<'div'> {
    * @deprecated
    */
   variant?: 'default' | 'inverted'
+  width?: CSSProperties['width']
 }
 
 /** Всплывающий контент с текстовой информацией */
@@ -52,6 +54,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       defaultOpen = false,
       open: controlledOpen,
       onOpenChange: setControlledOpen,
+      width,
       ...props
     },
     propRef
@@ -119,12 +122,6 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     const tooltipRef = useMergeRefs([refs.setFloating, propRef])
 
-    // const triggerProps = getReferenceProps({
-    //   ref: refs.setReference,
-    //   ...children?.props,
-    //   'data-tooltip-state': context.open ? 'open' : 'closed'
-    // })
-
     const triggerProps = {
       ref: refs.setReference,
       ...getReferenceProps(),
@@ -145,7 +142,8 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
                 position: strategy,
                 top: y ?? 0,
                 left: x ?? 0,
-                visibility: context.x == null ? 'hidden' : 'visible'
+                visibility: context.x == null ? 'hidden' : 'visible',
+                width
               }}
               {...getFloatingProps(props)}
             >
