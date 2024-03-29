@@ -143,7 +143,8 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
                 top: y ?? 0,
                 left: x ?? 0,
                 visibility: context.x == null ? 'hidden' : 'visible',
-                width
+                width,
+                maxWidth: width ? undefined : '300px'
               }}
               {...getFloatingProps(props)}
             >
