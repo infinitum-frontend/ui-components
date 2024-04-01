@@ -146,3 +146,19 @@ export const PointerEvent: StoryFn<typeof Tooltip> = () => {
     </Tooltip>
   )
 }
+
+export const LongText: StoryFn<typeof Tooltip> = () => {
+  return (
+    <Tooltip content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex cupiditate voluptatibus eaque, cum illum fugiat quibusdam ab ea placeat voluptatum, illo fuga debitis facere nemo modi vitae minima eos laborum!">
+      <Button>Trigger</Button>
+    </Tooltip>
+  )
+}
+
+export const CustomWidth: StoryFn<typeof Tooltip> = () => {
+  return (
+    <Tooltip content="Lorem ipsum dolor sit amet." width="500px">
+      <Button>Trigger</Button>
+    </Tooltip>
+  )
+}
