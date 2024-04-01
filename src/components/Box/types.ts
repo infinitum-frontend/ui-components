@@ -24,6 +24,12 @@ export interface BoxProps {
   overflowX?: Overflow
   overflowY?: Overflow
   cursor?: Cursor
+  width?: CSSProperties['width']
+  height?: CSSProperties['height']
+  maxWidth?: CSSProperties['maxWidth']
+  maxHeight?: CSSProperties['maxHeight']
+  minWidth?: CSSProperties['minWidth']
+  minHeight?: CSSProperties['minHeight']
 }
 
 type BoxShadow = 'small' | 'medium'
