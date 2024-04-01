@@ -21,7 +21,7 @@ export const Playground = {
 export const WithPrefix = {
   render: Template,
   args: {
-    prefix: 'ЛКИ'
+    prefix: 'INF-A'
   }
 }
 
