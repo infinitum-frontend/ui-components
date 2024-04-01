@@ -12,6 +12,7 @@
     font: var(--inf-font-subtitle-2);
     color: var(--inf-color-text-secondary);
     margin-right: var(--inf-space-xsmall);
+    white-space: nowrap;
   }
 
   &--inverse {
