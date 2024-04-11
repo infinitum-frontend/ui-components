@@ -16,7 +16,7 @@ const meta: Meta<typeof DatePicker> = {
 export default meta
 
 const Template: StoryFn<typeof DatePicker> = (args) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('15.02.2024')
 
   return (
     <>

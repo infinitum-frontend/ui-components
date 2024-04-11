@@ -143,8 +143,8 @@ export function formatDateToISO(value: Date): string {
   return new Date(value.getTime() - timezoneOffset).toISOString().split('T')[0]
 }
 
-export function isDateValid(dateStr: string): boolean {
-  return Boolean(dateStr) && !Number.isNaN(new Date(dateStr))
+export function isDateValid(date: string | Date): boolean {
+  return Boolean(date) && !Number.isNaN(new Date(date))
 }
 
 function isDayDisabled(date: Date, min?: string, max?: string): boolean {

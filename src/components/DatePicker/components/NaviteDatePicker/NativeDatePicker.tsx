@@ -13,6 +13,7 @@ import { TextFieldClasses } from 'Utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import { isDateValid } from 'Utils/date'
 
 export interface NativeDatePickerProps
   extends Omit<
@@ -37,6 +38,10 @@ export interface NativeDatePickerProps
 }
 
 function getFormattedValue(date?: string | Date): string | undefined {
+  if (!isDateValid(date || '')) {
+    return
+  }
+
   if (date instanceof Date) {
     return date.toISOString().slice(0, 10)
   }

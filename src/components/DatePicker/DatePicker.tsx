@@ -75,6 +75,7 @@ const DatePicker = ({
   // ============================= render =============================
   const displayValue = value ? createDate(value).toLocaleDateString() : ''
   const displayValueForHiddenInput = value ? createDate(value) : ''
+
   return (
     <>
       <div
