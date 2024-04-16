@@ -9,6 +9,7 @@ import useUpdateEffect from 'Hooks/useUpdateEffect'
 import { ReactComponent as CrossIcon } from 'Icons/cross.svg'
 import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
 import './Combobox.scss'
+import { checkIsValueExists } from 'Utils/helpers'
 
 export type CheckedItem = SelectOption['value']
 
@@ -126,7 +127,9 @@ const Combobox = ({
               <Menu.Item.Icon>
                 <Checkbox
                   className="inf-combobox__checkbox"
-                  checked={Boolean(checkedList.find((i) => i === option.value))}
+                  checked={checkIsValueExists(
+                    checkedList.find((i) => i === option.value)
+                  )}
                   onChange={(checked) => handleChange(checked, option.value)}
                 />
               </Menu.Item.Icon>
