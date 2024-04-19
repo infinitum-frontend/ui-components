@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ScrollToTopButton > should match snapshot 1`] = `
+<button
+  class="inf-button inf-scroll-to-top-button inf-scroll-to-top-button--hidden inf-button--variant-ghost inf-button--size-medium inf-button--square"
+  type="button"
+>
+  <span
+    class="inf-button__content"
+  >
+    <span
+      class="inf-button__icon"
+    >
+      <svg
+        fill="none"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 4L12 20"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+        <path
+          d="M16.9998 8.99996C16.9998 8.99996 13.3173 4.00001 11.9997 4C10.6821 3.99999 6.99976 9 6.99976 9"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+      </svg>
+    </span>
+  </span>
+</button>
+`;
