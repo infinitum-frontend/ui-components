@@ -48,9 +48,9 @@
   }
 
   &--orientation-vertical {
-    height: 100%;
     min-height: 20px;
     flex-direction: column;
+    align-self: stretch; // grid-compatibility
 
     &::before,
     &::after {
@@ -62,8 +62,7 @@
       border-bottom-color: var(--border-color);
       border-left-color: var(--border-color);
       border-right-color: var(--border-color);
-      display: flex;
-      flex-grow: 1;
+      height: 100%;
     }
 
     &.inf-divider--has-content {
