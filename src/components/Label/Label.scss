@@ -9,25 +9,37 @@
   font-weight: var(--inf-font-weight-bold);
   line-height: normal;
   padding: var(--inf-space-xxsmall) var(--inf-space-small);
+  // TODO цвета из переменных, когда будет обновлена общая палитра
+  &--variant-info {
+    background-color: #0564b7;
+  }
 
-  &--variant-neutral {
-    background-color: var(--inf-color-background-neutral);
+  &--variant-error {
+    background-color: #dc3053;
   }
 
   &--variant-success {
-    background-color: var(--inf-color-background-success);
+    background-color: #029161;
   }
 
   &--variant-warning {
-    background-color: var(--inf-color-background-warning);
+    background-color: #e5790d;
   }
 
-  &--variant-danger {
-    background-color: var(--inf-color-background-danger);
+  &--variant-neutral {
+    background-color: #a0a0a0;
   }
 
-  &--variant-info {
-    background-color: var(--inf-color-background-info);
+  &--variant-brand {
+    background-color: #f64a4a;
+  }
+
+  &--variant-violet {
+    background-color: #9d10d5;
+  }
+
+  &--variant-teal {
+    background-color: #00a6a6;
   }
 
   &__before {
