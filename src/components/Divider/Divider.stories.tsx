@@ -143,3 +143,146 @@ export const VerticalWithText: StoryObj<typeof Divider> = {
     )
   }
 }
+
+export const Containers: StoryFn<typeof Divider> = () => {
+  return (
+    <Space gap="xxlarge">
+      <div>
+        <Text variant="heading-3">Grid container, Horizontal</Text>
+        <Grid templateColumns="1fr auto 1fr" gap="medium" alignItems="start">
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Дата составления протокола</Text>
+            <Text>20.04.1997</Text>
+            <Text color="secondary">
+              Форма проведения Инвестиционного комитета
+            </Text>
+            <Text>Заседние с дистанционным участием</Text>
+            <Text color="secondary">
+              Дата принятия решения о созыве Инвестиционного комитета
+            </Text>
+            <Text>25.06.2023</Text>
+          </Grid>
+
+          <Divider orientation="vertical">Это один</Divider>
+
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Название фонда</Text>
+            <Text>Альфа инвестици</Text>
+            <Text color="secondary">
+              Наименование управляющей компании Фонда
+            </Text>
+            <Text>Альфа капитал</Text>
+            <Text color="secondary">
+              Наименование специализированного депозитария Фонда
+            </Text>
+            <Text>Инфинитум</Text>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div>
+        <Text variant="heading-3">Grid container, Vertical</Text>
+        <Grid
+          templateColumns="1fr"
+          templateRows="1fr auto 1fr"
+          gap="medium"
+          alignItems="start"
+        >
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Дата составления протокола</Text>
+            <Text>20.04.1997</Text>
+            <Text color="secondary">
+              Форма проведения Инвестиционного комитета
+            </Text>
+            <Text>Заседние с дистанционным участием</Text>
+            <Text color="secondary">
+              Дата принятия решения о созыве Инвестиционного комитета
+            </Text>
+            <Text>25.06.2023</Text>
+          </Grid>
+
+          <Divider orientation="horizontal">Это один</Divider>
+
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Название фонда</Text>
+            <Text>Альфа инвестици</Text>
+            <Text color="secondary">
+              Наименование управляющей компании Фонда
+            </Text>
+            <Text>Альфа капитал</Text>
+            <Text color="secondary">
+              Наименование специализированного депозитария Фонда
+            </Text>
+            <Text>Инфинитум</Text>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div>
+        <Text variant="heading-3">Flex container, Horizontal</Text>
+        <Space direction="horizontal" gap="medium">
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Дата составления протокола</Text>
+            <Text>20.04.1997</Text>
+            <Text color="secondary">
+              Форма проведения Инвестиционного комитета
+            </Text>
+            <Text>Заседние с дистанционным участием</Text>
+            <Text color="secondary">
+              Дата принятия решения о созыве Инвестиционного комитета
+            </Text>
+            <Text>25.06.2023</Text>
+          </Grid>
+
+          <Divider orientation="vertical">Это один</Divider>
+
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Название фонда</Text>
+            <Text>Альфа инвестици</Text>
+            <Text color="secondary">
+              Наименование управляющей компании Фонда
+            </Text>
+            <Text>Альфа капитал</Text>
+            <Text color="secondary">
+              Наименование специализированного депозитария Фонда
+            </Text>
+            <Text>Инфинитум</Text>
+          </Grid>
+        </Space>
+      </div>
+
+      <div>
+        <Text variant="heading-3">Flex container, Vertical</Text>
+        <Space gap="medium">
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Дата составления протокола</Text>
+            <Text>20.04.1997</Text>
+            <Text color="secondary">
+              Форма проведения Инвестиционного комитета
+            </Text>
+            <Text>Заседние с дистанционным участием</Text>
+            <Text color="secondary">
+              Дата принятия решения о созыве Инвестиционного комитета
+            </Text>
+            <Text>25.06.2023</Text>
+          </Grid>
+
+          <Divider orientation="horizontal">Это один</Divider>
+
+          <Grid templateColumns="1fr 1fr" gap="small">
+            <Text color="secondary">Название фонда</Text>
+            <Text>Альфа инвестици</Text>
+            <Text color="secondary">
+              Наименование управляющей компании Фонда
+            </Text>
+            <Text>Альфа капитал</Text>
+            <Text color="secondary">
+              Наименование специализированного депозитария Фонда
+            </Text>
+            <Text>Инфинитум</Text>
+          </Grid>
+        </Space>
+      </div>
+    </Space>
+  )
+}
