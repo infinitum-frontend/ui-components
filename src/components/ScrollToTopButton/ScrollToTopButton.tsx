@@ -18,7 +18,7 @@ const ScrollToTopButton = ({
 }: ScrollToTopButtonProps): ReactElement => {
   const { y } = useWindowScroll({ throttleDelay: 300 })
 
-  const handeClick = (): void => {
+  const handleClick = (): void => {
     window.scrollTo({ top: scrollMarginTop, behavior: 'smooth' })
   }
 
@@ -29,7 +29,7 @@ const ScrollToTopButton = ({
   return (
     <Button
       variant="ghost"
-      onClick={handeClick}
+      onClick={handleClick}
       icon={<IconArrowTop />}
       className={classNames}
     />
