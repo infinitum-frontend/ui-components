@@ -25,6 +25,7 @@ import cn from 'classnames'
 import NativeDatePicker from '../DatePicker/components/NaviteDatePicker/NativeDatePicker'
 import FormGroupContext from 'Components/Form/context/group'
 import { formatterFn, validateFn } from 'Components/DateRangePicker/helpers'
+import { DateWeekRangeCalendar } from '../DateWeekRangeCalendar'
 
 /** Строка в формате YYYY-MM-DD */
 export type DateRangePickerValue = [string | Date, string | Date]
@@ -39,6 +40,8 @@ export interface DateRangePickerProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
+  /** Режим выбора по неделям с понедельника до воскресенья */
+  weekPick?: boolean
 }
 
 const DateRangePicker = ({
@@ -49,6 +52,7 @@ const DateRangePicker = ({
   required: requiredProp,
   min,
   max,
+  weekPick,
   ...props
 }: DateRangePickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -145,38 +149,73 @@ const DateRangePicker = ({
             returnFocus={false}
             initialFocus={-1}
           >
-            <DateRangeCalendar
-              style={{
-                position: 'absolute',
-                overflowX: 'hidden',
-                overflowY: 'hidden',
-                top: y ?? 0,
-                left: x ?? 0
-              }}
-              min={min}
-              max={max}
-              className="inf-datepicker__dropdown"
-              value={
-                value.map((el) =>
-                  el ? createDate(el) : undefined
-                ) as DateRangeCalendarValue
-              }
-              onChange={(dateArray) => {
-                onChange?.(
-                  dateArray.map((date) => formatDateToISO(date)) as [
-                    string,
-                    string
-                  ]
-                )
-                setOpened(false)
-              }}
-              ref={refs.setFloating}
-              {...getFloatingProps({
-                onClick(e) {
-                  e.stopPropagation()
+            {weekPick ? (
+              <DateWeekRangeCalendar
+                style={{
+                  position: 'absolute',
+                  overflowX: 'hidden',
+                  overflowY: 'hidden',
+                  top: y ?? 0,
+                  left: x ?? 0
+                }}
+                min={min}
+                max={max}
+                className="inf-datepicker__dropdown"
+                value={
+                  value.map((el) =>
+                    el ? createDate(el) : undefined
+                  ) as DateRangeCalendarValue
                 }
-              })}
-            />
+                onChange={(dateArray) => {
+                  onChange?.(
+                    dateArray.map((date) => formatDateToISO(date)) as [
+                      string,
+                      string
+                    ]
+                  )
+                  setOpened(false)
+                }}
+                ref={refs.setFloating}
+                {...getFloatingProps({
+                  onClick(e) {
+                    e.stopPropagation()
+                  }
+                })}
+              />
+            ) : (
+              <DateRangeCalendar
+                style={{
+                  position: 'absolute',
+                  overflowX: 'hidden',
+                  overflowY: 'hidden',
+                  top: y ?? 0,
+                  left: x ?? 0
+                }}
+                min={min}
+                max={max}
+                className="inf-datepicker__dropdown"
+                value={
+                  value.map((el) =>
+                    el ? createDate(el) : undefined
+                  ) as DateRangeCalendarValue
+                }
+                onChange={(dateArray) => {
+                  onChange?.(
+                    dateArray.map((date) => formatDateToISO(date)) as [
+                      string,
+                      string
+                    ]
+                  )
+                  setOpened(false)
+                }}
+                ref={refs.setFloating}
+                {...getFloatingProps({
+                  onClick(e) {
+                    e.stopPropagation()
+                  }
+                })}
+              />
+            )}
           </FloatingFocusManager>
         )}
       </FloatingPortal>
