@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useThrottle from 'Hooks/useThrottle'
 
 export interface UseWindowScrollOptions {
@@ -18,9 +18,12 @@ export default function useWindowScroll({
     y: window.scrollY
   })
 
-  const throttleFn = useThrottle(() => {
-    setState({ x: window.scrollX, y: window.scrollY })
-  }, throttleDelay)
+  const throttleFn = useCallback(
+    useThrottle(() => {
+      setState({ x: window.scrollX, y: window.scrollY })
+    }, throttleDelay),
+    [throttleDelay]
+  )
 
   useEffect(() => {
     throttleFn()
