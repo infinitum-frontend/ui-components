@@ -74,7 +74,8 @@ export const HoverableLink: StoryObj<typeof Card> = {
 export const Disabled = {
   render: Template,
   args: {
-    disabled: true
+    disabled: true,
+    hoverable: true
   }
 }
 

@@ -30,15 +30,19 @@
     border: 2px solid var(--inf-color-border-danger);
   }
 
-  &--disabled {
-    background-color: var(--inf-color-background-secondary);
-    border-color: var(--inf-color-background-secondary);
-    pointer-events: none;
-  }
-
   &--hoverable {
     @include hover {
       border-color: var(--inf-color-border-hover);
+    }
+  }
+
+  &--disabled {
+    background-color: var(--inf-color-background-secondary);
+    border-color: var(--inf-color-background-secondary);
+    cursor: not-allowed;
+
+    @include hover {
+      border-color: var(--inf-color-background-secondary);
     }
   }
 }
