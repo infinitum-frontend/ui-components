@@ -2,12 +2,12 @@ import { ReactElement, useState } from 'react'
 import { getDaysMatrix, DayMatrixInfo } from 'Utils/date'
 import cn from 'classnames'
 import './DateRangeCalendarWeeks.scss'
-import { DateWeekRangeCalendarValue } from '../DateWeekRangeCalendar'
+import { DateRangeCalendarValue } from '../DateRangeCalendar'
 
 export interface CalendarDaysRangeProps {
   displayValue: Date
-  onChange?: ([from, to]: DateWeekRangeCalendarValue) => void
-  value: DateWeekRangeCalendarValue
+  onChange?: ([from, to]: DateRangeCalendarValue) => void
+  value: DateRangeCalendarValue
   min?: string
   max?: string
 }

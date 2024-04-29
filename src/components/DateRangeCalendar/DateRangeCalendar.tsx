@@ -16,6 +16,7 @@ import DateCalendarMonths from 'Components/DateCalendar/DateCalendarMonths'
 import DateCalendarYears from 'Components/DateCalendar/DateCalendarYears'
 import DateRangeCalendarDays from './DateRangeCalendarDays'
 import './DateRangeCalendar.scss'
+import DateRangeCalendarWeeks from './DateRangeCalendarWeeks'
 
 export type DateRangeCalendarValue = [Date | undefined, Date | undefined]
 export interface DateRangeCalendarProps
@@ -26,10 +27,12 @@ export interface DateRangeCalendarProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
+  /** Режим выбора по неделям с понедельника до воскресенья */
+  weekPick?: boolean
 }
 
 const DateRangeCalendar = forwardRef<HTMLDivElement, DateRangeCalendarProps>(
-  ({ value, onChange, className, min, max, ...props }, ref) => {
+  ({ value, onChange, className, min, max, weekPick, ...props }, ref) => {
     // значение, с помощью которого идет изменение внутренней даты в календаре без изменения внешних значений (перелистывание недели, смена года)
     const [displayValue, setDisplayValue] = useState(value[0] || new Date())
     // внутренний интервал дат
@@ -99,7 +102,15 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, DateRangeCalendarProps>(
           date={displayValue}
         />
 
-        {selectedView === 'day' && (
+        {selectedView === 'day' && weekPick ? (
+          <DateRangeCalendarWeeks
+            value={localDate}
+            displayValue={displayValue}
+            onChange={handleDayClick}
+            min={min}
+            max={max}
+          />
+        ) : (
           <DateRangeCalendarDays
             value={localDate}
             displayValue={displayValue}

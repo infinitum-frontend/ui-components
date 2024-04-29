@@ -25,7 +25,6 @@ import cn from 'classnames'
 import NativeDatePicker from '../DatePicker/components/NaviteDatePicker/NativeDatePicker'
 import FormGroupContext from 'Components/Form/context/group'
 import { formatterFn, validateFn } from 'Components/DateRangePicker/helpers'
-import { DateWeekRangeCalendar } from '../DateWeekRangeCalendar'
 
 /** Строка в формате YYYY-MM-DD */
 export type DateRangePickerValue = [string | Date, string | Date]
@@ -149,73 +148,39 @@ const DateRangePicker = ({
             returnFocus={false}
             initialFocus={-1}
           >
-            {weekPick ? (
-              <DateWeekRangeCalendar
-                style={{
-                  position: 'absolute',
-                  overflowX: 'hidden',
-                  overflowY: 'hidden',
-                  top: y ?? 0,
-                  left: x ?? 0
-                }}
-                min={min}
-                max={max}
-                className="inf-datepicker__dropdown"
-                value={
-                  value.map((el) =>
-                    el ? createDate(el) : undefined
-                  ) as DateRangeCalendarValue
+            <DateRangeCalendar
+              style={{
+                position: 'absolute',
+                overflowX: 'hidden',
+                overflowY: 'hidden',
+                top: y ?? 0,
+                left: x ?? 0
+              }}
+              min={min}
+              max={max}
+              weekPick={weekPick}
+              className="inf-datepicker__dropdown"
+              value={
+                value.map((el) =>
+                  el ? createDate(el) : undefined
+                ) as DateRangeCalendarValue
+              }
+              onChange={(dateArray) => {
+                onChange?.(
+                  dateArray.map((date) => formatDateToISO(date)) as [
+                    string,
+                    string
+                  ]
+                )
+                setOpened(false)
+              }}
+              ref={refs.setFloating}
+              {...getFloatingProps({
+                onClick(e) {
+                  e.stopPropagation()
                 }
-                onChange={(dateArray) => {
-                  onChange?.(
-                    dateArray.map((date) => formatDateToISO(date)) as [
-                      string,
-                      string
-                    ]
-                  )
-                  setOpened(false)
-                }}
-                ref={refs.setFloating}
-                {...getFloatingProps({
-                  onClick(e) {
-                    e.stopPropagation()
-                  }
-                })}
-              />
-            ) : (
-              <DateRangeCalendar
-                style={{
-                  position: 'absolute',
-                  overflowX: 'hidden',
-                  overflowY: 'hidden',
-                  top: y ?? 0,
-                  left: x ?? 0
-                }}
-                min={min}
-                max={max}
-                className="inf-datepicker__dropdown"
-                value={
-                  value.map((el) =>
-                    el ? createDate(el) : undefined
-                  ) as DateRangeCalendarValue
-                }
-                onChange={(dateArray) => {
-                  onChange?.(
-                    dateArray.map((date) => formatDateToISO(date)) as [
-                      string,
-                      string
-                    ]
-                  )
-                  setOpened(false)
-                }}
-                ref={refs.setFloating}
-                {...getFloatingProps({
-                  onClick(e) {
-                    e.stopPropagation()
-                  }
-                })}
-              />
-            )}
+              })}
+            />
           </FloatingFocusManager>
         )}
       </FloatingPortal>
