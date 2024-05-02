@@ -16,7 +16,6 @@ import DateCalendarMonths from 'Components/DateCalendar/DateCalendarMonths'
 import DateCalendarYears from 'Components/DateCalendar/DateCalendarYears'
 import DateRangeCalendarDays from './DateRangeCalendarDays'
 import './DateRangeCalendar.scss'
-import DateRangeCalendarWeeks from './DateRangeCalendarWeeks'
 
 export type DateRangeCalendarValue = [Date | undefined, Date | undefined]
 export interface DateRangeCalendarProps
@@ -102,21 +101,14 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, DateRangeCalendarProps>(
           date={displayValue}
         />
 
-        {selectedView === 'day' && weekPick ? (
-          <DateRangeCalendarWeeks
-            value={localDate}
-            displayValue={displayValue}
-            onChange={handleDayClick}
-            min={min}
-            max={max}
-          />
-        ) : (
+        {selectedView === 'day' && (
           <DateRangeCalendarDays
             value={localDate}
             displayValue={displayValue}
             onChange={handleDayClick}
             min={min}
             max={max}
+            weekPick={weekPick}
           />
         )}
 
