@@ -39,6 +39,8 @@ export interface DateRangePickerProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
+  /** Режим выбора по неделям с понедельника до воскресенья */
+  weekPick?: boolean
 }
 
 const DateRangePicker = ({
@@ -49,6 +51,7 @@ const DateRangePicker = ({
   required: requiredProp,
   min,
   max,
+  weekPick,
   ...props
 }: DateRangePickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -70,7 +73,7 @@ const DateRangePicker = ({
 
   // ============================= render =============================
   const displayValue = value
-    .map((v) => (v ? createDate(v).toLocaleDateString() : ''))
+    .map((v) => (v ? createDate(v).toLocaleDateString('ru') : ''))
     .join('')
   const hiddenInputDateFrom = value?.[0] ? createDate(value[0]) : ''
   const hiddenInputDateTo = value?.[1] ? createDate(value[1]) : ''
@@ -155,6 +158,7 @@ const DateRangePicker = ({
               }}
               min={min}
               max={max}
+              weekPick={weekPick}
               className="inf-datepicker__dropdown"
               value={
                 value.map((el) =>

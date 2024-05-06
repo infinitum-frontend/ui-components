@@ -10,6 +10,28 @@
 
   &__week {
     font: var(--inf-font-body-1);
+
+    &--hovered {
+      background-color: var(--inf-color-gray-200);
+      border-radius: 0;
+
+      @include hover {
+        border-radius: var(--inf-border-radius-small);
+      }
+    }
+
+    &--picked {
+      background-color: white;
+      outline-style: solid;
+      outline-width: 1px;
+      outline-color: var(--inf-color-primary);
+      border-radius: var(--inf-border-radius-small);
+      background-color: #fef2f2; // TODO: токен
+
+      @include hover {
+        background-color: var(--inf-color-gray-200);
+      }
+    }
   }
 
   &__weekdays {
@@ -25,8 +47,10 @@
     height: 100%;
     cursor: pointer;
 
-    @include hover {
-      background-color: var(--inf-color-gray-200);
+    &--hoverable {
+      @include hover {
+        background-color: var(--inf-color-gray-200);
+      }
     }
 
     &--hovered {

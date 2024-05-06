@@ -73,7 +73,7 @@ const DatePicker = ({
   ])
 
   // ============================= render =============================
-  const displayValue = value ? createDate(value).toLocaleDateString() : ''
+  const displayValue = value ? createDate(value).toLocaleDateString('ru') : ''
   const displayValueForHiddenInput = value ? createDate(value) : ''
   return (
     <>

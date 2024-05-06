@@ -47,3 +47,25 @@ export const InForm: StoryFn<typeof DateRangePicker> = {
     )
   }
 }
+
+export const WeekPicker: StoryFn<typeof DateRangePicker> = {
+  render: (args) => {
+    const [value, setValue] = useState<DateRangePickerValue>(['', ''])
+    return (
+      <Form onSubmit={() => console.log('submit')}>
+        <Form.Group required>
+          <DateRangePicker
+            {...args}
+            weekPick
+            value={value}
+            onChange={(v) => {
+              setValue(v)
+            }}
+          />
+        </Form.Group>
+
+        <Button type="submit">Submit</Button>
+      </Form>
+    )
+  }
+}
