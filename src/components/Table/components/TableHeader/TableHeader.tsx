@@ -46,8 +46,12 @@ const TableHeader = ({
   resizeMode,
   verticalAlignHead
 }: TableHeaderProps): ReactElement => {
+  const canSort = (column: Column<any>): boolean => {
+    return withSorting && Boolean(column.columnDef.enableSorting)
+  }
+
   const handleColumnClick = (e: MouseEvent, column: Column<any>): void => {
-    if (withSorting) {
+    if (canSort(column)) {
       onSortingChange(getNextSorting(sortingState, column))
     }
   }
@@ -58,10 +62,6 @@ const TableHeader = ({
     column: Column<any>
   ) => void = (value, filterType, column) => {
     onFiltersChange?.(value, filterType, column)
-  }
-
-  const canSort = (column: Column<any>): boolean => {
-    return withSorting && Boolean(column.columnDef.enableSorting)
   }
 
   const canFilter = (column: Column<any>): boolean => {
