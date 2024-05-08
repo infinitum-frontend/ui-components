@@ -52,10 +52,13 @@ export const VariantsWithInitialIcons = {
     return (
       <Space>
         {variants.map((variant, index) => (
-          <Label variant={variant} key={index} icon={true}>
+          <Label variant={variant} key={index} withIcon={true}>
             {variant}
           </Label>
         ))}
+        <Label variant="danger" withIcon={true}>
+          danger
+        </Label>
       </Space>
     )
   }

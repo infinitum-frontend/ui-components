@@ -7,6 +7,7 @@ import { ReactComponent as IconCheckIn } from 'Icons/checkInCircle2.svg'
 
 export interface LabelProps
   extends Omit<ComponentPropsWithoutRef<'span'>, 'prefix'> {
+  /** Варианты лейбла */
   variant:
     | 'info'
     | 'error'
@@ -16,26 +17,34 @@ export interface LabelProps
     | 'brand'
     | 'violet'
     | 'teal'
-  icon?: boolean
+  /** Поддержка стандартной иконки для variant */
+  withIcon?: boolean
   before?: ReactNode
+}
+
+const defaultIcon = {
+  info: <IconInfo />,
+  error: <IconWarning />,
+  success: <IconCheckIn />,
+  warning: <IconWarning />,
+  neutral: <IconWarning />,
+  brand: <IconWarning />,
+  violet: <IconWarning />,
+  teal: <IconWarning />,
+  danger: <IconWarning />
 }
 
 const Label = ({
   children,
   variant = 'neutral',
-  icon = false,
+  withIcon = false,
   before
 }: LabelProps): ReactElement => {
   return (
     <span className={cn('inf-label', `inf-label--variant-${variant}`)}>
-      {icon &&
-        (variant === 'info' ? (
-          <span className="inf-label__before">{<IconInfo />}</span>
-        ) : variant === 'success' ? (
-          <span className="inf-label__before">{<IconCheckIn />}</span>
-        ) : (
-          <span className="inf-label__before">{<IconWarning />}</span>
-        ))}
+      {withIcon && (
+        <span className="inf-label__before">{defaultIcon[variant]}</span>
+      )}
       {before && <span className="inf-label__before">{before}</span>}
       {children}
     </span>
