@@ -7,7 +7,10 @@ import { ReactComponent as IconCheckIn } from 'Icons/checkInCircle2.svg'
 
 export interface LabelProps
   extends Omit<ComponentPropsWithoutRef<'span'>, 'prefix'> {
-  /** Варианты лейбла */
+  /** Варианты лейбла
+   *
+   * variant: 'danger' was deprecated
+   */
   variant:
     | 'info'
     | 'error'
