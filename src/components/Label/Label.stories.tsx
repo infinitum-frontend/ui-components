@@ -56,9 +56,6 @@ export const VariantsWithInitialIcons = {
             {variant}
           </Label>
         ))}
-        <Label variant="danger" withIcon={true}>
-          danger
-        </Label>
       </Space>
     )
   }
