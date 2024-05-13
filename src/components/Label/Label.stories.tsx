@@ -3,11 +3,18 @@ import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Label, LabelProps } from './index'
 import { Space } from '../Space'
-import { ReactComponent as IconInfo } from 'Icons/warning.svg'
+import { ReactComponent as IconWarning } from 'Icons/warning.svg'
 
-const variants = ['info', 'danger', 'success', 'warning', 'neutral'] as Array<
-  LabelProps['variant']
->
+const variants = [
+  'info',
+  'error',
+  'success',
+  'warning',
+  'neutral',
+  'brand',
+  'violet',
+  'teal'
+] as Array<LabelProps['variant']>
 
 const meta: Meta<typeof Label> = {
   title: 'Components/Label',
@@ -31,7 +38,21 @@ export const Variants = {
     return (
       <Space>
         {variants.map((variant, index) => (
-          <Label variant={variant} key={index} before={<IconInfo />}>
+          <Label variant={variant} key={index} before={<IconWarning />}>
+            {variant}
+          </Label>
+        ))}
+      </Space>
+    )
+  }
+}
+
+export const VariantsWithInitialIcons = {
+  render: () => {
+    return (
+      <Space>
+        {variants.map((variant, index) => (
+          <Label variant={variant} key={index} withIcon={true}>
             {variant}
           </Label>
         ))}
