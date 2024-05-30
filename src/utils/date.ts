@@ -148,9 +148,16 @@ export function isDateValid(dateStr: string): boolean {
 }
 
 function isDayDisabled(date: Date, min?: string, max?: string): boolean {
-  const isBeforeMin =
-    min && isDateValid(min) && new Date(min).getTime() > date?.getTime()
-  const isAfterMax =
-    max && isDateValid(max) && new Date(max).getTime() < date?.getTime()
+  const dateToCompare = new Date(date)
+  const dateMin = min && isDateValid(min) ? new Date(min) : undefined
+  const dateMax = max && isDateValid(max) ? new Date(max) : undefined
+
+  dateToCompare.setHours(0, 0, 0, 0)
+  dateMin?.setHours(0, 0, 0, 0)
+  dateMax?.setHours(0, 0, 0, 0)
+
+  const isBeforeMin = dateMin && dateToCompare < dateMin
+  const isAfterMax = dateMax && dateToCompare > dateMax
+
   return Boolean(isBeforeMin || isAfterMax)
 }
