@@ -1,5 +1,5 @@
 {
-  "name": "@infinitum-ui/ui-components",
+  "name": "@infinitum-frontend/ui-components",
   "version": "1.5.0",
   "scripts": {
     "build": "rm -rf dist && vite build && npm run ts-compile",
