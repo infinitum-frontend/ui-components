@@ -1,6 +1,6 @@
 {
   "name": "@infinitum-ui/ui-components",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "scripts": {
     "build": "rm -rf dist && vite build && npm run ts-compile",
     "ts-compile": "tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src",
