@@ -46,7 +46,7 @@ function App() {
 
 1. `git checkout origin/main && git pull`
 2. `npm i`
-3. `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git] -m "Bump to: {new_version}`
+3. `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git] -m "Bump to: {new_version}"`
 4. `npm run build`
 5. `npm publish`
 6. `git push`
