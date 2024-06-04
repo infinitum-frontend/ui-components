@@ -3,6 +3,7 @@ name: Публикация в Package Registry при создании ново�
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   build:
