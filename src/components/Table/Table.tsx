@@ -95,7 +95,7 @@ const Table = ({
   columns = [],
   rows = [],
   className,
-  borderRadius,
+  borderRadius = 'small',
   verticalAlignHead = 'top',
   verticalAlignBody,
   maxLength,
