@@ -14,8 +14,17 @@ const meta: Meta<typeof Combobox> = {
 
 const options: SelectOption[] = []
 
-for (let i = 0; i < 100; i++) {
+const longOptions: SelectOption[] = []
+
+for (let i = 0; i < 10; i++) {
   options.push({
+    label: `Option ${i}`,
+    value: `Value ${i}`
+  })
+}
+
+for (let i = 0; i < 100; i++) {
+  longOptions.push({
     label: `Option ${i}`,
     value: `Value ${i}`
   })
@@ -30,7 +39,6 @@ const Template: StoryFn<typeof Combobox> = (args) => {
     <Combobox
       {...args}
       checkedList={selectedValues}
-      options={options}
       onChange={setSelectedValues}
     />
   )
@@ -39,6 +47,7 @@ const Template: StoryFn<typeof Combobox> = (args) => {
 export const Playground = {
   render: Template,
   args: {
+    options,
     showTags: true
   }
 }
@@ -46,6 +55,7 @@ export const Playground = {
 export const Scrollable = {
   render: Template,
   args: {
+    options: longOptions,
     maxHeight: 200
   }
 }
@@ -57,7 +67,7 @@ export const InForm: StoryObj<typeof Combobox> = {
 
     const users: SelectOption[] = []
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10; i++) {
       users.push({
         label: `User ${i}`,
         value: `User-value ${i}`
