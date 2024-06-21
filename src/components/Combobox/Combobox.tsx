@@ -49,7 +49,7 @@ const Combobox = ({
   }, [options])
 
   const checkedOptions = options.filter((option) => {
-    return checkedList.find((item) => item === option.value)
+    return checkedList.some((item) => item === option.value)
   })
 
   const handleSearchChange = (value: string): void => {
