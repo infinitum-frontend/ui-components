@@ -9,9 +9,6 @@ import { ReactComponent as FileIcon } from 'Icons/file.svg'
 const ComponentMeta: Meta<typeof UploadButton> = {
   title: 'Components/UploadButton',
   component: UploadButton,
-  args: {
-    children: 'Кнопка загрузки'
-  },
   parameters: {
     docs: {
       source: {

@@ -53,7 +53,7 @@ interface UploadButtonProps {
 const UploadButton = ({
   children,
   className,
-  variant,
+  variant = 'tertiary',
   size,
   disabled,
   loading,
@@ -79,6 +79,7 @@ const UploadButton = ({
     <div role="button">
       <Button
         as="label"
+        className={className}
         htmlFor={domId}
         variant={variant}
         size={size}
@@ -89,7 +90,7 @@ const UploadButton = ({
         before={before}
         after={after}
       >
-        {children}
+        {children || 'Прикрепить...'}
       </Button>
       <input
         type="file"
