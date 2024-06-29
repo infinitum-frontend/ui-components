@@ -28,19 +28,19 @@ export const Playground = {
   render: Template
 }
 
+export const Primary = {
+  render: Template,
+
+  args: {
+    variant: 'primary'
+  }
+}
+
 export const Secondary = {
   render: Template,
 
   args: {
     variant: 'secondary'
-  }
-}
-
-export const Tertiary = {
-  render: Template,
-
-  args: {
-    variant: 'tertiary'
   }
 }
 
