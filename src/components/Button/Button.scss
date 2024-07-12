@@ -84,7 +84,8 @@
     }
   }
 
-  &:disabled {
+  &:disabled,
+  &--disabled {
     background-color: var(--inf-color-background-control-disabled);
     border-color: var(--inf-color-background-control-disabled);
     color: var(--inf-color-text-tertiary);

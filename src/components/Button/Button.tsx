@@ -91,7 +91,8 @@ function BaseButton<C extends ElementType = 'button'>(
         {
           'inf-button--block': block,
           'inf-button--loading': loading,
-          'inf-button--square': icon
+          'inf-button--square': icon,
+          'inf-button--disabled': disabled
         }
       )}
       type="button"
