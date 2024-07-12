@@ -83,6 +83,7 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
         role={'calendar'}
         value={formattedValue}
         onChange={handleChange}
+        autoComplete="off"
         className={cn(
           'inf-native-datepicker',
           TextFieldClasses.main,
