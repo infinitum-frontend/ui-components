@@ -1,11 +1,64 @@
-import { ReactElement, ChangeEvent, useId } from 'react'
+import { ReactElement, ChangeEvent, useId, ReactNode } from 'react'
 import { Button } from 'Components/Button'
 
 interface UploadButtonProps {
-  onChange: (e: FileList) => void
+  /**
+   * Содержимое
+   */
+  children?: ReactNode
+  /**
+   * Дополнительный className
+   */
+  className?: string
+  /**
+   * Вариант оформления
+   */
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
+  /**
+   * Размер
+   */
+  size?: 'small' | 'medium' | 'large'
+  /**
+   * Состояние недоступности
+   */
+  disabled?: boolean
+  /**
+   * Состояние загрузки
+   */
+  loading?: boolean
+  /**
+   * Занимает всю ширину контейнера
+   */
+  block?: boolean
+  /**
+   * Иконка (без текста)
+   */
+  icon?: ReactNode
+  /**
+   * Контент слева от текста
+   */
+  before?: ReactNode
+  /**
+   * Контент справа от текста
+   */
+  after?: ReactNode
+  /**
+   * Загрузка нескольких файлов
+   */
   multiple?: boolean
+  onChange: (e: FileList) => void
 }
 const UploadButton = ({
+  children,
+  className,
+  variant = 'tertiary',
+  size,
+  disabled,
+  loading,
+  block,
+  icon,
+  before,
+  after,
   onChange,
   multiple
 }: UploadButtonProps): ReactElement => {
@@ -24,17 +77,25 @@ const UploadButton = ({
     <div role="button">
       <Button
         as="label"
+        className={className}
         htmlFor={domId}
-        className="inf-upload-button"
-        variant="tertiary"
+        variant={variant}
+        size={size}
+        disabled={disabled}
+        loading={loading}
+        block={block}
+        icon={icon}
+        before={before}
+        after={after}
       >
-        Прикрепить...
+        {children || 'Прикрепить...'}
       </Button>
       <input
         type="file"
         multiple={multiple}
         id={domId}
         hidden
+        disabled={disabled}
         onChange={handleChange}
       />
     </div>
