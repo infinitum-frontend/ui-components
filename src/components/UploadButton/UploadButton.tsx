@@ -14,8 +14,6 @@ interface UploadButtonProps {
    * Вариант оформления
    */
   variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
-  // outlined?: boolean TODO: IDD-303
-  // plain?: boolean TODO: IDD-303
   /**
    * Размер
    */
@@ -97,6 +95,7 @@ const UploadButton = ({
         multiple={multiple}
         id={domId}
         hidden
+        disabled={disabled}
         onChange={handleChange}
       />
     </div>

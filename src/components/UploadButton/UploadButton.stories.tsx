@@ -1,9 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { UploadButton } from './index'
-import { Space } from '../Space'
-import { StoryObj, Meta, StoryFn } from '@storybook/react'
-import { ReactComponent as ArrowUpIcon } from 'Icons/chevronup.svg'
+import { Meta, StoryFn } from '@storybook/react'
 import { ReactComponent as FileIcon } from 'Icons/file.svg'
 
 const ComponentMeta: Meta<typeof UploadButton> = {
@@ -28,31 +26,7 @@ export const Playground = {
   render: Template
 }
 
-export const Primary = {
-  render: Template,
-
-  args: {
-    variant: 'primary'
-  }
-}
-
-export const Secondary = {
-  render: Template,
-
-  args: {
-    variant: 'secondary'
-  }
-}
-
-export const Ghost = {
-  render: Template,
-
-  args: {
-    variant: 'ghost'
-  }
-}
-
-export const GhostWithIcon = {
+export const CustomDesign = {
   render: Template,
 
   args: {
@@ -75,53 +49,4 @@ export const Disabled = {
   args: {
     disabled: true
   }
-}
-
-export const Icon: StoryObj<typeof UploadButton> = {
-  render: (args) => (
-    <>
-      <UploadButton before={<ArrowUpIcon />} {...args}>
-        Icon Before
-      </UploadButton>
-      <UploadButton after={<ArrowUpIcon />} {...args}>
-        Icon After
-      </UploadButton>
-      <UploadButton before={<ArrowUpIcon />} after={<ArrowUpIcon />} {...args}>
-        Icon Before and After
-      </UploadButton>
-      <UploadButton icon={<ArrowUpIcon />} {...args} />
-    </>
-  ),
-
-  decorators: [
-    (Story) => (
-      <Space gap="small" direction="horizontal">
-        {Story()}
-      </Space>
-    )
-  ]
-}
-
-export const Sizes: StoryObj<typeof UploadButton> = {
-  render: (args) => (
-    <>
-      <UploadButton {...args} size="large">
-        Загрузить файл
-      </UploadButton>
-      <UploadButton {...args} size="medium">
-        Загрузить файл
-      </UploadButton>
-      <UploadButton {...args} size="small">
-        Загрузить файл
-      </UploadButton>
-    </>
-  ),
-
-  decorators: [
-    (Story) => (
-      <Space gap="small" direction="horizontal">
-        {Story()}
-      </Space>
-    )
-  ]
 }
