@@ -38,14 +38,6 @@ export const Secondary = {
   }
 }
 
-export const Tertiary = {
-  render: Template,
-
-  args: {
-    variant: 'tertiary'
-  }
-}
-
 export const Ghost = {
   render: Template,
 

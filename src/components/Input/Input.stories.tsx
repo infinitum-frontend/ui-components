@@ -113,7 +113,7 @@ export const UncontrolledAndControlled = {
           </Space>
         )}
         <Button
-          variant="tertiary"
+          variant="secondary"
           onClick={() => {
             setLoading(true)
             setTimeout(() => setLoading(false), 1000)

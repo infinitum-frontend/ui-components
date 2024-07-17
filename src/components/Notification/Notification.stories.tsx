@@ -122,7 +122,7 @@ export const WithActionSlot: StoryFn<typeof Notification> = () => {
     notify('Текст уведомления', {
       title: 'Информационное уведомление',
       actionSlot: (
-        <Button onClick={() => alert('Клик')} size="small" variant="tertiary">
+        <Button onClick={() => alert('Клик')} size="small" variant="secondary">
           Действие
         </Button>
       )

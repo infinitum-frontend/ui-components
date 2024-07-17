@@ -177,7 +177,7 @@ const TableHeaderFilter = ({
               </Button>
               <Button
                 size={'small'}
-                variant={'tertiary'}
+                variant={'secondary'}
                 block
                 onClick={applyReset}
               >

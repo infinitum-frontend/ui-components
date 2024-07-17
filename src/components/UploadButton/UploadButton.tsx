@@ -13,7 +13,7 @@ interface UploadButtonProps {
   /**
    * Вариант оформления
    */
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'ghost'
   /**
    * Размер
    */
@@ -51,7 +51,7 @@ interface UploadButtonProps {
 const UploadButton = ({
   children,
   className,
-  variant = 'tertiary',
+  variant = 'secondary',
   size,
   disabled,
   loading,
