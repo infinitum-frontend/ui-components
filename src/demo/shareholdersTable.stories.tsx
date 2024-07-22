@@ -230,7 +230,7 @@ export const ShareholdersTableStories = (): ReactElement => {
         <Button variant={'secondary'} onClick={applyFilters}>
           Найти
         </Button>
-        <Button variant={'tertiary'} onClick={resetFilters}>
+        <Button variant={'secondary'} onClick={resetFilters}>
           Сбросить
         </Button>
       </Space>
