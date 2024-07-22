@@ -56,7 +56,7 @@ export const ProfileDetails: StoryFn = () => {
               Войти
             </Button>
 
-            <Button variant="tertiary" block>
+            <Button variant="secondary" block>
               Войти через ГОСУСЛУГИ
             </Button>
 

@@ -181,7 +181,7 @@ export const MeetingDetails: StoryObj = {
                     <Text variant="subtitle-1">
                       Рекомендуем ознакомиться с документами
                     </Text>
-                    <Button variant="tertiary">Скачать все документы</Button>
+                    <Button variant="secondary">Скачать все документы</Button>
                   </Space>
                   <Space direction="horizontal" gap="small" wrap>
                     {documents.map(({ name, extension, size }, index) => (
@@ -312,7 +312,7 @@ export const MeetingDetails: StoryObj = {
 
                   <Space direction="horizontal" gap="medium">
                     <Button>Подписать и отправить</Button>
-                    <Button variant="tertiary">Скачать все бюллетени</Button>
+                    <Button variant="secondary">Скачать все бюллетени</Button>
                   </Space>
 
                   <div>

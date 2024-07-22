@@ -78,6 +78,9 @@
   --inf-color-text-danger: var(--inf-color-danger);
   --inf-color-text-on-color: var(--inf-color-white);
 
+  --inf-color-text-info: #0564b7;
+  --inf-color-text-info-disabled: #a2c6e4;
+
   /* Icon */
   --inf-color-icon: var(--inf-color-gray-800);
   --inf-color-icon-secondary: var(--inf-color-gray-300);
@@ -96,6 +99,13 @@
   --inf-color-background-danger: var(--inf-color-orange-500);
   --inf-color-background-success: var(--inf-color-green-500);
   --inf-color-background-warning: #ffc256; // TODO: внести в палитру
+  --inf-color-background-button-primary: #f64a4a; // TODO: использовать токены цветов
+  --inf-color-background-button-primary-hover: #e04545;
+  --inf-color-background-button-primary-active: #c73f3f;
+  --inf-color-background-button-primary-disabled: #fbaaaa;
+  --inf-color-background-button-secondary: #eef4fa;
+  --inf-color-background-button-secondary-hover: #d4e5f3;
+  --inf-color-background-button-secondary-active: #bcd5ec;
 
   /* Border */
   --inf-color-border-default: var(--inf-color-gray-200); // -primary ?

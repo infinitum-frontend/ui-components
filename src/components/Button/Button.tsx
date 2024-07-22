@@ -24,7 +24,7 @@ export interface ButtonProps {
   /**
    * Вариант оформления
    */
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'ghost'
   // outlined?: boolean TODO: IDD-303
   // plain?: boolean TODO: IDD-303
   /**

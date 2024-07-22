@@ -15,8 +15,6 @@
   -ms-user-select: none;
   user-select: none;
   text-decoration: none;
-  border: 1px solid transparent;
-  box-shadow: 0 0 0 2px transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -34,61 +32,61 @@
   }
 
   &--variant-primary {
-    background-color: var(--inf-color-primary);
+    background-color: var(--inf-color-background-button-primary);
     color: var(--inf-color-text-on-color);
 
     &:hover {
-      background-color: var(--inf-color-primary-hover);
+      background-color: var(--inf-color-background-button-primary-hover);
     }
 
     &:active {
-      background-color: var(--inf-color-primary-active);
+      background-color: var(--inf-color-background-button-primary-active);
+    }
+
+    &:disabled,
+    .inf-button--disabled {
+      background-color: var(--inf-color-background-button-primary-disabled);
     }
   }
 
   &--variant-secondary {
-    background-color: var(--inf-color-secondary);
-    color: var(--inf-color-text-on-color);
+    background-color: var(--inf-color-background-button-secondary);
+    color: var(--inf-color-text-info);
 
     &:hover {
-      background-color: var(--inf-color-secondary-hover);
+      background-color: var(--inf-color-background-button-secondary-hover);
     }
 
     &:active {
-      background-color: var(--inf-color-secondary-active);
-    }
-  }
-
-  &--variant-tertiary {
-    color: var(--inf-color-secondary);
-    border: 1px solid var(--inf-color-secondary);
-
-    &:hover {
-      background-color: #e6f1f5;
+      background-color: var(--inf-color-background-button-secondary-active);
     }
 
-    &:active {
-      background-color: #738f99;
+    &:disabled,
+    .inf-button--disabled {
+      color: var(--inf-color-text-info-disabled);
     }
   }
 
   &--variant-ghost {
-    color: var(--inf-color-secondary);
+    background-color: transparent;
+    color: var(--inf-color-text-info);
 
     &:hover {
-      color: var(--inf-color-secondary-hover);
+      background-color: var(--inf-color-background-button-secondary-hover);
     }
 
     &:active {
-      color: var(--inf-color-secondary-active);
+      background-color: var(--inf-color-background-button-secondary-active);
+    }
+
+    &:disabled,
+    .inf-button--disabled {
+      color: var(--inf-color-text-info-disabled);
     }
   }
 
   &:disabled,
   &--disabled {
-    background-color: var(--inf-color-background-control-disabled);
-    border-color: var(--inf-color-background-control-disabled);
-    color: var(--inf-color-text-tertiary);
     pointer-events: none;
     cursor: default;
   }
