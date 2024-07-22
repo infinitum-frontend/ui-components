@@ -38,7 +38,7 @@ function App() {
 
 1. Переключиться на ветку main `git checkout origin/main && git pull`
 2. `npm i`
-3. Поднять версию пакета `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git] -m "Bump to: {new_version}`. Команда автоматически создаст тег с соответствующей версией
+3. Поднять версию пакета `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git] -m "Bump to: {new_version}"`. Команда автоматически создаст тег с соответствующей версией
 4. Запушить изменения вместе с тегами `git push --tags`
 5. Перейти на страницу тега в Github и создать из него релиз
 6. После создания релиза в Github Actions автоматически запустится пайплайн на публикацию пакета в Github Package Registry
