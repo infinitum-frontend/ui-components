@@ -90,6 +90,7 @@ const DatePicker = ({
         })}
       >
         <MaskedInput
+          autoComplete="off"
           placeholder={placeholder}
           mask={{
             mask: Date
