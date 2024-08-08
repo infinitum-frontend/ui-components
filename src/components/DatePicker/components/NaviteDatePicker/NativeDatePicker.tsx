@@ -38,7 +38,10 @@ export interface NativeDatePickerProps
 
 function getFormattedValue(date?: string | Date): string | undefined {
   if (date instanceof Date) {
-    return date.toISOString().slice(0, 10)
+    const localDateString = date.toLocaleDateString('ru')
+    const dateToISOString = localDateString.split('.').reverse().join('-')
+    return dateToISOString
+    // return date.toISOString().slice(0, 10)
   }
 
   return date

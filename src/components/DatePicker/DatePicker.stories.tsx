@@ -4,6 +4,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { NativeDatePicker, DatePicker } from './index'
 import { Form } from '../Form'
 import { Button } from '../Button'
+import { Space } from '../Space'
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Form/DatePicker',
@@ -93,6 +94,44 @@ export const MinMax: StoryFn<typeof DatePicker> = {
 
         <Button type="submit">Click me</Button>
       </Form>
+    )
+  }
+}
+
+export const NativeDatePickerOtherTypes: StoryFn<typeof DatePicker> = {
+  render: () => {
+    const [value1, setValue1] = useState('')
+    const [value2, setValue2] = useState('')
+    const [value3, setValue3] = useState('')
+    const [value4, setValue4] = useState('')
+
+    return (
+      <Space>
+        <Form.Group>
+          <Form.Label>Дата type time</Form.Label>
+          <NativeDatePicker value={value1} onChange={setValue1} type="time" />
+          {value1}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Дата type datetime-local</Form.Label>
+          <NativeDatePicker
+            value={value2}
+            onChange={setValue2}
+            type="datetime-local"
+          />
+          {value2}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Дата type month</Form.Label>
+          <NativeDatePicker value={value3} onChange={setValue3} type="month" />
+          {value3}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Дата type week</Form.Label>
+          <NativeDatePicker value={value4} onChange={setValue4} type="week" />
+          {value4}
+        </Form.Group>
+      </Space>
     )
   }
 }
