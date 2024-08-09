@@ -38,6 +38,7 @@ export interface NativeDatePickerProps
 
 function getFormattedValue(date?: string | Date): string | undefined {
   if (date instanceof Date) {
+    // TODO: использовать хелпер из shared
     const localDateString = date.toLocaleDateString('ru')
     const dateToISOString = localDateString.split('.').reverse().join('-')
     return dateToISOString
