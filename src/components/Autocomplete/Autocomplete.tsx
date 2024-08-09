@@ -214,6 +214,10 @@ const Autocomplete = ({
               placeholder={inputPlaceholder}
               value={query}
               allowClear={true}
+              onClear={() => {
+                setQuery('')
+                handleInput('')
+              }}
             />
             <AutocompleteOptions>
               {filteredOptions?.map((option) => (

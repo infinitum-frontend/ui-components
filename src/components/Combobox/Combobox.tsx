@@ -120,6 +120,10 @@ const Combobox = ({
           value={searchQuery}
           onChange={handleSearchChange}
           allowClear={true}
+          onClear={() => {
+            setSearchQuery('')
+            setFilteredOptions(filterFn(options, ''))
+          }}
         />
         <Menu maxHeight={maxHeight}>
           {filteredOptions.map((option) => (
