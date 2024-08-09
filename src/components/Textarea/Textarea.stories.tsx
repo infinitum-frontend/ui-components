@@ -13,6 +13,9 @@ const meta: Meta<typeof Textarea> = {
     },
     rows: {
       type: 'number'
+    },
+    onBlur: {
+      control: false
     }
   }
 }
@@ -40,4 +43,9 @@ export const Block = {
 export const Resizable = {
   render: Template,
   args: { resize: 'both' }
+}
+
+export const WithTrim = {
+  render: Template,
+  args: { trim: true }
 }

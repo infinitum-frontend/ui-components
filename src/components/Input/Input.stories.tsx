@@ -268,3 +268,11 @@ export const Masked: StoryFn<typeof Input> = () => {
     </Space>
   )
 }
+
+export const WithTrim = {
+  render: Template,
+
+  args: {
+    trim: true
+  }
+}
