@@ -13,6 +13,7 @@ import { TextFieldClasses } from 'Utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import { formatDateToISO } from '~/src/utils/date'
 
 export interface NativeDatePickerProps
   extends Omit<
@@ -38,7 +39,7 @@ export interface NativeDatePickerProps
 
 function getFormattedValue(date?: string | Date): string | undefined {
   if (date instanceof Date) {
-    return date.toISOString().slice(0, 10)
+    return formatDateToISO(date)
   }
 
   return date
