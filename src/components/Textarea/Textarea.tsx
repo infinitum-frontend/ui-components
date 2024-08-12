@@ -48,7 +48,7 @@ export interface TextareaProps
    * @default false
    */
   block?: boolean
-  /** Вырезать пробельные символы с концов строки */
+  /** Вырезать пробельные символы с концов строки при blur */
   trim?: boolean
 }
 
