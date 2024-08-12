@@ -7,7 +7,8 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   useContext,
-  ChangeEventHandler
+  ChangeEventHandler,
+  ChangeEvent
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -128,6 +129,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const handleClear: () => void = () => {
       if (inputRef.current) {
         inputRef.current.value = ''
+        onChange?.('', undefined as unknown as ChangeEvent<HTMLInputElement>)
         inputRef.current.focus()
       }
       onClear?.()

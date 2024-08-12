@@ -83,11 +83,15 @@ export const UncontrolledAndControlled = {
                   <br />
                   Сохраняет значение при условном рендеринге, т.к. внешнего
                   стейт присутствует
+                  <br />
+                  <br />
+                  Сброс значения обновляет внешний стейт и сбрасывает значение
+                  value
                 </code>
               </Text>
               <div>
                 <Text>Значение: {value}</Text>
-                <Input value={value} onChange={setValue} />
+                <Input allowClear value={value} onChange={setValue} />
               </div>
             </Space>
             <Space justify="space-between" gap="xsmall">
@@ -108,7 +112,7 @@ export const UncontrolledAndControlled = {
                   нет
                 </code>
               </Text>
-              <Input />
+              <Input allowClear />
             </Space>
           </Space>
         )}
