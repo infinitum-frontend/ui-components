@@ -99,6 +99,10 @@ export const ControlledVariant: StoryObj<typeof Autocomplete> = {
             value={query}
             onInput={handleInput}
             allowClear={true}
+            onClear={() => {
+              setQuery('')
+              handleInput('')
+            }}
           />
           <Autocomplete.Options>
             {filteredItems.map((option) => (

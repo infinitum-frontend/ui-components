@@ -7,7 +7,8 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   useContext,
-  ChangeEventHandler
+  ChangeEventHandler,
+  ChangeEvent
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -109,7 +110,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
       if (inputRef.current && trim) {
-        inputRef.current.value = e.target.value.trim()
+        const trimmedValue = e.target.value.trim()
+        inputRef.current.value = trimmedValue
+        onChange?.(trimmedValue, e)
       }
       setFocus(false)
       onBlur?.(e)
@@ -126,6 +129,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const handleClear: () => void = () => {
       if (inputRef.current) {
         inputRef.current.value = ''
+        onChange?.('', undefined as unknown as ChangeEvent<HTMLInputElement>)
         inputRef.current.focus()
       }
       onClear?.()
