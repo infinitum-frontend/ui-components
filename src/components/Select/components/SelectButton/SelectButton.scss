@@ -31,4 +31,9 @@
       color: var(--inf-color-text-disabled);
     }
   }
+
+  &--loading {
+    pointer-events: none;
+    cursor: default;
+  }
 }

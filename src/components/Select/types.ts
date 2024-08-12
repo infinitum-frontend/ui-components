@@ -44,6 +44,7 @@ export interface SelectProps
   onChange?: (option: SelectOption) => void
   autoFocus?: boolean
   disabled?: boolean
+  loading?: boolean
   value?: SelectOption['value']
   placeholder?: string
   status?: 'error'

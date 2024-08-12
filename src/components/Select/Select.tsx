@@ -59,6 +59,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       autoFocus = false,
       value,
       disabled: disabledProp = false,
+      loading = false,
       placeholder = defaultSelectItem.label as string,
       required = false,
       status,
@@ -233,6 +234,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           tabIndex={-1}
           ref={mergeRefs([ref, refs.setReference, displayRef])}
           disabled={disabled}
+          loading={loading}
           selected={isValueExists}
           focused={isFocused}
           status={status}
@@ -255,7 +257,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             required={formGroupData?.required || required}
             aria-required={formGroupData?.required || required || ariaRequired}
             aria-invalid={formGroupData?.invalid || ariaInvalid}
-            disabled={disabled}
+            disabled={disabled || loading}
             id={formGroupData?.id}
             value={value}
             onInvalid={onControlInvalid}
@@ -271,7 +273,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
         </SelectButton>
 
         <FloatingPortal>
-          {isOpened && !disabled && (
+          {isOpened && !disabled && !loading && (
             <ul
               style={{
                 position: 'absolute',
