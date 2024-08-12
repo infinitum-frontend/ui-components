@@ -109,7 +109,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
       if (inputRef.current && trim) {
-        inputRef.current.value = e.target.value.trim()
+        const trimmedValue = e.target.value.trim()
+        inputRef.current.value = trimmedValue
+        onChange?.(trimmedValue, e)
       }
       setFocus(false)
       onBlur?.(e)
