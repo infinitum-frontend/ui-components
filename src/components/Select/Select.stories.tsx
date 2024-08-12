@@ -73,3 +73,11 @@ export const Overflow = {
     style: { width: '100px' }
   }
 }
+
+export const Loading = {
+  render: Template,
+
+  args: {
+    loading: true
+  }
+}

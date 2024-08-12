@@ -8,17 +8,28 @@ import cn from 'classnames'
 import './SelectButton.scss'
 import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
+import { Loader } from '~/src/components/Loader'
 
 export interface SelectButtonProps extends ComponentPropsWithoutRef<'button'> {
   status?: 'error'
   disabled?: boolean
+  loading?: boolean
   selected?: boolean
   focused?: boolean
 }
 
 const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
   (
-    { status, selected, focused, disabled, className, children, ...props },
+    {
+      status,
+      selected,
+      focused,
+      disabled,
+      loading,
+      className,
+      children,
+      ...props
+    },
     ref
   ): ReactElement => {
     return (
@@ -33,7 +44,8 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
             [TextFieldClasses.status[status as 'error']]: status,
             [TextFieldClasses.focused]: focused && !disabled,
             [TextFieldClasses.filled]: selected,
-            [TextFieldClasses.disabled]: disabled
+            [TextFieldClasses.disabled]: disabled,
+            'inf-select-button--loading': loading
           },
           className
         )}
@@ -46,7 +58,11 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
             'inf-select-button__arrow--disabled': disabled
           })}
         >
-          <ArrowDownIcon width={'10px'} height={'5px'} />
+          {loading ? (
+            <Loader size="compact" variant="unset" />
+          ) : (
+            <ArrowDownIcon width={'10px'} height={'5px'} />
+          )}
         </span>
         {children}
       </button>
