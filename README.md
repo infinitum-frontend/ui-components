@@ -50,7 +50,7 @@ function App() {
 3. `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git] -m "Bump to: {new_version}"`
 4. `npm run build`
 5. `npm publish`
-6. `git push`
+6. `git push --tags`
 
 ## Установка конфига для публикации для публикации вручную
 
