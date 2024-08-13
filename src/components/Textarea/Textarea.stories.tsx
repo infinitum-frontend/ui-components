@@ -23,9 +23,7 @@ const meta: Meta<typeof Textarea> = {
 export default meta
 
 const Template: StoryFn<typeof Textarea> = (args) => {
-  return (
-    <Textarea {...args} value={undefined} onBlur={() => console.log('blur')} />
-  )
+  return <Textarea {...args} value={undefined} />
 }
 
 export const Playground = {
