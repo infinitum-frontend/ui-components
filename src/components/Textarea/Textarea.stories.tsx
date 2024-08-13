@@ -23,7 +23,9 @@ const meta: Meta<typeof Textarea> = {
 export default meta
 
 const Template: StoryFn<typeof Textarea> = (args) => {
-  return <Textarea {...args} value={undefined} />
+  return (
+    <Textarea {...args} value={undefined} onBlur={() => console.log('blur')} />
+  )
 }
 
 export const Playground = {
@@ -43,9 +45,4 @@ export const Block = {
 export const Resizable = {
   render: Template,
   args: { resize: 'both' }
-}
-
-export const WithTrim = {
-  render: Template,
-  args: { trim: true }
 }
