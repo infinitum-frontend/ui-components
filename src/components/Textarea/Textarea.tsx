@@ -1,13 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, {
-  FocusEventHandler,
   FormEvent,
   FormEventHandler,
   ReactElement,
   TextareaHTMLAttributes,
-  useContext,
-  useRef,
-  useState
+  useContext
 } from 'react'
 import cn from 'classnames'
 import './Textarea.scss'
@@ -19,13 +16,12 @@ import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers
 export interface TextareaProps
   extends Omit<
     TextareaHTMLAttributes<HTMLTextAreaElement>,
-    'onInput' | 'onChange' | 'onBlur'
+    'onInput' | 'onChange'
   > {
   /** Значение */
   value?: string
   onInput?: (value: string, event: FormEvent<HTMLTextAreaElement>) => void
   onChange?: (value: string, event: FormEvent<HTMLTextAreaElement>) => void
-  onBlur?: FocusEventHandler<HTMLTextAreaElement>
   /** Состояние (ошибка) */
   status?: 'error'
   /**
@@ -48,8 +44,6 @@ export interface TextareaProps
    * @default false
    */
   block?: boolean
-  /** Вырезать пробельные символы с концов строки при blur */
-  trim?: boolean
 }
 
 /** Компонент ввода для написания объемного текста */
@@ -58,28 +52,21 @@ const Textarea = ({
   block = false,
   disabled: disabledProp = false,
   placeholder = 'Введите значение',
-  trim = true,
   defaultValue,
   value,
   className,
   status,
   onInput,
   onChange,
-  onBlur,
   id,
   required = false,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   ...props
 }: TextareaProps): ReactElement => {
-  // обработка состояния
-  const [isFocused, setFocus] = useState(false)
-
   const formData = useContext(FormContext)
   const formGroupData = useContext(FormGroupContext)
   const { onControlChange, onControlInvalid } = useFormControlHandlers()
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const disabled = disabledProp || formData?.disabled
 
@@ -91,15 +78,6 @@ const Textarea = ({
     onInput?.(domValue, e)
   }
 
-  const handleBlur: FocusEventHandler<HTMLTextAreaElement> = (e) => {
-    if (textareaRef.current && trim) {
-      textareaRef.current.value = (e.target as HTMLTextAreaElement).value.trim()
-    }
-
-    setFocus(false)
-    onBlur?.(e)
-  }
-
   const classNames = cn(
     'inf-textarea',
     TextFieldClasses.main,
@@ -108,8 +86,7 @@ const Textarea = ({
     {
       'inf-textarea--block': block,
       [TextFieldClasses.status[status as 'error']]: status,
-      [`inf-textarea--resize-${resize as string}`]: resize,
-      [TextFieldClasses.focused]: isFocused
+      [`inf-textarea--resize-${resize as string}`]: resize
     }
   )
 
@@ -121,10 +98,8 @@ const Textarea = ({
       value={value}
       id={id || formGroupData?.id}
       onChange={handleChange}
-      onBlur={handleBlur}
       onInvalid={onControlInvalid}
       disabled={disabled}
-      ref={textareaRef}
       required={formGroupData?.required || required}
       aria-required={formGroupData?.required || ariaRequired}
       aria-invalid={formGroupData?.invalid || ariaInvalid}

@@ -46,8 +46,6 @@ export interface InputProps
   onPostfixClick?: (value?: string) => void
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
-  /** Вырезать пробельные символы с концов строки при blur */
-  trim?: boolean
   onClear?: () => void
   /**
    * Функция, применяющаяся для форматирования значения

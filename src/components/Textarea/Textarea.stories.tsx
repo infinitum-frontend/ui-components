@@ -44,8 +44,3 @@ export const Resizable = {
   render: Template,
   args: { resize: 'both' }
 }
-
-export const WithTrim = {
-  render: Template,
-  args: { trim: true }
-}
