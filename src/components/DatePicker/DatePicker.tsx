@@ -8,7 +8,6 @@ import React, {
 } from 'react'
 import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
 import {
-  autoUpdate,
   flip,
   FloatingFocusManager,
   FloatingPortal,
@@ -64,7 +63,6 @@ const DatePicker = ({
     open: isOpened,
     onOpenChange: setOpened,
     placement: 'bottom-start',
-    whileElementsMounted: autoUpdate,
     middleware: [offset(4), flip()]
   })
 
