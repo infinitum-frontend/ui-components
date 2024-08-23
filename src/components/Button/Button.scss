@@ -44,7 +44,7 @@
     }
 
     &:disabled,
-    .inf-button--disabled {
+    &.inf-button--disabled {
       background-color: var(--inf-color-background-button-primary-disabled);
     }
   }
@@ -62,7 +62,7 @@
     }
 
     &:disabled,
-    .inf-button--disabled {
+    &.inf-button--disabled {
       color: var(--inf-color-text-info-disabled);
     }
   }
@@ -80,7 +80,7 @@
     }
 
     &:disabled,
-    .inf-button--disabled {
+    &.inf-button--disabled {
       color: var(--inf-color-text-info-disabled);
     }
   }
