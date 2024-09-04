@@ -42,15 +42,12 @@ const Label = ({
   variant = 'neutral',
   withIcon = false,
   before,
+  className,
   ...props
 }: LabelProps): ReactElement => {
   return (
     <span
-      className={cn(
-        props.className,
-        'inf-label',
-        `inf-label--variant-${variant}`
-      )}
+      className={cn(className, 'inf-label', `inf-label--variant-${variant}`)}
       {...props}
     >
       {withIcon && (
