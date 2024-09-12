@@ -6,11 +6,11 @@ import { mapRowToExternalFormat } from 'Components/Table/helpers'
 import { Virtualizer, notUndefined } from '@tanstack/react-virtual'
 import TableBodyTr from 'Components/Table/components/TableBody/TableBodyTr'
 
-export interface TableBodyProps {
+export interface TableBodyProps<T extends Record<any, any>> {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
-  rows: Array<Row<any>>
-  selectedRow?: string | number | ((row: TableRow<any>) => boolean)
-  onRowClick?: (row: TableRow<any>) => void
+  rows: Array<Row<T>>
+  selectedRow?: string | number | ((row: TableRow<T>) => boolean)
+  onRowClick?: (row: TableRow<T>) => void
   verticalAlignBody?: TableVerticalAlignValue
   virtualizer?: Virtualizer<HTMLDivElement, Element>
   // columns?: Array<ColumnDef<any>>
@@ -28,16 +28,16 @@ const checkSelected = (
   }
 }
 
-const TableBody = ({
+const TableBody = <T extends Record<any, any>>({
   rows,
   selectedRow,
   onRowClick,
   verticalAlignBody,
   virtualizer
-}: TableBodyProps): ReactElement => {
+}: TableBodyProps<T>): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
-    row: Row<any>
+    row: Row<T>
   ): void => {
     // клик на ряд срабатывает только в случае, если клик был на элемент внутри ячейки таблицы
     if (!(e.target as HTMLElement).closest('td')) {
