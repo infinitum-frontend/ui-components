@@ -6,10 +6,14 @@ import { Form } from 'Components/Form'
 import { Button } from 'Components/Button'
 import { Input } from 'Components/Input'
 import { SelectOption } from 'Components/Select'
+import { useState } from 'react'
 
 const meta: Meta<typeof Combobox> = {
   title: 'Form/Combobox',
-  component: Combobox
+  component: Combobox,
+  args: {
+    onSearch: undefined
+  }
 }
 
 const options: SelectOption[] = []
@@ -99,6 +103,29 @@ export const InForm: StoryObj<typeof Combobox> = {
 
         <Button type="submit">Button</Button>
       </Form>
+    )
+  }
+}
+
+export const WithOuterSearch: StoryObj<typeof Combobox> = {
+  render: (args) => {
+    const [search, setSearch] = useState('')
+    const [selectedValues, setSelectedValues] = React.useState<CheckedItem[]>(
+      []
+    )
+
+    return (
+      <>
+        <code>Значение поиска: {search}</code>
+        <Combobox
+          {...args}
+          options={options}
+          checkedList={selectedValues}
+          search={search}
+          onSearch={setSearch}
+          onChange={setSelectedValues}
+        />
+      </>
     )
   }
 }

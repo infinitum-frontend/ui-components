@@ -24,6 +24,8 @@ export interface ComboboxProps
   showTags?: boolean
   /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
+  search?: string
+  onSearch?: (search: string) => void
 }
 
 const filterFn = (options: SelectOption[], value: string): SelectOption[] =>
@@ -39,6 +41,8 @@ const Combobox = ({
   showTags,
   displayValue,
   maxHeight,
+  search,
+  onSearch,
   ...props
 }: ComboboxProps): ReactElement => {
   const [filteredOptions, setFilteredOptions] = useState(options)
@@ -46,7 +50,7 @@ const Combobox = ({
 
   useUpdateEffect(() => {
     setFilteredOptions(filterFn(options, searchQuery))
-  }, [options])
+  }, [options, searchQuery])
 
   const checkedOptions = options.filter((option) => {
     return checkedList.some((item) => item === option.value)
@@ -117,8 +121,8 @@ const Combobox = ({
 
       <Autocomplete.Dropdown>
         <Autocomplete.Input
-          value={searchQuery}
-          onChange={handleSearchChange}
+          value={search ?? searchQuery}
+          onChange={onSearch ?? handleSearchChange}
           allowClear={true}
           onClear={() => {
             setSearchQuery('')
