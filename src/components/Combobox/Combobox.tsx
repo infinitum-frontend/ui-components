@@ -26,6 +26,7 @@ export interface ComboboxProps
   maxHeight?: number
   search?: string
   onSearch?: (search: string) => void
+  disabled?: boolean
 }
 
 const filterFn = (options: SelectOption[], value: string): SelectOption[] =>
@@ -43,6 +44,7 @@ const Combobox = ({
   maxHeight,
   search,
   onSearch,
+  disabled,
   ...props
 }: ComboboxProps): ReactElement => {
   const [filteredOptions, setFilteredOptions] = useState(options)
@@ -82,6 +84,7 @@ const Combobox = ({
     <Autocomplete
       className="inf-combobox"
       {...props}
+      disabled={disabled}
       selectedValue={checkedList[0]}
     >
       <Autocomplete.Button placeholder={placeholder}>
@@ -112,7 +115,11 @@ const Combobox = ({
           wrap
         >
           {checkedOptions.map((option, index) => (
-            <Tag key={option.value} onRemove={() => handleRemove(option.value)}>
+            <Tag
+              key={option.value}
+              onRemove={() => handleRemove(option.value)}
+              disabled={disabled}
+            >
               {option.label}
             </Tag>
           ))}

@@ -83,6 +83,7 @@ export const InForm: StoryObj<typeof Combobox> = {
         onSubmit={(e) => {
           alert('submit')
         }}
+        disabled
       >
         <Form.Group required>
           <Form.Label>Name</Form.Label>

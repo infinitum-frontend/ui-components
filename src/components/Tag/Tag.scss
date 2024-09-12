@@ -17,6 +17,10 @@
     margin: -6px;
     transition: color 0.2s;
 
+    &:disabled {
+      pointer-events: none;
+    }
+
     @include hover {
       color: var(--inf-color-text-secondary);
     }

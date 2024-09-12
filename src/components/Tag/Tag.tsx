@@ -6,19 +6,21 @@ import './Tag.scss'
 
 export interface TagProps {
   onRemove?: () => void
+  disabled?: boolean
 }
 
 /** Tag */
 const Tag = forwardRef<
   HTMLSpanElement,
   ComponentPropsWithoutRef<'span'> & TagProps
->(({ children, className, onRemove, ...props }, ref) => {
+>(({ children, className, onRemove, disabled, ...props }, ref) => {
   return (
     <span ref={ref} className={cn('inf-tag', className)} {...props}>
       {children}
       {onRemove && (
         <button
           className="inf-tag__remove-button"
+          disabled={disabled}
           onClick={onRemove}
           type="button"
         >
