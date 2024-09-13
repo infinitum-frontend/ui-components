@@ -83,7 +83,6 @@ export const InForm: StoryObj<typeof Combobox> = {
         onSubmit={(e) => {
           alert('submit')
         }}
-        disabled
       >
         <Form.Group required>
           <Form.Label>Name</Form.Label>
@@ -124,6 +123,27 @@ export const WithOuterSearch: StoryObj<typeof Combobox> = {
           checkedList={selectedValues}
           search={search}
           onSearch={setSearch}
+          onChange={setSelectedValues}
+        />
+      </>
+    )
+  }
+}
+
+export const Disabled: StoryObj<typeof Combobox> = {
+  render: (args) => {
+    const [selectedValues, setSelectedValues] = React.useState<CheckedItem[]>(
+      options.slice(0, 3).map((o) => o.value)
+    )
+
+    return (
+      <>
+        <Combobox
+          {...args}
+          disabled
+          showTags
+          options={options}
+          checkedList={selectedValues}
           onChange={setSelectedValues}
         />
       </>
