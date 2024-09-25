@@ -181,7 +181,11 @@ export const RequiredControlledVariant: StoryObj<typeof Autocomplete> = {
       <Form onSubmit={handleSubmit}>
         <Form.Group required>
           <Form.Label>Поле</Form.Label>
-          <Autocomplete opened={open} onOpenChange={(value) => setOpen(value)}>
+          <Autocomplete
+            selectedValue={selectedItem}
+            opened={open}
+            onOpenChange={(value) => setOpen(value)}
+          >
             <Autocomplete.Button placeholder={'Выберите услугу'}>
               {
                 AutocompleteBaseOptions.find(
