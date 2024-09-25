@@ -2,7 +2,6 @@
 import React, { ReactElement, useEffect, useMemo } from 'react'
 import {
   Column,
-  ColumnDef,
   ColumnMeta,
   ColumnResizeMode,
   getCoreRowModel,
@@ -10,7 +9,8 @@ import {
   OnChangeFn as TanstackOnChangeFn,
   RowSelectionState,
   SortingState,
-  useReactTable
+  useReactTable,
+  VisibilityState
 } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeader from './components/TableHeader'
@@ -29,10 +29,11 @@ import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
 import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'
+import { TableColumnDef } from '.'
 
 export interface TableProps extends TableBaseProps {
   /** Массив с данными для построения шапки таблицы */
-  columns?: Array<ColumnDef<any, any>>
+  columns?: Array<TableColumnDef<any>>
   /** Массив с данными для построения тела таблицы */
   rows?: Array<TableRowData<any>>
   /** Скругление границ таблицы */
@@ -204,11 +205,24 @@ const Table = ({
           }
         },
         ...columns
-      ] as Array<ColumnDef<any>>
+      ] as Array<TableColumnDef<any>>
     }
 
     return columns
   }, [columns, withRowSelection])
+
+  const getTableColumnsVisibility = (
+    columns: Array<TableColumnDef<any>>
+  ): VisibilityState | undefined => {
+    columns.forEach((column) => {
+      if (column.isInvisible) {
+        columnVisibility[column.id as string] = Boolean(
+          !columnVisibility[column.id as string]
+        )
+      }
+    })
+    return columnVisibility
+  }
 
   const table = useReactTable({
     data: rows,
@@ -218,7 +232,7 @@ const Table = ({
     state: {
       rowSelection: tanstackSelectionState,
       sorting: sortingState,
-      columnVisibility
+      columnVisibility: getTableColumnsVisibility(memoizedColumns)
     },
     manualFiltering: true,
     // manualGrouping: enableGrouping,

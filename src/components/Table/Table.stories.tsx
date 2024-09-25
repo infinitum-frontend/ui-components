@@ -1,6 +1,6 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { Table, TableRow } from './index'
-import { ColumnDef, SortingState } from '@tanstack/react-table'
+import { Table, TableColumnDef, TableRow } from './index'
+import { SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
 import { Portfolio, TABLE_DATA } from './fixtures'
@@ -16,7 +16,7 @@ const meta: Meta<typeof Table> = {
   }
 }
 
-const columns: Array<ColumnDef<Portfolio, any>> = [
+const columns: Array<TableColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
     id: 'portfolio',
@@ -46,6 +46,13 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     id: 'date',
     accessorKey: 'date',
     enableSorting: true
+  },
+  {
+    header: 'Скрытая видимость колонки',
+    id: 'invisible',
+    accessorKey: 'invisible',
+    enableSorting: true,
+    isInvisible: true
   }
 ]
 

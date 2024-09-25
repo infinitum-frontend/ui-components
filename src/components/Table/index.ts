@@ -4,10 +4,18 @@ import {
   createColumn,
   createCell,
   SortingState,
-  ColumnDef
+  ColumnDef,
+  RowData
 } from '@tanstack/react-table'
 import Table from './Table'
 import { OnChangeFn } from 'Utils/types'
+
+type MyColumnDef<TData extends RowData, TValue = unknown> = ColumnDef<
+  TData,
+  TValue
+> & {
+  isInvisible?: boolean
+}
 
 // TODO: стандартизировать список экспортов. Добавить нужные при необходимости
 export * from './types'
@@ -21,5 +29,5 @@ export type {
   OnChangeFn,
   CellContext as TableCellContext,
   SortingState as TableSortingState,
-  ColumnDef as TableColumnDef
+  MyColumnDef as TableColumnDef
 }
