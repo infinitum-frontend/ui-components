@@ -4,28 +4,38 @@
   padding: var(--inf-space-small);
 
   &--variant-info {
-    color: var(--inf-color-blue-500);
-    background-color: var(--inf-color-blue-100);
+    color: var(--inf-color-text-info);
+    background-color: var(--inf-color-bg-info-secondary);
   }
 
   &--variant-danger {
-    color: var(--inf-color-danger);
-    background-color: var(--inf-color-orange-100);
+    color: var(--inf-color-text-error);
+    background-color: var(--inf-color-bg-error-secondary);
   }
 
   &--variant-success {
-    color: var(--inf-color-success);
-    background-color: var(--inf-color-green-100);
+    color: var(--inf-color-text-success);
+    background-color: var(--inf-color-bg-success-secondary);
   }
 
   &--variant-warning {
-    color: var(--inf-color-yellow-300);
-    background-color: var(--inf-color-yellow-100);
+    color: var(--inf-color-text-warning);
+    background-color: var(--inf-color-bg-warning-secondary);
   }
 
   &--variant-neutral {
-    color: var(--inf-color-gray-500);
-    background-color: var(--inf-color-background-secondary);
+    color: var(--inf-color-text);
+    background-color: var(--inf-color-bg-secondary);
+  }
+
+  &--variant-violet {
+    color: var(--inf-color-text-violet);
+    background-color: var(--inf-color-bg-violet-secondary);
+  }
+
+  &--variant-teal {
+    color: var(--inf-color-text-teal);
+    background-color: var(--inf-color-bg-teal-secondary);
   }
 
   &__before {

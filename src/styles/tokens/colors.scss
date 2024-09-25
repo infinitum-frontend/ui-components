@@ -78,8 +78,20 @@
   --inf-color-text-danger: var(--inf-color-danger);
   --inf-color-text-on-color: var(--inf-color-white);
 
+  --inf-color-text: #6E6E6E;
+
   --inf-color-text-info: #0564b7;
   --inf-color-text-info-disabled: #a2c6e4;
+
+  --inf-color-text-error: #DC3053;
+
+  --inf-color-text-success: #1F803D;
+
+  --inf-color-text-warning: #E5790D;
+
+  --inf-color-text-violet: #9D10D5;
+
+  --inf-color-text-teal: #00A6A6;
 
   /* Icon */
   --inf-color-icon: var(--inf-color-gray-800);
@@ -96,6 +108,13 @@
   --inf-color-background-disabled: var(--inf-color-gray-100);
   --inf-color-background-neutral: var(--inf-color-gray-300);
   --inf-color-background-info: var(--inf-color-blue-500);
+  --inf-color-bg-secondary: #F1F1F1;
+  --inf-color-bg-info-secondary: #eef4fa;
+  --inf-color-bg-error-secondary: #FDF1F3;
+  --inf-color-bg-success-secondary: #EFF6F1;
+  --inf-color-bg-warning-secondary: #FDF6EE;
+  --inf-color-bg-violet-secondary: #F8EEFC;
+  --inf-color-bg-teal-secondary: #EDF9F9;
   --inf-color-background-danger: var(--inf-color-orange-500);
   --inf-color-background-success: var(--inf-color-green-500);
   --inf-color-background-warning: #ffc256; // TODO: внести в палитру
