@@ -46,6 +46,26 @@ export const Playground: StoryObj<typeof UserMenu> = {
   }
 }
 
+export const WithNameOnly: StoryObj<typeof UserMenu> = {
+  render: ({ ...args }) => {
+    return <UserMenu {...args} />
+  },
+  decorators: [decorator],
+  args: {
+    fullName: 'Яндиев Руслан Асхабович'
+  }
+}
+
+export const WithLongName: StoryObj<typeof UserMenu> = {
+  render: ({ ...args }) => {
+    return <UserMenu {...args} />
+  },
+  decorators: [decorator],
+  args: {
+    fullName: 'Константинапооооольский Константин Константинович'
+  }
+}
+
 export const WithMenu: StoryObj<typeof UserMenu> = {
   render: ({ ...args }) => {
     return (
@@ -79,15 +99,5 @@ export const WithMenu: StoryObj<typeof UserMenu> = {
   args: {
     fullName: 'Яндиев Руслан Асхабович',
     role: 'Разработчик интерфейсов'
-  }
-}
-
-export const WithoutDropdown: StoryObj<typeof UserMenu> = {
-  render: ({ ...args }) => {
-    return <UserMenu {...args} />
-  },
-  decorators: [decorator],
-  args: {
-    fullName: 'Яндиев Руслан Асхабович'
   }
 }
