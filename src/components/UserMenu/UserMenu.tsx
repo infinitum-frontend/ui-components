@@ -18,7 +18,7 @@ export interface UserMenuProps {
   fullName: string
   role?: string
   className?: string
-  children: ReactNode | ((props: RenderChildrenProps) => ReactNode)
+  children?: ReactNode | ((props: RenderChildrenProps) => ReactNode)
 }
 
 /** Меню пользователя для отображения в хедере страницы */
@@ -39,8 +39,8 @@ const UserMenu = ({
     <Popover open={isOpen} onOpenChange={setOpen} placement="bottom-end">
       <Popover.Trigger>
         <Button
-          className={cn('inf-user-menu-button', className, {
-            'inf-user-menu-button--active': isOpen
+          className={cn('inf-user-menu__button', className, {
+            'inf-user-menu__button--active': isOpen
           })}
           {...props}
           onClick={() => setOpen(!isOpen)}
@@ -52,11 +52,20 @@ const UserMenu = ({
       <Popover.Content hasPadding={false} width="220px">
         <Box padding="medium">
           <Space gap="xxsmall">
-            <Text variant="heading-4" alignment="center">
+            <Text
+              className="inf-user-menu__full-name"
+              variant="heading-4"
+              alignment="center"
+            >
               {fullName}
             </Text>
             {role && (
-              <Text variant="body-1" color="secondary" alignment="center">
+              <Text
+                className="inf-user-menu__role"
+                variant="body-1"
+                color="secondary"
+                alignment="center"
+              >
                 {role}
               </Text>
             )}

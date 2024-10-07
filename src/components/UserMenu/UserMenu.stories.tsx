@@ -81,3 +81,13 @@ export const WithMenu: StoryObj<typeof UserMenu> = {
     role: 'Разработчик интерфейсов'
   }
 }
+
+export const WithoutDropdown: StoryObj<typeof UserMenu> = {
+  render: ({ ...args }) => {
+    return <UserMenu {...args} />
+  },
+  decorators: [decorator],
+  args: {
+    fullName: 'Яндиев Руслан Асхабович'
+  }
+}
