@@ -8,6 +8,7 @@ import { Space } from '../Space'
 import { Card } from '../Card'
 import { Container } from '../Container'
 import { Text } from '../Text'
+import { Button } from '../Button'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Layout/PageLayout',
@@ -104,7 +105,7 @@ export const CenteredContent: StoryFn<typeof PageLayout> = () => {
   )
 }
 
-export const FooterToBottom: StoryFn<typeof PageLayout> = () => {
+export const WithFooter: StoryFn<typeof PageLayout> = () => {
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -137,6 +138,41 @@ export const FooterToBottom: StoryFn<typeof PageLayout> = () => {
           </Space>
         </Space>
       </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+
+export const WithBottomBar: StoryFn<typeof PageLayout> = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Header containerSize="fluid">
+        <Space direction="horizontal" gap="xlarge" align="center">
+          <Logo style={{ width: '140px' }} />
+        </Space>
+      </PageLayout.Header>
+      <PageLayout.Body containerSize="fluid">
+        <PageLayout.Content extraPaddingBottom>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '48px'
+            }}
+          >
+            {[...Array(30)].map((e, i) => (
+              <div key={i}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+                voluptas totam alias incidunt veritatis iusto similique nesciunt
+                repudiandae sed numquam.
+              </div>
+            ))}
+          </div>
+        </PageLayout.Content>
+      </PageLayout.Body>
+
+      <PageLayout.BottomBar containerSize="fluid">
+        <Button>Кнопка</Button>
+      </PageLayout.BottomBar>
     </PageLayout>
   )
 }
