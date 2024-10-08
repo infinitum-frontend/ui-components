@@ -81,6 +81,8 @@
   --inf-color-text-info: #0564b7;
   --inf-color-text-info-disabled: #a2c6e4;
 
+  --inf-color-text-brand: #f64a4a;
+
   /* Icon */
   --inf-color-icon: var(--inf-color-gray-800);
   --inf-color-icon-secondary: var(--inf-color-gray-300);
@@ -99,6 +101,8 @@
   --inf-color-background-danger: var(--inf-color-orange-500);
   --inf-color-background-success: var(--inf-color-green-500);
   --inf-color-background-warning: #ffc256; // TODO: внести в палитру
+  --inf-color-background-brand-primary: #f64a4a; // TODO: использовать токены цветов
+  --inf-color-background-brand-secondary: #fef2f2; // TODO: использовать токены цветов
   --inf-color-background-button-primary: #f64a4a; // TODO: использовать токены цветов
   --inf-color-background-button-primary-hover: #e04545;
   --inf-color-background-button-primary-active: #c73f3f;
