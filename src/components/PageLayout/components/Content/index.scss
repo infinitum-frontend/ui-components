@@ -8,4 +8,14 @@
     justify-content: center;
     align-items: center;
   }
+
+  &--extra-padding-bottom {
+    padding-bottom: calc(
+      var(--inf-space-xxlarge) + var(--inf-height-bottom-bar)
+    );
+  }
+
+  &--collapse-padding-top {
+    padding-top: 0;
+  }
 }
