@@ -1,4 +1,4 @@
-import { ColumnMeta, RowData } from '@tanstack/react-table'
+import { ColumnMeta, RowData, ColumnDef } from '@tanstack/react-table'
 import { ColumnFilter as TanstackColumnFilter } from '@tanstack/table-core/build/lib/features/Filters'
 import { CSSProperties } from 'react'
 
@@ -81,3 +81,10 @@ export type TableVerticalAlignValue = Extract<
   | 'top',
   CSSProperties['verticalAlign']
 >
+
+export type TableColumnDef<TData extends RowData, TValue = unknown> = ColumnDef<
+  TData,
+  TValue
+> & {
+  isHidden?: boolean
+}

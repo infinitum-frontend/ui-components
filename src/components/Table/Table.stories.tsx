@@ -49,10 +49,10 @@ const columns: Array<TableColumnDef<Portfolio, any>> = [
   },
   {
     header: 'Скрытая видимость колонки',
-    id: 'invisible',
-    accessorKey: 'invisible',
+    id: 'hidden',
+    accessorKey: 'hidden',
     enableSorting: true,
-    isInvisible: true
+    isHidden: true
   }
 ]
 
@@ -237,7 +237,11 @@ export const Resizing: StoryObj<typeof Table> = {
 const getDefaultColumnsVisibility = (): Record<string, boolean> => {
   const result: Record<string, boolean> = {}
   columns.forEach((column) => {
-    result[column.id as string] = true
+    if (column.isHidden) {
+      result[column.id as string] = false
+    } else {
+      result[column.id as string] = true
+    }
   })
 
   return result
@@ -251,21 +255,23 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
     return (
       <Space>
         <Space direction="horizontal">
-          {columns.map((column) => (
-            <Checkbox
-              key={column.id}
-              // @ts-expect-error
-              checked={columnVisibility[column.id]}
-              onChange={(value) =>
-                setColumnVisibility((prev) => ({
-                  ...prev,
-                  [column.id as string]: value
-                }))
-              }
-            >
-              {column.header as string}
-            </Checkbox>
-          ))}
+          {columns
+            .filter((item) => !item.isHidden)
+            .map((column) => (
+              <Checkbox
+                key={column.id}
+                // @ts-expect-error
+                checked={columnVisibility[column.id]}
+                onChange={(value) =>
+                  setColumnVisibility((prev) => ({
+                    ...prev,
+                    [column.id as string]: value
+                  }))
+                }
+              >
+                {column.header as string}
+              </Checkbox>
+            ))}
         </Space>
         <Table
           columns={columns}

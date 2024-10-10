@@ -215,9 +215,9 @@ const Table = ({
     columns: Array<TableColumnDef<any>>
   ): VisibilityState | undefined => {
     columns.forEach((column) => {
-      if (column.isInvisible) {
+      if (column.isHidden) {
         columnVisibility[column.id as string] = Boolean(
-          !columnVisibility[column.id as string]
+          columnVisibility[column.id as string]
         )
       }
     })
