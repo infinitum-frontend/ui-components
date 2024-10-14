@@ -1,0 +1,19 @@
+.inf-scroll-y {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    background: #e7e7e7;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    width: 7px;
+    background-color: #c9c9c9;
+  }
+}

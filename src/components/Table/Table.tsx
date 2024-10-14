@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useEffect, useMemo } from 'react'
+import React, { ReactElement, ReactNode, useMemo, useRef } from 'react'
 import {
   Column,
   ColumnDef,
@@ -29,6 +29,7 @@ import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
 import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'
+import TableWithVirtualRows from './components/TableWithVirtualRows'
 
 export interface TableProps extends TableBaseProps {
   /** Массив с данными для построения шапки таблицы */
@@ -41,11 +42,6 @@ export interface TableProps extends TableBaseProps {
   verticalAlignHead?: TableVerticalAlignValue
   /** CSS свойство vertical-align для рядов */
   verticalAlignBody?: TableVerticalAlignValue
-  /**
-   * @deprecated
-   * Максимальное количество отображаемых элементов
-   */
-  maxLength?: number
   /** Включение сортировки по столбцам */
   withSorting?: boolean
   /** Начальное состояние сортировки */
@@ -86,6 +82,12 @@ export interface TableProps extends TableBaseProps {
    * имеющим булевы значения, отражающими видимость колонки
    */
   columnVisibility?: Record<string, boolean>
+  /**
+   * Включен ли скролл
+   * Применяется, если таблица наполняется всеми данными сразу
+   * Проп включает виртуализацию, позволяя рендерить только элементы, отображаемые на экране
+   */
+  scrollable?: boolean
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -98,7 +100,6 @@ const Table = ({
   borderRadius = 'small',
   verticalAlignHead = 'top',
   verticalAlignBody,
-  maxLength,
   withSorting,
   onSortingChange,
   sortingState = [],
@@ -114,6 +115,7 @@ const Table = ({
   columnVisibility = {},
   // enableGrouping = false,
   children,
+  scrollable,
   ...props
 }: TableProps): ReactElement => {
   if (children) {
@@ -227,37 +229,41 @@ const Table = ({
     // getSubRows: (row) => row?.subRows,
   })
 
-  const tableRows = maxLength
-    ? table.getRowModel().rows.slice(0, maxLength)
-    : table.getRowModel().rows
+  const tableRows = table.getRowModel().rows
 
   return (
-    <table
-      className={cn('inf-table', className, {
-        [`inf-table--border-radius-${borderRadius as string}`]: borderRadius,
-        'inf-table--bordered': props.bordered
-      })}
-      {...props}
-    >
-      <TableHeader
-        table={table}
-        withSorting={withSorting}
-        withFiltering={withFiltering}
-        sortingState={sortingState}
-        onSortingChange={handleSortingChange}
-        filtersState={filtersState}
-        onFiltersChange={handleFiltersChange}
-        resizeMode={resizeMode}
-        verticalAlignHead={verticalAlignHead}
-      />
-      <TableBody
-        rows={tableRows}
-        selectedRow={selectedRow}
-        onRowClick={onRowClick}
-        // grouping={enableGrouping}
-        verticalAlignBody={verticalAlignBody}
-      />
-    </table>
+    <TableWithVirtualRows rowsCount={tableRows.length} enabled={scrollable}>
+      {({ virtualizer }) => (
+        <table
+          className={cn('inf-table', className, {
+            [`inf-table--border-radius-${borderRadius as string}`]:
+              borderRadius,
+            'inf-table--bordered': props.bordered
+          })}
+          {...props}
+        >
+          <TableHeader
+            table={table}
+            withSorting={withSorting}
+            withFiltering={withFiltering}
+            sortingState={sortingState}
+            onSortingChange={handleSortingChange}
+            filtersState={filtersState}
+            onFiltersChange={handleFiltersChange}
+            resizeMode={resizeMode}
+            verticalAlignHead={verticalAlignHead}
+          />
+          <TableBody
+            rows={tableRows}
+            selectedRow={selectedRow}
+            onRowClick={onRowClick}
+            // grouping={enableGrouping}
+            verticalAlignBody={verticalAlignBody}
+            virtualizer={virtualizer}
+          />
+        </table>
+      )}
+    </TableWithVirtualRows>
   )
 }
 

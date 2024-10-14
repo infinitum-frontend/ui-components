@@ -1,9 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement } from 'react'
+import React, { CSSProperties, ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
 import { TableRow, TableVerticalAlignValue } from 'Components/Table/types'
 import { mapRowToExternalFormat } from 'Components/Table/helpers'
+import { VirtualItem, Virtualizer } from '@tanstack/react-virtual'
 
 interface TableBodyProps {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
@@ -11,6 +12,7 @@ interface TableBodyProps {
   selectedRow?: string | number | ((row: TableRow<any>) => boolean)
   onRowClick?: (row: TableRow<any>) => void
   verticalAlignBody?: TableVerticalAlignValue
+  virtualizer?: Virtualizer<HTMLDivElement, Element>
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
@@ -30,7 +32,8 @@ const TableBody = ({
   rows,
   selectedRow,
   onRowClick,
-  verticalAlignBody
+  verticalAlignBody,
+  virtualizer
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -43,9 +46,68 @@ const TableBody = ({
 
     onRowClick?.(mapRowToExternalFormat(row))
   }
+
+  // if (virtualizer) {
+  //   return (
+  //     <tbody>
+  //       {virtualizer.getVirtualItems().map((virtualRow, index) => {
+  //         const row = rows[virtualRow.index]
+  //         return (
+  //           <tr
+  //             key={row.id}
+  //             className={cn(row.original.className, {
+  //               [`inf-table--vertical-align-${verticalAlignBody as string}`]:
+  //               verticalAlignBody,
+  //               'inf-table__row--selected': checkSelected(
+  //                 mapRowToExternalFormat(row),
+  //                 selectedRow
+  //               ),
+  //               'inf-table__row--interactive': Boolean(onRowClick)
+  //             })}
+  //             style={{
+  //               height: `${virtualRow.size}px`,
+  //               transform: `translateY(${
+  //                 virtualRow.start - index * virtualRow.size
+  //               }px)`,
+  //             }}
+  //             onClick={(e) => handleRowClick(e, row)}
+  //           >
+  //             {row.getVisibleCells().map((cell) => {
+  //               return (
+  //                 <td key={cell.id}>
+  //                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
+  //                 </td>
+  //               )
+  //             })}
+  //           </tr>
+  //         )
+  //       })}
+  //     </tbody>
+  //   )
+  // }
+
+  const rowsToRender = virtualizer?.getVirtualItems() || rows
+
+  const getStylesForVirtualRow = (
+    virtualRow: VirtualItem,
+    index: number
+  ): CSSProperties => {
+    if (!virtualizer) {
+      return {}
+    }
+
+    return {
+      height: `${virtualRow.size}px`,
+      transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`
+    }
+  }
   return (
     <tbody>
-      {rows.map((row) => {
+      {rowsToRender.map((rowToRender, index) => {
+        const row = virtualizer
+          ? rows[rowToRender.index]
+          : (rowToRender as Row<any>)
+
         return (
           <tr
             key={row.id}
@@ -58,7 +120,10 @@ const TableBody = ({
               ),
               'inf-table__row--interactive': Boolean(onRowClick)
             })}
-            style={row.original.style}
+            style={{
+              ...row.original.style,
+              ...getStylesForVirtualRow(rowToRender as VirtualItem, index)
+            }}
             onClick={(e) => handleRowClick(e, row)}
           >
             {row.getVisibleCells().map((cell) => (

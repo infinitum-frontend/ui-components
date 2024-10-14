@@ -1,41 +1,1 @@
-@import './mixins.scss';
-@import './reset.scss';
-@import './fonts.scss';
-@import './tokens/index.scss';
-@import './common/textField.scss';
-
-html,
-body {
-  height: 100%;
-}
-
-#storybook-root {
-  height: 100%;
-}
-
-body {
-  background-color: var(--inf-color-background-body);
-  color: var(--inf-color-text-primary);
-  font-family: var(--inf-font-family-base);
-}
-
-.inf-ui-test-theme {
-  --inf-font-h1: 500 60px / 60px Arial;
-  --inf-font-h2: 500 40px / 40px Arial;
-  --inf-font-h3: 500 30px / 30px Arial;
-  --inf-font-h4: 500 20px / 20px Arial;
-}
-
-.inf-ui-theme-dark {
-  --inf-color-text-primary: #eee;
-  --inf-color-text-secondary: #ddd;
-  --inf-color-text-inverse: #111;
-  --inf-color-background-body: #333;
-  --inf-color-background-default: #222;
-  --inf-color-background-secondary: #333;
-  --inf-color-background-hover: #555;
-  --inf-color-background-inverse: #ddd;
-  --inf-color-primary: var(--inf-color-red-500);
-  --inf-color-primary-hover: var(--inf-color-red-400);
-  --inf-color-border-default: #444;
-}
+@import './mixins.scss';@import './reset.scss';@import './fonts.scss';@import './tokens/index.scss';@import './common/textField.scss';@import './common/scroll.scss';html,body {  height: 100%;}#storybook-root {  height: 100%;}body {  background-color: var(--inf-color-background-body);  color: var(--inf-color-text-primary);  font-family: var(--inf-font-family-base);}.inf-ui-test-theme {  --inf-font-h1: 500 60px / 60px Arial;  --inf-font-h2: 500 40px / 40px Arial;  --inf-font-h3: 500 30px / 30px Arial;  --inf-font-h4: 500 20px / 20px Arial;}.inf-ui-theme-dark {  --inf-color-text-primary: #eee;  --inf-color-text-secondary: #ddd;  --inf-color-text-inverse: #111;  --inf-color-background-body: #333;  --inf-color-background-default: #222;  --inf-color-background-secondary: #333;  --inf-color-background-hover: #555;  --inf-color-background-inverse: #ddd;  --inf-color-primary: var(--inf-color-red-500);  --inf-color-primary-hover: var(--inf-color-red-400);  --inf-color-border-default: #444;}
