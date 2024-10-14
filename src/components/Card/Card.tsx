@@ -6,7 +6,7 @@ import './Card.scss'
 
 export interface CardProps {
   size?: 'small' | 'medium' | 'large'
-  variant?: 'shadow' | 'outline'
+  variant?: 'shadow' | 'outline' | 'raised'
   hoverable?: boolean
   disabled?: boolean
   outlineVariant?: 'danger'

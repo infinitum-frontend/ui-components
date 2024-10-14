@@ -17,34 +17,34 @@
   }
 
   &--variant-default {
-    background-color: var(--inf-color-background-default);
+    background-color: var(--inf-color-background-elevated);
     color: var(--inf-color-text-primary);
-    border: 1px solid var(--inf-color-border-default);
+    border: 1px solid var(--inf-color-border-primary);
 
     .inf-popover-content__arrow {
-      background-color: var(--inf-color-background-default);
+      background-color: var(--inf-color-background-elevated);
 
       &--direction-bottom {
-        border-right: 1px solid var(--inf-color-border-default);
-        border-bottom: 1px solid var(--inf-color-border-default);
+        border-right: 1px solid var(--inf-color-border-primary);
+        border-bottom: 1px solid var(--inf-color-border-primary);
         margin-bottom: -1px;
       }
 
       &--direction-top {
-        border-top: 1px solid var(--inf-color-border-default);
-        border-left: 1px solid var(--inf-color-border-default);
+        border-top: 1px solid var(--inf-color-border-primary);
+        border-left: 1px solid var(--inf-color-border-primary);
         margin-top: -1px;
       }
 
       &--direction-right {
-        border-right: 1px solid var(--inf-color-border-default);
-        border-top: 1px solid var(--inf-color-border-default);
+        border-right: 1px solid var(--inf-color-border-primary);
+        border-top: 1px solid var(--inf-color-border-primary);
         margin-right: -1px;
       }
 
       &--direction-left {
-        border-left: 1px solid var(--inf-color-border-default);
-        border-bottom: 1px solid var(--inf-color-border-default);
+        border-left: 1px solid var(--inf-color-border-primary);
+        border-bottom: 1px solid var(--inf-color-border-primary);
         margin-left: -1px;
       }
     }

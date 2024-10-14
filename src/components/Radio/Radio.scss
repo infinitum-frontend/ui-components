@@ -31,11 +31,13 @@
     width: 16px;
     height: 16px;
     flex-shrink: 0;
-    border: 1px solid var(--inf-radio-color-border);
+    border: 1px solid var(--inf-color-border-primary); // TODO: нужны ли эти стили если используется компонент Box
     border-radius: 50%;
 
     &--disabled {
-      border-color: var(--inf-radio-color-border-disabled);
+      border-color: var(
+        --inf-radio-color-border-disabled
+      ); // TODO: не работает, так как используется Box
       cursor: unset;
     }
   }

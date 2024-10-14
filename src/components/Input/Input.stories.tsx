@@ -185,6 +185,15 @@ export const WithClearButton = {
   }
 }
 
+export const WithError = {
+  render: Template,
+
+  args: {
+    value: 'Инфинитум',
+    status: 'error'
+  }
+}
+
 export const Formatter: StoryObj<typeof Input> = {
   render: (args) => {
     const [value, setValue] = useState<string | undefined>('')
@@ -197,7 +206,7 @@ export const Formatter: StoryObj<typeof Input> = {
     return <Input formatter={formatter} value={value} onChange={handleChange} />
   }
 }
-
+// TODO: нужен ли этот компонент?
 export const Search: StoryObj<typeof SearchInput> = {
   render: (args) => {
     return <SearchInput {...args} />

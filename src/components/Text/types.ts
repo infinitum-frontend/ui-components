@@ -63,6 +63,7 @@ export type TextColor =
   | 'tertiary'
   | 'link'
   | 'success'
-  | 'danger'
+  | 'danger' // deprecated, use "error"
+  | 'error'
   | 'warning'
   | 'inverse'

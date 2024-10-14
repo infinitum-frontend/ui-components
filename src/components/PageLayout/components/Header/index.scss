@@ -2,8 +2,8 @@
   z-index: var(--inf-z-index-header);
   min-height: var(--inf-height-header);
   height: var(--inf-height-header);
-  background-color: var(--inf-color-background-default);
-  border-bottom: 1px solid var(--inf-color-border-default);
+  background-color: var(--inf-color-background-primary);
+  border-bottom: 1px solid var(--inf-color-border-primary);
 
   &--sticky {
     position: sticky;

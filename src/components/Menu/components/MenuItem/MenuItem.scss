@@ -27,7 +27,7 @@
   }
 
   &:hover {
-    background-color: var(--inf-control-background-color-hover);
+    background-color: var(--inf-color-background-primary-hover);
   }
 
   &--disabled {
@@ -36,7 +36,7 @@
   }
 
   &--active {
-    border-left: 2px solid var(--inf-color-primary);
+    border-left: 2px solid var(--inf-color-background-brand-primary);
   }
 
   &--nested {

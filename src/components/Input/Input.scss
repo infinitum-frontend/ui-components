@@ -48,17 +48,17 @@
   }
 
   &__clear-button {
-    transition: var(--inf-transition_duration);
-    color: var(--inf-color-icon-secondary);
+    transition: color 0.2;
+    color: var(--inf-color-icon-primary);
 
     @include hover {
-      color: var(--inf-color-gray-200);
+      color: var(--inf-color-icon-primary-hover);
     }
   }
 }
 
 .inf-search-input {
   &__icon {
-    color: #738f99;
+    color: var(--inf-color-icon-primary);
   }
 }

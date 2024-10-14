@@ -8,7 +8,7 @@ export interface SearchInputProps
   extends Omit<InputProps, 'noBorder' | 'prefix' | 'onClick' | 'type'> {
   onClick?: (value?: string) => void
 }
-
+// TODO: нужен ли этот компонент?
 const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
   ({ onClick, ...props }, ref): ReactElement => {
     return (

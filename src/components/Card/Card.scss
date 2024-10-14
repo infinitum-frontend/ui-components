@@ -1,5 +1,5 @@
 .inf-card {
-  background-color: var(--inf-color-background-default);
+  background-color: var(--inf-color-background-primary);
   display: block;
   transition: border-color 0.2s;
 
@@ -18,31 +18,36 @@
     border-radius: var(--inf-border-radius-medium);
   }
 
+  &--variant-raised {
+    box-shadow: var(--inf-box-shadow-medium);
+    background-color: var(--inf-color-background-elevated);
+  }
+
   &--variant-shadow {
     box-shadow: var(--inf-box-shadow-medium);
   }
 
   &--variant-outline {
-    border: 1px solid var(--inf-color-border-default);
+    border: 1px solid var(--inf-color-border-primary);
   }
 
   &--outline-danger {
-    border: 2px solid var(--inf-color-border-danger);
+    border: 2px solid var(--inf-color-border-error);
   }
 
   &--hoverable {
     @include hover {
-      border-color: var(--inf-color-border-hover);
+      border-color: var(--inf-color-border-primary-hover);
     }
   }
 
   &--disabled {
     background-color: var(--inf-color-background-secondary);
-    border-color: var(--inf-color-background-secondary);
+    border-color: var(--inf-color-border-primary); // TODO: взять токен border
     cursor: not-allowed;
 
     @include hover {
-      border-color: var(--inf-color-background-secondary);
+      border-color: var(--inf-color-border-primary);
     }
   }
 }
