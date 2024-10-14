@@ -1,4 +1,10 @@
 .inf-table-header {
+  &--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
   &__item {
     display: flex;
 
@@ -43,7 +49,16 @@
     }
   }
 
-  $vertical-align-values: ("baseline", "bottom", "middle", "sub", "super", "text-bottom", "text-top", "top");
+  $vertical-align-values: (
+    'baseline',
+    'bottom',
+    'middle',
+    'sub',
+    'super',
+    'text-bottom',
+    'text-top',
+    'top'
+  );
 
   @mixin vertical-align($vertical-align-value) {
     &--vertical-align-#{$vertical-align-value} th {

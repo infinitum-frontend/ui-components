@@ -117,6 +117,7 @@
     "vitest": "^0.34.6"
   },
   "dependencies": {
+    "@radix-ui/react-scroll-area": "^1.2.0",
     "@tanstack/react-virtual": "^3.10.8"
   }
 }

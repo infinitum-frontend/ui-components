@@ -88,6 +88,7 @@ export interface TableProps extends TableBaseProps {
    * Проп включает виртуализацию, позволяя рендерить только элементы, отображаемые на экране
    */
   scrollable?: boolean
+  stickyHeader?: boolean
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -116,6 +117,7 @@ const Table = ({
   // enableGrouping = false,
   children,
   scrollable,
+  stickyHeader,
   ...props
 }: TableProps): ReactElement => {
   if (children) {
@@ -243,6 +245,7 @@ const Table = ({
           {...props}
         >
           <TableHeader
+            sticky={stickyHeader || scrollable}
             table={table}
             withSorting={withSorting}
             withFiltering={withFiltering}

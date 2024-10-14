@@ -1,7 +1,8 @@
 import { ReactElement, useRef } from 'react'
 import { useVirtualizer, Virtualizer } from '@tanstack/react-virtual'
-import './TableWithVirtualRows.scss'
+import ScrollArea from 'Components/ScrollArea'
 
+const defaultRowHeight = 65
 interface RenderProps {
   virtualizer?: Virtualizer<HTMLDivElement, Element>
 }
@@ -21,23 +22,30 @@ const TableWithVirtualRows = ({
   }
   const ref = useRef<HTMLDivElement>(null)
 
+  const tableHeaderHeight =
+    ref.current?.querySelector('table thead')?.clientHeight || 0
+
+  const rowHeight =
+    ref.current?.querySelector('table tbody tr')?.clientHeight ||
+    defaultRowHeight
+
   const virtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => ref.current,
-    estimateSize: () => 65, // TODO: считать размер ряда
+    estimateSize: (index) => rowHeight,
     overscan: 5 // TODO: прокидывать кастомизацию
   })
+
   return (
-    <div className="inf-table-with-virtual-rows">
-      <div
-        ref={ref}
-        className="inf-scroll-y inf-table-with-virtual-rows__container"
-      >
+    <ScrollArea
+      scrollbarStyle={{ top: `${tableHeaderHeight + 1}px`, right: '0px' }}
+    >
+      <div ref={ref}>
         <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
           {children?.({ virtualizer })}
         </div>
       </div>
-    </div>
+    </ScrollArea>
   )
 }
 
