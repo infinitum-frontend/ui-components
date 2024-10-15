@@ -9,6 +9,14 @@ export const parameters = {
     }
   },
 
+  themes: {
+    default: 'light',
+    list: [
+      { name: 'light', class: 'inf-ui-theme-light' },
+      { name: 'dark', class: 'inf-ui-theme-dark' }
+    ]
+  },
+
   backgrounds: {
     default: 'clean',
     values: [

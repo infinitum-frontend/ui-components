@@ -31,19 +31,28 @@
     top: 0;
     height: 100%;
     width: 3px;
-    background: rgba(#738f99, 0.5);
+    background: rgba(#738f99, 0.5); // TODO:
     cursor: col-resize;
     user-select: none;
     touch-action: none;
     opacity: 0;
 
     &--active {
-      background: var(--inf-color-border-hover);
+      background: var(--inf-color-border-hover); // TODO:
       opacity: 1;
     }
   }
 
-  $vertical-align-values: ("baseline", "bottom", "middle", "sub", "super", "text-bottom", "text-top", "top");
+  $vertical-align-values: (
+    'baseline',
+    'bottom',
+    'middle',
+    'sub',
+    'super',
+    'text-bottom',
+    'text-top',
+    'top'
+  );
 
   @mixin vertical-align($vertical-align-value) {
     &--vertical-align-#{$vertical-align-value} th {

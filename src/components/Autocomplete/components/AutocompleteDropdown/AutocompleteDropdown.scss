@@ -1,9 +1,6 @@
 .inf-autocomplete-dropdown {
   z-index: var(--inf-z-index-dropdown);
-  background: #ffffff;
-  box-shadow: 0 33px 69px rgba(0, 0, 0, 0.0522617),
-    0 9.94853px 20.8015px rgba(0, 0, 0, 0.075),
-    0 4.13211px 8.63987px rgba(0, 0, 0, 0.0977383),
-    0 1.4945px 3.12487px rgba(0, 0, 0, 0.15);
+  background: var(--inf-color-background-elevated);
+  box-shadow: var(--inf-box-shadow-medium);
   border-radius: 4px;
 }

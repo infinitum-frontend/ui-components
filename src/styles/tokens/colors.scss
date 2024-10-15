@@ -82,44 +82,17 @@
 
   /* ---------- TDB ---------- */
 
-  // --inf-color-border-secondary: var(--inf-color-gray-200);
-  // --inf-color-border-danger: var(--inf-color-danger);
-  // --inf-color-border-focus: #7abfff;
+  --inf-color-border-focus: #7abfff;
   // --inf-color-border-hover: var(--inf-color-gray-800);
-  // --inf-color-border-active: var(--inf-color-gray-800);
-  // // TODO: почему акцентный? как будто выбивается из нейминга
-  // --inf-color-border-accent: var(--inf-color-primary);
-  // // inf-color-border-selected?
-  // --inf-color-border-default: var(--inf-color-gray-200); // -primary ?
 
-  // --inf-color-icon: var(--inf-color-gray-800);
-
-  // --inf-color-text-control: #46626b;
-  // --inf-color-border-focused: #46626b;
-  // --inf-control-color-border-active: #738f99;
-  // --inf-control-background-color-hover: #e6f1f5;
-  // --inf-color-text-quaternary: #c8cacc;
-  // --inf-color-background-control-disabled: var(
-  //   --inf-color-background-secondary
-  // );
-
-  // --inf-color-text-link-disabled: var(--inf-color-blue-300); // TODO: deprecated
-  // --inf-color-text-danger: var(--inf-color-danger); // TODO: deprecated
-  // --inf-color-text-disabled: var(--inf-color-gray-300); // TODO: deprecated
-  // --inf-color-background-body: var(--inf-color-white); // TODO: deprecated
-  // --inf-color-background-default: var(--inf-color-white); // TODO: deprecated
-
-  // --inf-color-background-danger: var(--inf-color-orange-500); // deprecated
-
-  // --inf-color-background-hover: var(--inf-color-gray-100); // deprecated
-  // --inf-color-background-selected: var(--inf-color-blue-400); // deprecated
-  // --inf-color-background-disabled: var(--inf-color-gray-100); // deprecated
-  // --inf-color-background-neutral: var(--inf-color-gray-300);
-  // --inf-color-background-info: var(--inf-color-blue-500);
-  // --inf-color-background-success: var(--inf-color-green-500);
-  // --inf-color-background-warning: #ffc256; // TODO: внести в палитру
-  // // --inf-color-text-inverse-secondary: #ccc;
-  // // --inf-color-control-active: var(--inf-color-primary); TODO: нужен?
+  /* Semantic */
+  // --inf-color-primary: var(--inf-color-red-500);
+  // --inf-color-secondary: var(--inf-color-blue-600);
+  // --inf-color-secondary-hover: var(--inf-color-blue-500);
+  // --inf-color-secondary-active: var(--inf-color-blue-700);
+  // --inf-color-success: var(--inf-color-green-500);
+  // --inf-color-danger: var(--inf-color-orange-500);
+  // --inf-color-warning: var(--inf-color-yellow-500);
 
   // /* Base */
   // --inf-color-gray-100: #f7f9fa;
@@ -183,15 +156,4 @@
 
   // --inf-color-black: #1f2021;
   // --inf-color-white: #fff;
-
-  /* Semantic */
-  // --inf-color-primary: var(--inf-color-red-500);
-  // --inf-color-primary-hover: var(--inf-color-red-400);
-  // --inf-color-primary-active: var(--inf-color-red-600);
-  // --inf-color-secondary: var(--inf-color-blue-600);
-  // --inf-color-secondary-hover: var(--inf-color-blue-500);
-  // --inf-color-secondary-active: var(--inf-color-blue-700);
-  // --inf-color-success: var(--inf-color-green-500);
-  // --inf-color-danger: var(--inf-color-orange-500);
-  // --inf-color-warning: var(--inf-color-yellow-500);
 }

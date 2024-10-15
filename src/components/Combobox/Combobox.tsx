@@ -93,7 +93,7 @@ const Combobox = ({
             <Text color="inverse" className="inf-combobox__counter">
               {checkedCount}
               <CrossIcon
-                color="gray"
+                className="inf-combobox__counter-remove-icon"
                 onClick={(e) => {
                   e.stopPropagation()
                   onChange?.([])

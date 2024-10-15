@@ -149,6 +149,11 @@
   &__after,
   &__icon {
     display: flex;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .inf-button__after:not(:first-child),

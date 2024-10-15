@@ -173,7 +173,7 @@ export const UserMenu2: StoryObj<typeof Popover> = {
             <List.Item
               as="button"
               onClick={onExitClick}
-              style={{ display: 'block', color: 'var(--inf-color-text-danger' }}
+              style={{ display: 'block', color: 'var(--inf-color-text-error' }}
             >
               Выйти
             </List.Item>

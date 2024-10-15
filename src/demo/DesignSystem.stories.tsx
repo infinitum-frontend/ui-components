@@ -9,6 +9,7 @@ import { Menu } from '../components/Menu'
 import { Tabs } from '../components/Tabs'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { Card } from '../components/Card'
+import { Modal } from '../components/Modal'
 // import { Heading } from '../components/Heading'
 // import { Input } from '../components/Input'
 // import { Divider } from '../components/Divider'
@@ -56,7 +57,7 @@ export default ComponentMeta
 
 export const DesignSystem: StoryObj = {
   render: () => {
-    // const [isModalOpen, setIsModalOpen] = React.useState(false)
+    const [isModalOpen, setIsModalOpen] = React.useState(false)
     const [selection, setSelection] = React.useState<
       Array<TableRow<Portfolio>>
     >([])
@@ -161,9 +162,37 @@ export const DesignSystem: StoryObj = {
 
               <Space direction="horizontal" justify="space-between">
                 <Text variant="heading-2">Портфель «Другой»</Text>
-                <Button variant="primary">
+                <Button variant="primary" onClick={() => setIsModalOpen(true)}>
                   Добавить показатель в декларацию
                 </Button>
+                <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                  <Modal.Header>
+                    <Modal.Title>Модальное окно</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Form>
+                      <Space gap="large">
+                        <Form.Group required>
+                          <Form.Label>Имя</Form.Label>
+                          <Input placeholder="Введите имя" />
+                        </Form.Group>
+                        <Form.Group required>
+                          <Form.Label>Фамилия</Form.Label>
+                          <Input placeholder="Введите фамилию" status="error" />
+                        </Form.Group>
+                        <Form.Group required>
+                          <Form.Label>Роль</Form.Label>
+                          <Input disabled placeholder="Введите роль" />
+                        </Form.Group>
+
+                        <Space direction="horizontal" gap="large">
+                          <Button variant="primary">Сохранить</Button>
+                          <Button variant="ghost">Отменить</Button>
+                        </Space>
+                      </Space>
+                    </Form>
+                  </Modal.Body>
+                </Modal>
               </Space>
 
               <Grid templateColumns="1fr 566px" gap="large">
@@ -291,37 +320,7 @@ export const DesignSystem: StoryObj = {
                     >
                       Открыть модальное окно
                     </Button>
-                    <Modal
-                      open={isModalOpen}
-                      onClose={() => setIsModalOpen(false)}
-                    >
-                      <Modal.Header>
-                        <Modal.Title>Модальное окно</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Eum voluptatem nostrum modi quasi atque, eius
-                        animi deserunt veniam voluptatibus qui.
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Space direction={Space.Direction.Horizontal}>
-                          <Button
-                            variant={Button.Variant.Secondary}
-                            onClick={() =>
-                              notify('Lorem ipsum dolor sit amet.')
-                            }
-                          >
-                            Кнопка 1
-                          </Button>
-                          <Button variant={Button.Variant.Tertiary}>
-                            Кнопка 2
-                          </Button>
-                          <Button variant={Button.Variant.Ghost}>
-                            Кнопка 3
-                          </Button>
-                        </Space>
-                      </Modal.Footer>
-                    </Modal>
+
                     <Button variant={Button.Variant.Secondary}>
                       Скорректировать результат проверки
                     </Button>
