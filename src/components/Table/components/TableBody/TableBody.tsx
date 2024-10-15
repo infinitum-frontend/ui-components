@@ -47,45 +47,6 @@ const TableBody = ({
     onRowClick?.(mapRowToExternalFormat(row))
   }
 
-  // if (virtualizer) {
-  //   return (
-  //     <tbody>
-  //       {virtualizer.getVirtualItems().map((virtualRow, index) => {
-  //         const row = rows[virtualRow.index]
-  //         return (
-  //           <tr
-  //             key={row.id}
-  //             className={cn(row.original.className, {
-  //               [`inf-table--vertical-align-${verticalAlignBody as string}`]:
-  //               verticalAlignBody,
-  //               'inf-table__row--selected': checkSelected(
-  //                 mapRowToExternalFormat(row),
-  //                 selectedRow
-  //               ),
-  //               'inf-table__row--interactive': Boolean(onRowClick)
-  //             })}
-  //             style={{
-  //               height: `${virtualRow.size}px`,
-  //               transform: `translateY(${
-  //                 virtualRow.start - index * virtualRow.size
-  //               }px)`,
-  //             }}
-  //             onClick={(e) => handleRowClick(e, row)}
-  //           >
-  //             {row.getVisibleCells().map((cell) => {
-  //               return (
-  //                 <td key={cell.id}>
-  //                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
-  //                 </td>
-  //               )
-  //             })}
-  //           </tr>
-  //         )
-  //       })}
-  //     </tbody>
-  //   )
-  // }
-
   const rowsToRender = virtualizer?.getVirtualItems() || rows
 
   const getStylesForVirtualRow = (

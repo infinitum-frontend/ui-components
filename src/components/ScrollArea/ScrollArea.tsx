@@ -42,7 +42,7 @@ const ScrollArea = forwardRef<
       {children}
     </ScrollAreaPrimitive.Viewport>
     <ScrollBar style={scrollbarStyle} orientation={orientation} />
-    <ScrollAreaPrimitive.Corner style={{ background: 'green' }} />
+    <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>
 ))
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
