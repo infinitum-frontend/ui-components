@@ -1,31 +1,35 @@
 .inf-table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
   font-family: var(--inf-font-family-base);
-  border: 1px solid var(--inf-color-border-default);
-  border-radius: var(--inf-border-radius-small);
+  --table-border-radius: 0;
+  border-radius: var(--table-border-radius);
 
   thead {
-    border-bottom: 1px solid var(--inf-color-border-default);
-  }
+    th {
+      background-color: var(--inf-color-background-secondary);
+      text-align: left;
+      color: var(--inf-color-text-secondary);
+      font: var(--inf-font-body-1);
+      padding: var(--inf-space-medium);
+      position: relative;
+      border-top: 1px solid var(--inf-color-border-default);
 
-  th {
-    background-color: var(--inf-color-background-secondary);
-    text-align: left;
-    color: var(--inf-color-text-secondary);
-    font: var(--inf-font-body-1);
-    padding: var(--inf-space-medium);
-    position: relative;
+      &:hover .inf-table-header__resizer {
+        opacity: 1;
+      }
 
-    &:hover .inf-table-header__resizer {
-      opacity: 1;
+      &:first-child {
+        border-top-left-radius: var(--table-border-radius);
+        border-left: 1px solid var(--inf-color-border-default);
+      }
+
+      &:last-child {
+        border-top-right-radius: var(--table-border-radius);
+        border-right: 1px solid var(--inf-color-border-default);
+      }
     }
-  }
-
-  td {
-    padding: var(--inf-space-medium);
-    font: var(--inf-font-body-1);
-    color: var(--inf-color-text-primary);
   }
 
   tbody {
@@ -57,101 +61,88 @@
         border-bottom: 1px solid var(--inf-color-border-default);
       }
     }
-  }
 
-  &--bordered {
-    td,
-    th {
-      padding: var(--inf-space-xsmall);
-      border: 1px solid var(--inf-color-border-default);
+    tr:last-child td:first-child {
+      border-bottom-left-radius: var(--table-border-radius);
     }
-  }
 
-  &--border-radius-xsmall{
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: var(--inf-border-radius-xsmall);
-    thead tr th:first-child {
-      border-top-left-radius: var(--inf-border-radius-xsmall);
+    tr:last-child td {
+      border-bottom: 1px solid var(--inf-color-border-default);
     }
-    thead tr th:last-child {
-      border-top-right-radius: var(--inf-border-radius-xsmall);
+
+    tr:last-child td:last-child {
+      border-bottom-right-radius: var(--table-border-radius);
     }
-    tbody tr td {
+
+    td {
+      padding: var(--inf-space-medium);
+      font: var(--inf-font-body-1);
+      color: var(--inf-color-text-primary);
       border-top: 1px solid var(--inf-color-border-default);
     }
-    tbody tr:last-child td:first-child {
-      border-bottom-left-radius: var(--inf-border-radius-xsmall);
+
+    td:first-child {
+      border-left: 1px solid var(--inf-color-border-default);
     }
-    tbody tr:last-child td:last-child {
-      border-bottom-right-radius: var(--inf-border-radius-xsmall);
+
+    td:last-child {
+      border-right: 1px solid var(--inf-color-border-default);
     }
   }
 
-  &--border-radius-small{
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: var(--inf-border-radius-small);
-    thead tr th:first-child {
-      border-top-left-radius: var(--inf-border-radius-small);
-    }
-    thead tr th:last-child {
-      border-top-right-radius: var(--inf-border-radius-small);
-    }
-    tbody tr td {
-      border-top: 1px solid var(--inf-color-border-default);
-    }
-    tbody tr:last-child td:first-child {
-      border-bottom-left-radius: var(--inf-border-radius-small);
-    }
-    tbody tr:last-child td:last-child {
-      border-bottom-right-radius: var(--inf-border-radius-small);
-    }
+  &--border-radius-xsmall {
+    --table-border-radius: var(--inf-border-radius-xsmall);
+  }
+
+  &--border-radius-small {
+    --table-border-radius: var(--inf-border-radius-small);
   }
 
   &--border-radius-medium {
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: var(--inf-border-radius-medium);
-    thead tr th:first-child {
-      border-top-left-radius: var(--inf-border-radius-medium);
-    }
-    thead tr th:last-child {
-      border-top-right-radius: var(--inf-border-radius-medium);
-    }
-    tbody tr td {
-      border-top: 1px solid var(--inf-color-border-default);
-    }
-    tbody tr:last-child td:first-child {
-      border-bottom-left-radius: var(--inf-border-radius-medium);
-    }
-    tbody tr:last-child td:last-child {
-      border-bottom-right-radius: var(--inf-border-radius-medium);
-    }
+    --table-border-radius: var(--inf-border-radius-medium);
   }
 
   &--border-radius-large {
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: var(--inf-border-radius-large);
-    thead tr th:first-child {
-      border-top-left-radius: var(--inf-border-radius-large);
+    --table-border-radius: var(--inf-border-radius-large);
+  }
+
+  &--borderless {
+    --table-border-radius: 0;
+
+    thead th {
+      border: none;
+
+      &:first-child,
+      &:last-child {
+        border: none;
+      }
     }
-    thead tr th:last-child {
-      border-top-right-radius: var(--inf-border-radius-large);
-    }
-    tbody tr td {
-      border-top: 1px solid var(--inf-color-border-default);
-    }
-    tbody tr:last-child td:first-child {
-      border-bottom-left-radius: var(--inf-border-radius-large);
-    }
-    tbody tr:last-child td:last-child {
-      border-bottom-right-radius: var(--inf-border-radius-large);
+
+    tbody {
+      tr td {
+        &:first-child,
+        &:last-child {
+          border-left: none;
+          border-right: none;
+        }
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
     }
   }
 
-  $vertical-align-values: ("baseline", "bottom", "middle", "sub", "super", "text-bottom", "text-top", "top");
+  $vertical-align-values: (
+    'baseline',
+    'bottom',
+    'middle',
+    'sub',
+    'super',
+    'text-bottom',
+    'text-top',
+    'top'
+  );
 
   @mixin vertical-align($vertical-align-value) {
     &--vertical-align-#{$vertical-align-value} td {

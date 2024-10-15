@@ -301,9 +301,6 @@ export const Scrollable: StoryObj<typeof Table> = {
         <Table
           {...args}
           columns={columns}
-          onRowClick={(row) => {
-            console.log(row)
-          }}
           rows={longPortfolioRows.filter((a) => a.portfolio.match(search))}
           scrollable
         />

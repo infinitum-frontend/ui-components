@@ -1,6 +1,8 @@
 import { ReactElement, useRef } from 'react'
 import { useVirtualizer, Virtualizer } from '@tanstack/react-virtual'
 import ScrollArea from 'Components/ScrollArea'
+import cn from 'classnames'
+import './TableWithVirtualRows.scss'
 
 const defaultRowHeight = 65
 interface RenderProps {
@@ -10,12 +12,14 @@ interface RenderProps {
 interface TableWithVirtualRowsProps {
   enabled?: boolean
   rowsCount: number
+  borderRadius: 'xsmall' | 'small' | 'medium' | 'large'
   children: (props: RenderProps) => ReactElement
 }
 const TableWithVirtualRows = ({
   rowsCount,
   children,
-  enabled
+  enabled,
+  borderRadius
 }: TableWithVirtualRowsProps): ReactElement => {
   if (!enabled) {
     return children({ virtualizer: undefined })
@@ -38,7 +42,12 @@ const TableWithVirtualRows = ({
 
   return (
     <ScrollArea
-      scrollbarStyle={{ top: `${tableHeaderHeight + 1}px`, right: '0px' }}
+      scrollbarStyle={{ top: `${tableHeaderHeight}px`, right: '0px' }}
+      className={cn('inf-table-with-virtual-rows', {
+        [`inf-table-with-virtual-rows--border-radius-${
+          borderRadius as string
+        }`]: borderRadius
+      })}
     >
       <div ref={ref}>
         <div style={{ height: `${virtualizer.getTotalSize()}px` }}>

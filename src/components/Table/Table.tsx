@@ -234,13 +234,17 @@ const Table = ({
   const tableRows = table.getRowModel().rows
 
   return (
-    <TableWithVirtualRows rowsCount={tableRows.length} enabled={scrollable}>
+    <TableWithVirtualRows
+      rowsCount={tableRows.length}
+      enabled={scrollable}
+      borderRadius={borderRadius}
+    >
       {({ virtualizer }) => (
         <table
           className={cn('inf-table', className, {
             [`inf-table--border-radius-${borderRadius as string}`]:
               borderRadius,
-            'inf-table--bordered': props.bordered
+            'inf-table--borderless': scrollable || stickyHeader // TODO: добавить проп borderless
           })}
           {...props}
         >

@@ -3,8 +3,6 @@ import cn from 'classnames'
 import { TableVerticalAlignValue } from '../../types'
 
 export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
-  /** Отображение границ ячеек */
-  bordered?: boolean
   /** Скругление границ таблицы */
   borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
   /** CSS свойство vertical-align для шапки */
@@ -14,7 +12,6 @@ export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
 }
 
 const TableBase = ({
-  bordered,
   borderRadius,
   verticalAlignHead,
   verticalAlignBody,
@@ -29,8 +26,7 @@ const TableBase = ({
         [`inf-table-header--vertical-align-${verticalAlignHead as string}`]:
           verticalAlignHead,
         [`inf-table--vertical-align-${verticalAlignBody as string}`]:
-          verticalAlignBody,
-        'inf-table--bordered': bordered
+          verticalAlignBody
       })}
       {...props}
     >
