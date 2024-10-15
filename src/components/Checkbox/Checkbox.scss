@@ -49,7 +49,7 @@
 
     &--disabled {
       cursor: unset;
-      border-color: var(--inf-color-text-tertiary);
+      // border-color: var(--inf-color-text-tertiary);
       background-color: transparent;
 
       svg:not(.inf-checkbox input[type='checkbox']:checked) {

@@ -40,7 +40,7 @@
 
   &__clear-button {
     cursor: pointer;
-    transition: color 0.2;
+    transition: color 0.2s;
     color: var(--inf-color-icon-primary);
 
     @include hover {
@@ -56,6 +56,8 @@
 
 .inf-search-input {
   &__icon {
+    width: 20px;
+    height: 20px;
     color: var(--inf-color-icon-primary);
   }
 }

@@ -3,13 +3,6 @@
   align-items: center;
   position: relative;
 
-  &:active {
-    & .inf-radio__box:not(.inf-radio__box--disabled) {
-      border-color: var(--inf-radio-color-border-active);
-      background-color: var(--inf-radio-color-background-active);
-    }
-  }
-
   &__label {
     cursor: pointer;
     user-select: none;
@@ -17,6 +10,7 @@
     font: var(--inf-font-body-1);
 
     &--disabled {
+      color: var(--inf-color-text-tertiary);
       cursor: unset;
     }
   }
@@ -35,9 +29,9 @@
     border-radius: 50%;
 
     &--disabled {
-      border-color: var(
-        --inf-radio-color-border-disabled
-      ); // TODO: не работает, так как используется Box
+      // border-color: var(
+      //   --inf-radio-color-border-disabled
+      // ); // TODO: не работает, так как используется Box
       cursor: unset;
     }
   }
@@ -59,22 +53,23 @@
     height: 16px;
 
     &:focus-visible ~ .inf-radio__box {
-      outline: var(--inf-border-focus);
+      // outline: var(--inf-border-focus);
+      border-color: var(--inf-color-border-primary-hover);
     }
 
     &:checked ~ .inf-radio__box {
       border-color: transparent;
-      background-color: var(--inf-radio-color-background-checked);
+      background-color: var(--inf-color-background-button-primary);
 
       .inf-radio__dot {
         background-color: white;
       }
 
       &--disabled {
-        background-color: var(--inf-radio-color-background-checked-disabled);
+        background-color: var(--inf-color-background-button-primary-disabled);
 
         .inf-radio__dot {
-          background-color: transparent;
+          // background-color: transparent;
         }
       }
     }
@@ -85,8 +80,7 @@
 .inf-radio-box {
   @include hover {
     & .inf-radio__box:not(.inf-radio__box--disabled) {
-      border-color: var(--inf-radio-color-border-hover);
-      background-color: var(--inf-radio-color-background-hover);
+      border-color: var(--inf-color-border-primary-hover);
     }
   }
 }

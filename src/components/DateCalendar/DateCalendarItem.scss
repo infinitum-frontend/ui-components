@@ -7,15 +7,15 @@
   border-radius: var(--inf-border-radius-medium);
 
   @include hover {
-    background-color: var(--inf-color-gray-200);
+    background-color: var(--inf-color-background-primary-hover);
   }
 
   &--selected {
-    color: var(--inf-color-text-inverse);
-    background-color: var(--inf-color-primary);
+    color: var(--inf-color-text-on-color);
+    background-color: var(--inf-color-background-brand-primary);
 
     @include hover {
-      background-color: var(--inf-color-primary);
+      background-color: var(--inf-color-background-brand-primary);
     }
   }
 
