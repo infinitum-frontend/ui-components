@@ -88,6 +88,8 @@ export interface TableProps extends TableBaseProps {
    * Проп включает виртуализацию, позволяя рендерить только элементы, отображаемые на экране
    */
   scrollable?: boolean
+  /** Максимальная высота таблицы для варианта со скроллом */
+  maxHeight?: number
   stickyHeader?: boolean
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
@@ -118,6 +120,7 @@ const Table = ({
   children,
   scrollable,
   stickyHeader,
+  maxHeight,
   ...props
 }: TableProps): ReactElement => {
   if (children) {
@@ -238,6 +241,7 @@ const Table = ({
       rowsCount={tableRows.length}
       enabled={scrollable}
       borderRadius={borderRadius}
+      maxHeight={maxHeight}
     >
       {({ virtualizer }) => (
         <table

@@ -23,6 +23,7 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     header: 'Портфель',
     id: 'portfolio',
     cell: (context) => {
+      console.log('portfolio rendered')
       return (
         <div>
           <Text>{context.row.original.portfolio}</Text>
@@ -302,6 +303,7 @@ export const Scrollable: StoryObj<typeof Table> = {
           {...args}
           columns={columns}
           rows={longPortfolioRows.filter((a) => a.portfolio.match(search))}
+          maxHeight={500}
           scrollable
         />
       </Space>

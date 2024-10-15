@@ -13,10 +13,12 @@ interface TableWithVirtualRowsProps {
   enabled?: boolean
   rowsCount: number
   borderRadius: 'xsmall' | 'small' | 'medium' | 'large'
+  maxHeight?: number
   children: (props: RenderProps) => ReactElement
 }
 const TableWithVirtualRows = ({
   rowsCount,
+  maxHeight,
   children,
   enabled,
   borderRadius
@@ -33,6 +35,8 @@ const TableWithVirtualRows = ({
     ref.current?.querySelector('table tbody tr')?.clientHeight ||
     defaultRowHeight
 
+  console.log('rowHeight', rowHeight)
+
   const virtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => ref.current,
@@ -48,6 +52,7 @@ const TableWithVirtualRows = ({
           borderRadius as string
         }`]: borderRadius
       })}
+      style={{ height: maxHeight ? `${maxHeight}px` : '100%' }}
     >
       <div ref={ref}>
         <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
