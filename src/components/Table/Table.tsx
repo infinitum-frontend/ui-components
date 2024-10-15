@@ -244,7 +244,9 @@ const Table = ({
           className={cn('inf-table', className, {
             [`inf-table--border-radius-${borderRadius as string}`]:
               borderRadius,
-            'inf-table--borderless': scrollable || stickyHeader // TODO: добавить проп borderless
+            // Для того, чтобы избежать проблем с border таблицы при фиксированной шапке и скролле,
+            // убираем внешние бордеры у таблицы
+            'inf-table--borderless': scrollable || stickyHeader // TODO: добавить внешний проп borderless
           })}
           {...props}
         >
