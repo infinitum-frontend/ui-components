@@ -18,6 +18,7 @@ import { CheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import CheckboxBox from './components/Box/CheckboxBox'
 
 const checkedIcon = (
   <CheckIcon
@@ -162,5 +163,6 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 Checkbox.displayName = 'Checkbox'
 
 export default Object.assign(Checkbox, {
-  Group: CheckboxGroup
+  Group: CheckboxGroup,
+  Box: CheckboxBox
 })

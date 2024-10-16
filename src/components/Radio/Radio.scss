@@ -22,8 +22,8 @@
     outline: none;
     cursor: pointer;
     margin: 0;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
     border: 1px solid var(--inf-color-border-primary); // TODO: нужны ли эти стили если используется компонент Box
     border-radius: 50%;
@@ -38,8 +38,8 @@
 
   &__dot {
     background-color: transparent;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
   }
 
