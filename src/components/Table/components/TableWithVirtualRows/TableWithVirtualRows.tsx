@@ -1,13 +1,11 @@
 import { ReactElement, useRef } from 'react'
 import { useVirtualizer, Virtualizer } from '@tanstack/react-virtual'
-import ScrollArea from 'Components/ScrollArea'
 import cn from 'classnames'
 import './TableWithVirtualRows.scss'
 
 const defaultRowHeight = 65
 interface RenderProps {
   virtualizer?: Virtualizer<HTMLDivElement, Element>
-  calculatedMaxHeight?: number
 }
 
 interface TableWithVirtualRowsProps {
@@ -40,27 +38,34 @@ const TableWithVirtualRows = ({
     count: rowsCount,
     getScrollElement: () => ref.current,
     estimateSize: () => rowHeight,
-    overscan: 0 // TODO: прокидывать кастомизацию
+    overscan: 5 // TODO: прокидывать кастомизацию
   })
 
+  const totalHeight = virtualizer.getTotalSize() + tableHeaderHeight
+
   return (
-    <ScrollArea
-      className={cn('inf-table-with-virtual-rows', {
+    <div
+      style={{
+        maxHeight: maxHeight ? `${maxHeight}px` : undefined,
+        overflowAnchor: 'none'
+      }}
+      ref={ref}
+      className={cn('inf-scroll-y', 'inf-table-with-virtual-rows', {
         [`inf-table-with-virtual-rows--border-radius-${
           borderRadius as string
         }`]: borderRadius
       })}
-      scrollbarStyle={{ top: `${tableHeaderHeight}px`, right: '0px' }}
-      viewportStyle={{ height: maxHeight ? `${maxHeight}px` : '100%' }}
-      viewportRef={ref}
     >
-      <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
+      <div
+        style={{
+          height: `${totalHeight}px`
+        }}
+      >
         {children?.({
-          virtualizer,
-          calculatedMaxHeight: ref.current?.clientHeight || maxHeight
+          virtualizer
         })}
       </div>
-    </ScrollArea>
+    </div>
   )
 }
 

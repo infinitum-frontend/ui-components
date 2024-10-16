@@ -47,7 +47,13 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     header: 'Статус',
     id: 'status',
     cell: (context) => {
-      return <Label variant="success">{context.row.original.status}</Label>
+      return (
+        <Space>
+          <Label variant="success">{context.row.original.status}</Label>
+          <Label variant="success">{context.row.original.status}</Label>
+          <Label variant="success">{context.row.original.status}</Label>
+        </Space>
+      )
     },
     enableSorting: true
   },

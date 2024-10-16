@@ -4,7 +4,7 @@ import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
 import { TableRow, TableVerticalAlignValue } from 'Components/Table/types'
 import { mapRowToExternalFormat } from 'Components/Table/helpers'
-import { VirtualItem, Virtualizer } from '@tanstack/react-virtual'
+import { Virtualizer, notUndefined } from '@tanstack/react-virtual'
 
 interface TableBodyProps {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
@@ -13,7 +13,6 @@ interface TableBodyProps {
   onRowClick?: (row: TableRow<any>) => void
   verticalAlignBody?: TableVerticalAlignValue
   virtualizer?: Virtualizer<HTMLDivElement, Element>
-  maxHeight?: number
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
@@ -34,8 +33,7 @@ const TableBody = ({
   selectedRow,
   onRowClick,
   verticalAlignBody,
-  virtualizer,
-  maxHeight = 0
+  virtualizer
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -49,25 +47,35 @@ const TableBody = ({
     onRowClick?.(mapRowToExternalFormat(row))
   }
 
-  const rowsToRender = virtualizer?.getVirtualItems() || rows
+  const virtualItems = virtualizer?.getVirtualItems() || []
 
-  const getStylesForVirtualRow = (
-    virtualRow: VirtualItem,
-    index: number
-  ): CSSProperties => {
-    if (!virtualizer) {
-      return {}
-    }
+  const [before, after] =
+    virtualItems.length > 0
+      ? [
+          notUndefined(virtualItems[0]).start -
+            (virtualizer?.options.scrollMargin || 0),
+          (virtualizer?.getTotalSize() || 0) -
+            notUndefined(virtualItems[virtualItems.length - 1]).end
+        ]
+      : [0, 0]
 
-    return {
-      height: `${virtualRow.size}px`,
-      transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`
-    }
-  }
+  const rowsToRender = virtualizer ? virtualItems : rows
 
   return (
     <tbody>
-      {rowsToRender.map((rowToRender, index) => {
+      {before > 0 && (
+        <tr>
+          <td
+            style={{
+              height: `${before}px`,
+              padding: 0,
+              borderTop: 'none'
+            }}
+          />
+        </tr>
+      )}
+
+      {rowsToRender.map((rowToRender) => {
         const row = virtualizer
           ? rows[rowToRender.index]
           : (rowToRender as Row<any>)
@@ -75,6 +83,8 @@ const TableBody = ({
         return (
           <tr
             key={row.id}
+            data-index={rowToRender.index}
+            ref={virtualizer?.measureElement}
             className={cn(row.original.className, {
               [`inf-table--vertical-align-${verticalAlignBody as string}`]:
                 verticalAlignBody,
@@ -84,10 +94,7 @@ const TableBody = ({
               ),
               'inf-table__row--interactive': Boolean(onRowClick)
             })}
-            style={{
-              ...row.original.style,
-              ...getStylesForVirtualRow(rowToRender as VirtualItem, index)
-            }}
+            style={row.original.style}
             onClick={(e) => handleRowClick(e, row)}
           >
             {row.getVisibleCells().map((cell) => (
@@ -99,10 +106,14 @@ const TableBody = ({
         )
       })}
 
-      {virtualizer && (
+      {after > 0 && (
         <tr>
           <td
-            style={{ height: `${virtualizer.getTotalSize() - maxHeight}px` }}
+            style={{
+              height: `${after}px`,
+              padding: 0,
+              borderTop: 'none'
+            }}
           />
         </tr>
       )}

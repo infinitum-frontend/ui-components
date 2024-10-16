@@ -236,12 +236,13 @@ const Table = ({
 
   return (
     <TableWithVirtualRows
+      key={tableRows.length}
       rowsCount={tableRows.length}
       enabled={scrollable}
       borderRadius={borderRadius}
       maxHeight={maxHeight}
     >
-      {({ virtualizer, calculatedMaxHeight }) => (
+      {({ virtualizer }) => (
         <table
           className={cn('inf-table', className, {
             [`inf-table--border-radius-${borderRadius as string}`]:
@@ -271,7 +272,6 @@ const Table = ({
             // grouping={enableGrouping}
             verticalAlignBody={verticalAlignBody}
             virtualizer={virtualizer}
-            maxHeight={calculatedMaxHeight}
           />
         </table>
       )}
