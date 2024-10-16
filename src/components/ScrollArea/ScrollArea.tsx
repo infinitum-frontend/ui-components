@@ -2,7 +2,8 @@ import {
   ComponentPropsWithoutRef,
   CSSProperties,
   ElementRef,
-  forwardRef
+  forwardRef,
+  Ref
 } from 'react'
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 import cn from 'classnames'
@@ -27,24 +28,43 @@ interface ScrollAreaProps
   extends ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> {
   scrollbarStyle?: CSSProperties
   orientation?: ScrollAreaPrimitive.ScrollAreaScrollbarProps['orientation']
+  viewportRef?: Ref<HTMLDivElement>
+  viewportStyle?: CSSProperties
 }
 const ScrollArea = forwardRef<
   ElementRef<typeof ScrollAreaPrimitive.Root>,
   ScrollAreaProps
->(({ className, children, orientation, scrollbarStyle, ...props }, ref) => (
-  <ScrollAreaPrimitive.Root
-    ref={ref}
-    scrollHideDelay={200}
-    className={cn('inf-scroll-area__root', className)}
-    {...props}
-  >
-    <ScrollAreaPrimitive.Viewport className="inf-scroll-area__viewport">
-      {children}
-    </ScrollAreaPrimitive.Viewport>
-    <ScrollBar style={scrollbarStyle} orientation={orientation} />
-    <ScrollAreaPrimitive.Corner />
-  </ScrollAreaPrimitive.Root>
-))
+>(
+  (
+    {
+      className,
+      children,
+      orientation,
+      scrollbarStyle,
+      viewportStyle,
+      viewportRef,
+      ...props
+    },
+    ref
+  ) => (
+    <ScrollAreaPrimitive.Root
+      ref={ref}
+      scrollHideDelay={200}
+      className={cn('inf-scroll-area__root', className)}
+      {...props}
+    >
+      <ScrollAreaPrimitive.Viewport
+        ref={viewportRef}
+        className="inf-scroll-area__viewport"
+        style={viewportStyle}
+      >
+        {children}
+      </ScrollAreaPrimitive.Viewport>
+      <ScrollBar style={scrollbarStyle} orientation={orientation} />
+      <ScrollAreaPrimitive.Corner />
+    </ScrollAreaPrimitive.Root>
+  )
+)
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
 
 export default ScrollArea

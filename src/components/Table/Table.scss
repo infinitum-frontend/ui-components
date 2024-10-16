@@ -110,11 +110,12 @@
     --table-border-radius: 0;
 
     thead th {
-      border: none;
+      border-top: none;
 
       &:first-child,
       &:last-child {
-        border: none;
+        border-left: none;
+        border-right: none;
       }
     }
 
@@ -129,6 +130,10 @@
 
       tr:last-child td {
         border-bottom: none;
+      }
+
+      tr:first-child td {
+        border-top: none;
       }
     }
   }

@@ -90,7 +90,6 @@ export interface TableProps extends TableBaseProps {
   scrollable?: boolean
   /** Максимальная высота таблицы для варианта со скроллом */
   maxHeight?: number
-  stickyHeader?: boolean
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -119,7 +118,6 @@ const Table = ({
   // enableGrouping = false,
   children,
   scrollable,
-  stickyHeader,
   maxHeight,
   ...props
 }: TableProps): ReactElement => {
@@ -243,19 +241,19 @@ const Table = ({
       borderRadius={borderRadius}
       maxHeight={maxHeight}
     >
-      {({ virtualizer }) => (
+      {({ virtualizer, calculatedMaxHeight }) => (
         <table
           className={cn('inf-table', className, {
             [`inf-table--border-radius-${borderRadius as string}`]:
               borderRadius,
             // Для того, чтобы избежать проблем с border таблицы при фиксированной шапке и скролле,
             // убираем внешние бордеры у таблицы
-            'inf-table--borderless': scrollable || stickyHeader // TODO: добавить внешний проп borderless
+            'inf-table--borderless': scrollable // TODO: добавить внешний проп borderless
           })}
           {...props}
         >
           <TableHeader
-            sticky={stickyHeader || scrollable}
+            sticky={scrollable}
             table={table}
             withSorting={withSorting}
             withFiltering={withFiltering}
@@ -273,6 +271,7 @@ const Table = ({
             // grouping={enableGrouping}
             verticalAlignBody={verticalAlignBody}
             virtualizer={virtualizer}
+            maxHeight={calculatedMaxHeight}
           />
         </table>
       )}

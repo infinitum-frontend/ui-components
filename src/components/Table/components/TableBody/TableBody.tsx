@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { CSSProperties, ReactElement } from 'react'
+import React, { CSSProperties, ReactElement, useRef } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import cn from 'classnames'
 import { TableRow, TableVerticalAlignValue } from 'Components/Table/types'
@@ -13,6 +13,7 @@ interface TableBodyProps {
   onRowClick?: (row: TableRow<any>) => void
   verticalAlignBody?: TableVerticalAlignValue
   virtualizer?: Virtualizer<HTMLDivElement, Element>
+  maxHeight?: number
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
@@ -33,7 +34,8 @@ const TableBody = ({
   selectedRow,
   onRowClick,
   verticalAlignBody,
-  virtualizer
+  virtualizer,
+  maxHeight = 0
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -62,6 +64,7 @@ const TableBody = ({
       transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`
     }
   }
+
   return (
     <tbody>
       {rowsToRender.map((rowToRender, index) => {
@@ -95,6 +98,14 @@ const TableBody = ({
           </tr>
         )
       })}
+
+      {virtualizer && (
+        <tr>
+          <td
+            style={{ height: `${virtualizer.getTotalSize() - maxHeight}px` }}
+          />
+        </tr>
+      )}
 
       {/*  // return grouping ? ( */}
       {/*  //   <Fragment key={row.id}> */}

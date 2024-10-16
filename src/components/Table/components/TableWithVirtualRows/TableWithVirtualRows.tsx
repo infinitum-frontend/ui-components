@@ -7,6 +7,7 @@ import './TableWithVirtualRows.scss'
 const defaultRowHeight = 65
 interface RenderProps {
   virtualizer?: Virtualizer<HTMLDivElement, Element>
+  calculatedMaxHeight?: number
 }
 
 interface TableWithVirtualRowsProps {
@@ -35,29 +36,29 @@ const TableWithVirtualRows = ({
     ref.current?.querySelector('table tbody tr')?.clientHeight ||
     defaultRowHeight
 
-  console.log('rowHeight', rowHeight)
-
   const virtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => ref.current,
-    estimateSize: (index) => rowHeight,
-    overscan: 5 // TODO: прокидывать кастомизацию
+    estimateSize: () => rowHeight,
+    overscan: 0 // TODO: прокидывать кастомизацию
   })
 
   return (
     <ScrollArea
-      scrollbarStyle={{ top: `${tableHeaderHeight}px`, right: '0px' }}
       className={cn('inf-table-with-virtual-rows', {
         [`inf-table-with-virtual-rows--border-radius-${
           borderRadius as string
         }`]: borderRadius
       })}
-      style={{ height: maxHeight ? `${maxHeight}px` : '100%' }}
+      scrollbarStyle={{ top: `${tableHeaderHeight}px`, right: '0px' }}
+      viewportStyle={{ height: maxHeight ? `${maxHeight}px` : '100%' }}
+      viewportRef={ref}
     >
-      <div ref={ref}>
-        <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
-          {children?.({ virtualizer })}
-        </div>
+      <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
+        {children?.({
+          virtualizer,
+          calculatedMaxHeight: ref.current?.clientHeight || maxHeight
+        })}
       </div>
     </ScrollArea>
   )
