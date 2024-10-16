@@ -24,7 +24,9 @@
   }
 
   &--variant-shadow {
+    // TODO: deprecated
     box-shadow: var(--inf-box-shadow-medium);
+    background-color: var(--inf-color-background-elevated);
   }
 
   &--variant-outline {
