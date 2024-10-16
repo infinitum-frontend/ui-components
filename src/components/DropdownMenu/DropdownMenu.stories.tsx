@@ -7,7 +7,7 @@ import { Box } from 'Components/Box'
 import { ReactComponent as IconDots } from 'Icons/dots-vertical.svg'
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: 'components/DropdownMenu',
+  title: 'Overlay/DropdownMenu',
   component: DropdownMenu
 }
 
