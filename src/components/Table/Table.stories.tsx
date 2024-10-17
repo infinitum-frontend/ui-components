@@ -307,7 +307,9 @@ export const Scrollable: StoryObj<typeof Table> = {
         <Table
           {...args}
           columns={columns}
+          maxHeight={400}
           rows={longPortfolioRows.filter((a) => a.portfolio.match(search))}
+          estimateRowHeight={157}
           scrollable
         />
       </Space>

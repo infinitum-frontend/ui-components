@@ -29,7 +29,8 @@ import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
 import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'
-import TableWithVirtualRows from './components/TableWithVirtualRows'
+import './components/TableWithVirtualRows/TableWithVirtualRows.scss'
+import { useVirtualizer } from '@tanstack/react-virtual'
 
 export interface TableProps extends TableBaseProps {
   /** Массив с данными для построения шапки таблицы */
@@ -90,6 +91,7 @@ export interface TableProps extends TableBaseProps {
   scrollable?: boolean
   /** Максимальная высота таблицы для варианта со скроллом */
   maxHeight?: number
+  estimateRowHeight?: number
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
 }
@@ -119,6 +121,7 @@ const Table = ({
   children,
   scrollable,
   maxHeight,
+  estimateRowHeight = 100,
   ...props
 }: TableProps): ReactElement => {
   if (children) {
@@ -234,15 +237,33 @@ const Table = ({
 
   const tableRows = table.getRowModel().rows
 
+  const ref = useRef<HTMLDivElement>(null)
+  const tableHeaderHeight =
+    ref.current?.querySelector('table thead')?.clientHeight || 0
+
+  const virtualizer = useVirtualizer({
+    count: tableRows.length,
+    getScrollElement: () => ref.current,
+    estimateSize: () => estimateRowHeight,
+    overscan: 5 // TODO: прокидывать кастомизацию
+  })
+
+  const totalHeight = virtualizer.getTotalSize() + tableHeaderHeight
+
   return (
-    <TableWithVirtualRows
-      key={tableRows.length}
-      rowsCount={tableRows.length}
-      enabled={scrollable}
-      borderRadius={borderRadius}
-      maxHeight={maxHeight}
+    <div
+      style={{
+        maxHeight: maxHeight ? `${maxHeight}px` : undefined,
+        overflowAnchor: 'none'
+      }}
+      ref={ref}
+      className={cn('inf-scroll-y', 'inf-table-with-virtual-rows', {
+        [`inf-table-with-virtual-rows--border-radius-${
+          borderRadius as string
+        }`]: borderRadius
+      })}
     >
-      {({ virtualizer }) => (
+      <div style={{ height: `${totalHeight}px` }}>
         <table
           className={cn('inf-table', className, {
             [`inf-table--border-radius-${borderRadius as string}`]:
@@ -274,8 +295,8 @@ const Table = ({
             virtualizer={virtualizer}
           />
         </table>
-      )}
-    </TableWithVirtualRows>
+      </div>
+    </div>
   )
 }
 
