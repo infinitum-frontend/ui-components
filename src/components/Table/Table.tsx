@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, ReactNode, useMemo, useRef } from 'react'
+import React, { ReactElement, useMemo, useRef } from 'react'
 import {
   Column,
   ColumnDef,
@@ -29,8 +29,7 @@ import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
 import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'
-import './components/TableWithVirtualRows/TableWithVirtualRows.scss'
-import { useVirtualizer } from '@tanstack/react-virtual'
+import TableWithVirtualRows from './components/TableWithVirtualRows'
 
 export interface TableProps extends TableBaseProps {
   /** Массив с данными для построения шапки таблицы */
@@ -89,8 +88,9 @@ export interface TableProps extends TableBaseProps {
    * Проп включает виртуализацию, позволяя рендерить только элементы, отображаемые на экране
    */
   scrollable?: boolean
-  /** Максимальная высота таблицы для варианта со скроллом */
+  /** Максимальная высота таблицы для варианта со скроллом. Использовать вместе с пропом scrollable */
   maxHeight?: number
+  /** Ориентировочная высота ряда. Использовать вместе с пропом scrollable */
   estimateRowHeight?: number
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
@@ -237,33 +237,15 @@ const Table = ({
 
   const tableRows = table.getRowModel().rows
 
-  const ref = useRef<HTMLDivElement>(null)
-  const tableHeaderHeight =
-    ref.current?.querySelector('table thead')?.clientHeight || 0
-
-  const virtualizer = useVirtualizer({
-    count: tableRows.length,
-    getScrollElement: () => ref.current,
-    estimateSize: () => estimateRowHeight,
-    overscan: 5 // TODO: прокидывать кастомизацию
-  })
-
-  const totalHeight = virtualizer.getTotalSize() + tableHeaderHeight
-
   return (
-    <div
-      style={{
-        maxHeight: maxHeight ? `${maxHeight}px` : undefined,
-        overflowAnchor: 'none'
-      }}
-      ref={ref}
-      className={cn('inf-scroll-y', 'inf-table-with-virtual-rows', {
-        [`inf-table-with-virtual-rows--border-radius-${
-          borderRadius as string
-        }`]: borderRadius
-      })}
+    <TableWithVirtualRows
+      rowsCount={tableRows.length}
+      borderRadius={borderRadius}
+      estimateRowHeight={estimateRowHeight}
+      maxHeight={maxHeight}
+      enabled={scrollable}
     >
-      <div style={{ height: `${totalHeight}px` }}>
+      {({ virtualizer }) => (
         <table
           className={cn('inf-table', className, {
             [`inf-table--border-radius-${borderRadius as string}`]:
@@ -295,8 +277,8 @@ const Table = ({
             virtualizer={virtualizer}
           />
         </table>
-      </div>
-    </div>
+      )}
+    </TableWithVirtualRows>
   )
 }
 
