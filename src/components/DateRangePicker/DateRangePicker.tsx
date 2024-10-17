@@ -120,7 +120,7 @@ const DateRangePicker = ({
             validate: validateFn
           }}
           value={displayValue}
-          postfix={<IconCalendar />}
+          postfix={<IconCalendar className="inf-datepicker__calendar-icon" />}
           onPostfixClick={() => setOpened((prev) => !prev)}
           onFocus={() => setOpened(true)}
         />
