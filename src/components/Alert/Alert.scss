@@ -29,8 +29,18 @@
   }
 
   &--variant-neutral {
-    color: black; // TODO: токен
-    background-color: #ddd; // TODO: токен
+    color: #707273; // TODO: токен
+    background-color: #f7f9fa; // TODO: токен
+  }
+
+  &--variant-violet {
+    color: var(--inf-color-text-violet);
+    background-color: var(--inf-color-background-violet-secondary);
+  }
+
+  &--variant-teal {
+    color: var(--inf-color-text-teal);
+    background-color: var(--inf-color-background-teal-secondary);
   }
 
   &__before {
