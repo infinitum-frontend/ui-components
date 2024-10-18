@@ -12,6 +12,10 @@
     width: max-content;
   }
 
+  &__counter-remove-icon {
+    color: var(--inf-color-icon-primary);
+  }
+
   &__tags {
     margin-top: var(--inf-space-medium);
   }

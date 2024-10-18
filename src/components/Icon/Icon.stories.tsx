@@ -65,6 +65,22 @@ export const Colors: StoryObj<typeof Icon> = {
         <Icon color="secondary">
           <IconUser />
         </Icon>
+        <Icon color="primary-hover">
+          <IconUser />
+        </Icon>
+        <Icon color="primary-disabled">
+          <IconUser />
+        </Icon>
+        <div style={{ background: 'black', display: 'flex' }}>
+          <Icon color="inverse">
+            <IconUser />
+          </Icon>
+        </div>
+        <div style={{ background: 'red', display: 'flex' }}>
+          <Icon color="on-color">
+            <IconUser />
+          </Icon>
+        </div>
         <Icon color="error">
           <IconUser />
         </Icon>
@@ -74,11 +90,18 @@ export const Colors: StoryObj<typeof Icon> = {
         <Icon color="success">
           <IconUser />
         </Icon>
-        <div style={{ background: 'black', display: 'flex' }}>
-          <Icon color="inverse">
-            <IconUser />
-          </Icon>
-        </div>
+        <Icon color="info">
+          <IconUser />
+        </Icon>
+        <Icon color="info-disabled">
+          <IconUser />
+        </Icon>
+        <Icon color="violet">
+          <IconUser />
+        </Icon>
+        <Icon color="teal">
+          <IconUser />
+        </Icon>
       </>
     )
   },

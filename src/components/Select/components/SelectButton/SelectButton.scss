@@ -4,8 +4,7 @@
   user-select: none;
   appearance: none;
   text-align: left;
-  background-color: var(--inf-color-background-default);
-  padding: 7px 28px 7px var(--inf-input-padding-horizontal-medium);
+  padding: 7px 28px 7px var(--inf-space-small);
   line-height: 18px;
   height: var(--inf-control-height-medium);
   white-space: nowrap;
@@ -17,18 +16,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
     top: 50%;
     transform: translateY(-50%);
     right: 10px;
+    color: var(--inf-color-icon-primary);
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
 
     &--active {
-      color: var(--inf-color-border-active);
+      color: var(--inf-color-icon-primary);
     }
 
     &--disabled {
-      color: var(--inf-color-text-disabled);
+      color: var(--inf-color-text-tertiary);
     }
   }
 

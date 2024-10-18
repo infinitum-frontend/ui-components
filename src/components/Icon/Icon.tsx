@@ -16,11 +16,17 @@ export interface IconProps extends PropsWithChildren {
   color?:
     | 'primary'
     | 'secondary'
+    | 'primary-hover'
+    | 'primary-disabled'
     | 'inverse'
+    | 'on-color'
     | 'error'
     | 'warning'
     | 'success'
     | 'info'
+    | 'info-disabled'
+    | 'violet'
+    | 'teal'
 }
 
 /** Обертка для отображения иконки со стилями дизайн-системы */

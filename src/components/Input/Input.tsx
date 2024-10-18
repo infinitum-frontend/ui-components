@@ -181,6 +181,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)
 
+    // для controlled input показываем кнопка очистки только если поле не пустое, для uncontrolled нет возможности определить пустое ли поле
+    const showClearButton =
+      allowClear && value !== undefined ? controlledValue : true
+
     return (
       <span
         style={style}
@@ -215,7 +219,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...restProps}
         />
 
-        {allowClear && getClearIcon()}
+        {showClearButton && getClearIcon()}
         {postfix && (
           <span
             onClick={handlePostfixClick}

@@ -6,8 +6,8 @@
   &__button {
     @include button-reset;
     height: var(--inf-control-height-small);
-    background-color: var(--inf-background-default);
-    border: 1px solid var(--inf-color-border-default);
+    // background-color: var(--inf-color-background-primary);
+    border: 1px solid var(--inf-color-border-primary);
     border-radius: var(--inf-border-radius-small);
     display: inline-flex;
     align-items: center;
@@ -16,18 +16,16 @@
     font-size: var(--inf-font-size-body-1);
     font-weight: var(--inf-font-weight-bold);
     padding: var(--inf-space-small);
-    transition: .2s;
+    transition: 0.2s;
 
     @include hover-active {
       &:not(.inf-pagination__button--active) {
-        background-color: var(--inf-color-gray-200); // TODO: переменную с назначением
+        background-color: var(--inf-color-background-button-secondary-hover);
       }
     }
 
     &--active {
-      background-color: var(--inf-color-secondary);
-      color: var(--inf-color-text-on-color);
-      border-color: var(--inf-color-secondary);
+      background-color: var(--inf-color-background-button-secondary-active);
     }
 
     &--square {

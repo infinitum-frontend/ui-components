@@ -1,5 +1,5 @@
 .inf-icon {
-  // TODO: вынести цвета и размеры в глобальные токены
+  // TODO: вынести размеры в глобальные токены
 
   &--size-medium {
     width: 20px;
@@ -15,32 +15,56 @@
     width: 24px;
     height: 24px;
   }
-  // TODO цвета из переменных, когда будет обновлена общая палитра
+
   &--color-primary {
-    color: #a0a0a0;
+    color: var(--inf-color-icon-primary);
+  }
+
+  &--color-primary-hover {
+    color: var(--inf-color-icon-primary-hover);
+  }
+
+  &--color-primary-disabled {
+    color: var(--inf-color-icon-primary-disabled);
   }
 
   &--color-secondary {
-    color: #6e6e6e;
+    color: var(--inf-color-icon-secondary);
   }
 
   &--color-inverse {
-    color: #fff;
+    color: var(--inf-color-icon-inverse);
+  }
+
+  &--color-on-color {
+    color: var(--inf-color-icon-on-color);
   }
 
   &--color-error {
-    color: #dc3053;
+    color: var(--inf-color-icon-error);
   }
 
   &--color-warning {
-    color: #e5790d;
+    color: var(--inf-color-icon-warning);
   }
 
   &--color-success {
-    color: #1f803d;
+    color: var(--inf-color-icon-success);
   }
 
   &--color-info {
-    color: #0564b7;
+    color: var(--inf-color-icon-info);
+  }
+
+  &--color-info-disabled {
+    color: var(--inf-color-icon-info-disabled);
+  }
+
+  &--color-violet {
+    color: var(--inf-color-icon-violet);
+  }
+
+  &--color-teal {
+    color: var(--inf-color-icon-teal);
   }
 }

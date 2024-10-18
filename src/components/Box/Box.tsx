@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
-import { BoxProps } from './types'
+import { BoxProps, BorderColor } from './types'
 import './Box.scss'
 
 function BaseBox<C extends ElementType = 'div'>(
@@ -50,6 +50,12 @@ function BaseBox<C extends ElementType = 'div'>(
   } = props
   const Component = as
 
+  const borderColorToToken: Record<BorderColor, 'primary' | 'error'> = {
+    default: 'primary',
+    secondary: 'primary',
+    danger: 'error'
+  }
+
   const borderStyleValue =
     borderColor ||
     borderWidth ||
@@ -63,7 +69,7 @@ function BaseBox<C extends ElementType = 'div'>(
   const styles = {
     borderStyle: borderStyleValue,
     borderColor: borderColor
-      ? `var(--inf-color-border-${borderColor as string})`
+      ? `var(--inf-color-border-${borderColorToToken[borderColor] as string})`
       : undefined,
     borderWidth: borderWidth
       ? `var(--inf-border-width-${borderWidth as string})`

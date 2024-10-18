@@ -1,5 +1,4 @@
 .inf-badge-sup {
-  color: var(--inf-color-text-inverse);
   border-radius: 16px;
   font-size: 12px;
   line-height: normal;
@@ -29,10 +28,12 @@
   }
 
   &--tone-primary {
-    background-color: var(--inf-color-primary);
+    background-color: var(--inf-color-background-brand-primary);
+    color: var(--inf-color-text-on-color);
   }
 
   &--tone-secondary {
-    background-color: var(--inf-color-text-secondary);
+    background-color: var(--inf-color-background-tertiary);
+    color: var(--inf-color-text-primary);
   }
 }

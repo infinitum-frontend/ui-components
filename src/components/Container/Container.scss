@@ -25,4 +25,8 @@
   &--size-xlarge {
     max-width: calc(var(--inf-container-width-xlarge) + (var(--padding) * 2));
   }
+
+  &--size-xxlarge {
+    max-width: calc(var(--inf-container-width-xxlarge) + (var(--padding) * 2));
+  }
 }

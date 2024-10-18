@@ -15,7 +15,13 @@ const Tag = forwardRef<
   ComponentPropsWithoutRef<'span'> & TagProps
 >(({ children, className, onRemove, disabled, ...props }, ref) => {
   return (
-    <span ref={ref} className={cn('inf-tag', className)} {...props}>
+    <span
+      ref={ref}
+      className={cn('inf-tag', className, {
+        'inf-tag--disabled': disabled
+      })}
+      {...props}
+    >
       {children}
       {onRemove && (
         <button
