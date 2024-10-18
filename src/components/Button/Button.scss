@@ -116,12 +116,16 @@
     }
 
     .inf-button__before,
-    .inf-button__after,
-    .inf-button__icon {
+    .inf-button__after {
       svg {
         width: 16px;
         height: 16px;
       }
+    }
+
+    .inf-button__icon {
+      width: 20px;
+      height: 20px;
     }
   }
 
