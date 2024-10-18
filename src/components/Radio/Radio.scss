@@ -29,9 +29,6 @@
     border-radius: 50%;
 
     &--disabled {
-      // border-color: var(
-      //   --inf-radio-color-border-disabled
-      // ); // TODO: не работает, так как используется Box
       cursor: unset;
     }
   }

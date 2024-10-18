@@ -47,8 +47,8 @@
     }
 
     &:first-child {
-      border-top-right-radius: var(--inf-select-item-border-radius);
-      border-top-left-radius: var(--inf-select-item-border-radius);
+      border-top-right-radius: var(--inf-border-radius-small);
+      border-top-left-radius: var(--inf-border-radius-small);
     }
   }
 
