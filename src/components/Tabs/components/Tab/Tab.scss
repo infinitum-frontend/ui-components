@@ -23,6 +23,11 @@
     pointer-events: none;
   }
 
+  &--fullwidth {
+    width: 100%;
+    justify-content: center;
+  }
+
   &--size-medium {
     font: var(--inf-font-subtitle-2);
     padding: var(--inf-space-xsmall) var(--inf-space-small);
