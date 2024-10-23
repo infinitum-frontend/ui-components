@@ -9,13 +9,15 @@
     align-items: center;
   }
 
-  &--extra-padding-bottom {
-    padding-bottom: calc(
-      var(--inf-space-xxlarge) + var(--inf-height-bottom-bar)
-    );
+  &--extra-margin-bottom-bar {
+    margin-bottom: var(--inf-height-bottom-bar);
   }
 
   &--collapse-padding-top {
     padding-top: 0;
+  }
+
+  &--collapse-padding-bottom {
+    padding-bottom: 0;
   }
 }
