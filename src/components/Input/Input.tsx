@@ -35,6 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       borderRadius = 'regular',
       disabled: disabledProp = false,
       status,
+      readOnly,
       onClear,
       onInput,
       onChange,
@@ -145,6 +146,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           'inf-input-wrapper--slot-before': prefix,
           'inf-input-wrapper--slot-after': postfix || allowClear,
           [TextFieldClasses.disabled]: disabled,
+          [TextFieldClasses.readonly]: readOnly,
           [TextFieldClasses.focused]: isFocused,
           [TextFieldClasses.noBorder]: noBorder,
           [TextFieldClasses.filled]: inputRef.current?.value,
@@ -207,6 +209,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           placeholder={isFocused ? '' : placeholder}
           onKeyDown={handleKeyDown}
           disabled={disabled}
+          readOnly={readOnly}
           id={id || formGroupContext?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}

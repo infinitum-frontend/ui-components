@@ -1,6 +1,5 @@
 .inf-text-field {
   border: 1px solid var(--inf-color-border-primary);
-  // background-color: var(--inf-color-background-primary);
   transition: border-color 0.2s;
   font: var(--inf-font-body-1);
   width: 100%;
@@ -12,21 +11,28 @@
   }
 
   @include hover {
-    border-color: var(--inf-color-border-primary-hover);
+    &:not(.inf-text-field--readonly) {
+      border-color: var(--inf-color-border-primary-hover);
+    }
   }
 
   &:focus,
   &:focus-visible,
   &--focused {
-    border-color: var(--inf-color-border-primary-hover);
+    &:not(.inf-text-field--readonly) {
+      border-color: var(--inf-color-border-primary-hover);
+    }
   }
 
   &:disabled,
   &--disabled {
     background-color: var(--inf-color-background-tertiary);
-    pointer-events: none;
-    border-color: transparent !important;
     color: var(--inf-color-text-tertiary);
+    pointer-events: none;
+  }
+
+  &--readonly {
+    background-color: var(--inf-color-background-tertiary);
   }
 
   &--no-border {

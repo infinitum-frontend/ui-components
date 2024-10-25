@@ -13,6 +13,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       placeholder,
       borderRadius = 'unset',
       disabled,
+      readOnly,
       onFocus,
       onChange,
       onBlur,
@@ -42,6 +43,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
         className={classNames}
         placeholder={placeholder}
         disabled={disabled}
+        readOnly={readOnly}
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={onChange}

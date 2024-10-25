@@ -1,3 +1,12 @@
 .inf-form-error-message {
   color: var(--inf-color-text-error);
+  font: var(--inf-font-body-2);
+  display: flex;
+  align-items: center;
+
+  &__alert-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: var(--inf-space-xxsmall);
+  }
 }
