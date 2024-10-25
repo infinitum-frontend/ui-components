@@ -5,7 +5,15 @@
     flex-direction: column;
 
     > * + * {
-      margin-top: var(--inf-space-xxsmall);
+      margin-top: var(--inf-space-small);
+    }
+  }
+
+  &--direction-horizontal {
+    flex-direction: row;
+
+    > * + * {
+      margin-left: var(--inf-space-medium);
     }
   }
 }

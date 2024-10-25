@@ -15,28 +15,92 @@ body {
 }
 
 body {
-  background-color: var(--inf-color-background-body);
+  background-color: var(--inf-color-background-primary);
   color: var(--inf-color-text-primary);
   font-family: var(--inf-font-family-base);
 }
 
-.inf-ui-test-theme {
-  --inf-font-h1: 500 60px / 60px Arial;
-  --inf-font-h2: 500 40px / 40px Arial;
-  --inf-font-h3: 500 30px / 30px Arial;
-  --inf-font-h4: 500 20px / 20px Arial;
-}
-
 .inf-ui-theme-dark {
-  --inf-color-text-primary: #eee;
-  --inf-color-text-secondary: #ddd;
-  --inf-color-text-inverse: #111;
-  --inf-color-background-body: #333;
-  --inf-color-background-default: #222;
-  --inf-color-background-secondary: #333;
-  --inf-color-background-hover: #555;
-  --inf-color-background-inverse: #ddd;
-  --inf-color-primary: var(--inf-color-red-500);
-  --inf-color-primary-hover: var(--inf-color-red-400);
-  --inf-color-border-default: #444;
+  /* Text */
+  --inf-color-text-primary: #f1f1f1;
+  --inf-color-text-secondary: #949494;
+  --inf-color-text-tertiary: #626262;
+  --inf-color-text-inverse: #171717;
+  --inf-color-text-on-color: #ffffff;
+  --inf-color-text-error: #fc3860;
+  --inf-color-text-warning: #fa921a;
+  --inf-color-text-success: #31b95c;
+  --inf-color-text-info: #4996fb;
+  --inf-color-text-info-disabled: #2a466b;
+  --inf-color-text-brand: #f64a4a;
+  --inf-color-text-violet: #c151fd;
+  --inf-color-text-teal: #00b4b4;
+
+  /* Link */
+  --inf-color-text-link: #4996fb;
+  --inf-color-text-link-hover: #3f7bcb;
+  --inf-color-text-link-visited: #9d45cd;
+
+  /* Button */
+  --inf-color-background-button-primary: #f64a4a;
+  --inf-color-background-button-primary-hover: #e04545;
+  --inf-color-background-button-primary-active: #c73f3f;
+  --inf-color-background-button-primary-disabled: #802f2f;
+  --inf-color-background-button-secondary: #253955;
+  --inf-color-background-button-secondary-hover: #202d3e;
+  --inf-color-background-button-secondary-active: #1b2027;
+
+  /* Background */
+  --inf-color-background-primary: #171717;
+  --inf-color-background-primary-hover: #ffffff1a; // TODO: не совпадает с дизайн системой
+  --inf-color-background-secondary: #353535; // TODO: не совпадает с дизайн системой, так как сливается с bg-elevated (input disabled)
+  --inf-color-background-secondary-hover: #2b2b2b; // TODO: не совпадает с дизайн системой, так как сливается с bg-elevated
+  --inf-color-background-tertiary: #2b2b2b;
+  --inf-color-background-tertiary-hover: #353535;
+  --inf-color-background-inverse: #f1f1f1;
+  --inf-color-background-elevated: #212121;
+  --inf-color-background-error-primary: #fc3860;
+  --inf-color-background-error-secondary: #27191c;
+  --inf-color-background-warning-primary: #fa921a;
+  --inf-color-background-warning-secondary: #272017;
+  --inf-color-background-success-primary: #31b95c;
+  --inf-color-background-success-secondary: #19221c;
+  --inf-color-background-info-primary: #4996fb;
+  --inf-color-background-info-secondary: #1b2027;
+  --inf-color-background-brand-primary: #f64a4a;
+  --inf-color-background-brand-secondary: #271b1b;
+  --inf-color-background-violet-primary: #c151fd;
+  --inf-color-background-violet-secondary: #231b27;
+  --inf-color-background-teal-primary: #00b4b4;
+  --inf-color-background-teal-secondary: #152222;
+
+  /* Border */
+  --inf-color-border-primary: #353535; // TODO: не совпадает с дизайн системой
+  --inf-color-border-primary-hover: #626262; // TODO: не совпадает с дизайн системой
+  --inf-color-border-inverse: #f1f1f1;
+  --inf-color-border-error: #fc3860;
+  --inf-color-border-warning: #fa921a;
+  --inf-color-border-success: #31b95c;
+  --inf-color-border-info: #4996fb;
+  --inf-color-border-violet: #c151fd;
+  --inf-color-border-teal: #00b4b4;
+
+  /* Icon */
+  --inf-color-icon-primary: #575757;
+  --inf-color-icon-secondary: #949494;
+  --inf-color-icon-primary-hover: #f1f1f1;
+  --inf-color-icon-primary-disabled: #404040;
+  --inf-color-icon-inverse: #171717;
+  --inf-color-icon-on-color: #ffffff;
+  --inf-color-icon-error: #fc3860;
+  --inf-color-icon-warning: #fa921a;
+  --inf-color-icon-success: #31b95c;
+  --inf-color-icon-info: #4996fb;
+  --inf-color-icon-info-disabled: #2a466b;
+  --inf-color-icon-violet: #c151fd;
+  --inf-color-icon-teal: #00b4b4;
+
+  /* Scrollbar */
+  --inf-scrollbar-thumb-color-background: #575757;
+  --inf-scrollbar-track-color-background: #2b2b2b;
 }

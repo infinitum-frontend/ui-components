@@ -5,14 +5,6 @@
   display: inline-flex;
   align-items: center;
 
-  &--slot-before {
-    padding-left: var(--inf-space-small);
-  }
-
-  &--slot-after {
-    padding-right: var(--inf-space-small);
-  }
-
   input {
     border: none;
     padding: 0;
@@ -32,7 +24,6 @@
   &__prefix,
   &__postfix,
   &__clear-button {
-    cursor: pointer;
     user-select: none;
     display: inline-flex;
     align-items: center;
@@ -48,17 +39,25 @@
   }
 
   &__clear-button {
-    transition: var(--inf-transition_duration);
-    color: var(--inf-color-icon-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--inf-color-icon-primary);
 
     @include hover {
-      color: var(--inf-color-gray-200);
+      color: var(--inf-color-icon-primary-hover);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
     }
   }
 }
 
 .inf-search-input {
   &__icon {
-    color: #738f99;
+    width: 20px;
+    height: 20px;
+    color: var(--inf-color-icon-primary);
   }
 }

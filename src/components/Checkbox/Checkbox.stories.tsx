@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as React from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Checkbox } from './index'
 import { action } from '@storybook/addon-actions'
@@ -116,6 +118,33 @@ export const Disabled: StoryObj<typeof Checkbox> = {
           <code>uncheked</code>
         </Checkbox>
       </Space>
+    )
+  }
+}
+
+export const WithBox: StoryObj<typeof Checkbox> = {
+  render: () => {
+    const [checked, setChecked] = useState<string[]>(['2'])
+    const handleChange = (val: string[]): void => {
+      setChecked(val)
+    }
+    return (
+      <>
+        <Checkbox.Group onChange={handleChange} value={checked}>
+          <Checkbox.Box>
+            <Checkbox value="1">
+              Облигации внешних облигационных займов РФ
+            </Checkbox>
+          </Checkbox.Box>
+          <Checkbox.Box>
+            <Checkbox value="2">Облигации государственных компаний</Checkbox>
+          </Checkbox.Box>
+          <Checkbox.Box>
+            <Checkbox value="3">Облигации государственных корпораций</Checkbox>
+          </Checkbox.Box>
+        </Checkbox.Group>
+        <div style={{ marginTop: '12px' }}>Выбрано: [{checked}]</div>
+      </>
     )
   }
 }

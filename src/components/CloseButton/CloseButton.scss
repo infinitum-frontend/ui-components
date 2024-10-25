@@ -3,11 +3,11 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--inf-color-text-secondary);
+  color: var(--inf-color-icon-primary);
   transition: color 0.2s;
 
   &:hover {
-    color: var(--inf-color-text-tertiary);
+    color: var(--inf-color-icon-primary-hover);
   }
 
   &--size-medium {

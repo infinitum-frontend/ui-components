@@ -1,8 +1,8 @@
 .inf-select {
   &__items {
     border-radius: var(--inf-border-radius-small);
-    border: 1px solid var(--inf-color-border-default);
-    background-color: white;
+    border: 1px solid var(--inf-color-border-primary);
+    background-color: var(--inf-color-background-elevated);
     width: 100%;
     list-style-type: none;
     z-index: var(--inf-z-index-dropdown);
@@ -17,7 +17,7 @@
     &::-webkit-scrollbar {
       width: 7px;
       height: 7px;
-      background: #e7e7e7;
+      background: var(--inf-scrollbar-track-color-background);
       border-radius: 5px;
     }
 
@@ -29,7 +29,7 @@
       border-radius: 5px;
       width: 7px;
       height: 7px;
-      background-color: #c9c9c9;
+      background-color: var(--inf-scrollbar-thumb-color-background);
     }
   }
 
@@ -43,12 +43,12 @@
     overflow-x: hidden;
 
     &--active {
-      background-color: var(--inf-control-background-color-hover);
+      background-color: var(--inf-color-background-primary-hover);
     }
 
     &:first-child {
-      border-top-right-radius: var(--inf-select-item-border-radius);
-      border-top-left-radius: var(--inf-select-item-border-radius);
+      border-top-right-radius: var(--inf-border-radius-small);
+      border-top-left-radius: var(--inf-border-radius-small);
     }
   }
 

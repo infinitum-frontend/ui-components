@@ -4,4 +4,5 @@ export type ContainerSize =
   | 'medium'
   | 'large'
   | 'xlarge'
+  | 'xxlarge'
   | 'fluid'

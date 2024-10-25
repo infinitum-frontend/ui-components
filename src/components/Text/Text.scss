@@ -106,7 +106,12 @@
   }
 
   &--color-danger {
-    color: var(--inf-color-text-danger);
+    // deprecated, use "error"
+    color: var(--inf-color-text-error);
+  }
+
+  &--color-error {
+    color: var(--inf-color-text-error);
   }
 
   &--color-warning {

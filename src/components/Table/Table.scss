@@ -37,7 +37,7 @@
       font: var(--inf-font-body-2);
 
       @include hover {
-        background-color: var(--inf-color-background-hover);
+        background-color: var(--inf-color-background-primary-hover);
       }
 
       &.inf-table__row--interactive {
@@ -45,7 +45,9 @@
       }
 
       &.inf-table__row--selected {
-        background-color: var(--inf-color-background-selected);
+        background-color: var(
+          --inf-color-background-primary-hover
+        ); // TODO: уточнить цвет
       }
 
       &.inf-table__group-label {
@@ -58,7 +60,7 @@
       }
 
       &:not(:last-child) {
-        border-bottom: 1px solid var(--inf-color-border-default);
+        border-bottom: 1px solid var(--inf-color-border-primary);
       }
     }
 

@@ -61,7 +61,7 @@ export const Colors: StoryObj<typeof Text> = {
       'secondary',
       'tertiary',
       'success',
-      'danger',
+      'error',
       'warning',
       'inverse'
     ]

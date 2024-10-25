@@ -34,7 +34,8 @@ const Tab = <C extends ElementType = 'button'>({
     unregisterTab,
     tabs,
     selectedIndex,
-    size
+    size,
+    fullWidth
   } = useTabsContext()
 
   const id = useId()
@@ -53,7 +54,8 @@ const Tab = <C extends ElementType = 'button'>({
       type={Component === 'button' ? 'button' : type}
       className={cn('inf-tab', className, `inf-tab--size-${size as string}`, {
         'inf-tab--disabled': disabled,
-        'inf-tab--active': active
+        'inf-tab--active': active,
+        'inf-tab--fullwidth': fullWidth
       })}
       onClick={() => handleTabClick(id)}
       {...props}

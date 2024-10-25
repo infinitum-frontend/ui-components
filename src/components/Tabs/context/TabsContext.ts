@@ -10,6 +10,7 @@ export interface ITabsContext {
   unregisterPanel: (value: any) => void
   handleTabClick: (value: any) => void
   size?: 'small' | 'medium'
+  fullWidth?: boolean
 }
 const TabsContext = createContext<ITabsContext>({
   selectedIndex: 0,
@@ -20,7 +21,8 @@ const TabsContext = createContext<ITabsContext>({
   registerPanel: () => {},
   unregisterPanel: () => {},
   handleTabClick: () => {},
-  size: 'medium'
+  size: 'medium',
+  fullWidth: false
 })
 
 export default TabsContext

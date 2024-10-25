@@ -9,42 +9,42 @@
   font-weight: var(--inf-font-weight-bold);
   line-height: normal;
   padding: var(--inf-space-xxsmall) var(--inf-space-small);
-  // TODO цвета из переменных, когда будет обновлена общая палитра
+
   &--variant-info {
-    background-color: #0564b7;
+    background-color: var(--inf-color-background-info-primary);
   }
 
   &--variant-error {
-    background-color: #dc3053;
-  }
-
-  // deprecated
-  &--variant-danger {
-    background-color: #dc3053;
+    background-color: var(--inf-color-background-error-primary);
   }
 
   &--variant-success {
-    background-color: #029161;
+    background-color: var(--inf-color-background-success-primary);
   }
 
   &--variant-warning {
-    background-color: #e5790d;
+    background-color: var(--inf-color-background-warning-primary);
   }
 
   &--variant-neutral {
-    background-color: #a0a0a0;
+    background-color: var(--inf-color-background-neutral-primary);
   }
 
   &--variant-brand {
-    background-color: #f64a4a;
+    background-color: var(--inf-color-background-brand-primary);
   }
 
   &--variant-violet {
-    background-color: #9d10d5;
+    background-color: var(--inf-color-background-violet-primary);
   }
 
   &--variant-teal {
-    background-color: #00a6a6;
+    background-color: var(--inf-color-background-teal-primary);
+  }
+
+  // TODO: deprecated, use "error"
+  &--variant-danger {
+    background-color: #dc3053;
   }
 
   &__before {

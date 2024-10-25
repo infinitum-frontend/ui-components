@@ -26,4 +26,24 @@
   > * + * {
     margin-top: var(--gap);
   }
+
+  &--scrollable {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+      background: var(--inf-scrollbar-track-color-background);
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      width: 7px;
+      background-color: var(--inf-scrollbar-thumb-color-background);
+    }
+  }
 }

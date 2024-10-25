@@ -19,6 +19,8 @@ export interface TabsProps
   onChange?: (index: number) => void
   /** Размер */
   size?: 'small' | 'medium'
+  /** Растягивание табов на всю ширину и центрирование */
+  fullWidth?: boolean
 }
 
 const Tabs = ({
@@ -26,6 +28,7 @@ const Tabs = ({
   onChange,
   className,
   size = 'medium',
+  fullWidth,
   children,
   ...props
 }: TabsProps): ReactElement => {
@@ -64,7 +67,8 @@ const Tabs = ({
     registerPanel,
     unregisterPanel,
     handleTabClick,
-    size
+    size,
+    fullWidth
   }
   return (
     <TabsContext.Provider value={context}>

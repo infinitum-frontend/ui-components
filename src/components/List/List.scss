@@ -32,7 +32,7 @@
 
     &::-webkit-scrollbar {
       width: 7px;
-      background: #E7E7E7;
+      background: var(--inf-scrollbar-track-color-background);
       border-radius: 5px;
     }
 
@@ -43,7 +43,7 @@
     &::-webkit-scrollbar-thumb {
       border-radius: 5px;
       width: 7px;
-      background-color: #C9C9C9;
+      background-color: var(--inf-scrollbar-thumb-color-background);
     }
   }
 }

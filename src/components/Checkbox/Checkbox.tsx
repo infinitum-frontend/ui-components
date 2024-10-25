@@ -18,9 +18,22 @@ import { CheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import CheckboxBox from './components/Box/CheckboxBox'
 
-const checkedIcon = <CheckIcon width={'16px'} height={'16px'} />
-const indeterminateIcon = <IndeterminateIcon width={'16px'} height={'16px'} />
+const checkedIcon = (
+  <CheckIcon
+    className="inf-checkbox__check-icon"
+    width={'16px'}
+    height={'16px'}
+  />
+)
+const indeterminateIcon = (
+  <IndeterminateIcon
+    className="inf-indeterminate-icon"
+    width={'16px'}
+    height={'16px'}
+  />
+)
 
 interface InputProps
   extends DetailedHTMLProps<
@@ -150,5 +163,6 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 Checkbox.displayName = 'Checkbox'
 
 export default Object.assign(Checkbox, {
-  Group: CheckboxGroup
+  Group: CheckboxGroup,
+  Box: CheckboxBox
 })

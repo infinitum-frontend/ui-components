@@ -1,109 +1,28 @@
-/* Naming formula: --p-color-element-role-variant-state */
+/* Naming formula: --p-category-element-role-variant-state */
 
 :root {
-  /* Base */
-  --inf-color-gray-100: #f7f9fa;
-  --inf-color-gray-200: #dddedf;
-  --inf-color-gray-300: #adaeaf;
-  --inf-color-gray-400: #8e8f90;
-  --inf-color-gray-500: #707273;
-  --inf-color-gray-600: #545556;
-  --inf-color-gray-700: #373839;
-  --inf-color-gray-800: #1f2021;
-
-  --inf-color-blue-100: #e6f9ff;
-  --inf-color-blue-200: #bedee8;
-  --inf-color-blue-300: #9cbac4;
-  --inf-color-blue-400: #7d9ba5;
-  --inf-color-blue-500: #607d86;
-  --inf-color-blue-600: #46626b;
-  --inf-color-blue-700: #29444d;
-
-  --inf-color-red-100: #fff6f5;
-  --inf-color-red-200: #ffd6d1;
-  --inf-color-red-300: #ffb5ac;
-  --inf-color-red-400: #ff9086;
-  --inf-color-red-500: #f53a3a;
-  --inf-color-red-600: #d0001b;
-
-  --inf-color-green-100: #e8fff2;
-  --inf-color-green-200: #89f9c2;
-  --inf-color-green-300: #67d7a3;
-  --inf-color-green-400: #40b481;
-  --inf-color-green-500: #029161;
-  --inf-color-green-600: #006945;
-
-  --inf-color-orange-100: #fff6f4;
-  --inf-color-orange-200: #ffdcd1;
-  --inf-color-orange-300: #ffbba7;
-  --inf-color-orange-400: #ff9273;
-  --inf-color-orange-500: #fc673a;
-  --inf-color-orange-600: #dd4a18;
-
-  --inf-color-yellow-100: #fff7ec;
-  --inf-color-yellow-200: #ffe0ae;
-  --inf-color-yellow-300: #ffc256;
-  --inf-color-yellow-400: #e6a302;
-  --inf-color-yellow-500: #c28900;
-
-  --inf-color-black: #1f2021;
-  --inf-color-white: #fff;
-
-  /* Semantic */
-  --inf-color-primary: var(--inf-color-red-500);
-  --inf-color-primary-hover: var(--inf-color-red-400);
-  --inf-color-primary-active: var(--inf-color-red-600);
-
-  --inf-color-secondary: var(--inf-color-blue-600);
-  --inf-color-secondary-hover: var(--inf-color-blue-500);
-  --inf-color-secondary-active: var(--inf-color-blue-700);
-
-  --inf-color-success: var(--inf-color-green-500);
-  --inf-color-danger: var(--inf-color-orange-500);
-  --inf-color-warning: var(--inf-color-yellow-500);
-
   /* Text */
-  --inf-color-text-primary: var(--inf-color-gray-800);
-  --inf-color-text-secondary: var(--inf-color-gray-500);
-  --inf-color-text-tertiary: var(--inf-color-gray-300);
-  --inf-color-text-disabled: var(--inf-color-gray-300);
-  --inf-color-text-inverse: var(--inf-color-white);
-  // --inf-color-text-inverse-secondary: #ccc;
-  --inf-color-text-link: var(--inf-color-blue-500);
-  --inf-color-text-link-hover: var(--inf-color-blue-600);
-  --inf-color-text-link-disabled: var(--inf-color-blue-300);
-
-  --inf-color-text-success: var(--inf-color-success);
-  --inf-color-text-warning: var(--inf-color-warning);
-  --inf-color-text-danger: var(--inf-color-danger);
-  --inf-color-text-on-color: var(--inf-color-white);
-
+  --inf-color-text-primary: #171717;
+  --inf-color-text-secondary: #6e6e6e;
+  --inf-color-text-tertiary: #a0a0a0;
+  --inf-color-text-inverse: #ffffff;
+  --inf-color-text-on-color: #ffffff;
+  --inf-color-text-error: #dc3053;
+  --inf-color-text-warning: #e5790d;
+  --inf-color-text-success: #1f803d;
   --inf-color-text-info: #0564b7;
   --inf-color-text-info-disabled: #a2c6e4;
-
   --inf-color-text-brand: #f64a4a;
+  --inf-color-text-violet: #9d10d5;
+  --inf-color-text-teal: #00a6a6;
 
-  /* Icon */
-  --inf-color-icon: var(--inf-color-gray-800);
-  --inf-color-icon-secondary: var(--inf-color-gray-300);
-  --inf-color-icon-inverse: var(--inf-color-white);
+  /* Link */
+  --inf-color-text-link: #0564b7;
+  --inf-color-text-link-hover: #3985c6;
+  --inf-color-text-link-visited: #b242de;
 
-  /* Background */
-  --inf-color-background-body: var(--inf-color-white);
-  --inf-color-background-default: var(--inf-color-white);
-  --inf-color-background-secondary: var(--inf-color-gray-100);
-  --inf-color-background-inverse: var(--inf-color-gray-800);
-  --inf-color-background-hover: var(--inf-color-gray-100);
-  --inf-color-background-selected: var(--inf-color-blue-400);
-  --inf-color-background-disabled: var(--inf-color-gray-100);
-  --inf-color-background-neutral: var(--inf-color-gray-300);
-  --inf-color-background-info: var(--inf-color-blue-500);
-  --inf-color-background-danger: var(--inf-color-orange-500);
-  --inf-color-background-success: var(--inf-color-green-500);
-  --inf-color-background-warning: #ffc256; // TODO: внести в палитру
-  --inf-color-background-brand-primary: #f64a4a; // TODO: использовать токены цветов
-  --inf-color-background-brand-secondary: #fef2f2; // TODO: использовать токены цветов
-  --inf-color-background-button-primary: #f64a4a; // TODO: использовать токены цветов
+  /* Button */
+  --inf-color-background-button-primary: #f64a4a;
   --inf-color-background-button-primary-hover: #e04545;
   --inf-color-background-button-primary-active: #c73f3f;
   --inf-color-background-button-primary-disabled: #fbaaaa;
@@ -111,26 +30,131 @@
   --inf-color-background-button-secondary-hover: #d4e5f3;
   --inf-color-background-button-secondary-active: #bcd5ec;
 
+  /* Background */
+  --inf-color-background-primary: #ffffff;
+  --inf-color-background-primary-hover: #f7f9fa; // TODO: не совпадает с дизайн системой
+  --inf-color-background-secondary: #fbfbfb;
+  --inf-color-background-secondary-hover: #fbfbfb;
+  --inf-color-background-tertiary: #f7f9fa; // TODO: не совпадает с дизайн системой
+  --inf-color-background-tertiary-hover: #e3e3e3;
+  --inf-color-background-inverse: #171717;
+  --inf-color-background-elevated: #ffffff;
+  --inf-color-background-error-primary: #dc3053;
+  --inf-color-background-error-secondary: #fdf1f3;
+  --inf-color-background-warning-primary: #e5790d;
+  --inf-color-background-warning-secondary: #fdf6ee;
+  --inf-color-background-success-primary: #1f803d;
+  --inf-color-background-success-secondary: #eff6f1;
+  --inf-color-background-info-primary: #0564b7;
+  --inf-color-background-info-secondary: #eef4fa;
+  --inf-color-background-brand-primary: #f64a4a;
+  --inf-color-background-brand-secondary: #fef2f2;
+  --inf-color-background-violet-primary: #9d10d5;
+  --inf-color-background-violet-secondary: #f8eefc;
+  --inf-color-background-teal-primary: #00a6a6;
+  --inf-color-background-teal-secondary: #edf9f9;
+  --inf-color-background-neutral-primary: #a0a0a0;
+
   /* Border */
-  --inf-color-border-default: var(--inf-color-gray-200); // -primary ?
-  // TBD
-  --inf-color-border-secondary: var(--inf-color-gray-200);
-  --inf-color-border-danger: var(--inf-color-danger);
-  --inf-color-border-focus: #7abfff;
-  --inf-color-border-hover: var(--inf-color-gray-800);
-  --inf-color-border-active: var(--inf-color-gray-800);
-  // TODO: почему акцентный? как будто выбивается из нейминга
-  --inf-color-border-accent: var(--inf-color-primary);
-  // inf-color-border-selected?
+  --inf-color-border-primary: #d5d5d5;
+  --inf-color-border-primary-hover: #171717;
+  --inf-color-border-inverse: #171717;
+  --inf-color-border-error: #dc3053;
+  --inf-color-border-warning: #e5790d;
+  --inf-color-border-success: #1f803d;
+  --inf-color-border-info: #0564b7;
+  --inf-color-border-violet: #9d10d5;
+  --inf-color-border-teal: #00a6a6;
+
+  /* Icon */
+  --inf-color-icon-primary: #a0a0a0;
+  --inf-color-icon-secondary: #6e6e6e;
+  --inf-color-icon-primary-hover: #171717;
+  --inf-color-icon-primary-disabled: #d5d5d5;
+  --inf-color-icon-inverse: #ffffff;
+  --inf-color-icon-on-color: #ffffff;
+  --inf-color-icon-error: #dc3053;
+  --inf-color-icon-warning: #e5790d;
+  --inf-color-icon-success: #1f803d;
+  --inf-color-icon-info: #0564b7;
+  --inf-color-icon-info-disabled: #a2c6e4;
+  --inf-color-icon-violet: #9d10d5;
+  --inf-color-icon-teal: #00a6a6;
 
   /* ---------- TDB ---------- */
-  --inf-color-text-control: #46626b;
-  --inf-color-border-focused: #46626b;
-  --inf-control-color-border-active: #738f99;
-  --inf-control-background-color-hover: #e6f1f5;
-  --inf-color-text-quaternary: #c8cacc;
-  --inf-color-background-control-disabled: var(
-    --inf-color-background-secondary
-  );
-  // --inf-color-control-active: var(--inf-color-primary); TODO: нужен?
+
+  --inf-color-border-focus: #7abfff;
+  // --inf-color-border-hover: var(--inf-color-gray-800);
+
+  /* Semantic */
+  // --inf-color-primary: var(--inf-color-red-500);
+  // --inf-color-secondary: var(--inf-color-blue-600);
+  // --inf-color-secondary-hover: var(--inf-color-blue-500);
+  // --inf-color-secondary-active: var(--inf-color-blue-700);
+  // --inf-color-success: var(--inf-color-green-500);
+  // --inf-color-danger: var(--inf-color-orange-500);
+  // --inf-color-warning: var(--inf-color-yellow-500);
+
+  // /* Base */
+  // --inf-color-gray-100: #f7f9fa;
+  // --inf-color-gray-200: #dddedf;
+  // --inf-color-gray-300: #adaeaf;
+  // --inf-color-gray-400: #8e8f90;
+  // --inf-color-gray-500: #707273;
+  // --inf-color-gray-600: #545556;
+  // --inf-color-gray-700: #373839;
+  // --inf-color-gray-800: #1f2021;
+
+  // --inf-color-blue-50: #eef4fa;
+  // --inf-color-blue-100: #d4e5f3;
+  // --inf-color-blue-200: #bcd5ec;
+  // --inf-color-blue-300: #a2c6e4;
+  // --inf-color-blue-400: #89b6dd;
+  // --inf-color-blue-500: #6ea5d5;
+  // --inf-color-blue-600: #5596ce;
+  // --inf-color-blue-700: #3985c6;
+  // --inf-color-blue-800: #1e74be;
+  // --inf-color-blue-900: #0564b7;
+
+  // --inf-color-red-50: #fdf1f3;
+  // --inf-color-red-100: #f9dce2;
+  // --inf-color-red-200: #f6c7d1;
+  // --inf-color-red-300: #f2b2bf;
+  // --inf-color-red-400: #ef9eae;
+  // --inf-color-red-500: #eb879b;
+  // --inf-color-red-600: #e7728a;
+  // --inf-color-red-700: #e35b77;
+  // --inf-color-red-800: #e04564;
+  // --inf-color-red-900: #dc3053;
+
+  // --inf-color-green-50: #eff6f1;
+  // --inf-color-green-100: #d9e9de;
+  // --inf-color-green-200: #c3ddcb;
+  // --inf-color-green-300: #acd0b7;
+  // --inf-color-green-400: #96c3a4;
+  // --inf-color-green-500: #7db58e;
+  // --inf-color-green-600: #67a97b;
+  // --inf-color-green-700: #4e9b66;
+  // --inf-color-green-800: #358d50;
+  // --inf-color-green-900: #1f803d;
+
+  // --inf-color-orange-50: #fdf6ee;
+  // --inf-color-orange-100: #fbe8d6;
+  // --inf-color-orange-200: #f8dbbe;
+  // --inf-color-orange-300: #f5cda5;
+  // --inf-color-orange-400: #f3c08d;
+  // --inf-color-orange-500: #f0b173;
+  // --inf-color-orange-600: #eda45a;
+  // --inf-color-orange-700: #ea9540;
+  // --inf-color-orange-800: #e88625;
+  // --inf-color-orange-900: #e5790d;
+
+  // --inf-color-yellow-100: #fff7ec;
+  // --inf-color-yellow-200: #ffe0ae;
+  // --inf-color-yellow-300: #ffc256;
+  // --inf-color-yellow-400: #e6a302;
+  // --inf-color-yellow-500: #c28900;
+
+  // --inf-color-black: #1f2021;
+  // --inf-color-white: #fff;
 }

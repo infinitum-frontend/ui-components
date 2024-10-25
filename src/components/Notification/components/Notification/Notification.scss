@@ -1,11 +1,11 @@
 .inf-notification {
-  --inf-notification-type-accent-color: var(--inf-color-background-neutral);
+  --inf-notification-type-accent-color: var(--inf-color-background-tertiary);
 
   position: relative;
-  background-color: var(--inf-color-background-default);
+  background-color: var(--inf-color-background-elevated);
   box-shadow: var(--inf-box-shadow-medium);
   padding: var(--inf-space-medium);
-  border-left: 3px solid var(--inf-color-border-secondary);
+  border-left: 3px solid var(--inf-color-border-primary);
   max-width: 400px;
   display: flex;
   border-color: var(--inf-notification-type-accent-color);
@@ -65,19 +65,27 @@
   }
 
   &--type-info {
-    --inf-notification-type-accent-color: var(--inf-color-background-info);
+    --inf-notification-type-accent-color: var(
+      --inf-color-background-info-primary
+    );
   }
 
   &--type-success {
-    --inf-notification-type-accent-color: var(--inf-color-background-success);
+    --inf-notification-type-accent-color: var(
+      --inf-color-background-success-primary
+    );
   }
 
   &--type-warning {
-    --inf-notification-type-accent-color: var(--inf-color-background-warning);
+    --inf-notification-type-accent-color: var(
+      --inf-color-background-warning-primary
+    );
   }
 
   &--type-error {
-    --inf-notification-type-accent-color: var(--inf-color-background-danger);
+    --inf-notification-type-accent-color: var(
+      --inf-color-background-error-primary
+    );
   }
 
   &__icon {
