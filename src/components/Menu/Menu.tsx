@@ -41,7 +41,7 @@ const Menu = <C extends ElementType = 'ul'>({
       <Component
         {...props}
         className={cn(className, 'inf-menu', `inf-menu--gap-${gap as string}`, {
-          'inf-scroll-y': maxHeight
+          'inf-menu--scrollable': maxHeight
         })}
         style={{
           ...style,

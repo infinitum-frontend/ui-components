@@ -2,7 +2,7 @@
   --table-with-virtual-rows-border-radius: 0;
 
   border-radius: var(--table-with-virtual-rows-border-radius);
-  border: 1px solid var(--inf-color-border-default);
+  border: 1px solid var(--inf-color-border-primary);
 
   &--border-radius-xsmall {
     --table-with-virtual-rows-border-radius: var(--inf-border-radius-xsmall);
