@@ -1,4 +1,14 @@
 .inf-table-header {
+  &--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    tr th {
+      border-bottom: 1px solid var(--inf-color-border-primary);
+    }
+  }
+
   &__item {
     display: flex;
 
@@ -31,14 +41,14 @@
     top: 0;
     height: 100%;
     width: 3px;
-    background: rgba(#738f99, 0.5); // TODO: токены
+    background: var(--inf-color-border-primary); // TODO: токены
     cursor: col-resize;
     user-select: none;
     touch-action: none;
     opacity: 0;
 
     &--active {
-      background: var(--inf-color-border-hover); // TODO: токены
+      background: rgba(#738f99, 0.5); // TODO: токены
       opacity: 1;
     }
   }

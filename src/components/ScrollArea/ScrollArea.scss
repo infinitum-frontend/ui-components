@@ -1,0 +1,24 @@
+.inf-scroll-area {
+  &__root {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__viewport {
+    height: 100%;
+    overflow: scroll;
+  }
+
+  &__scrollbar {
+    width: 7px;
+    background: var(--inf-scrollbar-track-color-background);
+    border-radius: 5px;
+    transition: background 2000ms ease-in;
+  }
+
+  &__thumb {
+    border-radius: 5px;
+    width: 7px;
+    background-color: var(--inf-scrollbar-thumb-color-background);
+  }
+}

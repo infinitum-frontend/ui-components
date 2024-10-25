@@ -1,16 +1,18 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
-import { flexRender, Row } from '@tanstack/react-table'
-import cn from 'classnames'
+import { Row } from '@tanstack/react-table'
 import { TableRow, TableVerticalAlignValue } from 'Components/Table/types'
 import { mapRowToExternalFormat } from 'Components/Table/helpers'
+import { Virtualizer, notUndefined } from '@tanstack/react-virtual'
+import TableBodyTr from 'Components/Table/components/TableBody/TableBodyTr'
 
-interface TableBodyProps {
+export interface TableBodyProps {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
   rows: Array<Row<any>>
   selectedRow?: string | number | ((row: TableRow<any>) => boolean)
   onRowClick?: (row: TableRow<any>) => void
   verticalAlignBody?: TableVerticalAlignValue
+  virtualizer?: Virtualizer<HTMLDivElement, Element>
   // columns?: Array<ColumnDef<any>>
   // grouping?: boolean
 }
@@ -30,7 +32,8 @@ const TableBody = ({
   rows,
   selectedRow,
   onRowClick,
-  verticalAlignBody
+  verticalAlignBody,
+  virtualizer
 }: TableBodyProps): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -43,63 +46,70 @@ const TableBody = ({
 
     onRowClick?.(mapRowToExternalFormat(row))
   }
+
+  if (!virtualizer) {
+    return (
+      <tbody>
+        {rows.map((row) => (
+          <TableBodyTr
+            key={row.id}
+            row={row}
+            onRowClick={handleRowClick}
+            isSelected={checkSelected(mapRowToExternalFormat(row), selectedRow)}
+            verticalAlignBody={verticalAlignBody}
+          />
+        ))}
+      </tbody>
+    )
+  }
+
+  const virtualItems = virtualizer.getVirtualItems() || []
+
+  const [before, after] =
+    virtualItems.length > 0
+      ? [
+          notUndefined(virtualItems[0]).start -
+            (virtualizer?.options.scrollMargin || 0),
+          (virtualizer?.getTotalSize() || 0) -
+            notUndefined(virtualItems[virtualItems.length - 1]).end
+        ]
+      : [0, 0]
+
+  const FillerRow = ({ height }: { height: number }): ReactElement => {
+    return (
+      <tr>
+        <td
+          style={{
+            height: `${height}px`,
+            padding: 0,
+            borderTop: 'none'
+          }}
+        />
+      </tr>
+    )
+  }
+
   return (
     <tbody>
-      {rows.map((row) => {
+      {before > 0 && <FillerRow height={before} />}
+
+      {virtualItems.map((virtualItem) => {
+        const row = rows[virtualItem.index]
+
         return (
-          <tr
+          <TableBodyTr
             key={row.id}
-            className={cn(row.original.className, {
-              [`inf-table--vertical-align-${verticalAlignBody as string}`]:
-                verticalAlignBody,
-              'inf-table__row--selected': checkSelected(
-                mapRowToExternalFormat(row),
-                selectedRow
-              ),
-              'inf-table__row--interactive': Boolean(onRowClick)
-            })}
-            style={row.original.style}
-            onClick={(e) => handleRowClick(e, row)}
-          >
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
+            row={row}
+            data-index={virtualItem.index}
+            ref={virtualizer?.measureElement}
+            onRowClick={handleRowClick}
+            isSelected={checkSelected(mapRowToExternalFormat(row), selectedRow)}
+            verticalAlignBody={verticalAlignBody}
+          />
         )
       })}
 
-      {/*  // return grouping ? ( */}
-      {/*  //   <Fragment key={row.id}> */}
-      {/*  //     <tr className={'inf-table__group-label'}> */}
-      {/*  //       /!* TODO: тут нужно кастомное поле *!/ */}
-      {/*  //       <td>{row.original.row}</td> */}
-      {/*  //       {Array.from({ length: columns.length - 1 }).map((item, index) => ( */}
-      {/*  //         <td key={row.id + String(index)} /> */}
-      {/*  //       ))} */}
-      {/*  //     </tr> */}
-      {/*  // */}
-      {/*  //     {row.subRows.map((subRow) => ( */}
-      {/*  //       <tr key={subRow.id}> */}
-      {/*  //         {Object.keys(subRow.original).map((key, index) => ( */}
-      {/*  //           <td key={subRow.id + String(index)}> */}
-      {/*  //             {subRow.original[key]} */}
-      {/*  //           </td> */}
-      {/*  //         ))} */}
-      {/*  //       </tr> */}
-      {/*  //     ))} */}
-      {/*  //   </Fragment> */}
-      {/*  // ) : ( */}
-      {/*  //   <tr key={row.id}> */}
-      {/*  //     {row.getVisibleCells().map((cell, index) => ( */}
-      {/*  //       <td key={cell.id}> */}
-      {/*  //         {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
-      {/*  //       </td> */}
-      {/*  //     ))} */}
-      {/*  //   </tr> */}
-      {/*  // ) */}
-      {/* // })} */}
+      {after > 0 && <FillerRow height={after} />}
     </tbody>
   )
 }
