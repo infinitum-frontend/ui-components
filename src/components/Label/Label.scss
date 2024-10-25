@@ -4,42 +4,94 @@
   flex-shrink: 0;
   width: max-content;
   border-radius: var(--inf-border-radius-medium);
-  color: var(--inf-color-text-on-color);
-  font-size: var(--inf-font-size-subtitle-2);
-  font-weight: var(--inf-font-weight-bold);
-  line-height: normal;
-  padding: var(--inf-space-xxsmall) var(--inf-space-small);
+  font: var(--inf-font-subtitle-2);
+  padding: var(--inf-space-xxsmall);
 
-  &--variant-info {
-    background-color: var(--inf-color-background-info-primary);
+  &--tone-heavy {
+    color: var(--inf-color-text-on-color);
+
+    &.inf-label--variant-info {
+      background-color: var(--inf-color-background-info-primary);
+    }
+
+    &.inf-label--variant-error {
+      background-color: var(--inf-color-background-error-primary);
+    }
+    // TODO: deprecated, use "error"
+    &.inf-label--variant-danger {
+      background-color: var(--inf-color-background-error-primary);
+    }
+
+    &.inf-label--variant-success {
+      background-color: var(--inf-color-background-success-primary);
+    }
+
+    &.inf-label--variant-warning {
+      background-color: var(--inf-color-background-warning-primary);
+    }
+
+    &.inf-label--variant-neutral {
+      background-color: var(--inf-color-background-neutral-primary);
+    }
+
+    &.inf-label--variant-brand {
+      background-color: var(--inf-color-background-brand-primary);
+    }
+
+    &.inf-label--variant-violet {
+      background-color: var(--inf-color-background-violet-primary);
+    }
+
+    &.inf-label--variant-teal {
+      background-color: var(--inf-color-background-teal-primary);
+    }
   }
 
-  &--variant-error {
-    background-color: var(--inf-color-background-error-primary);
-  }
+  &--tone-light {
+    &.inf-label--variant-info {
+      background-color: var(--inf-color-background-info-secondary);
+      color: var(--inf-color-text-info);
+    }
 
-  &--variant-success {
-    background-color: var(--inf-color-background-success-primary);
-  }
+    &.inf-label--variant-error {
+      background-color: var(--inf-color-background-error-secondary);
+      color: var(--inf-color-text-error);
+    }
+    // TODO: deprecated, use "error"
+    &.inf-label--variant-danger {
+      background-color: var(--inf-color-background-error-secondary);
+      color: var(--inf-color-text-error);
+    }
 
-  &--variant-warning {
-    background-color: var(--inf-color-background-warning-primary);
-  }
+    &.inf-label--variant-success {
+      background-color: var(--inf-color-background-success-secondary);
+      color: var(--inf-color-text-success);
+    }
 
-  &--variant-neutral {
-    background-color: var(--inf-color-background-neutral-primary);
-  }
+    &.inf-label--variant-warning {
+      background-color: var(--inf-color-background-warning-secondary);
+      color: var(--inf-color-text-warning);
+    }
 
-  &--variant-brand {
-    background-color: var(--inf-color-background-brand-primary);
-  }
+    &.inf-label--variant-neutral {
+      background-color: var(--inf-color-background-tertiary);
+      color: var(--inf-color-text-secondary);
+    }
 
-  &--variant-violet {
-    background-color: var(--inf-color-background-violet-primary);
-  }
+    &.inf-label--variant-brand {
+      background-color: var(--inf-color-background-brand-secondary);
+      color: var(--inf-color-text-brand);
+    }
 
-  &--variant-teal {
-    background-color: var(--inf-color-background-teal-primary);
+    &.inf-label--variant-violet {
+      background-color: var(--inf-color-background-violet-secondary);
+      color: var(--inf-color-text-violet);
+    }
+
+    &.inf-label--variant-teal {
+      background-color: var(--inf-color-background-teal-secondary);
+      color: var(--inf-color-text-teal);
+    }
   }
 
   // TODO: deprecated, use "error"
@@ -49,6 +101,10 @@
 
   &__before {
     display: flex;
-    margin-right: 4px;
+  }
+
+  &__content {
+    margin-left: var(--inf-space-xxsmall);
+    margin-right: var(--inf-space-xxsmall);
   }
 }

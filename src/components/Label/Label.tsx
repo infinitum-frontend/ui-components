@@ -1,16 +1,13 @@
 import { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react'
 import cn from 'classnames'
 import './Label.scss'
-import { ReactComponent as IconWarning } from 'Icons/warning.svg'
-import { ReactComponent as IconInfo } from 'Icons/info-circle.svg'
-import { ReactComponent as IconCheckIn } from 'Icons/checkInCircle2.svg'
+import { ReactComponent as IconInfoCircle } from 'Icons/info-circle.svg'
+import { ReactComponent as IconCheckCircle } from 'Icons/check-circle.svg'
+import { ReactComponent as IconAlertCircle } from 'Icons/alert-circle.svg'
 
 export interface LabelProps
   extends Omit<ComponentPropsWithoutRef<'span'>, 'prefix'> {
-  /** Варианты лейбла
-   *
-   * variant: 'danger' was deprecated
-   */
+  /** Варианты лейбла */
   variant:
     | 'info'
     | 'error'
@@ -20,26 +17,28 @@ export interface LabelProps
     | 'brand'
     | 'violet'
     | 'teal'
+  tone?: 'heavy' | 'light'
   /** Поддержка стандартной иконки для variant */
   withIcon?: boolean
   before?: ReactNode
 }
 
 const defaultIcon = {
-  info: <IconInfo />,
-  error: <IconWarning />,
-  success: <IconCheckIn />,
-  warning: <IconWarning />,
-  neutral: <IconWarning />,
-  brand: <IconWarning />,
-  violet: <IconWarning />,
-  teal: <IconWarning />,
-  danger: <IconWarning />
+  info: <IconInfoCircle />,
+  error: <IconAlertCircle />,
+  success: <IconCheckCircle />,
+  warning: <IconAlertCircle />,
+  neutral: <IconAlertCircle />,
+  brand: <IconAlertCircle />,
+  violet: <IconAlertCircle />,
+  teal: <IconAlertCircle />,
+  danger: <IconAlertCircle />
 }
 
 const Label = ({
   children,
   variant = 'neutral',
+  tone = 'heavy',
   withIcon = false,
   before,
   className,
@@ -47,14 +46,16 @@ const Label = ({
 }: LabelProps): ReactElement => {
   return (
     <span
-      className={cn(className, 'inf-label', `inf-label--variant-${variant}`)}
+      className={cn(className, 'inf-label', `inf-label--variant-${variant}`, {
+        [`inf-label--tone-${tone as string}`]: tone
+      })}
       {...props}
     >
       {withIcon && (
         <span className="inf-label__before">{defaultIcon[variant]}</span>
       )}
       {before && <span className="inf-label__before">{before}</span>}
-      {children}
+      {children && <span className="inf-label__content">{children}</span>}
     </span>
   )
 }

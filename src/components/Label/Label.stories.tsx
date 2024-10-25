@@ -3,7 +3,8 @@ import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Label, LabelProps } from './index'
 import { Space } from '../Space'
-import { ReactComponent as IconWarning } from 'Icons/warning.svg'
+import { Grid } from '../Grid'
+import { ReactComponent as IconBxFilter } from 'Icons/bx-filter.svg'
 
 const variants = [
   'info',
@@ -36,13 +37,22 @@ export const Playground = {
 export const Variants = {
   render: () => {
     return (
-      <Space>
-        {variants.map((variant, index) => (
-          <Label variant={variant} key={index} before={<IconWarning />}>
-            {variant}
-          </Label>
-        ))}
-      </Space>
+      <Grid templateColumns="150px 150px">
+        <Space>
+          {variants.map((variant, index) => (
+            <Label variant={variant} key={index} tone="heavy">
+              {variant}
+            </Label>
+          ))}
+        </Space>
+        <Space>
+          {variants.map((variant, index) => (
+            <Label variant={variant} key={index} tone="light">
+              {variant}
+            </Label>
+          ))}
+        </Space>
+      </Grid>
     )
   }
 }
@@ -50,13 +60,30 @@ export const Variants = {
 export const VariantsWithInitialIcons = {
   render: () => {
     return (
-      <Space>
-        {variants.map((variant, index) => (
-          <Label variant={variant} key={index} withIcon={true}>
-            {variant}
-          </Label>
-        ))}
-      </Space>
+      <Grid templateColumns="150px 150px">
+        <Space>
+          {variants.map((variant, index) => (
+            <Label variant={variant} key={index} tone="heavy" withIcon>
+              {variant}
+            </Label>
+          ))}
+        </Space>
+        <Space>
+          {variants.map((variant, index) => (
+            <Label variant={variant} key={index} tone="light" withIcon>
+              {variant}
+            </Label>
+          ))}
+        </Space>
+      </Grid>
     )
+  }
+}
+
+export const IconBefore = {
+  render: Template,
+
+  args: {
+    before: <IconBxFilter />
   }
 }
