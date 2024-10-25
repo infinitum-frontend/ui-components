@@ -195,3 +195,19 @@ export const InPopover: StoryObj<typeof Menu> = {
     )
   }
 }
+
+export const WithLabels: StoryObj<typeof Menu> = {
+  render: (args) => {
+    return (
+      <Menu>
+        <Menu.Label>Юридические лица</Menu.Label>
+        <Menu.Item>ООО “Гарант”</Menu.Item>
+        <Menu.Item>ЗАО “Спектр”</Menu.Item>
+        <Menu.Label>Физические лица</Menu.Label>
+        <Menu.Item>Смирнов Алексей Владимирович</Menu.Item>
+        <Menu.Item>Лебедев Сергей Петрович</Menu.Item>
+        <Menu.Item>Васильев Николай Александрович”</Menu.Item>
+      </Menu>
+    )
+  }
+}
