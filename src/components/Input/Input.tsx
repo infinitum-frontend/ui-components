@@ -12,7 +12,7 @@ import React, {
 import classNames from 'classnames'
 import './Input.scss'
 import { InputProps } from './types'
-import { ReactComponent as ClearIcon } from 'Icons/cross.svg'
+import { ReactComponent as ClearIcon } from 'Icons/cancel-circle.svg'
 // eslint-disable-next-line import/no-named-default
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { mergeRefs } from 'react-merge-refs'
@@ -69,6 +69,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const formContext = useContext(FormContext)
     const { onControlInvalid, onControlChange } = useFormControlHandlers()
     const disabled = disabledProp || formContext?.disabled
+    const hasError = status === 'error' || formGroupContext?.invalid
 
     // обработка событий
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -152,7 +153,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           [TextFieldClasses.filled]: inputRef.current?.value,
           [TextFieldClasses.borderRadius[borderRadius]]:
             borderRadius !== 'unset',
-          [TextFieldClasses.status[status as 'error']]: status
+          [TextFieldClasses.status.error]: hasError
         }
       )
     }
@@ -162,13 +163,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         return null
       }
 
-      const iconSize = size === 'medium' ? 24 : 20
-
       const iconNode =
         typeof allowClear === 'object' && allowClear.icon ? (
           allowClear.icon
         ) : (
-          <ClearIcon width={iconSize} height={iconSize} />
+          <ClearIcon width={20} height={20} />
         )
 
       return (
@@ -179,6 +178,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const isRequired = required || formGroupContext?.required
+
+    console.log('formGroupContext', formGroupContext)
 
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)

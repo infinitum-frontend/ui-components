@@ -1,5 +1,7 @@
 .inf-text-field {
-  border: 1px solid var(--inf-color-border-primary);
+  --input-default-border-color: var(--inf-color-border-primary);
+
+  border: 1px solid var(--input-default-border-color);
   transition: border-color 0.2s;
   font: var(--inf-font-body-1);
   width: 100%;
@@ -11,7 +13,7 @@
   }
 
   @include hover {
-    &:not(.inf-text-field--readonly) {
+    &:not(.inf-text-field--status-error):not(.inf-text-field--readonly) {
       border-color: var(--inf-color-border-primary-hover);
     }
   }
@@ -19,7 +21,7 @@
   &:focus,
   &:focus-visible,
   &--focused {
-    &:not(.inf-text-field--readonly) {
+    &:not(.inf-text-field--status-error) {
       border-color: var(--inf-color-border-primary-hover);
     }
   }
@@ -45,14 +47,6 @@
 
   &--status-error {
     border-color: var(--inf-color-border-error);
-
-    @include hover {
-      border-color: var(--inf-color-border-error);
-    }
-
-    &:focus {
-      border-color: var(--inf-color-border-error);
-    }
   }
 
   &--size-medium {
