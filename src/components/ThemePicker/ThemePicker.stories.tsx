@@ -18,9 +18,6 @@ import ThemePicker from './ThemePicker'
 const ComponentMeta: Meta = {
   title: 'Components/ThemePicker',
   component: ThemePicker,
-  argTypes: {
-    isDark: { control: 'boolean' }
-  },
   parameters: {
     layout: 'fullscreen',
     backgrounds: { default: 'clean' }
