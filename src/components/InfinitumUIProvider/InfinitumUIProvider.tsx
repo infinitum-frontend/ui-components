@@ -5,6 +5,7 @@ import {
   NotificationContainer
 } from 'Components/Notification'
 import { ConfirmModalProvider } from '../ConfirmModal'
+import { ThemePickerProvider } from '../ThemePicker'
 
 const InfinitumUIProvider = ({
   children
@@ -12,10 +13,12 @@ const InfinitumUIProvider = ({
   children: ReactNode
 }): ReactElement => {
   return (
-    <NotificationProvider>
-      <ConfirmModalProvider>{children}</ConfirmModalProvider>
-      <NotificationContainer />
-    </NotificationProvider>
+    <ThemePickerProvider>
+      <NotificationProvider>
+        <ConfirmModalProvider>{children}</ConfirmModalProvider>
+        <NotificationContainer />
+      </NotificationProvider>
+    </ThemePickerProvider>
   )
 }
 
