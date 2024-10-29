@@ -24,6 +24,8 @@ export interface BaseInputProps
   borderRadius?: 'unset' | 'regular'
   /** Состояние недоступности */
   disabled?: boolean
+  /** Только чтение */
+  readOnly?: boolean
   /** Состояние (ошибка, предупреждение) */
   status?: 'error'
   /** Отсутствие границ */

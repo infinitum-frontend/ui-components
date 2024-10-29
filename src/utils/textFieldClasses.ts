@@ -2,6 +2,7 @@ export const TextFieldClasses = {
   main: 'inf-text-field',
   focused: 'inf-text-field--focused',
   disabled: 'inf-text-field--disabled',
+  readonly: 'inf-text-field--readonly',
   filled: 'inf-text-field--filled',
   noBorder: 'inf-text-field--no-border',
   borderRadius: {

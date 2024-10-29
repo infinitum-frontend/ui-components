@@ -143,6 +143,15 @@ export const Disabled = {
   }
 }
 
+export const ReadOnly = {
+  render: Template,
+
+  args: {
+    readOnly: true,
+    value: 'Иван Иванов'
+  }
+}
+
 export const Sizes: StoryObj<typeof Input> = {
   render: (args) => {
     return (
@@ -194,7 +203,7 @@ export const WithClearButton = {
   }
 }
 
-export const WithError = {
+export const ErrorStatus = {
   render: Template,
 
   args: {
