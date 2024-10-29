@@ -13,6 +13,7 @@ import cn from 'classnames'
 import './FormGroup.scss'
 import { Space, SpaceProps } from 'Components/Space'
 import Form from 'Components/Form/Form'
+import { formElementDisplayName } from '../../constants'
 
 export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
   /** Направление раскладки */
@@ -53,20 +54,44 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
       setInvalid
     }
 
-    const align: SpaceProps['align'] =
-      direction === 'vertical' ? 'start' : 'baseline'
+    const childrenArray = React.Children.toArray(children)
+
+    const labelElement = childrenArray.find(
+      // @ts-expect-error
+      (child) => child.type?.displayName === formElementDisplayName.Label
+    )
+    const actionElement = childrenArray.find(
+      // @ts-expect-error
+      (child) => child.type?.displayName === formElementDisplayName.Action
+    )
+    const otherChildrne = childrenArray.filter(
+      (child) =>
+        // @ts-expect-error
+        child.type?.displayName !== formElementDisplayName.Label &&
+        // @ts-expect-error
+        child.type?.displayName !== formElementDisplayName.Action
+    )
 
     return (
       <FormGroupContext.Provider value={context}>
         <Space
-          align={align}
           ref={ref}
           gap={gap}
           className={cn(className, 'inf-form-group')}
           direction={direction}
           {...props}
         >
-          {children}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%'
+            }}
+          >
+            {labelElement}
+            {actionElement}
+          </div>
+          {otherChildrne}
           {errorMessage && (
             <Form.ErrorMessage>{errorMessage}</Form.ErrorMessage>
           )}
@@ -76,6 +101,6 @@ const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
   }
 )
 
-FormGroup.displayName = 'Form.Group'
+FormGroup.displayName = formElementDisplayName.Group
 
 export default FormGroup

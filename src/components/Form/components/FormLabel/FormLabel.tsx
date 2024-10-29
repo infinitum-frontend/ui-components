@@ -9,6 +9,7 @@ import React, {
 import './FormLabel.scss'
 import FormContext from 'Components/Form/context/form'
 import FormGroupContext from 'Components/Form/context/group'
+import { formElementDisplayName } from '../../constants'
 
 export interface FormLabelProps extends ComponentPropsWithoutRef<'label'> {
   /** htmlId */
@@ -49,6 +50,6 @@ const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
   }
 )
 
-FormLabel.displayName = 'Form.Label'
+FormLabel.displayName = formElementDisplayName.Label
 
 export default FormLabel

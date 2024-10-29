@@ -3,6 +3,7 @@ import React, { forwardRef, ReactElement, PropsWithChildren } from 'react'
 import cn from 'classnames'
 import { ReactComponent as IconAlertCircle } from 'Icons/alert-circle.svg'
 import './FormErrorMessage.scss'
+import { formElementDisplayName } from '../../constants'
 
 export interface FormErrorMessageProps extends PropsWithChildren {
   className?: string
@@ -23,6 +24,6 @@ const FormErrorMessage = forwardRef<HTMLDivElement, FormErrorMessageProps>(
   }
 )
 
-FormErrorMessage.displayName = 'Form.ErrorMessage'
+FormErrorMessage.displayName = formElementDisplayName.ErrorMessage
 
 export default FormErrorMessage

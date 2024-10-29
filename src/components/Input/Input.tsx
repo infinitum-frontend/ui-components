@@ -179,8 +179,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isRequired = required || formGroupContext?.required
 
-    console.log('formGroupContext', formGroupContext)
-
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)
 

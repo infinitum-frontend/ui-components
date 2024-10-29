@@ -2,6 +2,7 @@
 import React, { ComponentPropsWithRef, forwardRef, ReactElement } from 'react'
 import cn from 'classnames'
 import './FormItem.scss'
+import { formElementDisplayName } from '../../constants'
 
 export interface FormItemProps extends ComponentPropsWithRef<'div'> {}
 
@@ -15,6 +16,6 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>(
   }
 )
 
-FormItem.displayName = 'Form.Item'
+FormItem.displayName = formElementDisplayName.Item
 
 export default FormItem

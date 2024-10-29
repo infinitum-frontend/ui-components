@@ -10,6 +10,8 @@ import { Radio } from '../Radio'
 import { Textarea } from '../Textarea'
 import { Switch } from '../Switch'
 import { Space } from '../Space'
+import { Link } from '../Link'
+import { Text } from '../Text'
 import { Autocomplete } from '../Autocomplete'
 import { AutocompleteBaseOptions } from '../Autocomplete/fixtures'
 import { Combobox } from '../Combobox'
@@ -132,9 +134,39 @@ export const FormGroup: StoryObj<typeof Form> = {
         <Form {...args} onSubmit={handleSubmit} labelWidth="200px">
           <Form.Group required>
             <Form.Label>Имя</Form.Label>
-            <Form.Item>
-              <Input value={fullName} onInput={(value) => setFullName(value)} />
-            </Form.Item>
+            <Form.Action>Action</Form.Action>
+            {/* // TODO: отрисовать сторис для Form.Action - ссылки */}
+            {/* // TODO: onClick для Form.Action */}
+            <Input value={fullName} onInput={(value) => setFullName(value)} />
+            <Form.Hint>Заполните имя и фамилию на кириллице</Form.Hint>
+          </Form.Group>
+
+          <Button type={'submit'}>Подтвердить</Button>
+        </Form>
+      </>
+    )
+  }
+}
+
+export const FormWithAction: StoryObj<typeof Form> = {
+  render: (args) => {
+    const [fullName, setFullName] = useState<string>('')
+
+    const handleSubmit: FormEventHandler = (e): void => {
+      alert('submit')
+    }
+
+    return (
+      <>
+        <Form {...args} onSubmit={handleSubmit} labelWidth="200px">
+          <Form.Group required>
+            <Space direction="horizontal" justify="space-between">
+              <Form.Label>Имя</Form.Label>
+              <Link>
+                <Text variant="body-2">Action</Text>
+              </Link>
+            </Space>
+            <Input value={fullName} onInput={(value) => setFullName(value)} />
             <Form.Hint>Заполните имя и фамилию на кириллице</Form.Hint>
           </Form.Group>
 

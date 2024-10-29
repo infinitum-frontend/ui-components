@@ -15,6 +15,7 @@ import FormGroup from './components/FormGroup'
 import FormHint from './components/FormHint'
 import FormItem from './components/FormItem'
 import FormErrorMessage from './components/FormErrorMessage'
+import FormAction from './components/FormAction'
 import { mergeRefs } from 'react-merge-refs'
 
 export interface FormProps extends ComponentPropsWithRef<'form'> {
@@ -85,5 +86,6 @@ export default Object.assign(Form, {
   Item: FormItem,
   Label: FormLabel,
   Hint: FormHint,
-  ErrorMessage: FormErrorMessage
+  ErrorMessage: FormErrorMessage,
+  Action: FormAction
 })
