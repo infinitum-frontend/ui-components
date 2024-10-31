@@ -143,6 +143,16 @@ export const Disabled = {
   }
 }
 
+export const FieldsetDisabled = {
+  render: () => {
+    return (
+      <fieldset disabled>
+        <Input value="Иван Иванов" />
+      </fieldset>
+    )
+  }
+}
+
 export const ReadOnly = {
   render: Template,
 

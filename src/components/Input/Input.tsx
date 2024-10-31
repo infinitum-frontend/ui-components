@@ -7,7 +7,8 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   useContext,
-  ChangeEventHandler
+  ChangeEventHandler,
+  useEffect
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -60,6 +61,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
+    const [isWrapperDisabled, setWrapperDisabled] = useState(false)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -137,6 +139,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       return val
     }
 
+    useEffect(() => {
+      if (wrapperRef.current) {
+        setWrapperDisabled(
+          wrapperRef.current?.parentElement?.attributes[0].name === 'disabled'
+        )
+      }
+    }, [])
+
     const getClassNames: () => string = () => {
       return classNames(
         'inf-input-wrapper',
@@ -146,7 +156,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {
           'inf-input-wrapper--slot-before': prefix,
           'inf-input-wrapper--slot-after': postfix || allowClear,
-          [TextFieldClasses.disabled]: disabled,
+          [TextFieldClasses.disabled]: disabled || isWrapperDisabled,
           [TextFieldClasses.readonly]: readOnly,
           [TextFieldClasses.focused]: isFocused,
           [TextFieldClasses.noBorder]: noBorder,
