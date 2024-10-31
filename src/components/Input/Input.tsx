@@ -140,7 +140,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     useEffect(() => {
-      if (wrapperRef.current) {
+      if (
+        wrapperRef.current &&
+        Boolean(wrapperRef.current?.parentElement?.attributes?.length)
+      ) {
         setWrapperDisabled(
           wrapperRef.current?.parentElement?.attributes[0].name === 'disabled'
         )
