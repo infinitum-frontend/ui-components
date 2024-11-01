@@ -15,7 +15,7 @@ const ThemePicker = (): ReactElement => {
         theme === 'light' ? (
           <DarkThemeIcon color="var(--inf-color-icon-primary)" />
         ) : (
-          <LightThemeIcon color={'#ADADAD'} />
+          <LightThemeIcon color="var(--inf-color-icon-primary)" />
         )
       }
       onClick={toggleTheme}
