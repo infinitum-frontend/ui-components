@@ -13,7 +13,7 @@ const ThemePicker = (): ReactElement => {
       variant="ghost"
       icon={
         theme === 'light' ? (
-          <DarkThemeIcon color={'#A0A0A0'} />
+          <DarkThemeIcon color="var(--inf-color-icon-primary)" />
         ) : (
           <LightThemeIcon color={'#ADADAD'} />
         )

@@ -26,7 +26,7 @@ export const ThemePickerProvider = ({
   children: ReactNode
 }): ReactElement => {
   const [theme, setTheme] = useState<'light' | 'dark'>(
-    (localStorage.getItem('theme') as 'light' | 'dark') || 'light'
+    (localStorage.getItem('inf-ui-theme') as 'light' | 'dark') || 'light'
   )
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const ThemePickerProvider = ({
   const toggleTheme = (): void => {
     setTheme((prevTheme) => {
       const newTheme = prevTheme === 'light' ? 'dark' : 'light'
-      localStorage.setItem('theme', newTheme)
+      localStorage.setItem('inf-ui-theme', newTheme)
       return newTheme
     })
   }
