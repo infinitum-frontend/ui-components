@@ -1,5 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { createContext, useState, ReactNode, ReactElement } from 'react'
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  ReactElement,
+  useEffect
+} from 'react'
 
 interface ThemePickerContextType {
   theme?: 'light' | 'dark'
@@ -19,10 +25,24 @@ export const ThemePickerProvider = ({
 }: {
   children: ReactNode
 }): ReactElement => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light') // Начальная тема
+  const [theme, setTheme] = useState<'light' | 'dark'>(
+    (localStorage.getItem('theme') as 'light' | 'dark') || 'light'
+  )
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.add('inf-ui-theme-dark')
+    } else {
+      document.body.classList.remove('inf-ui-theme-dark')
+    }
+  }, [theme])
 
   const toggleTheme = (): void => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light'
+      localStorage.setItem('theme', newTheme)
+      return newTheme
+    })
   }
 
   return (

@@ -102,8 +102,4 @@ body {
   /* Scrollbar */
   --inf-scrollbar-thumb-color-background: #575757;
   --inf-scrollbar-track-color-background: #2b2b2b;
-
-  /* Перезаписываем стили body под .inf-ui-theme-dark */
-  background-color: var(--inf-color-background-primary);
-  color: var(--inf-color-text-primary);
 }
