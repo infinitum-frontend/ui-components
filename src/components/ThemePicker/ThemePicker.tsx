@@ -11,7 +11,13 @@ const ThemePicker = (): ReactElement => {
   return (
     <Button
       variant="ghost"
-      icon={theme === 'light' ? <DarkThemeIcon /> : <LightThemeIcon />}
+      icon={
+        theme === 'light' ? (
+          <DarkThemeIcon color={'#A0A0A0'} />
+        ) : (
+          <LightThemeIcon color={'#ADADAD'} />
+        )
+      }
       onClick={toggleTheme}
     />
   )
