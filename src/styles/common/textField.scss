@@ -26,7 +26,7 @@
     }
   }
 
-  &:disabled,
+  &:has(:disabled),
   &--disabled {
     background-color: var(--inf-color-background-tertiary);
     color: var(--inf-color-text-tertiary);
