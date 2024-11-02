@@ -20,6 +20,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       status,
       size = 'medium',
       noBorder,
+      isPasswordType,
       className,
       ...restProps
     }: BaseInputProps,
@@ -47,6 +48,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={onChange}
+        type={isPasswordType ? 'password' : restProps.type}
         {...restProps}
         ref={inputRef}
       />

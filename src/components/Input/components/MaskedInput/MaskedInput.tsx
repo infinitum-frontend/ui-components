@@ -28,8 +28,7 @@ const MaskTypes: Record<MaskType, ReactMaskOpts> = {
     mask: '0000'
   },
   cvc: {
-    mask: '000',
-    displayChar: '*'
+    mask: '000'
   },
   email: {
     mask: /^\w*@?\w*\.?\w{0,4}$/
@@ -228,6 +227,7 @@ const MaskedInput = ({
           : undefined
       }
       placeholder={placeholder || placeholderProp}
+      toggleablePassword={maskType === 'cvc' || props.toggleablePassword}
       // onFocus={handleFocus}
       // onBlur={handleBlur}
     />

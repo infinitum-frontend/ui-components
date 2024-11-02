@@ -13,6 +13,8 @@ import classNames from 'classnames'
 import './Input.scss'
 import { InputProps } from './types'
 import { ReactComponent as ClearIcon } from 'Icons/cancel-circle.svg'
+import { ReactComponent as OpenEyeIcon } from 'Icons/open-eye.svg'
+import { ReactComponent as CloseEyeIcon } from 'Icons/hide-eye.svg'
 // eslint-disable-next-line import/no-named-default
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { mergeRefs } from 'react-merge-refs'
@@ -52,6 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       noBorder = false,
       id,
       required = false,
+      toggleablePassword = false,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
       ...restProps
@@ -60,6 +63,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
+    const [isPasswordType, setPasswordType] = useState(
+      toggleablePassword || false
+    )
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -177,6 +183,25 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       )
     }
 
+    const getPasswordVisibilityIcon: () => ReactNode = () => {
+      const togglePasswordVisibility = (): void => {
+        setPasswordType(!isPasswordType)
+      }
+
+      return (
+        <span
+          onClick={togglePasswordVisibility}
+          className="inf-input-wrapper__visibility-button"
+        >
+          {isPasswordType ? (
+            <CloseEyeIcon width={20} height={20} />
+          ) : (
+            <OpenEyeIcon width={20} height={20} />
+          )}
+        </span>
+      )
+    }
+
     const isRequired = required || formGroupContext?.required
 
     const controlledValue =
@@ -215,6 +240,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onChange={handleChange}
           onInvalid={onControlInvalid}
           required={isRequired}
+          isPasswordType={toggleablePassword ? isPasswordType : false}
           ref={mergedRef}
           aria-invalid={formGroupContext?.invalid || ariaInvalid}
           aria-required={formGroupContext?.required || ariaRequired}
@@ -222,6 +248,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         />
 
         {showClearButton && getClearIcon()}
+        {toggleablePassword && getPasswordVisibilityIcon()}
         {postfix && (
           <span
             onClick={handlePostfixClick}

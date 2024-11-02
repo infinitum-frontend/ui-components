@@ -203,6 +203,15 @@ export const WithClearButton = {
   }
 }
 
+export const WithPasswordVisibilityButton = {
+  render: Template,
+
+  args: {
+    value: 'Инфинитум',
+    toggleablePassword: true
+  }
+}
+
 export const ErrorStatus = {
   render: Template,
 
