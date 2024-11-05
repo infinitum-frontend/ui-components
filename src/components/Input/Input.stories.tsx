@@ -49,18 +49,19 @@ const Template: StoryFn<typeof Input> = ({ value, ...args }) => {
   const [val, setVal] = useState(value)
 
   return (
-    <Input
-      style={{ width: '250px' }}
-      {...args}
-      value={val}
-      onFocus={action('focus')}
-      onBlur={action('blur')}
-      onChange={(v) => {
-        action('change')
-        setVal(v)
-      }}
-      onClear={() => setVal('')}
-    />
+    <>
+      <Input
+        style={{ width: '250px' }}
+        {...args}
+        value={val}
+        onFocus={action('focus')}
+        onBlur={action('blur')}
+        onChange={(v) => {
+          action('change')
+          setVal(v)
+        }}
+      />
+    </>
   )
 }
 
@@ -96,7 +97,7 @@ export const UncontrolledAndControlled = {
               </Text>
               <div>
                 <Text>Значение: {value}</Text>
-                <Input value={value} onChange={setValue} />
+                <Input value={value} onChange={setValue} allowClear />
               </div>
             </Space>
             <Space justify="space-between" gap="xsmall">
@@ -117,7 +118,7 @@ export const UncontrolledAndControlled = {
                   нет
                 </code>
               </Text>
-              <Input />
+              <Input defaultValue="Инфинитум" allowClear />
             </Space>
           </Space>
         )}

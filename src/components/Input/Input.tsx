@@ -58,6 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ): ReactElement => {
+    const [inputValue, setInputValue] = useState(defaultValue ?? '')
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
 
@@ -76,6 +77,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onControlChange(e)
 
       const formattedDomValue = getFormattedValue(e.target.value) || ''
+
+      setInputValue(formattedDomValue)
 
       if (!onInput && !onChange) {
         return
@@ -121,12 +124,21 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
     }
 
-    const handleClear: () => void = () => {
-      if (inputRef.current) {
-        inputRef.current.value = ''
-        inputRef.current.focus()
+    const handleClear: MouseEventHandler<HTMLSpanElement> = (e) => {
+      const inputEl = inputRef.current
+
+      if (!inputEl) {
+        return
       }
-      onClear?.()
+
+      inputEl.value = ''
+      inputEl.focus() // TODO: можно реализовать через prevent blur на кнопке очистки
+
+      const syntheticEvent = Object.create(e)
+      syntheticEvent.target = inputEl
+      syntheticEvent.currentTarget = inputEl
+
+      handleChange(syntheticEvent)
     }
 
     const getFormattedValue: (val?: string) => string | undefined = (val) => {
@@ -179,12 +191,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isRequired = required || formGroupContext?.required
 
-    const controlledValue =
-      defaultValue !== undefined ? undefined : getFormattedValue(value)
+    const controlledValue = defaultValue !== undefined ? undefined : inputValue
 
-    // для controlled input показываем кнопка очистки только если поле не пустое, для uncontrolled нет возможности определить пустое ли поле
-    const showClearButton =
-      allowClear && value !== undefined ? controlledValue : true
+    const showClearButton = allowClear && !disabled && !readOnly && inputValue
 
     return (
       <span
