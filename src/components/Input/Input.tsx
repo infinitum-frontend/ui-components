@@ -7,7 +7,8 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   useContext,
-  ChangeEventHandler
+  ChangeEventHandler,
+  useEffect
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -58,7 +59,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ): ReactElement => {
-    const [inputValue, setInputValue] = useState(value ?? defaultValue ?? '')
+    const [inputValue, setInputValue] = useState<string | undefined>('')
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
 
@@ -71,6 +72,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const { onControlInvalid, onControlChange } = useFormControlHandlers()
     const disabled = disabledProp || formContext?.disabled
     const hasError = status === 'error' || formGroupContext?.invalid
+
+    useEffect(() => {
+      setInputValue(getFormattedValue(value ?? defaultValue ?? ''))
+    }, [value, defaultValue])
 
     // обработка событий
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
