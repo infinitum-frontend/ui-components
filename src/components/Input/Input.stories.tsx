@@ -97,7 +97,7 @@ export const UncontrolledAndControlled = {
               </Text>
               <div>
                 <Text>Значение: {value}</Text>
-                <Input value={value} onChange={setValue} allowClear />
+                <Input value={value} onChange={setValue} />
               </div>
             </Space>
             <Space justify="space-between" gap="xsmall">
@@ -118,7 +118,7 @@ export const UncontrolledAndControlled = {
                   нет
                 </code>
               </Text>
-              <Input defaultValue="Инфинитум" allowClear />
+              <Input />
             </Space>
           </Space>
         )}
@@ -196,11 +196,27 @@ export const WithPostfix = {
 }
 
 export const WithClearButton = {
-  render: Template,
+  render: () => {
+    const [val, setVal] = useState('')
 
-  args: {
-    value: 'Инфинитум',
-    allowClear: true
+    return (
+      <>
+        <Space>
+          <Text>
+            Если в поле нет значения, то кнопка очистки не должна отображаться
+          </Text>
+          <Form.Group>
+            <Form.Label>Controlled</Form.Label>
+            <Input value={val} onChange={setVal} allowClear />
+            Значение: {val}
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Uncontrolled</Form.Label>
+            <Input defaultValue="Инфинитум" allowClear />
+          </Form.Group>
+        </Space>
+      </>
+    )
   }
 }
 
