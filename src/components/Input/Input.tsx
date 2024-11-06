@@ -58,7 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ): ReactElement => {
-    const [inputValue, setInputValue] = useState(defaultValue ?? '')
+    const [inputValue, setInputValue] = useState(value ?? defaultValue ?? '')
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
 
