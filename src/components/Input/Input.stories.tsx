@@ -49,19 +49,17 @@ const Template: StoryFn<typeof Input> = ({ value, ...args }) => {
   const [val, setVal] = useState(value)
 
   return (
-    <>
-      <Input
-        style={{ width: '250px' }}
-        {...args}
-        value={val}
-        onFocus={action('focus')}
-        onBlur={action('blur')}
-        onChange={(v) => {
-          action('change')
-          setVal(v)
-        }}
-      />
-    </>
+    <Input
+      style={{ width: '250px' }}
+      {...args}
+      value={val}
+      onFocus={action('focus')}
+      onBlur={action('blur')}
+      onChange={(v) => {
+        action('change')
+        setVal(v)
+      }}
+    />
   )
 }
 
