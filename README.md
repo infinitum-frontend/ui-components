@@ -22,7 +22,7 @@ npm i @infinitum-frontend/ui-components
 3. Добавляем в глобальные стили/рутовый компонент стили библиотеки `import '@infinitum-frontend/ui-components/dist/style.css'`
 4. Добавляем типы в `tsconfig.json` в секцию `include`: `"node_modules/@infinitum-frontend/ui-components/types"`
 
-5. Для корректной работы необходимо добавить поддиректорию font внутрь директории со статичными файлами шрифты из библиотеки.
+5. Для корректной работы необходимо добавить поддиректорию fonts внутрь директории со статичными файлами шрифты из библиотеки.
 
 Лежать шрифты будут по адресу: node_modules/@infinitum-ui/ui-components/dist/fonts
 
