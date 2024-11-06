@@ -289,3 +289,20 @@ export const Masked: StoryFn<typeof Input> = () => {
     </Space>
   )
 }
+
+export const WithEyeButton: StoryObj<typeof Input> = {
+  render: (args) => {
+    const [val, setVal] = useState('')
+
+    return (
+      <Input
+        style={{ width: '300px' }}
+        {...args}
+        value={val}
+        onChange={setVal}
+        type="password"
+        showPasswordToggle
+      />
+    )
+  }
+}

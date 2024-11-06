@@ -30,6 +30,8 @@ export interface BaseInputProps
   status?: 'error'
   /** Отсутствие границ */
   noBorder?: boolean
+  /** Показать кнопку отображения пароля */
+  showPasswordToggle?: boolean
 }
 
 export interface InputProps

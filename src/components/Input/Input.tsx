@@ -20,6 +20,7 @@ import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import ShowPasswordButton from './components/ShowPasswordButton'
 
 /** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -52,6 +53,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       noBorder = false,
       id,
       required = false,
+      showPasswordToggle,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
       ...restProps
@@ -60,6 +62,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -129,6 +132,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onClear?.()
     }
 
+    const handleShowPasswordClick: MouseEventHandler<HTMLButtonElement> = (
+      e
+    ) => {
+      e.stopPropagation()
+      setPasswordVisible(!isPasswordVisible)
+    }
+
     const getFormattedValue: (val?: string) => string | undefined = (val) => {
       if (formatter !== undefined && val !== undefined) {
         return formatter(val)
@@ -186,6 +196,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const showClearButton =
       allowClear && value !== undefined ? controlledValue : true
 
+    const canShowPasswordToggle = showPasswordToggle && !disabled
+
+    // Отображение / скрытие пароля
+    let nativeType = restProps.type
+    if (showPasswordToggle && restProps.type === 'password') {
+      nativeType = isPasswordVisible ? 'text' : 'password'
+    }
+
     return (
       <span
         style={style}
@@ -219,9 +237,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-invalid={formGroupContext?.invalid || ariaInvalid}
           aria-required={formGroupContext?.required || ariaRequired}
           {...restProps}
+          type={nativeType}
         />
 
         {showClearButton && getClearIcon()}
+        {canShowPasswordToggle && (
+          <ShowPasswordButton
+            shown={isPasswordVisible}
+            onClick={handleShowPasswordClick}
+          />
+        )}
         {postfix && (
           <span
             onClick={handlePostfixClick}
