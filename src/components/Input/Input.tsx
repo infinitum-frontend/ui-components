@@ -184,13 +184,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const getPasswordVisibilityIcon: () => ReactNode = () => {
-      const togglePasswordVisibility = (): void => {
-        setPasswordType(!isPasswordType)
-      }
-
       return (
         <span
-          onClick={togglePasswordVisibility}
+          onClick={() => setPasswordType(!isPasswordType)}
           className="inf-input-wrapper__visibility-button"
         >
           {isPasswordType ? (
