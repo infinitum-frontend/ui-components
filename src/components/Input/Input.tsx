@@ -144,6 +144,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       syntheticEvent.currentTarget = inputEl
 
       handleChange(syntheticEvent)
+      onClear?.()
     }
 
     const getFormattedValue: (val?: string) => string | undefined = (val) => {
@@ -175,7 +176,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       )
     }
 
-    const getClearIcon: () => ReactNode = () => {
+    const getClearButton: () => ReactNode = () => {
       if (!allowClear) {
         return null
       }
@@ -188,9 +189,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )
 
       return (
-        <span onClick={handleClear} className="inf-input-wrapper__clear-button">
+        <button
+          onClick={handleClear}
+          type="button"
+          aria-label="Clear"
+          className="inf-input-wrapper__clear-button"
+        >
           {iconNode}
-        </span>
+        </button>
       )
     }
 
@@ -235,7 +241,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...restProps}
         />
 
-        {showClearButton && getClearIcon()}
+        {showClearButton && getClearButton()}
         {postfix && (
           <span
             onClick={handlePostfixClick}
