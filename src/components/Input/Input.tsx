@@ -7,8 +7,7 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   useContext,
-  ChangeEventHandler,
-  useEffect
+  ChangeEventHandler
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -21,6 +20,7 @@ import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import { useControlledState } from '~/src/hooks/useControlledState'
 
 /** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -59,7 +59,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ): ReactElement => {
-    const [inputValue, setInputValue] = useState<string | undefined>('')
+    const [localValue, setLocalValue] = useControlledState(
+      value,
+      defaultValue ?? ''
+    )
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
 
@@ -73,17 +76,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const disabled = disabledProp || formContext?.disabled
     const hasError = status === 'error' || formGroupContext?.invalid
 
-    useEffect(() => {
-      setInputValue(getFormattedValue(value ?? defaultValue ?? ''))
-    }, [value, defaultValue])
-
     // обработка событий
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       onControlChange(e)
 
       const formattedDomValue = getFormattedValue(e.target.value) || ''
 
-      setInputValue(formattedDomValue)
+      setLocalValue(formattedDomValue)
 
       if (!onInput && !onChange) {
         return
@@ -202,9 +201,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isRequired = required || formGroupContext?.required
 
-    const controlledValue = defaultValue !== undefined ? undefined : inputValue
+    const controlledValue =
+      defaultValue !== undefined ? undefined : getFormattedValue(value)
 
-    const showClearButton = allowClear && !disabled && !readOnly && inputValue
+    const uncontrolledValue = getFormattedValue(defaultValue)
+
+    const showClearButton = allowClear && !disabled && !readOnly && localValue
 
     return (
       <span
@@ -224,7 +226,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         <BaseInput
           value={controlledValue}
-          defaultValue={defaultValue}
+          defaultValue={uncontrolledValue}
           placeholder={isFocused ? '' : placeholder}
           onKeyDown={handleKeyDown}
           disabled={disabled}

@@ -236,7 +236,14 @@ export const Formatter: StoryObj<typeof Input> = {
       setValue(value)
     }
 
-    return <Input formatter={formatter} value={value} onChange={handleChange} />
+    return (
+      <Space>
+        <div>Controlled</div>
+        <Input formatter={formatter} value={value} onChange={handleChange} />
+        <div>Uncontrolled</div>
+        <Input formatter={formatter} defaultValue={'инфинитум'} />
+      </Space>
+    )
   }
 }
 

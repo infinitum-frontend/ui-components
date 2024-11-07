@@ -8,10 +8,6 @@ import {
 export interface BaseInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   value?: string
-  /**
-   * Размер
-   * @default medium
-   */
   defaultValue?: string
   size?: 'medium' | 'small'
   /** Кастомный css-класс */
