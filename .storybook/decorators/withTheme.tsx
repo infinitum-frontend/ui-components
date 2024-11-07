@@ -3,7 +3,7 @@ import React from 'react'
 import type { Decorator } from '@storybook/react'
 
 export const WithTheme: Decorator = (Story, context) => {
-  const globalTheme = context.globals.theme
+  const globalTheme = context.parameters.theme || context.globals.theme
 
   if (globalTheme === 'dark') {
     document.body.classList.add('inf-ui-theme-dark')
