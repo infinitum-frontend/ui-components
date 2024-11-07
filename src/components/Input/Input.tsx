@@ -185,13 +185,27 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const getPasswordVisibilityIcon: () => ReactNode = () => {
-      return (
-        <span
-          onClick={() =>
-            setInputType((prev) =>
-              prev !== 'password' ? 'password' : restProps?.type
-            )
+      const handleToggle: () => void = () => {
+        const showPasswordButton = document.querySelector(
+          '.inf-input-wrapper__visibility-button'
+        )
+
+        setInputType((prev) => {
+          if (prev !== 'password') {
+            showPasswordButton?.setAttribute('aria-pressed', 'true')
+            showPasswordButton?.setAttribute('aria-label', 'Hide password') // Текст для считывателей
+            return 'password'
+          } else {
+            showPasswordButton?.setAttribute('aria-pressed', 'false')
+            showPasswordButton?.setAttribute('aria-label', 'Show password') // Текст для считывателей
+            return restProps.type
           }
+        })
+      }
+
+      return (
+        <button
+          onClick={handleToggle}
           className="inf-input-wrapper__visibility-button"
         >
           {inputType !== 'password' ? (
@@ -199,7 +213,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ) : (
             <OpenEyeIcon width={20} height={20} />
           )}
-        </span>
+        </button>
       )
     }
 
