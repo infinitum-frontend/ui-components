@@ -7,7 +7,8 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   useContext,
-  ChangeEventHandler
+  ChangeEventHandler,
+  HTMLInputTypeAttribute
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -63,9 +64,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
-    const [isPasswordType, setPasswordType] = useState(
-      toggleablePassword || false
-    )
+    const [inputType, setInputType] = useState<
+      HTMLInputTypeAttribute | undefined
+    >(toggleablePassword ? 'password' : restProps?.type)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -186,10 +187,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const getPasswordVisibilityIcon: () => ReactNode = () => {
       return (
         <span
-          onClick={() => setPasswordType(!isPasswordType)}
+          onClick={() =>
+            setInputType((prev) =>
+              prev !== 'password' ? 'password' : restProps?.type
+            )
+          }
           className="inf-input-wrapper__visibility-button"
         >
-          {isPasswordType ? (
+          {inputType !== 'password' ? (
             <CloseEyeIcon width={20} height={20} />
           ) : (
             <OpenEyeIcon width={20} height={20} />
@@ -236,11 +241,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onChange={handleChange}
           onInvalid={onControlInvalid}
           required={isRequired}
-          isPasswordType={toggleablePassword ? isPasswordType : false}
           ref={mergedRef}
           aria-invalid={formGroupContext?.invalid || ariaInvalid}
           aria-required={formGroupContext?.required || ariaRequired}
           {...restProps}
+          type={inputType}
         />
 
         {showClearButton && getClearIcon()}

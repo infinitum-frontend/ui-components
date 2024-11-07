@@ -30,8 +30,6 @@ export interface BaseInputProps
   status?: 'error'
   /** Отсутствие границ */
   noBorder?: boolean
-  /** Включен ли тип password */
-  isPasswordType?: boolean
 }
 
 export interface InputProps
@@ -61,6 +59,6 @@ export interface InputProps
   onInput?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onBlur?: FocusEventHandler<HTMLInputElement>
-  /** Включает type={'password'} с иконкой переключения видимости */
+  /** Включает функционал type={'password'} с иконкой переключения видимости */
   toggleablePassword?: boolean
 }
