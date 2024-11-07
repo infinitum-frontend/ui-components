@@ -209,7 +209,7 @@ export const WithClearButton = {
             Значение: {val}
           </Form.Group>
           <Form.Group>
-            <Form.Label>Uncontrolled</Form.Label>
+            <Form.Label>Uncontrolled с defaultValue</Form.Label>
             <Input defaultValue="Инфинитум" allowClear />
           </Form.Group>
         </Space>
@@ -238,10 +238,16 @@ export const Formatter: StoryObj<typeof Input> = {
 
     return (
       <Space>
-        <div>Controlled</div>
-        <Input formatter={formatter} value={value} onChange={handleChange} />
-        <div>Uncontrolled</div>
-        <Input formatter={formatter} defaultValue={'инфинитум'} />
+        <Text>Введенное значение приводится к upperCase</Text>
+        <Form.Group>
+          <Form.Label>Controlled</Form.Label>
+          <Input formatter={formatter} value={value} onChange={handleChange} />
+          Значение: {value}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Uncontrolled с defaultValue</Form.Label>
+          <Input formatter={formatter} defaultValue={'инфинитум'} />
+        </Form.Group>
       </Space>
     )
   }
