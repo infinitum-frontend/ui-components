@@ -20,6 +20,7 @@ import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import { useControlledState } from '~/src/hooks/useControlledState'
 
 /** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -58,6 +59,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ): ReactElement => {
+    const [localValue, setLocalValue] = useControlledState(
+      value,
+      defaultValue ?? ''
+    )
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
 
@@ -76,6 +81,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onControlChange(e)
 
       const formattedDomValue = getFormattedValue(e.target.value) || ''
+
+      setLocalValue(formattedDomValue)
 
       if (!onInput && !onChange) {
         return
@@ -121,11 +128,21 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
     }
 
-    const handleClear: () => void = () => {
-      if (inputRef.current) {
-        inputRef.current.value = ''
-        inputRef.current.focus()
+    const handleClear: MouseEventHandler<HTMLSpanElement> = (e) => {
+      const inputEl = inputRef.current
+
+      if (!inputEl) {
+        return
       }
+
+      inputEl.value = ''
+      inputEl.focus() // TODO: можно реализовать через prevent blur на кнопке очистки
+
+      const syntheticEvent = Object.create(e)
+      syntheticEvent.target = inputEl
+      syntheticEvent.currentTarget = inputEl
+
+      handleChange(syntheticEvent)
       onClear?.()
     }
 
@@ -158,7 +175,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       )
     }
 
-    const getClearIcon: () => ReactNode = () => {
+    const getClearButton: () => ReactNode = () => {
       if (!allowClear) {
         return null
       }
@@ -171,9 +188,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )
 
       return (
-        <span onClick={handleClear} className="inf-input-wrapper__clear-button">
+        <button
+          onClick={handleClear}
+          type="button"
+          aria-label="Clear"
+          className="inf-input-wrapper__clear-button"
+        >
           {iconNode}
-        </span>
+        </button>
       )
     }
 
@@ -182,9 +204,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)
 
-    // для controlled input показываем кнопка очистки только если поле не пустое, для uncontrolled нет возможности определить пустое ли поле
-    const showClearButton =
-      allowClear && value !== undefined ? controlledValue : true
+    const uncontrolledValue = getFormattedValue(defaultValue)
+
+    const showClearButton = allowClear && !disabled && !readOnly && localValue
 
     return (
       <span
@@ -204,7 +226,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         <BaseInput
           value={controlledValue}
-          defaultValue={defaultValue}
+          defaultValue={uncontrolledValue}
           placeholder={isFocused ? '' : placeholder}
           onKeyDown={handleKeyDown}
           disabled={disabled}
@@ -221,7 +243,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...restProps}
         />
 
-        {showClearButton && getClearIcon()}
+        {showClearButton && getClearButton()}
         {postfix && (
           <span
             onClick={handlePostfixClick}

@@ -59,7 +59,6 @@ const Template: StoryFn<typeof Input> = ({ value, ...args }) => {
         action('change')
         setVal(v)
       }}
-      onClear={() => setVal('')}
     />
   )
 }
@@ -195,11 +194,27 @@ export const WithPostfix = {
 }
 
 export const WithClearButton = {
-  render: Template,
+  render: () => {
+    const [val, setVal] = useState('')
 
-  args: {
-    value: 'Инфинитум',
-    allowClear: true
+    return (
+      <>
+        <Space>
+          <Text>
+            Если в поле нет значения, то кнопка очистки не должна отображаться
+          </Text>
+          <Form.Group>
+            <Form.Label>Controlled</Form.Label>
+            <Input value={val} onChange={setVal} allowClear />
+            Значение: {val}
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Uncontrolled с defaultValue</Form.Label>
+            <Input defaultValue="Инфинитум" allowClear />
+          </Form.Group>
+        </Space>
+      </>
+    )
   }
 }
 
@@ -221,7 +236,20 @@ export const Formatter: StoryObj<typeof Input> = {
       setValue(value)
     }
 
-    return <Input formatter={formatter} value={value} onChange={handleChange} />
+    return (
+      <Space>
+        <Text>Введенное значение приводится к upperCase</Text>
+        <Form.Group>
+          <Form.Label>Controlled</Form.Label>
+          <Input formatter={formatter} value={value} onChange={handleChange} />
+          Значение: {value}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Uncontrolled с defaultValue</Form.Label>
+          <Input formatter={formatter} defaultValue={'инфинитум'} />
+        </Form.Group>
+      </Space>
+    )
   }
 }
 

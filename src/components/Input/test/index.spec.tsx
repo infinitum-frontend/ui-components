@@ -251,14 +251,15 @@ describe('input', () => {
   })
 
   describe('clear button', () => {
-    it('should be visible when prop is passed', async () => {
-      const { el } = renderComponent(<Input allowClear={true} />)
-      const clearButton = el.querySelector(
-        '.inf-input-wrapper__clear-button'
-      ) as HTMLSpanElement
+    it('should be visible when prop is passed and input is not empty', async () => {
+      renderComponent(<Input allowClear={true} />)
+      let clearButton = screen.queryByRole('button', { name: 'Clear' })
+      const input = screen.queryByRole('textbox') as HTMLInputElement
 
+      expect(clearButton).not.toBeInTheDocument()
+      await user.type(input, 'Акции')
+      clearButton = screen.queryByRole('button', { name: 'Clear' })
       expect(clearButton).toBeInTheDocument()
-      expect(clearButton).toBeVisible()
     })
 
     it('should focus input after click', async () => {

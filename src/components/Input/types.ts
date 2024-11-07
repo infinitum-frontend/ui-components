@@ -8,10 +8,7 @@ import {
 export interface BaseInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   value?: string
-  /**
-   * Размер
-   * @default medium
-   */
+  defaultValue?: string
   size?: 'medium' | 'small'
   /** Кастомный css-класс */
   className?: string
@@ -24,7 +21,7 @@ export interface BaseInputProps
   borderRadius?: 'unset' | 'regular'
   /** Состояние недоступности */
   disabled?: boolean
-  /** Только чтение */
+  /** Только чтение. Недоступно изменение значения поля */
   readOnly?: boolean
   /** Состояние (ошибка, предупреждение) */
   status?: 'error'
@@ -48,6 +45,9 @@ export interface InputProps
   onPostfixClick?: (value?: string) => void
   /** Наличие кнопки для сброса значения */
   allowClear?: boolean | { icon: ReactNode }
+  /**
+   * @deprecated
+   */
   onClear?: () => void
   /**
    * Функция, применяющаяся для форматирования значения
