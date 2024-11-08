@@ -51,7 +51,7 @@ const TableBody = <T extends Record<any, any>>({
     return (
       <tbody>
         {rows.map((row) => (
-          <TableBodyTr
+          <TableBodyTr<T>
             key={row.id}
             row={row}
             onRowClick={handleRowClick}

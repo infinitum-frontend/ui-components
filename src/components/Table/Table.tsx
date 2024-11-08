@@ -31,12 +31,12 @@ import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'
 import TableWithVirtualRows from './components/TableWithVirtualRows'
 
-export interface TableProps<TRow extends Record<any, any>>
+export interface TableProps<TRowData extends Record<any, any> = any>
   extends TableBaseProps {
   /** Массив с данными для построения шапки таблицы */
   columns?: Array<ColumnDef<any, any>>
   /** Массив с данными для построения тела таблицы */
-  rows?: Array<TableRowData<TRow>>
+  rows?: Array<TableRowData<TRowData>>
   /** Скругление границ таблицы */
   borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
   /** CSS свойство vertical-align для шапки */
@@ -72,7 +72,7 @@ export interface TableProps<TRow extends Record<any, any>>
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id ряда.
    */
   selectedRow?: TableSelectedRow
-  onRowClick?: OnChangeFn<TableRow<TRow>>
+  onRowClick?: OnChangeFn<TableRow<TRowData>>
   /** Изменение ширины колонок
    * @value onChange изменение "вживую" при растягивании
    * @value onEnd изменение при отжатии кнопки мыши
@@ -98,7 +98,7 @@ export interface TableProps<TRow extends Record<any, any>>
 }
 
 /** Компонент многофункциональной таблицы */
-const Table = <T extends Record<any, any>>({
+const Table = <TRowData extends Record<any, any> = any>({
   columns = [],
   rows = [],
   className,
@@ -124,7 +124,7 @@ const Table = <T extends Record<any, any>>({
   maxHeight,
   estimateRowHeight = 100,
   ...props
-}: TableProps<T>): ReactElement => {
+}: TableProps<TRowData>): ReactElement => {
   if (children) {
     return (
       <TableBase
@@ -269,7 +269,7 @@ const Table = <T extends Record<any, any>>({
             resizeMode={resizeMode}
             verticalAlignHead={verticalAlignHead}
           />
-          <TableBody<T>
+          <TableBody<TRowData>
             rows={tableRows}
             selectedRow={selectedRow}
             onRowClick={onRowClick}
