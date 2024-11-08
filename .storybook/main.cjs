@@ -9,7 +9,7 @@ module.exports = {
     '@storybook/preset-scss',
     '@storybook/addon-a11y',
     '@storybook/addon-mdx-gfm',
-    '@chromatic-com/storybook'
+    '@storybook/addon-themes'
   ],
 
   framework: {

@@ -1,21 +1,25 @@
 import '../src/styles/global.scss'
 import type { Preview } from '@storybook/react'
-import { themes } from './theme'
-import { WithTheme } from './decorators/withTheme'
+import { withThemeByClassName } from '@storybook/addon-themes'
 
 const preview: Preview = {
-  decorators: [WithTheme],
+  decorators: [
+    withThemeByClassName({
+      themes: {
+        Light: 'inf-ui-theme-light',
+        Dark: 'inf-ui-theme-dark'
+      },
+      defaultTheme: 'Light'
+    })
+  ],
   parameters: {
-    docs: {
-      theme: themes.light
-    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/
       }
     },
-    backgrounds: { disable: true },
+    backgrounds: { disabled: true },
     options: {
       storySort: {
         includeNames: true,
@@ -46,21 +50,21 @@ const preview: Preview = {
         ]
       }
     }
-  },
-  globalTypes: {
-    theme: {
-      defaultValue: 'light',
-      toolbar: {
-        title: 'Theme',
-        icon: 'mirror',
-        items: [
-          { value: 'light', right: '☼', title: 'Light' },
-          { value: 'dark', right: '☾', title: 'Dark' }
-        ],
-        dynamicTitle: true
-      }
-    }
   }
+  // globalTypes: {
+  //   theme: {
+  //     defaultValue: 'light',
+  //     toolbar: {
+  //       title: 'Theme',
+  //       icon: 'mirror',
+  //       items: [
+  //         { value: 'light', right: '☼', title: 'Light' },
+  //         { value: 'dark', right: '☾', title: 'Dark' }
+  //       ],
+  //       dynamicTitle: true
+  //     }
+  //   }
+  // }
 }
 
 export const tags = ['autodocs', 'autodocs', 'autodocs']
