@@ -51,20 +51,6 @@ const preview: Preview = {
       }
     }
   }
-  // globalTypes: {
-  //   theme: {
-  //     defaultValue: 'light',
-  //     toolbar: {
-  //       title: 'Theme',
-  //       icon: 'mirror',
-  //       items: [
-  //         { value: 'light', right: '☼', title: 'Light' },
-  //         { value: 'dark', right: '☾', title: 'Dark' }
-  //       ],
-  //       dynamicTitle: true
-  //     }
-  //   }
-  // }
 }
 
 export const tags = ['autodocs', 'autodocs', 'autodocs']
