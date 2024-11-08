@@ -19,7 +19,7 @@ const preview: Preview = {
         date: /Date$/
       }
     },
-    backgrounds: { disabled: true },
+    backgrounds: { disable: true },
     options: {
       storySort: {
         includeNames: true,
