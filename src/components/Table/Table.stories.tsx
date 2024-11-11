@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
 import { Table, TableRow } from './index'
 import { ColumnDef, SortingState } from '@tanstack/react-table'
