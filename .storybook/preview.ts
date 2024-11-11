@@ -50,9 +50,8 @@ const preview: Preview = {
         ]
       }
     }
-  }
+  },
+  tags: ['autodocs']
 }
-
-export const tags = ['autodocs', 'autodocs', 'autodocs']
 
 export default preview
