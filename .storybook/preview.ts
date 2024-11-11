@@ -1,17 +1,10 @@
 import '../src/styles/global.scss'
 import type { Preview } from '@storybook/react'
-import { withThemeByClassName } from '@storybook/addon-themes'
+import withTheme from './decorators/withTheme'
 
 const preview: Preview = {
-  decorators: [
-    withThemeByClassName({
-      themes: {
-        Light: 'inf-ui-theme-light',
-        Dark: 'inf-ui-theme-dark'
-      },
-      defaultTheme: 'Light'
-    })
-  ],
+  decorators: [withTheme],
+
   parameters: {
     controls: {
       matchers: {
@@ -51,6 +44,22 @@ const preview: Preview = {
       }
     }
   },
+
+  globalTypes: {
+    theme: {
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Theme',
+        icon: 'mirror',
+        items: [
+          { value: 'light', right: '☼', title: 'Light' },
+          { value: 'dark', right: '☾', title: 'Dark' }
+        ],
+        dynamicTitle: true
+      }
+    }
+  },
+
   tags: ['autodocs']
 }
 
