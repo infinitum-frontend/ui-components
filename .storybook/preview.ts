@@ -1,67 +1,57 @@
 import '../src/styles/global.scss'
+import type { Preview } from '@storybook/react'
+import { withThemeByClassName } from '@storybook/addon-themes'
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/
-    }
-  },
-
-  themes: {
-    default: 'light',
-    list: [
-      { name: 'light', class: 'inf-ui-theme-light' },
-      { name: 'dark', class: 'inf-ui-theme-dark' }
-    ]
-  },
-
-  backgrounds: {
-    default: 'clean',
-    values: [
-      {
-        name: 'clean',
-        value: '#fff'
+const preview: Preview = {
+  decorators: [
+    withThemeByClassName({
+      themes: {
+        Light: 'inf-ui-theme-light',
+        Dark: 'inf-ui-theme-dark'
       },
-      {
-        name: 'light',
-        value: '#f2f4f5'
-      },
-      {
-        name: 'dark',
-        value: '#333333'
+      defaultTheme: 'Light'
+    })
+  ],
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/
       }
-    ]
-  },
-  options: {
-    storySort: {
-      includeNames: true,
-      order: [
-        'Intro',
-        ['Старт', 'Дизайн-токены'],
-        'Components',
-        // отображаем все истории, затем отображаем Tabs и сортируем в указанном порядке.
-        // если нужно другие сторисы сортировать, дописываем их аналогичным образом: ['*', 'Table', 'Tabs', ['Docs', 'WithRouting', '*']]
-        // единственная проблема - если сториса где то по центру, придется вручную писать все предыдущие/последующие сторис
-        // https://github.com/storybookjs/storybook/issues/16573
-        [
-          'Alert',
-          'Badge',
-          'Breadcrumbs',
-          ['Docs', 'Documentation', '*'],
-          '*',
-          'Table',
-          ['Docs', 'CustomMarkup', '*'],
-          'Tabs',
-          ['Docs', 'WithRouting', '*']
-        ],
-        'Typography',
-        'Form',
-        'Overlay',
-        'Layout',
-        'Demo'
-      ]
+    },
+    backgrounds: { disable: true },
+    options: {
+      storySort: {
+        includeNames: true,
+        order: [
+          'Intro',
+          ['Старт', 'Дизайн-токены'],
+          'Components',
+          // отображаем все истории, затем отображаем Tabs и сортируем в указанном порядке.
+          // если нужно другие сторисы сортировать, дописываем их аналогичным образом: ['*', 'Table', 'Tabs', ['Docs', 'WithRouting', '*']]
+          // единственная проблема - если сториса где то по центру, придется вручную писать все предыдущие/последующие сторис
+          // https://github.com/storybookjs/storybook/issues/16573
+          [
+            'Alert',
+            'Badge',
+            'Breadcrumbs',
+            ['Docs', 'Documentation', '*'],
+            '*',
+            'Table',
+            ['Docs', 'CustomMarkup', '*'],
+            'Tabs',
+            ['Docs', 'WithRouting', '*']
+          ],
+          'Typography',
+          'Form',
+          'Overlay',
+          'Layout',
+          'Demo'
+        ]
+      }
     }
-  }
+  },
+  tags: ['autodocs']
 }
+
+export default preview
