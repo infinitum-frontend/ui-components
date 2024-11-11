@@ -21,10 +21,6 @@ module.exports = {
     disableTelemetry: true // 👈 Disables telemetry
   },
 
-  docs: {
-    docsName: 'Docs'
-  },
-
   staticDirs: ['../static'],
 
   async viteFinal(config) {
