@@ -7,6 +7,7 @@ interface TableBodyTrProps
   extends Omit<TableBodyProps, 'rows' | 'selectedRow' | 'onRowClick'> {
   row: Row<any>
   isSelected: boolean
+  isInteractive: boolean
   onRowClick: (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
     row: Row<any>
@@ -14,7 +15,10 @@ interface TableBodyTrProps
 }
 
 const TableBodyTr = forwardRef<HTMLTableRowElement, TableBodyTrProps>(
-  ({ row, onRowClick, verticalAlignBody, isSelected, ...props }, ref) => {
+  (
+    { row, onRowClick, verticalAlignBody, isSelected, isInteractive, ...props },
+    ref
+  ) => {
     return (
       <tr
         key={row.id}
@@ -23,7 +27,7 @@ const TableBodyTr = forwardRef<HTMLTableRowElement, TableBodyTrProps>(
           [`inf-table--vertical-align-${verticalAlignBody as string}`]:
             verticalAlignBody,
           'inf-table__row--selected': isSelected,
-          'inf-table__row--interactive': Boolean(onRowClick)
+          'inf-table__row--interactive': isInteractive
         })}
         style={row.original.style}
         onClick={(e) => onRowClick(e, row)}

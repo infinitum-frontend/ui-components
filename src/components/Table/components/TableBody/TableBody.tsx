@@ -56,6 +56,7 @@ const TableBody = ({
             row={row}
             onRowClick={handleRowClick}
             isSelected={checkSelected(mapRowToExternalFormat(row), selectedRow)}
+            isInteractive={Boolean(onRowClick)}
             verticalAlignBody={verticalAlignBody}
           />
         ))}
@@ -104,6 +105,7 @@ const TableBody = ({
             ref={virtualizer?.measureElement}
             onRowClick={handleRowClick}
             isSelected={checkSelected(mapRowToExternalFormat(row), selectedRow)}
+            isInteractive={Boolean(onRowClick)}
             verticalAlignBody={verticalAlignBody}
           />
         )
