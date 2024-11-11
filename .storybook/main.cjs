@@ -8,8 +8,7 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/preset-scss',
     '@storybook/addon-a11y',
-    '@storybook/addon-mdx-gfm',
-    '@storybook/addon-themes'
+    '@storybook/addon-mdx-gfm'
   ],
 
   framework: {
