@@ -20,9 +20,11 @@ module.exports = {
   core: {
     disableTelemetry: true // 👈 Disables telemetry
   },
-
-  staticDirs: ['../static'],
-
+  docs: {
+    autodocs: true,
+    docsName: 'Docs'
+  },
+  staticDirs: ['../static', '../public'],
   async viteFinal(config) {
     return mergeConfig(config, {
       css: {

@@ -5,7 +5,7 @@ RUN npm install --ignore-scripts
 RUN npm run build-storybook
 
 FROM nginx:alpine
-COPY --from=build /app/public /usr/share/nginx/html
+COPY --from=build /app/storybook-static /usr/share/nginx/html
 RUN echo "types { application/javascript js mjs; }" > /etc/nginx/conf.d/mjs.conf
 VOLUME /usr/share/nginx/html
 EXPOSE 8080

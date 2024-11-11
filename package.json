@@ -4,7 +4,7 @@
   "scripts": {
     "build": "rm -rf dist && vite build && npm run ts-compile",
     "ts-compile": "tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src",
-    "build-storybook": "storybook build -o public",
+    "build-storybook": "storybook build",
     "storybook": "storybook dev -p 6006",
     "build-tokens": "rm -rf dist/themes && ts-node themes/build/index.ts",
     "test": "vitest",
