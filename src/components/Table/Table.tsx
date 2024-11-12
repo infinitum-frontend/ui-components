@@ -9,8 +9,7 @@ import {
   OnChangeFn as TanstackOnChangeFn,
   RowSelectionState,
   SortingState,
-  useReactTable,
-  VisibilityState
+  useReactTable
 } from '@tanstack/react-table'
 import cn from 'classnames'
 import TableHeader from './components/TableHeader'
@@ -204,25 +203,12 @@ const Table = ({
             )
           }
         },
-        ...columns
+        ...columns.filter((column) => !column.isHidden)
       ] as Array<TableColumnDef<any>>
     }
 
-    return columns
+    return columns.filter((column) => !column.isHidden)
   }, [columns, withRowSelection])
-
-  const getTableColumnsVisibility = (
-    columns: Array<TableColumnDef<any>>
-  ): VisibilityState | undefined => {
-    columns.forEach((column) => {
-      if (column.isHidden) {
-        columnVisibility[column.id as string] = Boolean(
-          columnVisibility[column.id as string]
-        )
-      }
-    })
-    return columnVisibility
-  }
 
   const table = useReactTable({
     data: rows,
@@ -232,7 +218,7 @@ const Table = ({
     state: {
       rowSelection: tanstackSelectionState,
       sorting: sortingState,
-      columnVisibility: getTableColumnsVisibility(memoizedColumns)
+      columnVisibility
     },
     manualFiltering: true,
     // manualGrouping: enableGrouping,

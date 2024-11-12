@@ -237,11 +237,7 @@ export const Resizing: StoryObj<typeof Table> = {
 const getDefaultColumnsVisibility = (): Record<string, boolean> => {
   const result: Record<string, boolean> = {}
   columns.forEach((column) => {
-    if (column.isHidden) {
-      result[column.id as string] = false
-    } else {
-      result[column.id as string] = true
-    }
+    result[column.id as string] = true
   })
 
   return result
@@ -256,7 +252,7 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
       <Space>
         <Space direction="horizontal">
           {columns
-            .filter((item) => !item.isHidden)
+            .filter((column) => !column.isHidden)
             .map((column) => (
               <Checkbox
                 key={column.id}
