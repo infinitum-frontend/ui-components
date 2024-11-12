@@ -7,8 +7,7 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   useContext,
-  ChangeEventHandler,
-  HTMLInputTypeAttribute
+  ChangeEventHandler
 } from 'react'
 import classNames from 'classnames'
 import './Input.scss'
@@ -55,7 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       noBorder = false,
       id,
       required = false,
-      toggleablePassword = false,
+      showPasswordToggle = false,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
       ...restProps
@@ -64,9 +63,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
-    const [inputType, setInputType] = useState<
-      HTMLInputTypeAttribute | undefined
-    >(toggleablePassword ? 'password' : restProps?.type)
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
+    let nativeType = restProps.type
+    if (showPasswordToggle && restProps.type === 'password') {
+      nativeType = isPasswordVisible ? 'text' : 'password'
+    }
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -184,39 +185,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       )
     }
 
-    const getPasswordVisibilityIcon: () => ReactNode = () => {
-      const handleToggle: () => void = () => {
-        const showPasswordButton = document.querySelector(
-          '.inf-input-wrapper__visibility-button'
-        )
-
-        setInputType((prev) => {
-          if (prev !== 'password') {
-            showPasswordButton?.setAttribute('aria-pressed', 'true')
-            showPasswordButton?.setAttribute('aria-label', 'Hide password') // Текст для считывателей
-            return 'password'
-          } else {
-            showPasswordButton?.setAttribute('aria-pressed', 'false')
-            showPasswordButton?.setAttribute('aria-label', 'Show password') // Текст для считывателей
-            return restProps.type
-          }
-        })
-      }
-
-      return (
-        <button
-          onClick={handleToggle}
-          className="inf-input-wrapper__visibility-button"
-        >
-          {inputType !== 'password' ? (
-            <CloseEyeIcon width={20} height={20} />
-          ) : (
-            <OpenEyeIcon width={20} height={20} />
-          )}
-        </button>
-      )
-    }
-
     const isRequired = required || formGroupContext?.required
 
     const controlledValue =
@@ -259,11 +227,24 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-invalid={formGroupContext?.invalid || ariaInvalid}
           aria-required={formGroupContext?.required || ariaRequired}
           {...restProps}
-          type={inputType}
+          type={nativeType}
         />
 
         {showClearButton && getClearIcon()}
-        {toggleablePassword && getPasswordVisibilityIcon()}
+        {showPasswordToggle && (
+          <button
+            onClick={() => setPasswordVisible(!isPasswordVisible)}
+            className="inf-input-wrapper__visibility-button"
+            aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
+            aria-pressed={isPasswordVisible}
+          >
+            {nativeType !== 'password' ? (
+              <CloseEyeIcon width={20} height={20} />
+            ) : (
+              <OpenEyeIcon width={20} height={20} />
+            )}
+          </button>
+        )}
         {postfix && (
           <span
             onClick={handlePostfixClick}

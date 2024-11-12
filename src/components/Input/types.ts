@@ -59,6 +59,6 @@ export interface InputProps
   onInput?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onBlur?: FocusEventHandler<HTMLInputElement>
-  /** Включает функционал type={'password'} с иконкой переключения видимости */
-  toggleablePassword?: boolean
+  /** Показываем кнопку с иконкой переключения видимости пароля */
+  showPasswordToggle?: boolean
 }

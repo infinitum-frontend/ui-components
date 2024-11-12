@@ -208,7 +208,8 @@ export const WithPasswordVisibilityButton = {
 
   args: {
     value: 'Инфинитум',
-    toggleablePassword: true
+    type: 'password',
+    showPasswordToggle: true
   }
 }
 
