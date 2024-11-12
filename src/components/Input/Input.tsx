@@ -13,6 +13,8 @@ import classNames from 'classnames'
 import './Input.scss'
 import { InputProps } from './types'
 import { ReactComponent as ClearIcon } from 'Icons/cancel-circle.svg'
+import { ReactComponent as OpenEyeIcon } from 'Icons/open-eye.svg'
+import { ReactComponent as CloseEyeIcon } from 'Icons/hide-eye.svg'
 // eslint-disable-next-line import/no-named-default
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { mergeRefs } from 'react-merge-refs'
@@ -52,6 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       noBorder = false,
       id,
       required = false,
+      showPasswordToggle = false,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
       ...restProps
@@ -60,6 +63,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
+    let nativeType = restProps.type
+    if (showPasswordToggle && restProps.type === 'password') {
+      nativeType = isPasswordVisible ? 'text' : 'password'
+    }
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -219,9 +227,24 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-invalid={formGroupContext?.invalid || ariaInvalid}
           aria-required={formGroupContext?.required || ariaRequired}
           {...restProps}
+          type={nativeType}
         />
 
         {showClearButton && getClearIcon()}
+        {showPasswordToggle && (
+          <button
+            onClick={() => setPasswordVisible(!isPasswordVisible)}
+            className="inf-input-wrapper__visibility-button"
+            aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
+            aria-pressed={isPasswordVisible}
+          >
+            {nativeType !== 'password' ? (
+              <CloseEyeIcon width={20} height={20} />
+            ) : (
+              <OpenEyeIcon width={20} height={20} />
+            )}
+          </button>
+        )}
         {postfix && (
           <span
             onClick={handlePostfixClick}

@@ -23,7 +23,8 @@
 
   &__prefix,
   &__postfix,
-  &__clear-button {
+  &__clear-button,
+  &__visibility-button {
     user-select: none;
     display: inline-flex;
     align-items: center;
@@ -39,6 +40,21 @@
   }
 
   &__clear-button {
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--inf-color-icon-primary);
+
+    @include hover {
+      color: var(--inf-color-icon-primary-hover);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__visibility-button {
     cursor: pointer;
     transition: color 0.2s;
     color: var(--inf-color-icon-primary);
