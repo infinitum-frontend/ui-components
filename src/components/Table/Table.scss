@@ -11,8 +11,8 @@
       background-color: var(--inf-color-background-tertiary);
       text-align: left;
       color: var(--inf-color-text-secondary);
-      font: var(--inf-font-body-1);
-      padding: var(--inf-space-medium);
+      font: var(--inf-font-body-2);
+      padding: var(--inf-space-small);
       position: relative;
       border-top: 1px solid var(--inf-color-border-primary);
 
@@ -34,8 +34,6 @@
 
   tbody {
     tr {
-      font: var(--inf-font-body-2);
-
       @include hover {
         background-color: var(--inf-color-background-primary-hover);
       }
@@ -68,8 +66,8 @@
     }
 
     td {
-      padding: var(--inf-space-medium);
-      font: var(--inf-font-body-1);
+      padding: var(--inf-space-small);
+      font: var(--inf-font-body-2);
       color: var(--inf-color-text-primary);
       border-top: 1px solid var(--inf-color-border-primary);
     }
