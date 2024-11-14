@@ -20,6 +20,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
       <SearchInput
         onSubmit={handleSubmit}
         data-selector="inf-autocomplete-input"
+        autoComplete="off"
         {...props}
         ref={ref}
       />

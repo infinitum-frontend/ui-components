@@ -6,7 +6,7 @@ import {
   TableColumnFiltersState
 } from '../components/Table'
 import { Meta } from '@storybook/react'
-import { SearchInput } from '../components/Input'
+import SearchInput from '../components/Input/components/SearchInput'
 import { Space } from '../components/Space'
 import { Link } from '../components/Link'
 import { Button } from '../components/Button'

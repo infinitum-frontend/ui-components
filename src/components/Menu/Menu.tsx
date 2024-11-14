@@ -5,6 +5,7 @@ import cn from 'classnames'
 import './Menu.scss'
 import MenuContext from './context/MenuContext'
 import MenuItem from './components/MenuItem'
+import MenuLabel from './components/MenuLabel'
 
 export interface MenuProps {
   /** Является ли список вложенным в другой. Устанавливает дополнительные оступы элементам */
@@ -56,5 +57,6 @@ const Menu = <C extends ElementType = 'ul'>({
 
 /** Список элементов меню */
 export default Object.assign(Menu, {
-  Item: MenuItem
+  Item: MenuItem,
+  Label: MenuLabel
 })

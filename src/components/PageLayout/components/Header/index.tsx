@@ -1,20 +1,17 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import './index.scss'
 import cn from 'classnames'
-import { Container } from 'Components/Container'
+import { Container, ContainerSize } from 'Components/Container'
 
 export interface PageLayoutHeaderProps
   extends ComponentPropsWithoutRef<'header'> {
   className?: string
   sticky?: boolean
-  /**
-   * @deprecated
-   */
-  containerWidth?: 'large' | 'medium'
+  containerSize?: ContainerSize
 }
 
 const PageLayoutHeader = React.forwardRef<HTMLElement, PageLayoutHeaderProps>(
-  ({ className, children, sticky, ...props }, ref) => {
+  ({ className, children, sticky, containerSize, ...props }, ref) => {
     return (
       <header
         ref={ref}
@@ -23,7 +20,10 @@ const PageLayoutHeader = React.forwardRef<HTMLElement, PageLayoutHeaderProps>(
         })}
         {...props}
       >
-        <Container className="inf-page-layout-header__container">
+        <Container
+          className="inf-page-layout-header__container"
+          size={containerSize}
+        >
           {children}
         </Container>
       </header>

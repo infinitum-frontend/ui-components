@@ -8,6 +8,7 @@ import { Space } from '../Space'
 import { Card } from '../Card'
 import { Container } from '../Container'
 import { Text } from '../Text'
+import { Button } from '../Button'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Layout/PageLayout',
@@ -22,7 +23,7 @@ export default meta
 const Template: StoryFn<typeof PageLayout> = (args) => {
   return (
     <PageLayout {...args}>
-      <PageLayout.Header sticky>
+      <PageLayout.Header>
         <Space direction="horizontal" gap="xlarge" align="center">
           <Logo style={{ width: '140px' }} />
           <HeaderNav>
@@ -104,7 +105,7 @@ export const CenteredContent: StoryFn<typeof PageLayout> = () => {
   )
 }
 
-export const FooterToBottom: StoryFn<typeof PageLayout> = () => {
+export const WithFooter: StoryFn<typeof PageLayout> = () => {
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -137,6 +138,121 @@ export const FooterToBottom: StoryFn<typeof PageLayout> = () => {
           </Space>
         </Space>
       </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+
+export const WithBottomBar: StoryFn<typeof PageLayout> = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Header containerSize="xlarge">
+        <Space direction="horizontal" gap="xlarge" align="center">
+          <Logo style={{ width: '140px' }} />
+        </Space>
+      </PageLayout.Header>
+      <PageLayout.Body containerSize="xlarge">
+        <PageLayout.Content extraMarginBottomBar>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '48px'
+            }}
+          >
+            {[...Array(30)].map((e, i) => (
+              <div key={i}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+                voluptas totam alias incidunt veritatis iusto similique nesciunt
+                repudiandae sed numquam.
+              </div>
+            ))}
+          </div>
+        </PageLayout.Content>
+      </PageLayout.Body>
+
+      <PageLayout.BottomBar containerSize="xlarge">
+        <Button>Кнопка</Button>
+      </PageLayout.BottomBar>
+    </PageLayout>
+  )
+}
+
+export const WithStickyHeader: StoryFn<typeof PageLayout> = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Header sticky>
+        <Space direction="horizontal" gap="xlarge" align="center">
+          <Logo style={{ width: '140px' }} />
+          <HeaderNav>
+            <HeaderNav.Item active>Пункт меню 1</HeaderNav.Item>
+            <HeaderNav.Item>Пункт меню 2</HeaderNav.Item>
+            <HeaderNav.Item>Пункт меню 3</HeaderNav.Item>
+          </HeaderNav>
+        </Space>
+      </PageLayout.Header>
+
+      <PageLayout.Body>
+        <PageLayout.Content>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '20px'
+            }}
+          >
+            {Array.from({ length: 40 }, (_, i) => (
+              <p key={i}>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor
+                ab veritatis dolorum accusantium, eius laudantium expedita fuga
+                unde sed odit iure eligendi. Sapiente harum ex commodi aperiam
+                dignissimos non expedita natus labore eius eligendi illum dolore
+                laudantium, consequuntur similique nostrum.
+              </p>
+            ))}
+          </div>
+        </PageLayout.Content>
+      </PageLayout.Body>
+
+      <PageLayout.Footer>
+        <Space direction="horizontal" justify="space-between">
+          <Text color="secondary">© 2006–2024 «ИНФИНИТУМ»</Text>
+          <Space direction="horizontal" gap="large">
+            <Text color="secondary">8 800 800 80 80</Text>
+            <Text color="secondary">sd@specdep.ru</Text>
+          </Space>
+        </Space>
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+
+export const CollapsedContentPaddings: StoryFn<typeof PageLayout> = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Header containerSize="xlarge" sticky>
+        <Space direction="horizontal" gap="xlarge" align="center">
+          <Logo style={{ width: '140px' }} />
+        </Space>
+      </PageLayout.Header>
+      <PageLayout.Body containerSize="xlarge">
+        <PageLayout.Content collapsePaddingTop collapsePaddingBottom>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '48px'
+            }}
+          >
+            {[...Array(30)].map((e, i) => (
+              <div key={i}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+                voluptas totam alias incidunt veritatis iusto similique nesciunt
+                repudiandae sed numquam.
+              </div>
+            ))}
+          </div>
+        </PageLayout.Content>
+      </PageLayout.Body>
     </PageLayout>
   )
 }

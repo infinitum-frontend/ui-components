@@ -1,18 +1,25 @@
-.inf-user-menu-button {
-  height: 40px;
-  width: 40px;
-  background-color: #fef2f2; // TODO: токен
-  color: #f64a4a; // TODO: токен
-  font: var(--inf-font-subtitle-2);
-  transition: 0.2s;
+.inf-user-menu {
+  &__button {
+    height: var(--inf-control-height-medium);
+    width: var(--inf-control-height-medium);
+    background-color: var(--inf-color-background-brand-secondary);
+    color: var(--inf-color-text-brand);
+    font: var(--inf-font-subtitle-2);
+    transition: 0.2s;
 
-  @include hover {
-    background-color: #f64a4a;
-    color: #ffffff;
+    @include hover {
+      background-color: var(--inf-color-background-brand-primary);
+      color: var(--inf-color-text-on-color);
+    }
+
+    &--active {
+      background-color: var(--inf-color-background-brand-primary);
+      color: var(--inf-color-text-on-color);
+    }
   }
 
-  &--active {
-    background-color: #f64a4a;
-    color: #ffffff;
+  &__full-name,
+  &__role {
+    overflow-wrap: break-word;
   }
 }

@@ -12,7 +12,7 @@
     font: var(--inf-font-body-1);
 
     &--hovered {
-      background-color: var(--inf-color-gray-200);
+      background-color: var(--inf-color-background-primary-hover);
       border-radius: 0;
 
       @include hover {
@@ -24,12 +24,12 @@
       background-color: white;
       outline-style: solid;
       outline-width: 1px;
-      outline-color: var(--inf-color-primary);
+      outline-color: var(--inf-color-background-brand-primary);
       border-radius: var(--inf-border-radius-small);
       background-color: #fef2f2; // TODO: токен
 
       @include hover {
-        background-color: var(--inf-color-gray-200);
+        background-color: var(--inf-color-background-primary-hover);
       }
     }
   }
@@ -49,12 +49,12 @@
 
     &--hoverable {
       @include hover {
-        background-color: var(--inf-color-gray-200);
+        background-color: var(--inf-color-background-primary-hover);
       }
     }
 
     &--hovered {
-      background-color: var(--inf-color-gray-200);
+      background-color: var(--inf-color-background-primary-hover);
       border-radius: 0;
 
       @include hover {
@@ -64,23 +64,23 @@
 
     &--from {
       color: var(--inf-color-text-inverse);
-      background-color: var(--inf-color-primary);
+      background-color: var(--inf-color-background-brand-primary);
       border-radius: var(--inf-border-radius-medium) 0 0
         var(--inf-border-radius-medium);
 
       @include hover {
-        background-color: var(--inf-color-primary);
+        background-color: var(--inf-color-background-brand-primary);
       }
     }
 
     &--to {
       color: var(--inf-color-text-inverse);
-      background-color: var(--inf-color-primary);
+      background-color: var(--inf-color-background-brand-primary);
       border-radius: 0 var(--inf-border-radius-medium)
         var(--inf-border-radius-medium) 0;
 
       @include hover {
-        background-color: var(--inf-color-primary);
+        background-color: var(--inf-color-background-brand-primary);
       }
     }
 

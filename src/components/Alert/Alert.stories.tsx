@@ -4,9 +4,15 @@ import { StoryFn, Meta } from '@storybook/react'
 import { Alert, AlertProps } from './index'
 import { Space } from '../Space'
 
-const variants = ['info', 'danger', 'success', 'warning', 'neutral'] as Array<
-  AlertProps['variant']
->
+const variants = [
+  'info',
+  'error',
+  'success',
+  'warning',
+  'neutral',
+  'violet',
+  'teal'
+] as Array<AlertProps['variant']>
 
 const meta: Meta<typeof Alert> = {
   title: 'Components/Alert',

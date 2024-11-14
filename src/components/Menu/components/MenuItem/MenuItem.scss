@@ -3,8 +3,9 @@
   width: 100%;
   align-items: center;
   border-radius: 0;
-  padding: 7px 12px;
   cursor: pointer;
+  padding: var(--inf-space-xsmall) var(--inf-space-small);
+  font: var(--inf-font-body-1);
 
   &__collapse-icon {
     display: flex;
@@ -27,7 +28,7 @@
   }
 
   &:hover {
-    background-color: var(--inf-control-background-color-hover);
+    background-color: var(--inf-color-background-primary-hover);
   }
 
   &--disabled {
@@ -36,7 +37,7 @@
   }
 
   &--active {
-    border-left: 2px solid var(--inf-color-primary);
+    border-left: 2px solid var(--inf-color-background-brand-primary);
   }
 
   &--nested {

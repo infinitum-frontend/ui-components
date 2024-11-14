@@ -33,6 +33,7 @@ interface TableHeaderProps {
   ) => void
   resizeMode?: ColumnResizeMode
   verticalAlignHead?: TableVerticalAlignValue
+  sticky?: boolean
 }
 
 const TableHeader = ({
@@ -44,7 +45,8 @@ const TableHeader = ({
   filtersState = [],
   onFiltersChange,
   resizeMode,
-  verticalAlignHead
+  verticalAlignHead,
+  sticky
 }: TableHeaderProps): ReactElement => {
   const canSort = (column: Column<any>): boolean => {
     return withSorting && Boolean(column.columnDef.enableSorting)
@@ -76,7 +78,8 @@ const TableHeader = ({
     <thead
       className={cn('inf-table-header', {
         [`inf-table-header--vertical-align-${verticalAlignHead as string}`]:
-          verticalAlignHead
+          verticalAlignHead,
+        'inf-table-header--sticky': sticky
       })}
     >
       {table.getHeaderGroups().map((headerGroup) => (

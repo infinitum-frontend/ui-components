@@ -12,7 +12,9 @@ import React, {
 import classNames from 'classnames'
 import './Input.scss'
 import { InputProps } from './types'
-import { ReactComponent as ClearIcon } from 'Icons/cross.svg'
+import { ReactComponent as ClearIcon } from 'Icons/cancel-circle.svg'
+import { ReactComponent as OpenEyeIcon } from 'Icons/open-eye.svg'
+import { ReactComponent as CloseEyeIcon } from 'Icons/hide-eye.svg'
 // eslint-disable-next-line import/no-named-default
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { mergeRefs } from 'react-merge-refs'
@@ -35,6 +37,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       borderRadius = 'regular',
       disabled: disabledProp = false,
       status,
+      readOnly,
       onClear,
       onInput,
       onChange,
@@ -51,6 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       noBorder = false,
       id,
       required = false,
+      showPasswordToggle = false,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
       ...restProps
@@ -59,6 +63,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ): ReactElement => {
     // обработка состояния
     const [isFocused, setFocus] = useState(false)
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
+    let nativeType = restProps.type
+    if (showPasswordToggle && restProps.type === 'password') {
+      nativeType = isPasswordVisible ? 'text' : 'password'
+    }
 
     const inputRef = useRef<HTMLInputElement>(null)
     const wrapperRef = useRef<HTMLSpanElement>(null)
@@ -68,6 +77,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const formContext = useContext(FormContext)
     const { onControlInvalid, onControlChange } = useFormControlHandlers()
     const disabled = disabledProp || formContext?.disabled
+    const hasError = status === 'error' || formGroupContext?.invalid
 
     // обработка событий
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -145,12 +155,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           'inf-input-wrapper--slot-before': prefix,
           'inf-input-wrapper--slot-after': postfix || allowClear,
           [TextFieldClasses.disabled]: disabled,
+          [TextFieldClasses.readonly]: readOnly,
           [TextFieldClasses.focused]: isFocused,
           [TextFieldClasses.noBorder]: noBorder,
           [TextFieldClasses.filled]: inputRef.current?.value,
           [TextFieldClasses.borderRadius[borderRadius]]:
             borderRadius !== 'unset',
-          [TextFieldClasses.status[status as 'error']]: status
+          [TextFieldClasses.status.error]: hasError
         }
       )
     }
@@ -160,13 +171,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         return null
       }
 
-      const iconSize = size === 'medium' ? 24 : 20
-
       const iconNode =
         typeof allowClear === 'object' && allowClear.icon ? (
           allowClear.icon
         ) : (
-          <ClearIcon width={iconSize} height={iconSize} />
+          <ClearIcon width={20} height={20} />
         )
 
       return (
@@ -180,6 +189,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)
+
+    // для controlled input показываем кнопка очистки только если поле не пустое, для uncontrolled нет возможности определить пустое ли поле
+    const showClearButton =
+      allowClear && value !== undefined ? controlledValue : true
 
     return (
       <span
@@ -203,6 +216,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           placeholder={isFocused ? '' : placeholder}
           onKeyDown={handleKeyDown}
           disabled={disabled}
+          readOnly={readOnly}
           id={id || formGroupContext?.id}
           onFocus={handleFocus}
           onBlur={handleBlur}
@@ -213,9 +227,24 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-invalid={formGroupContext?.invalid || ariaInvalid}
           aria-required={formGroupContext?.required || ariaRequired}
           {...restProps}
+          type={nativeType}
         />
 
-        {allowClear && getClearIcon()}
+        {showClearButton && getClearIcon()}
+        {showPasswordToggle && (
+          <button
+            onClick={() => setPasswordVisible(!isPasswordVisible)}
+            className="inf-input-wrapper__visibility-button"
+            aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
+            aria-pressed={isPasswordVisible}
+          >
+            {nativeType !== 'password' ? (
+              <CloseEyeIcon width={20} height={20} />
+            ) : (
+              <OpenEyeIcon width={20} height={20} />
+            )}
+          </button>
+        )}
         {postfix && (
           <span
             onClick={handlePostfixClick}

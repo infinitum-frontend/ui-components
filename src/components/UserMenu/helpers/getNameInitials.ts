@@ -6,7 +6,7 @@ const getNameInitials = (fullName: string): string => {
   const firstNameInitial = nameParts[1]?.charAt(0) || ''
   const lastNameInitial = nameParts[0]?.charAt(0) || ''
 
-  const initials = `${firstNameInitial}${lastNameInitial}`.toUpperCase()
+  const initials = `${lastNameInitial}${firstNameInitial}`.toUpperCase()
 
   return initials
 }

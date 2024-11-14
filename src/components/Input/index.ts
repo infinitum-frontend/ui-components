@@ -1,7 +1,6 @@
 import Input from './Input'
 import MaskedInput, { MaskedInputProps } from './components/MaskedInput'
-import SearchInput from './components/SearchInput/'
 import { InputProps } from './types'
 
-export { Input, SearchInput, MaskedInput }
+export { Input, MaskedInput }
 export type { InputProps, MaskedInputProps }

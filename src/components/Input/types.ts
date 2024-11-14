@@ -24,6 +24,8 @@ export interface BaseInputProps
   borderRadius?: 'unset' | 'regular'
   /** Состояние недоступности */
   disabled?: boolean
+  /** Только чтение */
+  readOnly?: boolean
   /** Состояние (ошибка, предупреждение) */
   status?: 'error'
   /** Отсутствие границ */
@@ -57,4 +59,6 @@ export interface InputProps
   onInput?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onBlur?: FocusEventHandler<HTMLInputElement>
+  /** Показываем кнопку с иконкой переключения видимости пароля */
+  showPasswordToggle?: boolean
 }

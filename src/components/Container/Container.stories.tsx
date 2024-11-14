@@ -80,3 +80,11 @@ export const Playground = {
     layout: 'fullscreen'
   }
 }
+
+export const Fluid = {
+  render: Template,
+
+  args: {
+    size: 'fluid'
+  }
+}

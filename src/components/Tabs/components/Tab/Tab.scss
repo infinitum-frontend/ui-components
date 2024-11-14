@@ -19,8 +19,13 @@
   }
 
   &--disabled {
-    color: var(--inf-color-text-disabled);
+    color: var(--inf-color-text-tertiary);
     pointer-events: none;
+  }
+
+  &--fullwidth {
+    width: 100%;
+    justify-content: center;
   }
 
   &--size-medium {
@@ -37,7 +42,7 @@
     position: absolute;
     bottom: -1px;
     left: 0;
-    background-color: var(--inf-color-border-accent);
+    background-color: var(--inf-color-background-brand-primary);
     display: block;
     height: 2px;
     width: 100%;
@@ -45,6 +50,7 @@
 
   &__icon {
     display: flex;
+
     svg {
       width: 20px;
       height: 20px;

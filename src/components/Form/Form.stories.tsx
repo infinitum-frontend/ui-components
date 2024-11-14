@@ -119,6 +119,32 @@ export const Playground = {
   render: Template
 }
 
+export const FormGroup: StoryObj<typeof Form> = {
+  render: (args) => {
+    const [fullName, setFullName] = useState<string>('')
+
+    const handleSubmit: FormEventHandler = (e): void => {
+      alert('submit')
+    }
+
+    return (
+      <>
+        <Form {...args} onSubmit={handleSubmit} labelWidth="200px">
+          <Form.Group required>
+            <Form.Label>Имя</Form.Label>
+            <Form.Item>
+              <Input value={fullName} onInput={(value) => setFullName(value)} />
+            </Form.Item>
+            <Form.Hint>Заполните имя и фамилию на кириллице</Form.Hint>
+          </Form.Group>
+
+          <Button type={'submit'}>Подтвердить</Button>
+        </Form>
+      </>
+    )
+  }
+}
+
 export const WithNativeValidation: StoryObj<typeof Form> = {
   render: (args) => {
     const [comment, setComment] = useState<string>('')

@@ -1,24 +1,32 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import cn from 'classnames'
 import './Alert.scss'
-import { ReactComponent as IconWarning } from 'Icons/warning.svg'
-import { ReactComponent as IconCheck } from 'Icons/checkInCircle2.svg'
-import { ReactComponent as IconInfo } from 'Icons/info-circle.svg'
+import { ReactComponent as IconInfoCircle } from 'Icons/info-circle.svg'
+import { ReactComponent as IconCheckCircle } from 'Icons/check-circle.svg'
+import { ReactComponent as IconAlertCircle } from 'Icons/alert-circle.svg'
 
 export interface AlertProps
   extends Omit<ComponentPropsWithoutRef<'span'>, 'prefix'> {
-  variant: 'info' | 'danger' | 'success' | 'warning' | 'neutral'
+  variant:
+    | 'info'
+    | 'error'
+    | 'success'
+    | 'warning'
+    | 'neutral'
+    | 'brand'
+    | 'violet'
+    | 'teal'
 }
 
 const Alert = ({ children, variant = 'neutral' }: AlertProps): ReactElement => {
   const getAlertIcon = (): ReactElement => {
     switch (variant) {
       case 'info':
-        return <IconInfo />
+        return <IconInfoCircle />
       case 'success':
-        return <IconCheck />
+        return <IconCheckCircle />
       default:
-        return <IconWarning />
+        return <IconAlertCircle />
     }
   }
 

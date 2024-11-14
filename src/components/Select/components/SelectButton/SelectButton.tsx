@@ -61,7 +61,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
           {loading ? (
             <Loader size="compact" variant="unset" />
           ) : (
-            <ArrowDownIcon width={'10px'} height={'5px'} />
+            <ArrowDownIcon />
           )}
         </span>
         {children}

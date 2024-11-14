@@ -1,9 +1,11 @@
 .inf-text-field {
-  border: 1px solid var(--inf-color-border-default);
-  background-color: var(--inf-color-background-default);
+  --input-default-border-color: var(--inf-color-border-primary);
+
+  border: 1px solid var(--input-default-border-color);
   transition: border-color 0.2s;
   font: var(--inf-font-body-1);
   width: 100%;
+  color: var(--inf-color-text-primary);
 
   input::placeholder,
   &::placeholder {
@@ -11,21 +13,28 @@
   }
 
   @include hover {
-    border-color: var(--inf-color-border-hover);
+    &:not(.inf-text-field--status-error):not(.inf-text-field--readonly) {
+      border-color: var(--inf-color-border-primary-hover);
+    }
   }
 
   &:focus,
   &:focus-visible,
   &--focused {
-    border-color: var(--inf-color-border-active);
+    &:not(.inf-text-field--status-error) {
+      border-color: var(--inf-color-border-primary-hover);
+    }
   }
 
   &:disabled,
   &--disabled {
-    background-color: var(--inf-color-background-disabled);
+    background-color: var(--inf-color-background-tertiary);
+    color: var(--inf-color-text-tertiary);
     pointer-events: none;
-    border-color: transparent !important;
-    color: var(--inf-color-text-disabled);
+  }
+
+  &--readonly {
+    background-color: var(--inf-color-background-tertiary);
   }
 
   &--no-border {
@@ -37,25 +46,17 @@
   }
 
   &--status-error {
-    border-color: var(--inf-color-border-danger);
-
-    @include hover {
-      border-color: var(--inf-color-border-danger);
-    }
-
-    &:focus {
-      border-color: var(--inf-color-border-danger);
-    }
+    border-color: var(--inf-color-border-error);
   }
 
   &--size-medium {
     height: var(--inf-control-height-medium);
-    padding: var(--inf-space-xsmall) var(--inf-space-medium);
+    padding: var(--inf-space-xsmall) var(--inf-space-small);
   }
 
   &--size-small {
     font: var(--inf-font-body-2);
     height: var(--inf-control-height-small);
-    padding: var(--inf-space-xxsmall) var(--inf-space-medium);
+    padding: var(--inf-space-xxsmall) var(--inf-space-small);
   }
 }

@@ -1,8 +1,6 @@
-import { StoryObj, StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 import { Badge } from './index'
 import { Box } from '../Box'
-import { Text } from '../Text'
-import { Space } from '../Space'
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
@@ -24,17 +22,6 @@ const Template: StoryFn<typeof Badge> = (args) => {
 
 export const Playground = {
   render: Template
-}
-
-export const Standalone: StoryObj<typeof Badge> = {
-  render: (args) => {
-    return (
-      <Space direction={'horizontal'} gap={'xxsmall'}>
-        <Text tone={'secondary'}>Контроль структуры</Text>
-        <Badge count={10} tone={'secondary'} />
-      </Space>
-    )
-  }
 }
 
 export const Dot = {

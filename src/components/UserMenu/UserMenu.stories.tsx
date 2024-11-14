@@ -46,6 +46,26 @@ export const Playground: StoryObj<typeof UserMenu> = {
   }
 }
 
+export const WithNameOnly: StoryObj<typeof UserMenu> = {
+  render: ({ ...args }) => {
+    return <UserMenu {...args} />
+  },
+  decorators: [decorator],
+  args: {
+    fullName: 'Яндиев Руслан Асхабович'
+  }
+}
+
+export const WithLongName: StoryObj<typeof UserMenu> = {
+  render: ({ ...args }) => {
+    return <UserMenu {...args} />
+  },
+  decorators: [decorator],
+  args: {
+    fullName: 'Константинапооооольский Константин Константинович'
+  }
+}
+
 export const WithMenu: StoryObj<typeof UserMenu> = {
   render: ({ ...args }) => {
     return (

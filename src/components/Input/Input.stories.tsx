@@ -1,13 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useState } from 'react'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
-import { Input, MaskedInput, SearchInput } from './index'
+import { Input, MaskedInput } from './index'
 import { action } from '@storybook/addon-actions'
 import { Space } from '../Space'
 import { Loader } from '../Loader'
 import { Button } from '../Button'
 import { Text } from '../Text'
+import { Icon } from '../Icon'
 import { Form } from '../Form'
+import { ReactComponent as SearchIcon } from 'Icons/search.svg'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 
 const meta: Meta<typeof Input> = {
@@ -44,13 +46,20 @@ export default meta
 
 // eslint-disable-next-line react/prop-types
 const Template: StoryFn<typeof Input> = ({ value, ...args }) => {
+  const [val, setVal] = useState(value)
+
   return (
     <Input
       style={{ width: '250px' }}
       {...args}
+      value={val}
       onFocus={action('focus')}
       onBlur={action('blur')}
-      onChange={action('change')}
+      onChange={(v) => {
+        action('change')
+        setVal(v)
+      }}
+      onClear={() => setVal('')}
     />
   )
 }
@@ -134,11 +143,12 @@ export const Disabled = {
   }
 }
 
-export const NoBorder = {
+export const ReadOnly = {
   render: Template,
 
   args: {
-    noBorder: true
+    readOnly: true,
+    value: 'Иван Иванов'
   }
 }
 
@@ -164,7 +174,11 @@ export const WithPrefix = {
   render: Template,
 
   args: {
-    prefix: <span style={{ color: 'darkred' }}>INF</span>
+    prefix: (
+      <Icon size="medium" color="primary">
+        <SearchIcon />
+      </Icon>
+    )
   }
 }
 
@@ -172,7 +186,11 @@ export const WithPostfix = {
   render: Template,
 
   args: {
-    postfix: <span style={{ color: 'darkred' }}>INF</span>
+    postfix: (
+      <Icon size="medium" color="primary">
+        <SearchIcon />
+      </Icon>
+    )
   }
 }
 
@@ -182,6 +200,25 @@ export const WithClearButton = {
   args: {
     value: 'Инфинитум',
     allowClear: true
+  }
+}
+
+export const WithPasswordVisibilityButton = {
+  render: Template,
+
+  args: {
+    value: 'Инфинитум',
+    type: 'password',
+    showPasswordToggle: true
+  }
+}
+
+export const ErrorStatus = {
+  render: Template,
+
+  args: {
+    value: 'Инфинитум',
+    status: 'error'
   }
 }
 
@@ -195,12 +232,6 @@ export const Formatter: StoryObj<typeof Input> = {
     }
 
     return <Input formatter={formatter} value={value} onChange={handleChange} />
-  }
-}
-
-export const Search: StoryObj<typeof SearchInput> = {
-  render: (args) => {
-    return <SearchInput {...args} />
   }
 }
 

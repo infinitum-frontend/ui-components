@@ -2,7 +2,14 @@
 import * as React from 'react'
 import { Button } from '../components/Button'
 import { Space } from '../components/Space'
+import { Grid } from '../components/Grid'
 import { Text } from '../components/Text'
+import { UserMenu } from '../components/UserMenu'
+import { Menu } from '../components/Menu'
+import { Tabs } from '../components/Tabs'
+import { Breadcrumbs } from '../components/Breadcrumbs'
+import { Card } from '../components/Card'
+import { Modal } from '../components/Modal'
 // import { Heading } from '../components/Heading'
 // import { Input } from '../components/Input'
 // import { Divider } from '../components/Divider'
@@ -14,17 +21,16 @@ import { Input } from '../components/Input'
 import { Textarea } from '../components/Textarea'
 import { Divider } from '../components/Divider'
 import { Link } from '../components/Link'
-import { Popover } from '../components/Popover'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 // import { Link } from '../components/Link'
 import { Box } from '../components/Box'
 // import { Modal } from '../components/Modal'
+import { ReactComponent as IconProfile } from 'Icons/user.svg'
+import { ReactComponent as IconQuit } from 'Icons/sign-out.svg'
 import {
   useNotification,
   NotificationContainer,
   NotificationProvider
 } from '../components/Notification'
-import { SideNav } from '../components/SideNav'
 import { Meta, StoryObj } from '@storybook/react'
 import { Table, TableRow } from '../components/Table'
 import {
@@ -51,8 +57,7 @@ export default ComponentMeta
 
 export const DesignSystem: StoryObj = {
   render: () => {
-    // const [isModalOpen, setIsModalOpen] = React.useState(false)
-    const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false)
+    const [isModalOpen, setIsModalOpen] = React.useState(false)
     const [selection, setSelection] = React.useState<
       Array<TableRow<Portfolio>>
     >([])
@@ -69,24 +74,47 @@ export const DesignSystem: StoryObj = {
 
     return (
       <PageLayout>
-        <PageLayout.Header sticky containerWidth="large">
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'grid',
-              gridTemplateColumns: '300px 1fr auto',
-              alignItems: 'center'
-            }}
+        <PageLayout.Header sticky containerSize="xxlarge">
+          <Grid
+            templateColumns="max-content 1fr max-content"
+            gap="xlarge"
+            alignItems="center"
           >
-            <Logo style={{ width: '140px' }} />
+            <Logo prefix="МПК" />
             <HeaderNav>
-              <HeaderNav.Item active>Пункт меню 1</HeaderNav.Item>
-              <HeaderNav.Item>Пункт меню 2</HeaderNav.Item>
-              <HeaderNav.Item>Пункт меню 3</HeaderNav.Item>
+              <HeaderNav.Item>Результаты контроля</HeaderNav.Item>
+              <HeaderNav.Item>Уведомления</HeaderNav.Item>
+              <HeaderNav.Item>Показатели контроля</HeaderNav.Item>
+              <HeaderNav.Item active>Портфели</HeaderNav.Item>
             </HeaderNav>
 
-            <Popover open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
+            <UserMenu fullName="Иванов Константин Сергеевич" role="Инвестор">
+              {({ close }) => (
+                <Menu>
+                  <Menu.Item as="a" href="https://ya.ru">
+                    <Menu.Item.Icon>
+                      <IconProfile />
+                    </Menu.Item.Icon>
+                    Профиль
+                  </Menu.Item>
+
+                  <Menu.Item
+                    as="button"
+                    onClick={() => {
+                      close()
+                    }}
+                  >
+                    <Menu.Item.Icon>
+                      <IconQuit />
+                    </Menu.Item.Icon>
+                    Выйти из аккаунта
+                  </Menu.Item>
+                </Menu>
+              )}
+            </UserMenu>
+          </Grid>
+
+          {/* <Popover open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
               <Popover.Trigger onClick={() => setIsUserMenuOpen((v) => !v)}>
                 <Button
                   variant="ghost"
@@ -121,35 +149,86 @@ export const DesignSystem: StoryObj = {
                   </Space>
                 </Space>
               </Popover.Content>
-            </Popover>
-          </div>
+            </Popover> */}
         </PageLayout.Header>
 
-        <PageLayout.Body containerWidth="large">
-          <PageLayout.Aside>
-            <SideNav>
-              <SideNav.Item>Входящие</SideNav.Item>
-              <SideNav.Item active>Исходящие</SideNav.Item>
-              <SideNav.Item>Отчетность</SideNav.Item>
-              <SideNav.Item>Документы для отправки</SideNav.Item>
-              <SideNav.Item>Черновики</SideNav.Item>
-              <SideNav.Item>Локальный справочник контрагентов</SideNav.Item>
-            </SideNav>
-          </PageLayout.Aside>
-
-          <PageLayout.Content style={{ paddingTop: 'var(--inf-space-xlarge)' }}>
+        <PageLayout.Body containerSize="xxlarge">
+          <PageLayout.Content>
             <Space gap="large">
-              <Table
-                columns={tableColumns}
-                rows={TABLE_DATA}
-                withRowSelection={true}
-                onChangeRowSelection={handleChange}
-                selectionState={selection}
-                selectedRow={selected}
-                onRowClick={handleRowClick}
-              />
+              <Breadcrumbs>
+                <Breadcrumbs.Item>Портфели</Breadcrumbs.Item>
+                <Breadcrumbs.Item>НПФ «Будущее»</Breadcrumbs.Item>
+              </Breadcrumbs>
 
-              <Divider />
+              <Space direction="horizontal" justify="space-between">
+                <Text variant="heading-2">Портфель «Другой»</Text>
+                <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+                  Добавить показатель в декларацию
+                </Button>
+                <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                  <Modal.Header>
+                    <Modal.Title>Модальное окно</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Form>
+                      <Space gap="large">
+                        <Form.Group required>
+                          <Form.Label>Имя</Form.Label>
+                          <Input placeholder="Введите имя" />
+                        </Form.Group>
+                        <Form.Group required>
+                          <Form.Label>Фамилия</Form.Label>
+                          <Input placeholder="Введите фамилию" status="error" />
+                        </Form.Group>
+                        <Form.Group required>
+                          <Form.Label>Роль</Form.Label>
+                          <Input disabled placeholder="Введите роль" />
+                        </Form.Group>
+
+                        <Space direction="horizontal" gap="large">
+                          <Button variant="primary">Сохранить</Button>
+                          <Button variant="ghost">Отменить</Button>
+                        </Space>
+                      </Space>
+                    </Form>
+                  </Modal.Body>
+                </Modal>
+              </Space>
+
+              <Grid templateColumns="1fr 566px" gap="large">
+                <Space gap="large">
+                  <Tabs>
+                    <Tabs.List>
+                      <Tabs.Tab>Все</Tabs.Tab>
+                      <Tabs.Tab>Активные</Tabs.Tab>
+                      <Tabs.Tab>Деактивированные</Tabs.Tab>
+                      <Tabs.Tab>Неактивированные</Tabs.Tab>
+                    </Tabs.List>
+                  </Tabs>
+
+                  <Grid templateColumns="repeat(4, 1fr)">
+                    <Input placeholder="ID или название" />
+                    <Input />
+                    <Input />
+                    <Input />
+                  </Grid>
+
+                  <Table
+                    columns={tableColumns}
+                    rows={TABLE_DATA}
+                    withRowSelection={true}
+                    onChangeRowSelection={handleChange}
+                    selectionState={selection}
+                    selectedRow={selected}
+                    onRowClick={handleRowClick}
+                  />
+                </Space>
+
+                <Card variant="raised">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Soluta, reprehenderit!
+                </Card>
+              </Grid>
 
               <Space style={{ padding: '0 var(--inf-space-large)' }}>
                 <Button
@@ -241,37 +320,7 @@ export const DesignSystem: StoryObj = {
                     >
                       Открыть модальное окно
                     </Button>
-                    <Modal
-                      open={isModalOpen}
-                      onClose={() => setIsModalOpen(false)}
-                    >
-                      <Modal.Header>
-                        <Modal.Title>Модальное окно</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Eum voluptatem nostrum modi quasi atque, eius
-                        animi deserunt veniam voluptatibus qui.
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Space direction={Space.Direction.Horizontal}>
-                          <Button
-                            variant={Button.Variant.Secondary}
-                            onClick={() =>
-                              notify('Lorem ipsum dolor sit amet.')
-                            }
-                          >
-                            Кнопка 1
-                          </Button>
-                          <Button variant={Button.Variant.Tertiary}>
-                            Кнопка 2
-                          </Button>
-                          <Button variant={Button.Variant.Ghost}>
-                            Кнопка 3
-                          </Button>
-                        </Space>
-                      </Modal.Footer>
-                    </Modal>
+
                     <Button variant={Button.Variant.Secondary}>
                       Скорректировать результат проверки
                     </Button>

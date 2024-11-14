@@ -1,10 +1,11 @@
 .inf-form-label {
   color: var(--inf-color-text-secondary);
+  font: var(--inf-font-body-2);
   flex-shrink: 0;
 
   &__required-indicator {
-    color: var(--inf-color-primary);
-    margin-left: 4px;
+    color: var(--inf-color-text-brand);
+    margin-left: var(--inf-space-xxsmall);
     font-family: initial;
   }
 }

@@ -24,6 +24,9 @@ export interface ComboboxProps
   showTags?: boolean
   /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
+  search?: string
+  onSearch?: (search: string) => void
+  disabled?: boolean
 }
 
 const filterFn = (options: SelectOption[], value: string): SelectOption[] =>
@@ -39,6 +42,9 @@ const Combobox = ({
   showTags,
   displayValue,
   maxHeight,
+  search,
+  onSearch,
+  disabled,
   ...props
 }: ComboboxProps): ReactElement => {
   const [filteredOptions, setFilteredOptions] = useState(options)
@@ -46,7 +52,7 @@ const Combobox = ({
 
   useUpdateEffect(() => {
     setFilteredOptions(filterFn(options, searchQuery))
-  }, [options])
+  }, [options, searchQuery])
 
   const checkedOptions = options.filter((option) => {
     return checkedList.some((item) => item === option.value)
@@ -78,6 +84,7 @@ const Combobox = ({
     <Autocomplete
       className="inf-combobox"
       {...props}
+      disabled={disabled}
       selectedValue={checkedList[0]}
     >
       <Autocomplete.Button placeholder={placeholder}>
@@ -86,7 +93,7 @@ const Combobox = ({
             <Text color="inverse" className="inf-combobox__counter">
               {checkedCount}
               <CrossIcon
-                color="gray"
+                className="inf-combobox__counter-remove-icon"
                 onClick={(e) => {
                   e.stopPropagation()
                   onChange?.([])
@@ -108,7 +115,11 @@ const Combobox = ({
           wrap
         >
           {checkedOptions.map((option, index) => (
-            <Tag key={option.value} onRemove={() => handleRemove(option.value)}>
+            <Tag
+              key={option.value}
+              onRemove={() => handleRemove(option.value)}
+              disabled={disabled}
+            >
               {option.label}
             </Tag>
           ))}
@@ -117,8 +128,8 @@ const Combobox = ({
 
       <Autocomplete.Dropdown>
         <Autocomplete.Input
-          value={searchQuery}
-          onChange={handleSearchChange}
+          value={search ?? searchQuery}
+          onChange={onSearch ?? handleSearchChange}
           allowClear={true}
           onClear={() => {
             setSearchQuery('')

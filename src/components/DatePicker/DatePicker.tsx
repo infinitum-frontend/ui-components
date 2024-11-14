@@ -8,7 +8,6 @@ import React, {
 } from 'react'
 import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
 import {
-  autoUpdate,
   flip,
   FloatingFocusManager,
   FloatingPortal,
@@ -64,7 +63,6 @@ const DatePicker = ({
     open: isOpened,
     onOpenChange: setOpened,
     placement: 'bottom-start',
-    whileElementsMounted: autoUpdate,
     middleware: [offset(4), flip()]
   })
 
@@ -105,7 +103,7 @@ const DatePicker = ({
               onChange?.(value)
             }
           }}
-          postfix={<IconCalendar />}
+          postfix={<IconCalendar className="inf-datepicker__calendar-icon" />}
           value={displayValue}
           onPostfixClick={() => setOpened((prev) => !prev)}
           disabled={disabled}

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
 import { Table, TableColumnDef, TableRow } from './index'
 import { SortingState } from '@tanstack/react-table'
@@ -7,6 +9,8 @@ import { Portfolio, TABLE_DATA } from './fixtures'
 import { Button } from '../Button'
 import { Space } from '../Space'
 import { Checkbox } from '../Checkbox'
+import { Input } from '../Input'
+import { Label } from '../Label'
 
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
@@ -20,7 +24,13 @@ const columns: Array<TableColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
     id: 'portfolio',
-    accessorKey: 'portfolio',
+    cell: (context) => {
+      return (
+        <div>
+          <Text>{context.row.original.portfolio}</Text>
+        </div>
+      )
+    },
     enableSorting: true
   },
   {
@@ -38,7 +48,15 @@ const columns: Array<TableColumnDef<Portfolio, any>> = [
   {
     header: 'Статус',
     id: 'status',
-    accessorKey: 'status',
+    cell: (context) => {
+      return (
+        <Space>
+          <Label variant="success">{context.row.original.status}</Label>
+          <Label variant="success">{context.row.original.status}</Label>
+          <Label variant="success">{context.row.original.status}</Label>
+        </Space>
+      )
+    },
     enableSorting: true
   },
   {
@@ -273,6 +291,38 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
           columns={columns}
           rows={TABLE_DATA}
           columnVisibility={columnVisibility}
+        />
+      </Space>
+    )
+  }
+}
+
+const longPortfolioRows: Portfolio[] = []
+
+for (let i = 0; i < 300; i++) {
+  longPortfolioRows.push({
+    portfolio: `Портфель ${i + 1}`,
+    mark: `Марк ${i + 1}`,
+    type: `Тип ${i + 1}`,
+    status: `Active`
+  })
+}
+
+export const Scrollable: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [search, setSearch] = useState('')
+
+    return (
+      <Space style={{ height: '100%' }}>
+        <Input value={search} onChange={setSearch} />
+
+        <Table
+          {...args}
+          columns={columns}
+          maxHeight={400}
+          rows={longPortfolioRows.filter((a) => a.portfolio.match(search))}
+          estimateRowHeight={157}
+          scrollable
         />
       </Space>
     )

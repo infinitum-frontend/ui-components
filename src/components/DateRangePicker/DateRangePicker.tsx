@@ -6,7 +6,6 @@ import React, {
   useState
 } from 'react'
 import {
-  autoUpdate,
   flip,
   FloatingFocusManager,
   FloatingPortal,
@@ -63,7 +62,6 @@ const DateRangePicker = ({
     open: isOpened,
     onOpenChange: setOpened,
     placement: 'bottom-start',
-    whileElementsMounted: autoUpdate,
     middleware: [offset(4), flip()]
   })
 
@@ -120,7 +118,7 @@ const DateRangePicker = ({
             validate: validateFn
           }}
           value={displayValue}
-          postfix={<IconCalendar />}
+          postfix={<IconCalendar className="inf-datepicker__calendar-icon" />}
           onPostfixClick={() => setOpened((prev) => !prev)}
           onFocus={() => setOpened(true)}
         />

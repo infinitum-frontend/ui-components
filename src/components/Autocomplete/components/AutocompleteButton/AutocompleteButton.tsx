@@ -86,6 +86,7 @@ const AutocompleteButton = ({
         required={context?.required || formGroupContext?.required}
         aria-required={context?.required || formGroupContext?.required}
         aria-invalid={formGroupContext?.invalid || undefined}
+        autoComplete="off"
         id={formGroupContext?.id}
         onInvalid={onControlInvalid}
       />

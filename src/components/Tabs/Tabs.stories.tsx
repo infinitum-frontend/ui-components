@@ -137,3 +137,17 @@ export const Sizes: StoryObj<typeof Tabs> = {
     )
   }
 }
+
+export const FullWidth: StoryObj<typeof Tabs> = {
+  render: (args) => {
+    return (
+      <Tabs fullWidth>
+        <Tabs.List>
+          <Tabs.Tab>Контроль структуры</Tabs.Tab>
+          <Tabs.Tab>Статистический</Tabs.Tab>
+          <Tabs.Tab>Состава по доле владения</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    )
+  }
+}

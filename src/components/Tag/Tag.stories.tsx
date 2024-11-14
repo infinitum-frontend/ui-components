@@ -29,3 +29,10 @@ export const Removable: StoryObj<typeof Tag> = {
     onRemove: () => alert('remove')
   }
 }
+
+export const Disabled = {
+  render: Template,
+  args: {
+    disabled: true
+  }
+}
