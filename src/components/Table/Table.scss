@@ -8,7 +8,7 @@
 
   thead {
     th {
-      background-color: var(--inf-color-background-tertiary);
+      background-color: var(--inf-color-background-secondary);
       text-align: left;
       color: var(--inf-color-text-secondary);
       font: var(--inf-font-body-2);
@@ -43,9 +43,7 @@
       }
 
       &.inf-table__row--selected {
-        background-color: var(
-          --inf-color-background-primary-hover
-        ); // TODO: уточнить цвет
+        background-color: var(--inf-color-background-tertiary);
       }
 
       &:not(:last-child) {

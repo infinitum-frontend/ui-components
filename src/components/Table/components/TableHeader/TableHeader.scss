@@ -9,16 +9,25 @@
     }
   }
 
-  &__item {
-    display: flex;
-
+  &__cell {
     &--interactive {
       cursor: pointer;
+      transition: background-color 0.2s;
+
+      @include hover {
+        background-color: var(--inf-color-background-secondary-hover);
+      }
     }
+  }
+
+  &__cell-content {
+    display: flex;
+    align-items: center;
   }
 
   &__wrapper {
     display: flex;
+    align-items: center;
 
     &:hover {
       .inf-table-header__sort-icon {

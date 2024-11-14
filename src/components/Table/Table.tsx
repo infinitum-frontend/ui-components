@@ -49,15 +49,12 @@ export interface TableProps extends TableBaseProps {
   /** Событие изменения состояния сортировки */
   onSortingChange?: OnChangeFn<SortingState>
   // TODO: sorting mode auto
-  /** @deprecated */
   withFiltering?: boolean
   /**
-   * @deprecated
    * Событие изменения состояния фильтров
    */
   onFiltersChange?: OnChangeFn<TableColumnFiltersState>
   /**
-   * @deprecated
    * Начальное состояние фильтров
    */
   filtersState?: TableColumnFiltersState

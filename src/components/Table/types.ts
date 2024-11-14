@@ -18,7 +18,7 @@ export interface TableFilterDateOption {
 export type TableFilterType = ColumnMeta<any, any>['filterType']
 
 export interface TableColumnFilterValues {
-  input: string
+  search: string
   select: TableFilterSelectOption
   date: TableFilterDateOption
 }
@@ -61,7 +61,7 @@ export type TableSelectedRow =
 declare module '@tanstack/table-core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterType: 'input' | 'select' | 'date'
+    filterType: 'search' | 'select' | 'date'
     filterItems?: TableFilterSelectOption[]
   }
 
