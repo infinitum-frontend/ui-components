@@ -54,7 +54,7 @@ const TableHeader = ({
 
   const handleColumnClick = (e: MouseEvent, column: Column<any>): void => {
     if (canSort(column)) {
-      onSortingChange(getNextSorting(sortingState, column))
+      onSortingChange(getNextSorting(sortingState, column.id))
     }
   }
 
