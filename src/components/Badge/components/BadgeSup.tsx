@@ -37,7 +37,7 @@ const BadgeSup = ({
     <sup
       title={count?.toString()}
       className={cn('inf-badge-sup', `inf-badge-sup--tone-${tone as string}`, {
-        'inf-badge-sup--standalone': standalone && !dot,
+        'inf-badge-sup--standalone': standalone,
         'inf-badge-sup--dot': dot
       })}
       style={styles}

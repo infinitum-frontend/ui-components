@@ -1,6 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { Badge } from './index'
 import { Box } from '../Box'
+import { Space } from '../Space'
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
@@ -26,6 +29,21 @@ export const Playground = {
 
 export const Dot = {
   render: Template,
+
+  args: {
+    dot: true
+  }
+}
+
+export const DotWithoutChildren = {
+  render: (args) => {
+    return (
+      <Space direction="horizontal">
+        Индикатор точка
+        <Badge {...args} />
+      </Space>
+    )
+  },
 
   args: {
     dot: true
