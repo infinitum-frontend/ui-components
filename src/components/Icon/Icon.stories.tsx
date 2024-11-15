@@ -81,6 +81,12 @@ export const Colors: StoryObj<typeof Icon> = {
             <IconUser />
           </Icon>
         </div>
+        <Icon color="brand">
+          <IconUser />
+        </Icon>
+        <Icon color="brand-secondary">
+          <IconUser />
+        </Icon>
         <Icon color="error">
           <IconUser />
         </Icon>
