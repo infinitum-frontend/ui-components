@@ -8,8 +8,7 @@ import { Popover } from 'Components/Popover'
 import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
 import { ReactComponent as CalendarIcon } from 'Icons/calendar.svg'
 import { ReactComponent as SearchIcon } from 'Icons/search.svg'
-import cn from 'classnames'
-import './TableFilterPopover.scss'
+import TableHeaderCellButton from '../TableHeaderCellButton'
 
 type IconVariant = 'search' | 'date' | 'filter'
 
@@ -46,19 +45,15 @@ const TableFilterPopover = ({
       onOpenChange={(value) => setOpen(value)}
     >
       <Popover.Trigger>
-        <button
+        <TableHeaderCellButton
+          active={isTriggerActive || isOpen}
           onClick={(e) => {
             e.stopPropagation()
             setOpen((prev) => !prev)
           }}
-          className={'inf-table-filter-popover__button'}
         >
-          <FilterIconComponent
-            className={cn('inf-table-filter-popover__icon', {
-              'inf-table-filter-popover__icon--active': isTriggerActive
-            })}
-          />
-        </button>
+          <FilterIconComponent />
+        </TableHeaderCellButton>
       </Popover.Trigger>
 
       <Popover.Content hasPadding={false} width={popoverWidth}>

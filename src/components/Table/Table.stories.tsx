@@ -1,7 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
-import { Table, TableRow, TableColumnFiltersState } from './index'
+import {
+  Table,
+  TableRow,
+  TableColumnFiltersState,
+  getNextSorting
+} from './index'
 import {
   ColumnDef,
   flexRender,
@@ -88,42 +93,56 @@ export const Base: StoryObj<typeof Table> = {
   }
 }
 
-// export const Basic: StoryObj<typeof Table> = {
-//   render: (args) => {
-//     const columns = ['ID', 'Название показателя', 'Вид проверки', 'Дата автоматизации', 'Обязательное выполнение', 'Портфели']
-//     const data = NPF_RULES_TABLE_DATA
+export const CompoundComponents: StoryObj<typeof Table> = {
+  render: (args) => {
+    const columns = [
+      'ID',
+      'Название показателя',
+      'Вид проверки',
+      'Дата автоматизации',
+      'Обязательное выполнение',
+      'Портфели'
+    ]
+    const data = NPF_RULES_TABLE_DATA
 
-//     return (
-//       <Table>
-//         <Table.Head>
-//           <Table.HeadRow>
-//             {columns.map(column => (
-//               <Table.HeadCell>{column}</Table.HeadCell>
-//             ))}
-//           </Table.HeadRow>
-//           <Table.Body>
+    return (
+      <Space>
+        <Text>
+          Использование Compound компонентов таблицы для кастомной верстки
+        </Text>
 
-//               {data.map(item => (
-//                 <Table.Row key={item.id}>
-//                   {Object.keys(item) => (
-//                     <Table.Cell></Table.Cell>
-//                   )}
-//             </Table.Row>
+        <Table {...args}>
+          <Table.Header>
+            <Table.HeaderRow>
+              {columns.map((column) => (
+                <Table.HeaderCell key={column}>{column}</Table.HeaderCell>
+              ))}
+            </Table.HeaderRow>
+          </Table.Header>
+          <Table.Body>
+            {data.map((item) => (
+              <Table.Row key={item.id}>
+                <Table.Cell>{item.id}</Table.Cell>
+                <Table.Cell>{item.shortName}</Table.Cell>
+                <Table.Cell>{item.type}</Table.Cell>
+                <Table.Cell>{item.verificationAutomationDate}</Table.Cell>
+                <Table.Cell>-</Table.Cell>
+                <Table.Cell>{item.portfoliosCount}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </Space>
+    )
+  }
+}
 
-//               ))}
-//           </Table.Body>
-//         </Table.Head>
-//       </Table>
-//     )
-//   }
-// }
-
-export const TableColumnJSX: StoryObj<typeof Table> = {
+export const WithCustomFilters: StoryObj<typeof Table> = {
   render: (args) => {
     const columns: Array<ColumnDef<NpfRule, any>> = React.useMemo(
       () => [
         {
-          header: 'ID',
+          header: 'IDDDDDDD',
           accessorKey: 'id'
         },
         {
@@ -213,6 +232,7 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
                 interactive
                 onClick={() => handleSortingChange(headers[0].id)}
                 width="100px"
+                maxWidth="100px"
               >
                 {flexRender(
                   headers[0].column.columnDef.header,
