@@ -234,6 +234,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {showPasswordToggle && (
           <button
             onClick={(e) => {
+              e.preventDefault()
               e.stopPropagation()
               setPasswordVisible(!isPasswordVisible)
             }}
