@@ -114,19 +114,6 @@
     &.inf-button--square {
       width: var(--inf-control-height-small);
     }
-
-    .inf-button__before,
-    .inf-button__after {
-      svg {
-        width: 16px;
-        height: 16px;
-      }
-    }
-
-    .inf-button__icon {
-      width: 20px;
-      height: 20px;
-    }
   }
 
   &--size-medium {

@@ -9,6 +9,7 @@ import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
 import { ReactComponent as CalendarIcon } from 'Icons/calendar.svg'
 import { ReactComponent as SearchIcon } from 'Icons/search.svg'
 import cn from 'classnames'
+import './TableFilterPopover.scss'
 
 type IconVariant = 'search' | 'date' | 'filter'
 
@@ -50,11 +51,11 @@ const TableFilterPopover = ({
             e.stopPropagation()
             setOpen((prev) => !prev)
           }}
-          className={'inf-new-table-filter-popover__button'}
+          className={'inf-table-filter-popover__button'}
         >
           <FilterIconComponent
-            className={cn('inf-new-table-filter-popover__icon', {
-              'inf-new-table-filter-popover__icon--active': isTriggerActive
+            className={cn('inf-table-filter-popover__icon', {
+              'inf-table-filter-popover__icon--active': isTriggerActive
             })}
           />
         </button>

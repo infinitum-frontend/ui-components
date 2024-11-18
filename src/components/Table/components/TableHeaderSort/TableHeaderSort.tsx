@@ -1,25 +1,36 @@
-import { Header, SortingState } from '@tanstack/react-table'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement } from 'react'
+import React, { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { ReactComponent as ArrowUpDownIcon } from 'Icons/arrow-up-down-sharp.svg'
 import { ReactComponent as ArrowDownIcon } from 'Icons/arrow-down-sharp.svg'
-import './TableHeaderSort.scss'
 import cn from 'classnames'
+import './TableHeaderSort.scss'
 
-// TODO: manual sorting
-const TableHeaderSort = ({
-  header,
-  sortingState,
-  className
-}: {
-  header: Header<any, any>
-  sortingState: SortingState
+export interface TableHeaderSortProps
+  extends ComponentPropsWithoutRef<'button'> {
+  active: boolean
+  desc: boolean
   className?: string
-}): ReactElement => {
+}
+
+const TableHeaderSort = ({
+  active,
+  desc,
+  className,
+  ...restProps
+}: TableHeaderSortProps): ReactElement => {
   return (
-    <button className={cn('inf-table-header-sort', className)}>
-      {sortingState.length !== 0 && header.column.id === sortingState[0].id ? (
-        sortingState[0].desc ? (
+    <button
+      className={cn(
+        'inf-table-header-sort',
+        {
+          'inf-table-header-sort--active': active
+        },
+        className
+      )}
+      {...restProps}
+    >
+      {active ? (
+        desc ? (
           <ArrowDownIcon className="inf-table-header-sort__icon inf-table-header-sort__icon--active" />
         ) : (
           <ArrowDownIcon className="inf-table-header-sort__icon inf-table-header-sort__icon--active inf-table-header-sort__icon--reversed" />

@@ -1,4 +1,5 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
+import './TableCell.scss'
 
 export interface TableCellProps extends ComponentPropsWithoutRef<'td'> {}
 
@@ -7,7 +8,7 @@ const TableCell = ({
   ...restProps
 }: TableCellProps): ReactElement => {
   return (
-    <td className="inf-new-table-cell" {...restProps}>
+    <td className="inf-table-cell" {...restProps}>
       {children}
     </td>
   )

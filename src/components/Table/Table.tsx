@@ -1,97 +1,50 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useMemo, useRef } from 'react'
+import React, { ReactElement, useMemo } from 'react'
+
 import {
   Column,
   ColumnDef,
   ColumnMeta,
-  ColumnResizeMode,
+  flexRender,
   getCoreRowModel,
   getFacetedUniqueValues,
   OnChangeFn as TanstackOnChangeFn,
   RowSelectionState,
-  SortingState,
-  useReactTable
+  useReactTable,
+  Row
 } from '@tanstack/react-table'
-import cn from 'classnames'
-import TableHeader from './components/TableHeader'
-import TableBody from './components/TableBody'
-import { Checkbox } from 'Components/Checkbox'
+
 import {
+  TableProps,
   TableColumnFiltersState,
   TableColumnFilterValue,
-  TableRow,
-  TableRowData,
-  TableSelectedRow,
-  TableSelectionState,
-  TableVerticalAlignValue
+  TableRow as TableRowType
 } from './types'
-import { OnChangeFn } from 'Utils/types'
-import { mapRowToExternalFormat } from './helpers'
-import TableBase, { TableBaseProps } from './components/TableBase'
-import './Table.scss'
-import TableWithVirtualRows from './components/TableWithVirtualRows'
 
-export interface TableProps extends TableBaseProps {
-  /** Массив с данными для построения шапки таблицы */
-  columns?: Array<ColumnDef<any, any>>
-  /** Массив с данными для построения тела таблицы */
-  rows?: Array<TableRowData<any>>
-  /** Скругление границ таблицы */
-  borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
-  /** CSS свойство vertical-align для шапки */
-  verticalAlignHead?: TableVerticalAlignValue
-  /** CSS свойство vertical-align для рядов */
-  verticalAlignBody?: TableVerticalAlignValue
-  /** Включение сортировки по столбцам */
-  withSorting?: boolean
-  /** Начальное состояние сортировки */
-  sortingState?: SortingState
-  /** Событие изменения состояния сортировки */
-  onSortingChange?: OnChangeFn<SortingState>
-  // TODO: sorting mode auto
-  withFiltering?: boolean
-  /**
-   * Событие изменения состояния фильтров
-   */
-  onFiltersChange?: OnChangeFn<TableColumnFiltersState>
-  /**
-   * Начальное состояние фильтров
-   */
-  filtersState?: TableColumnFiltersState
-  /** Отображение чекбоксов в 1 колонке */
-  withRowSelection?: boolean
-  /** Событие изменения чекбоксов */
-  onChangeRowSelection?: OnChangeFn<TableSelectionState<any>>
-  /** Состояние выбора рядов через чекбокс */
-  selectionState?: TableSelectionState<any>
-  /**
-   * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id ряда.
-   */
-  selectedRow?: TableSelectedRow
-  onRowClick?: OnChangeFn<TableRow>
-  /** Изменение ширины колонок
-   * @value onChange изменение "вживую" при растягивании
-   * @value onEnd изменение при отжатии кнопки мыши
-   */
-  resizeMode?: ColumnResizeMode
-  /** видимость колонок
-   * в качестве данных передается объект с ключами, соответствующими id колонок,
-   * имеющим булевы значения, отражающими видимость колонки
-   */
-  columnVisibility?: Record<string, boolean>
-  /**
-   * Включен ли скролл
-   * Применяется, если таблица наполняется всеми данными сразу
-   * Проп включает виртуализацию, позволяя рендерить только элементы, отображаемые на экране
-   */
-  scrollable?: boolean
-  /** Максимальная высота таблицы для варианта со скроллом. Использовать вместе с пропом scrollable */
-  maxHeight?: number
-  /** Ориентировочная высота ряда. Использовать вместе с пропом scrollable */
-  estimateRowHeight?: number
-  // /** Включена ли группировка */
-  // // enableGrouping?: boolean
-}
+import {
+  checkIsRowSelected,
+  getNextSorting,
+  mapRowToExternalFormat
+} from './helpers'
+
+import TableBase from './components/TableBase'
+import TableHeaderFilter from './components/TableHeaderFilter'
+import TableHeaderSort from './components/TableHeaderSort'
+import TableHeaderCell from './components/TableHeaderCell'
+import TableHeaderRow from './components/TableHeaderRow'
+import TableWithVirtualRows from './components/TableWithVirtualRows'
+import TableHeader from './components/TableHeader'
+import TableRow from './components/TableRow'
+import TableCell from './components/TableCell'
+import TableEmpty from './components/TableEmpty'
+import TableBody from './components/TableBody'
+import { Checkbox } from 'Components/Checkbox'
+
+import cn from 'classnames'
+
+import './Table.scss'
+import TableFilterPopover from './components/TableFilterPopover'
+import TableFilterTags from './components/TableFilterTags'
 
 /** Компонент многофункциональной таблицы */
 const Table = ({
@@ -119,8 +72,11 @@ const Table = ({
   scrollable,
   maxHeight,
   estimateRowHeight = 100,
+  emptyMessage,
+  filterTags,
   ...props
 }: TableProps): ReactElement => {
+  // ==================== Простая таблица ====================
   if (children) {
     return (
       <TableBase
@@ -134,6 +90,8 @@ const Table = ({
     )
   }
 
+  // ==================== Сложная таблица ====================
+
   // Приводим состояние селекции столбцом к формату танстака(объект ключ-id ряда, значение-boolean)
   const tanstackSelectionState = useMemo(
     () =>
@@ -145,11 +103,15 @@ const Table = ({
   )
 
   // ==================== handlers ====================
-  const handleSortingChange: (state: SortingState) => void = (state) => {
-    onSortingChange?.(state)
+
+  const handleSortingChange = (column: Column<any>): void => {
+    if (canSort(column)) {
+      const newSortingState = getNextSorting(sortingState, column.id)
+      onSortingChange?.(newSortingState)
+    }
   }
 
-  const handleFiltersChange: (
+  const handleFilterChange: (
     value: TableColumnFilterValue,
     filterType: ColumnMeta<any, any>['filterType'],
     column: Column<any>
@@ -167,15 +129,38 @@ const Table = ({
   ) => {
     const newTanstackSelectionState =
       typeof callback === 'function' ? callback(tanstackSelectionState) : {}
-
-    const rowSelectionState: Array<TableRow<any>> = []
+    const rowSelectionState: Array<TableRowType<any>> = []
     Object.keys(newTanstackSelectionState).forEach((key) => {
       const row = mapRowToExternalFormat(table.getRow(key))
       rowSelectionState.push(row)
     })
-
     onChangeRowSelection?.(rowSelectionState)
   }
+
+  const handleRowClick = (
+    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
+    row: Row<any>
+  ): void => {
+    // клик на ряд срабатывает только в случае, если клик был на элемент внутри ячейки таблицы
+    if (!(e.target as HTMLElement).closest('td')) {
+      return
+    }
+    onRowClick?.(mapRowToExternalFormat(row))
+  }
+
+  const canSort = (column: Column<any>): boolean => {
+    return Boolean(withSorting) && Boolean(column.columnDef.enableSorting)
+  }
+
+  const canFilter = (column: Column<any>): boolean => {
+    return (
+      Boolean(withFiltering) &&
+      column.getCanFilter() &&
+      Boolean(column.columnDef.meta?.filterType)
+    )
+  }
+
+  // ==================== init ====================
 
   const memoizedColumns = useMemo(() => {
     if (withRowSelection) {
@@ -232,7 +217,11 @@ const Table = ({
     // getSubRows: (row) => row?.subRows,
   })
 
+  // ==================== vars ====================
+
   const tableRows = table.getRowModel().rows
+
+  const totalColumnsCount = memoizedColumns?.length
 
   return (
     <TableWithVirtualRows
@@ -253,30 +242,114 @@ const Table = ({
           })}
           {...props}
         >
-          <TableHeader
-            sticky={scrollable}
-            table={table}
-            withSorting={withSorting}
-            withFiltering={withFiltering}
-            sortingState={sortingState}
-            onSortingChange={handleSortingChange}
-            filtersState={filtersState}
-            onFiltersChange={handleFiltersChange}
-            resizeMode={resizeMode}
-            verticalAlignHead={verticalAlignHead}
-          />
-          <TableBody
-            rows={tableRows}
-            selectedRow={selectedRow}
-            onRowClick={onRowClick}
-            // grouping={enableGrouping}
-            verticalAlignBody={verticalAlignBody}
-            virtualizer={virtualizer}
-          />
+          {/* HEADER */}
+          <TableHeader sticky={scrollable}>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableHeaderRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHeaderCell
+                    interactive={canSort(header.column)}
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    style={{
+                      // обработка ширины столбцов
+                      width: header.getSize()
+                    }}
+                    onClick={() => handleSortingChange(header.column)}
+                  >
+                    {header.isPlaceholder ? null : (
+                      <>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {canSort(header.column) && (
+                          <TableHeaderSort
+                            active={
+                              sortingState.length !== 0 &&
+                              header.column.id === sortingState[0].id
+                            }
+                            desc={sortingState[0]?.desc}
+                          />
+                        )}
+                        {canFilter(header.column) && (
+                          <TableHeaderFilter
+                            header={header}
+                            filterState={filtersState.find(
+                              (filter) => filter.id === header.column.id
+                            )}
+                            onChange={handleFilterChange}
+                          />
+                        )}
+                      </>
+                    )}
+                  </TableHeaderCell>
+                ))}
+              </TableHeaderRow>
+            ))}
+            {/* {filterTags?.length && <TableFilterTags values={filterTags} />} */}
+          </TableHeader>
+          {/* BODY */}
+          <TableBody>
+            {tableRows?.length ? (
+              tableRows.map((row) => {
+                const isRowInteractive = Boolean(onRowClick)
+
+                return (
+                  <TableRow
+                    key={row.id}
+                    selected={checkIsRowSelected(
+                      mapRowToExternalFormat(row),
+                      selectedRow
+                    )}
+                    interactive={isRowInteractive}
+                    style={row.original.style}
+                    onClick={(e) => handleRowClick(e, row)}
+                    // verticalAlignBody TODO:
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                )
+              })
+            ) : (
+              <TableEmpty colSpan={totalColumnsCount} message={emptyMessage} />
+            )}
+          </TableBody>
         </table>
       )}
     </TableWithVirtualRows>
   )
 }
 
-export default Table
+export default Object.assign(Table, {
+  Header: TableHeader,
+  HeaderCell: TableHeaderCell,
+  HeaderRow: TableHeaderRow,
+  HeaderSort: TableHeaderSort,
+  FilterPopover: TableFilterPopover,
+  Body: TableBody,
+  Row: TableRow,
+  Cell: TableCell,
+  Empty: TableEmpty,
+  FilterTags: TableFilterTags
+})
+
+// TODO:
+// TableHeader => TableHead - его экспортировать как UI, а TableHeader оставить для обработки логики внутри
+// TableHeaderRow => TableRow
+// TableEmpty - не отображается при использовании с scrollable
+// прокидывание ширины колонки как CSS property
+// fixed высота tablehead - при этом высота tr в head должна = высоте tr в body
+// verticalAlignHead
+// resizer
+// прокидывание style и className
+// virtualizer
+// вынести логики сортировки, фильтрации, селекции и пр. в хуки
+// если экспортировать TableWithVirtualRows, то будет ли с ним тащиться react-virtual, даже если мы его не будем использоваться

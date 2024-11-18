@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, CSSProperties, ReactElement } from 'react'
 import cn from 'classnames'
+import './TableHeaderCell.scss'
 
 export interface TableHeaderCellProps extends ComponentPropsWithoutRef<'th'> {
   interactive?: boolean
@@ -18,13 +19,13 @@ const TableHeaderCell = ({
 }: TableHeaderCellProps): ReactElement => {
   return (
     <th
-      className={cn('inf-new-table-header-cell', {
-        'inf-new-table-header-cell--interactive': interactive
+      className={cn('inf-table-header-cell', {
+        'inf-table-header-cell--interactive': interactive
       })}
       style={{ width, minWidth, maxWidth }}
       {...restProps}
     >
-      <div className="inf-new-table-header-cell__content">{children}</div>
+      <div className="inf-table-header-cell__content">{children}</div>
     </th>
   )
 }

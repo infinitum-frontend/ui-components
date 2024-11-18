@@ -1,15 +1,6 @@
-import { ReactElement, TableHTMLAttributes } from 'react'
+import { ReactElement } from 'react'
+import { TableBaseProps } from '../../types'
 import cn from 'classnames'
-import { TableVerticalAlignValue } from '../../types'
-
-export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
-  /** Скругление границ таблицы */
-  borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
-  /** CSS свойство vertical-align для шапки */
-  verticalAlignHead?: TableVerticalAlignValue
-  /** CSS свойство vertical-align для рядов */
-  verticalAlignBody?: TableVerticalAlignValue
-}
 
 const TableBase = ({
   borderRadius,

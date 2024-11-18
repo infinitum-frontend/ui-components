@@ -54,3 +54,14 @@ export function getNextSorting(
     return []
   }
 }
+
+export const checkIsRowSelected = (
+  row: TableRow<any>,
+  selectedRow?: string | number | ((row: TableRow<any>) => boolean)
+): boolean => {
+  if (typeof selectedRow === 'function') {
+    return selectedRow(row)
+  } else {
+    return row.id === selectedRow
+  }
+}

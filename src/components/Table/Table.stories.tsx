@@ -22,7 +22,7 @@ import { Button } from '../Button'
 import { Space } from '../Space'
 import { Checkbox } from '../Checkbox'
 import { Input } from '../Input'
-import { Table as NTable, getTableNextSorting } from './newComponents'
+// import { Table as Table, getNextSorting } from './newComponents'
 // import { Label } from '../Label'
 
 const meta: Meta<typeof Table> = {
@@ -67,7 +67,8 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     accessorKey: 'status',
     meta: {
       filterType: 'select'
-    }
+    },
+    enableSorting: true
   },
   {
     header: 'Дата',
@@ -86,6 +87,36 @@ export const Base: StoryObj<typeof Table> = {
     return <Table {...args} columns={columns} rows={TABLE_DATA} />
   }
 }
+
+// export const Basic: StoryObj<typeof Table> = {
+//   render: (args) => {
+//     const columns = ['ID', 'Название показателя', 'Вид проверки', 'Дата автоматизации', 'Обязательное выполнение', 'Портфели']
+//     const data = NPF_RULES_TABLE_DATA
+
+//     return (
+//       <Table>
+//         <Table.Head>
+//           <Table.HeadRow>
+//             {columns.map(column => (
+//               <Table.HeadCell>{column}</Table.HeadCell>
+//             ))}
+//           </Table.HeadRow>
+//           <Table.Body>
+
+//               {data.map(item => (
+//                 <Table.Row key={item.id}>
+//                   {Object.keys(item) => (
+//                     <Table.Cell></Table.Cell>
+//                   )}
+//             </Table.Row>
+
+//               ))}
+//           </Table.Body>
+//         </Table.Head>
+//       </Table>
+//     )
+//   }
+// }
 
 export const TableColumnJSX: StoryObj<typeof Table> = {
   render: (args) => {
@@ -112,7 +143,7 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
               : 'Неавтоматизирован'
         },
         {
-          header: 'Дата автоматизации',
+          header: 'Обязательное выполнение',
           id: 'mandatoryAutoAssignmentSettings',
           cell: (context) => {
             return <div>mandatoryAutoAssignmentSettings</div>
@@ -137,7 +168,7 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
     //   React.useState<ColumnFiltersState>([])
 
     const handleSortingChange = (columnId: string): void => {
-      const newSortingState = getTableNextSorting(sortingState, columnId)
+      const newSortingState = getNextSorting(sortingState, columnId)
 
       setSortingState(newSortingState)
 
@@ -173,12 +204,12 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
     console.log('table', table.getHeaderGroups())
 
     return (
-      <NTable>
-        <NTable.Header>
+      <Table>
+        <Table.Header>
           {table.getHeaderGroups().map(({ id, headers }) => (
-            <NTable.HeaderRow key={id}>
+            <Table.HeaderRow key={id}>
               {/* ID */}
-              <NTable.HeaderCell
+              <Table.HeaderCell
                 interactive
                 onClick={() => handleSortingChange(headers[0].id)}
                 width="100px"
@@ -187,11 +218,11 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
                   headers[0].column.columnDef.header,
                   headers[0].getContext()
                 )}
-                <NTable.Sort
+                <Table.HeaderSort
                   active={sortingState[0]?.id === headers[0].id}
                   desc={sortingState[0]?.desc}
                 />
-                <NTable.FilterPopover
+                <Table.FilterPopover
                   isTriggerActive={Boolean(portfolioSearch)}
                   popoverWidth="330px"
                 >
@@ -199,11 +230,11 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
                     value={portfolioSearch}
                     onChange={setPortfolioSearch}
                   />
-                </NTable.FilterPopover>
-              </NTable.HeaderCell>
+                </Table.FilterPopover>
+              </Table.HeaderCell>
 
               {/* Название показателя */}
-              <NTable.HeaderCell
+              <Table.HeaderCell
                 key={headers[1].id}
                 width="100%"
                 interactive
@@ -213,14 +244,14 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
                   headers[1].column.columnDef.header,
                   headers[1].getContext()
                 )}
-                <NTable.Sort
+                <Table.HeaderSort
                   active={sortingState[0]?.id === headers[1].id}
                   desc={sortingState[0]?.desc}
                 />
-              </NTable.HeaderCell>
+              </Table.HeaderCell>
 
               {/* Вид проверки */}
-              <NTable.HeaderCell
+              <Table.HeaderCell
                 key={headers[2].id}
                 minWidth="200px"
                 interactive
@@ -230,48 +261,55 @@ export const TableColumnJSX: StoryObj<typeof Table> = {
                   headers[2].column.columnDef.header,
                   headers[2].getContext()
                 )}
-                <NTable.Sort
+                <Table.HeaderSort
                   active={sortingState[0]?.id === headers[2].id}
                   desc={sortingState[0]?.desc}
                 />
-              </NTable.HeaderCell>
+              </Table.HeaderCell>
 
-              <NTable.HeaderCell key={headers[3].id}>
+              {/* Дата автоматизации */}
+              <Table.HeaderCell key={headers[3].id}>
                 {flexRender(
                   headers[3].column.columnDef.header,
                   headers[3].getContext()
                 )}
-              </NTable.HeaderCell>
+              </Table.HeaderCell>
 
-              <NTable.HeaderCell key={headers[4].id}>
+              {/* Обязательное выполнение */}
+              <Table.HeaderCell key={headers[4].id}>
                 {flexRender(
                   headers[4].column.columnDef.header,
                   headers[4].getContext()
                 )}
-              </NTable.HeaderCell>
+              </Table.HeaderCell>
 
-              <NTable.HeaderCell key={headers[5].id}>
+              {/* Портфели */}
+              <Table.HeaderCell key={headers[5].id}>
                 {flexRender(
                   headers[5].column.columnDef.header,
                   headers[5].getContext()
                 )}
-              </NTable.HeaderCell>
-            </NTable.HeaderRow>
+                <Table.HeaderSort
+                  active={sortingState[0]?.id === headers[1].id}
+                  desc={sortingState[0]?.desc}
+                />
+              </Table.HeaderCell>
+            </Table.HeaderRow>
           ))}
-        </NTable.Header>
+        </Table.Header>
 
-        <NTable.Body>
+        <Table.Body>
           {table.getRowModel().rows.map((row) => (
-            <NTable.Row key={row.id}>
+            <Table.Row key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <NTable.Cell key={cell.id}>
+                <Table.Cell key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </NTable.Cell>
+                </Table.Cell>
               ))}
-            </NTable.Row>
+            </Table.Row>
           ))}
-        </NTable.Body>
-      </NTable>
+        </Table.Body>
+      </Table>
     )
   }
 }
@@ -529,6 +567,10 @@ export const Scrollable: StoryObj<typeof Table> = {
   render: (args) => {
     const [search, setSearch] = useState('')
 
+    const filteredData = longPortfolioRows.filter((a) =>
+      a.portfolio.match(search)
+    )
+
     return (
       <Space style={{ height: '100%' }}>
         <Input value={search} onChange={setSearch} />
@@ -537,11 +579,49 @@ export const Scrollable: StoryObj<typeof Table> = {
           {...args}
           columns={columns}
           maxHeight={400}
-          rows={longPortfolioRows.filter((a) => a.portfolio.match(search))}
+          rows={filteredData}
           estimateRowHeight={157}
           scrollable
         />
       </Space>
     )
+  }
+}
+
+export const Empty: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [search, setSearch] = useState('qwerqwer')
+
+    const filteredData = TABLE_DATA.filter((a) => a.portfolio.match(search))
+
+    return (
+      <Space fullHeight>
+        <Input value={search} onChange={setSearch} />
+
+        <Table {...args} columns={columns} rows={filteredData} />
+      </Space>
+    )
+  },
+  args: {
+    emptyMessage: 'Поиск не дал результатов'
+  }
+}
+
+export const WithFilterTags: StoryObj<typeof Table> = {
+  render: (args) => {
+    // const [search, setSearch] = useState('qwerqwer')
+
+    // const filteredData = TABLE_DATA.filter((a) => a.portfolio.match(search))
+
+    return (
+      <Space fullHeight>
+        {/* <Input value={search} onChange={setSearch} /> */}
+
+        <Table {...args} columns={columns} rows={TABLE_DATA} />
+      </Space>
+    )
+  },
+  args: {
+    filterTags: ['qwer', 'erwqerqw']
   }
 }
