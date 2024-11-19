@@ -36,12 +36,17 @@
 
   &__content {
     &--search {
-      width: 330px;
+      width: 260px;
       padding: var(--inf-space-small);
     }
 
     &--select {
-      width: 330px;
+      width: 260px;
+    }
+
+    &--multiSelect {
+      // TODO: camelCase
+      width: 300px;
     }
 
     &--date {

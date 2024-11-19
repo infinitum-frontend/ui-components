@@ -24,7 +24,7 @@ export interface TableFilterPopoverProps
 const TableFilterPopover = ({
   isTriggerActive,
   iconVariant = 'filter',
-  popoverWidth = '300px',
+  popoverWidth,
   open,
   onOpenChange,
   children
@@ -57,7 +57,7 @@ const TableFilterPopover = ({
   return (
     <Popover
       open={isModalOpen}
-      placement="bottom-start"
+      placement="bottom-end"
       onOpenChange={handleOpenChange}
     >
       <Popover.Trigger>

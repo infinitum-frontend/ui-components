@@ -1,11 +1,7 @@
 .inf-date-calendar {
   width: 240px;
   height: 280px;
-  padding: var(--inf-space-xsmall);
   display: flex;
   flex-direction: column;
   gap: var(--inf-space-xsmall) 0;
-  // box-shadow: var(--inf-box-shadow-medium);
-  // border-radius: var(--inf-border-radius-small);
-  // background-color: var(--inf-color-background-elevated);
 }

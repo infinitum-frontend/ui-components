@@ -91,7 +91,7 @@ export interface TableProps extends TableBaseProps {
 // ФИЛЬТРАЦИЯ
 export interface TableFilterSelectOption {
   label: string
-  value: string
+  value: TableFilterSelectValue
 }
 
 export interface TableFilterDateOption {
@@ -101,11 +101,14 @@ export interface TableFilterDateOption {
   to?: Date | string
 }
 
+export type TableFilterSelectValue = string
+
 export type TableFilterType = ColumnMeta<any, any>['filterType']
 
 export interface TableColumnFilterValues {
   search: string
   select: TableFilterSelectOption
+  multiSelect: TableFilterSelectValue[]
   date: TableFilterDateOption
 }
 
@@ -144,11 +147,20 @@ export type TableSelectedRow =
   | number
   | ((row: TableRow<any>) => boolean)
 
+interface TableFilterOptionGroup {
+  label: string
+  options: TableFilterSelectOption[]
+}
+
+export type TableFiltersOptions = Array<
+  TableFilterSelectOption | TableFilterOptionGroup
+>
+
 declare module '@tanstack/table-core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterType: 'search' | 'select' | 'date'
-    filterItems?: TableFilterSelectOption[]
+    filterType: 'search' | 'select' | 'date' | 'multiSelect'
+    filterOptions?: TableFiltersOptions
   }
 
   // interface FilterFns {

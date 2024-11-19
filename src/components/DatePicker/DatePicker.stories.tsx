@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useState } from 'react'
 import { StoryFn, Meta } from '@storybook/react'
-import { NativeDatePicker, DatePicker } from './index'
+import { NativeDatePicker, DatePicker, DatePickerInline } from './index'
 import { Form } from '../Form'
 import { Button } from '../Button'
 import { Space } from '../Space'
@@ -132,6 +132,25 @@ export const NativeDatePickerOtherTypes: StoryFn<typeof DatePicker> = {
           {value4}
         </Form.Group>
       </Space>
+    )
+  }
+}
+
+export const InlineView: StoryFn<typeof DatePicker> = {
+  render: (args) => {
+    const [value, setValue] = useState('')
+    return (
+      <Form
+        onSubmit={() => {
+          console.log('handleSubmit')
+        }}
+      >
+        <Form.Group required>
+          <DatePickerInline {...args} value={value} onChange={setValue} />
+        </Form.Group>
+
+        <Button type="submit">Click me</Button>
+      </Form>
     )
   }
 }

@@ -1,27 +1,25 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { MouseEvent, ReactElement, useState } from 'react'
 import { Column, ColumnMeta, Header } from '@tanstack/react-table'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
-import TableHeaderFilterSelect from './TableHeaderFilterSelect'
 import {
   TableColumnFilter,
   TableColumnFilterValue,
   TableFilterDateOption,
   TableFilterSelectOption,
+  TableFilterSelectValue,
   TableFilterType
 } from 'Components/Table/types'
-import { Space } from 'Components/Space'
-import { Button } from 'Components/Button'
-import { Input } from 'Components/Input'
-import { Icon } from 'Components/Icon'
 import NativeDatePicker from 'Components/DatePicker/components/NaviteDatePicker/NativeDatePicker'
 import { Form } from 'Components/Form'
-import './TableHeaderFilter.scss'
 import useUpdateEffect from 'Hooks/useUpdateEffect'
 import cn from 'classnames'
 import TableFilterPopover, {
   TableFilterPopoverProps
 } from '../TableFilterPopover'
+import TableHeaderFilterSearch from './filters/TableHeaderFilterSearch'
+import TableHeaderFilterSelect from './filters/TableHeaderFilterSelect'
+import './TableHeaderFilter.scss'
+import TableHeaderFilterMultiSelect from './filters/TableHeaderFilterMultiSelect'
 
 // TODO: filter default value
 const getInitialValue = (
@@ -38,6 +36,8 @@ const getInitialValue = (
     case 'select':
     case 'date':
       return {}
+    case 'multiSelect':
+      return []
   }
 }
 
@@ -54,7 +54,7 @@ const TableHeaderFilter = ({
     column: Column<any>
   ) => void
 }): ReactElement => {
-  const { filterType = 'search', filterItems } =
+  const { filterType = 'search', filterOptions } =
     header.column.columnDef.meta || {}
   // ==================== state ====================
   const [filterValue, setFilterValue] = useState<TableColumnFilterValue>(
@@ -68,10 +68,6 @@ const TableHeaderFilter = ({
   }, [filterState])
 
   // ==================== handlers ====================
-  // const handleWrapperClick = (e: MouseEvent): void => {
-  //   e.stopPropagation()
-  //   setOpen((prev) => !prev)
-  // }
 
   const applyFilter = (): void => {
     setOpen(false)
@@ -80,6 +76,7 @@ const TableHeaderFilter = ({
 
   const applyReset = (): void => {
     setOpen(false)
+    setFilterValue(getInitialValue(filterType))
     onChange?.(undefined, filterType, header.column)
   }
 
@@ -101,6 +98,12 @@ const TableHeaderFilter = ({
     onChange?.(value, filterType, header.column)
   }
 
+  const handleFilterMultiSelectChange = (
+    checkedList: TableFilterSelectValue[]
+  ): void => {
+    setFilterValue(checkedList)
+  }
+
   // ==================== render ====================
   const selected = Boolean(filterState?.value)
   const dateFrom =
@@ -108,7 +111,7 @@ const TableHeaderFilter = ({
   const dateTo =
     (filterType === 'date' && (filterValue as TableFilterDateOption).to) || ''
 
-  const applyButtonText = filterType === 'search' ? 'Поиск' : 'Применить'
+  // const applyButtonText = filterType === 'search' ? 'Поиск' : 'Применить'
 
   const iconVariant: Record<
     TableFilterType,
@@ -116,7 +119,8 @@ const TableHeaderFilter = ({
   > = {
     search: 'search',
     date: 'date',
-    select: 'filter'
+    select: 'filter',
+    multiSelect: 'filter'
   }
 
   return (
@@ -137,14 +141,10 @@ const TableHeaderFilter = ({
         <Form onSubmit={applyFilter} gap="small">
           {/* Поиск */}
           {filterType === 'search' && (
-            <Input
-              prefix={
-                <Icon size="medium" color="primary">
-                  <SearchIcon />
-                </Icon>
-              }
+            <TableHeaderFilterSearch
               onChange={(value) => setFilterValue(value)}
               value={filterValue as string}
+              onReset={applyReset}
             />
           )}
 
@@ -153,7 +153,17 @@ const TableHeaderFilter = ({
             <TableHeaderFilterSelect
               onChange={handleFilterSelectChange}
               selected={filterValue as TableFilterSelectOption}
-              items={filterItems}
+              options={filterOptions}
+            />
+          )}
+
+          {/* одиночный селект */}
+          {filterType === 'multiSelect' && (
+            <TableHeaderFilterMultiSelect
+              onChange={handleFilterMultiSelectChange}
+              checkedList={filterValue as TableFilterSelectValue[]}
+              options={filterOptions}
+              onReset={applyReset}
             />
           )}
 
@@ -171,22 +181,6 @@ const TableHeaderFilter = ({
                 min={dateFrom}
               />
             </>
-          )}
-
-          {filterType !== 'select' && (
-            <Space direction="horizontal" gap="small">
-              <Button type="submit" size="small" variant="primary">
-                {applyButtonText}
-              </Button>
-              <Button
-                size="small"
-                variant="ghost"
-                type="button"
-                onClick={applyReset}
-              >
-                Сбросить
-              </Button>
-            </Space>
           )}
         </Form>
       </div>

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { PageLayout } from 'Components/PageLayout'
 import { Button } from 'Components/Button'
 import { Text } from 'Components/Text'
@@ -7,14 +7,29 @@ import AppHeader from './AppHeader'
 import { ReactComponent as IconPlus } from 'Icons/plus.svg'
 import IndicatorsTypeSelector from './IndicatorsTypeSelector'
 import IndicatorsTable from './IndicatorsTable'
+import { processIndicators } from '../helpers'
+import { NPF_RULES_TABLE_DATA } from '../fixtures'
+import {
+  TableColumnFiltersState,
+  TableSortingState
+} from '~/src/components/Table'
 
 const IndicatorsPage = (): ReactElement => {
+  const [filtersState, setFiltersState] = useState<TableColumnFiltersState>([])
+  const [sortingState, setSortingState] = useState<TableSortingState>([])
+
+  const data = processIndicators({
+    indicators: NPF_RULES_TABLE_DATA,
+    filters: filtersState,
+    sorting: sortingState
+  })
+
   return (
     <PageLayout>
-      <PageLayout.Header>
+      <PageLayout.Header containerSize="xxlarge">
         <AppHeader />
       </PageLayout.Header>
-      <PageLayout.Body>
+      <PageLayout.Body containerSize="xxlarge">
         <PageLayout.Content paddingTop="large">
           <Space gap="large">
             <Space direction="horizontal" justify="space-between">
@@ -26,7 +41,13 @@ const IndicatorsPage = (): ReactElement => {
 
             <IndicatorsTypeSelector />
 
-            <IndicatorsTable />
+            <IndicatorsTable
+              indicators={data}
+              sorting={sortingState}
+              onSortingChange={setSortingState}
+              filters={filtersState}
+              onFiltersChange={setFiltersState}
+            />
           </Space>
         </PageLayout.Content>
       </PageLayout.Body>

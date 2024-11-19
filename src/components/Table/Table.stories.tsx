@@ -63,7 +63,7 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     accessorKey: 'type',
     meta: {
       filterType: 'select',
-      filterItems: TYPE_FILTER_ITEMS
+      filterOptions: TYPE_FILTER_ITEMS
     }
   },
   {
@@ -71,7 +71,46 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     id: 'status',
     accessorKey: 'status',
     meta: {
-      filterType: 'select'
+      filterType: 'multiSelect',
+      filterOptions: [
+        {
+          value: '1',
+          label: 'Сформировано'
+        },
+        {
+          value: '2',
+          label: 'На согласовании'
+        },
+        {
+          label: 'Остальные',
+          options: [
+            {
+              value: '3',
+              label: 'На согласовании 3'
+            },
+            {
+              value: '4',
+              label: 'На согласовании 4'
+            },
+            {
+              value: '5',
+              label: 'На согласовании 5'
+            },
+            {
+              value: '6',
+              label: 'На согласовании 6'
+            },
+            {
+              value: '7',
+              label: 'На согласовании 7'
+            },
+            {
+              value: '8',
+              label: 'На согласовании 8'
+            }
+          ]
+        }
+      ]
     },
     enableSorting: true
   },
@@ -142,7 +181,7 @@ export const WithCustomFilters: StoryObj<typeof Table> = {
     const columns: Array<ColumnDef<NpfRule, any>> = React.useMemo(
       () => [
         {
-          header: 'IDDDDDDD',
+          header: 'ID',
           accessorKey: 'id'
         },
         {
@@ -170,7 +209,6 @@ export const WithCustomFilters: StoryObj<typeof Table> = {
         },
         {
           header: 'Портфели',
-          id: 'mandatoryAutoAssignmentSettings',
           accessorKey: 'portfoliosCount'
         }
       ],
@@ -181,6 +219,7 @@ export const WithCustomFilters: StoryObj<typeof Table> = {
     const [sortingState, setSortingState] = useState([
       { id: 'status', desc: false }
     ])
+
     const [portfolioSearch, setPortfolioSearch] = useState('')
 
     // const [columnFilters, setColumnFilters] =
@@ -370,6 +409,7 @@ export const Filtering: StoryObj<typeof Table> = {
     ])
 
     const handleFiltersChange = (state: TableColumnFiltersState): void => {
+      console.log('handleFiltersChange', state)
       let result = TABLE_DATA
       setFilters(state)
       state.forEach((filter) => {
