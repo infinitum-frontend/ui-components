@@ -1,8 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { MouseEvent, ReactElement, useState } from 'react'
 import { Column, ColumnMeta, Header } from '@tanstack/react-table'
-// import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
-// import { ReactComponent as CalendarIcon } from 'Icons/calendar.svg'
 import { ReactComponent as SearchIcon } from 'Icons/search.svg'
 import TableHeaderFilterSelect from './TableHeaderFilterSelect'
 import {
@@ -21,7 +19,9 @@ import { Form } from 'Components/Form'
 import './TableHeaderFilter.scss'
 import useUpdateEffect from 'Hooks/useUpdateEffect'
 import cn from 'classnames'
-import TableFilterPopover from '../TableFilterPopover'
+import TableFilterPopover, {
+  TableFilterPopoverProps
+} from '../TableFilterPopover'
 
 // TODO: filter default value
 const getInitialValue = (
@@ -61,6 +61,8 @@ const TableHeaderFilter = ({
     getInitialValue(filterType, filterState)
   )
 
+  const [isOpen, setOpen] = useState(false)
+
   useUpdateEffect(() => {
     setFilterValue(filterState?.value || getInitialValue(filterType))
   }, [filterState])
@@ -72,12 +74,12 @@ const TableHeaderFilter = ({
   // }
 
   const applyFilter = (): void => {
-    // setOpen(false)
+    setOpen(false)
     onChange?.(filterValue, filterType, header.column)
   }
 
   const applyReset = (): void => {
-    // setOpen(false)
+    setOpen(false)
     onChange?.(undefined, filterType, header.column)
   }
 
@@ -91,7 +93,7 @@ const TableHeaderFilter = ({
   }
 
   const handleFilterSelectChange = (item: TableFilterSelectOption): void => {
-    // setOpen(false)
+    setOpen(false)
     setFilterValue(item)
 
     // TODO: а как работать с типом "все"? пока такой костыль, что ожидаем элемента со значением -1
@@ -100,7 +102,7 @@ const TableHeaderFilter = ({
   }
 
   // ==================== render ====================
-  // const selected = Boolean(filterState?.value)
+  const selected = Boolean(filterState?.value)
   const dateFrom =
     (filterType === 'date' && (filterValue as TableFilterDateOption).from) || ''
   const dateTo =
@@ -108,19 +110,24 @@ const TableHeaderFilter = ({
 
   const applyButtonText = filterType === 'search' ? 'Поиск' : 'Применить'
 
-  // const filterIcons: Record<
-  //   TableFilterType,
-  //   React.FunctionComponent<React.SVGProps<SVGSVGElement>>
-  // > = {
-  //   search: SearchIcon,
-  //   date: CalendarIcon,
-  //   select: FilterIcon
-  // }
-
-  // const FilterIconComponent = filterIcons[filterType]
+  const iconVariant: Record<
+    TableFilterType,
+    TableFilterPopoverProps['iconVariant']
+  > = {
+    search: 'search',
+    date: 'date',
+    select: 'filter'
+  }
 
   return (
-    <TableFilterPopover>
+    <TableFilterPopover
+      isTriggerActive={selected}
+      iconVariant={iconVariant[filterType]}
+      open={isOpen}
+      onOpenChange={(value) => {
+        setOpen(value)
+      }}
+    >
       <div
         className={cn(
           'inf-table-header-filter__content',
@@ -184,27 +191,6 @@ const TableHeaderFilter = ({
         </Form>
       </div>
     </TableFilterPopover>
-    // <Popover
-    //   open={open}
-    //   onOpenChange={(value) => setOpen(value)}
-    //   placement={'bottom-start'}
-    // >
-    //   <Popover.Trigger>
-    //     <button
-    //       onClick={(e) => handleWrapperClick(e)}
-    //       className={'inf-table-header-filter__button'}
-    //     >
-    //       <FilterIconComponent
-    //         className={cn('inf-table-header-filter__icon', {
-    //           'inf-table-header-filter__icon--active': selected
-    //         })}
-    //       />
-    //     </button>
-    //   </Popover.Trigger>
-    //   <Popover.Content hasPadding={false}>
-
-    //   </Popover.Content>
-    // </Popover>
   )
 }
 

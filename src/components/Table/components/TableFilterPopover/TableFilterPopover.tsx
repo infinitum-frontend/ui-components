@@ -17,15 +17,31 @@ export interface TableFilterPopoverProps
   isTriggerActive?: boolean
   iconVariant?: IconVariant
   popoverWidth?: CSSProperties['width']
+  open?: boolean
+  onOpenChange?: (value: boolean) => void
 }
 
 const TableFilterPopover = ({
   isTriggerActive,
   iconVariant = 'filter',
   popoverWidth = '300px',
+  open,
+  onOpenChange,
   children
 }: TableFilterPopoverProps): ReactElement => {
-  const [isOpen, setOpen] = useState(false)
+  const isControlled = open !== undefined && onOpenChange !== undefined
+  // для uncontrolled
+  const [localOpen, setLocalOpen] = useState(isControlled ? undefined : false)
+
+  const handleOpenChange = (value: boolean): void => {
+    if (isControlled) {
+      onOpenChange(value)
+    } else {
+      setLocalOpen(value)
+    }
+  }
+
+  const isModalOpen = isControlled ? open : localOpen
 
   const filterIcons: Record<
     IconVariant,
@@ -40,16 +56,16 @@ const TableFilterPopover = ({
 
   return (
     <Popover
-      open={isOpen}
+      open={isModalOpen}
       placement="bottom-start"
-      onOpenChange={(value) => setOpen(value)}
+      onOpenChange={handleOpenChange}
     >
       <Popover.Trigger>
         <TableHeaderCellButton
-          active={isTriggerActive || isOpen}
+          active={isTriggerActive || isModalOpen}
           onClick={(e) => {
             e.stopPropagation()
-            setOpen((prev) => !prev)
+            handleOpenChange(!isModalOpen)
           }}
         >
           <FilterIconComponent />
