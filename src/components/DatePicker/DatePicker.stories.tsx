@@ -68,6 +68,7 @@ export const MinMax: StoryFn<typeof DatePicker> = {
   render: () => {
     const [firstValue, setFirstValue] = useState('')
     const [secondValue, setSecondValue] = useState('')
+    const [thirdValue, setThirdValue] = useState('')
 
     return (
       <Form
@@ -80,14 +81,25 @@ export const MinMax: StoryFn<typeof DatePicker> = {
           <DatePicker
             value={firstValue}
             onChange={setFirstValue}
-            max={secondValue}
+            max={thirdValue}
+          />
+        </Form.Group>
+        <Form.Group required>
+          <Form.Label>
+            Дата между (должна быть не раньше даты от и не позже даты до)
+          </Form.Label>
+          <DatePicker
+            value={secondValue}
+            onChange={setSecondValue}
+            min={firstValue}
+            max={thirdValue}
           />
         </Form.Group>
         <Form.Group required>
           <Form.Label>Дата до (должна быть не раньше даты от)</Form.Label>
           <DatePicker
-            value={secondValue}
-            onChange={setSecondValue}
+            value={thirdValue}
+            onChange={setThirdValue}
             min={firstValue}
           />
         </Form.Group>
