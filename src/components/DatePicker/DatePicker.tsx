@@ -104,6 +104,7 @@ const DatePicker = ({
           }}
           pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
           onComplete={(val) => {
+            formContext.form === null && resetControlValidity()
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
           }}
           onAccept={(value) => {
