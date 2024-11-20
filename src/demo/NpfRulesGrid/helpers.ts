@@ -2,7 +2,7 @@ import {
   TableColumnFiltersState,
   TableSortingState
 } from '~/src/components/Table'
-import { NpfRule } from './types'
+import { FundPurposeTypeEnum, NpfRule, PortfolioTypeEnum } from './types'
 import dayjs from 'dayjs'
 
 export function processIndicators({
@@ -29,9 +29,28 @@ function filterIndicators(
     return indicators
   }
 
+  // @ts-expect-error
+  const mandatoryAutoAssignmentSettings: string[] =
+    filters.find((f) => f.id === 'mandatoryAutoAssignmentSettings')?.value || []
+
   const filtersObj = {
     id: filters.find((f) => f.id === 'id')?.value,
-    shortName: filters.find((f) => f.id === 'shortName')?.value
+    shortName: filters.find((f) => f.id === 'shortName')?.value,
+    isNotMandatory: mandatoryAutoAssignmentSettings.includes('notMandatory'),
+    fundPurposeTypes: mandatoryAutoAssignmentSettings.filter((value) => {
+      return [
+        FundPurposeTypeEnum.PensionReserves,
+        FundPurposeTypeEnum.PensionSavings,
+        FundPurposeTypeEnum.OwnFunds
+      ].includes(value as FundPurposeTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
+    }),
+    portfolioTypes: mandatoryAutoAssignmentSettings.filter((value) => {
+      return [
+        PortfolioTypeEnum.Aggregate,
+        PortfolioTypeEnum.SelfManagement,
+        PortfolioTypeEnum.TrustManagement
+      ].includes(value as PortfolioTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
+    })
   }
 
   console.log('filtersObj', filtersObj)
@@ -45,15 +64,16 @@ function filterIndicators(
       ? filterByShortName(indicator, filtersObj.shortName as string)
       : true
 
-    return isMathchingId && isMatchingShortName
-
-    // const isMatchingFundPurpose = filters.fundPurposeType?.length
-    //   ? filterByFundPurposeType(indicator, filters.fundPurposeType || [])
+    // const isMatchingFundPurpose = filtersObj.fundPurposeTypes?.length
+    //   ? filterByFundPurposeType(indicator, filtersObj.fundPurposeTypes || [])
     //   : false
+
+    return isMathchingId && isMatchingShortName
 
     // const isMatchingPortfolioType = filters.portfolioType?.length
     //   ? filterByPortfolioType(indicator, filters.portfolioType)
     //   : false
+
     // const isMatchingNotSetMandatory = filters.isUnmandatory
     //   ? !indicator.mandatoryAutoAssignmentSettings?.length
     //   : false

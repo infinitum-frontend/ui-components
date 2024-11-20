@@ -1,11 +1,13 @@
 import { ReactElement } from 'react'
-import { NpfRule } from '../types'
+import { FundPurposeTypeEnum, NpfRule, PortfolioTypeEnum } from '../types'
 import {
   Table,
   TableColumnDef,
   TableColumnFiltersState,
   TableSortingState
 } from 'Components/Table'
+import { Space } from '~/src/components/Space'
+import { Label } from '~/src/components/Label'
 
 interface IndicatorsTableProps {
   indicators: NpfRule[]
@@ -19,14 +21,15 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   {
     header: 'ID',
     accessorKey: 'id',
+    size: 75,
     meta: {
       filterType: 'search'
-    },
-    enableSorting: true
+    }
   },
   {
     header: 'Название показателя',
     accessorKey: 'shortName',
+    size: 1000,
     meta: {
       filterType: 'search'
     },
@@ -34,11 +37,12 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   },
   {
     header: 'Вид проверки',
+    size: 150,
     accessorKey: 'type'
   },
   {
     header: 'Дата автоматизации',
-    id: 'verificationAutomationDate',
+    size: 175,
     accessorFn: (row) =>
       row.verificationAutomationDate
         ? row.verificationAutomationDate
@@ -46,13 +50,72 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   },
   {
     header: 'Обязательное выполнение',
-    id: 'mandatoryAutoAssignmentSettings',
+    size: 200,
     cell: (context) => {
-      return <div>mandatoryAutoAssignmentSettings</div>
+      const mandatorySettings =
+        context.row.original.mandatoryAutoAssignmentSettings
+      if (!mandatorySettings?.length) {
+        return <span>—</span>
+      }
+      return (
+        <Space direction="horizontal" wrap>
+          {mandatorySettings.map((setting, index) => (
+            <Label variant="info" tone="light" key={index}>
+              {setting.fundPurposeType} - {setting.portfolioType}
+            </Label>
+          ))}
+        </Space>
+      )
+    },
+    accessorFn: (row) => row.mandatoryAutoAssignmentSettings,
+    id: 'mandatoryAutoAssignmentSettings',
+    meta: {
+      filterType: 'multiSelect',
+      filterOptions: [
+        {
+          label: 'Не предусмотрено',
+          value: 'notMandatory'
+        },
+        {
+          label: 'Вид СЦН',
+          options: [
+            {
+              label: 'ПР',
+              value: FundPurposeTypeEnum.PensionReserves
+            },
+            {
+              label: 'ПН',
+              value: FundPurposeTypeEnum.PensionSavings
+            },
+            {
+              label: 'СС',
+              value: FundPurposeTypeEnum.OwnFunds
+            }
+          ]
+        },
+        {
+          label: 'Вид портфеля',
+          options: [
+            {
+              label: 'Совокупный',
+              value: PortfolioTypeEnum.Aggregate
+            },
+            {
+              label: 'Инвестор без посредников',
+              value: PortfolioTypeEnum.SelfManagement
+            },
+            {
+              label: 'ДУ',
+              value: PortfolioTypeEnum.TrustManagement
+            }
+          ]
+        }
+      ]
     }
   },
   {
     header: 'Портфели',
+    size: 90,
     accessorKey: 'portfoliosCount'
   }
 ]

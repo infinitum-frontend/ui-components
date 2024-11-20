@@ -31,7 +31,7 @@ const IndicatorsPage = (): ReactElement => {
       </PageLayout.Header>
       <PageLayout.Body containerSize="xxlarge">
         <PageLayout.Content paddingTop="large">
-          <Space gap="large">
+          <Space gap="medium">
             <Space direction="horizontal" justify="space-between">
               <Text variant="heading-3">Показатели контроля</Text>
               <Button variant="primary" size="small" after={<IconPlus />}>

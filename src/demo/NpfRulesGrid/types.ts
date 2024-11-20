@@ -1,7 +1,7 @@
 export interface NpfRule {
   id: number
   portfoliosCount: number
-  verificationAutomationDate?: string
+  verificationAutomationDate?: string | null
   mandatoryAutoAssignmentSettings?: NpfAutoAssignmentSettingsShort[]
   shortName?: string
   officialName?: string

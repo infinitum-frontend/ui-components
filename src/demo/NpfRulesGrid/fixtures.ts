@@ -1,4 +1,9 @@
-import { IndicatorsTypesEnum, NpfRule } from './types'
+import {
+  FundPurposeTypeEnum,
+  IndicatorsTypesEnum,
+  NpfRule,
+  PortfolioTypeEnum
+} from './types'
 
 export const NPF_RULES_TABLE_DATA: NpfRule[] = [
   {
@@ -26,7 +31,12 @@ export const NPF_RULES_TABLE_DATA: NpfRule[] = [
     type: IndicatorsTypesEnum.Structure,
     portfoliosCount: 0,
     verificationAutomationDate: '2024-10-30',
-    mandatoryAutoAssignmentSettings: []
+    mandatoryAutoAssignmentSettings: [
+      {
+        fundPurposeType: FundPurposeTypeEnum.PensionSavings,
+        portfolioType: PortfolioTypeEnum.SelfManagement
+      }
+    ]
   },
   {
     id: 200,
@@ -36,5 +46,18 @@ export const NPF_RULES_TABLE_DATA: NpfRule[] = [
     portfoliosCount: 3,
     verificationAutomationDate: '2024-10-30',
     mandatoryAutoAssignmentSettings: []
+  },
+  {
+    id: 301,
+    shortName: 'Нарушение требований',
+    type: IndicatorsTypesEnum.Other,
+    portfoliosCount: 0,
+    verificationAutomationDate: null,
+    mandatoryAutoAssignmentSettings: [
+      {
+        fundPurposeType: FundPurposeTypeEnum.PensionReserves,
+        portfolioType: PortfolioTypeEnum.TrustManagement
+      }
+    ]
   }
 ]
