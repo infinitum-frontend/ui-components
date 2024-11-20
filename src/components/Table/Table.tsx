@@ -10,8 +10,7 @@ import {
   getFacetedUniqueValues,
   OnChangeFn as TanstackOnChangeFn,
   RowSelectionState,
-  useReactTable,
-  Row
+  useReactTable
 } from '@tanstack/react-table'
 
 import {
@@ -21,11 +20,7 @@ import {
   TableRow as TableRowType
 } from './types'
 
-import {
-  checkIsRowSelected,
-  getNextSorting,
-  mapRowToExternalFormat
-} from './helpers'
+import { getNextSorting, mapRowToExternalFormat } from './helpers'
 
 import TableBase from './components/TableBase'
 import TableHeaderFilter from './components/TableHeaderFilter'
@@ -45,6 +40,7 @@ import cn from 'classnames'
 import './Table.scss'
 import TableFilterPopover from './components/TableFilterPopover'
 import TableFilterTags from './components/TableFilterTags'
+import TableBodyContent from './components/TableBodyContent'
 
 /** Компонент многофункциональной таблицы */
 const Table = ({
@@ -70,6 +66,7 @@ const Table = ({
   // enableGrouping = false,
   children,
   scrollable,
+  virtualized,
   maxHeight,
   estimateRowHeight = 100,
   emptyMessage,
@@ -135,17 +132,6 @@ const Table = ({
       rowSelectionState.push(row)
     })
     onChangeRowSelection?.(rowSelectionState)
-  }
-
-  const handleRowClick = (
-    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
-    row: Row<any>
-  ): void => {
-    // клик на ряд срабатывает только в случае, если клик был на элемент внутри ячейки таблицы
-    if (!(e.target as HTMLElement).closest('td')) {
-      return
-    }
-    onRowClick?.(mapRowToExternalFormat(row))
   }
 
   const canSort = (column: Column<any>): boolean => {
@@ -229,7 +215,7 @@ const Table = ({
       borderRadius={borderRadius}
       estimateRowHeight={estimateRowHeight}
       maxHeight={maxHeight}
-      enabled={scrollable}
+      enabled={virtualized}
     >
       {({ virtualizer }) => (
         <table
@@ -289,38 +275,19 @@ const Table = ({
             ))}
             {/* {filterTags?.length && <TableFilterTags values={filterTags} />} */}
           </TableHeader>
+
           {/* BODY */}
           <TableBody>
-            {tableRows?.length ? (
-              tableRows.map((row) => {
-                const isRowInteractive = Boolean(onRowClick)
-
-                return (
-                  <TableRow
-                    key={row.id}
-                    selected={checkIsRowSelected(
-                      mapRowToExternalFormat(row),
-                      selectedRow
-                    )}
-                    interactive={isRowInteractive}
-                    style={row.original.style}
-                    onClick={(e) => handleRowClick(e, row)}
-                    // verticalAlignBody TODO:
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                )
-              })
-            ) : (
-              <TableEmpty colSpan={totalColumnsCount} message={emptyMessage} />
-            )}
+            <TableBodyContent
+              rows={tableRows}
+              selectedRow={selectedRow}
+              onRowClick={onRowClick}
+              // grouping={enableGrouping}
+              verticalAlignBody={verticalAlignBody}
+              virtualizer={virtualizer}
+              totalColumnsCount={totalColumnsCount}
+              emptyMessage={emptyMessage}
+            />
           </TableBody>
         </table>
       )}

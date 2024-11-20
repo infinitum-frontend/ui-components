@@ -623,7 +623,7 @@ for (let i = 0; i < 300; i++) {
   })
 }
 
-export const Scrollable: StoryObj<typeof Table> = {
+export const ScrollableAndVirtualized: StoryObj<typeof Table> = {
   render: (args) => {
     const [search, setSearch] = useState('')
 
@@ -642,6 +642,7 @@ export const Scrollable: StoryObj<typeof Table> = {
           rows={filteredData}
           estimateRowHeight={157}
           scrollable
+          virtualized
         />
       </Space>
     )

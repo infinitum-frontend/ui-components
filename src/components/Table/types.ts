@@ -76,6 +76,8 @@ export interface TableProps extends TableBaseProps {
   maxHeight?: number
   /** Ориентировочная высота ряда. Использовать вместе с пропом scrollable */
   estimateRowHeight?: number
+  /** Включение виртуализации для оптимизации рендеринга большего числа рядов */
+  virtualized?: boolean
   // /** Включена ли группировка */
   // // enableGrouping?: boolean
   /**
