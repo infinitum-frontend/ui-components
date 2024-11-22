@@ -20,12 +20,16 @@ export interface AutocompleteButtonProps
   /** Плейсхолдер, отображаемый в случае, когда не передан слот */
   placeholder?: string
   forwardedInputRef?: RefObject<HTMLInputElement>
+  allowClear?: boolean
+  onClear?: () => void
 }
 
 /** Компонент кнопки-триггера для вызова выпадающего списка */
 const AutocompleteButton = ({
   placeholder = 'Не указано',
   disabled,
+  allowClear,
+  onClear,
   className,
   children,
   forwardedInputRef,
@@ -73,6 +77,8 @@ const AutocompleteButton = ({
       type={'button'}
       ref={context?.buttonRef}
       focused={isFocused}
+      allowClear={allowClear}
+      onClear={onClear}
       className={cn(className, 'inf-autocomplete-button')}
       {...context?.getReferenceProps()}
       {...props}
