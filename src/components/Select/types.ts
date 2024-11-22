@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react'
 type ArrayElementConstraints<T> = Record<string, T[keyof T]>
 
 export interface DefaultSelectOption {
-  value: number | string
+  value: number | string | undefined // Добавляем undefined как возможное значение
   label: string | ReactNode
 }
 
@@ -18,22 +18,9 @@ export type SelectOption<
 export interface SelectDataFormatterOptions<
   T extends ArrayElementConstraints<T>
 > {
-  /**
-   * Исходный массив, подлежащий форматированию
-   */
   array: T[]
-  /**
-   * Строковое название ключа элемента исходного массива, на основании которого будет браться ключ для опции
-   * Ключ должен являться уникальным значением
-   */
   value: string
-  /**
-   * Строковое название ключа элемента исходного массива, на основании которого будет браться текст для отображения опции
-   */
   label: string
-  /**
-   * Нужно ли сохранять остальные поля исходного объекта
-   */
   rest?: boolean
 }
 
@@ -49,6 +36,7 @@ export interface SelectProps
   placeholder?: string
   status?: 'error'
   required?: boolean
-  /** максимальное количество отображаемых элементов, после которого начинается скролл */
   maxItemsCount?: number
+  allowClear?: boolean
+  onClear?: () => void
 }
