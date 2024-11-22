@@ -46,6 +46,10 @@ interface UploadButtonProps {
    * Загрузка нескольких файлов
    */
   multiple?: boolean
+  /**
+   * Тип файлов которые нужно прикрепить
+   */
+  accept?: string
   onChange: (e: FileList) => void
 }
 const UploadButton = ({
@@ -60,7 +64,8 @@ const UploadButton = ({
   before,
   after,
   onChange,
-  multiple
+  multiple,
+  accept
 }: UploadButtonProps): ReactElement => {
   const domId: string = useId()
 
@@ -92,6 +97,7 @@ const UploadButton = ({
       </Button>
       <input
         type="file"
+        accept={accept}
         multiple={multiple}
         id={domId}
         hidden
