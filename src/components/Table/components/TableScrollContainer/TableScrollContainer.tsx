@@ -74,11 +74,17 @@ const TableScrollContainer = ({
       viewportRef={ref}
       scrollbarStyle={{ top: `${tableHeaderHeight}px`, right: '0px' }}
     >
-      <div style={{ height: `${totalHeight}px`, minHeight: `${minHeight}px` }}>
-        {children?.({
-          virtualizer
-        })}
-      </div>
+      {enabled ? (
+        <div
+          style={{ height: `${totalHeight}px`, minHeight: `${minHeight}px` }}
+        >
+          {children?.({
+            virtualizer
+          })}
+        </div>
+      ) : (
+        children?.({ virtualizer: undefined })
+      )}
     </ScrollArea>
   )
 }
