@@ -10,8 +10,11 @@ import { CSSProperties, TableHTMLAttributes } from 'react'
 import { OnChangeFn } from 'Utils/types'
 
 export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
-  /** Скругление границ таблицы */
-  borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
+  /**
+   * Скругление границ таблицы
+   * @deprecated
+   * */
+  borderRadius?: 'xsmall' | 'small' | 'medium' | 'large' // TODO: не нужен
   /** CSS свойство vertical-align для шапки */
   verticalAlignHead?: TableVerticalAlignValue
   /** CSS свойство vertical-align для рядов */
@@ -66,14 +69,12 @@ export interface TableProps extends TableBaseProps {
    * имеющим булевы значения, отражающими видимость колонки
    */
   columnVisibility?: Record<string, boolean>
-  /**
-   * Включен ли скролл
-   * Применяется, если таблица наполняется всеми данными сразу
-   * Проп включает виртуализацию, позволяя рендерить только элементы, отображаемые на экране
-   */
-  scrollable?: boolean
-  /** Максимальная высота таблицы для варианта со скроллом. Использовать вместе с пропом scrollable */
-  maxHeight?: number
+  /** Максимальная высота таблицы для варианта со скроллом */
+  maxHeight?: number | CSSProperties['maxHeight'] // TODO: сделать через style + scrollable?
+  /** Высота таблицы для варианта со скроллом */
+  height?: number | CSSProperties['height'] // TODO: сделать через style + scrollable?
+  /** */
+  stickyHeader?: boolean
   /** Ориентировочная высота ряда. Использовать вместе с пропом scrollable */
   estimateRowHeight?: number
   /** Включение виртуализации для оптимизации рендеринга большего числа рядов */

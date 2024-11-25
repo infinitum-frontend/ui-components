@@ -27,7 +27,6 @@ import TableHeaderFilter from './components/TableHeaderFilter'
 import TableHeaderSort from './components/TableHeaderSort'
 import TableHeaderCell from './components/TableHeaderCell'
 import TableHeaderRow from './components/TableHeaderRow'
-import TableWithVirtualRows from './components/TableWithVirtualRows'
 import TableHeader from './components/TableHeader'
 import TableRow from './components/TableRow'
 import TableCell from './components/TableCell'
@@ -41,13 +40,13 @@ import './Table.scss'
 import TableFilterPopover from './components/TableFilterPopover'
 import TableFilterTags from './components/TableFilterTags'
 import TableBodyContent from './components/TableBodyContent'
+import TableScrollContainer from './components/TableScrollContainer'
 
 /** Компонент многофункциональной таблицы */
 const Table = ({
   columns = [],
   rows = [],
   className,
-  borderRadius = 'small',
   verticalAlignHead = 'top',
   verticalAlignBody,
   withSorting,
@@ -65,9 +64,10 @@ const Table = ({
   columnVisibility = {},
   // enableGrouping = false,
   children,
-  scrollable,
   virtualized,
+  height,
   maxHeight,
+  stickyHeader,
   estimateRowHeight = 100,
   emptyMessage,
   filterTags,
@@ -75,11 +75,11 @@ const Table = ({
 }: TableProps): ReactElement => {
   // ==================== Простая таблица ====================
   if (children) {
+    // TODO: scrollable
     return (
       <TableBase
         verticalAlignBody={verticalAlignBody}
         verticalAlignHead={verticalAlignHead}
-        borderRadius={borderRadius}
         {...props}
       >
         {children}
@@ -210,26 +210,18 @@ const Table = ({
   const totalColumnsCount = memoizedColumns?.length
 
   return (
-    <TableWithVirtualRows
-      rowsCount={tableRows.length}
-      borderRadius={borderRadius}
-      estimateRowHeight={estimateRowHeight}
+    <TableScrollContainer
+      height={height}
       maxHeight={maxHeight}
+      stickyHeader={stickyHeader}
+      rowsCount={tableRows.length}
+      estimateRowHeight={estimateRowHeight}
       enabled={virtualized}
     >
       {({ virtualizer }) => (
-        <table
-          className={cn('inf-table', className, {
-            [`inf-table--border-radius-${borderRadius as string}`]:
-              borderRadius,
-            // Для того, чтобы избежать проблем с border таблицы при фиксированной шапке и скролле,
-            // убираем внешние бордеры у таблицы
-            'inf-table--borderless': scrollable // TODO: добавить внешний проп borderless
-          })}
-          {...props}
-        >
+        <table className={cn('inf-table', className)} {...props}>
           {/* HEADER */}
-          <TableHeader sticky={scrollable}>
+          <TableHeader sticky={stickyHeader}>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableHeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -283,7 +275,6 @@ const Table = ({
               selectedRow={selectedRow}
               onRowClick={onRowClick}
               // grouping={enableGrouping}
-              verticalAlignBody={verticalAlignBody}
               virtualizer={virtualizer}
               totalColumnsCount={totalColumnsCount}
               emptyMessage={emptyMessage}
@@ -291,7 +282,7 @@ const Table = ({
           </TableBody>
         </table>
       )}
-    </TableWithVirtualRows>
+    </TableScrollContainer>
   )
 }
 
@@ -324,3 +315,4 @@ export default Object.assign(Table, {
 // TODO: прокидывание размеров для вспылвающего окна filter height и width
 // borderless нужен ли вообще?
 // если применить scrollable без virtualized, то у таблицы пропадают бордеры --borderless
+// если ряд выбран через selection, то он должен иметь стиль --selected

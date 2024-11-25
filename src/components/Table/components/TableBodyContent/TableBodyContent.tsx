@@ -1,10 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
-import {
-  TableRow as TableRowType,
-  TableVerticalAlignValue
-} from 'Components/Table/types'
+import { TableRow as TableRowType } from 'Components/Table/types'
 import {
   mapRowToExternalFormat,
   checkIsRowSelected
@@ -19,7 +16,6 @@ export interface TableBodyContentProps {
   rows: Array<Row<any>>
   selectedRow?: string | number | ((row: TableRowType<any>) => boolean)
   onRowClick?: (row: TableRowType<any>) => void
-  verticalAlignBody?: TableVerticalAlignValue
   virtualizer?: Virtualizer<HTMLDivElement, Element>
   totalColumnsCount: number
   emptyMessage?: string
@@ -45,7 +41,6 @@ const TableBodyContent = ({
   rows,
   selectedRow,
   onRowClick,
-  verticalAlignBody,
   virtualizer,
   totalColumnsCount,
   emptyMessage
@@ -81,7 +76,6 @@ const TableBodyContent = ({
             interactive={isRowInteractive}
             style={row.original.style}
             onClick={(e) => handleRowClick(e, row)}
-            // verticalAlignBody TODO:
           >
             {row.getVisibleCells().map((cell) => (
               <TableCell key={cell.id}>
@@ -125,7 +119,6 @@ const TableBodyContent = ({
             interactive={isRowInteractive}
             style={row.original.style}
             onClick={(e) => handleRowClick(e, row)}
-            // verticalAlignBody TODO:
           >
             {row.getVisibleCells().map((cell) => (
               <TableCell key={cell.id}>

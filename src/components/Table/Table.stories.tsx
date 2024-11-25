@@ -259,8 +259,6 @@ export const WithCustomFilters: StoryObj<typeof Table> = {
       // getSortedRowModel: getSortedRowModel(),
     })
 
-    console.log('table', table.getHeaderGroups())
-
     return (
       <Table>
         <Table.Header>
@@ -564,6 +562,105 @@ export const WithSorting: StoryObj<typeof Table> = {
   }
 }
 
+const longPortfolioRows: Portfolio[] = []
+
+for (let i = 0; i < 300; i++) {
+  longPortfolioRows.push({
+    portfolio: `Портфель ${i + 1}`,
+    mark: `Марк ${i + 1}`,
+    type: `Тип ${i + 1}`,
+    status: `Active`
+  })
+}
+
+export const Scrollable: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [search, setSearch] = useState('')
+
+    const filteredData = longPortfolioRows.filter((a) =>
+      a.portfolio.match(search)
+    )
+
+    return (
+      <Space style={{ height: '100%' }}>
+        <Input value={search} onChange={setSearch} />
+
+        <Table
+          {...args}
+          columns={columns}
+          rows={filteredData}
+          maxHeight={400}
+          stickyHeader
+        />
+      </Space>
+    )
+  }
+}
+
+export const VirtualizedRows: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [search, setSearch] = useState('')
+
+    const filteredData = longPortfolioRows.filter((a) =>
+      a.portfolio.match(search)
+    )
+
+    return (
+      <Space style={{ height: '100%' }}>
+        <Input value={search} onChange={setSearch} />
+
+        <Table
+          {...args}
+          columns={columns}
+          rows={filteredData}
+          maxHeight={400}
+          stickyHeader
+          virtualized
+          estimateRowHeight={157}
+        />
+      </Space>
+    )
+  }
+}
+
+export const Empty: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [search, setSearch] = useState('qwerqwer')
+
+    const filteredData = TABLE_DATA.filter((a) => a.portfolio.match(search))
+
+    return (
+      <Space fullHeight>
+        <Input value={search} onChange={setSearch} />
+
+        <Table {...args} columns={columns} rows={filteredData} />
+      </Space>
+    )
+  },
+  args: {
+    emptyMessage: 'Поиск не дал результатов'
+  }
+}
+
+export const WithFilterTags: StoryObj<typeof Table> = {
+  render: (args) => {
+    // const [search, setSearch] = useState('qwerqwer')
+
+    // const filteredData = TABLE_DATA.filter((a) => a.portfolio.match(search))
+
+    return (
+      <Space fullHeight>
+        {/* <Input value={search} onChange={setSearch} /> */}
+
+        <Table {...args} columns={columns} rows={TABLE_DATA} />
+      </Space>
+    )
+  },
+  args: {
+    filterTags: ['qwer', 'erwqerqw']
+  }
+}
+
 export const Resizing: StoryObj<typeof Table> = {
   render: (args) => {
     return <Table resizeMode={'onChange'} columns={columns} rows={TABLE_DATA} />
@@ -609,80 +706,5 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
         />
       </Space>
     )
-  }
-}
-
-const longPortfolioRows: Portfolio[] = []
-
-for (let i = 0; i < 300; i++) {
-  longPortfolioRows.push({
-    portfolio: `Портфель ${i + 1}`,
-    mark: `Марк ${i + 1}`,
-    type: `Тип ${i + 1}`,
-    status: `Active`
-  })
-}
-
-export const ScrollableAndVirtualized: StoryObj<typeof Table> = {
-  render: (args) => {
-    const [search, setSearch] = useState('')
-
-    const filteredData = longPortfolioRows.filter((a) =>
-      a.portfolio.match(search)
-    )
-
-    return (
-      <Space style={{ height: '100%' }}>
-        <Input value={search} onChange={setSearch} />
-
-        <Table
-          {...args}
-          columns={columns}
-          maxHeight={400}
-          rows={filteredData}
-          estimateRowHeight={157}
-          scrollable
-          virtualized
-        />
-      </Space>
-    )
-  }
-}
-
-export const Empty: StoryObj<typeof Table> = {
-  render: (args) => {
-    const [search, setSearch] = useState('qwerqwer')
-
-    const filteredData = TABLE_DATA.filter((a) => a.portfolio.match(search))
-
-    return (
-      <Space fullHeight>
-        <Input value={search} onChange={setSearch} />
-
-        <Table {...args} columns={columns} rows={filteredData} />
-      </Space>
-    )
-  },
-  args: {
-    emptyMessage: 'Поиск не дал результатов'
-  }
-}
-
-export const WithFilterTags: StoryObj<typeof Table> = {
-  render: (args) => {
-    // const [search, setSearch] = useState('qwerqwer')
-
-    // const filteredData = TABLE_DATA.filter((a) => a.portfolio.match(search))
-
-    return (
-      <Space fullHeight>
-        {/* <Input value={search} onChange={setSearch} /> */}
-
-        <Table {...args} columns={columns} rows={TABLE_DATA} />
-      </Space>
-    )
-  },
-  args: {
-    filterTags: ['qwer', 'erwqerqw']
   }
 }

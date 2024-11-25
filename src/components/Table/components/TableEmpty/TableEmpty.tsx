@@ -8,6 +8,8 @@ export interface TableEmptyProps {
   colSpan: number
 }
 
+export const TABLE_EMPTY_MESSAGE_HEIGHT = 42 // TODO: избавиться
+
 const TableEmpty = ({ colSpan, message }: TableEmptyProps): ReactElement => {
   return (
     <TableRow hoverable={false}>

@@ -3,7 +3,6 @@ import {
   TableSortingState
 } from '~/src/components/Table'
 import { FundPurposeTypeEnum, NpfRule, PortfolioTypeEnum } from './types'
-import dayjs from 'dayjs'
 
 export function processIndicators({
   indicators,
@@ -198,9 +197,10 @@ function sortIndicators(
         }
       })
       splittedByVerificationDateIndicators.automated.sort((a, b) => {
-        const compareResult = dayjs(a.verificationAutomationDate).isAfter(
-          dayjs(b.verificationAutomationDate)
-        )
+        const compareResult =
+          new Date(a.verificationAutomationDate || '').getTime() -
+          new Date(b.verificationAutomationDate || '').getTime()
+
         if (isDesc) {
           return compareResult ? 1 : -1
         } else {
