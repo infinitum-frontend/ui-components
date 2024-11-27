@@ -26,7 +26,9 @@ export interface TableProps extends TableBaseProps {
   columns?: Array<ColumnDef<any, any>>
   /** Массив с данными для построения тела таблицы */
   rows?: Array<TableRowData<any>>
-  /** Скругление границ таблицы */
+  /** Скругление границ таблицы
+   * @deprecated
+   */
   borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
   /** CSS свойство vertical-align для шапки */
   verticalAlignHead?: TableVerticalAlignValue
@@ -122,7 +124,7 @@ export type TableColumnFilterValue =
 export interface TableColumnFilter<T extends TableFilterType>
   extends TanstackColumnFilter {
   value: TableColumnFilterValues[T]
-  filterType: TableFilterType
+  filterType: T
 }
 
 export type TableColumnFiltersState = Array<TableColumnFilter<TableFilterType>>

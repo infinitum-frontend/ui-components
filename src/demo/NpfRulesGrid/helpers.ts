@@ -1,4 +1,5 @@
 import {
+  TableColumnFilter,
   TableColumnFiltersState,
   TableSortingState
 } from '~/src/components/Table'
@@ -28,9 +29,9 @@ function filterIndicators(
     return indicators
   }
 
-  // @ts-expect-error
-  const mandatoryAutoAssignmentSettings: string[] =
-    filters.find((f) => f.id === 'mandatoryAutoAssignmentSettings')?.value || []
+  const mandatoryAutoAssignmentSettings =
+    (filters.find((f) => f.id === 'mandatoryAutoAssignmentSettings')
+      ?.value as TableColumnFilter<'multiSelect'>['value']) || []
 
   const filtersObj = {
     id: filters.find((f) => f.id === 'id')?.value,
