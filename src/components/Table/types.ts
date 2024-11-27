@@ -3,9 +3,9 @@ import {
   ColumnMeta,
   ColumnResizeMode,
   RowData,
-  SortingState
+  SortingState,
+  ColumnFilter as TanstackColumnFilter
 } from '@tanstack/react-table'
-import { ColumnFilter as TanstackColumnFilter } from '@tanstack/table-core/build/lib/features/Filters'
 import { CSSProperties, TableHTMLAttributes } from 'react'
 import { OnChangeFn } from 'Utils/types'
 
