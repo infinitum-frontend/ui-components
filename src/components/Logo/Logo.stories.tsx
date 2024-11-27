@@ -5,7 +5,10 @@ import { Logo } from './index'
 
 const meta: Meta<typeof Logo> = {
   title: 'Components/Logo',
-  component: Logo
+  component: Logo,
+  args: {
+    specdep: 'INFINITUM'
+  }
 }
 
 export default meta
