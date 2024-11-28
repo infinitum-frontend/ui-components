@@ -10,12 +10,15 @@ import './Logo.scss'
 
 export interface LogoProps extends ComponentPropsWithoutRef<'div'> {
   prefix?: string
-  specdep: 'INFINITUM' | 'NEXT'
-  variant: 'default' | 'monochrome' | 'inverse' | 'company-group' | 'logo-only'
+  specdep?: 'INFINITUM' | 'NEXT'
+  variant?: 'default' | 'monochrome' | 'inverse' | 'company-group' | 'logo-only'
 }
 
 // TODO: нужно потом переписать, при расширении вариантов лого для specdep=NEXT
-const infinitumLogoVariantIconMap: Record<LogoProps['variant'], any> = {
+const infinitumLogoVariantIconMap: Record<
+  NonNullable<LogoProps['variant']>,
+  any
+> = {
   default: <LogoFull />,
   'logo-only': <LogoOnly />,
   monochrome: <LogoFullMono />,
