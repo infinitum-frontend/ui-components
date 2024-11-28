@@ -1,28 +1,33 @@
 import { Header, SortingState } from '@tanstack/react-table'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
-import { ReactComponent as SortIcon } from 'Icons/sort.svg'
+import { ReactComponent as ArrowUpDownIcon } from 'Icons/arrow-up-down-sharp.svg'
+import { ReactComponent as ArrowDownIcon } from 'Icons/arrow-down-sharp.svg'
+import './TableHeaderSort.scss'
+import cn from 'classnames'
 
 // TODO: manual sorting
 const TableHeaderSort = ({
   header,
-  sortingState
+  sortingState,
+  className
 }: {
   header: Header<any, any>
   sortingState: SortingState
+  className?: string
 }): ReactElement => {
   return (
-    <span className="inf-table-header__sort">
+    <button className={cn('inf-table-header-sort', className)}>
       {sortingState.length !== 0 && header.column.id === sortingState[0].id ? (
         sortingState[0].desc ? (
-          <SortIcon />
+          <ArrowDownIcon className="inf-table-header-sort__icon inf-table-header-sort__icon--active" />
         ) : (
-          <SortIcon style={{ transform: 'rotate(180deg)' }} />
+          <ArrowDownIcon className="inf-table-header-sort__icon inf-table-header-sort__icon--active inf-table-header-sort__icon--reversed" />
         )
       ) : (
-        <SortIcon className={'inf-table-header__sort-icon'} />
+        <ArrowUpDownIcon className="inf-table-header-sort__icon" />
       )}
-    </span>
+    </button>
   )
 }
 

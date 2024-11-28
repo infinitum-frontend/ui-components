@@ -86,32 +86,28 @@ const TableHeader = ({
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header) => (
             <th
+              className={cn('inf-table-header__cell', {
+                'inf-table-header__cell--interactive': canSort(header.column)
+              })}
               key={header.id}
               colSpan={header.colSpan}
               style={{
                 // обработка ширины столбцов
                 width: header.getSize()
               }}
+              onClick={(e) => handleColumnClick(e, header.column)}
             >
               {header.isPlaceholder ? null : (
                 <>
-                  <div
-                    className={cn('inf-table-header__item', {
-                      'inf-table-header__item--interactive': canSort(
-                        header.column
-                      )
-                    })}
-                  >
-                    <span
-                      className={'inf-table-header__wrapper'}
-                      onClick={(e) => handleColumnClick(e, header.column)}
-                    >
+                  <div className="inf-table-header__cell-content">
+                    <span className={'inf-table-header__wrapper'}>
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
                       {canSort(header.column) && (
                         <TableHeaderSort
+                          className="inf-table-header__sort"
                           header={header}
                           sortingState={sortingState}
                         />

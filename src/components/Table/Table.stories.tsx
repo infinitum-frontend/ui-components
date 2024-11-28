@@ -1,16 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
-import { Table, TableRow } from './index'
+import { Table, TableRow, TableColumnFiltersState } from './index'
 import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
-import { Portfolio, TABLE_DATA } from './fixtures'
+import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtures'
 import { Button } from '../Button'
 import { Space } from '../Space'
 import { Checkbox } from '../Checkbox'
 import { Input } from '../Input'
-import { Label } from '../Label'
+// import { Label } from '../Label'
 
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
@@ -24,46 +24,45 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
     id: 'portfolio',
-    cell: (context) => {
-      return (
-        <div>
-          <Text>{context.row.original.portfolio}</Text>
-        </div>
-      )
+    accessorKey: 'portfolio',
+    // для рендеринга html
+    // cell: info => info.getValue(),
+    // для фильтрации по тексту по вложенным реакт-элементам
+    // filterFn: 'elIncludesString',
+    meta: {
+      filterType: 'search'
     },
     enableSorting: true
   },
   {
     header: 'Показатель',
     id: 'mark',
-    accessorKey: 'mark',
-    enableSorting: true
+    accessorKey: 'mark'
   },
   {
     header: 'Тип',
     id: 'type',
     accessorKey: 'type',
-    enableSorting: true
+    meta: {
+      filterType: 'select',
+      filterItems: TYPE_FILTER_ITEMS
+    }
   },
   {
     header: 'Статус',
     id: 'status',
-    cell: (context) => {
-      return (
-        <Space>
-          <Label variant="success">{context.row.original.status}</Label>
-          <Label variant="success">{context.row.original.status}</Label>
-          <Label variant="success">{context.row.original.status}</Label>
-        </Space>
-      )
-    },
-    enableSorting: true
+    accessorKey: 'status',
+    meta: {
+      filterType: 'select'
+    }
   },
   {
     header: 'Дата',
     id: 'date',
     accessorKey: 'date',
-    enableSorting: true
+    meta: {
+      filterType: 'date'
+    }
   }
 ]
 
@@ -75,73 +74,99 @@ export const Base: StoryObj<typeof Table> = {
   }
 }
 
-// export const Filtering: StoryObj<typeof Table> = {
-//   render: (args) => {
-//     const [filters, setFilters] = useState<TableColumnFiltersState>([
-//       {
-//         id: 'date',
-//         filterType: 'date',
-//         value: {
-//           from: new Date(),
-//           to: new Date()
-//         }
-//       }
-//     ])
-//
-//     const [resData, setResData] = useState(TABLE_DATA)
-//
-//     const handleFiltersChange = (state: TableColumnFiltersState): void => {
-//       let result = TABLE_DATA
-//       setFilters(state)
-//       state.forEach((filter) => {
-//         result = result.filter((item) => {
-//           if (filter.filterType === 'select') {
-//             const filterLabel = (filter as TableColumnFilter<'select'>).value
-//               .label
-//             if (filterLabel === 'Все типы') {
-//               return true
-//             }
-//             return Boolean(
-//               item[filter.id as keyof typeof item].match(filterLabel)
-//             )
-//           }
-//
-//           if (filter.filterType === 'input') {
-//             return Boolean(
-//               item[filter.id as keyof typeof item].match(filter.value as string)
-//             )
-//           }
-//
-//           return false
-//         })
-//       })
-//
-//       setResData(result)
-//     }
-//     return (
-//       <div>
-//         <Button
-//           style={{ marginBottom: '20px' }}
-//           onClick={() => {
-//             setFilters([])
-//             setResData(TABLE_DATA)
-//           }}
-//         >
-//           Сбросить фильтры
-//         </Button>
-//         <Table
-//           {...args}
-//           withFiltering
-//           withSorting
-//           onFiltersChange={handleFiltersChange}
-//           filtersState={filters}
-//           columns={columns}
-//           rows={resData}
-//         />
-//       </div>
-//     )
-//   }
-// }
+export const Filtering: StoryObj<typeof Table> = {
+  render: (args) => {
+    const defaultSorting = [{ id: 'status', desc: false }]
+    const [sortedItems, setSortedItems] = useState(TABLE_DATA)
+    const [sorting, setSorting] = useState(defaultSorting)
+
+    const handleSortingChange = (state: SortingState): void => {
+      setSorting(state)
+      if (!state.length) {
+        setSortedItems([...TABLE_DATA])
+      } else {
+        setSortedItems(
+          [...TABLE_DATA].sort((a, b) => {
+            const { id, desc } = state[0]
+
+            const compareResult = a[id as keyof Portfolio].localeCompare(
+              b[id as keyof Portfolio]
+            )
+            return desc ? -compareResult : compareResult
+          })
+        )
+      }
+    }
+
+    const [filters, setFilters] = useState<TableColumnFiltersState>([
+      {
+        id: 'date',
+        filterType: 'date',
+        value: {
+          from: new Date(),
+          to: new Date()
+        }
+      }
+    ])
+
+    const handleFiltersChange = (state: TableColumnFiltersState): void => {
+      let result = TABLE_DATA
+      setFilters(state)
+      state.forEach((filter) => {
+        result = result.filter((item) => {
+          if (filter.id === 'portfolio') {
+            return item[filter.id].match(filter.value as string)
+          }
+          // if (filter.filterType === 'select') {
+          //   const filterLabel = (filter as TableColumnFilter<'select'>).value
+          //     .label
+          //   if (filterLabel === 'Все типы') {
+          //     return true
+          //   }
+          //   return Boolean(
+          //     item[filter.id as keyof typeof item].match(filterLabel)
+          //   )
+          // }
+
+          // if (filter.filterType === 'search') {
+          //   return Boolean(
+          //     item[filter.id as keyof typeof item].match(filter.value as string)
+          //   )
+          // }
+
+          return true
+        })
+      })
+
+      setSortedItems(result)
+    }
+    return (
+      <div>
+        <Button
+          style={{ marginBottom: '20px' }}
+          onClick={() => {
+            setFilters([])
+            setSortedItems(TABLE_DATA)
+          }}
+        >
+          Сбросить фильтры
+        </Button>
+        <Table
+          {...args}
+          withFiltering
+          // withSorting
+          onFiltersChange={handleFiltersChange}
+          filtersState={filters}
+          withSorting
+          sortingState={sorting}
+          onSortingChange={handleSortingChange}
+          columns={columns}
+          rows={sortedItems}
+        />
+      </div>
+    )
+  }
+}
 
 export const Selection: StoryObj<typeof Table> = {
   render: (args) => {

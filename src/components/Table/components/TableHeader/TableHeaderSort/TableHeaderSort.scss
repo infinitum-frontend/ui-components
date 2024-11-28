@@ -1,0 +1,38 @@
+.inf-table-header-sort {
+  margin-left: 6px;
+  height: 100%;
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  // увеличиваем область клика
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -8px 0;
+  }
+
+  @include hover {
+    .inf-table-header-sort__icon {
+      &:not(.inf-table-header-sort__icon--active) {
+        color: var(--inf-color-icon-primary-hover);
+      }
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--inf-color-icon-primary);
+
+    &--active {
+      color: var(--inf-color-icon-info);
+    }
+
+    &--reversed {
+      transform: rotate(180deg);
+    }
+  }
+}
