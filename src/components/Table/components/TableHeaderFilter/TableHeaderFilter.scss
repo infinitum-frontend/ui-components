@@ -36,21 +36,10 @@
 
   &__content {
     &--search {
-      width: 260px;
       padding: var(--inf-space-small);
     }
 
-    &--select {
-      width: 260px;
-    }
-
-    &--multiSelect {
-      // TODO: camelCase
-      width: 300px;
-    }
-
     &--date {
-      width: 264px;
       padding: var(--inf-space-small);
     }
   }

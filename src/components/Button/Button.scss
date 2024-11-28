@@ -1,7 +1,6 @@
 .inf-button {
   font-family: var(--inf-font-family-base);
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--inf-font-size-body-1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -109,6 +108,7 @@
   }
 
   &--size-small {
+    padding: 0 var(--inf-space-small);
     height: var(--inf-control-height-small);
 
     &.inf-button--square {
@@ -117,6 +117,7 @@
   }
 
   &--size-medium {
+    padding: 0 var(--inf-space-medium);
     height: var(--inf-control-height-medium);
 
     &.inf-button--square {
@@ -125,6 +126,7 @@
   }
 
   &--size-large {
+    padding: 0 var(--inf-space-medium);
     height: var(--inf-control-height-large);
 
     &.inf-button--square {

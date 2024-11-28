@@ -37,6 +37,8 @@ const FillerRow = ({ height }: { height: number }): ReactElement => {
   )
 }
 
+// TODO: вынести логику этого компонента в HOC,
+// убрать дублирование прохождения по циклу и рендеринга TableRow и TableCell
 const TableBodyContent = ({
   rows,
   selectedRow,

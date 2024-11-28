@@ -1,15 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { MouseEvent, ReactElement, useState } from 'react'
+import React, { CSSProperties, ReactElement, useState } from 'react'
 import { Column, ColumnMeta, Header } from '@tanstack/react-table'
 import {
   TableColumnFilter,
   TableColumnFilterValue,
-  TableFilterDateOption,
-  TableFilterSelectOption,
-  TableFilterSelectValue,
   TableFilterType
 } from 'Components/Table/types'
-import NativeDatePicker from 'Components/DatePicker/components/NaviteDatePicker/NativeDatePicker'
 import { Form } from 'Components/Form'
 import useUpdateEffect from 'Hooks/useUpdateEffect'
 import cn from 'classnames'
@@ -18,8 +14,10 @@ import TableFilterPopover, {
 } from '../TableFilterPopover'
 import TableHeaderFilterSearch from './filters/TableHeaderFilterSearch'
 import TableHeaderFilterSelect from './filters/TableHeaderFilterSelect'
-import './TableHeaderFilter.scss'
 import TableHeaderFilterMultiSelect from './filters/TableHeaderFilterMultiSelect'
+import TableHeaderFilterDate from './filters/TableHeaderFilterDate'
+import { SelectOption } from '~/src/components/Select'
+import './TableHeaderFilter.scss'
 
 // TODO: filter default value
 const getInitialValue = (
@@ -32,9 +30,11 @@ const getInitialValue = (
 
   switch (type) {
     case 'search':
+    case 'date':
       return ''
     case 'select':
-    case 'date':
+      // TODO:
+      // @ts-expect-error
       return {}
     case 'multiSelect':
       return []
@@ -54,8 +54,11 @@ const TableHeaderFilter = ({
     column: Column<any>
   ) => void
 }): ReactElement => {
-  const { filterType = 'search', filterOptions } =
-    header.column.columnDef.meta || {}
+  const {
+    filterType = 'search',
+    filterOptions,
+    filterPopoverWidth
+  } = header.column.columnDef.meta || {}
   // ==================== state ====================
   const [filterValue, setFilterValue] = useState<TableColumnFilterValue>(
     getInitialValue(filterType, filterState)
@@ -80,16 +83,16 @@ const TableHeaderFilter = ({
     onChange?.(undefined, filterType, header.column)
   }
 
-  const setDateFilter = (value: string, type: 'from' | 'to'): void => {
-    setFilterValue((prev) => {
-      const result = { ...(prev as TableFilterDateOption) }
-      result[type] = value
+  // const setDateFilter = (value: string, type: 'from' | 'to'): void => {
+  //   setFilterValue((prev) => {
+  //     const result = { ...(prev as TableFilterDateOption) }
+  //     result[type] = value
 
-      return result
-    })
-  }
+  //     return result
+  //   })
+  // }
 
-  const handleFilterSelectChange = (item: TableFilterSelectOption): void => {
+  const handleFilterSelectChange = (item: SelectOption): void => {
     setOpen(false)
     setFilterValue(item)
 
@@ -99,19 +102,17 @@ const TableHeaderFilter = ({
   }
 
   const handleFilterMultiSelectChange = (
-    checkedList: TableFilterSelectValue[]
+    selectedOptions: SelectOption[]
   ): void => {
-    setFilterValue(checkedList)
+    setFilterValue(selectedOptions)
   }
 
   // ==================== render ====================
   const selected = Boolean(filterState?.value)
-  const dateFrom =
-    (filterType === 'date' && (filterValue as TableFilterDateOption).from) || ''
-  const dateTo =
-    (filterType === 'date' && (filterValue as TableFilterDateOption).to) || ''
-
-  // const applyButtonText = filterType === 'search' ? 'Поиск' : 'Применить'
+  // const dateFrom =
+  //   (filterType === 'date' && (filterValue as TableFilterDateOption).from) || ''
+  // const dateTo =
+  //   (filterType === 'date' && (filterValue as TableFilterDateOption).to) || ''
 
   const iconVariant: Record<
     TableFilterType,
@@ -123,11 +124,19 @@ const TableHeaderFilter = ({
     multiSelect: 'filter'
   }
 
+  const defaultPopoverWidth: Record<TableFilterType, CSSProperties['width']> = {
+    search: '260px',
+    date: '264px',
+    select: '260px',
+    multiSelect: '300px'
+  }
+
   return (
     <TableFilterPopover
       isTriggerActive={selected}
       iconVariant={iconVariant[filterType]}
       open={isOpen}
+      popoverWidth={filterPopoverWidth || defaultPopoverWidth[filterType]}
       onOpenChange={(value) => {
         setOpen(value)
       }}
@@ -152,7 +161,7 @@ const TableHeaderFilter = ({
           {filterType === 'select' && (
             <TableHeaderFilterSelect
               onChange={handleFilterSelectChange}
-              selected={filterValue as TableFilterSelectOption}
+              selected={filterValue as SelectOption}
               options={filterOptions}
             />
           )}
@@ -161,14 +170,23 @@ const TableHeaderFilter = ({
           {filterType === 'multiSelect' && (
             <TableHeaderFilterMultiSelect
               onChange={handleFilterMultiSelectChange}
-              checkedList={filterValue as TableFilterSelectValue[]}
+              selectedOptions={filterValue as SelectOption[]}
               options={filterOptions}
               onReset={applyReset}
             />
           )}
 
-          {/* дата от-до */}
+          {/* дата */}
           {filterType === 'date' && (
+            <TableHeaderFilterDate
+              value={(filterValue as string) || ''}
+              onChange={(value) => setFilterValue(value)}
+              onReset={applyReset}
+            />
+          )}
+
+          {/* TODO: дата от-до */}
+          {/* {filterType === 'dateRange' && (
             <>
               <NativeDatePicker
                 value={dateFrom}
@@ -181,7 +199,7 @@ const TableHeaderFilter = ({
                 min={dateFrom}
               />
             </>
-          )}
+          )} */}
         </Form>
       </div>
     </TableFilterPopover>

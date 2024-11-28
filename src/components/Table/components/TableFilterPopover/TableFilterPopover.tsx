@@ -59,6 +59,7 @@ const TableFilterPopover = ({
       open={isModalOpen}
       placement="bottom-end"
       onOpenChange={handleOpenChange}
+      offset={{ mainAxis: 16 }}
     >
       <Popover.Trigger>
         <TableHeaderCellButton

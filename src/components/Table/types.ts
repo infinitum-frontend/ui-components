@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-table'
 import { CSSProperties, TableHTMLAttributes } from 'react'
 import { OnChangeFn } from 'Utils/types'
+import { SelectOption } from 'Components/Select'
 
 export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
   /**
@@ -15,10 +16,6 @@ export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
    * @deprecated
    * */
   borderRadius?: 'xsmall' | 'small' | 'medium' | 'large' // TODO: не нужен
-  /** CSS свойство vertical-align для шапки */
-  verticalAlignHead?: TableVerticalAlignValue
-  /** CSS свойство vertical-align для рядов */
-  verticalAlignBody?: TableVerticalAlignValue
 }
 
 export interface TableProps extends TableBaseProps {
@@ -30,10 +27,6 @@ export interface TableProps extends TableBaseProps {
    * @deprecated
    */
   borderRadius?: 'xsmall' | 'small' | 'medium' | 'large'
-  /** CSS свойство vertical-align для шапки */
-  verticalAlignHead?: TableVerticalAlignValue
-  /** CSS свойство vertical-align для рядов */
-  verticalAlignBody?: TableVerticalAlignValue
   /** Включение сортировки по столбцам */
   withSorting?: boolean
   /** Начальное состояние сортировки */
@@ -88,17 +81,12 @@ export interface TableProps extends TableBaseProps {
    */
   emptyMessage?: string
   /**
-   * Список значений тегов для фильтров
+   * Отображение тегов для выбранных фильтров
    */
-  filterTags?: string[]
+  withFiltersTags?: boolean
 }
 
 // ФИЛЬТРАЦИЯ
-export interface TableFilterSelectOption {
-  label: string
-  value: TableFilterSelectValue
-}
-
 export interface TableFilterDateOption {
   /** Дата или строка в формате YYYY-MM-DD */
   from?: Date | string
@@ -106,15 +94,13 @@ export interface TableFilterDateOption {
   to?: Date | string
 }
 
-export type TableFilterSelectValue = string
-
 export type TableFilterType = ColumnMeta<any, any>['filterType']
 
 export interface TableColumnFilterValues {
   search: string
-  select: TableFilterSelectOption
-  multiSelect: TableFilterSelectValue[]
-  date: TableFilterDateOption
+  select: SelectOption
+  multiSelect: SelectOption[]
+  date: string
 }
 
 export type TableColumnFilterValue =
@@ -154,18 +140,17 @@ export type TableSelectedRow =
 
 interface TableFilterOptionGroup {
   label: string
-  options: TableFilterSelectOption[]
+  options: SelectOption[]
 }
 
-export type TableFiltersOptions = Array<
-  TableFilterSelectOption | TableFilterOptionGroup
->
+export type TableFiltersOptions = Array<SelectOption | TableFilterOptionGroup> // TODO: объединить с Select, когда там реализуем группировку
 
 declare module '@tanstack/table-core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
     filterType: 'search' | 'select' | 'date' | 'multiSelect'
     filterOptions?: TableFiltersOptions
+    filterPopoverWidth?: CSSProperties['width']
   }
 
   // interface FilterFns {

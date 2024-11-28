@@ -47,8 +47,6 @@ const Table = ({
   columns = [],
   rows = [],
   className,
-  verticalAlignHead = 'top',
-  verticalAlignBody,
   withSorting,
   onSortingChange,
   sortingState = [],
@@ -70,21 +68,13 @@ const Table = ({
   stickyHeader,
   estimateRowHeight = 100,
   emptyMessage,
-  filterTags,
+  withFiltersTags,
   ...props
 }: TableProps): ReactElement => {
   // ==================== Простая таблица ====================
   if (children) {
     // TODO: scrollable
-    return (
-      <TableBase
-        verticalAlignBody={verticalAlignBody}
-        verticalAlignHead={verticalAlignHead}
-        {...props}
-      >
-        {children}
-      </TableBase>
-    )
+    return <TableBase {...props}>{children}</TableBase>
   }
 
   // ==================== Сложная таблица ====================
@@ -113,9 +103,10 @@ const Table = ({
     filterType: ColumnMeta<any, any>['filterType'],
     column: Column<any>
   ) => void = (value, filterType, column) => {
+    const hasValue = Array.isArray(value) ? value.length !== 0 : Boolean(value)
     const newState = [
       ...filtersState?.filter((item) => item.id !== column.id),
-      value ? { id: column.id, filterType, value } : undefined
+      hasValue ? { id: column.id, filterType, value } : undefined
     ].filter((item) => Boolean(item)) as TableColumnFiltersState
     onFiltersChange?.(newState)
   }
@@ -265,11 +256,17 @@ const Table = ({
                 ))}
               </TableHeaderRow>
             ))}
-            {/* {filterTags?.length && <TableFilterTags values={filterTags} />} */}
           </TableHeader>
 
           {/* BODY */}
           <TableBody>
+            {withFiltersTags && filtersState?.length !== 0 && (
+              <TableFilterTags
+                totalColumnsCount={totalColumnsCount}
+                filtersState={filtersState}
+                onChange={onFiltersChange}
+              />
+            )}
             <TableBodyContent
               rows={tableRows}
               selectedRow={selectedRow}
@@ -316,3 +313,5 @@ export default Object.assign(Table, {
 // borderless нужен ли вообще?
 // если применить scrollable без virtualized, то у таблицы пропадают бордеры --borderless
 // если ряд выбран через selection, то он должен иметь стиль --selected
+// multiSelect value должен быть типа SelectOpion[]
+// filterType date и dateRange

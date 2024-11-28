@@ -36,20 +36,22 @@ function filterIndicators(
   const filtersObj = {
     id: filters.find((f) => f.id === 'id')?.value,
     shortName: filters.find((f) => f.id === 'shortName')?.value,
+    // TODO: переписать на поиск value в объекте
+    // @ts-expect-error
     isNotMandatory: mandatoryAutoAssignmentSettings.includes('notMandatory'),
     fundPurposeTypes: mandatoryAutoAssignmentSettings.filter((value) => {
       return [
         FundPurposeTypeEnum.PensionReserves,
         FundPurposeTypeEnum.PensionSavings,
         FundPurposeTypeEnum.OwnFunds
-      ].includes(value as FundPurposeTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
+      ].includes(value as unknown as FundPurposeTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
     }),
     portfolioTypes: mandatoryAutoAssignmentSettings.filter((value) => {
       return [
         PortfolioTypeEnum.Aggregate,
         PortfolioTypeEnum.SelfManagement,
         PortfolioTypeEnum.TrustManagement
-      ].includes(value as PortfolioTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
+      ].includes(value as unknown as PortfolioTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
     })
   }
 

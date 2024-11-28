@@ -52,6 +52,7 @@ const TableScrollContainer = ({
   const maxHeightStyle =
     typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight
 
+  // TODO: вынести логику виртуализации в отдельный компонент
   const virtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => ref.current,

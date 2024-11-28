@@ -1,17 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
 import Menu from 'Components/Menu/Menu'
-import {
-  TableFilterSelectOption,
-  TableFiltersOptions
-} from 'Components/Table/types'
+import { TableFiltersOptions } from 'Components/Table/types'
 // import { Button } from '~/src/components/Button'
 import './TableHeaderFilterSelect.scss'
+import { SelectOption } from '~/src/components/Select'
 
 interface TableHeaderFilterSelectProps {
   onChange: (item: any) => void
   options?: TableFiltersOptions
-  selected: TableFilterSelectOption
+  selected: SelectOption
 }
 
 const TableHeaderFilterSelect = ({
@@ -21,14 +19,16 @@ const TableHeaderFilterSelect = ({
 }: TableHeaderFilterSelectProps): ReactElement => {
   return (
     <div className="inf-table-header-filter-select">
-      <Menu maxHeight={280}>
+      <Menu maxHeight={340}>
         {options?.map((option) => {
           // сгруппированные опции
           if ('options' in option) {
             return (
               <>
+                {/* TODO: типизация и уникальность ключей */}
+                {/* @ts-expect-error */}
                 <Menu.Label key={option.label}>{option.label}</Menu.Label>
-
+                {/* @ts-expect-error */}
                 {option.options.map((o) => (
                   <Menu.Item
                     key={o.value}
