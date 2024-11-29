@@ -14,7 +14,7 @@ import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers
 import { Space } from 'Components/Space'
 import './DatePickerInline.scss'
 
-// TODO: отрефакторить DatePicker, чтобы убрать дублирование инпута
+// TODO: отрефакторить DatePicker, чтобы убрать дублирование инпута, например, не используется проп size из DatePicker
 
 export interface DatePickerInlineProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
