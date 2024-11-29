@@ -20,6 +20,8 @@ export interface IconProps extends PropsWithChildren {
     | 'primary-disabled'
     | 'inverse'
     | 'on-color'
+    | 'brand'
+    | 'brand-secondary'
     | 'error'
     | 'warning'
     | 'success'

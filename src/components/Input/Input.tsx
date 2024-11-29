@@ -233,7 +233,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {showClearButton && getClearIcon()}
         {showPasswordToggle && (
           <button
-            onClick={() => setPasswordVisible(!isPasswordVisible)}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setPasswordVisible(!isPasswordVisible)
+            }}
             className="inf-input-wrapper__visibility-button"
             aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
             aria-pressed={isPasswordVisible}

@@ -1,6 +1,5 @@
 .inf-checkbox {
   display: inline-flex;
-  align-items: baseline;
   position: relative;
   cursor: pointer;
 
@@ -28,9 +27,9 @@
 
   &__label {
     user-select: none;
-    margin-left: 8px;
+    margin-left: var(--inf-space-xsmall);
     font-size: var(--inf-font-size-body-1);
-    line-height: 20px;
+    line-height: 22px;
   }
 
   &__box {
@@ -45,7 +44,6 @@
     border: 1px solid var(--inf-color-border-primary);
     border-radius: var(--inf-border-radius-xsmall);
     position: relative;
-    top: 0.2em;
 
     &--disabled {
       cursor: unset;
@@ -76,7 +74,6 @@
     z-index: -1;
     width: 20px;
     height: 20px;
-    top: 0.2em;
 
     &:focus-visible {
       & ~ .inf-checkbox__box {

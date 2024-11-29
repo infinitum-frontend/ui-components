@@ -39,6 +39,11 @@ export interface DatePickerProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
+  /**
+   * Размер
+   * @default medium
+   */
+  size?: 'medium' | 'small'
 }
 
 const DatePicker = ({
@@ -51,6 +56,7 @@ const DatePicker = ({
   required: requiredProp,
   min,
   max,
+  size = 'medium',
   ...props
 }: DatePickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -89,6 +95,7 @@ const DatePicker = ({
       >
         <MaskedInput
           autoComplete="off"
+          size={size}
           placeholder={placeholder}
           mask={{
             mask: Date
