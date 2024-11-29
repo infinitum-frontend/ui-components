@@ -50,3 +50,12 @@ export const Disabled = {
     disabled: true
   }
 }
+
+export const WithAcceptAttribute = {
+  render: Template,
+
+  args: {
+    accept:
+      '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  }
+}
