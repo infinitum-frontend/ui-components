@@ -14,7 +14,7 @@ export interface TableFilterTagsProps {
   totalColumnsCount: number
 }
 
-interface FilterValueObject {
+interface AppliedFilterValue {
   filterId: string
   label: ReactNode
   value: string | number
@@ -25,7 +25,7 @@ const TableFilterTags = ({
   onChange,
   totalColumnsCount
 }: TableFilterTagsProps): ReactElement => {
-  const handleRemove = (valueObj: FilterValueObject): void => {
+  const handleRemove = (valueObj: AppliedFilterValue): void => {
     const newFiltersState = filtersState.filter((item) => {
       const { filterId, value } = valueObj
       return item.id !== filterId && item.value !== value
@@ -37,48 +37,56 @@ const TableFilterTags = ({
     onChange?.([])
   }
 
-  const filtersValues = filtersState.reduce<FilterValueObject[]>((acc, cur) => {
-    // TODO: добавить типизацию (discriminated union?), убрать доп проверки на структуру данных
-    if (cur.filterType === 'multiSelect' && Array.isArray(cur.value)) {
-      cur.value.forEach((v) => {
-        acc.push({
-          filterId: cur.id,
-          label: v.label,
-          value: v.value
+  const appliedFilterValuesValues = filtersState.reduce<AppliedFilterValue[]>(
+    (filtersAccumulator, currentFilter) => {
+      // TODO: добавить типизацию (discriminated union?), убрать доп проверки на структуру данных
+      if (
+        currentFilter.filterType === 'multiSelect' &&
+        Array.isArray(currentFilter.value)
+      ) {
+        currentFilter.value.forEach((v) => {
+          filtersAccumulator.push({
+            filterId: currentFilter.id,
+            label: v.label,
+            value: v.value
+          })
         })
-      })
-    } else if (
-      cur.filterType === 'select' &&
-      typeof cur.value === 'object' &&
-      !Array.isArray(cur.value)
-    ) {
-      acc.push({
-        filterId: cur.id,
-        label: cur.value.label,
-        value: cur.value.value
-      })
-    } else if (cur.filterType === 'date') {
-      acc.push({
-        filterId: cur.id,
-        label: createDate(cur.value as string).toLocaleDateString('ru'),
-        value: cur.value as string
-      })
-    } else {
-      acc.push({
-        filterId: cur.id,
-        label: cur.value as string,
-        value: cur.value as string
-      })
-    }
+      } else if (
+        currentFilter.filterType === 'select' &&
+        typeof currentFilter.value === 'object' &&
+        !Array.isArray(currentFilter.value)
+      ) {
+        filtersAccumulator.push({
+          filterId: currentFilter.id,
+          label: currentFilter.value.label,
+          value: currentFilter.value.value
+        })
+      } else if (currentFilter.filterType === 'date') {
+        filtersAccumulator.push({
+          filterId: currentFilter.id,
+          label: createDate(currentFilter.value as string).toLocaleDateString(
+            'ru'
+          ),
+          value: currentFilter.value as string
+        })
+      } else {
+        filtersAccumulator.push({
+          filterId: currentFilter.id,
+          label: currentFilter.value as string,
+          value: currentFilter.value as string
+        })
+      }
 
-    return acc
-  }, [])
+      return filtersAccumulator
+    },
+    []
+  )
 
   return (
     <TableRow hoverable={false}>
       <TableCell colSpan={totalColumnsCount}>
         <Space direction="horizontal" gap="small" align="center">
-          {filtersValues?.map((valueObj) => (
+          {appliedFilterValuesValues?.map((valueObj) => (
             <Tag
               key={`${valueObj.filterId}-${valueObj.value}`}
               onRemove={onChange ? () => handleRemove(valueObj) : undefined}
