@@ -5,7 +5,6 @@ import { Text } from 'Components/Text'
 import { Space } from 'Components/Space'
 import AppHeader from './AppHeader'
 import { ReactComponent as IconPlus } from 'Icons/plus.svg'
-import IndicatorsTypeSelector from './IndicatorsTypeSelector'
 import IndicatorsTable from './IndicatorsTable'
 import { processIndicators } from '../helpers'
 import { NPF_RULES_TABLE_DATA } from '../fixtures'
@@ -38,8 +37,6 @@ const IndicatorsPage = (): ReactElement => {
                 Добавить показатель
               </Button>
             </Space>
-
-            <IndicatorsTypeSelector />
 
             <IndicatorsTable
               indicators={indicators}

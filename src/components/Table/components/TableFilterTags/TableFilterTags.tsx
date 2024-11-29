@@ -4,7 +4,7 @@ import TableCell from '../TableCell'
 import { Space } from 'Components/Space'
 import { Tag } from 'Components/Tag'
 import { Link } from 'Components/Link'
-import { TableColumnFiltersState } from '../../types'
+import { TableColumnFilter, TableColumnFiltersState } from '../../types'
 import { OnChangeFn } from 'Utils/types'
 import { createDate } from '~/src/utils/date'
 
@@ -15,9 +15,10 @@ export interface TableFilterTagsProps {
 }
 
 interface AppliedFilterValue {
-  filterId: string
+  filterId: TableColumnFilter['id']
   label: ReactNode
   value: string | number
+  filterType: TableColumnFilter['filterType']
 }
 
 export const TABLE_FILTER_TAGS_HEIGHT = 48 // TODO: избавиться
@@ -27,12 +28,29 @@ const TableFilterTags = ({
   onChange,
   totalColumnsCount
 }: TableFilterTagsProps): ReactElement => {
-  const handleRemove = (valueObj: AppliedFilterValue): void => {
-    const newFiltersState = filtersState.filter((item) => {
-      const { filterId, value } = valueObj
-      return item.id !== filterId && item.value !== value
-    })
-    onChange?.(newFiltersState)
+  const handleRemove = (appliedFilter: AppliedFilterValue): void => {
+    // TODO: отрефакторить это если сможешь
+    let newFiltersState = [...filtersState]
+
+    const filter = newFiltersState.find((f) => f.id === appliedFilter.filterId)
+
+    if (filter?.filterType === 'multiSelect') {
+      filter.value = filter.value.filter((f) => f.value !== appliedFilter.value)
+      if (filter.value.length === 0) {
+        newFiltersState = filtersState.filter((f) => {
+          if (f.filterType === 'multiSelect') {
+            return f.value.length !== 0
+          }
+          return true
+        })
+      }
+    } else {
+      newFiltersState = filtersState.filter((filter) => {
+        const { filterId, value } = appliedFilter
+        return filter.id !== filterId && filter.value !== value
+      })
+    }
+    onChange?.([...newFiltersState])
   }
 
   const handleRemoveAll = (): void => {
@@ -41,39 +59,35 @@ const TableFilterTags = ({
 
   const appliedFilterValuesValues = filtersState.reduce<AppliedFilterValue[]>(
     (filtersAccumulator, currentFilter) => {
-      // TODO: добавить типизацию (discriminated union?), убрать доп проверки на структуру данных
-      if (
-        currentFilter.filterType === 'multiSelect' &&
-        Array.isArray(currentFilter.value)
-      ) {
+      if (currentFilter.filterType === 'multiSelect') {
         currentFilter.value.forEach((v) => {
           filtersAccumulator.push({
             filterId: currentFilter.id,
             label: v.label,
-            value: v.value
+            value: v.value,
+            filterType: currentFilter.filterType
           })
         })
-      } else if (
-        currentFilter.filterType === 'select' &&
-        typeof currentFilter.value === 'object' &&
-        !Array.isArray(currentFilter.value)
-      ) {
+      } else if (currentFilter.filterType === 'select') {
         filtersAccumulator.push({
           filterId: currentFilter.id,
           label: currentFilter.value.label,
-          value: currentFilter.value.value
+          value: currentFilter.value.value,
+          filterType: currentFilter.filterType
         })
       } else if (currentFilter.filterType === 'date') {
         filtersAccumulator.push({
           filterId: currentFilter.id,
           label: createDate(currentFilter.value).toLocaleDateString('ru'),
-          value: currentFilter.value
+          value: currentFilter.value,
+          filterType: currentFilter.filterType
         })
       } else {
         filtersAccumulator.push({
           filterId: currentFilter.id,
-          label: currentFilter.value as string,
-          value: currentFilter.value as string
+          label: currentFilter.value,
+          value: currentFilter.value,
+          filterType: currentFilter.filterType
         })
       }
 
@@ -86,12 +100,14 @@ const TableFilterTags = ({
     <TableRow hoverable={false}>
       <TableCell colSpan={totalColumnsCount}>
         <Space direction="horizontal" gap="small" align="center" wrap>
-          {appliedFilterValuesValues?.map((valueObj) => (
+          {appliedFilterValuesValues?.map((appliedFilter) => (
             <Tag
-              key={`${valueObj.filterId}-${valueObj.value}`}
-              onRemove={onChange ? () => handleRemove(valueObj) : undefined}
+              key={`${appliedFilter.filterId}-${appliedFilter.value}`}
+              onRemove={
+                onChange ? () => handleRemove(appliedFilter) : undefined
+              }
             >
-              {valueObj.label}
+              {appliedFilter.label}
             </Tag>
           ))}
 

@@ -25,7 +25,8 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
     size: 75,
     meta: {
       filterType: 'search'
-    }
+    },
+    enableSorting: true
   },
   {
     header: 'Название показателя',
@@ -40,6 +41,7 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
     header: 'Вид проверки',
     size: 150,
     accessorKey: 'type',
+    enableSorting: true,
     meta: {
       filterType: 'multiSelect',
       filterOptions: [
@@ -61,6 +63,7 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   {
     header: 'Дата автоматизации',
     size: 175,
+    enableSorting: true,
     accessorFn: (row) =>
       row.verificationAutomationDate
         ? row.verificationAutomationDate
@@ -69,6 +72,7 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   {
     header: 'Обязательное выполнение',
     size: 200,
+    enableSorting: true,
     cell: (context) => {
       const mandatorySettings =
         context.row.original.mandatoryAutoAssignmentSettings
@@ -133,6 +137,7 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   },
   {
     header: 'Портфели',
+    enableSorting: true,
     size: 90,
     accessorKey: 'portfoliosCount'
   }

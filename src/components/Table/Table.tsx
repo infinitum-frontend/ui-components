@@ -238,6 +238,12 @@ const Table = ({
                         )}
                         {canFilter(header.column) && (
                           <TableHeaderFilter
+                            key={String(
+                              // TODO: не ререндерится когда в TableFilterTags сбрасываем одну из опций multiSelect
+                              filtersState.find(
+                                (filter) => filter.id === header.column.id
+                              )?.value
+                            )}
                             column={header.column}
                             filterState={filtersState.find(
                               (filter) => filter.id === header.column.id
@@ -259,7 +265,9 @@ const Table = ({
               <TableFilterTags
                 totalColumnsCount={totalColumnsCount}
                 filtersState={filtersState}
-                onChange={onFiltersChange}
+                onChange={(value) => {
+                  onFiltersChange?.(value)
+                }}
               />
             )}
             <TableBodyContent
