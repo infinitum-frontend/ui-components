@@ -20,6 +20,8 @@ interface AppliedFilterValue {
   value: string | number
 }
 
+export const TABLE_FILTER_TAGS_HEIGHT = 48 // TODO: избавиться
+
 const TableFilterTags = ({
   filtersState,
   onChange,
@@ -64,10 +66,8 @@ const TableFilterTags = ({
       } else if (currentFilter.filterType === 'date') {
         filtersAccumulator.push({
           filterId: currentFilter.id,
-          label: createDate(currentFilter.value as string).toLocaleDateString(
-            'ru'
-          ),
-          value: currentFilter.value as string
+          label: createDate(currentFilter.value).toLocaleDateString('ru'),
+          value: currentFilter.value
         })
       } else {
         filtersAccumulator.push({
@@ -85,7 +85,7 @@ const TableFilterTags = ({
   return (
     <TableRow hoverable={false}>
       <TableCell colSpan={totalColumnsCount}>
-        <Space direction="horizontal" gap="small" align="center">
+        <Space direction="horizontal" gap="small" align="center" wrap>
           {appliedFilterValuesValues?.map((valueObj) => (
             <Tag
               key={`${valueObj.filterId}-${valueObj.value}`}

@@ -15,6 +15,7 @@ interface IndicatorsTableProps {
   filters: TableColumnFiltersState
   onSortingChange: (sorting: TableSortingState) => void
   onFiltersChange: (filters: TableColumnFiltersState) => void
+  emptyMessage: string
 }
 
 const columns: Array<TableColumnDef<NpfRule, any>> = [
@@ -38,7 +39,24 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   {
     header: 'Вид проверки',
     size: 150,
-    accessorKey: 'type'
+    accessorKey: 'type',
+    meta: {
+      filterType: 'multiSelect',
+      filterOptions: [
+        {
+          label: 'Контроль структуры',
+          value: 'Structure'
+        },
+        {
+          label: 'Контроль состава',
+          value: 'Composition'
+        },
+        {
+          label: 'Иной контроль',
+          value: 'Other'
+        }
+      ]
+    }
   },
   {
     header: 'Дата автоматизации',
@@ -125,7 +143,8 @@ const IndicatorsTable = ({
   sorting,
   onSortingChange,
   filters,
-  onFiltersChange
+  onFiltersChange,
+  emptyMessage
 }: IndicatorsTableProps): ReactElement => {
   return (
     <Table
@@ -137,6 +156,12 @@ const IndicatorsTable = ({
       withFiltering
       filtersState={filters}
       onFiltersChange={onFiltersChange}
+      withFiltersTags
+      virtualized
+      estimateRowHeight={100}
+      maxHeight="calc(100vh - 200px)"
+      stickyHeader
+      emptyMessage={emptyMessage}
     />
   )
 }

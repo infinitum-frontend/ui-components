@@ -1,14 +1,17 @@
 import {
   ColumnDef,
-  ColumnMeta,
   ColumnResizeMode,
   RowData,
-  SortingState,
-  ColumnFilter as TanstackColumnFilter
+  SortingState
 } from '@tanstack/react-table'
-import { CSSProperties, TableHTMLAttributes } from 'react'
+import { CSSProperties, ReactNode, TableHTMLAttributes } from 'react'
 import { OnChangeFn } from 'Utils/types'
-import { SelectOption } from 'Components/Select'
+// import { SelectOption } from 'Components/Select'
+
+export interface TableSelectOption {
+  value: number | string
+  label: string | ReactNode
+}
 
 export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
   /**
@@ -94,12 +97,12 @@ export interface TableFilterDateOption {
   to?: Date | string
 }
 
-export type TableFilterType = ColumnMeta<any, any>['filterType']
+export type TableFilterType = 'search' | 'select' | 'date' | 'multiSelect'
 
 export interface TableColumnFilterValues {
   search: string
-  select: SelectOption
-  multiSelect: SelectOption[]
+  select: TableSelectOption
+  multiSelect: TableSelectOption[]
   date: string
 }
 
@@ -107,13 +110,29 @@ export type TableColumnFilterValue =
   | TableColumnFilterValues[keyof TableColumnFilterValues]
   | undefined
 
-export interface TableColumnFilter<T extends TableFilterType>
-  extends TanstackColumnFilter {
-  value: TableColumnFilterValues[T]
-  filterType: T
-}
+export type TableColumnFilter =
+  | {
+      id: string
+      filterType: 'search'
+      value: string
+    }
+  | {
+      id: string
+      filterType: 'select'
+      value: TableSelectOption
+    }
+  | {
+      id: string
+      filterType: 'multiSelect'
+      value: TableSelectOption[]
+    }
+  | {
+      id: string
+      filterType: 'date'
+      value: string
+    }
 
-export type TableColumnFiltersState = Array<TableColumnFilter<TableFilterType>>
+export type TableColumnFiltersState = TableColumnFilter[]
 
 // РЯДЫ
 interface BaseRow {
@@ -140,10 +159,12 @@ export type TableSelectedRow =
 
 interface TableFilterOptionGroup {
   label: string
-  options: SelectOption[]
+  options: TableSelectOption[]
 }
 
-export type TableFiltersOptions = Array<SelectOption | TableFilterOptionGroup> // TODO: объединить с Select, когда там реализуем группировку
+export type TableFiltersOptions = Array<
+  TableSelectOption | TableFilterOptionGroup
+> // TODO: объединить с Select, когда там реализуем группировку
 
 declare module '@tanstack/table-core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

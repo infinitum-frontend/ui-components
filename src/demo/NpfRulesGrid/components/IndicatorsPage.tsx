@@ -18,7 +18,7 @@ const IndicatorsPage = (): ReactElement => {
   const [filtersState, setFiltersState] = useState<TableColumnFiltersState>([])
   const [sortingState, setSortingState] = useState<TableSortingState>([])
 
-  const data = processIndicators({
+  const indicators = processIndicators({
     indicators: NPF_RULES_TABLE_DATA,
     filters: filtersState,
     sorting: sortingState
@@ -30,7 +30,7 @@ const IndicatorsPage = (): ReactElement => {
         <AppHeader />
       </PageLayout.Header>
       <PageLayout.Body containerSize="xxlarge">
-        <PageLayout.Content paddingTop="large">
+        <PageLayout.Content paddingTop="large" collapsePaddingBottom>
           <Space gap="medium">
             <Space direction="horizontal" justify="space-between">
               <Text variant="heading-3">Показатели контроля</Text>
@@ -42,11 +42,12 @@ const IndicatorsPage = (): ReactElement => {
             <IndicatorsTypeSelector />
 
             <IndicatorsTable
-              indicators={data}
+              indicators={indicators}
               sorting={sortingState}
               onSortingChange={setSortingState}
               filters={filtersState}
               onFiltersChange={setFiltersState}
+              emptyMessage="Нет данных по выбранным фильтрам"
             />
           </Space>
         </PageLayout.Content>

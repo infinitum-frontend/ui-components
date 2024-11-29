@@ -1,17 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement } from 'react'
 import Menu from 'Components/Menu/Menu'
-import { TableFiltersOptions } from 'Components/Table/types'
+import { TableFiltersOptions, TableSelectOption } from 'Components/Table/types'
 import { Button } from 'Components/Button'
 import { Checkbox } from 'Components/Checkbox'
 import { checkIsValueExists } from '~/src/utils/helpers'
 import './TableHeaderFilterMultiSelect.scss'
-import { SelectOption } from '~/src/components/Select'
 
 interface TableHeaderFilterMultiSelectProps {
   options?: TableFiltersOptions
-  selectedOptions: SelectOption[]
-  onChange: (selectedOptions: SelectOption[]) => void
+  selectedOptions: TableSelectOption[]
+  onChange: (selectedOptions: TableSelectOption[]) => void
   onReset: () => void
 }
 
@@ -21,9 +20,9 @@ const MenuItem = ({
   onChange,
   ...props
 }: {
-  option: SelectOption
+  option: TableSelectOption
   selectedOptions: TableHeaderFilterMultiSelectProps['selectedOptions']
-  onChange: (checked: boolean, option: SelectOption) => void
+  onChange: (checked: boolean, option: TableSelectOption) => void
 }): ReactElement => {
   return (
     <Menu.Item as="label" {...props}>
@@ -47,8 +46,8 @@ const TableHeaderFilterMultiSelect = ({
   onChange,
   onReset
 }: TableHeaderFilterMultiSelectProps): ReactElement => {
-  const handleChange = (checked: Boolean, option: SelectOption): void => {
-    let newState: SelectOption[]
+  const handleChange = (checked: Boolean, option: TableSelectOption): void => {
+    let newState: TableSelectOption[]
 
     if (checked) {
       newState = [...selectedOptions, option]
@@ -75,7 +74,6 @@ const TableHeaderFilterMultiSelect = ({
                   {option.label}
                 </Menu.Label>
                 {/* TODO: */}
-                {/* @ts-expect-error */}
                 {option.options.map((o) => (
                   <MenuItem
                     data-key={`${String(index)}-${o.value as string}`}

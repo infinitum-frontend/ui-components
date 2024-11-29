@@ -5,6 +5,7 @@ import { TableProps } from '../../types'
 import './TableScrollContainer.scss'
 import { useVirtualizer, Virtualizer } from '@tanstack/react-virtual'
 import { TABLE_EMPTY_MESSAGE_HEIGHT } from '../TableEmpty/TableEmpty'
+import { TABLE_FILTER_TAGS_HEIGHT } from '../TableFilterTags/TableFilterTags'
 
 interface RenderProps {
   virtualizer?: Virtualizer<HTMLDivElement, Element>
@@ -62,7 +63,8 @@ const TableScrollContainer = ({
 
   const totalHeight = virtualizer.getTotalSize() + tableHeaderHeight
 
-  const minHeight = tableHeaderHeight + TABLE_EMPTY_MESSAGE_HEIGHT // TODO: плохое решение. Как иначе посчитать высоту?
+  const minHeight =
+    tableHeaderHeight + TABLE_EMPTY_MESSAGE_HEIGHT + TABLE_FILTER_TAGS_HEIGHT // TODO: плохое решение. Как иначе посчитать высоту?
 
   return (
     <ScrollArea

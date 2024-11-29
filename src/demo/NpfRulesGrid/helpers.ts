@@ -1,6 +1,6 @@
 import {
-  TableColumnFilter,
   TableColumnFiltersState,
+  TableSelectOption,
   TableSortingState
 } from '~/src/components/Table'
 import { FundPurposeTypeEnum, NpfRule, PortfolioTypeEnum } from './types'
@@ -14,147 +14,134 @@ export function processIndicators({
   filters: TableColumnFiltersState
   sorting: TableSortingState
 }): NpfRule[] {
-  console.log('process', filters, sorting)
   const filteredIndicators = filterIndicators(indicators, filters)
   const sortedIndicators = sortIndicators(filteredIndicators, sorting)
 
   return sortedIndicators
 }
 
+type FilterKeys =
+  | 'id'
+  | 'shortName'
+  | 'type'
+  | 'mandatoryAutoAssignmentSettings'
+
 function filterIndicators(
-  indicators: NpfRule[],
-  filters: TableColumnFiltersState // по-хорошему тут не должно быть типа который относится к таблице
+  rules: NpfRule[],
+  filtersState: TableColumnFiltersState
 ): NpfRule[] {
-  if (!filters?.length) {
-    return indicators
+  if (!filtersState?.length) {
+    return rules
   }
 
-  const mandatoryAutoAssignmentSettings =
-    (filters.find((f) => f.id === 'mandatoryAutoAssignmentSettings')
-      ?.value as TableColumnFilter<'multiSelect'>['value']) || []
+  return rules.filter((rule) => {
+    return filtersState.every((filter) => {
+      const { filterType, value } = filter
 
-  const filtersObj = {
-    id: filters.find((f) => f.id === 'id')?.value,
-    shortName: filters.find((f) => f.id === 'shortName')?.value,
-    // TODO: переписать на поиск value в объекте
-    // @ts-expect-error
-    isNotMandatory: mandatoryAutoAssignmentSettings.includes('notMandatory'),
-    fundPurposeTypes: mandatoryAutoAssignmentSettings.filter((value) => {
-      return [
-        FundPurposeTypeEnum.PensionReserves,
-        FundPurposeTypeEnum.PensionSavings,
-        FundPurposeTypeEnum.OwnFunds
-      ].includes(value as unknown as FundPurposeTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
-    }),
-    portfolioTypes: mandatoryAutoAssignmentSettings.filter((value) => {
-      return [
-        PortfolioTypeEnum.Aggregate,
-        PortfolioTypeEnum.SelfManagement,
-        PortfolioTypeEnum.TrustManagement
-      ].includes(value as unknown as PortfolioTypeEnum) // TODO: объединить со списком filterOptions в IndicatorsTable
+      const filterId = filter.id as FilterKeys
+      // Фильтр ID
+      if (filterId === 'id' && filterType === 'search') {
+        return filterById(rule, value)
+      }
+      // Фильтр Название
+      if (filterId === 'shortName' && filterType === 'search') {
+        return filterByShortName(rule, value)
+      }
+      // Фильтр Вид проверки
+      if (filterId === 'type' && filterType === 'multiSelect') {
+        return filterByType(rule, value)
+      }
+      // Фильтр Обязательное выполнение
+      if (
+        filterId === 'mandatoryAutoAssignmentSettings' &&
+        filterType === 'multiSelect'
+      ) {
+        return filterByMandatorySettings(rule, value)
+      }
+
+      return true
     })
-  }
-
-  console.log('filtersObj', filtersObj)
-
-  const filteredIndicators: NpfRule[] = indicators.filter((indicator) => {
-    const isMathchingId = filtersObj.id
-      ? filterById(indicator, filtersObj.id as string)
-      : true
-
-    const isMatchingShortName = filtersObj.shortName
-      ? filterByShortName(indicator, filtersObj.shortName as string)
-      : true
-
-    // const isMatchingFundPurpose = filtersObj.fundPurposeTypes?.length
-    //   ? filterByFundPurposeType(indicator, filtersObj.fundPurposeTypes || [])
-    //   : false
-
-    return isMathchingId && isMatchingShortName
-
-    // const isMatchingPortfolioType = filters.portfolioType?.length
-    //   ? filterByPortfolioType(indicator, filters.portfolioType)
-    //   : false
-
-    // const isMatchingNotSetMandatory = filters.isUnmandatory
-    //   ? !indicator.mandatoryAutoAssignmentSettings?.length
-    //   : false
-    // if (
-    //   !filters.portfolioType?.length &&
-    //   !filters.fundPurposeType?.length &&
-    //   !filters.isUnmandatory
-    // ) {
-    //   return isMatchingShortName
-    // }
-    // return (
-    //   isMatchingShortName &&
-    //   (isMatchingFundPurpose ||
-    //     isMatchingPortfolioType ||
-    //     isMatchingNotSetMandatory)
-    // )
   })
+}
 
-  return filteredIndicators
+function filterById(indicator: NpfRule, searchValue: string): boolean {
+  return String(indicator.id).includes(String(searchValue))
 }
 
 function filterByShortName(indicator: NpfRule, searchValue: string): boolean {
-  return (indicator.shortName || '')
+  const searchString = [
+    indicator.shortName,
+    indicator.officialName,
+    indicator.normativeAct
+  ].join(' ')
+  return searchString
     .toLocaleLowerCase()
     .includes(searchValue.toLocaleLowerCase())
 }
 
-function filterById(indicator: NpfRule, searchValue: string): boolean {
-  return String(indicator.id || '').includes(String(searchValue))
+function filterByType(
+  indicator: NpfRule,
+  selectedOptions: TableSelectOption[]
+): boolean {
+  return Boolean(
+    selectedOptions.find((option) => option.value === indicator.type)
+  )
 }
 
-// function filterByFundPurposeType(
-//   indicator: NpfRule,
-//   fundPurposeFilter: FundPurposeTypeEnum[]
-// ): boolean {
-//   const getAvailableFundPurposeTypes = (
-//     indicator: NpfRule
-//   ): Record<FundPurposeTypeEnum, boolean> => {
-//     const resultHash: Record<FundPurposeTypeEnum, boolean> = {
-//       [FundPurposeTypeEnum.Unknown]: false,
-//       [FundPurposeTypeEnum.PensionReserves]: false,
-//       [FundPurposeTypeEnum.PensionSavings]: false,
-//       [FundPurposeTypeEnum.Oef]: false,
-//       [FundPurposeTypeEnum.OwnFunds]: false
-//     }
-//     indicator.mandatoryAutoAssignmentSettings?.forEach((i) => {
-//       if (!resultHash[i.fundPurposeType]) {
-//         resultHash[i.fundPurposeType] = true
-//       }
-//     })
-//     return resultHash
-//   }
-//   const availableFundPurposeTypes = getAvailableFundPurposeTypes(indicator)
-//   return Boolean(fundPurposeFilter.some((t) => availableFundPurposeTypes[t]))
-// }
+function filterByMandatorySettings(
+  indicator: NpfRule,
+  selectedOptions: TableSelectOption[]
+): boolean | undefined {
+  const isUnmandatoryOptionSelected = Boolean(
+    selectedOptions.find((option) => option.value === 'notMandatory')
+  )
 
-// function filterByPortfolioType(
-//   indicator: NpfRule,
-//   portfolioTypeFilter: PortfolioTypeEnum[]
-// ): boolean {
-//   const getAvailablePortfolioTypes = (
-//     indicator: NpfRule
-//   ): Record<PortfolioTypeEnum, boolean> => {
-//     const resultHash: Record<PortfolioTypeEnum, boolean> = {
-//       [PortfolioTypeEnum.Unknown]: false,
-//       [PortfolioTypeEnum.TrustManagement]: false,
-//       [PortfolioTypeEnum.SelfManagement]: false,
-//       [PortfolioTypeEnum.Aggregate]: false
-//     }
-//     indicator.mandatoryAutoAssignmentSettings?.forEach((i) => {
-//       if (!resultHash[i.portfolioType]) {
-//         resultHash[i.portfolioType] = true
-//       }
-//     })
-//     return resultHash
-//   }
-//   const availablePortfolioTypes = getAvailablePortfolioTypes(indicator)
-//   return Boolean(portfolioTypeFilter.some((t) => availablePortfolioTypes[t]))
-// }
+  const fundPurposeTypes = indicator.mandatoryAutoAssignmentSettings?.map(
+    (setting) => setting.fundPurposeType
+  )
+  const portfolioTypes = indicator.mandatoryAutoAssignmentSettings?.map(
+    (setting) => setting.portfolioType
+  )
+
+  const selectedFundPurposeTypes = selectedOptions
+    .filter((option) =>
+      Object.keys(FundPurposeTypeEnum).includes(String(option.value))
+    )
+    .map((option) => option.value)
+
+  const selectedPortfolioTypes = selectedOptions
+    .filter((option) =>
+      Object.keys(PortfolioTypeEnum).includes(String(option.value))
+    )
+    .map((option) => option.value)
+
+  const isMatchingFundPurpose = selectedFundPurposeTypes?.length
+    ? fundPurposeTypes?.some((type) => selectedFundPurposeTypes.includes(type))
+    : true
+
+  const isMatchingPortfolioType = selectedPortfolioTypes?.length
+    ? portfolioTypes?.some((type) => selectedPortfolioTypes.includes(type))
+    : true
+
+  const isMatchingUnmandatory =
+    indicator.mandatoryAutoAssignmentSettings?.length === 0
+
+  const isOnlyUnmandatoryOptionSelected =
+    isUnmandatoryOptionSelected &&
+    selectedFundPurposeTypes?.length === 0 &&
+    selectedPortfolioTypes?.length === 0
+
+  if (isOnlyUnmandatoryOptionSelected) {
+    return isMatchingUnmandatory
+  } else if (isUnmandatoryOptionSelected) {
+    return (
+      isMatchingUnmandatory ||
+      (isMatchingFundPurpose && isMatchingPortfolioType)
+    )
+  } else {
+    return isMatchingFundPurpose && isMatchingPortfolioType
+  }
+}
 
 function sortIndicators(
   indicators: NpfRule[],

@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { CSSProperties, ReactElement, useState } from 'react'
-import { Column, ColumnMeta, Header } from '@tanstack/react-table'
+import { Column } from '@tanstack/react-table'
 import {
   TableColumnFilter,
-  TableColumnFilterValue,
-  TableFilterType
+  TableFilterType,
+  TableSelectOption
 } from 'Components/Table/types'
 import { Form } from 'Components/Form'
 import useUpdateEffect from 'Hooks/useUpdateEffect'
@@ -16,14 +16,14 @@ import TableHeaderFilterSearch from './filters/TableHeaderFilterSearch'
 import TableHeaderFilterSelect from './filters/TableHeaderFilterSelect'
 import TableHeaderFilterMultiSelect from './filters/TableHeaderFilterMultiSelect'
 import TableHeaderFilterDate from './filters/TableHeaderFilterDate'
-import { SelectOption } from '~/src/components/Select'
+import { defaultSelectItem } from '~/src/components/Select'
 import './TableHeaderFilter.scss'
 
 // TODO: filter default value
 const getInitialValue = (
-  type: TableFilterType,
-  state?: TableColumnFilter<TableFilterType>
-): TableColumnFilterValue => {
+  type: TableColumnFilter['filterType'],
+  state?: TableColumnFilter
+): TableColumnFilter['value'] => {
   if (state) {
     return state.value
   }
@@ -33,24 +33,22 @@ const getInitialValue = (
     case 'date':
       return ''
     case 'select':
-      // TODO:
-      // @ts-expect-error
-      return {}
+      return defaultSelectItem
     case 'multiSelect':
       return []
   }
 }
 
 const TableHeaderFilter = ({
-  header,
+  column,
   filterState,
   onChange
 }: {
-  header: Header<any, any>
-  filterState?: TableColumnFilter<any>
+  column: Column<any>
+  filterState?: TableColumnFilter
   onChange: (
-    value: TableColumnFilterValue,
-    filterType: ColumnMeta<any, any>['filterType'],
+    value: TableColumnFilter['value'] | undefined,
+    filterType: TableColumnFilter['filterType'],
     column: Column<any>
   ) => void
 }): ReactElement => {
@@ -58,9 +56,9 @@ const TableHeaderFilter = ({
     filterType = 'search',
     filterOptions,
     filterPopoverWidth
-  } = header.column.columnDef.meta || {}
+  } = column.columnDef.meta || {}
   // ==================== state ====================
-  const [filterValue, setFilterValue] = useState<TableColumnFilterValue>(
+  const [filterValue, setFilterValue] = useState<TableColumnFilter['value']>(
     getInitialValue(filterType, filterState)
   )
 
@@ -74,13 +72,13 @@ const TableHeaderFilter = ({
 
   const applyFilter = (): void => {
     setOpen(false)
-    onChange?.(filterValue, filterType, header.column)
+    onChange?.(filterValue, filterType, column)
   }
 
   const applyReset = (): void => {
     setOpen(false)
     setFilterValue(getInitialValue(filterType))
-    onChange?.(undefined, filterType, header.column)
+    onChange?.(undefined, filterType, column)
   }
 
   // const setDateFilter = (value: string, type: 'from' | 'to'): void => {
@@ -92,17 +90,17 @@ const TableHeaderFilter = ({
   //   })
   // }
 
-  const handleFilterSelectChange = (item: SelectOption): void => {
+  const handleFilterSelectChange = (item: TableSelectOption): void => {
     setOpen(false)
     setFilterValue(item)
 
     // TODO: а как работать с типом "все"? пока такой костыль, что ожидаем элемента со значением -1
-    const value = item.value === '-1' ? undefined : item
-    onChange?.(value, filterType, header.column)
+    const value = item.value === -1 ? undefined : item
+    onChange?.(value, filterType, column)
   }
 
   const handleFilterMultiSelectChange = (
-    selectedOptions: SelectOption[]
+    selectedOptions: TableSelectOption[]
   ): void => {
     setFilterValue(selectedOptions)
   }
@@ -115,7 +113,7 @@ const TableHeaderFilter = ({
   //   (filterType === 'date' && (filterValue as TableFilterDateOption).to) || ''
 
   const iconVariant: Record<
-    TableFilterType,
+    TableColumnFilter['filterType'],
     TableFilterPopoverProps['iconVariant']
   > = {
     search: 'search',
@@ -152,7 +150,7 @@ const TableHeaderFilter = ({
           {filterType === 'search' && (
             <TableHeaderFilterSearch
               onChange={(value) => setFilterValue(value)}
-              value={filterValue as string}
+              value={filterValue as string} // TODO:
               onReset={applyReset}
             />
           )}
@@ -161,7 +159,7 @@ const TableHeaderFilter = ({
           {filterType === 'select' && (
             <TableHeaderFilterSelect
               onChange={handleFilterSelectChange}
-              selected={filterValue as SelectOption}
+              selected={filterValue as TableSelectOption} // TODO:
               options={filterOptions}
             />
           )}
@@ -170,7 +168,7 @@ const TableHeaderFilter = ({
           {filterType === 'multiSelect' && (
             <TableHeaderFilterMultiSelect
               onChange={handleFilterMultiSelectChange}
-              selectedOptions={filterValue as SelectOption[]}
+              selectedOptions={filterValue as TableSelectOption[]} // TODO:
               options={filterOptions}
               onReset={applyReset}
             />
@@ -179,7 +177,7 @@ const TableHeaderFilter = ({
           {/* дата */}
           {filterType === 'date' && (
             <TableHeaderFilterDate
-              value={(filterValue as string) || ''}
+              value={filterValue as string} // TODO:
               onChange={(value) => setFilterValue(value)}
               onReset={applyReset}
             />

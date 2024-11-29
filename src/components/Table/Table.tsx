@@ -130,13 +130,8 @@ const Table = ({
   }
 
   const canFilter = (column: Column<any>): boolean => {
-    return (
-      Boolean(withFiltering) &&
-      column.getCanFilter() &&
-      Boolean(column.columnDef.meta?.filterType)
-    )
+    return Boolean(withFiltering) && Boolean(column.columnDef.meta?.filterType)
   }
-
   // ==================== init ====================
 
   const memoizedColumns = useMemo(() => {
@@ -243,7 +238,7 @@ const Table = ({
                         )}
                         {canFilter(header.column) && (
                           <TableHeaderFilter
-                            header={header}
+                            column={header.column}
                             filterState={filtersState.find(
                               (filter) => filter.id === header.column.id
                             )}
