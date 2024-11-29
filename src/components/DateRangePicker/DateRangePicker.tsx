@@ -40,6 +40,11 @@ export interface DateRangePickerProps
   max?: string
   /** Режим выбора по неделям с понедельника до воскресенья */
   weekPick?: boolean
+  /**
+   * Размер
+   * @default medium
+   */
+  size?: 'medium' | 'small'
 }
 
 const DateRangePicker = ({
@@ -50,6 +55,7 @@ const DateRangePicker = ({
   required: requiredProp,
   min,
   max,
+  size = 'medium',
   weekPick,
   ...props
 }: DateRangePickerProps): ReactElement => {
@@ -119,6 +125,7 @@ const DateRangePicker = ({
           }}
           value={displayValue}
           postfix={<IconCalendar className="inf-datepicker__calendar-icon" />}
+          size={size}
           onPostfixClick={() => setOpened((prev) => !prev)}
           onFocus={() => setOpened(true)}
         />
