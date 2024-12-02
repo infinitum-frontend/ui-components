@@ -132,6 +132,7 @@ const Table = ({
   const canFilter = (column: Column<any>): boolean => {
     return Boolean(withFiltering) && Boolean(column.columnDef.meta?.filterType)
   }
+
   // ==================== init ====================
 
   const memoizedColumns = useMemo(() => {
@@ -238,12 +239,6 @@ const Table = ({
                         )}
                         {canFilter(header.column) && (
                           <TableHeaderFilter
-                            key={String(
-                              // TODO: не ререндерится когда в TableFilterTags сбрасываем одну из опций multiSelect
-                              filtersState.find(
-                                (filter) => filter.id === header.column.id
-                              )?.value
-                            )}
                             column={header.column}
                             filterState={filtersState.find(
                               (filter) => filter.id === header.column.id
@@ -257,19 +252,18 @@ const Table = ({
                 ))}
               </TableHeaderRow>
             ))}
-          </TableHeader>
-
-          {/* BODY */}
-          <TableBody>
+            {/* Теги фильтров */}
             {withFiltersTags && filtersState?.length !== 0 && (
               <TableFilterTags
                 totalColumnsCount={totalColumnsCount}
                 filtersState={filtersState}
-                onChange={(value) => {
-                  onFiltersChange?.(value)
-                }}
+                onChange={onFiltersChange}
               />
             )}
+          </TableHeader>
+
+          {/* BODY */}
+          <TableBody>
             <TableBodyContent
               rows={tableRows}
               selectedRow={selectedRow}

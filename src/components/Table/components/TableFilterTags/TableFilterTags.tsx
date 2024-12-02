@@ -1,12 +1,12 @@
 import { ReactElement, ReactNode } from 'react'
-import TableRow from '../TableRow'
-import TableCell from '../TableCell'
 import { Space } from 'Components/Space'
 import { Tag } from 'Components/Tag'
 import { Link } from 'Components/Link'
 import { TableColumnFilter, TableColumnFiltersState } from '../../types'
 import { OnChangeFn } from 'Utils/types'
 import { createDate } from '~/src/utils/date'
+import { produce } from 'immer'
+import './TableFilterTags.scss'
 
 export interface TableFilterTagsProps {
   filtersState: TableColumnFiltersState
@@ -30,27 +30,28 @@ const TableFilterTags = ({
 }: TableFilterTagsProps): ReactElement => {
   const handleRemove = (appliedFilter: AppliedFilterValue): void => {
     // TODO: отрефакторить это если сможешь
-    let newFiltersState = [...filtersState]
+    const newFiltersState = produce(filtersState, (draft) => {
+      const filterIndex = draft.findIndex(
+        (f) => f.id === appliedFilter.filterId
+      )
+      const filter = draft[filterIndex]
 
-    const filter = newFiltersState.find((f) => f.id === appliedFilter.filterId)
-
-    if (filter?.filterType === 'multiSelect') {
-      filter.value = filter.value.filter((f) => f.value !== appliedFilter.value)
-      if (filter.value.length === 0) {
-        newFiltersState = filtersState.filter((f) => {
-          if (f.filterType === 'multiSelect') {
-            return f.value.length !== 0
-          }
-          return true
+      if (filter?.filterType === 'multiSelect') {
+        filter.value = filter.value.filter(
+          (f) => f.value !== appliedFilter.value
+        )
+        if (filter.value.length === 0) {
+          draft.splice(filterIndex, 1)
+        }
+      } else {
+        return draft.filter((filter) => {
+          const { filterId, value } = appliedFilter
+          return filter.id !== filterId && filter.value !== value
         })
       }
-    } else {
-      newFiltersState = filtersState.filter((filter) => {
-        const { filterId, value } = appliedFilter
-        return filter.id !== filterId && filter.value !== value
-      })
-    }
-    onChange?.([...newFiltersState])
+    })
+
+    onChange?.(newFiltersState)
   }
 
   const handleRemoveAll = (): void => {
@@ -97,8 +98,8 @@ const TableFilterTags = ({
   )
 
   return (
-    <TableRow hoverable={false}>
-      <TableCell colSpan={totalColumnsCount}>
+    <tr className="inf-table-filter-tags">
+      <td className="inf-table-filter-tags__cell" colSpan={totalColumnsCount}>
         <Space direction="horizontal" gap="small" align="center" wrap>
           {appliedFilterValuesValues?.map((appliedFilter) => (
             <Tag
@@ -117,8 +118,8 @@ const TableFilterTags = ({
             </Link>
           )}
         </Space>
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   )
 }
 

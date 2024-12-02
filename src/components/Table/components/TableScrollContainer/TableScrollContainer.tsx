@@ -1,11 +1,10 @@
-import { ReactElement, useLayoutEffect, useRef, useState } from 'react'
+import { ReactElement, useEffect, useRef, useState } from 'react'
 import ScrollArea from 'Components/ScrollArea'
 import cn from 'classnames'
 import { TableProps } from '../../types'
 import './TableScrollContainer.scss'
 import { useVirtualizer, Virtualizer } from '@tanstack/react-virtual'
 import { TABLE_EMPTY_MESSAGE_HEIGHT } from '../TableEmpty/TableEmpty'
-import { TABLE_FILTER_TAGS_HEIGHT } from '../TableFilterTags/TableFilterTags'
 
 interface RenderProps {
   virtualizer?: Virtualizer<HTMLDivElement, Element>
@@ -36,14 +35,32 @@ const TableScrollContainer = ({
 
   const ref = useRef<HTMLDivElement>(null)
 
-  useLayoutEffect(() => {
-    if (ref.current && stickyHeader) {
-      const headerHeight =
-        ref.current?.querySelector('table thead')?.clientHeight || 0
+  const tableHeadElement = ref.current?.querySelector('table thead')
 
-      setTableHeaderHeight(headerHeight)
+  useEffect(() => {
+    const isObserverEnabled = ref && stickyHeader && tableHeadElement
+
+    const updateTheadHeight = (): void => {
+      if (isObserverEnabled) {
+        setTableHeaderHeight(tableHeadElement.clientHeight || 0)
+      }
     }
-  }, [])
+
+    const observer = new ResizeObserver(() => {
+      updateTheadHeight()
+    })
+
+    if (isObserverEnabled) {
+      updateTheadHeight()
+      observer.observe(tableHeadElement)
+    }
+
+    return () => {
+      if (isObserverEnabled) {
+        observer.unobserve(tableHeadElement)
+      }
+    }
+  }, [tableHeadElement])
 
   if (!height && !maxHeight) {
     return children({ virtualizer: undefined })
@@ -63,8 +80,7 @@ const TableScrollContainer = ({
 
   const totalHeight = virtualizer.getTotalSize() + tableHeaderHeight
 
-  const minHeight =
-    tableHeaderHeight + TABLE_EMPTY_MESSAGE_HEIGHT + TABLE_FILTER_TAGS_HEIGHT // TODO: плохое решение. Как иначе посчитать высоту?
+  const minHeight = tableHeaderHeight + TABLE_EMPTY_MESSAGE_HEIGHT // TODO: плохое решение. Как иначе посчитать высоту?
 
   return (
     <ScrollArea
