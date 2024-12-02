@@ -4,73 +4,8 @@
     top: 0;
     z-index: 1;
 
-    tr th {
+    .inf-table-header-cell {
       border-bottom: 1px solid var(--inf-color-border-primary);
     }
-  }
-
-  &__item {
-    display: flex;
-
-    &--interactive {
-      cursor: pointer;
-    }
-  }
-
-  &__wrapper {
-    display: flex;
-
-    &:hover {
-      .inf-table-header__sort-icon {
-        opacity: 0.5;
-      }
-    }
-  }
-
-  &__sort {
-    display: flex;
-  }
-
-  &__sort-icon {
-    opacity: 0.2;
-  }
-
-  &__resizer {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    background: var(--inf-color-border-primary); // TODO: токены
-    cursor: col-resize;
-    user-select: none;
-    touch-action: none;
-    opacity: 0;
-
-    &--active {
-      background: rgba(#738f99, 0.5); // TODO: токены
-      opacity: 1;
-    }
-  }
-
-  $vertical-align-values: (
-    'baseline',
-    'bottom',
-    'middle',
-    'sub',
-    'super',
-    'text-bottom',
-    'text-top',
-    'top'
-  );
-
-  @mixin vertical-align($vertical-align-value) {
-    &--vertical-align-#{$vertical-align-value} th {
-      vertical-align: #{$vertical-align-value};
-    }
-  }
-
-  @each $vertical-align-value in $vertical-align-values {
-    @include vertical-align($vertical-align-value);
   }
 }

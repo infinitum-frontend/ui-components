@@ -4,10 +4,13 @@ import {
   createColumn,
   createCell,
   SortingState,
-  ColumnDef
+  ColumnDef,
+  useReactTable,
+  getCoreRowModel
 } from '@tanstack/react-table'
 import Table from './Table'
 import { OnChangeFn } from 'Utils/types'
+import { getNextSorting } from './helpers'
 
 // TODO: стандартизировать список экспортов. Добавить нужные при необходимости
 export * from './types'
@@ -15,7 +18,10 @@ export {
   Table,
   createColumnHelper as createTableColumnHelper,
   createCell as createTableCell,
-  createColumn as createTableColumn
+  createColumn as createTableColumn,
+  useReactTable as useTable,
+  getCoreRowModel,
+  getNextSorting
 }
 export type {
   OnChangeFn,

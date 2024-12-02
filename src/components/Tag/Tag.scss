@@ -1,20 +1,47 @@
 .inf-tag {
+  height: 24px;
   font: var(--inf-font-body-1);
+  line-height: 21px;
   color: var(--inf-color-text-primary);
-  border: 1px solid var(--inf-color-border-primary);
   background-color: var(--inf-color-background-tertiary);
-  border-radius: var(--inf-border-radius-xsmall);
+  border-radius: var(--inf-border-radius-small);
   padding: 6px var(--inf-space-xsmall);
   display: inline-flex;
   align-items: center;
-  gap: var(--inf-space-xxsmall);
+  gap: var(--inf-space-xsmall);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   &--disabled {
-    background-color: var(--inf-color-background-tertiary);
     color: var(--inf-color-text-tertiary);
 
     .inf-tag__remove-button {
       color: var(--inf-color-icon-primary-disabled);
+    }
+  }
+
+  &--hoverable {
+    cursor: pointer;
+    transition: 0.2s;
+
+    @include hover {
+      background-color: var(--inf-color-background-tertiary-hover);
+    }
+  }
+
+  &--selected {
+    background-color: var(--inf-color-background-inverse);
+    color: var(--inf-color-text-inverse);
+  }
+
+  &__icon {
+    display: inline-flex;
+    color: var(--inf-color-icon-primary);
+
+    svg {
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -35,8 +62,8 @@
     }
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
     }
   }
 }

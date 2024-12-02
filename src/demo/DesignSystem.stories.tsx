@@ -447,7 +447,7 @@ const tableColumns: Array<ColumnDef<Portfolio, any>> = [
     // для фильтрации по тексту по вложенным реакт-элементам
     // filterFn: 'elIncludesString',
     meta: {
-      filterType: 'input'
+      filterType: 'search'
     }
   },
   {
@@ -461,7 +461,7 @@ const tableColumns: Array<ColumnDef<Portfolio, any>> = [
     accessorKey: 'type',
     meta: {
       filterType: 'select',
-      filterItems: TYPE_FILTER_ITEMS
+      filterOptions: TYPE_FILTER_ITEMS
     }
   },
   {

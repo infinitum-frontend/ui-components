@@ -2,6 +2,7 @@
 import React from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Tag } from './index'
+import { ReactComponent as IconInfoCircle } from 'Icons/info-circle.svg'
 
 const meta: Meta<typeof Tag> = {
   title: 'Components/Tag',
@@ -26,13 +27,38 @@ export const Removable: StoryObj<typeof Tag> = {
     return <Tag {...args} />
   },
   args: {
-    onRemove: () => alert('remove')
+    onRemove: () => alert('remove'),
+    icon: <IconInfoCircle />
   }
 }
 
 export const Disabled = {
   render: Template,
   args: {
-    disabled: true
+    disabled: true,
+    icon: <IconInfoCircle />
+  }
+}
+
+export const Selected = {
+  render: Template,
+  args: {
+    selected: true,
+    icon: <IconInfoCircle />
+  }
+}
+
+export const Hoverable = {
+  render: Template,
+  args: {
+    hoverable: true,
+    icon: <IconInfoCircle />
+  }
+}
+
+export const WithIcon = {
+  render: Template,
+  args: {
+    icon: <IconInfoCircle />
   }
 }

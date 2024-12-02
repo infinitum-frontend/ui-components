@@ -1,0 +1,14 @@
+.inf-table-cell {
+  padding: var(--inf-space-small);
+  font: var(--inf-font-body-2);
+  color: var(--inf-color-text-primary);
+  border-top: 1px solid var(--inf-color-border-primary);
+
+  &:first-child {
+    border-left: 1px solid var(--inf-color-border-primary);
+  }
+
+  &:last-child {
+    border-right: 1px solid var(--inf-color-border-primary);
+  }
+}

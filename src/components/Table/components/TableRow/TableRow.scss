@@ -1,0 +1,35 @@
+.inf-table-row {
+  &--hoverable {
+    @include hover {
+      &:not(.inf-table-row--selected) {
+        background-color: var(--inf-color-background-primary-hover);
+      }
+    }
+  }
+
+  &--interactive {
+    cursor: pointer;
+  }
+
+  &--selected {
+    background-color: var(--inf-color-background-tertiary);
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--inf-color-border-primary);
+  }
+
+  &:last-child {
+    .inf-table-cell {
+      border-bottom: 1px solid var(--inf-color-border-primary);
+
+      &:first-child {
+        border-bottom-left-radius: var(--inf-border-radius-small);
+      }
+
+      &:last-child {
+        border-bottom-right-radius: var(--inf-border-radius-small);
+      }
+    }
+  }
+}

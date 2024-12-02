@@ -1,4 +1,5 @@
 import React, { ComponentPropsWithoutRef } from 'react'
+import { Box, BoxProps } from 'Components/Box'
 import './index.scss'
 import cn from 'classnames'
 
@@ -18,6 +19,14 @@ export interface PageLayoutContentProps
    * Убирает padding снизу
    */
   collapsePaddingBottom?: boolean
+  /**
+   * padding сверху
+   */
+  paddingTop?: BoxProps['paddingTop']
+  /**
+   * padding снизу
+   */
+  paddingBottom?: BoxProps['paddingBottom']
 }
 
 const PageLayoutContent = React.forwardRef<HTMLElement, PageLayoutContentProps>(
@@ -29,25 +38,25 @@ const PageLayoutContent = React.forwardRef<HTMLElement, PageLayoutContentProps>(
       collapsePaddingTop,
       collapsePaddingBottom,
       centerContent,
-      ...props
+      paddingTop = 'xxlarge',
+      paddingBottom = 'xxlarge'
     },
     ref
   ) => {
     return (
-      <main
+      <Box
         ref={ref}
+        as="main"
         className={cn('inf-page-layout-content', className, {
           'inf-page-layout-content--center-content': centerContent,
           'inf-page-layout-content--extra-margin-bottom-bar':
-            extraMarginBottomBar,
-          'inf-page-layout-content--collapse-padding-top': collapsePaddingTop,
-          'inf-page-layout-content--collapse-padding-bottom':
-            collapsePaddingBottom
+            extraMarginBottomBar
         })}
-        {...props}
+        paddingTop={collapsePaddingTop ? undefined : paddingTop}
+        paddingBottom={collapsePaddingBottom ? undefined : paddingBottom}
       >
         {children}
-      </main>
+      </Box>
     )
   }
 )
