@@ -64,11 +64,11 @@ const Textarea = ({
   'aria-invalid': ariaInvalid,
   ...props
 }: TextareaProps): ReactElement => {
-  const formData = useContext(FormContext)
-  const formGroupData = useContext(FormGroupContext)
+  const formContext = useContext(FormContext)
+  const formGroupContext = useContext(FormGroupContext)
   const { onControlChange, onControlInvalid } = useFormControlHandlers()
 
-  const disabled = disabledProp || formData?.disabled
+  const disabled = disabledProp || formContext?.disabled
 
   const handleChange: FormEventHandler<HTMLTextAreaElement> = (e) => {
     onControlChange(e)
@@ -96,13 +96,13 @@ const Textarea = ({
       className={classNames}
       defaultValue={defaultValue}
       value={value}
-      id={id || formGroupData?.id}
+      id={id || formGroupContext?.id}
       onChange={handleChange}
       onInvalid={onControlInvalid}
       disabled={disabled}
-      required={formGroupData?.required || required}
-      aria-required={formGroupData?.required || ariaRequired}
-      aria-invalid={formGroupData?.invalid || ariaInvalid}
+      required={formGroupContext?.required || required}
+      aria-required={formGroupContext?.required || ariaRequired}
+      aria-invalid={formGroupContext?.invalid || ariaInvalid}
       {...props}
     />
   )
