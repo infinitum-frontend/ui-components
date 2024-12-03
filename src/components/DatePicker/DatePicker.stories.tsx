@@ -81,7 +81,7 @@ export const MinMax: StoryFn<typeof DatePicker> = {
           <DatePicker
             value={firstValue}
             onChange={setFirstValue}
-            max={thirdValue}
+            max={secondValue || thirdValue}
           />
         </Form.Group>
         <Form.Group required>
@@ -100,7 +100,7 @@ export const MinMax: StoryFn<typeof DatePicker> = {
           <DatePicker
             value={thirdValue}
             onChange={setThirdValue}
-            min={firstValue}
+            min={secondValue || firstValue}
           />
         </Form.Group>
 
