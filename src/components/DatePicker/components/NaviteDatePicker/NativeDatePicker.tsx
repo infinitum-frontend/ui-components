@@ -64,11 +64,11 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
     },
     ref
   ): ReactElement => {
-    const formGroupData = useContext(FormGroupContext)
-    const formData = useContext(FormContext)
+    const formGroupContext = useContext(FormGroupContext)
+    const formContext = useContext(FormContext)
     const { onControlChange, onControlInvalid } = useFormControlHandlers()
 
-    const disabled = disabledProp || formData?.disabled
+    const disabled = disabledProp || formContext?.disabled
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       onControlChange(e)
@@ -95,10 +95,10 @@ const NativeDatePicker = forwardRef<HTMLInputElement, NativeDatePickerProps>(
             [TextFieldClasses.filled]: formattedValue
           }
         )}
-        required={required || formGroupData?.required}
-        aria-required={ariaRequired || formGroupData?.required}
-        aria-invalid={ariaInvalid || formGroupData?.invalid}
-        id={id || formGroupData?.id}
+        required={required || formGroupContext?.required}
+        aria-required={ariaRequired || formGroupContext?.required}
+        aria-invalid={ariaInvalid || formGroupContext?.invalid}
+        id={id || formGroupContext?.id}
         onInvalid={onControlInvalid}
         max={getFormattedValue(max)}
         min={getFormattedValue(min)}
