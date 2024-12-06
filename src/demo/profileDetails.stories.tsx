@@ -33,12 +33,10 @@ export const ProfileDetails: StoryFn = () => {
     <Card style={{ maxWidth: '400px' }}>
       <form onSubmit={onFormSubmit}>
         <Space direction="vertical">
-          <Heading>Константинов Иван Сергеевич</Heading>
+          <Heading>Константинов Константин Константинович</Heading>
           <Space direction="vertical" gap="xxsmall">
             <Text tone="tertiary">Паспортные данные</Text>
-            <Text>
-              №1234 123456, выдан ГУ МВД России по Свердловской области
-            </Text>
+            <Text>№1234 123456, выдан ГУ МВД России по Республике Шкид</Text>
           </Space>
 
           <Space direction="vertical" gap="xxsmall">
