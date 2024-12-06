@@ -25,7 +25,7 @@ import NativeDatePicker from './components/NaviteDatePicker/NativeDatePicker'
 import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
-export interface DatepickerProps
+export interface DatePickerProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
   disabled?: boolean
   /** Дата или строка в формате YYYY-MM-DD */
@@ -58,7 +58,7 @@ const DatePicker = ({
   max,
   size = 'medium',
   ...props
-}: DatepickerProps): ReactElement => {
+}: DatePickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
   const formGroupContext = useContext(FormGroupContext)
   const { resetControlValidity } = useFormControlHandlers()

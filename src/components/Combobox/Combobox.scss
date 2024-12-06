@@ -19,9 +19,4 @@
   &__tags {
     margin-top: var(--inf-space-medium);
   }
-
-  &__checkbox .inf-checkbox__box {
-    // TODO: селектор внутреннего элемента плохо
-    top: 0;
-  }
 }
