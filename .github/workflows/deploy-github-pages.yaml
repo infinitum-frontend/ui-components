@@ -1,17 +1,17 @@
 # Workflow name
-name: Build and Publish Storybook to GitHub Pages
- 
+name: Build and Publish Storybook to GitHub Pages.
+
 on:
   # Event for the workflow to run on
   push:
     branches:
       - 'main' # Replace with the branch you want to deploy from
- 
+
 permissions:
   contents: read
   pages: write
   id-token: write
- 
+
 # List of jobs
 jobs:
   deploy:
