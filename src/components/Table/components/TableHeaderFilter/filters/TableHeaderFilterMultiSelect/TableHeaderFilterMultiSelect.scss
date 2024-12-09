@@ -1,0 +1,8 @@
+.inf-table-header-filter-multi-select {
+  &__bottom {
+    display: flex;
+    gap: var(--inf-space-small);
+    border-top: 1px solid var(--inf-color-border-primary);
+    padding: var(--inf-space-small);
+  }
+}

@@ -1,0 +1,52 @@
+.inf-table-header-cell-button {
+  height: 20px;
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--inf-color-icon-primary);
+
+  &:nth-of-type(1) {
+    margin-left: auto;
+  }
+
+  &:nth-of-type(2) {
+    margin-left: 6px;
+  }
+
+  &:not(.inf-table-header-cell-button--active) {
+    visibility: hidden;
+    // width: 0px;
+  }
+
+  // увеличиваем область клика
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -8px -2px;
+  }
+
+  @include hover {
+    &:not(.inf-table-header-cell-button--active) {
+      svg {
+        color: var(--inf-color-icon-primary-hover);
+      }
+    }
+  }
+
+  &--active {
+    color: var(--inf-color-icon-info);
+  }
+
+  &--rotated {
+    transform: rotate(180deg);
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+  }
+}
