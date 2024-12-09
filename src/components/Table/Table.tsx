@@ -258,6 +258,7 @@ const Table = ({
                 totalColumnsCount={totalColumnsCount}
                 filtersState={filtersState}
                 onChange={onFiltersChange}
+                sticky={stickyHeader}
               />
             )}
           </TableHeader>

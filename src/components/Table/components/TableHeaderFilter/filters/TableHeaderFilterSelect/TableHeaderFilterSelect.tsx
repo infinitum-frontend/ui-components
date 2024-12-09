@@ -1,8 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import Menu from 'Components/Menu/Menu'
 import { TableFiltersOptions, TableSelectOption } from 'Components/Table/types'
-// import { Button } from '~/src/components/Button'
+import { ReactComponent as IconTick } from 'Icons/tick.svg'
+import { Icon } from 'Components/Icon'
 import './TableHeaderFilterSelect.scss'
 
 interface TableHeaderFilterSelectProps {
@@ -11,11 +12,39 @@ interface TableHeaderFilterSelectProps {
   selected: TableSelectOption
 }
 
+const MenuItemContent = ({
+  label,
+  active
+}: {
+  label: string | ReactNode
+  active: boolean
+}): ReactElement => {
+  return (
+    <>
+      <Menu.Item.Content>{label}</Menu.Item.Content>
+      {active && (
+        <Menu.Item.Button>
+          <Icon color="secondary">
+            <IconTick />
+          </Icon>
+        </Menu.Item.Button>
+      )}
+    </>
+  )
+}
+
 const TableHeaderFilterSelect = ({
   selected,
   options = [],
   onChange
 }: TableHeaderFilterSelectProps): ReactElement => {
+  const isChecked = (
+    selectedValue: string | number,
+    optionValue: string | number
+  ): boolean => {
+    return selectedValue !== '-1' && optionValue === selectedValue
+  }
+
   return (
     <div className="inf-table-header-filter-select">
       <Menu maxHeight={340}>
@@ -27,14 +56,11 @@ const TableHeaderFilterSelect = ({
                 {/* TODO: типизация и уникальность ключей */}
                 <Menu.Label key={option.label}>{option.label}</Menu.Label>
                 {option.options.map((o) => (
-                  <Menu.Item
-                    key={o.value}
-                    onClick={() => onChange(o)}
-                    active={
-                      selected.value !== '-1' && o.value === selected.value
-                    }
-                  >
-                    {o.label}
+                  <Menu.Item key={o.value} onClick={() => onChange(o)}>
+                    <MenuItemContent
+                      label={o.label}
+                      active={isChecked(selected.value, o.value)}
+                    />
                   </Menu.Item>
                 ))}
               </>
@@ -42,27 +68,15 @@ const TableHeaderFilterSelect = ({
           }
           // опции без группы
           return (
-            <Menu.Item
-              key={option.value}
-              onClick={() => onChange(option)}
-              active={
-                selected.value !== '-1' && option.value === selected.value
-              }
-            >
-              {option.label}
+            <Menu.Item key={option.value} onClick={() => onChange(option)}>
+              <MenuItemContent
+                label={option.label}
+                active={isChecked(selected.value, option.value)}
+              />
             </Menu.Item>
           )
         })}
       </Menu>
-
-      {/* <div className="inf-table-header-filter-select__bottom">
-        <Button variant="primary" size="small">
-          Применить
-        </Button>
-        <Button variant="ghost" size="small">
-          Сбросить
-        </Button>
-      </div> */}
     </div>
   )
 }

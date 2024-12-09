@@ -7,11 +7,13 @@ import { OnChangeFn } from 'Utils/types'
 import { createDate } from '~/src/utils/date'
 import { produce } from 'immer'
 import './TableFilterTags.scss'
+import cn from 'classnames'
 
 export interface TableFilterTagsProps {
   filtersState: TableColumnFiltersState
   onChange?: OnChangeFn<TableColumnFiltersState>
   totalColumnsCount: number
+  sticky?: boolean
 }
 
 interface AppliedFilterValue {
@@ -26,7 +28,8 @@ export const TABLE_FILTER_TAGS_HEIGHT = 48 // TODO: избавиться
 const TableFilterTags = ({
   filtersState,
   onChange,
-  totalColumnsCount
+  totalColumnsCount,
+  sticky
 }: TableFilterTagsProps): ReactElement => {
   const handleRemove = (appliedFilter: AppliedFilterValue): void => {
     // TODO: отрефакторить это если сможешь
@@ -98,7 +101,11 @@ const TableFilterTags = ({
   )
 
   return (
-    <tr className="inf-table-filter-tags">
+    <tr
+      className={cn('inf-table-filter-tags', {
+        'inf-table-filter-tags--sticky': sticky
+      })}
+    >
       <td className="inf-table-filter-tags__cell" colSpan={totalColumnsCount}>
         <Space direction="horizontal" gap="small" align="center" wrap>
           {appliedFilterValuesValues?.map((appliedFilter) => (

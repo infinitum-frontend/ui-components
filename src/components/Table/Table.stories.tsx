@@ -24,8 +24,6 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     header: 'Портфель',
     id: 'portfolio',
     accessorKey: 'portfolio',
-    // для фильтрации по тексту по вложенным реакт-элементам
-    // filterFn: 'elIncludesString',
     meta: {
       filterType: 'search'
     },
@@ -59,40 +57,6 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
         {
           value: '2',
           label: 'На согласовании'
-        },
-        {
-          label: 'Остальные',
-          options: [
-            {
-              value: '3',
-              label: 'На согласовании 3'
-            },
-            {
-              value: '4',
-              label: 'На согласовании 4'
-            },
-            {
-              value: '5',
-              label: 'На согласовании 5'
-            }
-          ]
-        },
-        {
-          label: 'Остальные 2',
-          options: [
-            {
-              value: '6',
-              label: 'На согласовании 6'
-            },
-            {
-              value: '7',
-              label: 'На согласовании 7'
-            },
-            {
-              value: '8',
-              label: 'На согласовании 8'
-            }
-          ]
         }
       ]
     },
@@ -223,11 +187,13 @@ for (let i = 0; i < 300; i++) {
   })
 }
 
+// TODO: описать в Documentation.mdx
 export const Filtering: StoryObj<typeof Table> = {
   render: (args) => {
     const defaultSorting = [{ id: 'status', desc: false }]
     const [sortedItems, setSortedItems] = useState(TABLE_DATA)
     const [sorting, setSorting] = useState(defaultSorting)
+    const [filters, setFilters] = useState<TableColumnFiltersState>([])
 
     const handleSortingChange = (state: SortingState): void => {
       setSorting(state)
@@ -247,39 +213,30 @@ export const Filtering: StoryObj<typeof Table> = {
       }
     }
 
-    const [filters, setFilters] = useState<TableColumnFiltersState>([
-      {
-        id: 'date',
-        filterType: 'date',
-        value: '2024-10-11'
-      }
-    ])
-
     const handleFiltersChange = (state: TableColumnFiltersState): void => {
-      console.log('handleFiltersChange', state)
       let result = TABLE_DATA
+
       setFilters(state)
+
       state.forEach((filter) => {
         result = result.filter((item) => {
-          if (filter.id === 'portfolio') {
-            return item[filter.id].match(filter.value as string)
+          const value = item[filter.id]
+          if (filter.id === 'portfolio' && filter.filterType === 'search') {
+            return value.toLowerCase().match(filter.value.toLowerCase())
           }
-          // if (filter.filterType === 'select') {
-          //   const filterLabel = (filter as TableColumnFilter<'select'>).value
-          //     .label
-          //   if (filterLabel === 'Все типы') {
-          //     return true
-          //   }
-          //   return Boolean(
-          //     item[filter.id as keyof typeof item].match(filterLabel)
-          //   )
-          // }
-
-          // if (filter.filterType === 'search') {
-          //   return Boolean(
-          //     item[filter.id as keyof typeof item].match(filter.value as string)
-          //   )
-          // }
+          if (filter.id === 'type' && filter.filterType === 'select') {
+            return filter.value.value === '-1'
+              ? true
+              : value === filter.value.label
+          }
+          if (filter.id === 'status' && filter.filterType === 'multiSelect') {
+            const selectedValues = filter.value.map((v) => v.label)
+            return selectedValues.includes(value)
+          }
+          if (filter.id === 'date' && filter.filterType === 'date') {
+            console.log('v', filter.value, value)
+            return filter.value === value
+          }
 
           return true
         })
