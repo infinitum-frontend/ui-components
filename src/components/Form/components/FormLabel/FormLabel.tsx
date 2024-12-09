@@ -22,10 +22,10 @@ const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
     { id, showRequiredIndicator, customIndicator, style, children, ...props },
     ref
   ): ReactElement => {
-    const formData = useContext(FormContext)
-    const formGroupData = useContext(FormGroupContext)
+    const formContext = useContext(FormContext)
+    const formGroupContext = useContext(FormGroupContext)
 
-    const htmlFor = id || formGroupData?.id
+    const htmlFor = id || formGroupContext?.id
 
     return (
       <label
@@ -33,10 +33,10 @@ const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
         htmlFor={htmlFor}
         ref={ref}
         {...props}
-        style={{ ...style, width: formData?.labelWidth || 'initial' }}
+        style={{ ...style, width: formContext?.labelWidth || 'initial' }}
       >
         {children}
-        {showRequiredIndicator || formGroupData?.required ? (
+        {showRequiredIndicator || formGroupContext?.required ? (
           <span
             className={'inf-form-label__required-indicator'}
             aria-label={'required'}

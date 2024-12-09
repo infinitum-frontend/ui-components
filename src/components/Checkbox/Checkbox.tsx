@@ -95,11 +95,11 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     ref
   ): ReactElement => {
     const checkboxGroupData = useCheckboxGroup()
-    const formData = useContext(FormContext)
-    const formGroupData = useContext(FormGroupContext)
+    const formContext = useContext(FormContext)
+    const formGroupContext = useContext(FormGroupContext)
     const { onControlChange, onControlInvalid } = useFormControlHandlers()
 
-    const disabled = disabledProp || formData?.disabled
+    const disabled = disabledProp || formContext?.disabled
 
     if (checkboxGroupData) {
       checked = Boolean(checkboxGroupData.value.find((el) => el === value))
@@ -135,14 +135,14 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           value={value}
           aria-checked={getAriaCheckedAttr()}
           disabled={disabled}
-          required={formGroupData?.required || required}
-          aria-required={formGroupData?.required || required}
-          aria-invalid={formGroupData?.invalid || undefined}
+          required={formGroupContext?.required || required}
+          aria-required={formGroupContext?.required || required}
+          aria-invalid={formGroupContext?.invalid || undefined}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
           onChange={handleChange}
           onInvalid={onControlInvalid}
-          id={id || formGroupData?.id}
+          id={id || formGroupContext?.id}
         />
         <span
           className={cn('inf-checkbox__box', {
