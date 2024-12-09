@@ -39,4 +39,27 @@
     pointer-events: none;
     cursor: default;
   }
+
+  &__clear {
+    cursor: pointer;
+    position: absolute;
+    display: inline-flex;
+    top: 25%;
+    right: 30px;
+    color: var(--inf-color-icon-primary);
+
+    @include hover {
+      color: var(--inf-color-icon-primary-hover);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    &--disabled {
+      cursor: default;
+      color: var(--inf-color-text-tertiary);
+    }
+  }
 }

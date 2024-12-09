@@ -63,6 +63,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       placeholder = defaultSelectItem.label as string,
       required = false,
       status,
+      allowClear = false,
+      onClear,
       maxItemsCount = 12,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
@@ -167,7 +169,11 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       }
     }
 
-    const handleItemSelect = (id: number | string): void => {
+    const handleItemSelect = (id: number | string | undefined): void => {
+      if (id === undefined) {
+        return
+      }
+
       const index = getIndexByValue(id, options)
       setActiveItem(index)
       // сохраняем состояния фокуса на элементе триггере при опции с помощью мышки
@@ -177,6 +183,13 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     const handleItemMouseOver = (index: number): void => {
       setActiveItem(index)
+    }
+
+    const handleClear = (): void => {
+      setActiveItem(0)
+      onChange?.({ value: undefined, label: 'Не указано' })
+      setOpened(false)
+      resetControlValidity()
     }
 
     const submit = (index: number): void => {
@@ -243,6 +256,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           title={typeof displayValue === 'string' ? displayValue : ''}
+          allowClear={isValueExists && allowClear}
+          onClear={handleClear}
           className={cn(className, 'inf-select')}
           {...getReferenceProps({
             onKeyDown: handleKeyDown,
