@@ -40,25 +40,23 @@ const TableScrollContainer = ({
   useEffect(() => {
     const isObserverEnabled = ref && stickyHeader && tableHeadElement
 
+    if (!isObserverEnabled) {
+      return
+    }
+
     const updateTheadHeight = (): void => {
-      if (isObserverEnabled) {
-        setTableHeaderHeight(tableHeadElement.clientHeight || 0)
-      }
+      setTableHeaderHeight(tableHeadElement.clientHeight || 0)
     }
 
     const observer = new ResizeObserver(() => {
       updateTheadHeight()
     })
 
-    if (isObserverEnabled) {
-      updateTheadHeight()
-      observer.observe(tableHeadElement)
-    }
+    updateTheadHeight()
+    observer.observe(tableHeadElement)
 
     return () => {
-      if (isObserverEnabled) {
-        observer.unobserve(tableHeadElement)
-      }
+      observer.unobserve(tableHeadElement)
     }
   }, [tableHeadElement])
 
