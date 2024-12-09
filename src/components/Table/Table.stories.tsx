@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
-import { Table, TableRow } from './index'
-import { ColumnDef, SortingState } from '@tanstack/react-table'
+import { Table, TableColumnDef, TableRow } from './index'
+import { SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
 import { Portfolio, TABLE_DATA } from './fixtures'
@@ -20,7 +20,7 @@ const meta: Meta<typeof Table> = {
   }
 }
 
-const columns: Array<ColumnDef<Portfolio, any>> = [
+const columns: Array<TableColumnDef<Portfolio, any>> = [
   {
     header: 'Портфель',
     id: 'portfolio',
@@ -64,6 +64,13 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     id: 'date',
     accessorKey: 'date',
     enableSorting: true
+  },
+  {
+    header: 'Скрытая видимость колонки',
+    id: 'hidden',
+    accessorKey: 'hidden',
+    enableSorting: true,
+    isHidden: true
   }
 ]
 
@@ -262,20 +269,23 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
     return (
       <Space>
         <Space direction="horizontal">
-          {columns.map((column) => (
-            <Checkbox
-              key={column.id}
-              checked={columnVisibility[column.id]}
-              onChange={(value) =>
-                setColumnVisibility((prev) => ({
-                  ...prev,
-                  [column.id as string]: value
-                }))
-              }
-            >
-              {column.header as string}
-            </Checkbox>
-          ))}
+          {columns
+            .filter((column) => !column.isHidden)
+            .map((column) => (
+              <Checkbox
+                key={column.id}
+                // @ts-expect-error
+                checked={columnVisibility[column.id]}
+                onChange={(value) =>
+                  setColumnVisibility((prev) => ({
+                    ...prev,
+                    [column.id as string]: value
+                  }))
+                }
+              >
+                {column.header as string}
+              </Checkbox>
+            ))}
         </Space>
         <Table
           columns={columns}

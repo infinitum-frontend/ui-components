@@ -2,7 +2,6 @@
 import React, { ReactElement, useMemo, useRef } from 'react'
 import {
   Column,
-  ColumnDef,
   ColumnMeta,
   ColumnResizeMode,
   getCoreRowModel,
@@ -29,11 +28,12 @@ import { OnChangeFn } from 'Utils/types'
 import { mapRowToExternalFormat } from './helpers'
 import TableBase, { TableBaseProps } from './components/TableBase'
 import './Table.scss'
+import { TableColumnDef } from '.'
 import TableWithVirtualRows from './components/TableWithVirtualRows'
 
 export interface TableProps extends TableBaseProps {
   /** Массив с данными для построения шапки таблицы */
-  columns?: Array<ColumnDef<any, any>>
+  columns?: Array<TableColumnDef<any>>
   /** Массив с данными для построения тела таблицы */
   rows?: Array<TableRowData<any>>
   /** Скругление границ таблицы */
@@ -211,11 +211,11 @@ const Table = ({
             )
           }
         },
-        ...columns
-      ] as Array<ColumnDef<any>>
+        ...columns.filter((column) => !column.isHidden)
+      ] as Array<TableColumnDef<any>>
     }
 
-    return columns
+    return columns.filter((column) => !column.isHidden)
   }, [columns, withRowSelection])
 
   const table = useReactTable({

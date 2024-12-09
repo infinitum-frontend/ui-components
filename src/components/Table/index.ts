@@ -3,11 +3,11 @@ import {
   createColumnHelper,
   createColumn,
   createCell,
-  SortingState,
-  ColumnDef
+  SortingState
 } from '@tanstack/react-table'
 import Table from './Table'
 import { OnChangeFn } from 'Utils/types'
+import { TableColumnDef } from './types'
 
 // TODO: стандартизировать список экспортов. Добавить нужные при необходимости
 export * from './types'
@@ -21,5 +21,5 @@ export type {
   OnChangeFn,
   CellContext as TableCellContext,
   SortingState as TableSortingState,
-  ColumnDef as TableColumnDef
+  TableColumnDef
 }
