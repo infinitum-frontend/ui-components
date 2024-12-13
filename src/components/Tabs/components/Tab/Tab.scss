@@ -9,6 +9,7 @@
   position: relative;
   color: var(--inf-color-text-secondary);
   transition: color 0.2s;
+  white-space: nowrap;
 
   @include hover {
     color: var(--inf-color-text-primary);
