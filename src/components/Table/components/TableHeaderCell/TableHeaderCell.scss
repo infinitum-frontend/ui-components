@@ -36,7 +36,11 @@
 
   &__content {
     display: flex;
-    align-items: center;
+  }
+
+  &__text {
+    overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellepsis;
   }
 }

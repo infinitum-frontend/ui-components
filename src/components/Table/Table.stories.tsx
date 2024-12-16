@@ -21,22 +21,25 @@ const meta: Meta<typeof Table> = {
 
 const columns: Array<ColumnDef<Portfolio, any>> = [
   {
-    header: 'Портфель',
+    header: 'Очень длинное название название название название Портфель',
     id: 'portfolio',
     accessorKey: 'portfolio',
     meta: {
       filterType: 'search'
     },
+    size: 300,
     enableSorting: true
   },
   {
     header: 'Показатель',
     id: 'mark',
+    size: 100,
     accessorKey: 'mark'
   },
   {
     header: 'Тип',
     id: 'type',
+    size: 100,
     accessorKey: 'type',
     meta: {
       filterType: 'select',
@@ -46,6 +49,7 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Статус',
     id: 'status',
+    size: 100,
     accessorKey: 'status',
     meta: {
       filterType: 'multiSelect',
@@ -66,6 +70,7 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     header: 'Дата',
     id: 'date',
     accessorKey: 'date',
+    size: 100,
     meta: {
       filterType: 'date'
     }
@@ -91,6 +96,7 @@ export const Selection: StoryObj<typeof Table> = {
     return (
       <Space>
         <Table
+          className="test-table"
           withRowSelection={true}
           onChangeRowSelection={handleChange}
           selectionState={selection}
@@ -245,7 +251,7 @@ export const Filtering: StoryObj<typeof Table> = {
       setSortedItems(result)
     }
     return (
-      <div>
+      <div style={{ maxWidth: '600px' }}>
         <Button
           style={{ marginBottom: '20px' }}
           onClick={() => {
@@ -385,6 +391,144 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
           columnVisibility={columnVisibility}
         />
       </Space>
+    )
+  }
+}
+
+const headerTextOverflowColumns = [
+  {
+    header: 'Ключ портфеля',
+    accessorKey: 'key',
+    meta: {
+      filterType: 'search'
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Название портфеля',
+    accessorKey: 'title',
+    meta: {
+      filterType: 'search'
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Вид СЦН',
+    accessorKey: 'fundPurposeType',
+    meta: {
+      filterType: 'select',
+      filterOptions: TYPE_FILTER_ITEMS
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Вид Портфеля',
+    id: 'portfolioType',
+    accessorKey: 'portfolioType',
+    meta: {
+      filterType: 'multiSelect',
+      filterOptions: [
+        {
+          value: '1',
+          label: 'Сформировано'
+        },
+        {
+          value: '2',
+          label: 'На согласовании'
+        }
+      ]
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Дата начала',
+    accessorKey: 'startDate',
+    enableSorting: true
+  },
+  {
+    header: 'Дата окончания',
+    accessorKey: 'endDate',
+    enableSorting: true
+  },
+  {
+    header: 'Опердень открыт',
+    accessorKey: 'openDate',
+    enableSorting: true
+  },
+  {
+    header: 'Запустите контрольную процедуру',
+    accessorKey: 'startProcedureDate',
+    enableSorting: true
+  },
+  {
+    header: 'Заполните результаты',
+    accessorKey: 'enterResultsDate',
+    enableSorting: true
+  },
+  {
+    header: 'Отправьте уведомления',
+    accessorKey: 'notificationDate',
+    enableSorting: true
+  }
+]
+
+const portfolios = Array.from({ length: 15 }, () => ({
+  key: Math.random().toString(36).substring(7), // случайная строка как ключ
+  title: `Portfolio ${Math.floor(Math.random() * 1000)}`, // случайное название
+  fundPurposeType: ['Investment', 'Savings', 'Pension'][
+    Math.floor(Math.random() * 3)
+  ], // случайный тип назначения фонда
+  portfolioType: ['Private', 'Corporate', 'Government'][
+    Math.floor(Math.random() * 3)
+  ], // случайный тип портфеля
+  startDate: getRandomDate(), // случайная дата начала
+  endDate: getRandomDate(), // случайная дата окончания
+  openDate: getRandomDate(), // случайная дата открытия
+  startProcedureDate: getRandomDate(), // случайная дата начала процедуры
+  enterResultsDate: getRandomDate(), // случайная дата ввода результатов
+  notificationDate: getRandomDate() // случайная дата уведомления
+}))
+
+function getRandomDate(): string {
+  const start = new Date(2020, 0, 1) // начальная дата
+  const end = new Date(2024, 11, 31) // конечная дата
+  const date = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  )
+  return date.toISOString().split('T')[0] // возвращаем строку даты в формате YYYY-MM-DD
+}
+
+export const HeaderTextOverflow: StoryObj<typeof Table> = {
+  render: (args) => {
+    const defaultSorting = [{ id: 'status', desc: false }]
+    const [sortedItems, setSortedItems] = useState(portfolios)
+    const [sorting, setSorting] = useState(defaultSorting)
+    const [filters, setFilters] = useState<TableColumnFiltersState>([])
+
+    const handleSortingChange = (state: SortingState): void => {
+      setSorting(state)
+      setSortedItems([...portfolios])
+    }
+
+    const handleFiltersChange = (state: TableColumnFiltersState): void => {
+      setFilters(state)
+      setSortedItems(portfolios)
+    }
+
+    return (
+      <div>
+        <Table
+          columns={headerTextOverflowColumns}
+          withFiltering
+          withFiltersTags
+          onFiltersChange={handleFiltersChange}
+          filtersState={filters}
+          withSorting
+          sortingState={sorting}
+          onSortingChange={handleSortingChange}
+          rows={sortedItems}
+        />
+      </div>
     )
   }
 }

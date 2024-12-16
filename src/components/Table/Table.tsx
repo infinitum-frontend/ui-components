@@ -46,7 +46,7 @@ import TableScrollContainer from './components/TableScrollContainer'
 const Table = ({
   columns = [],
   rows = [],
-  className,
+  className, // TODO: не работает
   withSorting,
   onSortingChange,
   sortingState = [],
@@ -224,10 +224,19 @@ const Table = ({
                   >
                     {header.isPlaceholder ? null : (
                       <>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        {/* TODO: перенести в TableHeaderCell */}
+                        <span
+                          style={{
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis'
+                          }}
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        </span>
                         {canSort(header.column) && (
                           <TableHeaderSort
                             active={
