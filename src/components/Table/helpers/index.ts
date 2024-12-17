@@ -47,9 +47,9 @@ export function getNextSorting(
   columnId: string
 ): [{ id: string; desc: boolean }] | [] {
   if (sortingState.length === 0 || sortingState[0].id !== columnId) {
-    return [{ id: columnId, desc: true }]
-  } else if (sortingState[0].id === columnId && sortingState[0].desc) {
     return [{ id: columnId, desc: false }]
+  } else if (sortingState[0].id === columnId && !sortingState[0].desc) {
+    return [{ id: columnId, desc: true }]
   } else {
     return []
   }

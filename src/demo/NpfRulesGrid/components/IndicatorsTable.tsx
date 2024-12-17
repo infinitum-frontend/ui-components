@@ -22,7 +22,7 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   {
     header: 'ID',
     accessorKey: 'id',
-    size: 75,
+    size: 90,
     meta: {
       filterType: 'search'
     },
@@ -71,7 +71,7 @@ const columns: Array<TableColumnDef<NpfRule, any>> = [
   },
   {
     header: 'Обязательное выполнение',
-    size: 200,
+    size: 300,
     enableSorting: true,
     cell: (context) => {
       const mandatorySettings =
@@ -167,6 +167,7 @@ const IndicatorsTable = ({
       maxHeight="calc(100vh - 200px)"
       stickyHeader
       emptyMessage={emptyMessage}
+      tableLayout="fixed"
     />
   )
 }
