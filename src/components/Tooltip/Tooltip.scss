@@ -3,10 +3,18 @@
 
   background-color: var(--inf-color-background-inverse);
   color: var(--inf-color-text-inverse);
-  font: var(--inf-font-body-1);
   border-radius: var(--inf-border-radius-small);
-  padding: var(--inf-space-xsmall) var(--inf-space-medium);
   z-index: var(--inf-z-index-tooltip);
+
+  &--size-medium {
+    padding: var(--inf-space-xsmall) var(--inf-space-medium);
+    font: var(--inf-font-body-1);
+  }
+
+  &--size-small {
+    padding: var(--inf-space-xxsmall) var(--inf-space-xsmall);
+    font: var(--inf-font-body-2);
+  }
 
   .inf-tooltip__arrow {
     background-color: var(--inf-color-background-inverse);

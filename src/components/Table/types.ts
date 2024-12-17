@@ -87,6 +87,11 @@ export interface TableProps extends TableBaseProps {
    * Отображение тегов для выбранных фильтров
    */
   withFiltersTags?: boolean
+  /**
+   * CSS Свойство table-layout
+   * Использовать fixed если ширины колонок определены
+   */
+  tableLayout?: 'fixed' | 'auto'
 }
 
 // ФИЛЬТРАЦИЯ

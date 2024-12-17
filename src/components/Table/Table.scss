@@ -4,8 +4,10 @@
   width: 100%;
   font-family: var(--inf-font-family-base);
   border-radius: var(--inf-border-radius-small);
-  overflow: hidden;
-  table-layout: fixed; // TODO: prop
+
+  &--layout-fixed {
+    table-layout: fixed;
+  }
 
   thead {
     th {
