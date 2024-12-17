@@ -521,6 +521,7 @@ export const HeaderTextOverflow: StoryObj<typeof Table> = {
           sortingState={sorting}
           onSortingChange={handleSortingChange}
           rows={sortedItems}
+          tableLayout="fixed"
         />
       </div>
     )
