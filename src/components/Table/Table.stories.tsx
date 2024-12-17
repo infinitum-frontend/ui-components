@@ -21,25 +21,22 @@ const meta: Meta<typeof Table> = {
 
 const columns: Array<ColumnDef<Portfolio, any>> = [
   {
-    header: 'Очень длинное название название название название Портфель',
+    header: 'Портфель',
     id: 'portfolio',
     accessorKey: 'portfolio',
     meta: {
       filterType: 'search'
     },
-    size: 300,
     enableSorting: true
   },
   {
     header: 'Показатель',
     id: 'mark',
-    size: 100,
     accessorKey: 'mark'
   },
   {
     header: 'Тип',
     id: 'type',
-    size: 100,
     accessorKey: 'type',
     meta: {
       filterType: 'select',
@@ -49,7 +46,6 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
   {
     header: 'Статус',
     id: 'status',
-    size: 100,
     accessorKey: 'status',
     meta: {
       filterType: 'multiSelect',
@@ -70,7 +66,6 @@ const columns: Array<ColumnDef<Portfolio, any>> = [
     header: 'Дата',
     id: 'date',
     accessorKey: 'date',
-    size: 100,
     meta: {
       filterType: 'date'
     }
@@ -96,7 +91,6 @@ export const Selection: StoryObj<typeof Table> = {
     return (
       <Space>
         <Table
-          className="test-table"
           withRowSelection={true}
           onChangeRowSelection={handleChange}
           selectionState={selection}
@@ -251,7 +245,7 @@ export const Filtering: StoryObj<typeof Table> = {
       setSortedItems(result)
     }
     return (
-      <div style={{ maxWidth: '600px' }}>
+      <div>
         <Button
           style={{ marginBottom: '20px' }}
           onClick={() => {
