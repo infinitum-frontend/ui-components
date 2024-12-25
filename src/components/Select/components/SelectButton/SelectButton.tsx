@@ -16,6 +16,8 @@ export interface SelectButtonProps extends ComponentPropsWithoutRef<'button'> {
   loading?: boolean
   selected?: boolean
   focused?: boolean
+  /** Нужно ли применять стили плейсхолдера */
+  isPlaceholder?: boolean // TODO: придумать решение лучше
 }
 
 const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
@@ -28,6 +30,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       loading,
       className,
       children,
+      isPlaceholder,
       ...props
     },
     ref
@@ -45,7 +48,8 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
             [TextFieldClasses.focused]: focused && !disabled,
             [TextFieldClasses.filled]: selected,
             [TextFieldClasses.disabled]: disabled,
-            'inf-select-button--loading': loading
+            'inf-select-button--loading': loading,
+            'inf-select-button--placeholder': isPlaceholder
           },
           className
         )}

@@ -243,6 +243,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           title={typeof displayValue === 'string' ? displayValue : ''}
+          isPlaceholder={displayValue === placeholder}
           className={cn(className, 'inf-select')}
           {...getReferenceProps({
             onKeyDown: handleKeyDown,

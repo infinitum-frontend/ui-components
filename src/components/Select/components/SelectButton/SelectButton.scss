@@ -39,4 +39,8 @@
     pointer-events: none;
     cursor: default;
   }
+
+  &--placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
 }

@@ -4,92 +4,56 @@
   font-size: 14px;
   line-height: 18px;
 
-  &--direction-vertical {
-    &:not(:last-child) {
-      padding-bottom: 24px;
+  --variantColor: transparent;
 
-      &::after {
-        position: absolute;
-        content: " ";
-        display: block;
-        background-color: #B8D1D9;
-        width: 4px;
-        height: calc(100% - 12px);
-        top: 12px;
-        left: 7px;
-        transform: translateX(-50%);
-      }
+  &--variant-success {
+    --variantColor: var(--inf-color-icon-success);
+  }
+
+  &--variant-secondary {
+    --variantColor: var(--inf-color-icon-primary-disabled);
+  }
+
+  &--direction-vertical {
+    &:not(:first-child) {
+      padding-bottom: 24px;
     }
 
-    &.inf-step--clipped {
-      padding-bottom: 24px;
-
-      &::after {
+    &:not(:last-child) {
+      &::before {
         position: absolute;
-        content: " ";
+        content: ' ';
         display: block;
-        background: linear-gradient(180deg, #B8D1D9 0%, rgba(184, 209, 217, 0) 104.76%);
+        background-color: var(--variantColor);
         width: 4px;
-        height: calc(100% - 12px);
-        top: 12px;
-        left: 7px;
+        height: calc(var(--nextItemHeight) - 16px);
+        bottom: var(--itemHeight);
+        left: 8px;
         transform: translateX(-50%);
       }
     }
   }
 
-
   &--direction-horizontal {
     display: block;
-    &:not(:last-child) {
+    &:not(:first-child) {
       padding-right: 24px;
 
-      &::after {
+      &::before {
         position: absolute;
-        content: " ";
+        content: ' ';
         display: block;
-        background-color: #B8D1D9;
+        background-color: var(--variantColor);
         width: calc(100% - 12px);
         height: 4px;
-        top: 7px;
+        top: 8px;
         right: 0;
         transform: translateY(-50%);
-      }
-
-    }
-
-    &.inf-step--clipped {
-      padding-right: 24px;
-
-      &::after {
-        position: absolute;
-        content: " ";
-        display: block;
-        background: linear-gradient(180deg, #B8D1D9 0%, rgba(184, 209, 217, 0) 104.76%);
-        width: 4px;
-        height: calc(100% - 12px);
-        top: 12px;
-        left: 7px;
-        transform: translateX(-50%);
       }
     }
 
     .inf-step__indicator {
       margin: 0 0 6px 0;
-    }
-  }
-
-  &__indicator {
-    display: inline-flex;
-    margin-right: 6px;
-    position: relative;
-    width: 14px;
-    height: 14px;
-
-    svg {
-      color: #B8D1D9;
-      border-radius: 50%;
-      position: relative;
     }
   }
 }
