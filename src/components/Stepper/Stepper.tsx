@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import StepperItem, { StepperItemProps } from './components/StepperItem'
 import cn from 'classnames'
 import './Stepper.scss'
@@ -18,7 +18,7 @@ const Stepper = ({
   const [items, setItems] = useState<HTMLCollection>()
   const ref = useRef<HTMLDivElement>(null)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (ref.current) {
       setItems(ref.current?.children)
     }
