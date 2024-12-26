@@ -22,7 +22,7 @@ const Stepper = ({
     if (ref.current) {
       setItems(ref.current?.children)
     }
-  }, [steps])
+  }, [steps, ref.current])
 
   return (
     <div
