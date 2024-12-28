@@ -1,3 +1,5 @@
+import './styles/global.scss'
+
 export * from 'Components/Autocomplete'
 export * from 'Components/Badge'
 export * from 'Components/Box'
