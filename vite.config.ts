@@ -35,8 +35,8 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: [
-        resolve(__dirname, 'src/index.ts'),
-        resolve(__dirname, 'src/styles/global.scss')
+        resolve(__dirname, 'src/styles/global.scss'),
+        resolve(__dirname, 'src/index.ts')
       ],
       name: 'ui-components',
       formats: ['es', 'cjs'],
