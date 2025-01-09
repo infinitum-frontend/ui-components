@@ -81,3 +81,11 @@ export const Loading = {
     loading: true
   }
 }
+
+export const WithClearButton = {
+  render: Template,
+
+  args: {
+    allowClear: true
+  }
+}

@@ -145,3 +145,10 @@ export const Required: StoryObj<typeof Autocomplete> = {
     )
   }
 }
+
+export const WithClearButton = {
+  render: Template,
+  args: {
+    allowClear: true
+  }
+}

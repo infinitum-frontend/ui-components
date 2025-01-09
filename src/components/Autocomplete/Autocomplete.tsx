@@ -52,6 +52,10 @@ export interface AutocompleteProps
   onOpenChange?: (value: boolean) => void
   /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
+  /** Кнопка для сброса выбранного варианта */
+  allowClear?: boolean
+  /** Событие сброса выбранного варианта */
+  onClear?: () => void
 }
 
 // const getIndexByValue = (value: IAutocompleteOption['value'], options: Array<IAutocompleteOption['value']>): number => {
@@ -69,6 +73,8 @@ const Autocomplete = ({
   selectedValue,
   filterFn,
   onOpenChange,
+  allowClear,
+  onClear,
   children,
   className,
   maxHeight,
@@ -111,6 +117,13 @@ const Autocomplete = ({
         return option.label.toLowerCase().match(value.toLowerCase())
       })
     )
+  }
+
+  const handleClear = (): void => {
+    resetControlValidity()
+    onChange?.('')
+    setOpen(false)
+    resetControlValidity()
   }
 
   const handleInputSubmit = (): void => {
@@ -205,6 +218,8 @@ const Autocomplete = ({
             disabled={disabled}
             onClick={handleButtonClick}
             placeholder={buttonPlaceholder}
+            allowClear={selectedValue !== undefined && allowClear}
+            onClear={handleClear}
           >
             {options?.find((option) => option.value === selectedValue)?.label}
           </AutocompleteButton>
