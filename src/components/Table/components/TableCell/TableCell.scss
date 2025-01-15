@@ -11,4 +11,20 @@
   &:last-child {
     border-right: 1px solid var(--inf-color-border-primary);
   }
+
+  &--visible-on-hover {
+    > * {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}
+
+.inf-table-row:hover {
+  .inf-table-cell--visible-on-hover {
+    > * {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
