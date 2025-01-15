@@ -169,9 +169,10 @@ export type TableFiltersOptions = Array<
 declare module '@tanstack/table-core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterType: 'search' | 'select' | 'date' | 'multiSelect'
+    filterType?: 'search' | 'select' | 'date' | 'multiSelect'
     filterOptions?: TableFiltersOptions
     filterPopoverWidth?: CSSProperties['width']
+    visibleOnRowHover?: boolean
   }
 
   // interface FilterFns {

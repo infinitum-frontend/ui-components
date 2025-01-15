@@ -80,7 +80,10 @@ const TableBodyContent = ({
             onClick={(e) => handleRowClick(e, row)}
           >
             {row.getVisibleCells().map((cell) => (
-              <TableCell key={cell.id}>
+              <TableCell
+                key={cell.id}
+                visibleOnHover={cell.column.columnDef.meta?.visibleOnRowHover}
+              >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>
             ))}
@@ -123,7 +126,10 @@ const TableBodyContent = ({
             onClick={(e) => handleRowClick(e, row)}
           >
             {row.getVisibleCells().map((cell) => (
-              <TableCell key={cell.id}>
+              <TableCell
+                key={cell.id}
+                visibleOnHover={cell.column.columnDef.meta?.visibleOnRowHover}
+              >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>
             ))}

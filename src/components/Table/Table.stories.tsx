@@ -388,3 +388,34 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
     )
   }
 }
+
+const columnsWithAction = [
+  ...columns,
+  {
+    id: 'actionButton',
+    cell: () => (
+      <Button variant="secondary" size="small">
+        Action
+      </Button>
+    ),
+    meta: {
+      visibleOnRowHover: true
+    }
+  }
+]
+
+export const CellVisibleOnRowHover: StoryObj<typeof Table> = {
+  render: (args) => {
+    return (
+      <Space>
+        <Text>
+          Содержимое колонки с кнопкой отображается только при наведении мыши на
+          ряд таблицы. Нужно в конфиг колонки добавить meta.visibleOnRowHover =
+          true
+        </Text>
+
+        <Table columns={columnsWithAction} rows={TABLE_DATA} />
+      </Space>
+    )
+  }
+}
