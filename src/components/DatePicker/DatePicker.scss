@@ -22,5 +22,10 @@
     color: var(--inf-color-icon-primary);
     width: 20px;
     height: 20px;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--inf-color-icon-primary-hover);
+    }
   }
 }
