@@ -60,7 +60,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       offset: offsetProp = 8,
       onOpenChange: setControlledOpen,
       width,
-      hasArrow,
+      hasArrow = true,
       size = 'medium',
       ...props
     },

@@ -91,10 +91,7 @@ const TableHeaderCell = ({
             {children}
           </div>
         </Tooltip>
-        <div
-          className="inf-table-header-cell__buttons"
-          // onMouseEnter={handleHideTooltip}
-        >
+        <div className="inf-table-header-cell__buttons">
           {slotSortButton}
           {slotFilterButton}
         </div>

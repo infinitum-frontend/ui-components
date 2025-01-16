@@ -65,6 +65,7 @@ const Table = ({
   estimateRowHeight = 100,
   emptyMessage,
   withFiltersTags,
+  withCollapsibleHeaderCellActions,
   ...props
 }: TableProps): ReactElement => {
   // ==================== Простая таблица ====================
@@ -203,9 +204,17 @@ const Table = ({
     >
       {({ virtualizer }) => (
         <table
-          className={cn('inf-table', className, {
-            [`inf-table--layout-${tableLayout as string}`]: tableLayout
-          })}
+          className={cn(
+            'inf-table',
+            className,
+            {
+              [`inf-table--layout-${tableLayout as string}`]: tableLayout
+            },
+            {
+              'inf-table--collapsible-header-cell-actions':
+                withCollapsibleHeaderCellActions
+            }
+          )}
           {...props}
         >
           {/* HEADER */}

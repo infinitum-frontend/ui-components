@@ -9,7 +9,6 @@
 
   &:not(.inf-table-header-cell-button--active) {
     visibility: hidden;
-    width: 0px;
   }
 
   // увеличиваем область клика
@@ -40,5 +39,12 @@
     width: 20px;
     height: 20px;
     color: currentColor;
+  }
+}
+
+// TODO: нужно другое решение получше
+.inf-table--collapsible-header-cell-actions {
+  .inf-table-header-cell-button:not(.inf-table-header-cell-button--active) {
+    width: 0px;
   }
 }
