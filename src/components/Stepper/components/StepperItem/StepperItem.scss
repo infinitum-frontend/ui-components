@@ -11,6 +11,7 @@
   }
 
   &--variant-secondary {
+    // TODO: эта переменная здесь не подходит по семантике, так как нет состояния disabled
     --variantColor: var(--inf-color-icon-primary-disabled);
   }
 
