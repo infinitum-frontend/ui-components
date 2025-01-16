@@ -46,9 +46,6 @@ const MenuItem = <C extends ElementType = 'li'>({
   const context = useMenuContext()
 
   const handleClick: MouseEventHandler = (e) => {
-    if (collapsible) {
-      setCollapsed((prev) => !prev)
-    }
     onClick?.(e)
   }
 
@@ -80,13 +77,19 @@ const MenuItem = <C extends ElementType = 'li'>({
         })}
         onClick={handleClick}
       >
-        <span
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            if (collapsible) {
+              setCollapsed((prev) => !prev)
+            }
+          }}
           className={cn('inf-menu-item__collapse-icon', {
             'inf-menu-item__collapse-icon--rotate': !collapsed
           })}
         >
           <TriangleIcon />
-        </span>
+        </button>
         {children}
       </Component>
 
