@@ -2,6 +2,7 @@ import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { Menu, MenuProps } from 'Components/Menu'
 import cn from 'classnames'
 import { useAutocompleteContext } from 'Components/Autocomplete/context'
+import './AutocompleteOptions.scss'
 
 export type AutocompleteOptionsProps = MenuProps &
   ComponentPropsWithoutRef<'div'>
