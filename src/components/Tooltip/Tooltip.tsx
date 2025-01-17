@@ -57,7 +57,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       placement = 'top',
       defaultOpen = false,
       open: controlledOpen,
-      offset: offsetProp = 8,
+      offset: offsetProp = 10,
       onOpenChange: setControlledOpen,
       width,
       hasArrow = true,
@@ -101,7 +101,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     const hover = useHover(context, {
       delay: {
-        open: 200,
+        open: 300,
         close: 0
       },
       move: false,
