@@ -205,12 +205,26 @@ export const WithClearButton = {
           </Text>
           <Form.Group>
             <Form.Label>Controlled</Form.Label>
-            <Input value={val} onChange={setVal} allowClear />
+            <Input
+              value={val}
+              onChange={(value, e) => {
+                console.log(value, e)
+                setVal(value)
+              }}
+              allowClear
+            />
             Значение: {val}
           </Form.Group>
           <Form.Group>
             <Form.Label>Uncontrolled с defaultValue</Form.Label>
-            <Input defaultValue="Инфинитум" allowClear />
+            <Input
+              defaultValue="Инфинитум"
+              allowClear
+              onChange={(value, e) => {
+                console.log(value, e)
+                setVal(value)
+              }}
+            />
           </Form.Group>
         </Space>
       </>

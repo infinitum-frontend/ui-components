@@ -21,6 +21,7 @@ import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 import { useControlledState } from '~/src/hooks/useControlledState'
+import { setInputValue } from 'Utils/helpers'
 
 /** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -128,22 +129,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
     }
 
-    const handleClear: MouseEventHandler<HTMLSpanElement> = (e) => {
+    const handleClear: MouseEventHandler<HTMLButtonElement> = (e) => {
       const inputEl = inputRef.current
 
       if (!inputEl) {
         return
       }
 
-      inputEl.value = ''
-      inputEl.focus() // TODO: можно реализовать через prevent blur на кнопке очистки
-
-      const syntheticEvent = Object.create(e)
-      syntheticEvent.target = inputEl
-      syntheticEvent.currentTarget = inputEl
-
-      handleChange(syntheticEvent)
-      onClear?.()
+      setInputValue(inputEl, '')
     }
 
     const getFormattedValue: (val?: string) => string | undefined = (val) => {

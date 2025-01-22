@@ -27,3 +27,35 @@ export function checkIsValueExists(value?: any): boolean {
     return Boolean(value)
   }
 }
+
+export const setInputValue = (
+  inputElement:
+    | HTMLInputElement
+    | HTMLTextAreaElement
+    | HTMLSelectElement
+    | null
+    | undefined,
+  value: string
+): void => {
+  if (!inputElement) {
+    return
+  }
+
+  const valueSetter = Object?.getOwnPropertyDescriptor(
+    inputElement,
+    'value'
+  )?.set
+  const prototype = Object.getPrototypeOf(inputElement)
+
+  const prototypeValueSetter = Object.getOwnPropertyDescriptor(
+    prototype,
+    'value'
+  )?.set
+
+  if (prototypeValueSetter && valueSetter !== prototypeValueSetter) {
+    prototypeValueSetter.call(inputElement, value)
+  } else {
+    valueSetter?.call(inputElement, value)
+  }
+  inputElement.dispatchEvent(new Event('input', { bubbles: true }))
+}
