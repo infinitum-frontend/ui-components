@@ -1,5 +1,9 @@
 @import '../../../Select/components/SelectButton/SelectButton.scss';
 .inf-autocomplete-button {
+  display: flex;
+  align-items: center;
+  gap: var(--inf-space-xsmall);
+
   input {
     opacity: 0;
     outline: none;
