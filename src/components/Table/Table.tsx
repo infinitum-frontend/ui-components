@@ -41,7 +41,7 @@ import './Table.scss'
 const Table = ({
   columns = [],
   rows = [],
-  className, // TODO: не работает
+  className,
   withSorting,
   onSortingChange,
   sortingState = [],
