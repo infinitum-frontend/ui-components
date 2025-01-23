@@ -3,6 +3,7 @@ import React, {
   ComponentPropsWithoutRef,
   FocusEventHandler,
   ReactElement,
+  ReactNode,
   RefObject,
   useContext,
   useEffect,
@@ -20,14 +21,16 @@ export interface AutocompleteButtonProps
   /** Плейсхолдер, отображаемый в случае, когда не передан слот */
   placeholder?: string
   forwardedInputRef?: RefObject<HTMLInputElement>
+  before?: ReactNode
 }
 
 /** Компонент кнопки-триггера для вызова выпадающего списка */
 const AutocompleteButton = ({
-  placeholder = 'Не указано',
+  placeholder = '',
   disabled,
   className,
   children,
+  before,
   forwardedInputRef,
   ...props
 }: AutocompleteButtonProps): ReactElement => {
@@ -78,6 +81,7 @@ const AutocompleteButton = ({
       {...context?.getReferenceProps()}
       {...props}
     >
+      {before}
       {children || placeholder}
       <input
         ref={forwardedInputRef}

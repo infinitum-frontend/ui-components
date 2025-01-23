@@ -4,12 +4,13 @@
     gap: var(--inf-space-xxsmall);
     align-items: center;
     justify-content: center;
-    border-radius: var(--inf-border-radius-small);
+    border-radius: var(--inf-border-radius-xsmall);
     background-color: var(--inf-color-background-inverse);
     padding: 0 4px 0 8px;
     height: 24px;
     min-width: 24px;
     width: max-content;
+    line-height: 23px;
   }
 
   &__counter-remove-icon {

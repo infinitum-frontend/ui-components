@@ -87,9 +87,10 @@ const Combobox = ({
       disabled={disabled}
       selectedValue={checkedList[0]}
     >
-      <Autocomplete.Button placeholder={placeholder}>
-        {checkedCount > 0 ? (
-          <Space direction="horizontal" align="center">
+      <Autocomplete.Button
+        placeholder={placeholder}
+        before={
+          checkedCount > 0 && (
             <Text color="inverse" className="inf-combobox__counter">
               {checkedCount}
               <CrossIcon
@@ -100,11 +101,10 @@ const Combobox = ({
                 }}
               />
             </Text>
-            {displayValue && <Text variant="body-1">{displayValue}</Text>}
-          </Space>
-        ) : (
-          ''
-        )}
+          )
+        }
+      >
+        {displayValue && <Text variant="body-1">{displayValue}</Text>}
       </Autocomplete.Button>
 
       {showTags && Boolean(checkedOptions.length) && (
