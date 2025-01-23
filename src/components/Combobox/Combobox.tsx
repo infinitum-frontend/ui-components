@@ -136,7 +136,7 @@ const Combobox = ({
             setFilteredOptions(filterFn(options, ''))
           }}
         />
-        <Menu maxHeight={maxHeight}>
+        <Menu className="inf-combobox__menu" maxHeight={maxHeight}>
           {filteredOptions.map((option) => (
             <Menu.Item as="label" key={option.value}>
               <Menu.Item.Icon>

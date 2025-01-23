@@ -28,19 +28,14 @@ import TableHeaderSort from './components/TableHeaderSort'
 import TableHeaderCell from './components/TableHeaderCell'
 import TableHeaderRow from './components/TableHeaderRow'
 import TableHeader from './components/TableHeader'
-import TableRow from './components/TableRow'
-import TableCell from './components/TableCell'
-import TableEmpty from './components/TableEmpty'
 import TableBody from './components/TableBody'
-import { Checkbox } from 'Components/Checkbox'
-
-import cn from 'classnames'
-
-import './Table.scss'
-import TableFilterPopover from './components/TableFilterPopover'
 import TableFilterTags from './components/TableFilterTags'
 import TableBodyContent from './components/TableBodyContent'
 import TableScrollContainer from './components/TableScrollContainer'
+import { Checkbox } from 'Components/Checkbox'
+import cn from 'classnames'
+
+import './Table.scss'
 
 /** Компонент многофункциональной таблицы */
 const Table = ({
@@ -60,6 +55,7 @@ const Table = ({
   onRowClick,
   resizeMode,
   columnVisibility = {},
+  tableLayout,
   // enableGrouping = false,
   children,
   virtualized,
@@ -69,6 +65,7 @@ const Table = ({
   estimateRowHeight = 100,
   emptyMessage,
   withFiltersTags,
+  withCollapsibleHeaderCellActions,
   ...props
 }: TableProps): ReactElement => {
   // ==================== Простая таблица ====================
@@ -206,7 +203,20 @@ const Table = ({
       enabled={virtualized}
     >
       {({ virtualizer }) => (
-        <table className={cn('inf-table', className)} {...props}>
+        <table
+          className={cn(
+            'inf-table',
+            className,
+            {
+              [`inf-table--layout-${tableLayout as string}`]: tableLayout
+            },
+            {
+              'inf-table--collapsible-header-cell-actions':
+                withCollapsibleHeaderCellActions
+            }
+          )}
+          {...props}
+        >
           {/* HEADER */}
           <TableHeader sticky={stickyHeader}>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -221,30 +231,36 @@ const Table = ({
                       width: header.getSize()
                     }}
                     onClick={() => handleSortingChange(header.column)}
+                    slotSortButton={
+                      canSort(header.column) ? (
+                        <TableHeaderSort
+                          active={
+                            sortingState.length !== 0 &&
+                            header.column.id === sortingState[0].id
+                          }
+                          desc={sortingState[0]?.desc}
+                        />
+                      ) : (
+                        <></>
+                      )
+                    }
+                    slotFilterButton={
+                      canFilter(header.column) && (
+                        <TableHeaderFilter
+                          column={header.column}
+                          filterState={filtersState.find(
+                            (filter) => filter.id === header.column.id
+                          )}
+                          onChange={handleFilterChange}
+                        />
+                      )
+                    }
                   >
                     {header.isPlaceholder ? null : (
                       <>
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext()
-                        )}
-                        {canSort(header.column) && (
-                          <TableHeaderSort
-                            active={
-                              sortingState.length !== 0 &&
-                              header.column.id === sortingState[0].id
-                            }
-                            desc={sortingState[0]?.desc}
-                          />
-                        )}
-                        {canFilter(header.column) && (
-                          <TableHeaderFilter
-                            column={header.column}
-                            filterState={filtersState.find(
-                              (filter) => filter.id === header.column.id
-                            )}
-                            onChange={handleFilterChange}
-                          />
                         )}
                       </>
                     )}
@@ -281,18 +297,7 @@ const Table = ({
   )
 }
 
-export default Object.assign(Table, {
-  Header: TableHeader,
-  HeaderCell: TableHeaderCell,
-  HeaderRow: TableHeaderRow,
-  HeaderSort: TableHeaderSort,
-  FilterPopover: TableFilterPopover,
-  Body: TableBody,
-  Row: TableRow,
-  Cell: TableCell,
-  Empty: TableEmpty,
-  FilterTags: TableFilterTags
-})
+export default Table
 
 // TODO:
 // TableHeader => TableHead - его экспортировать как UI, а TableHeader оставить для обработки логики внутри

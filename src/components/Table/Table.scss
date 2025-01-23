@@ -5,6 +5,10 @@
   font-family: var(--inf-font-family-base);
   border-radius: var(--inf-border-radius-small);
 
+  &--layout-fixed {
+    table-layout: fixed;
+  }
+
   thead {
     th {
       &:hover .inf-table-header__resizer {

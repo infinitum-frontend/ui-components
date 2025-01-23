@@ -37,6 +37,32 @@
   &__content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  &__heading {
+    overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__heading-tooltip {
+    position: absolute;
+    left: 0;
+    top: 36px;
+    background-color: var(--inf-color-background-inverse);
+    color: var(--inf-color-text-inverse);
+    font: var(--inf-font-body-1);
+    border-radius: var(--inf-border-radius-small);
+    padding: var(--inf-space-xsmall) var(--inf-space-medium);
+    z-index: var(--inf-z-index-tooltip);
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: var(--inf-space-xxsmall);
+    margin-left: var(--inf-space-xxsmall);
   }
 }

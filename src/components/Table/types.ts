@@ -87,6 +87,14 @@ export interface TableProps extends TableBaseProps {
    * Отображение тегов для выбранных фильтров
    */
   withFiltersTags?: boolean
+  /**
+   * CSS Свойство table-layout
+   */
+  tableLayout?: 'fixed' | 'auto'
+  /**
+   * Экспериментальное свойство
+   */
+  withCollapsibleHeaderCellActions?: true // TODO: вместо этого надо задавать minWidth / width / maxWidth в columnDef и прокидывать стили на th или вложенный div
 }
 
 // ФИЛЬТРАЦИЯ

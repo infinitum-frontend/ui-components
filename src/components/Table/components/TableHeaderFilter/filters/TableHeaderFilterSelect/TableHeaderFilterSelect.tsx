@@ -47,7 +47,7 @@ const TableHeaderFilterSelect = ({
 
   return (
     <div className="inf-table-header-filter-select">
-      <Menu maxHeight={340}>
+      <Menu className="inf-table-header-filter-select__menu" maxHeight={340}>
         {options?.map((option) => {
           // сгруппированные опции
           if ('options' in option) {
