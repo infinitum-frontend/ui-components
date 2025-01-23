@@ -16,8 +16,19 @@
     height: 24px;
   }
 
+  &--hoverable {
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
   &--color-primary {
     color: var(--inf-color-icon-primary);
+
+    &.inf-icon--hoverable {
+      @include hover {
+        color: var(--inf-color-icon-primary-hover);
+      }
+    }
   }
 
   &--color-primary-hover {

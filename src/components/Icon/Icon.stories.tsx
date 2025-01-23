@@ -136,3 +136,17 @@ export const WithTooltip: StoryObj<typeof Icon> = {
     )
   }
 }
+
+export const PrimaryHoverable: StoryObj<typeof Icon> = {
+  render: (args) => {
+    return (
+      <Icon {...args}>
+        <IconUser width="80px" height="80px" />
+      </Icon>
+    )
+  },
+  args: {
+    color: 'primary',
+    hoverable: true
+  }
+}
