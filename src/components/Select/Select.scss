@@ -2,7 +2,7 @@
   &__items {
     border-radius: var(--inf-border-radius-small);
     border: 1px solid var(--inf-color-border-primary);
-    background-color: var(--inf-color-background-elevated);
+    background-color: var(--inf-color-background-float);
     width: 100%;
     list-style-type: none;
     z-index: var(--inf-z-index-dropdown);
@@ -43,7 +43,7 @@
     overflow-x: hidden;
 
     &--active {
-      background-color: var(--inf-color-background-primary-hover);
+      background-color: var(--inf-color-background-float-hover);
     }
 
     &:first-child {
