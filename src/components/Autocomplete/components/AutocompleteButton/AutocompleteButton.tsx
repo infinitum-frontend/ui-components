@@ -26,7 +26,7 @@ export interface AutocompleteButtonProps
 
 /** Компонент кнопки-триггера для вызова выпадающего списка */
 const AutocompleteButton = ({
-  placeholder = 'Не указано',
+  placeholder = '',
   disabled,
   className,
   children,

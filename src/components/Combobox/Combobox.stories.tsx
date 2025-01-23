@@ -56,6 +56,32 @@ export const Playground = {
   }
 }
 
+export const WithPlaceholder = {
+  render: Template,
+  args: {
+    options,
+    placeholder: 'Город'
+  }
+}
+
+export const WithDisplayValue = {
+  render: Template,
+  args: {
+    options,
+    showTags: true,
+    placeholder: 'Выберите город',
+    displayValue: 'Город'
+  }
+}
+
+export const WithTags = {
+  render: Template,
+  args: {
+    options,
+    showTags: true
+  }
+}
+
 export const Scrollable = {
   render: Template,
   args: {
