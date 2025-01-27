@@ -17,12 +17,12 @@
   }
 
   &--variant-default {
-    background-color: var(--inf-color-background-elevated);
+    background-color: var(--inf-color-background-float);
     color: var(--inf-color-text-primary);
     border: 1px solid var(--inf-color-border-primary);
 
     .inf-popover-content__arrow {
-      background-color: var(--inf-color-background-elevated);
+      background-color: var(--inf-color-background-float);
 
       &--direction-bottom {
         border-right: 1px solid var(--inf-color-border-primary);
