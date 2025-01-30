@@ -93,7 +93,13 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
     }
 
     return (
-      <label className={cn('inf-radio', className)} ref={ref} {...props}>
+      <label
+        className={cn('inf-radio', className, {
+          'inf-radio--disabled': disabled
+        })}
+        ref={ref}
+        {...props}
+      >
         <input
           type={'radio'}
           disabled={disabled}

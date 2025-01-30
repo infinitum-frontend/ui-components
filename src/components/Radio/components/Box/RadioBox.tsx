@@ -6,6 +6,7 @@ import React, {
 } from 'react'
 import { Box } from 'Components/Box'
 import cn from 'classnames'
+import './RadioBox.scss'
 
 export interface RadioBoxProps
   extends Omit<ComponentPropsWithoutRef<'label'>, 'color'> {}

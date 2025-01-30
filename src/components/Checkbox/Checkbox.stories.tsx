@@ -129,7 +129,7 @@ export const WithBox: StoryObj<typeof Checkbox> = {
       setChecked(val)
     }
     return (
-      <>
+      <div style={{ maxWidth: '500px' }}>
         <Checkbox.Group onChange={handleChange} value={checked}>
           <Checkbox.Box>
             <Checkbox value="1">
@@ -140,11 +140,14 @@ export const WithBox: StoryObj<typeof Checkbox> = {
             <Checkbox value="2">Облигации государственных компаний</Checkbox>
           </Checkbox.Box>
           <Checkbox.Box>
-            <Checkbox value="3">Облигации государственных корпораций</Checkbox>
+            <Checkbox value="3">
+              Облигации государственных компаний облигации государственных
+              компаний облигации государственных компаний
+            </Checkbox>
           </Checkbox.Box>
         </Checkbox.Group>
         <div style={{ marginTop: '12px' }}>Выбрано: [{checked}]</div>
-      </>
+      </div>
     )
   }
 }
