@@ -238,6 +238,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           disabled={disabled}
           loading={loading}
           selected={isValueExists}
+          opened={isOpened}
           focused={isFocused}
           status={status}
           onFocus={handleFocus}
