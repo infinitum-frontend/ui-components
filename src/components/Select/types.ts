@@ -1,23 +1,18 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react'
 
-type ArrayElementConstraints<T> = Record<string, T[keyof T]>
-
 export interface DefaultSelectOption {
   value: number | string
   label: string | ReactNode
 }
 
-type MappedObject<T extends ArrayElementConstraints<T>> = {
+type MappedObject<T> = {
   [Property in keyof T]: T[Property]
 }
 
-export type SelectOption<
-  T extends ArrayElementConstraints<T> = Record<string, any>
-> = DefaultSelectOption & MappedObject<T>
+export type SelectOption<T = Record<string, any>> = DefaultSelectOption &
+  MappedObject<T>
 
-export interface SelectDataFormatterOptions<
-  T extends ArrayElementConstraints<T>
-> {
+export interface SelectDataFormatterOptions<T extends Record<string, any>> {
   /**
    * Исходный массив, подлежащий форматированию
    */
@@ -26,15 +21,11 @@ export interface SelectDataFormatterOptions<
    * Строковое название ключа элемента исходного массива, на основании которого будет браться ключ для опции
    * Ключ должен являться уникальным значением
    */
-  value: string
+  value: keyof T
   /**
    * Строковое название ключа элемента исходного массива, на основании которого будет браться текст для отображения опции
    */
-  label: string
-  /**
-   * Нужно ли сохранять остальные поля исходного объекта
-   */
-  rest?: boolean
+  label: keyof T
 }
 
 export interface SelectProps

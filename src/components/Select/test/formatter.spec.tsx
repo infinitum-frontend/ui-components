@@ -20,15 +20,17 @@ describe('formatter', () => {
   })
 
   it('should support rest property', () => {
-    const result = selectDataFormatter({
-      array: SelectOptionsWithExtraKeys,
-      label: 'text',
-      value: 'id',
-      rest: true
-    })
+    const result = selectDataFormatter(
+      {
+        array: SelectOptionsWithExtraKeys,
+        label: 'text',
+        value: 'id'
+      },
+      true
+    )
 
     expect(Object.keys(result[0])).toHaveLength(
-      Object.keys(SelectOptionsWithExtraKeys[0]).length
+      Object.keys(SelectOptionsWithExtraKeys[0]).length + 2
     )
     expect(result[0]).toHaveProperty('subtext')
   })
