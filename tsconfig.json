@@ -27,7 +27,8 @@
       "Hooks/*": ["./src/hooks/*"],
       "Utils/*": ["./src/utils/*"],
       "Test/*": ["./test/*"]
-    }
+    },
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*.tsx", "src/**/*.ts", "definitions.d.ts"],
   "exclude": ["src/**/*.spec.tsx", "src/**/*.stories.tsx", "src/mpc/*"]
