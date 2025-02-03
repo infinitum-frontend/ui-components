@@ -6,7 +6,7 @@ import React, {
 } from 'react'
 import cn from 'classnames'
 import './SelectButton.scss'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import { Loader } from '~/src/components/Loader'
 

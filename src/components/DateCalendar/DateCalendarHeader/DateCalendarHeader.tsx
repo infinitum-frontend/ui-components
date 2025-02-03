@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import { Button } from '~/src'
-import { ReactComponent as IconArrowLeft } from 'Icons/arrow-left.svg'
+import IconArrowLeft from 'Icons/arrow-left.svg?react'
 import cn from 'classnames'
-import { ReactComponent as IconArrowRight } from 'Icons/arrow-right.svg'
+import IconArrowRight from 'Icons/arrow-right.svg?react'
 import './DateCalendarHeader.scss'
 import { capitalize } from 'Utils/helpers'
 

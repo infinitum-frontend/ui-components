@@ -10,8 +10,8 @@ import React, {
   useContext
 } from 'react'
 import './Checkbox.scss'
-import { ReactComponent as CheckIcon } from 'Icons/check.svg'
-import { ReactComponent as IndeterminateIcon } from 'Icons/indeterminate.svg'
+import CheckIcon from 'Icons/check.svg?react'
+import IndeterminateIcon from 'Icons/indeterminate.svg?react'
 import cn from 'classnames'
 import { useCheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup/context'
 import { CheckboxGroup } from 'Components/Checkbox/components/CheckboxGroup'

@@ -4,7 +4,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { DropdownMenu } from './index'
 import { Button } from 'Components/Button'
 import { Box } from 'Components/Box'
-import { ReactComponent as IconDots } from 'Icons/dots-vertical.svg'
+import IconDots from 'Icons/dots-vertical.svg?react'
 
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Overlay/DropdownMenu',

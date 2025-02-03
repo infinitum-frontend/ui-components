@@ -2,7 +2,7 @@
 import React from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Tag } from './index'
-import { ReactComponent as IconInfoCircle } from 'Icons/info-circle.svg'
+import IconInfoCircle from 'Icons/info-circle.svg?react'
 
 const meta: Meta<typeof Tag> = {
   title: 'Components/Tag',

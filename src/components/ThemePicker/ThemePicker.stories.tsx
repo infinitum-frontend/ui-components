@@ -12,7 +12,7 @@ import { Box } from '../Box'
 import { Label, LabelProps } from '../Label'
 import { InfinitumUIProvider } from '../InfinitumUIProvider'
 import { Table, TableColumnDef, TableSortingState } from '../Table'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+import SearchIcon from 'Icons/search.svg?react'
 import ThemePicker from './ThemePicker'
 
 const ComponentMeta: Meta = {
