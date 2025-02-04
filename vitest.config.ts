@@ -29,9 +29,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     css: true,
-    typecheck: {
-      tsconfig: 'tsconfig,test.json'
-    },
     setupFiles: './testSetup.tsx',
     include: ['**/*.spec.tsx'],
     coverage: {
