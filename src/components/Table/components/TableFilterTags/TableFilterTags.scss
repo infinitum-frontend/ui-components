@@ -1,0 +1,20 @@
+.inf-table-filter-tags {
+  .inf-table-filter-tags__cell {
+    background-color: var(--inf-color-background-primary);
+    padding: var(--inf-space-small);
+  }
+
+  &--sticky {
+    .inf-table-filter-tags__cell {
+      border-bottom: 1px solid var(--inf-color-border-primary);
+    }
+  }
+
+  &:not(.inf-table-filter-tags--sticky) {
+    .inf-table-filter-tags__cell {
+      border-left: 1px solid var(--inf-color-border-primary);
+      border-right: 1px solid var(--inf-color-border-primary);
+      border-top: 1px solid var(--inf-color-border-primary);
+    }
+  }
+}

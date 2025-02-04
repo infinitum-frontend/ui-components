@@ -79,10 +79,10 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     const prefix = useId()
 
-    const formGroupData = useContext(FormGroupContext)
-    const formData = useContext(FormContext)
+    const formGroupContext = useContext(FormGroupContext)
+    const formContext = useContext(FormContext)
     const { onControlInvalid, resetControlValidity } = useFormControlHandlers()
-    const disabled = disabledProp || formData?.disabled
+    const disabled = disabledProp || formContext?.disabled
 
     const displayRef = useRef<HTMLButtonElement>(null)
     const selectRef = useRef<HTMLSelectElement>(null)
@@ -211,8 +211,10 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const { getReferenceProps, getFloatingProps } = useInteractions([
       useDismiss(context, {
         outsidePress: (e) => {
-          if (formGroupData) {
-            return (e.target as HTMLLabelElement)?.htmlFor !== formGroupData?.id
+          if (formGroupContext) {
+            return (
+              (e.target as HTMLLabelElement)?.htmlFor !== formGroupContext?.id
+            )
           } else {
             return true
           }
@@ -241,6 +243,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           title={typeof displayValue === 'string' ? displayValue : ''}
+          isPlaceholder={displayValue === placeholder}
           className={cn(className, 'inf-select')}
           {...getReferenceProps({
             onKeyDown: handleKeyDown,
@@ -254,11 +257,13 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           {displayValue}
           <select
             ref={selectRef}
-            required={formGroupData?.required || required}
-            aria-required={formGroupData?.required || required || ariaRequired}
-            aria-invalid={formGroupData?.invalid || ariaInvalid}
+            required={formGroupContext?.required || required}
+            aria-required={
+              formGroupContext?.required || required || ariaRequired
+            }
+            aria-invalid={formGroupContext?.invalid || ariaInvalid}
             disabled={disabled || loading}
-            id={formGroupData?.id}
+            id={formGroupContext?.id}
             value={value}
             onInvalid={onControlInvalid}
             onChange={() => {}}

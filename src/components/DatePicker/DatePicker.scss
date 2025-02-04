@@ -6,6 +6,7 @@
     box-shadow: var(--inf-box-shadow-medium);
     z-index: var(--inf-z-index-dropdown);
     border-radius: var(--inf-border-radius-small);
+    padding: var(--inf-space-xsmall);
   }
 
   &__hidden-input {
@@ -21,5 +22,10 @@
     color: var(--inf-color-icon-primary);
     width: 20px;
     height: 20px;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--inf-color-icon-primary-hover);
+    }
   }
 }

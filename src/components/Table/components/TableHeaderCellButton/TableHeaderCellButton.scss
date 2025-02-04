@@ -1,0 +1,50 @@
+.inf-table-header-cell-button {
+  height: 20px;
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--inf-color-icon-primary);
+
+  &:not(.inf-table-header-cell-button--active) {
+    visibility: hidden;
+  }
+
+  // увеличиваем область клика
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -8px -2px;
+  }
+
+  @include hover {
+    &:not(.inf-table-header-cell-button--active) {
+      svg {
+        color: var(--inf-color-icon-primary-hover);
+      }
+    }
+  }
+
+  &--active {
+    color: var(--inf-color-icon-info);
+  }
+
+  &--rotated {
+    transform: rotate(180deg);
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+  }
+}
+
+// TODO: нужно другое решение получше
+.inf-table--collapsible-header-cell-actions {
+  .inf-table-header-cell-button:not(.inf-table-header-cell-button--active) {
+    width: 0px;
+  }
+}

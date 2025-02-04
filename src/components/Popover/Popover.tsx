@@ -41,7 +41,7 @@ export function usePopover({
   open: controlledOpen,
   onOpenChange: setControlledOpen,
   placement = 'bottom',
-  offset: offsetProp = 6,
+  offset: offsetProp = 10,
   trigger = 'click',
   returnFocus = true,
   initialFocus = 0

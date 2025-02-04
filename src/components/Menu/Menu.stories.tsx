@@ -114,7 +114,7 @@ export const Nested: StoryObj<typeof Menu> = {
         Boolean(item.subitems) && (
           <Menu nested={true}>
             {item.subitems?.map((subitem) => (
-              <Menu.Item key={subitem.text}>
+              <Menu.Item key={subitem.text} as="label">
                 <Menu.Item.Content>{subitem.text}</Menu.Item.Content>
                 <Menu.Item.Button>
                   <Checkbox checked={subitem.selected} />
@@ -129,6 +129,7 @@ export const Nested: StoryObj<typeof Menu> = {
       <Menu style={{ width: '450px' }}>
         {MenuWithNestedSelection.map((item, key) => (
           <Menu.Item
+            as="label"
             key={key}
             collapsible={true}
             collapsedContent={getCollapsedContent(item)}
@@ -137,6 +138,7 @@ export const Nested: StoryObj<typeof Menu> = {
             <Menu.Item.Button>
               <Checkbox
                 checked={item.selected}
+                onChange={(checked) => console.log('checked', checked)}
                 indeterminate={Boolean(
                   item.subitems?.find((item) => item.selected)
                 )}

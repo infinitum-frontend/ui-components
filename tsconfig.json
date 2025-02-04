@@ -30,5 +30,5 @@
     }
   },
   "include": ["src/**/*.tsx", "src/**/*.ts", "definitions.d.ts"],
-  "exclude": ["src/**/*.spec.tsx", "src/**/*.stories.tsx"]
+  "exclude": ["src/**/*.spec.tsx", "src/**/*.stories.tsx", "src/mpc/*"]
 }

@@ -143,6 +143,21 @@ export const Disabled = {
   }
 }
 
+export const FieldsetDisabled = {
+  render: () => {
+    return (
+      <Space>
+        <fieldset disabled={true}>
+          <Input value="fieldset disabled === true" />
+        </fieldset>
+        <fieldset disabled={false}>
+          <Input value="fieldset disabled === false" />
+        </fieldset>
+      </Space>
+    )
+  }
+}
+
 export const ReadOnly = {
   render: Template,
 
@@ -200,6 +215,16 @@ export const WithClearButton = {
   args: {
     value: 'Инфинитум',
     allowClear: true
+  }
+}
+
+export const WithPasswordVisibilityButton = {
+  render: Template,
+
+  args: {
+    value: 'Инфинитум',
+    type: 'password',
+    showPasswordToggle: true
   }
 }
 

@@ -1,5 +1,4 @@
 .inf-stepper {
-  &--direction-horizontal {
-    display: flex;
-  }
+  display: flex;
+  flex-direction: column-reverse;
 }

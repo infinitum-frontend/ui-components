@@ -1,0 +1,68 @@
+.inf-table-header-cell {
+  background-color: var(--inf-color-background-secondary);
+  text-align: left;
+  color: var(--inf-color-text-secondary);
+  font: var(--inf-font-body-2);
+  padding: var(--inf-space-small);
+  position: relative;
+  border-top: 1px solid var(--inf-color-border-primary);
+
+  @include hover {
+    .inf-table-header-cell-button {
+      visibility: visible;
+      width: auto;
+    }
+  }
+
+  &--interactive {
+    user-select: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    @include hover {
+      background-color: var(--inf-color-background-secondary-hover);
+    }
+  }
+
+  &:first-child {
+    border-left: 1px solid var(--inf-color-border-primary);
+    border-top-left-radius: var(--inf-border-radius-small);
+  }
+
+  &:last-child {
+    border-right: 1px solid var(--inf-color-border-primary);
+    border-top-right-radius: var(--inf-border-radius-small);
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  &__heading {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__heading-tooltip {
+    position: absolute;
+    left: 0;
+    top: 36px;
+    background-color: var(--inf-color-background-inverse);
+    color: var(--inf-color-text-inverse);
+    font: var(--inf-font-body-1);
+    border-radius: var(--inf-border-radius-small);
+    padding: var(--inf-space-xsmall) var(--inf-space-medium);
+    z-index: var(--inf-z-index-tooltip);
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: var(--inf-space-xxsmall);
+    margin-left: var(--inf-space-xxsmall);
+  }
+}

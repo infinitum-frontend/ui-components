@@ -1,3 +1,5 @@
+import './styles/global.scss'
+
 export * from 'Components/Autocomplete'
 export * from 'Components/Badge'
 export * from 'Components/Box'
@@ -32,6 +34,7 @@ export * from 'Components/ScrollToTopButton'
 export * from './components/Select'
 export * from 'Components/SideNav'
 export * from 'Components/Space'
+export * from 'Components/Stepper'
 export * from 'Components/Switch'
 export * from 'Components/Table'
 export * from 'Components/Tabs'

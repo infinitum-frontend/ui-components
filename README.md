@@ -4,7 +4,7 @@
 
 <h1 align="center" style="text-align: center">UI-библиотека React-компонентов Инфинитум</h1>
 
-## Установка
+## Установкаа
 
 1. Создаем в корне проекта файл `.npmrc` с содержимым:
 
@@ -20,7 +20,36 @@ npm i @infinitum-frontend/ui-components
 ```
 
 3. Добавляем в глобальные стили/рутовый компонент стили библиотеки `import '@infinitum-frontend/ui-components/dist/style.css'`
-4. Добавляем типы в `tsconfig.json` в секцию `include`: `"node_modules/@infinitum-frontend/ui-components/types"`
+
+4. Для корректной работы необходимо добавить поддиректорию fonts внутрь директории со статичными файлами шрифты из библиотеки.
+
+Лежать шрифты будут по адресу: node_modules/@infinitum-ui/ui-components/dist/fonts
+
+Для проекта на вит необходимо установить пакет https://www.npmjs.com/package/vite-plugin-static-copy
+Для vite 4 - версия 0.17.0
+Для vite 5 - последняя версия.
+
+После установки в vite.config конечного проекта необходимо:
+
+- импортировать плагин `import { viteStaticCopy } from 'vite-plugin-static-copy`
+- добавить следующий код в секцию `plugins`
+
+```typescript
+viteStaticCopy({
+  targets: [
+    {
+      src: [
+        'node_modules/@infinitum-ui/ui-components/dist/fonts/Circe-Bold.woff2',
+        'node_modules/@infinitum-ui/ui-components/dist/fonts/Circe-Regular.woff2'
+        // И другие шрифты, если требуются
+      ],
+      dest: fonts
+    }
+  ]
+})
+```
+
+Сбилдить конечный проект, убедиться, что в dist/fonts присутствуют указанные шрифты.
 
 ## Использование
 

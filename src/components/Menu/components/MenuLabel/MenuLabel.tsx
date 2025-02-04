@@ -8,8 +8,16 @@ export interface MenuLabelProps {
   children?: ReactNode
 }
 
-const MenuLabel = ({ className, children }: MenuLabelProps): ReactElement => {
-  return <div className={cn('inf-menu-label', className)}>{children}</div>
+const MenuLabel = ({
+  className,
+  children,
+  ...props
+}: MenuLabelProps): ReactElement => {
+  return (
+    <div className={cn('inf-menu-label', className)} {...props}>
+      {children}
+    </div>
+  )
 }
 
 export default MenuLabel

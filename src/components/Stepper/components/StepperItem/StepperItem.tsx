@@ -1,36 +1,47 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement, ReactNode } from 'react'
 import { ReactComponent as CircleIcon } from 'Icons/circle.svg'
-import { ReactComponent as CircleOutlinedIcon } from 'Icons/circle-outlined.svg'
 import './StepperItem.scss'
 import cn from 'classnames'
+import { Icon } from '~/src/components/Icon'
 
 export interface StepperItemProps {
-  status?: 'completed' | 'pending'
+  variant?: 'success' | 'secondary'
   direction?: 'vertical' | 'horizontal'
   id: string | number
   content: ReactNode
-  clipped?: boolean
+  index: number
+  stepsNodes?: HTMLCollection
 }
 
 const StepperItem = ({
-  status,
+  variant = 'secondary',
   content,
-  clipped,
-  direction = 'vertical'
+  direction = 'vertical',
+  index,
+  stepsNodes
 }: StepperItemProps): ReactElement => {
-  if (clipped && status !== 'completed') {
-    console.error(`Stepper: Последний элемент должнен иметь статус completed`)
-  }
+  const currentItemHeight = stepsNodes?.item(index)?.clientHeight || 20
+  const nextItemHeight = stepsNodes?.item(index + 1)?.clientHeight || 20
+
   return (
     <div
-      className={cn('inf-step', `inf-step--direction-${direction}`, {
-        'inf-step--clipped': clipped
-      })}
+      style={{
+        '--itemHeight': `${currentItemHeight}px`,
+        '--nextItemHeight': `${nextItemHeight}px`
+      }}
+      className={cn(
+        'inf-step',
+        `inf-step--direction-${direction}`,
+        `inf-step--variant-${variant}`
+      )}
     >
-      <span className={'inf-step__indicator'}>
-        {status === 'completed' ? <CircleIcon /> : <CircleOutlinedIcon />}
-      </span>
+      <Icon
+        size="large"
+        color={variant === 'secondary' ? 'primary-disabled' : variant}
+      >
+        <CircleIcon />
+      </Icon>
       {content}
     </div>
   )

@@ -20,6 +20,8 @@ export interface IconProps extends PropsWithChildren {
     | 'primary-disabled'
     | 'inverse'
     | 'on-color'
+    | 'brand'
+    | 'brand-secondary'
     | 'error'
     | 'warning'
     | 'success'
@@ -27,14 +29,19 @@ export interface IconProps extends PropsWithChildren {
     | 'info-disabled'
     | 'violet'
     | 'teal'
+  /**
+   * Изменение цвета при наведении мыши. Только для color=primary
+   */
+  hoverable?: boolean
 }
 
 /** Обертка для отображения иконки со стилями дизайн-системы */
 const Icon = forwardRef<
   SVGElement,
   ComponentPropsWithoutRef<'svg'> & IconProps
->(({ className, children, size, color, ...restProps }, ref) => {
+>(({ className, children, size, color, hoverable, ...restProps }, ref) => {
   const classNames = cn('inf-icon', className, {
+    'inf-icon--hoverable': hoverable,
     [`inf-icon--size-${size as string}`]: size,
     [`inf-icon--color-${color as string}`]: color
   })
