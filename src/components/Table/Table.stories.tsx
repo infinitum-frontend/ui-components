@@ -180,7 +180,6 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
           columns={columns}
           selectedRow={selected}
           onRowClick={(row) => {
-            // TODO: не определяется тип row.rowData из generic
             handleRowClick(row)
           }}
           rows={TABLE_DATA}

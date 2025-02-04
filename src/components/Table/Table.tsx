@@ -72,7 +72,7 @@ export interface TableProps<TRowData extends Record<any, any> = any>
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id ряда.
    */
   selectedRow?: TableSelectedRow
-  onRowClick?: OnChangeFn<TableRow<TRowData>> // TODO: не определяется тип row.rowData из generic из-за OnChangeFn в типе onRowClick
+  onRowClick?: OnChangeFn<TableRow<TRowData>>
   /** Изменение ширины колонок
    * @value onChange изменение "вживую" при растягивании
    * @value onEnd изменение при отжатии кнопки мыши
