@@ -7,7 +7,7 @@ import { Heading } from '../Heading'
 import { Space } from '../Space'
 import { Text } from '../Text'
 import { List } from '../List'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
 import { omitKeyFromObject } from '../../utils/helpers'
 
 const ComponentMeta: Meta<typeof Popover> = {

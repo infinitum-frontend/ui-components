@@ -1,8 +1,9 @@
-import { expect, beforeAll } from 'vitest'
-import { render, RenderOptions } from '@testing-library/react'
+import { expect, beforeAll, afterEach } from 'vitest'
+import { render, RenderOptions, cleanup } from '@testing-library/react'
 // import '@testing-library/jest-dom/vitest' for vitest 1.x.x
 import { ReactElement, JSXElementConstructor } from 'react'
-import matchers from '@testing-library/jest-dom/matchers'
+import '@testing-library/jest-dom/vitest'
+import * as matchers from '@testing-library/jest-dom/matchers'
 
 // extends Vitest's expect method with methods from react-testing-library
 // https://github.com/testing-library/jest-dom#custom-matchers
@@ -38,6 +39,6 @@ beforeAll(() => {
 })
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
-// afterEach(() => {
-//   cleanup()
-// })
+afterEach(() => {
+  cleanup()
+})

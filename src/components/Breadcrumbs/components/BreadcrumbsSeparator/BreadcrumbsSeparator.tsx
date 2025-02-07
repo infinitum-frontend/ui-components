@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { ReactComponent as ChevronRightIcon } from 'Icons/chevronRight.svg'
+import ChevronRightIcon from 'Icons/chevronRight.svg?react'
 import './BreadcrumbsSeparator.scss'
 
 const BreadcrumbsSeparator = (): ReactElement => {

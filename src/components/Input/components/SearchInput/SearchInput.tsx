@@ -2,7 +2,7 @@
 import React, { ReactElement } from 'react'
 import Input from 'Components/Input/Input'
 import { InputProps } from 'Components/Input/types'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+import SearchIcon from 'Icons/search.svg?react'
 
 export interface SearchInputProps
   extends Omit<InputProps, 'noBorder' | 'prefix' | 'onClick' | 'type'> {

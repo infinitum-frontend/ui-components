@@ -14,7 +14,7 @@ import {
   useFloating,
   useInteractions
 } from '@floating-ui/react'
-import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
+import IconCalendar from 'Icons/calendar2.svg?react'
 import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
 import DateRangeCalendar, {
   DateRangeCalendarValue

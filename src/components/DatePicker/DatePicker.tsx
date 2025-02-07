@@ -6,7 +6,7 @@ import React, {
   MouseEvent,
   useContext
 } from 'react'
-import { ReactComponent as IconCalendar } from 'Icons/calendar2.svg'
+import IconCalendar from 'Icons/calendar2.svg?react'
 import {
   flip,
   FloatingFocusManager,

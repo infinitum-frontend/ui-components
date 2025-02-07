@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { ReactElement, useContext } from 'react'
 import { Button } from 'Components/Button'
-import { ReactComponent as LightThemeIcon } from 'Icons/sun.svg'
-import { ReactComponent as DarkThemeIcon } from 'Icons/moon.svg'
+import LightThemeIcon from 'Icons/sun.svg?react'
+import DarkThemeIcon from 'Icons/moon.svg?react'
 import { ThemePickerContext } from './context/ThemePickerProvider'
 
 const ThemePicker = (): ReactElement => {

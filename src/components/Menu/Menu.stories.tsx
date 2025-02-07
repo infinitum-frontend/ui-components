@@ -4,21 +4,20 @@ import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Menu } from './index'
 import { Checkbox } from '../Checkbox'
 // @ts-expect-error
-import { ReactComponent as PortfolioIcon } from 'Icons/portfolio.svg'
+import PortfolioIcon from 'Icons/portfolio.svg?react'
 // @ts-expect-error
-import { ReactComponent as ClearIcon } from 'Icons/cross.svg'
+import ClearIcon from 'Icons/cross.svg?react'
 import { Space } from '../Space'
-import { Text } from '../Text'
+import { Text, TextProps } from '../Text'
 import { Popover } from '../Popover'
 import { Button } from '../Button'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
 import {
   BaseMenuLong,
   MenuBase,
   MenuWithNestedSelection,
   MenuWithStatuses
 } from './fixtures'
-import { TextProps } from '../Text/Text'
 
 const meta: Meta<typeof Menu> = {
   title: 'Components/Menu',

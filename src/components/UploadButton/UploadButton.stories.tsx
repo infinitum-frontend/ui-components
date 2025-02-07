@@ -2,7 +2,8 @@
 import * as React from 'react'
 import { UploadButton } from './index'
 import { Meta, StoryFn } from '@storybook/react'
-import { ReactComponent as FileIcon } from 'Icons/file.svg'
+// @ts-expect-error
+import FileIcon from 'Icons/file.svg?react'
 
 const ComponentMeta: Meta<typeof UploadButton> = {
   title: 'Components/UploadButton',

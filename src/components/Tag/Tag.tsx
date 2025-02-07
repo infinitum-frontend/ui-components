@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { forwardRef, ReactNode, ComponentPropsWithoutRef } from 'react'
 import cn from 'classnames'
-import { ReactComponent as RemoveIcon } from 'Icons/cancel-circle.svg'
+import RemoveIcon from 'Icons/cancel-circle.svg?react'
 import './Tag.scss'
 
 export interface TagProps {

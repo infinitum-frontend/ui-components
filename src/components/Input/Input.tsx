@@ -12,9 +12,9 @@ import React, {
 import classNames from 'classnames'
 import './Input.scss'
 import { InputProps } from './types'
-import { ReactComponent as ClearIcon } from 'Icons/cancel-circle.svg'
-import { ReactComponent as OpenEyeIcon } from 'Icons/open-eye.svg'
-import { ReactComponent as CloseEyeIcon } from 'Icons/hide-eye.svg'
+import ClearIcon from 'Icons/cancel-circle.svg?react'
+import OpenEyeIcon from 'Icons/open-eye.svg?react'
+import CloseEyeIcon from 'Icons/hide-eye.svg?react'
 // eslint-disable-next-line import/no-named-default
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { mergeRefs } from 'react-merge-refs'

@@ -13,7 +13,7 @@ import MenuItemButton from '../MenuItemButton'
 import MenuItemIcon from '../MenuItemIcon'
 import MenuItemContent from '../MenuItemContent'
 import { Collapse } from 'Components/Collapse'
-import { ReactComponent as TriangleIcon } from 'Icons/sort.svg'
+import TriangleIcon from 'Icons/sort.svg?react'
 import useMenuContext from 'Components/Menu/context/useMenuContext'
 
 export interface MenuItemProps {

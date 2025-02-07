@@ -1,9 +1,10 @@
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { Tabs } from './index'
 import { Space } from 'Components/Space'
-import { useState } from 'react'
-import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
-import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { useState } from 'react'
+import DownloadIcon from 'Icons/download.svg?react'
+import FilterIcon from 'Icons/filter.svg?react'
 import { Badge } from '../Badge'
 
 const meta: Meta<typeof Tabs> = {

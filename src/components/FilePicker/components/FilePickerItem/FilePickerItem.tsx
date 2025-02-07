@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { IFileData } from '../../FilePicker'
-import { ReactComponent as IconX } from 'Icons/bx-x.svg'
-import { ReactComponent as IconPaperclip } from 'Icons/bx-paperclip.svg'
+import IconX from 'Icons/bx-x.svg?react'
+import IconPaperclip from 'Icons/bx-paperclip.svg?react'
 import cn from 'classnames'
 
 import './FilePickerItem.scss'
