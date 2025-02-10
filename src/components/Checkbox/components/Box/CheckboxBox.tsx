@@ -6,6 +6,7 @@ import React, {
 } from 'react'
 import { Box } from 'Components/Box'
 import cn from 'classnames'
+import './CheckboxBox.scss'
 
 export interface CheckboxBoxProps
   extends Omit<ComponentPropsWithoutRef<'label'>, 'color'> {}

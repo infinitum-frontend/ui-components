@@ -12,9 +12,9 @@ interface RenderProps {
 
 export interface TableScrollContainerProps {
   className?: string
-  height: TableProps['height']
-  maxHeight: TableProps['maxHeight']
-  stickyHeader: TableProps['stickyHeader']
+  height: TableProps<any>['height']
+  maxHeight: TableProps<any>['maxHeight']
+  stickyHeader: TableProps<any>['stickyHeader']
   children: (props: RenderProps) => ReactElement
   enabled?: boolean
   rowsCount: number

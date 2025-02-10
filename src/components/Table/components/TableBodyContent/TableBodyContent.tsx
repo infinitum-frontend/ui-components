@@ -11,11 +11,11 @@ import TableRow from '../TableRow'
 import TableEmpty from '../TableEmpty'
 import TableCell from '../TableCell'
 
-export interface TableBodyContentProps {
+export interface TableBodyContentProps<TRowData extends Record<string, any>> {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
-  rows: Array<Row<any>>
-  selectedRow?: string | number | ((row: TableRowType<any>) => boolean)
-  onRowClick?: (row: TableRowType<any>) => void
+  rows: Array<Row<TRowData>>
+  selectedRow?: string | number | ((row: TableRowType<TRowData>) => boolean)
+  onRowClick?: (row: TableRowType<TRowData>) => void
   virtualizer?: Virtualizer<HTMLDivElement, Element>
   totalColumnsCount: number
   emptyMessage?: string
@@ -39,14 +39,14 @@ const FillerRow = ({ height }: { height: number }): ReactElement => {
 
 // TODO: вынести логику этого компонента в HOC,
 // убрать дублирование прохождения по циклу и рендеринга TableRow и TableCell
-const TableBodyContent = ({
+const TableBodyContent = <TRowData extends Record<string, any>>({
   rows,
   selectedRow,
   onRowClick,
   virtualizer,
   totalColumnsCount,
   emptyMessage
-}: TableBodyContentProps): ReactElement => {
+}: TableBodyContentProps<TRowData>): ReactElement => {
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
     row: Row<any>
