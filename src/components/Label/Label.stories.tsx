@@ -80,7 +80,7 @@ export const VariantsWithInitialIcons = {
   }
 }
 
-export const IconBefore = {
+export const IconOnly = {
   render: Template,
 
   args: {
