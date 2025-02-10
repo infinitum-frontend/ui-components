@@ -34,6 +34,7 @@ export interface PopoverProps {
   returnFocus?: boolean
   /** Куда нужно установить фокус при открытии */
   initialFocus?: number | React.MutableRefObject<HTMLElement | null>
+  onPressOutside?: boolean | ((event: MouseEvent) => boolean) | undefined
 }
 
 export function usePopover({
@@ -44,7 +45,8 @@ export function usePopover({
   offset: offsetProp = 10,
   trigger = 'click',
   returnFocus = true,
-  initialFocus = 0
+  initialFocus = 0,
+  onPressOutside
 }: PopoverProps = {}): UsePopover {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const [labelId, setLabelId] = useState<string | undefined>()
@@ -72,7 +74,9 @@ export function usePopover({
   const click = useClick(context, {
     enabled: controlledOpen === undefined && trigger === 'click'
   })
-  const dismiss = useDismiss(context)
+  const dismiss = useDismiss(context, {
+    outsidePress: onPressOutside
+  })
   const role = useRole(context)
   const hover = useHover(context, {
     enabled: trigger === 'hover',

@@ -1,0 +1,15 @@
+.inf-clear-button {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  color: var(--inf-color-icon-primary);
+
+  @include hover {
+    color: var(--inf-color-icon-primary-hover);
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
