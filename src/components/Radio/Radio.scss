@@ -2,16 +2,20 @@
   display: inline-flex;
   align-items: center;
   position: relative;
+  cursor: pointer;
+
+  &--disabled {
+    pointer-events: none;
+  }
 
   &__label {
-    cursor: pointer;
     user-select: none;
-    margin-left: 8px;
+    margin-left: var(--inf-space-xsmall);
     font: var(--inf-font-body-1);
+    line-height: 19px;
 
     &--disabled {
       color: var(--inf-color-text-tertiary);
-      cursor: unset;
     }
   }
 
@@ -20,16 +24,15 @@
     align-items: center;
     justify-content: center;
     outline: none;
-    cursor: pointer;
     margin: 0;
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    border: 1px solid var(--inf-color-border-primary); // TODO: нужны ли эти стили если используется компонент Box
+    border: 1px solid var(--inf-color-border-inverse);
     border-radius: 50%;
 
     &--disabled {
-      cursor: unset;
+      border-color: var(--inf-color-border-primary);
     }
   }
 
@@ -46,12 +49,18 @@
     position: absolute;
     margin: 0;
     z-index: -1;
-    width: 16px;
-    height: 16px;
+    width: 1px;
+    height: 1px;
 
-    &:focus-visible ~ .inf-radio__box {
-      // outline: var(--inf-border-focus);
-      border-color: var(--inf-color-border-primary-hover);
+    &:focus-visible {
+      & ~ .inf-radio__box {
+        border-color: var(--inf-color-border-brand);
+        border-width: 2px;
+      }
+
+      &:checked ~ .inf-radio__box {
+        background-color: var(--inf-color-background-button-primary-active);
+      }
     }
 
     &:checked ~ .inf-radio__box {
@@ -64,20 +73,14 @@
 
       &--disabled {
         background-color: var(--inf-color-background-button-primary-disabled);
-
-        .inf-radio__dot {
-          // background-color: transparent;
-        }
       }
     }
   }
-}
 
-.inf-radio,
-.inf-radio-box {
   @include hover {
     & .inf-radio__box:not(.inf-radio__box--disabled) {
-      border-color: var(--inf-color-border-primary-hover);
+      border-color: var(--inf-color-border-brand);
+      border-width: 2px;
     }
   }
 }
