@@ -30,7 +30,7 @@ export function checkIsValueExists(value?: any): boolean {
   }
 }
 
-const reactNodeToString = function (reactNode: React.ReactNode): string {
+export function reactNodeToString(reactNode: React.ReactNode): string {
   let string = ''
   if (typeof reactNode === 'string') {
     string = reactNode
@@ -46,4 +46,18 @@ const reactNodeToString = function (reactNode: React.ReactNode): string {
   return string
 }
 
-export default reactNodeToString
+export function removeDuplicates(arr: object[]): object[] {
+  const uniqueItems = new Set<string>()
+  const result: object[] = []
+
+  arr.forEach((item) => {
+    const itemString = JSON.stringify(item)
+
+    if (!uniqueItems.has(itemString)) {
+      uniqueItems.add(itemString)
+      result.push(item)
+    }
+  })
+
+  return result
+}

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { SelectOption, UseSelectResult, UseSelectProps } from '../utils/types'
-import { defaultSelectItem } from '../utils/constants'
 
 const useSelect = <Multiple extends boolean = false>({
   value,
@@ -32,7 +31,6 @@ const useSelect = <Multiple extends boolean = false>({
       ? // @ts-expect-error
         selectedOptions.filter((o) => o.value !== option.value)
       : [...selectedOptions, option]
-    console.log('handleMultipleSelection', value, option, newSelectedOptions)
 
     // @ts-expect-error
     onChange(newSelectedOptions)
@@ -60,7 +58,6 @@ const useSelect = <Multiple extends boolean = false>({
 
   const checkOptionSelection = (option: SelectOption): boolean => {
     if (multiple) {
-      console.log('checkOptionSelection multiple', option, value)
       // @ts-expect-error
       return value.includes(option.value)
     } else {
@@ -84,9 +81,10 @@ const useSelect = <Multiple extends boolean = false>({
     }
   })
 
-  let displayValue = defaultSelectItem.label
-  if (hasSelectedValue) {
-    displayValue = selectedOptions.map((o) => o.label).join(', ')
+  // let displayValue = defaultSelectItem.label
+  let displayValue = ''
+  if (!multiple && hasSelectedValue) {
+    displayValue = selectedOptions[0].label
   }
 
   // TODO: useMemo?

@@ -5,22 +5,27 @@ import {
   SelectOption as SelectOptionType
 } from '../../utils/types'
 import SelectOption from '../SelectOption'
+import SelectEmpty from '../SelectEmpty'
 
 interface SelectOptionsProps {
   options: FlattenOption[]
   checkOptionSelection: (option: SelectOptionType) => boolean
   onSelect: (option: SelectOptionType) => void
   multiple?: boolean
+  maxItemsCount: number
 }
 
 const SelectOptions = ({
   options,
   checkOptionSelection,
   multiple,
-  onSelect
+  onSelect,
+  maxItemsCount = 12
 }: SelectOptionsProps): ReactElement => {
+  const maxHeight = maxItemsCount * 32 + 4 + 2
+
   return options.length > 0 ? (
-    <Menu>
+    <Menu maxHeight={maxHeight}>
       {options.map((option, index) => {
         return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
           <Menu.Label key={index}>{option.groupLabel}</Menu.Label>
@@ -40,7 +45,7 @@ const SelectOptions = ({
       })}
     </Menu>
   ) : (
-    <div>Ничего не найдено</div>
+    <SelectEmpty />
   )
 }
 

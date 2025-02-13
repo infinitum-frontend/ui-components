@@ -1,8 +1,9 @@
 import { InputProps } from 'Components/Input'
+import { CSSProperties, ReactNode } from 'react'
 
 export interface SelectProps<Multiple extends boolean = false> {
   multiple?: Multiple
-  options: SelectOptions
+  options?: SelectOptions
   value: Multiple extends true ? SelectValue[] : SelectValue | undefined
   onChange: (
     value: Multiple extends true ? SelectOption[] : SelectOption
@@ -15,10 +16,16 @@ export interface SelectProps<Multiple extends boolean = false> {
   loading?: boolean
   placeholder?: string
   size?: InputProps['size']
+  prefix?: ReactNode
   // TBD
   filterPlacement?: 'inline' | 'dropdown'
   cacheOptions?: boolean
   className?: string
+  style?: CSSProperties | undefined
+  filterOptions?: (options: SelectOptions) => SelectOptions
+  /** Максимальное количество отображаемых элементов, после которого начинается скролл */
+  maxItemsCount?: number
+  emptyMessage?: string
 }
 
 export type SelectValue = string | number

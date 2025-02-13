@@ -1,4 +1,4 @@
-import reactNodeToString from '~/src/utils/helpers'
+import { reactNodeToString } from '~/src/utils/helpers'
 import {
   FlattenOption,
   SelectOption,

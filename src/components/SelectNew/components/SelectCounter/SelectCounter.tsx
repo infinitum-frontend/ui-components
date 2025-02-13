@@ -2,18 +2,28 @@ import { ReactElement } from 'react'
 import { Text } from '~/src/components/Text'
 import { ReactComponent as CrossIcon } from 'Icons/cross.svg'
 import './SelectCounter.scss'
+import { SelectProps } from '../../utils/types'
+import cn from 'classnames'
 
 interface SelectCounterProps {
   count: number
   onClear?: () => void
+  size?: SelectProps['size']
 }
 
 const SelectCounter = ({
   count,
-  onClear
+  onClear,
+  size
 }: SelectCounterProps): ReactElement => {
   return (
-    <Text color="inverse" className="inf-select-counter">
+    <Text
+      color="inverse"
+      className={cn(
+        'inf-select-counter',
+        `inf-select-counter--size-${size as string}`
+      )}
+    >
       {count}
       {onClear && (
         <CrossIcon

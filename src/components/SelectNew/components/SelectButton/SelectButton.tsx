@@ -2,94 +2,135 @@
 import React, {
   ReactElement,
   forwardRef,
-  ComponentPropsWithoutRef
+  ComponentPropsWithoutRef,
+  FocusEventHandler,
+  useState
 } from 'react'
 import cn from 'classnames'
 import './SelectButton.scss'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import { Loader } from '~/src/components/Loader'
-import { Space } from '~/src/components/Space'
 import { ClearButton } from '~/src/components/ClearButton'
 import { SelectProps } from '../../utils/types'
 import SelectCounter from '../SelectCounter'
+import SelectArrow from '../SelectArrow'
+import { SELECT_DROPDOWN_SELECTOR } from '../../utils/constants'
 
-export interface SelectButtonProps extends ComponentPropsWithoutRef<'button'> {
-  status?: 'error'
-  focused?: boolean
+export interface SelectButtonProps
+  extends Omit<ComponentPropsWithoutRef<'button'>, 'prefix'> {
+  displayValue: string
+  // status?: 'error'
   selected?: boolean
-  /** Нужно ли применять стили плейсхолдера */
-  isPlaceholder?: boolean // TODO: придумать решение лучше
   clearable: boolean
   onClear: () => void
   size?: SelectProps['size']
-  placeholder?: string
+  prefix?: SelectProps['prefix']
   loading: boolean
   disabled: boolean
-  multiple: boolean
-  selectedOptionsCount: number
+  selectedOptionsCount?: number
+  placeholder?: string
+  opened?: boolean
 }
+
+// TODO: onBlur срабатывает неверно (на inf-popover-content)
 
 const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
   (
     {
-      status,
+      displayValue,
+      // status,
       selected,
-      focused,
       disabled,
       loading,
       className,
       children,
-      isPlaceholder,
+      size = 'medium',
+      placeholder,
       clearable,
       onClear,
+      prefix,
+      opened,
       selectedOptionsCount = 0,
-      multiple,
       ...props
     },
     ref
   ): ReactElement => {
-    // TODO: вынести ли все это и сделать компонент тупым чисто на пропах?
-    const hasSelectedOptions = selectedOptionsCount > 0
-    const showCounter = multiple && hasSelectedOptions
+    const [isFocused, setFocused] = useState(false)
+
+    const handleFocus: FocusEventHandler = (e) => {
+      console.log('handleFocus')
+      e.preventDefault()
+      setFocused(true)
+    }
+
+    // блюр, который поднимается от внутреннего нативного селекта. Если было нажатие на элементы выпадающего списка, фокус не скидывается
+    const handleBlur: FocusEventHandler = (e) => {
+      const target = e.relatedTarget
+      console.log('handleBlur', target)
+
+      if (
+        target?.getAttribute?.('data-selector') === SELECT_DROPDOWN_SELECTOR
+      ) {
+        return
+      }
+      console.log('handleBlur')
+      setFocused(false)
+    }
 
     return (
       <button
         ref={ref}
-        type={'button'}
         className={cn(
-          'inf-select-button',
+          'inf-select-new-button',
+          className,
           TextFieldClasses.main,
           TextFieldClasses.borderRadius.regular,
+          TextFieldClasses.size[size],
           {
-            [TextFieldClasses.status[status as 'error']]: status,
-            [TextFieldClasses.focused]: focused && !disabled,
-            [TextFieldClasses.filled]: selected,
+            'inf-select-new-button--loading': loading,
             [TextFieldClasses.disabled]: disabled,
-            'inf-select-button--loading': loading,
-            'inf-select-button--placeholder': isPlaceholder
-          },
-          className
+            [TextFieldClasses.focused]: isFocused && !disabled,
+            [TextFieldClasses.filled]: selected
+          }
         )}
+        type="button"
         disabled={disabled}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         {...props}
       >
-        {showCounter && (
-          <SelectCounter count={selectedOptionsCount} onClear={onClear} />
+        {(Boolean(selectedOptionsCount) || prefix) && (
+          <div className="inf-select-new-button__before">
+            {prefix}
+            {Boolean(selectedOptionsCount) && (
+              <SelectCounter
+                size={size}
+                count={selectedOptionsCount}
+                onClear={onClear}
+              />
+            )}
+          </div>
         )}
 
-        {children}
+        <div className="inf-select-new-button__content">
+          {displayValue ? (
+            <div className="inf-select-new-button__display-value">
+              {displayValue}
+            </div>
+          ) : (
+            Boolean(placeholder) && (
+              <div className="inf-select-new-button__placeholder">
+                {placeholder}
+              </div>
+            )
+          )}
+        </div>
 
-        <span
-          className={cn('inf-select-button__arrow', {
-            'inf-select-button__arrow--active': selected,
-            'inf-select-button__arrow--disabled': disabled
-          })}
-        >
+        <div className="inf-select-new-button__after">
           {loading ? (
             <Loader size="compact" variant="unset" />
           ) : (
-            <Space direction="horizontal" gap="xxsmall" align="center">
+            <>
               {clearable && (
                 <ClearButton
                   onClick={(e) => {
@@ -98,10 +139,11 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
                   }}
                 />
               )}
-              <ArrowDownIcon />
-            </Space>
+
+              <SelectArrow opened={opened} />
+            </>
           )}
-        </span>
+        </div>
       </button>
     )
   }
