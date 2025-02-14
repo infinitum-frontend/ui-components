@@ -58,22 +58,21 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
     const [isFocused, setFocused] = useState(false)
 
     const handleFocus: FocusEventHandler = (e) => {
-      console.log('handleFocus')
+      // TODO:
       e.preventDefault()
       setFocused(true)
     }
 
     // блюр, который поднимается от внутреннего нативного селекта. Если было нажатие на элементы выпадающего списка, фокус не скидывается
     const handleBlur: FocusEventHandler = (e) => {
+      // TODO:
       const target = e.relatedTarget
-      console.log('handleBlur', target)
-
       if (
         target?.getAttribute?.('data-selector') === SELECT_DROPDOWN_SELECTOR
       ) {
         return
       }
-      console.log('handleBlur')
+      // console.log('handleBlur')
       setFocused(false)
     }
 
@@ -128,7 +127,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
 
         <div className="inf-select-new-button__after">
           {loading ? (
-            <Loader size="compact" variant="unset" />
+            <Loader size="compact" />
           ) : (
             <>
               {clearable && (

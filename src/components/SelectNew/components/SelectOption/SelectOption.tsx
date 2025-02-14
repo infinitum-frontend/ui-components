@@ -7,6 +7,7 @@ import { Checkbox } from '~/src/components/Checkbox'
 interface SelectOptionProps extends ComponentPropsWithoutRef<'li'> {
   selected: boolean
   disabled?: boolean
+  active: boolean
   onSelect: () => void
   selectionIndicator: 'checkbox' | 'tick'
 }
@@ -14,15 +15,16 @@ interface SelectOptionProps extends ComponentPropsWithoutRef<'li'> {
 const SelectOption = ({
   selected,
   disabled,
+  active,
   onSelect,
-  children,
   selectionIndicator = 'tick',
+  children,
   ...props
 }: SelectOptionProps): ReactElement => {
   return (
     <Menu.Item
-      // className="inf-new-select-option"
       as="li"
+      highlighted={active}
       onClick={() => onSelect()}
       {...props}
     >

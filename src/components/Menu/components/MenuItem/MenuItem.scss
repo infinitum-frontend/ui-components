@@ -40,6 +40,10 @@
     border-left: 2px solid var(--inf-color-background-brand-primary);
   }
 
+  &--highlighted {
+    background-color: var(--inf-color-background-primary-hover);
+  }
+
   &--nested {
     padding-left: 36px;
   }

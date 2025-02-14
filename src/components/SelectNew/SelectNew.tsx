@@ -9,6 +9,7 @@ import SelectEmpty from './components/SelectEmpty'
 import SelectOption from './components/SelectOption'
 import { Menu } from '../Menu'
 import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
+import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 import './SelectNew.scss'
 
 const SelectNew = <Multiple extends boolean = false>({
@@ -69,42 +70,15 @@ const SelectNew = <Multiple extends boolean = false>({
     onClear
   })
 
-  // const handlePopoverPressOutside = (e: MouseEvent): any => {
-  // TODO:
-  // if (formGroupContext) {
-  //   return (
-  //     (e.target as HTMLLabelElement)?.htmlFor !== formGroupContext?.id
-  //   )
-  // } else {
-  //   return true
-  // }
-  // }
+  const { handleKeyDown, activeItemIndex, setActiveItemIndex } =
+    useKeyboardNavigation({
+      options: filteredFlattenOptions,
+      onSelect: handleSelect,
+      isOpen,
+      setOpen
+    })
 
-  // TODO: data-selector={SELECT_DROPDOWN_SELECTOR}
-
-  // TODO:
-  // {...getFloatingProps({
-  //   onClick(e) {
-  //     e.stopPropagation()
-  //   }
-  // })}
-
-  // TODO:
-  // {...getReferenceProps({
-  //   onKeyDown: handleKeyDown,
-  //   onClick(e) {
-  //     e.stopPropagation()
-  //     handleClick(e)
-  //   }
-  // })}
-
-  // TODO: Popover width / height
-  // style={{
-  //   position: 'absolute',
-  //   maxHeight: `${maxHeight}px`,
-  //   top: y ?? 0,
-  //   left: x ?? 0
-  // }}
+  console.log('activeItemIndex', activeItemIndex)
 
   const isLoading = loading || isLoadingOptions
   // высота элемента, паддинг и границы
@@ -142,6 +116,7 @@ const SelectNew = <Multiple extends boolean = false>({
         hasPadding={false}
         equalTriggerWidth
         data-selector={SELECT_DROPDOWN_SELECTOR}
+        onKeyDown={handleKeyDown}
       >
         {filterable && filterPlacement === 'dropdown' && (
           <SelectFilterInput
@@ -162,10 +137,12 @@ const SelectNew = <Multiple extends boolean = false>({
                 <SelectOption
                   key={index}
                   selected={checkOptionSelection(option)}
+                  active={index === activeItemIndex}
                   selectionIndicator={multiple ? 'checkbox' : 'tick'}
                   onSelect={() => {
                     handleSelect(option)
                   }}
+                  onMouseOver={() => setActiveItemIndex(index)}
                 >
                   {option.label}
                 </SelectOption>
@@ -206,3 +183,40 @@ export default SelectNew
 // Плашка "Показано n элементов"
 // Кейс когда мы грузим изначальный список options, но при этом просто вешаем loading=true пока он не загрузился, без использования loadOptions
 // onInputChange для обработки асихнронной загрузки как в baseWeb?
+
+// const handlePopoverPressOutside = (e: MouseEvent): any => {
+// TODO:
+// if (formGroupContext) {
+//   return (
+//     (e.target as HTMLLabelElement)?.htmlFor !== formGroupContext?.id
+//   )
+// } else {
+//   return true
+// }
+// }
+
+// TODO: data-selector={SELECT_DROPDOWN_SELECTOR}
+
+// TODO:
+// {...getFloatingProps({
+//   onClick(e) {
+//     e.stopPropagation()
+//   }
+// })}
+
+// TODO:
+// {...getReferenceProps({
+//   onKeyDown: handleKeyDown,
+//   onClick(e) {
+//     e.stopPropagation()
+//     handleClick(e)
+//   }
+// })}
+
+// TODO: Popover width / height
+// style={{
+//   position: 'absolute',
+//   maxHeight: `${maxHeight}px`,
+//   top: y ?? 0,
+//   left: x ?? 0
+// }}
