@@ -1,7 +1,7 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import { usePagination } from './usePagination'
-import { ReactComponent as ChevronLeftIcon } from 'Icons/chevronLeft.svg'
-import { ReactComponent as ChevronRightIcon } from 'Icons/chevronRight.svg'
+import ChevronLeftIcon from 'Icons/chevronLeft.svg?react'
+import ChevronRightIcon from 'Icons/chevronRight.svg?react'
 import './Pagination.scss'
 import cn from 'classnames'
 

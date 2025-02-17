@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import { ReactComponent as IconX } from 'Icons/cross.svg'
-import { ReactComponent as IconFile } from 'Icons/file.svg'
-import { ReactComponent as IconDownload } from 'Icons/download.svg'
+import IconX from 'Icons/cross.svg?react'
+import IconFile from 'Icons/file.svg?react'
+import IconDownload from 'Icons/download.svg?react'
 import './File.scss'
 import { Loader } from 'Components/Loader'
 
