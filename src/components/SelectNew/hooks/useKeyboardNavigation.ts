@@ -4,6 +4,8 @@ import { isGroupLabel } from '../utils/helpers'
 
 // TODO: если на item будет ховер, то он не скидывается при нажатии по стрелкам клавиатур, а должен?
 // TODO: в multiple grouped при нажатии стрелки вниз фокусируется первый чекбокс
+// TODO: переиспользовать решение https://github.com/gravity-ui/uikit/blob/main/src/components/List/List.tsx#L83C4-L95C6
+// TODO: не работает если есть скроллинг
 
 const useKeyboardNavigation = ({
   options,

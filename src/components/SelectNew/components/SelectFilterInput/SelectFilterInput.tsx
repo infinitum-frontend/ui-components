@@ -19,7 +19,6 @@ const SelectFilterInput = forwardRef<HTMLInputElement, SelectFilterInputProps>(
     return (
       <SearchInput
         onSubmit={handleSubmit}
-        data-selector="inf-select-filter-input"
         autoComplete="off"
         {...props}
         ref={ref}

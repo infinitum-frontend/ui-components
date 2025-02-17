@@ -11,8 +11,14 @@ import {
 import { useState } from 'react'
 import { Space } from '../Space'
 import { Text } from '../Text'
-import { SelectBaseOptions, SelectBaseGroupedOptions } from './utils/fixtures'
+import { Icon } from '../Icon'
+import {
+  SelectBaseOptions,
+  SelectBaseGroupedOptions,
+  SelectLongOptions
+} from './utils/fixtures'
 import { removeDuplicates } from 'Utils/helpers'
+import { ReactComponent as SearchIcon } from 'Icons/search.svg'
 
 const meta: Meta<typeof SelectNew> = {
   title: 'Form/SelectNew',
@@ -100,6 +106,41 @@ export const LongPlaceholder = {
   }
 }
 
+export const Scrollable = {
+  render: SingleTemplate,
+  args: {
+    options: SelectLongOptions,
+    maxItemsCount: 5
+  }
+}
+
+export const Overflow = {
+  render: () => {
+    const [value, setValue] = useState<SelectValue>()
+
+    return (
+      <SelectNew
+        style={{ maxWidth: '100px' }}
+        options={SelectBaseOptions}
+        value={value}
+        onChange={(option: SelectOption) => setValue(option.value)}
+        placeholder="Выберите значение"
+      />
+    )
+  }
+}
+
+export const Prefix = {
+  render: SingleTemplate,
+  args: {
+    prefix: (
+      <Icon color="primary" size="medium">
+        <SearchIcon />
+      </Icon>
+    )
+  }
+}
+
 export const LongValue = {
   render: SingleTemplate,
   args: {
@@ -164,6 +205,14 @@ export const Filterable = {
   render: SingleTemplate,
   args: {
     filterable: true
+  }
+}
+
+export const FilterableInline = {
+  render: SingleTemplate,
+  args: {
+    filterable: true,
+    filterPlacement: 'inline'
   }
 }
 

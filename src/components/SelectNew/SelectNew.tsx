@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useState } from 'react'
 import { SelectProps } from './utils/types'
 import useSelect from './hooks/useSelect'
 import useSelectOptions from './hooks/useSelectOptions'
+import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 import SelectButton from './components/SelectButton'
 import { Popover } from '../Popover'
 import SelectFilterInput from './components/SelectFilterInput'
@@ -9,7 +10,6 @@ import SelectEmpty from './components/SelectEmpty'
 import SelectOption from './components/SelectOption'
 import { Menu } from '../Menu'
 import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
-import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 import './SelectNew.scss'
 
 const SelectNew = <Multiple extends boolean = false>({
@@ -78,11 +78,20 @@ const SelectNew = <Multiple extends boolean = false>({
       setOpen
     })
 
+  useEffect(() => {
+    if (!isOpen) {
+      setFilterValue('')
+    }
+  }, [isOpen])
+
   console.log('activeItemIndex', activeItemIndex)
 
   const isLoading = loading || isLoadingOptions
   // высота элемента, паддинг и границы
   const maxHeight = maxItemsCount * 32 + 4 + 2
+
+  const popoverFocus =
+    filterable && isOpen && filterPlacement === 'inline' ? -1 : 0
 
   return (
     <Popover
@@ -91,11 +100,15 @@ const SelectNew = <Multiple extends boolean = false>({
       offset={{
         mainAxis: 4
       }}
+      initialFocus={popoverFocus}
       // TODO: ломает закрытие по клику вне внутри Popover
       // onPressOutside={handlePopoverPressOutside}
     >
       <Popover.Trigger>
         <SelectButton
+          filterable={filterable && filterPlacement === 'inline'}
+          filterValue={filterValue}
+          onFilterChange={setFilterValue}
           displayValue={displayValue}
           selectedOptionsCount={multiple && selectedOptions.length}
           clearable={Boolean(clearable && hasSelectedValue)}

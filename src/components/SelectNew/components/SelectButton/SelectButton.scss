@@ -37,18 +37,16 @@
     color: var(--inf-color-text-tertiary);
   }
 
-  &__prefix {
-  }
-
-  &__counter {
-  }
-
-  &__clear {
-  }
-
-  &__arrow {
-  }
-
-  &__input {
+  &__filter-input {
+    width: 100%;
+    color: inherit;
+    background: 0px center;
+    opacity: 1;
+    grid-area: 1 / 2;
+    font: inherit;
+    border: 0px;
+    margin: 0px;
+    outline: 0px;
+    padding: 0px;
   }
 }

@@ -20,3 +20,16 @@ export const SelectBaseGroupedOptions = [
   },
   { label: 'Другое', value: 'four' }
 ]
+
+export const SelectLongOptions = [
+  { label: 'Депозитарные услуги', value: 'one' },
+  { label: 'Очень длинные спецдепозитарные услуги', value: 'two' },
+  { label: 'Консалтинг и аутсорсинг', value: 'three' },
+  { label: 'Консалтинг и аутсорсинг 2', value: 'four' },
+  { label: 'Консалтинг и аутсорсинг 3', value: 'five' },
+  { label: 'Консалтинг и аутсорсинг 4', value: 'six' },
+  { label: 'Консалтинг и аутсорсинг 5', value: 'sevent' },
+  { label: 'Консалтинг и аутсорсинг 6', value: 'eight' },
+  { label: 'Консалтинг и аутсорсинг 7', value: 'nine' },
+  { label: 'Консалтинг и аутсорсинг 8', value: 'ten' }
+]

@@ -21,7 +21,10 @@ export interface SelectButtonProps
   displayValue: string
   // status?: 'error'
   selected?: boolean
-  clearable: boolean
+  filterable?: SelectProps['filterable']
+  filterValue: string
+  onFilterChange: (filterValue: string) => void
+  clearable: SelectProps['clearable']
   onClear: () => void
   size?: SelectProps['size']
   prefix?: SelectProps['prefix']
@@ -42,6 +45,9 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       selected,
       disabled,
       loading,
+      filterable,
+      filterValue,
+      onFilterChange,
       className,
       children,
       size = 'medium',
@@ -111,34 +117,55 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
           </div>
         )}
 
-        <div className="inf-select-new-button__content">
-          {displayValue ? (
-            <div className="inf-select-new-button__display-value">
-              {displayValue}
-            </div>
-          ) : (
-            Boolean(placeholder) && (
-              <div className="inf-select-new-button__placeholder">
-                {placeholder}
+        {filterable && opened ? (
+          <input
+            className="inf-select-new-button__filter-input"
+            value={filterValue}
+            autoFocus
+            onChange={(e) => onFilterChange(e.target.value)}
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+            autoComplete="off"
+          />
+        ) : (
+          <div className="inf-select-new-button__content">
+            {displayValue ? (
+              <div className="inf-select-new-button__display-value">
+                {displayValue}
               </div>
-            )
-          )}
-        </div>
+            ) : (
+              Boolean(placeholder) && (
+                <div className="inf-select-new-button__placeholder">
+                  {placeholder}
+                </div>
+              )
+            )}
+          </div>
+        )}
 
         <div className="inf-select-new-button__after">
           {loading ? (
             <Loader size="compact" />
           ) : (
             <>
-              {clearable && (
+              {filterable && opened && filterValue ? (
                 <ClearButton
                   onClick={(e) => {
                     e.stopPropagation()
-                    onClear()
+                    onFilterChange('')
                   }}
                 />
+              ) : (
+                clearable && (
+                  <ClearButton
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onClear()
+                    }}
+                  />
+                )
               )}
-
               <SelectArrow opened={opened} />
             </>
           )}
