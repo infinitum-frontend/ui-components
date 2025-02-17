@@ -82,10 +82,29 @@ export const Base: StoryObj<typeof Table> = {
 
 export const Selection: StoryObj<typeof Table> = {
   render: (args) => {
+    const [rows, setRows] = useState(TABLE_DATA)
     const [selection, setSelection] = useState<Array<TableRow<Portfolio>>>([])
+    const [filters, setFilters] = useState<TableColumnFiltersState>([])
     const handleChange = (data: Array<TableRow<Portfolio>>): void => {
       setSelection(data)
-      console.log(data)
+    }
+
+    const handleFiltersChange = (filters: TableColumnFiltersState): void => {
+      const portfolioFilter = filters.find((f) => f.id === 'portfolio')
+
+      if (portfolioFilter) {
+        setRows(
+          TABLE_DATA.filter((row) => {
+            return row.portfolio
+              .toLowerCase()
+              .match((portfolioFilter.value as string)?.toLocaleLowerCase())
+          })
+        )
+      } else {
+        setRows(TABLE_DATA)
+      }
+
+      setFilters(filters)
     }
 
     return (
@@ -94,8 +113,13 @@ export const Selection: StoryObj<typeof Table> = {
           withRowSelection={true}
           onChangeRowSelection={handleChange}
           selectionState={selection}
+          withFiltering
+          filtersState={filters}
+          getRowId={(row) => row.portfolio}
+          withFiltersTags
+          onFiltersChange={handleFiltersChange}
           columns={columns}
-          rows={TABLE_DATA}
+          rows={rows}
         />
         <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
         <Button onClick={() => handleChange([])}>Сбросить</Button>
