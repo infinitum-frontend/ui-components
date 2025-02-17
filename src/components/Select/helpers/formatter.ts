@@ -1,59 +1,66 @@
+import { produce } from 'immer'
 import {
   SelectOption,
   DefaultSelectOption,
   SelectDataFormatterOptions
 } from '../types'
-import { ReactNode } from 'react'
 
-type ResultElement<T extends Record<string, T[keyof T]>> =
-  | DefaultSelectOption
-  | SelectOption<T>
+type ResultElement<T> = DefaultSelectOption | SelectOption<T>
 
 /**
  * Хелпер для форматирования массива к формату опций компонента Select
- * @param options
  */
-function selectDataFormatter<
-  T extends Record<string, T[keyof T]> = Record<string, any>
->(options: SelectDataFormatterOptions<T>): SelectOption[] {
-  const standardizedArray: Array<SelectOption<T>> = []
 
-  const { array, label, value, rest } = options
+function selectDataFormatter<T extends Record<string, any>>(
+  options: SelectDataFormatterOptions<T>
+): DefaultSelectOption[]
 
-  const arrayCopy: T[] = JSON.parse(JSON.stringify(array))
+function selectDataFormatter<T extends Record<string, any>>(
+  options: SelectDataFormatterOptions<T>,
+  rest?: boolean
+): Array<SelectOption<T>>
+
+function selectDataFormatter<T extends Record<string, any>>(
+  options: SelectDataFormatterOptions<T>,
+  rest?: boolean
+): Array<ResultElement<T>> {
+  const { array, value, label } = options
 
   function checkErrors(item: T, index: number): void {
     if (item[value] === undefined) {
-      console.error(`Отстутсвует ключ ${value}. Индекс элемента ${index}`)
+      console.error(
+        `Отстутсвует ключ ${value as string}. Индекс элемента ${index}`
+      )
     }
 
     if (item[label] === undefined) {
-      console.error(`Отстутсвует ключ ${label}. Индекс элемента ${index}`)
+      console.error(
+        `Отстутсвует ключ ${label as string}. Индекс элемента ${index}`
+      )
     }
   }
 
-  if (arrayCopy) {
-    arrayCopy.forEach((item, index) => {
-      checkErrors(item, index)
-      let standardizedElement: ResultElement<T> = {
-        value: item[value] as string | number,
-        label: item[label] as string | ReactNode
-      }
+  return array.reduce<Array<ResultElement<T>>>(
+    (accumulator, currentValue, index) => {
+      checkErrors(currentValue, index)
 
-      // Если передан параметр rest, удаляем дублирующиеся поля и добавляем все остальные
       if (rest) {
-        /* eslint-disable @typescript-eslint/no-dynamic-delete */
-        delete item[value]
-        delete item[label]
-        standardizedElement = { ...standardizedElement, ...item }
+        accumulator.push({
+          value: currentValue[value],
+          label: currentValue[label],
+          ...produce(currentValue, (draft) => draft)
+        })
+      } else {
+        accumulator.push({
+          value: currentValue[value],
+          label: currentValue[label]
+        })
       }
-      standardizedArray.push(standardizedElement as SelectOption<T>)
-    })
-  }
 
-  return rest
-    ? (standardizedArray as Array<ResultElement<T>>)
-    : (standardizedArray as DefaultSelectOption[])
+      return accumulator
+    },
+    []
+  )
 }
 
 export default selectDataFormatter

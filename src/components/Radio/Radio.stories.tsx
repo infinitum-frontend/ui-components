@@ -3,7 +3,6 @@ import * as React from 'react'
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import Radio from './Radio'
 import { action } from '@storybook/addon-actions'
-import { Box } from '../Box'
 import { useState } from 'react'
 import { Space } from '../Space'
 
@@ -69,23 +68,14 @@ export const Playground = {
 export const Disabled: StoryObj<typeof Radio> = {
   render: (args) => {
     return (
-      <Box
-        style={{
-          width: '300px',
-          height: '100px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-evenly',
-          backgroundColor: 'transparent'
-        }}
-      >
+      <Space direction="horizontal">
         <Radio disabled={true} checked={true}>
           <code>checked</code>
         </Radio>
         <Radio disabled={true}>
           <code>unchecked</code>
         </Radio>
-      </Box>
+      </Space>
     )
   }
 }
@@ -99,6 +89,7 @@ export const WithBox: StoryObj<typeof Radio> = {
         name="some-value"
         value={selectedValue}
         onChange={(value) => setSelectedValue(value)}
+        style={{ maxWidth: '500px' }}
       >
         <Radio.Box>
           <Radio value="1">Облигации внешних облигационных займов РФ</Radio>
@@ -107,7 +98,10 @@ export const WithBox: StoryObj<typeof Radio> = {
           <Radio value="2">Облигации государственных компаний</Radio>
         </Radio.Box>
         <Radio.Box>
-          <Radio value="3">Облигации государственных корпораций</Radio>
+          <Radio value="3">
+            Облигации государственных компаний облигации государственных
+            компаний облигации государственных компаний
+          </Radio>
         </Radio.Box>
       </Radio.Group>
     )

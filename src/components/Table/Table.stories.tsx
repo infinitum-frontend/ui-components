@@ -108,17 +108,19 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
   render: (args) => {
     const [selected, setSelected] = useState('')
 
-    const handleRowClick = (row: TableRow<any>): void => {
-      console.log(row)
+    const handleRowClick = (row: TableRow<Portfolio>): void => {
+      console.log(row.rowData)
       setSelected(row.id)
     }
 
     return (
       <Space>
-        <Table
+        <Table<Portfolio>
           columns={columns}
           selectedRow={selected}
-          onRowClick={handleRowClick}
+          onRowClick={(row) => {
+            handleRowClick(row)
+          }}
           rows={TABLE_DATA}
         />
         <Text>Выбранный ряд: {selected}</Text>

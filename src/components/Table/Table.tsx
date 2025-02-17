@@ -38,7 +38,7 @@ import cn from 'classnames'
 import './Table.scss'
 
 /** Компонент многофункциональной таблицы */
-const Table = ({
+const Table = <TRowData extends Record<string, any> = Record<string, any>>({
   columns = [],
   rows = [],
   className,
@@ -67,7 +67,7 @@ const Table = ({
   withFiltersTags,
   withCollapsibleHeaderCellActions,
   ...props
-}: TableProps): ReactElement => {
+}: TableProps<TRowData>): ReactElement => {
   // ==================== Простая таблица ====================
   if (children) {
     // TODO: scrollable
