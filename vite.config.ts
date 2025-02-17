@@ -37,7 +37,8 @@ export default defineConfig({
       entry: [resolve(__dirname, 'src/index.ts')],
       name: 'ui-components',
       formats: ['es', 'cjs'],
-      fileName: 'index'
+      fileName: 'index',
+      cssFileName: 'style'
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
