@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Icon } from './index'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
-import { ReactComponent as IconUser } from 'Icons/user.svg'
+import IconUser from 'Icons/user.svg?react'
 import { Space } from '../Space'
 import { Tooltip } from '../Tooltip'
 

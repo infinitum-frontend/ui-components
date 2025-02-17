@@ -2,18 +2,17 @@ import { StoryObj, StoryFn, Meta } from '@storybook/react'
 import { List } from './index'
 import { Checkbox } from '../Checkbox'
 // @ts-expect-error
-import { ReactComponent as PortfolioIcon } from 'Icons/portfolio.svg'
+import PortfolioIcon from 'Icons/portfolio.svg?react'
 // @ts-expect-error
-import { ReactComponent as ClearIcon } from 'Icons/cross.svg'
+import ClearIcon from 'Icons/cross.svg?react'
 import { Space } from '../Space'
-import { Text } from '../Text'
+import { Text, TextProps } from '../Text'
 import {
   BaseListLong,
   ListBase,
   ListWithNestedSelection,
   ListWithStatuses
 } from './fixtures'
-import { TextProps } from '../Text/Text'
 import { ReactNode } from 'react'
 
 const meta: Meta<typeof List> = {

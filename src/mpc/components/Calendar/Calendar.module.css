@@ -1,7 +1,0 @@
-@import "../../styles/colors.css";
-
-.calendar {
-    width: 200px;
-    /*min-height: 164px; - jumping calendar*/
-    height: 193px;
-}
