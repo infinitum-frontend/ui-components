@@ -1,7 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
-import { fireEvent, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import { userEvent } from '@testing-library/user-event'
 import { Button } from '../index'
-import '@testing-library/jest-dom/extend-expect'
+
+const user = userEvent.setup()
 
 describe('hello world', () => {
   it('matchSnapshot', () => {
@@ -16,11 +18,11 @@ describe('hello world', () => {
     expect(el.className).contains('inf-button--variant-primary')
   })
 
-  it('click', () => {
+  it('click', async () => {
     const clickFn = vi.fn()
     const { container } = render(<Button onClick={clickFn}>Нажми</Button>)
     const el = container.firstChild as HTMLElement
-    fireEvent.click(el)
+    await user.click(el)
     expect(clickFn).toHaveBeenCalledOnce()
   })
 })
