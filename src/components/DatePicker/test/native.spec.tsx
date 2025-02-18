@@ -50,9 +50,10 @@ describe('NativeDatePicker', () => {
 
 describe('Datepicker in Form', () => {
   it('should support attributes', async () => {
+    const errorMessage = 'Ошибка валидации'
     renderComponent(
       <Form>
-        <Form.Group required customValidationMessage={'error'}>
+        <Form.Group required customValidationMessage={errorMessage}>
           <NativeDatePicker />
         </Form.Group>
         <Button type={'submit'} />
@@ -69,7 +70,7 @@ describe('Datepicker in Form', () => {
     await user.click(screen.queryByRole('button') as HTMLButtonElement)
 
     expect(datepicker).toHaveAttribute('aria-invalid', 'true')
-    expect(datepicker.validationMessage).toBe('error')
+    expect(screen.queryByText(errorMessage)).toBeInTheDocument()
 
     act(() => {
       datepicker.focus()

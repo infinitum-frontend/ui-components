@@ -5,6 +5,7 @@ import { screen } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
 import { Form } from '../../Form'
 import { Button } from '../../Button'
+import { act } from '@testing-library/react'
 
 const wrapperTitle = 'wrapper'
 const inputTitle = 'control'
@@ -146,10 +147,10 @@ describe('CheckboxForm', () => {
   it('should support formContext', async () => {
     renderComponent(
       <Form>
-        <Form.Group required customValidationMessage={'Error'}>
+        <Form.Group required customValidationMessage="Error">
           <Checkbox inputProps={{ title: inputTitle }} />
         </Form.Group>
-        <Button type={'submit'}>Submit</Button>
+        <Button type="submit">Submit</Button>
       </Form>
     )
 
@@ -157,12 +158,16 @@ describe('CheckboxForm', () => {
     expect(input).toHaveAttribute('required')
     expect(input).toHaveAttribute('aria-required', 'true')
 
-    await user.click(screen.queryByText('Submit') as HTMLElement)
+    await act(async () => {
+      await user.click(screen.queryByText('Submit') as HTMLElement)
+    })
 
-    expect(input.validationMessage).toBe('Error')
+    expect(screen.queryByText('Error')).toBeInTheDocument()
     expect(input).toHaveAttribute('aria-invalid', 'true')
 
-    await user.click(input)
+    await act(async () => {
+      await user.click(input)
+    })
 
     expect(input.validationMessage).toBe('')
     expect(input).not.toHaveAttribute('aria-invalid')

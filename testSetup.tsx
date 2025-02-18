@@ -1,6 +1,5 @@
-import { expect, beforeAll, afterEach } from 'vitest'
-import { render, RenderOptions, cleanup } from '@testing-library/react'
-// import '@testing-library/jest-dom/vitest' for vitest 1.x.x
+import { expect, beforeAll } from 'vitest'
+import { render, RenderOptions } from '@testing-library/react'
 import { ReactElement, JSXElementConstructor } from 'react'
 import '@testing-library/jest-dom/vitest'
 import * as matchers from '@testing-library/jest-dom/matchers'
@@ -36,9 +35,4 @@ beforeAll(() => {
   if (!HTMLElement.prototype.scrollTo) {
     HTMLElement.prototype.scrollTo = () => {}
   }
-})
-
-// runs a cleanup after each test case (e.g. clearing jsdom)
-afterEach(() => {
-  cleanup()
 })

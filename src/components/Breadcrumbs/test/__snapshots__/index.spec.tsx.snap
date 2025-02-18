@@ -187,7 +187,7 @@ exports[`Breadcrumbs Dropdown Menu > should match snapshot > dropdown 1`] = `
   dir="ltr"
   id="radix-:r9:"
   role="menu"
-  style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
+  style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height);"
   tabindex="-1"
 >
   <a
@@ -211,49 +211,6 @@ exports[`Breadcrumbs Dropdown Menu > should match snapshot > dropdown 1`] = `
     role="menuitem"
     tabindex="-1"
     title="Хальмеев Александр"
-  >
-    Хальмеев Александр
-  </a>
-</div>
-`;
-
-exports[`Breadcrumbs Dropdown Menu > should match snapshot 1 > dropdown 1`] = `
-<div
-  data-side="bottom"
-  data-align="center"
-  role="menu"
-  aria-orientation="vertical"
-  data-state="open"
-  data-radix-menu-content=""
-  dir="ltr"
-  id="radix-:r1:"
-  aria-labelledby="radix-:r0:"
-  class="inf-dropdown-menu-content"
-  tabindex="-1"
-  data-orientation="vertical"
-  style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto;"
->
-  <a
-    title="Прасс Павел"
-    as="a"
-    href="https://specdep.ru"
-    role="menuitem"
-    class="inf-dropdown-menu-item"
-    tabindex="-1"
-    data-orientation="vertical"
-    data-radix-collection-item=""
-  >
-    Прасс Павел
-  </a>
-  <a
-    title="Хальмеев Александр"
-    as="a"
-    href="https://specdep.ru"
-    role="menuitem"
-    class="inf-dropdown-menu-item"
-    tabindex="-1"
-    data-orientation="vertical"
-    data-radix-collection-item=""
   >
     Хальмеев Александр
   </a>
