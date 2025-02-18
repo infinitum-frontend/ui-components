@@ -20,6 +20,9 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData(source: string, fp: string) {
+          if (fp.endsWith('global.scss')) {
+            return source
+          }
           return `@import "@/src/styles/global.scss";\n${source}`
         }
       }
