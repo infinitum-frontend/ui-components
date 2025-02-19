@@ -8,19 +8,16 @@ import {
   flexRender,
   getCoreRowModel,
   getFacetedUniqueValues,
-  OnChangeFn as TanstackOnChangeFn,
-  RowSelectionState,
   useReactTable
 } from '@tanstack/react-table'
 
 import {
   TableProps,
   TableColumnFiltersState,
-  TableColumnFilterValue,
-  TableRow as TableRowType
+  TableColumnFilterValue
 } from './types'
 
-import { getNextSorting, mapRowToExternalFormat } from './helpers'
+import { getNextSorting } from './helpers'
 
 import TableBase from './components/TableBase'
 import TableHeaderFilter from './components/TableHeaderFilter'
@@ -36,6 +33,7 @@ import { Checkbox } from 'Components/Checkbox'
 import cn from 'classnames'
 
 import './Table.scss'
+import useSelectionState from './hooks/useSelectionState'
 
 /** Компонент многофункциональной таблицы */
 const Table = <TRowData extends Record<string, any> = Record<string, any>>({
@@ -51,6 +49,7 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
   withRowSelection,
   onChangeRowSelection,
   selectionState = [],
+  getRowId,
   selectedRow,
   onRowClick,
   resizeMode,
@@ -75,16 +74,9 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
   }
 
   // ==================== Сложная таблица ====================
-
-  // Приводим состояние селекции столбцом к формату танстака(объект ключ-id ряда, значение-boolean)
-  const tanstackSelectionState = useMemo(
-    () =>
-      selectionState?.reduce<RowSelectionState>((accumulator, currentValue) => {
-        accumulator[currentValue.id] = true
-        return accumulator
-      }, {}),
-    [selectionState]
-  )
+  const { tanstackSelectionState, handleRowSelection } = useSelectionState({
+    selectionState
+  })
 
   // ==================== handlers ====================
 
@@ -106,20 +98,6 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
       hasValue ? { id: column.id, filterType, value } : undefined
     ].filter((item) => Boolean(item)) as TableColumnFiltersState
     onFiltersChange?.(newState)
-  }
-
-  // маппим данные ряда из формата танстака к нашему формату
-  const handleRowSelection: TanstackOnChangeFn<RowSelectionState> = (
-    callback
-  ) => {
-    const newTanstackSelectionState =
-      typeof callback === 'function' ? callback(tanstackSelectionState) : {}
-    const rowSelectionState: Array<TableRowType<any>> = []
-    Object.keys(newTanstackSelectionState).forEach((key) => {
-      const row = mapRowToExternalFormat(table.getRow(key))
-      rowSelectionState.push(row)
-    })
-    onChangeRowSelection?.(rowSelectionState)
   }
 
   const canSort = (column: Column<any>): boolean => {
@@ -175,6 +153,13 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     columns: memoizedColumns,
     columnResizeMode: resizeMode,
     getCoreRowModel: getCoreRowModel(),
+    getRowId: (original, index) => {
+      if (typeof getRowId === 'function') {
+        return getRowId(original)
+      }
+
+      return String(index)
+    },
     state: {
       rowSelection: tanstackSelectionState,
       sorting: sortingState,
@@ -182,7 +167,16 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     },
     manualFiltering: true,
     // manualGrouping: enableGrouping,
-    onRowSelectionChange: handleRowSelection,
+    onRowSelectionChange: (callback) => {
+      const nextTanstackSelectionState =
+        typeof callback === 'function' ? callback(tanstackSelectionState) : {}
+
+      handleRowSelection(
+        nextTanstackSelectionState,
+        table,
+        onChangeRowSelection
+      )
+    },
     getFacetedUniqueValues: getFacetedUniqueValues()
     // getSubRows: (row) => row?.subRows,
   })

@@ -53,6 +53,10 @@ export interface TableProps<TRowData extends Record<string, any>>
   onChangeRowSelection?: OnChangeFn<TableSelectionState<any>>
   /** Состояние выбора рядов через чекбокс */
   selectionState?: TableSelectionState<any>
+  /** Функция для задания кастомного id для ряда. Используется в случае, когда необходимо сочетать выбор рядов вместе с динамически изменяющимися рядами(filtering, sorting)
+   * Ссылка на документацию https://tanstack.com/table/v8/docs/guide/row-selection#useful-row-ids
+   */
+  getRowId?: (row: TRowData) => string
   /**
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id ряда.
    */

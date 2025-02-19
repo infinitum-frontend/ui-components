@@ -206,6 +206,7 @@ import { OnChangeFn, TableSelectionState } from './types'
 type withSelection = boolean // включение селекции(отображение чекбокса в первой колонке таблицы
 type selectionState = TableSelectionState<T = any> // состояние селекции(в качестве дженерика в TableSelectionState передается модель данных для наполнение таблицы(по аналогии с column)
 type onChangeRowSelection = OnChangeFn<TableSelectionState<any>> // обработка изменения сортировки
+type getRowId = (row: TRowData) => string // установка кастомного значения в качестве идентификатора ряда
 ```
 
 <strong>Пример кода:</strong>
@@ -249,6 +250,7 @@ const Component = (): ReactElement => {
         withRowSelection
         onChangeRowSelection={handleChange}
         selectionState={selection}
+        getRowId={(row) => row.id}
         columns={columns}
         rows={TABLE_DATA}
       />
