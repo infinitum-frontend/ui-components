@@ -1,3 +1,4 @@
+import { ColumnDef } from '@tanstack/react-table'
 import { SelectOption } from '../../Select'
 
 export const TYPE_FILTER_ITEMS: SelectOption[] = [
@@ -51,5 +52,58 @@ export const TABLE_DATA: Portfolio[] = [
     mark: '2206',
     type: 'УВНУ',
     status: 'На согласовании'
+  }
+]
+
+export const TABLE_COLUMNS: Array<ColumnDef<Portfolio, any>> = [
+  {
+    header: 'Портфель',
+    id: 'portfolio',
+    accessorKey: 'portfolio',
+    meta: {
+      filterType: 'search'
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Показатель',
+    id: 'mark',
+    accessorKey: 'mark'
+  },
+  {
+    header: 'Тип',
+    id: 'type',
+    accessorKey: 'type',
+    meta: {
+      filterType: 'select',
+      filterOptions: TYPE_FILTER_ITEMS
+    }
+  },
+  {
+    header: 'Статус',
+    id: 'status',
+    accessorKey: 'status',
+    meta: {
+      filterType: 'multiSelect',
+      filterOptions: [
+        {
+          value: '1',
+          label: 'Сформировано'
+        },
+        {
+          value: '2',
+          label: 'На согласовании'
+        }
+      ]
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Дата',
+    id: 'date',
+    accessorKey: 'date',
+    meta: {
+      filterType: 'date'
+    }
   }
 ]

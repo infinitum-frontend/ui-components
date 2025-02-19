@@ -2,10 +2,15 @@
 import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
 import { Table, TableRow, TableColumnFiltersState } from './index'
-import { ColumnDef, SortingState } from '@tanstack/react-table'
+import { SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
-import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtures'
+import {
+  Portfolio,
+  TABLE_COLUMNS,
+  TABLE_DATA,
+  TYPE_FILTER_ITEMS
+} from './fixtures'
 import { Button } from '../Button'
 import { Space } from '../Space'
 import { Checkbox } from '../Checkbox'
@@ -19,64 +24,11 @@ const meta: Meta<typeof Table> = {
   }
 }
 
-const columns: Array<ColumnDef<Portfolio, any>> = [
-  {
-    header: 'Портфель',
-    id: 'portfolio',
-    accessorKey: 'portfolio',
-    meta: {
-      filterType: 'search'
-    },
-    enableSorting: true
-  },
-  {
-    header: 'Показатель',
-    id: 'mark',
-    accessorKey: 'mark'
-  },
-  {
-    header: 'Тип',
-    id: 'type',
-    accessorKey: 'type',
-    meta: {
-      filterType: 'select',
-      filterOptions: TYPE_FILTER_ITEMS
-    }
-  },
-  {
-    header: 'Статус',
-    id: 'status',
-    accessorKey: 'status',
-    meta: {
-      filterType: 'multiSelect',
-      filterOptions: [
-        {
-          value: '1',
-          label: 'Сформировано'
-        },
-        {
-          value: '2',
-          label: 'На согласовании'
-        }
-      ]
-    },
-    enableSorting: true
-  },
-  {
-    header: 'Дата',
-    id: 'date',
-    accessorKey: 'date',
-    meta: {
-      filterType: 'date'
-    }
-  }
-]
-
 export default meta
 
 export const Base: StoryObj<typeof Table> = {
   render: (args) => {
-    return <Table {...args} columns={columns} rows={TABLE_DATA} />
+    return <Table {...args} columns={TABLE_COLUMNS} rows={TABLE_DATA} />
   }
 }
 
@@ -86,6 +38,7 @@ export const Selection: StoryObj<typeof Table> = {
     const [selection, setSelection] = useState<Array<TableRow<Portfolio>>>([])
     const [filters, setFilters] = useState<TableColumnFiltersState>([])
     const handleChange = (data: Array<TableRow<Portfolio>>): void => {
+      console.log(data)
       setSelection(data)
     }
 
@@ -118,7 +71,7 @@ export const Selection: StoryObj<typeof Table> = {
           getRowId={(row) => row.portfolio}
           withFiltersTags
           onFiltersChange={handleFiltersChange}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={rows}
         />
         <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
@@ -140,7 +93,7 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
     return (
       <Space>
         <Table<Portfolio>
-          columns={columns}
+          columns={TABLE_COLUMNS}
           selectedRow={selected}
           onRowClick={(row) => {
             handleRowClick(row)
@@ -187,7 +140,7 @@ export const WithSorting: StoryObj<typeof Table> = {
           withSorting
           sortingState={sorting}
           onSortingChange={handleSortingChange}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={sortedItems}
         />
         <Button
@@ -290,7 +243,7 @@ export const Filtering: StoryObj<typeof Table> = {
           withSorting
           sortingState={sorting}
           onSortingChange={handleSortingChange}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={sortedItems}
         />
       </div>
@@ -312,7 +265,7 @@ export const Scrollable: StoryObj<typeof Table> = {
 
         <Table
           {...args}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={filteredData}
           maxHeight={400}
           stickyHeader
@@ -336,7 +289,7 @@ export const VirtualizedRows: StoryObj<typeof Table> = {
 
         <Table
           {...args}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={filteredData}
           maxHeight={400}
           stickyHeader
@@ -358,7 +311,7 @@ export const Empty: StoryObj<typeof Table> = {
       <Space fullHeight>
         <Input value={search} onChange={setSearch} />
 
-        <Table {...args} columns={columns} rows={filteredData} />
+        <Table {...args} columns={TABLE_COLUMNS} rows={filteredData} />
       </Space>
     )
   },
@@ -369,7 +322,13 @@ export const Empty: StoryObj<typeof Table> = {
 
 export const Resizing: StoryObj<typeof Table> = {
   render: (args) => {
-    return <Table resizeMode={'onChange'} columns={columns} rows={TABLE_DATA} />
+    return (
+      <Table
+        resizeMode={'onChange'}
+        columns={TABLE_COLUMNS}
+        rows={TABLE_DATA}
+      />
+    )
   }
 }
 
@@ -390,7 +349,7 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
     return (
       <Space>
         <Space direction="horizontal">
-          {columns.map((column) => (
+          {TABLE_COLUMNS.map((column) => (
             <Checkbox
               key={column.id}
               checked={columnVisibility[column.id]}
@@ -406,7 +365,7 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
           ))}
         </Space>
         <Table
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={TABLE_DATA}
           columnVisibility={columnVisibility}
         />
@@ -416,7 +375,7 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
 }
 
 const columnsWithAction = [
-  ...columns,
+  ...TABLE_COLUMNS,
   {
     id: 'actionButton',
     cell: () => (
