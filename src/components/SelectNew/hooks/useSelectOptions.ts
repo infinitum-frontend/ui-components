@@ -5,10 +5,11 @@ import { UseSelectOptionsProps, UseSelectOptionsResult } from '../utils/types'
 const useSelectOptions = ({
   options: optionsProp,
   filterable,
-  filterValue
+  filterValue,
+  customFiltering
 }: UseSelectOptionsProps): UseSelectOptionsResult => {
   const filtered = React.useMemo(() => {
-    return filterable && filterValue
+    return filterable && filterValue && !customFiltering
       ? getFilteredGroupedOptions(optionsProp, filterValue)
       : optionsProp
   }, [filterValue, filterable, optionsProp])

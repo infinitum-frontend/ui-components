@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { Space } from '../Space'
 import { Text } from '../Text'
 import { Icon } from '../Icon'
+import { Button } from '../Button'
 import {
   SelectBaseOptions,
   SelectBaseGroupedOptions,
@@ -19,6 +20,8 @@ import {
 } from './utils/fixtures'
 import { removeDuplicates } from 'Utils/helpers'
 import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import { ReactComponent as ArrowUpIcon } from 'Icons/chevron-up.svg'
 
 const meta: Meta<typeof SelectNew> = {
   title: 'Form/SelectNew',
@@ -45,8 +48,8 @@ const SingleTemplate: StoryFn<typeof SelectNew> = (args) => {
   return (
     <Space>
       <SelectNew
-        {...args}
         style={{ maxWidth: '300px' }}
+        {...args}
         value={value}
         onChange={(newValue) => handleChange(newValue)}
       />
@@ -155,6 +158,16 @@ export const Empty = {
   }
 }
 
+export const PopoverWidth = {
+  render: SingleTemplate,
+  args: {
+    style: {
+      width: '150px'
+    },
+    popoverWidth: '250px'
+  }
+}
+
 export const Small = {
   render: SingleTemplate,
   args: {
@@ -249,6 +262,51 @@ const fetchAsyncData = async (filterValue?: string): Promise<any> => {
   })
 }
 
+export const ControlledAsyncOptions = {
+  render: (args) => {
+    const [selectedOption, setSelectedOption] = useState<SelectOption>()
+    const [filterValue, setFilterValue] = useState('')
+    const [options, setOptions] = useState<SelectOptions>([])
+    const [isLoading, setLoading] = useState(true)
+
+    const handleChange = (selectedOption: SelectOption): void => {
+      setSelectedOption(selectedOption)
+    }
+
+    React.useEffect(() => {
+      const fetch = async (): Promise<void> => {
+        setLoading(true)
+        const response = await fetchAsyncData(filterValue)
+        setOptions(response)
+        setLoading(false)
+      }
+
+      void fetch()
+    }, [filterValue])
+
+    console.log('options', options)
+
+    return (
+      <Space>
+        <SelectNew
+          style={{ maxWidth: '300px' }}
+          options={options}
+          loading={isLoading}
+          value={selectedOption?.value}
+          placeholder="Выберите значение"
+          onChange={handleChange}
+          filterable
+          onFilterChange={(filterValue) => {
+            console.log('onFilterChange', filterValue)
+            setFilterValue(filterValue)
+          }}
+        />
+
+        <Text>{selectedOption?.label || ''}</Text>
+      </Space>
+    )
+  }
+}
 export const AsyncOptionsLoading = {
   render: (args) => {
     const [value, setValue] = useState<SelectValue>('')
@@ -302,6 +360,46 @@ export const AsyncOptionsFilterable = {
           filterable
           value={value}
           onChange={handleChange}
+        />
+
+        <Text>{value}</Text>
+      </Space>
+    )
+  }
+}
+
+export const CustomControl = {
+  render: (args) => {
+    const [value, setValue] = useState<SelectValue>('')
+
+    const handleChange = (selectedOption: SelectOption): void => {
+      setValue(selectedOption ? selectedOption.value : '')
+    }
+
+    return (
+      <Space>
+        <SelectNew
+          options={SelectBaseOptions}
+          value={value}
+          onChange={handleChange}
+          renderControl={({
+            isOpen,
+            displayValue,
+            onClick,
+            ref
+          }): React.ReactElement => {
+            return (
+              <Button
+                ref={ref}
+                variant="secondary"
+                size="small"
+                after={isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                onClick={onClick}
+              >
+                {displayValue || 'Не выбрано'}
+              </Button>
+            )
+          }}
         />
 
         <Text>{value}</Text>

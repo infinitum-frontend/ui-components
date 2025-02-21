@@ -7,7 +7,7 @@ import { Checkbox } from '~/src/components/Checkbox'
 interface SelectOptionProps extends ComponentPropsWithoutRef<'li'> {
   selected: boolean
   disabled?: boolean
-  active: boolean
+  active?: boolean
   onSelect: () => void
   selectionIndicator: 'checkbox' | 'tick'
 }

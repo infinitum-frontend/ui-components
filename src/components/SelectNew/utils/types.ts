@@ -1,5 +1,6 @@
 import { InputProps } from 'Components/Input'
 import { CSSProperties, ReactNode } from 'react'
+import { PopoverContentProps } from '../../Popover'
 
 export interface SelectProps<Multiple extends boolean = false> {
   multiple?: Multiple
@@ -9,14 +10,25 @@ export interface SelectProps<Multiple extends boolean = false> {
     value: Multiple extends true ? SelectOption[] : SelectOption
   ) => void
   onClear?: () => void
+  onFilterChange?: (filterValue: string) => void
   loadOptions?: (filterValue?: string) => Promise<SelectOptions>
   filterable?: boolean
   clearable?: boolean
   disabled?: boolean
+  required?: boolean
   loading?: boolean
   placeholder?: string
   size?: InputProps['size']
   prefix?: ReactNode
+  popoverWidth?: PopoverContentProps['width']
+  renderControl?: (props: {
+    displayValue: string
+    isOpen: boolean
+    disabled: boolean
+    required: boolean
+    ref: React.ForwardedRef<HTMLButtonElement>
+    onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
+  }) => React.ReactElement
   // TBD
   filterPlacement?: 'inline' | 'dropdown'
   cacheOptions?: boolean
@@ -72,6 +84,7 @@ export interface UseSelectOptionsProps {
   options: SelectOptions
   filterable: SelectProps['filterable']
   filterValue: string
+  customFiltering: boolean
 }
 
 export interface UseSelectOptionsResult {

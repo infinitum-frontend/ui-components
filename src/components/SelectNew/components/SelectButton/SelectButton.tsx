@@ -4,7 +4,8 @@ import React, {
   forwardRef,
   ComponentPropsWithoutRef,
   FocusEventHandler,
-  useState
+  useState,
+  ReactNode
 } from 'react'
 import cn from 'classnames'
 import './SelectButton.scss'
@@ -30,9 +31,12 @@ export interface SelectButtonProps
   prefix?: SelectProps['prefix']
   loading: boolean
   disabled: boolean
+  required: boolean
   selectedOptionsCount?: number
   placeholder?: string
-  opened?: boolean
+  opened: boolean
+  nativeSelectSlot: ReactNode
+  renderControl: SelectProps['renderControl']
 }
 
 // TODO: onBlur срабатывает неверно (на inf-popover-content)
@@ -44,6 +48,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       // status,
       selected,
       disabled,
+      required,
       loading,
       filterable,
       filterValue,
@@ -57,6 +62,8 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       prefix,
       opened,
       selectedOptionsCount = 0,
+      nativeSelectSlot,
+      renderControl,
       ...props
     },
     ref
@@ -80,6 +87,17 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       }
       // console.log('handleBlur')
       setFocused(false)
+    }
+
+    if (renderControl) {
+      return renderControl({
+        ref,
+        isOpen: opened,
+        displayValue,
+        disabled,
+        required,
+        onClick: props.onClick
+      })
     }
 
     return (
@@ -170,6 +188,8 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
             </>
           )}
         </div>
+
+        {nativeSelectSlot}
       </button>
     )
   }

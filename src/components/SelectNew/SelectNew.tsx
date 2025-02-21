@@ -1,8 +1,14 @@
-import { ReactElement, useEffect, useState } from 'react'
-import { SelectProps } from './utils/types'
+import {
+  MouseEventHandler,
+  ReactElement,
+  useContext,
+  useEffect,
+  useId,
+  useState
+} from 'react'
+import { SelectProps, SelectOption as SelectOptionType } from './utils/types'
 import useSelect from './hooks/useSelect'
 import useSelectOptions from './hooks/useSelectOptions'
-import useKeyboardNavigation from './hooks/useKeyboardNavigation'
 import SelectButton from './components/SelectButton'
 import { Popover } from '../Popover'
 import SelectFilterInput from './components/SelectFilterInput'
@@ -10,48 +16,49 @@ import SelectEmpty from './components/SelectEmpty'
 import SelectOption from './components/SelectOption'
 import { Menu } from '../Menu'
 import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
+import FormContext from 'Components/Form/context/form'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import SelectNativeElement from './components/SelectNativeElement'
+import FormGroupContext from 'Components/Form/context/group'
 import './SelectNew.scss'
 
 const SelectNew = <Multiple extends boolean = false>({
-  options: optionsProp,
+  options = [],
   value,
   onChange,
   multiple,
   filterable,
   clearable,
-  disabled,
+  disabled: disabledProp,
+  required = false,
   loading,
   placeholder,
   size,
   loadOptions,
   filterPlacement = 'dropdown',
   emptyMessage = 'Ничего не найдено',
+  onFilterChange,
   onClear,
   maxItemsCount = 12,
+  popoverWidth,
+  renderControl,
   ...props
 }: SelectProps<Multiple>): ReactElement => {
   const [filterValue, setFilterValue] = useState('')
-  const [options, setOptions] = useState(optionsProp ? [...optionsProp] : [])
-  const [isLoadingOptions, setLoadingOptions] = useState(false)
 
-  useEffect(() => {
-    if (loadOptions) {
-      const fetchOptions = async (): Promise<void> => {
-        setLoadingOptions(true)
-        const loadedOptions = await loadOptions(filterValue)
-        setOptions(loadedOptions)
-        setLoadingOptions(false)
-      }
+  const prefix = useId()
 
-      void fetchOptions()
-    }
-  }, [filterValue])
+  const formGroupContext = useContext(FormGroupContext)
+  const formContext = useContext(FormContext)
+  const { onControlInvalid, resetControlValidity } = useFormControlHandlers()
 
-  const { filteredFlattenOptions, flattenOptions } = useSelectOptions({
-    options,
-    filterValue,
-    filterable
-  })
+  const { filteredFlattenOptions, flattenOptions, filteredOptions } =
+    useSelectOptions({
+      options,
+      filterValue,
+      filterable,
+      customFiltering: Boolean(onFilterChange)
+    })
 
   const {
     handleSelect,
@@ -70,26 +77,39 @@ const SelectNew = <Multiple extends boolean = false>({
     onClear
   })
 
-  const { handleKeyDown, activeItemIndex, setActiveItemIndex } =
-    useKeyboardNavigation({
-      options: filteredFlattenOptions,
-      onSelect: handleSelect,
-      isOpen,
-      setOpen
-    })
+  // TODO: управление с клавиатуры
+  // const { handleKeyDown, activeItemIndex, setActiveItemIndex } =
+  //   useKeyboardNavigation({
+  //     options: filteredFlattenOptions,
+  //     onSelect: handleSelect,
+  //     isOpen,
+  //     setOpen
+  //   })
 
+  // ============================= effects =============================
   useEffect(() => {
     if (!isOpen) {
       setFilterValue('')
     }
   }, [isOpen])
 
-  console.log('activeItemIndex', activeItemIndex)
+  // ============================= handlers =============================
+  const handleOpenToggle: MouseEventHandler = (e): void => {
+    setOpen(!isOpen)
+  }
 
-  const isLoading = loading || isLoadingOptions
+  const handleOptionSelect = (option: SelectOptionType): void => {
+    handleSelect(option)
+    resetControlValidity()
+  }
+
+  // ============================= render =============================
+  const isDisabled = disabledProp || formContext?.disabled
+  const isRequired = formGroupContext?.required || required
+  const isLoading = Boolean(loading)
+  // || isLoadingOptions
   // высота элемента, паддинг и границы
   const maxHeight = maxItemsCount * 32 + 4 + 2
-
   const popoverFocus =
     filterable && isOpen && filterPlacement === 'inline' ? -1 : 0
 
@@ -101,6 +121,7 @@ const SelectNew = <Multiple extends boolean = false>({
         mainAxis: 4
       }}
       initialFocus={popoverFocus}
+      placement="bottom-start"
       // TODO: ломает закрытие по клику вне внутри Popover
       // onPressOutside={handlePopoverPressOutside}
     >
@@ -113,23 +134,35 @@ const SelectNew = <Multiple extends boolean = false>({
           selectedOptionsCount={multiple && selectedOptions.length}
           clearable={Boolean(clearable && hasSelectedValue)}
           onClear={handleClear}
-          disabled={Boolean(disabled)}
+          disabled={Boolean(isDisabled)}
+          required={isRequired}
           loading={isLoading}
           placeholder={placeholder}
           size={size}
-          onClick={() => {
-            setOpen(!isOpen) // TODO: нужен ли здесь setState(v => !v)
-          }}
           opened={isOpen}
+          renderControl={renderControl}
+          nativeSelectSlot={
+            <SelectNativeElement
+              options={filteredOptions}
+              value={value}
+              id={formGroupContext?.id}
+              multiple={Boolean(multiple)}
+              required={isRequired}
+              disabled={Boolean(isDisabled || loading)}
+              onInvalid={onControlInvalid}
+            />
+          }
+          onClick={(e) => handleOpenToggle(e)}
           {...props}
         />
       </Popover.Trigger>
 
       <Popover.Content
         hasPadding={false}
-        equalTriggerWidth
+        equalTriggerWidth={Boolean(!popoverWidth) && Boolean(!renderControl)}
+        width={popoverWidth}
         data-selector={SELECT_DROPDOWN_SELECTOR}
-        onKeyDown={handleKeyDown}
+        // onKeyDown={handleKeyDown}
       >
         {filterable && filterPlacement === 'dropdown' && (
           <SelectFilterInput
@@ -145,17 +178,20 @@ const SelectNew = <Multiple extends boolean = false>({
           <Menu className="inf-select-new__options" maxHeight={maxHeight}>
             {filteredFlattenOptions.map((option, index) => {
               return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
-                <Menu.Label key={index}>{option.groupLabel}</Menu.Label>
+                <Menu.Label key={String(option.groupLabel) + prefix}>
+                  {option.groupLabel}
+                </Menu.Label>
               ) : (
                 <SelectOption
-                  key={index}
+                  key={String(option.value) + prefix}
                   selected={checkOptionSelection(option)}
-                  active={index === activeItemIndex}
                   selectionIndicator={multiple ? 'checkbox' : 'tick'}
                   onSelect={() => {
-                    handleSelect(option)
+                    handleOptionSelect(option)
                   }}
-                  onMouseOver={() => setActiveItemIndex(index)}
+                  // TODO: управление с клавиатуры
+                  // active={index === activeItemIndex}
+                  // onMouseOver={() => setActiveItemIndex(index)}
                 >
                   {option.label}
                 </SelectOption>
