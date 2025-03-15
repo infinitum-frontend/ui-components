@@ -167,7 +167,6 @@ const IndicatorsTable = ({
       maxHeight="calc(100vh - 200px)"
       stickyHeader
       emptyMessage={emptyMessage}
-      tableLayout="fixed"
     />
   )
 }
