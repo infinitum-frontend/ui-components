@@ -6,8 +6,10 @@ import { PageLayout } from '../PageLayout'
 import { Space } from '../Space'
 import { Logo } from '../Logo'
 import { Menu } from '../Menu'
-import { ReactComponent as IconProfile } from 'Icons/user.svg'
-import { ReactComponent as IconQuit } from 'Icons/sign-out.svg'
+// @ts-expect-error
+import IconProfile from 'Icons/user.svg?react'
+// @ts-expect-error
+import IconQuit from 'Icons/sign-out.svg?react'
 
 const ComponentMeta: Meta<typeof UserMenu> = {
   title: 'complex/UserMenu',

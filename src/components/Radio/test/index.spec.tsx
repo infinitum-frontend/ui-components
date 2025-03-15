@@ -1,5 +1,5 @@
 import { it, describe, vi, expect } from 'vitest'
-import { screen } from '@testing-library/react'
+import { act, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderComponent } from '../../../../testSetup'
 import { Radio } from '../index'
@@ -119,9 +119,10 @@ describe('Radio in Group', () => {
 
 describe('Radio in Form', () => {
   it('should support Form props', async () => {
+    const errorMessage = 'Пользовательская ошибка'
     renderComponent(
       <Form>
-        <Form.Group required customValidationMessage={'error'}>
+        <Form.Group required customValidationMessage={errorMessage}>
           <Radio value={'1'} title={'first'} />
         </Form.Group>
         <Button type={'submit'} />
@@ -133,11 +134,16 @@ describe('Radio in Form', () => {
     expect(radio).toHaveAttribute('aria-required', 'true')
     expect(radio).not.toHaveAttribute('aria-invalid')
 
-    await user.click(screen.queryByRole('button') as HTMLButtonElement)
+    await act(async () => {
+      await user.click(screen.queryByRole('button') as HTMLButtonElement)
+    })
     expect(radio).toHaveAttribute('aria-invalid', 'true')
-    expect(radio.validationMessage).toBe('error')
+    expect(screen.getByText(errorMessage)).toBeInTheDocument()
 
-    await user.click(radio)
+    await act(async () => {
+      await user.click(radio)
+    })
+
     expect(radio).not.toHaveAttribute('aria-invalid')
     expect(radio.validationMessage).toBe('')
   })

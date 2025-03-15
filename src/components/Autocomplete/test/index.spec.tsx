@@ -338,7 +338,7 @@ describe('Autocomplete Dropdown', () => {
         </Autocomplete.Dropdown>
       </AutocompleteContext.Provider>
     )
-    expect(screen.queryByText('Dropdown')).toHaveStyle('color: red;')
+    expect(screen.queryByText('Dropdown')).toHaveStyle('color: rgb(255, 0, 0);')
   })
 })
 

@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import cn from 'classnames'
 import './Alert.scss'
-import { ReactComponent as IconInfoCircle } from 'Icons/info-circle.svg'
-import { ReactComponent as IconCheckCircle } from 'Icons/check-circle.svg'
-import { ReactComponent as IconAlertCircle } from 'Icons/alert-circle.svg'
+import IconInfoCircle from 'Icons/info-circle.svg?react'
+import IconCheckCircle from 'Icons/check-circle.svg?react'
+import IconAlertCircle from 'Icons/alert-circle.svg?react'
 
 export interface AlertProps
   extends Omit<ComponentPropsWithoutRef<'span'>, 'prefix'> {

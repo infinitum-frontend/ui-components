@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { StatusView } from './index'
-import { ReactComponent as StopIcon } from 'Icons/stop.svg'
+import StopIcon from 'Icons/stop.svg?react'
 
 const meta: Meta<typeof StatusView> = {
   title: 'Components/StatusView',
