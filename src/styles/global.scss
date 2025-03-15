@@ -51,11 +51,14 @@ body {
 
   /* Background */
   --inf-color-background-primary: #171717;
-  --inf-color-background-primary-hover: #ffffff1a; // TODO: не совпадает с дизайн системой
-  --inf-color-background-secondary: #353535; // TODO: не совпадает с дизайн системой, так как сливается с bg-elevated (input disabled)
-  --inf-color-background-secondary-hover: #2b2b2b; // TODO: не совпадает с дизайн системой, так как сливается с bg-elevated
+  --inf-color-background-primary-hover: #212121;
+  --inf-color-background-secondary: #212121;
+  --inf-color-background-secondary-hover: #2b2b2b;
   --inf-color-background-tertiary: #2b2b2b;
   --inf-color-background-tertiary-hover: #353535;
+  --inf-color-background-float: #2b2b2b;
+  --inf-color-background-float-hover: #353535;
+  --inf-color-background-generic: #7b7b7b;
   --inf-color-background-inverse: #f1f1f1;
   --inf-color-background-elevated: #212121;
   --inf-color-background-error-primary: #fc3860;
@@ -74,8 +77,9 @@ body {
   --inf-color-background-teal-secondary: #152222;
 
   /* Border */
-  --inf-color-border-primary: #353535; // TODO: не совпадает с дизайн системой
-  --inf-color-border-primary-hover: #626262; // TODO: не совпадает с дизайн системой
+  --inf-color-border-primary: #353535;
+  --inf-color-border-primary-hover: #f1f1f1;
+  --inf-color-border-secondary: #2b2b2b;
   --inf-color-border-inverse: #f1f1f1;
   --inf-color-border-error: #fc3860;
   --inf-color-border-warning: #fa921a;
@@ -85,7 +89,7 @@ body {
   --inf-color-border-teal: #00b4b4;
 
   /* Icon */
-  --inf-color-icon-primary: #575757;
+  --inf-color-icon-primary: #adadad;
   --inf-color-icon-secondary: #949494;
   --inf-color-icon-primary-hover: #f1f1f1;
   --inf-color-icon-primary-disabled: #404040;
