@@ -1,8 +1,12 @@
 import { InputProps } from 'Components/Input'
-import { CSSProperties, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { PopoverContentProps } from '../../Popover'
 
-export interface SelectProps<Multiple extends boolean = false> {
+export interface SelectProps<Multiple extends boolean = false>
+  extends Omit<
+    ComponentPropsWithoutRef<'button'>,
+    'value' | 'prefix' | 'onChange'
+  > {
   multiple?: Multiple
   options?: SelectOptions
   value: Multiple extends true ? SelectValue[] : SelectValue | undefined
@@ -11,7 +15,6 @@ export interface SelectProps<Multiple extends boolean = false> {
   ) => void
   onClear?: () => void
   onFilterChange?: (filterValue: string) => void
-  loadOptions?: (filterValue?: string) => Promise<SelectOptions>
   filterable?: boolean
   clearable?: boolean
   disabled?: boolean
@@ -29,15 +32,16 @@ export interface SelectProps<Multiple extends boolean = false> {
     ref: React.ForwardedRef<HTMLButtonElement>
     onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
   }) => React.ReactElement
-  // TBD
   filterPlacement?: 'inline' | 'dropdown'
-  cacheOptions?: boolean
   className?: string
-  style?: CSSProperties | undefined
-  filterOptions?: (options: SelectOptions) => SelectOptions
-  /** Максимальное количество отображаемых элементов, после которого начинается скролл */
   maxItemsCount?: number
   emptyMessage?: string
+  // TBD
+  // selectedFirst?: boolean
+  // loadOptions?: (filterValue?: string) => Promise<SelectOptions>
+  // cacheOptions?: boolean
+  // filterOptions?: (options: SelectOptions) => SelectOptions
+  /** Максимальное количество отображаемых элементов, после которого начинается скролл */
 }
 
 export type SelectValue = string | number

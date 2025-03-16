@@ -89,6 +89,9 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       setFocused(false)
     }
 
+    const shouldDisplayInput = filterable && opened
+    const canClearFilterInput = filterable && opened && filterValue
+
     if (renderControl) {
       return renderControl({
         ref,
@@ -135,7 +138,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
           </div>
         )}
 
-        {filterable && opened ? (
+        {shouldDisplayInput ? (
           <input
             className="inf-select-new-button__filter-input"
             value={filterValue}
@@ -149,12 +152,18 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
         ) : (
           <div className="inf-select-new-button__content">
             {displayValue ? (
-              <div className="inf-select-new-button__display-value">
+              <div
+                className="inf-select-new-button__display-value"
+                title={displayValue}
+              >
                 {displayValue}
               </div>
             ) : (
               Boolean(placeholder) && (
-                <div className="inf-select-new-button__placeholder">
+                <div
+                  className="inf-select-new-button__placeholder"
+                  title={placeholder}
+                >
                   {placeholder}
                 </div>
               )
@@ -164,11 +173,17 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
 
         <div className="inf-select-new-button__after">
           {loading ? (
-            <Loader size="compact" />
+            <Loader
+              className="inf-select-new-button__loader"
+              size="compact"
+              variant="unset"
+            />
           ) : (
             <>
-              {filterable && opened && filterValue ? (
+              {canClearFilterInput ? (
+                // Кнопка очистки поля поиска
                 <ClearButton
+                  title="Очистить поиск"
                   onClick={(e) => {
                     e.stopPropagation()
                     onFilterChange('')
@@ -176,7 +191,9 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
                 />
               ) : (
                 clearable && (
+                  // Кнопка очистки значения селекта
                   <ClearButton
+                    title="Очистить значение"
                     onClick={(e) => {
                       e.stopPropagation()
                       onClear()

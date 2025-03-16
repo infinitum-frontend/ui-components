@@ -1,6 +1,6 @@
 import { forwardRef, ReactElement } from 'react'
 import { Input, InputProps } from '~/src/components/Input'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
 import { Loader } from '~/src/components/Loader'
 import { SelectOption } from '../../utils/types'
 import SelectCounter from '../SelectCounter'

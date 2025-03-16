@@ -34,7 +34,7 @@ const SelectNew = <Multiple extends boolean = false>({
   loading,
   placeholder,
   size,
-  loadOptions,
+  // loadOptions,
   filterPlacement = 'dropdown',
   emptyMessage = 'Ничего не найдено',
   onFilterChange,
@@ -42,6 +42,7 @@ const SelectNew = <Multiple extends boolean = false>({
   maxItemsCount = 12,
   popoverWidth,
   renderControl,
+  className,
   ...props
 }: SelectProps<Multiple>): ReactElement => {
   const [filterValue, setFilterValue] = useState('')
@@ -103,6 +104,14 @@ const SelectNew = <Multiple extends boolean = false>({
     resetControlValidity()
   }
 
+  const handleFilterChange = (filterValue: string): void => {
+    setFilterValue(filterValue)
+    // поиск обрабатывается снаружи
+    if (onFilterChange) {
+      onFilterChange(filterValue)
+    }
+  }
+
   // ============================= render =============================
   const isDisabled = disabledProp || formContext?.disabled
   const isRequired = formGroupContext?.required || required
@@ -127,9 +136,10 @@ const SelectNew = <Multiple extends boolean = false>({
     >
       <Popover.Trigger>
         <SelectButton
+          className={className}
           filterable={filterable && filterPlacement === 'inline'}
           filterValue={filterValue}
-          onFilterChange={setFilterValue}
+          onFilterChange={handleFilterChange}
           displayValue={displayValue}
           selectedOptionsCount={multiple && selectedOptions.length}
           clearable={Boolean(clearable && hasSelectedValue)}
@@ -167,7 +177,7 @@ const SelectNew = <Multiple extends boolean = false>({
         {filterable && filterPlacement === 'dropdown' && (
           <SelectFilterInput
             value={filterValue}
-            onChange={setFilterValue}
+            onChange={handleFilterChange}
             allowClear={true}
             onClear={() => {
               setFilterValue('')

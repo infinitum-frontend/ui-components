@@ -26,6 +26,7 @@ const SelectNativeElement = React.forwardRef<
       ref={ref}
       required={required}
       disabled={disabled}
+      multiple={multiple}
       id={id}
       // @ts-expect-error
       // TODO:

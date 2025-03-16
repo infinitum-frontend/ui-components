@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
-import { ReactComponent as ClearIcon } from 'Icons/cancel-circle.svg'
+import ClearIcon from 'Icons/cancel-circle.svg?react'
 import cn from 'classnames'
 import './ClearButton.scss'
 

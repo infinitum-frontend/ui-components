@@ -49,4 +49,10 @@
     outline: 0px;
     padding: 0px;
   }
+
+  &__loader {
+    &.inf-loader {
+      color: var(--inf-color-icon-primary);
+    }
+  }
 }

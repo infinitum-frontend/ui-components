@@ -18,10 +18,10 @@ import {
   SelectBaseGroupedOptions,
   SelectLongOptions
 } from './utils/fixtures'
-import { removeDuplicates } from 'Utils/helpers'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
-import { ReactComponent as ArrowUpIcon } from 'Icons/chevron-up.svg'
+// import { removeDuplicates } from 'Utils/helpers'
+import SearchIcon from 'Icons/search.svg?react'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
+import ArrowUpIcon from 'Icons/chevron-up.svg?react'
 
 const meta: Meta<typeof SelectNew> = {
   title: 'Form/SelectNew',
@@ -102,10 +102,20 @@ export const Disabled = {
   }
 }
 
-export const LongPlaceholder = {
-  render: SingleTemplate,
-  args: {
-    placeholder: 'Выберите значение или пожалеете'
+export const Overflow = {
+  render: () => {
+    const [value, setValue] = useState<SelectValue>()
+
+    return (
+      <SelectNew
+        style={{ maxWidth: '100px' }}
+        popoverWidth="200px"
+        options={SelectBaseOptions}
+        value={value}
+        onChange={(option: SelectOption) => setValue(option.value)}
+        placeholder="Выберите значение"
+      />
+    )
   }
 }
 
@@ -114,22 +124,6 @@ export const Scrollable = {
   args: {
     options: SelectLongOptions,
     maxItemsCount: 5
-  }
-}
-
-export const Overflow = {
-  render: () => {
-    const [value, setValue] = useState<SelectValue>()
-
-    return (
-      <SelectNew
-        style={{ maxWidth: '100px' }}
-        options={SelectBaseOptions}
-        value={value}
-        onChange={(option: SelectOption) => setValue(option.value)}
-        placeholder="Выберите значение"
-      />
-    )
   }
 }
 
@@ -144,30 +138,6 @@ export const Prefix = {
   }
 }
 
-export const LongValue = {
-  render: SingleTemplate,
-  args: {
-    disabled: true
-  }
-}
-
-export const Empty = {
-  render: SingleTemplate,
-  args: {
-    options: []
-  }
-}
-
-export const PopoverWidth = {
-  render: SingleTemplate,
-  args: {
-    style: {
-      width: '150px'
-    },
-    popoverWidth: '250px'
-  }
-}
-
 export const Small = {
   render: SingleTemplate,
   args: {
@@ -175,10 +145,32 @@ export const Small = {
   }
 }
 
+export const EmptyOptions = {
+  render: SingleTemplate,
+  args: {
+    options: []
+  }
+}
+
 export const Loading = {
   render: SingleTemplate,
   args: {
     loading: true
+  }
+}
+
+export const Clearable = {
+  render: SingleTemplate,
+  args: {
+    clearable: true
+  }
+}
+
+export const OnClearHandler = {
+  // TODO:
+  render: SingleTemplate,
+  args: {
+    clearable: true
   }
 }
 
@@ -197,20 +189,6 @@ export const MultipleGrouped = {
   render: MultipleTemplate,
   args: {
     options: SelectBaseGroupedOptions
-  }
-}
-
-export const Clearable = {
-  render: SingleTemplate,
-  args: {
-    clearable: true
-  }
-}
-
-export const MultipleClearable = {
-  render: MultipleTemplate,
-  args: {
-    clearable: true
   }
 }
 
@@ -263,7 +241,7 @@ const fetchAsyncData = async (filterValue?: string): Promise<any> => {
 }
 
 export const ControlledAsyncOptions = {
-  render: (args) => {
+  render: () => {
     const [selectedOption, setSelectedOption] = useState<SelectOption>()
     const [filterValue, setFilterValue] = useState('')
     const [options, setOptions] = useState<SelectOptions>([])
@@ -276,15 +254,25 @@ export const ControlledAsyncOptions = {
     React.useEffect(() => {
       const fetch = async (): Promise<void> => {
         setLoading(true)
-        const response = await fetchAsyncData(filterValue)
-        setOptions(response)
+
+        const responseOptions: SelectOption[] = await fetchAsyncData(
+          filterValue
+        )
+        const optionsWithoutSelected = responseOptions.filter((option) => {
+          return option.value !== selectedOption?.value
+        })
+        if (selectedOption) {
+          optionsWithoutSelected.unshift(selectedOption)
+        }
+
+        setOptions(optionsWithoutSelected)
         setLoading(false)
       }
 
       void fetch()
     }, [filterValue])
 
-    console.log('options', options)
+    console.log('selectedOption', selectedOption)
 
     return (
       <Space>
@@ -296,10 +284,7 @@ export const ControlledAsyncOptions = {
           placeholder="Выберите значение"
           onChange={handleChange}
           filterable
-          onFilterChange={(filterValue) => {
-            console.log('onFilterChange', filterValue)
-            setFilterValue(filterValue)
-          }}
+          onFilterChange={setFilterValue}
         />
 
         <Text>{selectedOption?.label || ''}</Text>
@@ -307,69 +292,126 @@ export const ControlledAsyncOptions = {
     )
   }
 }
-export const AsyncOptionsLoading = {
-  render: (args) => {
-    const [value, setValue] = useState<SelectValue>('')
 
-    React.useEffect(() => {}, [])
+export const ControlledAsyncOptionsMultiple = {
+  render: () => {
+    const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
+    const [filterValue, setFilterValue] = useState('')
+    const [options, setOptions] = useState<SelectOptions>([])
+    const [isLoading, setLoading] = useState(true)
 
-    const handleChange = (selectedOption: SelectOption): void => {
-      setValue(selectedOption ? selectedOption.value : '')
+    const handleChange = (newOptions: SelectOption[]): void => {
+      setSelectedOptions(newOptions)
     }
 
-    const handleLoadOptions = async (
-      filterValue?: string
-    ): Promise<SelectOptions> => {
-      return await fetchAsyncData(filterValue)
-    }
+    React.useEffect(() => {
+      const fetch = async (): Promise<void> => {
+        setLoading(true)
+
+        const responseOptions: SelectOption[] = await fetchAsyncData(
+          filterValue
+        )
+        const optionsWithoutSelected = responseOptions.filter((option) => {
+          return !selectedOptions.find((o) => o.value === option.value)
+        })
+
+        if (selectedOptions.length) {
+          optionsWithoutSelected.unshift(...selectedOptions)
+        }
+
+        setOptions(optionsWithoutSelected)
+        setLoading(false)
+      }
+
+      void fetch()
+    }, [filterValue])
+
+    const selectedValues = selectedOptions.map((option) => option.value) || []
+
+    console.log('selectedValues', selectedValues)
 
     return (
       <Space>
         <SelectNew
+          className="qwerqwer"
           style={{ maxWidth: '300px' }}
-          value={value}
+          multiple
+          options={options}
+          loading={isLoading}
+          value={selectedValues}
+          placeholder="Выберите значения"
           onChange={handleChange}
-          loadOptions={handleLoadOptions}
-        />
-
-        <Text>{value}</Text>
-      </Space>
-    )
-  }
-}
-
-export const AsyncOptionsFilterable = {
-  render: (args) => {
-    const [value, setValue] = useState<SelectValue>('')
-
-    const handleChange = (selectedOption: SelectOption): void => {
-      setValue(selectedOption ? selectedOption.value : '')
-    }
-
-    const handleLoadOptions = async (
-      filterValue?: string
-    ): Promise<SelectOptions> => {
-      return await fetchAsyncData(filterValue)
-    }
-
-    return (
-      <Space>
-        <SelectNew
-          style={{ maxWidth: '300px' }}
-          loadOptions={handleLoadOptions}
           filterable
-          value={value}
-          onChange={handleChange}
+          onFilterChange={setFilterValue}
         />
-
-        <Text>{value}</Text>
       </Space>
     )
   }
 }
+
+// export const AsyncOptionsLoading = {
+//   render: (args) => {
+//     const [value, setValue] = useState<SelectValue>('')
+
+//     React.useEffect(() => {}, [])
+
+//     const handleChange = (selectedOption: SelectOption): void => {
+//       setValue(selectedOption ? selectedOption.value : '')
+//     }
+
+//     const handleLoadOptions = async (
+//       filterValue?: string
+//     ): Promise<SelectOptions> => {
+//       return await fetchAsyncData(filterValue)
+//     }
+
+//     return (
+//       <Space>
+//         <SelectNew
+//           style={{ maxWidth: '300px' }}
+//           value={value}
+//           onChange={handleChange}
+//           loadOptions={handleLoadOptions}
+//         />
+
+//         <Text>{value}</Text>
+//       </Space>
+//     )
+//   }
+// }
+
+// export const AsyncOptionsFilterable = {
+//   render: (args) => {
+//     const [value, setValue] = useState<SelectValue>('')
+
+//     const handleChange = (selectedOption: SelectOption): void => {
+//       setValue(selectedOption ? selectedOption.value : '')
+//     }
+
+//     const handleLoadOptions = async (
+//       filterValue?: string
+//     ): Promise<SelectOptions> => {
+//       return await fetchAsyncData(filterValue)
+//     }
+
+//     return (
+//       <Space>
+//         <SelectNew
+//           style={{ maxWidth: '300px' }}
+//           loadOptions={handleLoadOptions}
+//           filterable
+//           value={value}
+//           onChange={handleChange}
+//         />
+
+//         <Text>{value}</Text>
+//       </Space>
+//     )
+//   }
+// }
 
 export const CustomControl = {
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<SelectValue>('')
 
     const handleChange = (selectedOption: SelectOption): void => {
@@ -442,42 +484,42 @@ export const CustomControl = {
 //   }
 // }
 
-export const AsyncOptionsFilterableWithSelectedOptions = {
-  render: (args) => {
-    const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
+// export const AsyncOptionsFilterableWithSelectedOptions = {
+//   render: (args) => {
+//     const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
 
-    const handleChange = (selectedOptions: SelectOption[]): void => {
-      setSelectedOptions(selectedOptions)
-    }
+//     const handleChange = (selectedOptions: SelectOption[]): void => {
+//       setSelectedOptions(selectedOptions)
+//     }
 
-    const handleLoadOptions = async (
-      filterValue?: string
-    ): Promise<SelectOptions> => {
-      const options = await fetchAsyncData(filterValue)
-      return removeDuplicates([...selectedOptions, ...options])
-    }
+//     const handleLoadOptions = async (
+//       filterValue?: string
+//     ): Promise<SelectOptions> => {
+//       const options = await fetchAsyncData(filterValue)
+//       return removeDuplicates([...selectedOptions, ...options])
+//     }
 
-    const selectedValues = selectedOptions.map((option) => option.value)
-    const selectedOptionsLabels = selectedOptions
-      .map((option) => option.label)
-      .join(', ')
+//     const selectedValues = selectedOptions.map((option) => option.value)
+//     const selectedOptionsLabels = selectedOptions
+//       .map((option) => option.label)
+//       .join(', ')
 
-    return (
-      <Space>
-        <SelectNew
-          style={{ maxWidth: '300px' }}
-          loadOptions={handleLoadOptions}
-          multiple
-          filterable
-          value={selectedValues}
-          onChange={handleChange}
-        />
+//     return (
+//       <Space>
+//         <SelectNew
+//           style={{ maxWidth: '300px' }}
+//           loadOptions={handleLoadOptions}
+//           multiple
+//           filterable
+//           value={selectedValues}
+//           onChange={handleChange}
+//         />
 
-        <Text>{selectedOptionsLabels}</Text>
-      </Space>
-    )
-  }
-}
+//         <Text>{selectedOptionsLabels}</Text>
+//       </Space>
+//     )
+//   }
+// }
 
 export const Typescript = {
   render: () => (

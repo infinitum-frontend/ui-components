@@ -17,8 +17,7 @@ export const SelectBaseGroupedOptions = [
   {
     label: 'Консалтинг и аутсорсинг',
     options: [{ label: 'Консалтинг и аутсорсинг 1', value: 'three-one' }]
-  },
-  { label: 'Другое', value: 'four' }
+  }
 ]
 
 export const SelectLongOptions = [

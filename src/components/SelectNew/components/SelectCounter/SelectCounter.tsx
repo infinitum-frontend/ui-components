@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { Text } from '~/src/components/Text'
-import { ReactComponent as CrossIcon } from 'Icons/cross.svg'
+import CrossIcon from 'Icons/cross.svg?react'
 import './SelectCounter.scss'
 import { SelectProps } from '../../utils/types'
 import cn from 'classnames'

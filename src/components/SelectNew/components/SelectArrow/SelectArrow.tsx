@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef } from 'react'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
-import { ReactComponent as ArrowUpIcon } from 'Icons/chevron-up.svg'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
+import ArrowUpIcon from 'Icons/chevron-up.svg?react'
 import cn from 'classnames'
 import './SelectArrow.scss'
 

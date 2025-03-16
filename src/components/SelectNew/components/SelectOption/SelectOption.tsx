@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { Menu } from '~/src/components/Menu'
-import { ReactComponent as IconTick } from 'Icons/tick.svg'
+import IconTick from 'Icons/tick.svg?react'
 import { Icon } from '~/src/components/Icon'
 import { Checkbox } from '~/src/components/Checkbox'
 
