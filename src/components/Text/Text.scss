@@ -37,6 +37,10 @@
     font: var(--inf-font-body-2);
   }
 
+  &--variant-body-3 {
+    font: var(--inf-font-body-3);
+  }
+
   &--variant-overline {
     font: var(--inf-font-overline);
     text-transform: uppercase;
@@ -118,7 +122,11 @@
     color: var(--inf-color-text-warning);
   }
 
-  &--color-link {
-    color: var(--inf-color-text-link);
+  &--color-info {
+    color: var(--inf-color-text-info);
+  }
+
+  &--color-violet {
+    color: var(--inf-color-text-violet);
   }
 }

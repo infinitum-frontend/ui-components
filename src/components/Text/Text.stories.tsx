@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
-import { Text } from './index'
+import { Text, TextProps } from './index'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
 
 const ComponentMeta: Meta<typeof Text> = {
@@ -22,7 +22,7 @@ export const Playground = {
 
 export const Variants: StoryObj<typeof Text> = {
   render: ({ ...args }) => {
-    const variants = [
+    const variants: Array<TextProps['variant']> = [
       'heading-1',
       'heading-2',
       'heading-3',
@@ -32,6 +32,7 @@ export const Variants: StoryObj<typeof Text> = {
       'subtitle-3',
       'body-1',
       'body-2',
+      'body-3',
       'overline'
     ]
     return (
@@ -56,14 +57,16 @@ export const Variants: StoryObj<typeof Text> = {
 
 export const Colors: StoryObj<typeof Text> = {
   render: ({ ...args }) => {
-    const variants = [
+    const variants: Array<TextProps['color']> = [
       'primary',
       'secondary',
       'tertiary',
       'success',
       'error',
       'warning',
-      'inverse'
+      'inverse',
+      'violet',
+      'info'
     ]
     return (
       <>
@@ -91,11 +94,16 @@ export const Colors: StoryObj<typeof Text> = {
 
 export const Alignment: StoryObj<typeof Text> = {
   render: ({ ...args }) => {
-    const alignments = ['left', 'center', 'right', 'justify']
+    const alignments: Array<TextProps['alignment']> = [
+      'left',
+      'center',
+      'right',
+      'justify'
+    ]
     return (
       <>
         {alignments.map((alignment) => (
-          <Text key={alignment} align={alignment}>
+          <Text key={alignment} alignment={alignment}>
             <Text variant="heading-4">{alignment}</Text>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi
             doloribus, excepturi cupiditate quos porro recusandae sed iure ut
