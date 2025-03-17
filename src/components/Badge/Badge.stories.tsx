@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
-import { StoryFn, Meta } from '@storybook/react'
-import { Badge } from './index'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
+import { Badge, BadgeProps } from './index'
 import { Box } from '../Box'
 import { Space } from '../Space'
 
@@ -15,7 +15,7 @@ const meta: Meta<typeof Badge> = {
 
 export default meta
 
-const Template: StoryFn<typeof Badge> = (args) => {
+const Template: StoryFn<typeof Badge> = ({ ...args }) => {
   return (
     <Badge {...args}>
       <Box style={{ width: '36px', height: '36px', backgroundColor: 'gray' }} />
@@ -27,6 +27,34 @@ export const Playground = {
   render: Template
 }
 
+export const Colors: StoryObj<typeof Badge> = {
+  render: ({ ...args }) => {
+    const colors: Array<BadgeProps['color']> = [
+      'brand',
+      'info',
+      'success',
+      'error',
+      'warning',
+      'violet',
+      'teal',
+      'brand-secondary',
+      'info-secondary',
+      'success-secondary',
+      'error-secondary',
+      'warning-secondary',
+      'violet-secondary',
+      'teal-secondary'
+    ]
+    return (
+      <Space direction="horizontal">
+        {colors.map((color) => (
+          <Badge {...args} key={color} color={color} count={1} />
+        ))}
+      </Space>
+    )
+  }
+}
+
 export const Dot = {
   render: Template,
 
@@ -35,7 +63,7 @@ export const Dot = {
   }
 }
 
-export const DotWithoutChildren = {
+export const DotWithoutChildren: StoryObj<typeof Badge> = {
   render: (args) => {
     return (
       <Space direction="horizontal">

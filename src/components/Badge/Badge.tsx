@@ -4,11 +4,31 @@ import cn from 'classnames'
 import './badge.scss'
 import BadgeSup from './components/BadgeSup'
 
+export type BadgeColor =
+  | 'brand'
+  | 'info'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'violet'
+  | 'teal'
+  | 'brand-secondary'
+  | 'info-secondary'
+  | 'success-secondary'
+  | 'error-secondary'
+  | 'warning-secondary'
+  | 'violet-secondary'
+  | 'teal-secondary'
+
 export interface BadgeProps {
   /** Отображается ли значение 0 */
   showZero?: boolean
-  /** цветовая тема */
+  /**
+   * @deprecated
+   * цветовая тема */
   tone?: 'primary' | 'secondary'
+  /** Цветовая тема */
+  color?: BadgeColor
   /** контент для отображения в бейдже */
   count?: ReactNode
   /** отображать в виде точки */
@@ -28,6 +48,7 @@ const Badge = forwardRef<
     {
       children,
       tone = 'primary',
+      color = 'brand',
       showZero = false,
       dot = false,
       offset,
@@ -45,6 +66,7 @@ const Badge = forwardRef<
           standalone={!children}
           count={count}
           offset={offset}
+          color={color}
           tone={tone}
           dot={dot}
           maxCount={maxCount}
