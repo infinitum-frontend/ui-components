@@ -1,0 +1,37 @@
+.inf-select-counter {
+  display: inline-flex;
+  gap: var(--inf-space-xxsmall);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--inf-border-radius-xsmall);
+  background-color: var(--inf-color-background-inverse);
+  padding: 0 4px 0 8px;
+  min-width: 24px;
+  width: max-content;
+
+  &__remove-icon {
+    color: var(--inf-color-icon-primary);
+  }
+
+  &--size-medium {
+    height: 24px;
+    line-height: 23px;
+    font-size: var(--inf-font-size-body-1);
+
+    .inf-select-counter__remove-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &--size-small {
+    height: 20px;
+    line-height: 19px;
+    font-size: var(--inf-font-size-body-2);
+
+    .inf-select-counter__remove-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

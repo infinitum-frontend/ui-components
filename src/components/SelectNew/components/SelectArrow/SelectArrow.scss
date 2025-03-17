@@ -1,0 +1,13 @@
+.inf-select-arrow {
+  display: inline-flex;
+  color: var(--inf-color-icon-primary);
+
+  @include hover {
+    color: var(--inf-color-icon-primary-hover);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
