@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
+import { Text } from 'Components/Text'
 import cn from 'classnames'
 import { BadgeProps } from 'Components/Badge/Badge'
 import './BadgeSup.scss'
@@ -35,7 +36,9 @@ const BadgeSup = ({
   }
 
   return count || isZero || dot ? (
-    <sup
+    <Text
+      as="sup"
+      variant="subtitle-3"
       title={count?.toString()}
       className={cn(
         'inf-badge-sup',
@@ -49,7 +52,7 @@ const BadgeSup = ({
       style={styles}
     >
       {dot ? null : getDisplayValue()}
-    </sup>
+    </Text>
   ) : null
 }
 

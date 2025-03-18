@@ -4,6 +4,8 @@ import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { Badge, BadgeProps } from './index'
 import { Box } from '../Box'
 import { Space } from '../Space'
+import { Grid } from '../Grid'
+import { Text } from '../Text'
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
@@ -46,9 +48,12 @@ export const Colors: StoryObj<typeof Badge> = {
       'teal-secondary'
     ]
     return (
-      <Space direction="horizontal">
+      <Space>
         {colors.map((color) => (
-          <Badge {...args} key={color} color={color} count={1} />
+          <Grid templateColumns="150px 1fr" key={color}>
+            <Text>{color}</Text>
+            <Badge {...args} color={color} count={1} />
+          </Grid>
         ))}
       </Space>
     )

@@ -20,14 +20,14 @@ export type BadgeColor =
   | 'violet-secondary'
   | 'teal-secondary'
 
-export interface BadgeProps {
+export interface BadgeProps extends ComponentPropsWithoutRef<'span'> {
   /** Отображается ли значение 0 */
   showZero?: boolean
   /**
    * @deprecated
    * цветовая тема */
   tone?: 'primary' | 'secondary'
-  /** Цветовая тема */
+  /** Цветовая тема 2 */
   color?: BadgeColor
   /** контент для отображения в бейдже */
   count?: ReactNode
@@ -40,10 +40,7 @@ export interface BadgeProps {
 }
 
 /** Компонент для отображения числовых значений и привлечения внимания к важным показателям */
-const Badge = forwardRef<
-  HTMLSpanElement,
-  ComponentPropsWithoutRef<'span'> & BadgeProps
->(
+const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   (
     {
       children,
