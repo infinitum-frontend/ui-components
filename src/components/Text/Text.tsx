@@ -16,7 +16,7 @@ const SizeToVariant: Record<
 }
 
 function BaseText<C extends ElementType = 'div'>(
-  props: PolymorphicComponent<C, TextProps>,
+  props: PolymorphicComponent<C, TextProps<C>>,
   ref: PolymorphicRef<C>
 ): ReactElement {
   const {
