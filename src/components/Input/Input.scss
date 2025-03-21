@@ -41,6 +41,7 @@
   }
 
   &__clear-button {
+    margin-inline-start: 6px;
     cursor: pointer;
     transition: color 0.2s;
     color: var(--inf-color-icon-primary);
