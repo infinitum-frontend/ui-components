@@ -8,17 +8,31 @@ import { ConfirmModalProvider } from '../ConfirmModal'
 import { ThemePickerProvider } from '../ThemePicker'
 
 const InfinitumUIProvider = ({
+  disableTransitions = false,
   children
 }: {
+  disableTransitions?: boolean
   children: ReactNode
 }): ReactElement => {
   return (
-    <ThemePickerProvider>
-      <NotificationProvider>
-        <ConfirmModalProvider>{children}</ConfirmModalProvider>
-        <NotificationContainer />
-      </NotificationProvider>
-    </ThemePickerProvider>
+    <>
+      <ThemePickerProvider>
+        <NotificationProvider>
+          <ConfirmModalProvider>{children}</ConfirmModalProvider>
+          <NotificationContainer />
+        </NotificationProvider>
+      </ThemePickerProvider>
+      {disableTransitions && (
+        <style>
+          {`
+          * {
+            transition: none !important;
+            animation: none !important;
+          }
+        `}
+        </style>
+      )}
+    </>
   )
 }
 
