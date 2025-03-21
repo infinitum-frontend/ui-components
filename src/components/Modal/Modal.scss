@@ -4,7 +4,7 @@
   place-items: center;
   z-index: var(--inf-z-index-modal);
   transition-property: opacity;
-  padding: 18px 0;
+  padding: 40px 0;
 
   &[data-status='open'],
   &[data-status='close'] {
