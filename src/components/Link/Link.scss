@@ -4,8 +4,8 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
-  width: max-content;
-  line-height: 1;
+  width: auto;
+  line-height: unset;
 
   @include hover {
     color: var(--inf-color-text-link-hover);
