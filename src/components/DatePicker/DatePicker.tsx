@@ -64,6 +64,9 @@ const DatePicker = ({
   const { resetControlValidity } = useFormControlHandlers()
   const required = requiredProp || formGroupContext?.required
 
+  const minDate = min ? new Date(min) : undefined
+  const maxDate = max ? new Date(max) : undefined
+
   // ============================= floating =============================
   const { x, y, refs, context } = useFloating({
     open: isOpened,
@@ -98,7 +101,9 @@ const DatePicker = ({
           size={size}
           placeholder={placeholder}
           mask={{
-            mask: Date
+            mask: Date,
+            min: minDate,
+            max: maxDate
           }}
           pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
           onComplete={(val) => {
