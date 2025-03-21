@@ -38,6 +38,9 @@
   &__icon {
     display: inline-flex;
     color: var(--inf-color-icon-primary);
+    padding: 4px;
+    margin: -8px;
+    margin-left: -4px;
 
     svg {
       width: 16px;
@@ -49,8 +52,9 @@
     display: flex;
     color: var(--inf-color-icon-primary);
     cursor: pointer;
-    padding: 6px;
-    margin: -6px;
+    padding: 4px;
+    margin: -8px;
+    margin-left: -4px;
     transition: color 0.2s;
 
     &:disabled {
@@ -59,6 +63,8 @@
 
     @include hover {
       color: var(--inf-color-icon-primary-hover);
+      background-color: var(--inf-color-background-tertiary-hover);
+      border-radius: 8px;
     }
 
     svg {
