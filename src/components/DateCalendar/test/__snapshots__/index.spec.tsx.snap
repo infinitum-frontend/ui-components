@@ -223,7 +223,7 @@ exports[`day view > should match snapshot 1`] = `
         17
       </span>
       <span
-        class="inf-calendar-item inf-calendar-item--selected"
+        class="inf-calendar-item"
       >
         18
       </span>
@@ -233,7 +233,7 @@ exports[`day view > should match snapshot 1`] = `
         19
       </span>
       <span
-        class="inf-calendar-item"
+        class="inf-calendar-item inf-calendar-item--selected"
       >
         20
       </span>
