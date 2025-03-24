@@ -53,12 +53,8 @@ const TableBodyContent = <TRowData extends Record<string, any>>({
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
     row: Row<any>
   ): void => {
-    if (checkSelection('td')) {
-      return
-    }
-
     // клик на ряд срабатывает только в случае, если клик был на элемент внутри ячейки таблицы и НЕ было селекции(копирования строки)
-    if (!(e.target as HTMLElement).closest('td') && checkSelection('td')) {
+    if (!(e.target as HTMLElement).closest('td') || checkSelection('td')) {
       return
     }
 
