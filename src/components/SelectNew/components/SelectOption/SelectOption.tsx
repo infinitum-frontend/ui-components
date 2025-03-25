@@ -1,10 +1,10 @@
-import { ComponentPropsWithoutRef, ReactElement } from 'react'
-import { Menu } from '~/src/components/Menu'
 import IconTick from 'Icons/tick.svg?react'
-import { Icon } from '~/src/components/Icon'
+import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { Checkbox } from '~/src/components/Checkbox'
+import { Icon } from '~/src/components/Icon'
+import { Menu } from '~/src/components/Menu'
 
-interface SelectOptionProps extends ComponentPropsWithoutRef<'li'> {
+interface SelectOptionProps extends ComponentPropsWithoutRef<'div'> {
   selected: boolean
   disabled?: boolean
   active?: boolean
@@ -21,16 +21,30 @@ const SelectOption = ({
   children,
   ...props
 }: SelectOptionProps): ReactElement => {
+  const isCheckbox = selectionIndicator === 'checkbox'
   return (
     <Menu.Item
-      as="li"
+      as={isCheckbox ? 'label' : 'div'}
       highlighted={active}
-      onClick={() => onSelect()}
+      onClick={() => {
+        // если checkbox, то слушаем onChange, а не click
+        if (!isCheckbox) {
+          onSelect()
+        }
+      }}
       {...props}
     >
       {selectionIndicator === 'checkbox' && (
         <Menu.Item.Icon>
-          <Checkbox checked={selected} onChange={() => onSelect()} />
+          <Checkbox
+            checked={selected}
+            onChange={() => {
+              // если checkbox, то слушаем onChange, а не click
+              if (isCheckbox) {
+                onSelect()
+              }
+            }}
+          />
         </Menu.Item.Icon>
       )}
 

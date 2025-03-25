@@ -1,21 +1,36 @@
-import { ComponentPropsWithoutRef, ReactElement } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ClearIcon from 'Icons/cancel-circle.svg?react'
 import cn from 'classnames'
+import { ElementType, forwardRef, ReactElement } from 'react'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import './ClearButton.scss'
 
-export interface ClearButtonProps extends ComponentPropsWithoutRef<'button'> {
+export interface ClearButtonProps {
   className?: string
 }
+
 // TODO: нужно ли сохоранить опцию пробррса кастомной иконки. Пример есть в Input allowClear
-const ClearButton = ({
-  className,
-  ...props
-}: ClearButtonProps): ReactElement => {
+
+function BaseComponent<C extends ElementType = 'button'>(
+  props: PolymorphicComponent<C, ClearButtonProps>,
+  ref: PolymorphicRef<C>
+): ReactElement {
+  const { as = 'button', className, ...rest } = props
+
+  const Component = as
+
   return (
-    <button className={cn('inf-clear-button', className)} {...props}>
+    <Component
+      className={cn('inf-clear-button', className)}
+      ref={ref}
+      {...rest}
+    >
       <ClearIcon className="inf-clear-button__icon" width={20} height={20} />
-    </button>
+    </Component>
   )
 }
 
-export default ClearButton
+const ClearButton = forwardRef(BaseComponent)
+
+/** Компонент кнопки-очистки */
+export default ClearButton as typeof BaseComponent

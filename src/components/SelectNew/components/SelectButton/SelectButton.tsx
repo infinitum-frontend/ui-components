@@ -1,21 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
-  ReactElement,
-  forwardRef,
+import cn from 'classnames'
+import {
   ComponentPropsWithoutRef,
   FocusEventHandler,
-  useState,
-  ReactNode
+  ReactElement,
+  ReactNode,
+  forwardRef,
+  useState
 } from 'react'
-import cn from 'classnames'
-import './SelectButton.scss'
-import { TextFieldClasses } from '~/src/utils/textFieldClasses'
-import { Loader } from '~/src/components/Loader'
 import { ClearButton } from '~/src/components/ClearButton'
-import { SelectProps } from '../../utils/types'
-import SelectCounter from '../SelectCounter'
-import SelectArrow from '../SelectArrow'
+import { Loader } from '~/src/components/Loader'
+import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import { SELECT_DROPDOWN_SELECTOR } from '../../utils/constants'
+import { SelectProps } from '../../utils/types'
+import SelectArrow from '../SelectArrow'
+import SelectCounter from '../SelectCounter'
+import './SelectButton.scss'
 
 export interface SelectButtonProps
   extends Omit<ComponentPropsWithoutRef<'button'>, 'prefix'> {
@@ -85,12 +85,10 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
       ) {
         return
       }
-      // console.log('handleBlur')
       setFocused(false)
     }
 
-    const shouldDisplayInput = filterable && opened
-    const canClearFilterInput = filterable && opened && filterValue
+    const shouldDisplayFilterInput = filterable && opened
 
     if (renderControl) {
       return renderControl({
@@ -138,7 +136,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
           </div>
         )}
 
-        {shouldDisplayInput ? (
+        {shouldDisplayFilterInput ? (
           <input
             className="inf-select-new-button__filter-input"
             value={filterValue}
@@ -180,27 +178,19 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
             />
           ) : (
             <>
-              {canClearFilterInput ? (
-                // Кнопка очистки поля поиска
+              {clearable && (
+                // Кнопка очистки выбранного значения
                 <ClearButton
-                  title="Очистить поиск"
+                  as="div"
+                  className="inf-select-new-button__clear-button"
+                  title="Очистить значение"
                   onClick={(e) => {
                     e.stopPropagation()
-                    onFilterChange('')
+                    onClear()
                   }}
                 />
-              ) : (
-                clearable && (
-                  // Кнопка очистки значения селекта
-                  <ClearButton
-                    title="Очистить значение"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onClear()
-                    }}
-                  />
-                )
               )}
+
               <SelectArrow opened={opened} />
             </>
           )}

@@ -7,23 +7,39 @@ export interface SelectProps<Multiple extends boolean = false>
     ComponentPropsWithoutRef<'button'>,
     'value' | 'prefix' | 'onChange'
   > {
+  /** Активация множественного выбора */
   multiple?: Multiple
+  /** Список опций. Может быть сгруппирован */
   options?: SelectOptions
+  /** Controlled value */
   value: Multiple extends true ? SelectValue[] : SelectValue | undefined
+  /** Controlled onChange */
   onChange: (
     value: Multiple extends true ? SelectOption[] : SelectOption
   ) => void
+  /** Callback на нажатие кнопки очистки выбранного значения. Если true, то при клике на кнопку не будет вызываться onChange с пустым значение, ожидается что обновления стейта будет произведено в этом callback */
   onClear?: () => void
+  /** Callback на изменение значения поля фильтрации. Если true, то дефолтная фильтрация не используется, ожидается, что снаружи будет передан отфильтрованный options */
   onFilterChange?: (filterValue: string) => void
+  /** Активация элементов фильтрации опций */
   filterable?: boolean
+  /** Активация кнопки очистки выбранного значения */
   clearable?: boolean
+  /** Состояние недоступности */
   disabled?: boolean
+  /** Обязательно к заполнению */
   required?: boolean
+  /** Состояние загрузки */
   loading?: boolean
+  /** Placeholder, если нет выбранного значения */
   placeholder?: string
+  /** Размер SelectButton */
   size?: InputProps['size']
+  /** Слот для размещения элемента (иконки) слева */
   prefix?: ReactNode
+  /** Ширина всплывающего окна */
   popoverWidth?: PopoverContentProps['width']
+  /** Использование кастомного шаблона SelectButton */
   renderControl?: (props: {
     displayValue: string
     isOpen: boolean
@@ -32,16 +48,21 @@ export interface SelectProps<Multiple extends boolean = false>
     ref: React.ForwardedRef<HTMLButtonElement>
     onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
   }) => React.ReactElement
+  /** Поле фильтрации может быть расположено в SelectButton или во всплывающем окне */
   filterPlacement?: 'inline' | 'dropdown'
+  /** Дополнительный className */
   className?: string
+  /** Максимальное количество отображаемых элементов, после которого начинается скролл */
   maxItemsCount?: number
+  /** Текст сообщения, если нет опций */
   emptyMessage?: string
+  /** Текст подсказки во всплывающем окне */
+  dropdownHint?: string
   // TBD
   // selectedFirst?: boolean
   // loadOptions?: (filterValue?: string) => Promise<SelectOptions>
   // cacheOptions?: boolean
   // filterOptions?: (options: SelectOptions) => SelectOptions
-  /** Максимальное количество отображаемых элементов, после которого начинается скролл */
 }
 
 export type SelectValue = string | number

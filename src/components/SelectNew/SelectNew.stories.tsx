@@ -1,27 +1,27 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import {
-  SelectNew,
-  // SelectOptions,
-  SelectOption,
-  SelectOptions,
-  SelectValue
-} from './index'
+import * as React from 'react'
 import { useState } from 'react'
+import { Button } from '../Button'
+import { Icon } from '../Icon'
 import { Space } from '../Space'
 import { Text } from '../Text'
-import { Icon } from '../Icon'
-import { Button } from '../Button'
 import {
-  SelectBaseOptions,
+  SelectNew,
+  SelectNewOption as SelectOption,
+  SelectNewOptions as SelectOptions,
+  SelectNewValue as SelectValue
+} from './index'
+import {
   SelectBaseGroupedOptions,
+  SelectBaseOptions,
   SelectLongOptions
 } from './utils/fixtures'
 // import { removeDuplicates } from 'Utils/helpers'
-import SearchIcon from 'Icons/search.svg?react'
 import ArrowDownIcon from 'Icons/chevron-down.svg?react'
 import ArrowUpIcon from 'Icons/chevron-up.svg?react'
+import StarIcon from 'Icons/star.svg?react'
+import { Form } from '../Form'
 
 const meta: Meta<typeof SelectNew> = {
   title: 'Form/SelectNew',
@@ -132,7 +132,7 @@ export const Prefix = {
   args: {
     prefix: (
       <Icon color="primary" size="medium">
-        <SearchIcon />
+        <StarIcon />
       </Icon>
     )
   }
@@ -159,6 +159,61 @@ export const Loading = {
   }
 }
 
+export const FormValidation = {
+  render: () => {
+    const [singleValue, setSingleValue] = useState<SelectValue>()
+    const [multipleValue, setMultipleValue] = useState<string[]>([])
+
+    const handleSingleChange = (selectedOption: SelectOption): void => {
+      setSingleValue(selectedOption?.value)
+    }
+
+    const handleMultipleChange = (selectedOptions: SelectOption[]): void => {
+      setMultipleValue(selectedOptions.map((option) => String(option.value)))
+    }
+
+    const handleSubmit = (): void => {
+      alert(
+        `Одиночный: ${
+          singleValue as string
+        } / Множественный: ${multipleValue.join(', ')}`
+      )
+    }
+
+    return (
+      <Form onSubmit={handleSubmit} style={{ maxWidth: '500px' }}>
+        <Form.Group required>
+          <Form.Label>Одиночный выбор</Form.Label>
+          <SelectNew
+            value={singleValue}
+            onChange={handleSingleChange}
+            options={SelectBaseOptions}
+          />
+        </Form.Group>
+        <Form.Group required>
+          <Form.Label>Множественный выбор</Form.Label>
+          <SelectNew
+            multiple
+            value={multipleValue}
+            onChange={handleMultipleChange}
+            options={SelectBaseOptions}
+          />
+        </Form.Group>
+        <Button type="submit">Отправить</Button>
+      </Form>
+    )
+  }
+}
+
+export const WithDropdownHint = {
+  render: SingleTemplate,
+  args: {
+    options: SelectLongOptions,
+    maxItemsCount: 5,
+    dropdownHint: 'Текст подсказки'
+  }
+}
+
 export const Clearable = {
   render: SingleTemplate,
   args: {
@@ -167,10 +222,35 @@ export const Clearable = {
 }
 
 export const OnClearHandler = {
-  // TODO:
-  render: SingleTemplate,
-  args: {
-    clearable: true
+  render: () => {
+    const [value, setValue] = useState<SelectValue>()
+
+    const handleChange = (selectedOption: SelectOption): void => {
+      setValue(selectedOption?.value)
+    }
+
+    const selectedOptionLabel = SelectBaseOptions.find(
+      (option) => option.value === value
+    )?.label
+
+    return (
+      <Space>
+        <SelectNew
+          style={{ maxWidth: '300px' }}
+          options={SelectBaseOptions}
+          clearable
+          onClear={() => {
+            alert('handleClear')
+            setValue('')
+          }}
+          value={value}
+          onChange={(newValue) => handleChange(newValue)}
+        />
+
+        <Text>Выбранные value: {value}</Text>
+        <Text>Выбранные label: {selectedOptionLabel}</Text>
+      </Space>
+    )
   }
 }
 
@@ -207,6 +287,15 @@ export const FilterableInline = {
   }
 }
 
+export const FilterableInlineClearable = {
+  render: SingleTemplate,
+  args: {
+    filterable: true,
+    filterPlacement: 'inline',
+    clearable: true
+  }
+}
+
 export const FilterableGrouped = {
   render: SingleTemplate,
   args: {
@@ -240,10 +329,19 @@ const fetchAsyncData = async (filterValue?: string): Promise<any> => {
   })
 }
 
+const debounce = (callback: any, wait: any): any => {
+  let timeoutId: any = null
+  return (...args: any) => {
+    window.clearTimeout(timeoutId)
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args)
+    }, wait)
+  }
+}
+
 export const ControlledAsyncOptions = {
   render: () => {
     const [selectedOption, setSelectedOption] = useState<SelectOption>()
-    const [filterValue, setFilterValue] = useState('')
     const [options, setOptions] = useState<SelectOptions>([])
     const [isLoading, setLoading] = useState(true)
 
@@ -251,28 +349,24 @@ export const ControlledAsyncOptions = {
       setSelectedOption(selectedOption)
     }
 
-    React.useEffect(() => {
-      const fetch = async (): Promise<void> => {
-        setLoading(true)
+    const fetchOptions = async (filterValue: string): Promise<void> => {
+      setLoading(true)
 
-        const responseOptions: SelectOption[] = await fetchAsyncData(
-          filterValue
-        )
-        const optionsWithoutSelected = responseOptions.filter((option) => {
-          return option.value !== selectedOption?.value
-        })
-        if (selectedOption) {
-          optionsWithoutSelected.unshift(selectedOption)
-        }
-
-        setOptions(optionsWithoutSelected)
-        setLoading(false)
+      const responseOptions: SelectOption[] = await fetchAsyncData(filterValue)
+      const optionsWithoutSelected = responseOptions.filter((option) => {
+        return option.value !== selectedOption?.value
+      })
+      if (selectedOption) {
+        optionsWithoutSelected.unshift(selectedOption)
       }
 
-      void fetch()
-    }, [filterValue])
+      setOptions(optionsWithoutSelected)
+      setLoading(false)
+    }
 
-    console.log('selectedOption', selectedOption)
+    const handleFilterChange = debounce((filterValue: string): void => {
+      void fetchOptions(filterValue)
+    }, 300)
 
     return (
       <Space>
@@ -284,7 +378,7 @@ export const ControlledAsyncOptions = {
           placeholder="Выберите значение"
           onChange={handleChange}
           filterable
-          onFilterChange={setFilterValue}
+          onFilterChange={handleFilterChange}
         />
 
         <Text>{selectedOption?.label || ''}</Text>
@@ -292,119 +386,60 @@ export const ControlledAsyncOptions = {
     )
   }
 }
+// TODO:
+// export const ControlledAsyncOptionsMultiple = {
+//   render: () => {
+//     const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
+//     // const [filterValue, setFilterValue] = useState('')
+//     const [options, setOptions] = useState<SelectOptions>([])
+//     const [isLoading, setLoading] = useState(true)
 
-export const ControlledAsyncOptionsMultiple = {
-  render: () => {
-    const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
-    const [filterValue, setFilterValue] = useState('')
-    const [options, setOptions] = useState<SelectOptions>([])
-    const [isLoading, setLoading] = useState(true)
-
-    const handleChange = (newOptions: SelectOption[]): void => {
-      setSelectedOptions(newOptions)
-    }
-
-    React.useEffect(() => {
-      const fetch = async (): Promise<void> => {
-        setLoading(true)
-
-        const responseOptions: SelectOption[] = await fetchAsyncData(
-          filterValue
-        )
-        const optionsWithoutSelected = responseOptions.filter((option) => {
-          return !selectedOptions.find((o) => o.value === option.value)
-        })
-
-        if (selectedOptions.length) {
-          optionsWithoutSelected.unshift(...selectedOptions)
-        }
-
-        setOptions(optionsWithoutSelected)
-        setLoading(false)
-      }
-
-      void fetch()
-    }, [filterValue])
-
-    const selectedValues = selectedOptions.map((option) => option.value) || []
-
-    console.log('selectedValues', selectedValues)
-
-    return (
-      <Space>
-        <SelectNew
-          className="qwerqwer"
-          style={{ maxWidth: '300px' }}
-          multiple
-          options={options}
-          loading={isLoading}
-          value={selectedValues}
-          placeholder="Выберите значения"
-          onChange={handleChange}
-          filterable
-          onFilterChange={setFilterValue}
-        />
-      </Space>
-    )
-  }
-}
-
-// export const AsyncOptionsLoading = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     React.useEffect(() => {}, [])
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
+//     const handleChange = (newOptions: SelectOption[]): void => {
+//       setSelectedOptions(newOptions)
 //     }
 
-//     const handleLoadOptions = async (
-//       filterValue?: string
-//     ): Promise<SelectOptions> => {
-//       return await fetchAsyncData(filterValue)
+//     const handleFilterChange = (filterVaue: string): void => {
+//       setOptions()
 //     }
+
+//     // React.useEffect(() => {
+//     //   const fetch = async (): Promise<void> => {
+//     //     setLoading(true)
+
+//     //     const responseOptions: SelectOption[] = await fetchAsyncData(
+//     //       filterValue
+//     //     )
+//     //     const optionsWithoutSelected = responseOptions.filter((option) => {
+//     //       return !selectedOptions.find((o) => o.value === option.value)
+//     //     })
+
+//     //     if (selectedOptions.length) {
+//     //       optionsWithoutSelected.unshift(...selectedOptions)
+//     //     }
+
+//     //     setOptions(optionsWithoutSelected)
+//     //     setLoading(false)
+//     //   }
+
+//     //   void fetch()
+//     // }, [filterValue])
+
+//     const selectedValues = selectedOptions.map((option) => option.value) || []
 
 //     return (
 //       <Space>
 //         <SelectNew
+//           className="qwerqwer"
 //           style={{ maxWidth: '300px' }}
-//           value={value}
+//           multiple
+//           options={options}
+//           loading={isLoading}
+//           value={selectedValues}
+//           placeholder="Выберите значения"
 //           onChange={handleChange}
-//           loadOptions={handleLoadOptions}
-//         />
-
-//         <Text>{value}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const AsyncOptionsFilterable = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
-//     }
-
-//     const handleLoadOptions = async (
-//       filterValue?: string
-//     ): Promise<SelectOptions> => {
-//       return await fetchAsyncData(filterValue)
-//     }
-
-//     return (
-//       <Space>
-//         <SelectNew
-//           style={{ maxWidth: '300px' }}
-//           loadOptions={handleLoadOptions}
 //           filterable
-//           value={value}
-//           onChange={handleChange}
+//           onFilterChange={handleFilterChange}
 //         />
-
-//         <Text>{value}</Text>
 //       </Space>
 //     )
 //   }
@@ -424,6 +459,7 @@ export const CustomControl = {
           options={SelectBaseOptions}
           value={value}
           onChange={handleChange}
+          popoverWidth="300"
           renderControl={({
             isOpen,
             displayValue,
@@ -450,430 +486,35 @@ export const CustomControl = {
   }
 }
 
-// export const AsyncOptionsFilterableDebounced = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
-//     }
-
-//     const handleLoadOptions = async (
-//       filterValue?: string
-//     ): Promise<SelectOptions> => {
-//       return await new Promise<SelectOptions>((resolve) => {
-//         setTimeout(() => {
-//           resolve(SelectBaseOptions)
-//         }, 2000)
-//       })
-//     }
-
-//     return (
-//       <Space>
-//         <SelectNew
-//           style={{ maxWidth: '300px' }}
-//           loadOptions={handleLoadOptions}
-//           filterable
-//           value={value}
-//           onChange={handleChange}
-//         />
-
-//         <Text>{value}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const AsyncOptionsFilterableWithSelectedOptions = {
-//   render: (args) => {
-//     const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
-
-//     const handleChange = (selectedOptions: SelectOption[]): void => {
-//       setSelectedOptions(selectedOptions)
-//     }
-
-//     const handleLoadOptions = async (
-//       filterValue?: string
-//     ): Promise<SelectOptions> => {
-//       const options = await fetchAsyncData(filterValue)
-//       return removeDuplicates([...selectedOptions, ...options])
-//     }
-
-//     const selectedValues = selectedOptions.map((option) => option.value)
-//     const selectedOptionsLabels = selectedOptions
-//       .map((option) => option.label)
-//       .join(', ')
-
-//     return (
-//       <Space>
-//         <SelectNew
-//           style={{ maxWidth: '300px' }}
-//           loadOptions={handleLoadOptions}
-//           multiple
-//           filterable
-//           value={selectedValues}
-//           onChange={handleChange}
-//         />
-
-//         <Text>{selectedOptionsLabels}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-export const Typescript = {
-  render: () => (
-    <>
-      {/* Одна строка */}
-      <SelectNew
-        options={SelectBaseOptions}
-        value="one"
-        onChange={(value) => {}}
-      />
-      {/* Одно число */}
-      <SelectNew
-        options={SelectBaseOptions}
-        value={1}
-        onChange={(value) => {}}
-      />
-      {/* Много строк */}
-      <SelectNew
-        multiple
-        options={SelectBaseOptions}
-        value={['one', 'two', 'three']}
-        onChange={(value) => {}}
-      />
-      {/* Много чисел */}
-      <SelectNew
-        multiple
-        options={SelectBaseOptions}
-        value={[1, 2, 3]}
-        onChange={(value) => {}}
-      />
-    </>
-  )
-}
-
-// export const Simple = {
-//   render: () => {
-//     const [value, setValue] = useState<SelectValue>()
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption.value)
-//     }
-
-//     const selectedOptionLabel = SelectBaseOptions.find(
-//       (option) => option.value === value
-//     )?.label
-
-//     return (
-//       <Grid templateColumns="400px 400px">
-//         <Space>
-//           <Text>Без группировки</Text>
-//           <SelectNew
-//             options={SelectBaseOptions}
-//             value={value}
-//             onChange={(newValue) => handleChange(newValue)}
-//           />
-
-//           <Text>Selected Value: {value}</Text>
-//           <Text>Selected Option Label: {selectedOptionLabel}</Text>
-//         </Space>
-//         <Space>
-//           <Text>С группировкой</Text>
-//           <SelectNew
-//             options={SelectBaseGroupedOptions}
-//             value={value}
-//             onChange={(newValue) => handleChange(newValue)}
-//           />
-
-//           <Text>Selected Value: {value}</Text>
-//           <Text>Selected Option Label: {selectedOptionLabel}</Text>
-//         </Space>
-//       </Grid>
-//     )
-//   }
-// }
-
-// export const Multiple = {
-//   render: () => {
-//     const [value, setValue] = useState<string[]>([])
-//     console.log('value', value)
-//     const handleChange = (selectedOptions: SelectOption[]): void => {
-//       console.log('handleChange', selectedOptions)
-//       // TODO: избиваться от приведение типов number / string (generic на value?)
-//       setValue(selectedOptions.map((option) => String(option.value)))
-//     }
-
-//     // TODO: helper?
-//     const selectedOptionsLabels = SelectBaseOptions.filter((o) => {
-//       return value.includes(o.value)
-//     })
-//       .map((o) => o.label)
-//       .join(', ')
-
-//     return (
-//       <Space>
-//         <div style={{ maxWidth: '300px' }}>
-//           <SelectNew
-//             multiple
-//             options={SelectBaseGroupedOptions}
-//             value={value}
-//             onChange={(newValue) => handleChange(newValue)}
-//           />
-//         </div>
-
-//         <Text>Selected Values: {value.join(', ')}</Text>
-//         <Text>Selected Options Labels: {selectedOptionsLabels}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const Filterable = {
-//   render: () => {
-//     const [value, setValue] = useState<SelectValue>()
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption.value)
-//     }
-
-//     const selectedOptionLabel = SelectBaseOptions.find(
-//       (option) => option.value === value
-//     )?.label
-
-//     return (
-//       <Space>
-//         <div style={{ maxWidth: '300px' }}>
-//           <SelectNew
-//             filterable
-//             options={SelectBaseGroupedOptions}
-//             value={value}
-//             onChange={(newValue) => handleChange(newValue)}
-//           />
-//         </div>
-
-//         <Text>Selected Value: {value}</Text>
-//         <Text>Selected Option Label: {selectedOptionLabel}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const Playground = {
-//   render: Template
-// }
-
-// export const Base = {
-//   render: BaseTemplate
-// }
-
-// export const Clearable = {
-//   render: BaseTemplate,
-//   args: {
-//     filterable: true
-//   }
-// }
-
-// export const Filterable = {
-//   render: BaseTemplate,
-//   args: {
-//     clearable: true
-//   }
-// }
-
-// export const Base = {
-//   render: (args) => {
-//     const [value, setValue] = useState<number | string | undefined>(undefined)
-
-//     const handleChange = (item: SelectOption): void => {
-//       setValue(item.value)
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <Select {...args} value={value} onChange={handleChange} />
-//         <Text>Selected Value: {value}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const Filterable = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <SelectNew
-//           options={SelectBaseOptions}
-//           value={value}
-//           onChange={handleChange}
-//           filterable
-//         />
-
-//         <Text>{value}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const FilterableAndClearable = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <SelectNew
-//           options={SelectBaseOptions}
-//           value={value}
-//           onChange={handleChange}
-//           filterable
-//         />
-
-//         <Text>{value}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const Multiple = {
-//   render: (args) => {
-//     const [values, setValues] = useState<string[]>([])
-
-//     const handleChange = (selectedOptions: SelectOption[]): void => {
-//       setValues(selectedOptions.map((item) => item.value))
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <SelectNew
-//           options={SelectBaseOptions}
-//           multiple
-//           onChange={handleChange}
-//           value={values}
-//         />
-//         <Text>{values.join(', ')}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const GroupedSingle = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <SelectNew
-//           options={SelectBaseGroupedOptions}
-//           onChange={handleChange}
-//           value={value}
-//         />
-//         <Text>{value}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const GroupedMultiple = {
-//   render: (args) => {
-//     const [values, setValues] = useState<string[]>([])
-
-//     const handleChange = (selectedOptions: SelectOption[]): void => {
-//       setValues(selectedOptions.map((item) => String(item.value)))
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <SelectNew
-//           options={SelectBaseGroupedOptions}
-//           multiple
-//           onChange={handleChange}
-//           value={values}
-//         />
-//         <Text>{values.join(', ')}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const AsyncOptions = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
-//     }
-
-//     const handleLoadOptions = async (filterValue: string) => {
-//       console.log('handleLoadOptions', filterValue)
-//       return await new Promise<SelectOptions>((resolve) => {
-//         setTimeout(() => {
-//           resolve(SelectBaseOptions)
-//         }, 2000)
-//       })
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <SelectNew
-//           value={value}
-//           onChange={handleChange}
-//           loadOptions={handleLoadOptions}
-//         />
-
-//         <Text>{value}</Text>
-//       </Space>
-//     )
-//   }
-// }
-
-// export const AsyncOptionsFilterable = {
-//   render: (args) => {
-//     const [value, setValue] = useState<SelectValue>('')
-
-//     const handleChange = (selectedOption: SelectOption): void => {
-//       setValue(selectedOption ? selectedOption.value : '')
-//     }
-
-//     const handleLoadOptions = async (filterValue: string) => {
-//       console.log('handleLoadOptions', filterValue)
-//       return await new Promise<SelectOptions>((resolve) => {
-//         setTimeout(() => {
-//           const filtered = SelectBaseOptions.filter((option) =>
-//             option.label
-//               .toLocaleLowerCase()
-//               .includes(filterValue.toLocaleLowerCase())
-//           )
-//           resolve(filtered)
-//         }, 2000)
-//       })
-//     }
-
-//     return (
-//       <Space style={{ maxWidth: '300px' }}>
-//         <SelectNew
-//           value={value}
-//           onChange={handleChange}
-//           loadOptions={handleLoadOptions}
-//           filterable
-//         />
-
-//         <Text>{value}</Text>
-//       </Space>
-//     )
-//   }
+// export const Typescript = {
+//   render: () => (
+//     <>
+//       {/* Одна строка */}
+//       <SelectNew
+//         options={SelectBaseOptions}
+//         value="one"
+//         onChange={(value) => {}}
+//       />
+//       {/* Одно число */}
+//       <SelectNew
+//         options={SelectBaseOptions}
+//         value={1}
+//         onChange={(value) => {}}
+//       />
+//       {/* Много строк */}
+//       <SelectNew
+//         multiple
+//         options={SelectBaseOptions}
+//         value={['one', 'two', 'three']}
+//         onChange={(value) => {}}
+//       />
+//       {/* Много чисел */}
+//       <SelectNew
+//         multiple
+//         options={SelectBaseOptions}
+//         value={[1, 2, 3]}
+//         onChange={(value) => {}}
+//       />
+//     </>
+//   )
 // }

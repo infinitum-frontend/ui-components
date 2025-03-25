@@ -1,7 +1,8 @@
 import { KeyboardEventHandler, useState } from 'react'
-import { SelectOption, FlattenOption } from '../utils/types'
 import { isGroupLabel } from '../utils/helpers'
+import { FlattenOption, SelectOption } from '../utils/types'
 
+// TODO: доработать
 // TODO: если на item будет ховер, то он не скидывается при нажатии по стрелкам клавиатур, а должен?
 // TODO: в multiple grouped при нажатии стрелки вниз фокусируется первый чекбокс
 // TODO: переиспользовать решение https://github.com/gravity-ui/uikit/blob/main/src/components/List/List.tsx#L83C4-L95C6
@@ -31,7 +32,6 @@ const useKeyboardNavigation = ({
       case 'ArrowDown':
         e.preventDefault()
         setActiveItemIndex((prevIndex) => {
-          console.log('setActiveItemIndex', prevIndex, options.length)
           const isLast = prevIndex === options.length - 1
           const next = prevIndex + 1
 

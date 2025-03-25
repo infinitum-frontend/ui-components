@@ -1,12 +1,19 @@
 import SelectNew from './SelectNew'
 import { defaultSelectItem } from './utils/constants'
 
+// TODO: убрать постфикс New
+
 import {
-  SelectProps,
   SelectOption,
   SelectOptions,
+  SelectProps,
   SelectValue
 } from './utils/types'
 
-export { SelectNew, defaultSelectItem }
-export type { SelectProps, SelectOptions, SelectValue, SelectOption }
+export { defaultSelectItem as defaultSelectNewItem, SelectNew }
+export type {
+  SelectOption as SelectNewOption,
+  SelectOptions as SelectNewOptions,
+  SelectProps as SelectNewProps,
+  SelectValue as SelectNewValue
+}

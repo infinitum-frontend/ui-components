@@ -1,3 +1,6 @@
+import FormContext from 'Components/Form/context/form'
+import FormGroupContext from 'Components/Form/context/group'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 import {
   MouseEventHandler,
   ReactElement,
@@ -6,21 +9,19 @@ import {
   useId,
   useState
 } from 'react'
-import { SelectProps, SelectOption as SelectOptionType } from './utils/types'
+import { Menu } from '../Menu'
+import { Popover } from '../Popover'
+import SelectButton from './components/SelectButton'
+import SelectDropdownHint from './components/SelectDropdownHint'
+import SelectEmpty from './components/SelectEmpty'
+import SelectFilterInput from './components/SelectFilterInput'
+import SelectNativeElement from './components/SelectNativeElement'
+import SelectOption from './components/SelectOption'
 import useSelect from './hooks/useSelect'
 import useSelectOptions from './hooks/useSelectOptions'
-import SelectButton from './components/SelectButton'
-import { Popover } from '../Popover'
-import SelectFilterInput from './components/SelectFilterInput'
-import SelectEmpty from './components/SelectEmpty'
-import SelectOption from './components/SelectOption'
-import { Menu } from '../Menu'
-import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
-import FormContext from 'Components/Form/context/form'
-import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
-import SelectNativeElement from './components/SelectNativeElement'
-import FormGroupContext from 'Components/Form/context/group'
 import './SelectNew.scss'
+import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
+import { SelectOption as SelectOptionType, SelectProps } from './utils/types'
 
 const SelectNew = <Multiple extends boolean = false>({
   options = [],
@@ -34,9 +35,9 @@ const SelectNew = <Multiple extends boolean = false>({
   loading,
   placeholder,
   size,
-  // loadOptions,
   filterPlacement = 'dropdown',
   emptyMessage = 'Ничего не найдено',
+  dropdownHint,
   onFilterChange,
   onClear,
   maxItemsCount = 12,
@@ -63,7 +64,7 @@ const SelectNew = <Multiple extends boolean = false>({
 
   const {
     handleSelect,
-    handleClear,
+    handleClear: handleClearState,
     checkOptionSelection,
     hasSelectedValue,
     isOpen,
@@ -90,7 +91,7 @@ const SelectNew = <Multiple extends boolean = false>({
   // ============================= effects =============================
   useEffect(() => {
     if (!isOpen) {
-      setFilterValue('')
+      handleFilterChange('')
     }
   }, [isOpen])
 
@@ -112,13 +113,19 @@ const SelectNew = <Multiple extends boolean = false>({
     }
   }
 
+  const handleClear = (): void => {
+    if (onClear) {
+      onClear()
+    } else {
+      handleClearState()
+    }
+  }
+
   // ============================= render =============================
   const isDisabled = disabledProp || formContext?.disabled
   const isRequired = formGroupContext?.required || required
-  const isLoading = Boolean(loading)
-  // || isLoadingOptions
   // высота элемента, паддинг и границы
-  const maxHeight = maxItemsCount * 32 + 4 + 2
+  const maxHeight = maxItemsCount * 36 + 4 + 2
   const popoverFocus =
     filterable && isOpen && filterPlacement === 'inline' ? -1 : 0
 
@@ -146,7 +153,7 @@ const SelectNew = <Multiple extends boolean = false>({
           onClear={handleClear}
           disabled={Boolean(isDisabled)}
           required={isRequired}
-          loading={isLoading}
+          loading={Boolean(loading)}
           placeholder={placeholder}
           size={size}
           opened={isOpen}
@@ -169,7 +176,7 @@ const SelectNew = <Multiple extends boolean = false>({
 
       <Popover.Content
         hasPadding={false}
-        equalTriggerWidth={Boolean(!popoverWidth) && Boolean(!renderControl)}
+        equalTriggerWidth={Boolean(!popoverWidth)}
         width={popoverWidth}
         data-selector={SELECT_DROPDOWN_SELECTOR}
         // onKeyDown={handleKeyDown}
@@ -180,12 +187,16 @@ const SelectNew = <Multiple extends boolean = false>({
             onChange={handleFilterChange}
             allowClear={true}
             onClear={() => {
-              setFilterValue('')
+              handleFilterChange('')
             }}
           />
         )}
         {filteredFlattenOptions.length > 0 ? (
-          <Menu className="inf-select-new__options" maxHeight={maxHeight}>
+          <Menu
+            as="div"
+            className="inf-select-new__options"
+            maxHeight={maxHeight}
+          >
             {filteredFlattenOptions.map((option, index) => {
               return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
                 <Menu.Label key={String(option.groupLabel) + prefix}>
@@ -211,6 +222,7 @@ const SelectNew = <Multiple extends boolean = false>({
         ) : (
           <SelectEmpty>{emptyMessage}</SelectEmpty>
         )}
+        {dropdownHint && <SelectDropdownHint hint={dropdownHint} />}
       </Popover.Content>
     </Popover>
   )

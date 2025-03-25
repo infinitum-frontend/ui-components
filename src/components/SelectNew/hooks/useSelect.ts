@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { SelectOption, UseSelectResult, UseSelectProps } from '../utils/types'
+import { SelectOption, UseSelectProps, UseSelectResult } from '../utils/types'
+
+// TODO: поправить типы, убрать @ts-expect-error
 
 const useSelect = <Multiple extends boolean = false>({
   value,

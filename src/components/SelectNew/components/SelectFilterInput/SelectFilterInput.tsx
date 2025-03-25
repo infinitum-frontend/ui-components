@@ -1,28 +1,30 @@
-import { FormEventHandler, forwardRef, ReactElement } from 'react'
-import SearchInput, {
-  SearchInputProps
-} from 'Components/Input/components/SearchInput'
-import { useAutocompleteContext } from 'Components/Autocomplete/context'
+import { forwardRef, ReactElement } from 'react'
+import { Input, InputProps } from '~/src/components/Input'
+import { Icon } from '~/src/components/Icon'
+import SearchIcon from 'Icons/search.svg?react'
+import './SelectFilterInput.scss'
 
-export interface SelectFilterInputProps extends SearchInputProps {}
+export interface SelectFilterInputProps extends InputProps {}
 
 /** Поле ввода для фильтрации опций */
 const SelectFilterInput = forwardRef<HTMLInputElement, SelectFilterInputProps>(
-  ({ onSubmit, ...props }, ref): ReactElement => {
-    const context = useAutocompleteContext()
-
-    const handleSubmit: FormEventHandler<HTMLInputElement> = (e): void => {
-      context?.handleInputSubmit?.()
-      onSubmit?.(e)
-    }
-
+  ({ ...props }, ref): ReactElement => {
     return (
-      <SearchInput
-        onSubmit={handleSubmit}
-        autoComplete="off"
-        {...props}
-        ref={ref}
-      />
+      <div className="select-filter-input-wrapper">
+        <Input
+          type="search"
+          prefix={
+            <Icon size="medium" color="primary">
+              <SearchIcon />
+            </Icon>
+          }
+          ref={ref}
+          size="small"
+          placeholder="Найти"
+          autoComplete="off"
+          {...props}
+        />
+      </div>
     )
   }
 )
