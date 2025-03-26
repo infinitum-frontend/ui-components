@@ -51,6 +51,7 @@ type TextVariant =
   | 'subtitle-3'
   | 'body-1'
   | 'body-2'
+  | 'body-3'
   | 'overline'
 
 type FontWeight = 'light' | 'normal' | 'bold' | 'extrabold'
@@ -61,9 +62,10 @@ export type TextColor =
   | 'primary'
   | 'secondary'
   | 'tertiary'
-  | 'link'
   | 'success'
   | 'danger' // deprecated, use "error"
   | 'error'
   | 'warning'
   | 'inverse'
+  | 'violet'
+  | 'info'

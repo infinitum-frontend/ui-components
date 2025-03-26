@@ -21,11 +21,12 @@ export interface TableBaseProps extends TableHTMLAttributes<HTMLTableElement> {
   borderRadius?: 'xsmall' | 'small' | 'medium' | 'large' // TODO: не нужен
 }
 
-export interface TableProps extends TableBaseProps {
+export interface TableProps<TRowData extends Record<string, any>>
+  extends TableBaseProps {
   /** Массив с данными для построения шапки таблицы */
   columns?: Array<ColumnDef<any, any>>
   /** Массив с данными для построения тела таблицы */
-  rows?: Array<TableRowData<any>>
+  rows?: Array<TableRowData<TRowData>>
   /** Скругление границ таблицы
    * @deprecated
    */
@@ -52,11 +53,15 @@ export interface TableProps extends TableBaseProps {
   onChangeRowSelection?: OnChangeFn<TableSelectionState<any>>
   /** Состояние выбора рядов через чекбокс */
   selectionState?: TableSelectionState<any>
+  /** Функция для задания кастомного id для ряда. Используется в случае, когда необходимо сочетать выбор рядов вместе с динамически изменяющимися рядами(filtering, sorting)
+   * Ссылка на документацию https://tanstack.com/table/v8/docs/guide/row-selection#useful-row-ids
+   */
+  getRowId?: (row: TRowData) => string
   /**
    * Выбранный ряд. Если передается строка или число, идет сравнение аргумента с id ряда.
    */
-  selectedRow?: TableSelectedRow
-  onRowClick?: OnChangeFn<TableRow>
+  selectedRow?: TableSelectedRow<TRowData>
+  onRowClick?: OnChangeFn<TableRow<TRowData>>
   /** Изменение ширины колонок
    * @value onChange изменение "вживую" при растягивании
    * @value onEnd изменение при отжатии кнопки мыши
@@ -87,6 +92,14 @@ export interface TableProps extends TableBaseProps {
    * Отображение тегов для выбранных фильтров
    */
   withFiltersTags?: boolean
+  /**
+   * CSS Свойство table-layout
+   */
+  tableLayout?: 'fixed' | 'auto'
+  /**
+   * Экспериментальное свойство
+   */
+  withCollapsibleHeaderCellActions?: true // TODO: вместо этого надо задавать minWidth / width / maxWidth в columnDef и прокидывать стили на th или вложенный div
 }
 
 // ФИЛЬТРАЦИЯ
@@ -152,10 +165,10 @@ export interface TableRow<T extends Record<any, any> = Record<any, any>> {
 export type TableSelectionState<T extends Record<any, any>> = Array<TableRow<T>>
 
 // ВЫБРАННЫЙ РЯД
-export type TableSelectedRow =
+export type TableSelectedRow<TRowData extends Record<string, any>> =
   | string
   | number
-  | ((row: TableRow<any>) => boolean)
+  | ((row: TableRow<TRowData>) => boolean)
 
 interface TableFilterOptionGroup {
   label: string

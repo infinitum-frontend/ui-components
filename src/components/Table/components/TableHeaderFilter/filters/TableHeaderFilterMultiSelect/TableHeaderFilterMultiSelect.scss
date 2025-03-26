@@ -1,4 +1,9 @@
 .inf-table-header-filter-multi-select {
+  &__menu {
+    padding-top: var(--inf-space-xxsmall);
+    padding-bottom: var(--inf-space-xxsmall);
+  }
+
   &__bottom {
     display: flex;
     gap: var(--inf-space-small);

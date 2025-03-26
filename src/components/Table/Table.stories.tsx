@@ -2,10 +2,15 @@
 import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
 import { Table, TableRow, TableColumnFiltersState } from './index'
-import { ColumnDef, SortingState } from '@tanstack/react-table'
+import { SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
-import { Portfolio, TABLE_DATA, TYPE_FILTER_ITEMS } from './fixtures'
+import {
+  Portfolio,
+  TABLE_COLUMNS,
+  TABLE_DATA,
+  TYPE_FILTER_ITEMS
+} from './fixtures'
 import { Button } from '../Button'
 import { Space } from '../Space'
 import { Checkbox } from '../Checkbox'
@@ -19,73 +24,40 @@ const meta: Meta<typeof Table> = {
   }
 }
 
-const columns: Array<ColumnDef<Portfolio, any>> = [
-  {
-    header: 'Портфель',
-    id: 'portfolio',
-    accessorKey: 'portfolio',
-    meta: {
-      filterType: 'search'
-    },
-    enableSorting: true
-  },
-  {
-    header: 'Показатель',
-    id: 'mark',
-    accessorKey: 'mark'
-  },
-  {
-    header: 'Тип',
-    id: 'type',
-    accessorKey: 'type',
-    meta: {
-      filterType: 'select',
-      filterOptions: TYPE_FILTER_ITEMS
-    }
-  },
-  {
-    header: 'Статус',
-    id: 'status',
-    accessorKey: 'status',
-    meta: {
-      filterType: 'multiSelect',
-      filterOptions: [
-        {
-          value: '1',
-          label: 'Сформировано'
-        },
-        {
-          value: '2',
-          label: 'На согласовании'
-        }
-      ]
-    },
-    enableSorting: true
-  },
-  {
-    header: 'Дата',
-    id: 'date',
-    accessorKey: 'date',
-    meta: {
-      filterType: 'date'
-    }
-  }
-]
-
 export default meta
 
 export const Base: StoryObj<typeof Table> = {
   render: (args) => {
-    return <Table {...args} columns={columns} rows={TABLE_DATA} />
+    return <Table {...args} columns={TABLE_COLUMNS} rows={TABLE_DATA} />
   }
 }
 
 export const Selection: StoryObj<typeof Table> = {
   render: (args) => {
+    const [rows, setRows] = useState(TABLE_DATA)
     const [selection, setSelection] = useState<Array<TableRow<Portfolio>>>([])
+    const [filters, setFilters] = useState<TableColumnFiltersState>([])
     const handleChange = (data: Array<TableRow<Portfolio>>): void => {
-      setSelection(data)
       console.log(data)
+      setSelection(data)
+    }
+
+    const handleFiltersChange = (filters: TableColumnFiltersState): void => {
+      const portfolioFilter = filters.find((f) => f.id === 'portfolio')
+
+      if (portfolioFilter) {
+        setRows(
+          TABLE_DATA.filter((row) => {
+            return row.portfolio
+              .toLowerCase()
+              .match((portfolioFilter.value as string)?.toLocaleLowerCase())
+          })
+        )
+      } else {
+        setRows(TABLE_DATA)
+      }
+
+      setFilters(filters)
     }
 
     return (
@@ -94,8 +66,13 @@ export const Selection: StoryObj<typeof Table> = {
           withRowSelection={true}
           onChangeRowSelection={handleChange}
           selectionState={selection}
-          columns={columns}
-          rows={TABLE_DATA}
+          withFiltering
+          filtersState={filters}
+          getRowId={(row) => row.portfolio}
+          withFiltersTags
+          onFiltersChange={handleFiltersChange}
+          columns={TABLE_COLUMNS}
+          rows={rows}
         />
         <Text>Выбранные ряды: {selection.map((item) => item.id)}</Text>
         <Button onClick={() => handleChange([])}>Сбросить</Button>
@@ -108,17 +85,19 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
   render: (args) => {
     const [selected, setSelected] = useState('')
 
-    const handleRowClick = (row: TableRow<any>): void => {
-      console.log(row)
+    const handleRowClick = (row: TableRow<Portfolio>): void => {
+      console.log(row.rowData)
       setSelected(row.id)
     }
 
     return (
       <Space>
-        <Table
-          columns={columns}
+        <Table<Portfolio>
+          columns={TABLE_COLUMNS}
           selectedRow={selected}
-          onRowClick={handleRowClick}
+          onRowClick={(row) => {
+            handleRowClick(row)
+          }}
           rows={TABLE_DATA}
         />
         <Text>Выбранный ряд: {selected}</Text>
@@ -161,7 +140,7 @@ export const WithSorting: StoryObj<typeof Table> = {
           withSorting
           sortingState={sorting}
           onSortingChange={handleSortingChange}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={sortedItems}
         />
         <Button
@@ -264,7 +243,7 @@ export const Filtering: StoryObj<typeof Table> = {
           withSorting
           sortingState={sorting}
           onSortingChange={handleSortingChange}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={sortedItems}
         />
       </div>
@@ -286,7 +265,7 @@ export const Scrollable: StoryObj<typeof Table> = {
 
         <Table
           {...args}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={filteredData}
           maxHeight={400}
           stickyHeader
@@ -310,7 +289,7 @@ export const VirtualizedRows: StoryObj<typeof Table> = {
 
         <Table
           {...args}
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={filteredData}
           maxHeight={400}
           stickyHeader
@@ -332,7 +311,7 @@ export const Empty: StoryObj<typeof Table> = {
       <Space fullHeight>
         <Input value={search} onChange={setSearch} />
 
-        <Table {...args} columns={columns} rows={filteredData} />
+        <Table {...args} columns={TABLE_COLUMNS} rows={filteredData} />
       </Space>
     )
   },
@@ -343,7 +322,13 @@ export const Empty: StoryObj<typeof Table> = {
 
 export const Resizing: StoryObj<typeof Table> = {
   render: (args) => {
-    return <Table resizeMode={'onChange'} columns={columns} rows={TABLE_DATA} />
+    return (
+      <Table
+        resizeMode={'onChange'}
+        columns={TABLE_COLUMNS}
+        rows={TABLE_DATA}
+      />
+    )
   }
 }
 
@@ -364,7 +349,7 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
     return (
       <Space>
         <Space direction="horizontal">
-          {columns.map((column) => (
+          {TABLE_COLUMNS.map((column) => (
             <Checkbox
               key={column.id}
               checked={columnVisibility[column.id]}
@@ -380,7 +365,7 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
           ))}
         </Space>
         <Table
-          columns={columns}
+          columns={TABLE_COLUMNS}
           rows={TABLE_DATA}
           columnVisibility={columnVisibility}
         />
@@ -390,7 +375,7 @@ export const ColumnVisibility: StoryObj<typeof Table> = {
 }
 
 const columnsWithAction = [
-  ...columns,
+  ...TABLE_COLUMNS,
   {
     id: 'actionButton',
     cell: () => (
@@ -416,6 +401,146 @@ export const CellVisibleOnRowHover: StoryObj<typeof Table> = {
 
         <Table columns={columnsWithAction} rows={TABLE_DATA} />
       </Space>
+    )
+  }
+}
+
+const headerTextOverflowColumns = [
+  {
+    header: 'Ключ портфеля',
+    accessorKey: 'key',
+    meta: {
+      filterType: 'search'
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Название портфеля',
+    accessorKey: 'title',
+    meta: {
+      filterType: 'search'
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Вид СЦН',
+    accessorKey: 'fundPurposeType',
+    meta: {
+      filterType: 'select',
+      filterOptions: TYPE_FILTER_ITEMS
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Вид Портфеля',
+    id: 'portfolioType',
+    accessorKey: 'portfolioType',
+    meta: {
+      filterType: 'multiSelect',
+      filterOptions: [
+        {
+          value: '1',
+          label: 'Сформировано'
+        },
+        {
+          value: '2',
+          label: 'На согласовании'
+        }
+      ]
+    },
+    enableSorting: true
+  },
+  {
+    header: 'Дата начала',
+    accessorKey: 'startDate',
+    enableSorting: true
+  },
+  {
+    header: 'Дата окончания',
+    accessorKey: 'endDate',
+    enableSorting: true
+  },
+  {
+    header: 'Опердень открыт',
+    accessorKey: 'openDate',
+    enableSorting: true
+  },
+  {
+    header: 'Запустите контрольную процедуру',
+    accessorKey: 'startProcedureDate',
+    enableSorting: true
+  },
+  {
+    header: 'Заполните результаты',
+    accessorKey: 'enterResultsDate',
+    enableSorting: true
+  },
+  {
+    header: 'Отправьте уведомления',
+    accessorKey: 'notificationDate',
+    enableSorting: true
+  }
+]
+
+const portfolios = Array.from({ length: 15 }, () => ({
+  key: Math.random().toString(36).substring(7), // случайная строка как ключ
+  title: `Portfolio ${Math.floor(Math.random() * 1000)}`, // случайное название
+  fundPurposeType: ['Investment', 'Savings', 'Pension'][
+    Math.floor(Math.random() * 3)
+  ], // случайный тип назначения фонда
+  portfolioType: ['Private', 'Corporate', 'Government'][
+    Math.floor(Math.random() * 3)
+  ], // случайный тип портфеля
+  startDate: getRandomDate(), // случайная дата начала
+  endDate: getRandomDate(), // случайная дата окончания
+  openDate: getRandomDate(), // случайная дата открытия
+  startProcedureDate: getRandomDate(), // случайная дата начала процедуры
+  enterResultsDate: getRandomDate(), // случайная дата ввода результатов
+  notificationDate: getRandomDate() // случайная дата уведомления
+}))
+
+function getRandomDate(): string {
+  const start = new Date(2020, 0, 1) // начальная дата
+  const end = new Date(2024, 11, 31) // конечная дата
+  const date = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  )
+  return date.toISOString().split('T')[0] // возвращаем строку даты в формате YYYY-MM-DD
+}
+
+export const HeaderTextOverflow: StoryObj<typeof Table> = {
+  render: (args) => {
+    const defaultSorting = [{ id: 'status', desc: false }]
+    const [sortedItems, setSortedItems] = useState(portfolios)
+    const [sorting, setSorting] = useState(defaultSorting)
+    const [filters, setFilters] = useState<TableColumnFiltersState>([])
+
+    const handleSortingChange = (state: SortingState): void => {
+      setSorting(state)
+      setSortedItems([...portfolios])
+    }
+
+    const handleFiltersChange = (state: TableColumnFiltersState): void => {
+      setFilters(state)
+      setSortedItems(portfolios)
+    }
+
+    return (
+      <div>
+        <Table
+          columns={headerTextOverflowColumns}
+          withFiltering
+          withFiltersTags
+          onFiltersChange={handleFiltersChange}
+          filtersState={filters}
+          withSorting
+          sortingState={sorting}
+          onSortingChange={handleSortingChange}
+          rows={sortedItems}
+          withCollapsibleHeaderCellActions
+          tableLayout="fixed"
+        />
+      </div>
     )
   }
 }

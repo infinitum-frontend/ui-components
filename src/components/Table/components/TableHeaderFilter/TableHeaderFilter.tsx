@@ -123,9 +123,9 @@ const TableHeaderFilter = ({
   }
 
   const defaultPopoverWidth: Record<TableFilterType, CSSProperties['width']> = {
-    search: '260px',
+    search: '300px',
     date: '264px',
-    select: '260px',
+    select: '300px',
     multiSelect: '300px'
   }
 

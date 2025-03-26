@@ -6,7 +6,7 @@ import React, {
 } from 'react'
 import cn from 'classnames'
 import './SelectButton.scss'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
 import { Loader } from '~/src/components/Loader'
 
@@ -15,6 +15,7 @@ export interface SelectButtonProps extends ComponentPropsWithoutRef<'button'> {
   disabled?: boolean
   loading?: boolean
   selected?: boolean
+  opened?: boolean
   focused?: boolean
   /** Нужно ли применять стили плейсхолдера */
   isPlaceholder?: boolean // TODO: придумать решение лучше
@@ -25,6 +26,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
     {
       status,
       selected,
+      opened,
       focused,
       disabled,
       loading,
@@ -59,6 +61,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
         <span
           className={cn('inf-select-button__arrow', {
             'inf-select-button__arrow--active': selected,
+            'inf-select-button__arrow--rotated': opened,
             'inf-select-button__arrow--disabled': disabled
           })}
         >

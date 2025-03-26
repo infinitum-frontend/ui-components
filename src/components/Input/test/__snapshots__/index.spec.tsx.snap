@@ -5,7 +5,7 @@ exports[`input > render > matches snapshot 1`] = `
   class="inf-input-wrapper inf-text-field--size-medium inf-text-field inf-text-field--br-regular"
 >
   <input
-    class="inf-input inf-text-field--size-medium inf-text-field "
+    class="inf-input inf-text-field--size-medium"
     placeholder="Введите значение"
     value=""
   />

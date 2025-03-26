@@ -5,9 +5,9 @@ import {
   useState
 } from 'react'
 import { Popover } from 'Components/Popover'
-import { ReactComponent as FilterIcon } from 'Icons/filter.svg'
-import { ReactComponent as CalendarIcon } from 'Icons/calendar.svg'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+import FilterIcon from 'Icons/filter.svg?react'
+import CalendarIcon from 'Icons/calendar.svg?react'
+import SearchIcon from 'Icons/search.svg?react'
 import TableHeaderCellButton from '../TableHeaderCellButton'
 
 type IconVariant = 'search' | 'date' | 'filter'

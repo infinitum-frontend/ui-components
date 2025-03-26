@@ -2,7 +2,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import Menu from 'Components/Menu/Menu'
 import { TableFiltersOptions, TableSelectOption } from 'Components/Table/types'
-import { ReactComponent as IconTick } from 'Icons/tick.svg'
+import IconTick from 'Icons/tick.svg?react'
 import { Icon } from 'Components/Icon'
 import './TableHeaderFilterSelect.scss'
 
@@ -47,7 +47,7 @@ const TableHeaderFilterSelect = ({
 
   return (
     <div className="inf-table-header-filter-select">
-      <Menu maxHeight={340}>
+      <Menu className="inf-table-header-filter-select__menu" maxHeight={340}>
         {options?.map((option) => {
           // сгруппированные опции
           if ('options' in option) {

@@ -3,7 +3,7 @@ import { InputProps, Input } from '~/src/components/Input'
 import { Icon } from '~/src/components/Icon'
 import { Space } from '~/src/components/Space'
 import { Button } from '~/src/components/Button'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+import SearchIcon from 'Icons/search.svg?react'
 import './TableHeaderFilterSearch.scss'
 
 interface TableHeaderFilterSearchProps {

@@ -4,7 +4,7 @@ import { Meta, StoryFn } from '@storybook/react'
 import { Layout } from '../components/Layout'
 import { Page } from '../components/Page'
 import { StatusView } from '../components/StatusView'
-import { ReactComponent as StopIcon } from 'Icons/stop.svg'
+import StopIcon from 'Icons/stop.svg?react'
 
 const ComponentMeta: Meta = {
   title: 'Demo/NotFound Page'

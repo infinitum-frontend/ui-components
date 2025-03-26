@@ -9,7 +9,8 @@ import { Button } from '../Button'
 import { Text } from '../Text'
 import { Icon } from '../Icon'
 import { Form } from '../Form'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+// @ts-expect-error
+import SearchIcon from 'Icons/search.svg?react'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 
 const meta: Meta<typeof Input> = {
