@@ -27,6 +27,8 @@ export interface MenuItemProps {
   collapsedContent?: ReactNode
   /** Активное состояние */
   active?: boolean
+  /** Активное состояние */
+  highlighted?: boolean // TODO: сделать active, а active переименовать в selected?
 }
 
 const MenuItem = <C extends ElementType = 'li'>({
@@ -34,6 +36,7 @@ const MenuItem = <C extends ElementType = 'li'>({
   disabled = false,
   collapsible = false,
   active = false,
+  highlighted,
   collapsedContent,
   className,
   onClick,
@@ -56,6 +59,7 @@ const MenuItem = <C extends ElementType = 'li'>({
         className={cn('inf-menu-item', className, {
           'inf-menu-item--disabled': disabled,
           'inf-menu-item--active': active,
+          'inf-menu-item--highlighted': highlighted,
           'inf-menu-item--nested': context?.nested,
           'inf-menu-item--br-regular': context?.borderRadius === 'regular',
           'inf-menu-item--no-padding': context?.disablePadding
