@@ -81,7 +81,9 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     const headingId = useId()
     const descriptionId = useId()
 
-    const { isMounted, status } = useTransitionStatus(context)
+    const { isMounted, status } = useTransitionStatus(context, {
+      duration: 250
+    })
 
     return (
       <FloatingPortal>
