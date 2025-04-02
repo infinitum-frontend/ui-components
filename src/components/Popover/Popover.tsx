@@ -1,24 +1,24 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useState, useMemo, ReactNode } from 'react'
+import { OffsetOptions } from '@floating-ui/core'
 import {
-  useFloating,
   autoUpdate,
-  offset,
   flip,
+  offset,
+  Placement,
+  safePolygon,
   shift,
   useClick,
   useDismiss,
-  useRole,
-  useInteractions,
-  Placement,
+  useFloating,
   useHover,
-  safePolygon
+  useInteractions,
+  useRole
 } from '@floating-ui/react'
-import { OffsetOptions } from '@floating-ui/core'
-import PopoverTrigger from './components/PopoverTrigger'
-import PopoverContent from './components/PopoverContent'
-import { PopoverContext } from './usePopoverContext'
 import { PopoverTriggerType, UsePopover } from 'Components/Popover/types'
+import React, { ReactNode, useMemo, useState } from 'react'
+import PopoverContent from './components/PopoverContent'
+import PopoverTrigger from './components/PopoverTrigger'
+import { PopoverContext } from './usePopoverContext'
 
 export interface PopoverProps {
   defaultOpen?: boolean

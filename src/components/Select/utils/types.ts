@@ -1,6 +1,6 @@
 import { InputProps } from 'Components/Input'
+import { PopoverContentProps, PopoverProps } from 'Components/Popover'
 import { ComponentPropsWithoutRef, ReactNode } from 'react'
-import { PopoverContentProps } from '../../Popover'
 
 export interface SelectProps<Multiple extends boolean = false>
   extends Omit<
@@ -12,18 +12,18 @@ export interface SelectProps<Multiple extends boolean = false>
   /** Список опций. Может быть сгруппирован */
   options?: SelectOptions
   /** Controlled value */
-  value: Multiple extends true ? SelectValue[] : SelectValue | undefined
+  value?: Multiple extends true ? SelectValue[] : SelectValue | undefined
   /** Controlled onChange */
-  onChange: (
+  onChange?: (
     value: Multiple extends true ? SelectOption[] : SelectOption
   ) => void
-  /** Callback на нажатие кнопки очистки выбранного значения. Если true, то при клике на кнопку не будет вызываться onChange с пустым значение, ожидается что обновления стейта будет произведено в этом callback */
+  /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
   onClear?: () => void
   /** Callback на изменение значения поля фильтрации. Если true, то дефолтная фильтрация не используется, ожидается, что снаружи будет передан отфильтрованный options */
   onFilterChange?: (filterValue: string) => void
-  /** Активация элементов фильтрации опций */
+  /** Отображение поля фильтрации опций */
   filterable?: boolean
-  /** Активация кнопки очистки выбранного значения */
+  /** Отображение кнопки очистки выбранного значения. При нажатии на кнопку вызывается обработчик onClear, а если он не был передан, то onChange. */
   clearable?: boolean
   /** Состояние недоступности */
   disabled?: boolean
@@ -31,6 +31,8 @@ export interface SelectProps<Multiple extends boolean = false>
   required?: boolean
   /** Состояние загрузки */
   loading?: boolean
+  /** Loader может быть расположен в SelectButton или во всплывающем окне */
+  loaderPlacement?: 'inline' | 'dropdown'
   /** Placeholder, если нет выбранного значения */
   placeholder?: string
   /** Размер SelectButton */
@@ -39,6 +41,8 @@ export interface SelectProps<Multiple extends boolean = false>
   prefix?: ReactNode
   /** Ширина всплывающего окна */
   popoverWidth?: PopoverContentProps['width']
+  /** Расположение всплывающего окна относительно SelectButton */
+  popoverPlacement?: PopoverProps['placement']
   /** Использование кастомного шаблона SelectButton */
   renderControl?: (props: {
     displayValue: string
@@ -58,8 +62,14 @@ export interface SelectProps<Multiple extends boolean = false>
   emptyMessage?: string
   /** Текст подсказки во всплывающем окне */
   dropdownHint?: string
-  // TBD
-  // selectedFirst?: boolean
+  // Нужны ли пропы ниже непонятно
+  /** Состояние валидности */
+  status?: 'error'
+  autoFocus?: boolean
+  /** Кеширование асинхронно загруженных опций */
+  cacheOptions?: boolean
+  /** Показывать выбранные значения в начале списка */
+  selectedFirst?: boolean
   // loadOptions?: (filterValue?: string) => Promise<SelectOptions>
   // cacheOptions?: boolean
   // filterOptions?: (options: SelectOptions) => SelectOptions
@@ -67,10 +77,22 @@ export interface SelectProps<Multiple extends boolean = false>
 
 export type SelectValue = string | number
 
-export interface SelectOption {
+export interface DefaultSelectOption {
   value: SelectValue
   label: string
 }
+
+type MappedObject<T> = {
+  [Property in keyof T]: T[Property]
+}
+
+export type SelectOption<T = Record<string, any>> = DefaultSelectOption &
+  MappedObject<T>
+
+// export interface SelectOption {
+//   value: SelectValue
+//   label: string
+// }
 
 export interface SelectOptionGroup {
   label: string
@@ -86,8 +108,8 @@ export type FlattenOption = SelectOption | GroupLabelItem
 
 export interface UseSelectProps<Multiple extends boolean = false> {
   multiple?: Multiple
-  value: Multiple extends true ? SelectValue[] : SelectValue | undefined
-  onChange: (
+  value?: Multiple extends true ? SelectValue[] : SelectValue | undefined
+  onChange?: (
     value: Multiple extends true ? SelectOption[] : SelectOption
   ) => void
   options: FlattenOption[]
@@ -116,4 +138,20 @@ export interface UseSelectOptionsResult {
   filteredOptions: SelectOptions
   flattenOptions: FlattenOption[]
   filteredFlattenOptions: FlattenOption[]
+}
+
+export interface SelectDataFormatterOptions<T extends Record<string, any>> {
+  /**
+   * Исходный массив, подлежащий форматированию
+   */
+  array: T[]
+  /**
+   * Строковое название ключа элемента исходного массива, на основании которого будет браться ключ для опции
+   * Ключ должен являться уникальным значением
+   */
+  value: keyof T
+  /**
+   * Строковое название ключа элемента исходного массива, на основании которого будет браться текст для отображения опции
+   */
+  label: keyof T
 }

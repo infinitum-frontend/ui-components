@@ -1,62 +1,6 @@
 .inf-select {
-  &__items {
-    border-radius: var(--inf-border-radius-small);
-    border: 1px solid var(--inf-color-border-primary);
-    background-color: var(--inf-color-background-float);
-    width: 100%;
-    list-style-type: none;
-    z-index: var(--inf-z-index-dropdown);
+  &__options {
     padding-top: var(--inf-space-xxsmall);
     padding-bottom: var(--inf-space-xxsmall);
-
-    &:focus-visible {
-      outline: none;
-    }
-
-    &::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
-      background: var(--inf-scrollbar-track-color-background);
-      border-radius: 5px;
-    }
-
-    &::-webkit-scrollbar-track {
-      border-radius: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 5px;
-      width: 7px;
-      height: 7px;
-      background-color: var(--inf-scrollbar-thumb-color-background);
-    }
-  }
-
-  &__item {
-    cursor: pointer;
-    font-size: var(--inf-text-size-small);
-    padding: 7px 12px;
-    line-height: 18px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow-x: hidden;
-
-    &--active {
-      background-color: var(--inf-color-background-float-hover);
-    }
-
-    &:first-child {
-      border-top-right-radius: var(--inf-border-radius-small);
-      border-top-left-radius: var(--inf-border-radius-small);
-    }
-  }
-
-  select {
-    opacity: 0;
-    outline: none;
-    position: absolute;
-    left: 0;
-    margin: 0;
-    z-index: -1;
   }
 }

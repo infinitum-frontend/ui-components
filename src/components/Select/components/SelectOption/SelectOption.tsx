@@ -26,6 +26,8 @@ const SelectOption = ({
     <Menu.Item
       as={isCheckbox ? 'label' : 'div'}
       highlighted={active}
+      data-selected={selected}
+      data-testid="option"
       onClick={() => {
         // если checkbox, то слушаем onChange, а не click
         if (!isCheckbox) {
@@ -52,7 +54,7 @@ const SelectOption = ({
 
       {selected && selectionIndicator === 'tick' && (
         <Menu.Item.Button>
-          <Icon color="secondary">
+          <Icon data-testid="check-icon" color="secondary">
             <IconTick />
           </Icon>
         </Menu.Item.Button>
