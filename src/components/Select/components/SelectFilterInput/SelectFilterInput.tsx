@@ -1,7 +1,7 @@
-import { forwardRef, ReactElement } from 'react'
-import { Input, InputProps } from '~/src/components/Input'
-import { Icon } from '~/src/components/Icon'
 import SearchIcon from 'Icons/search.svg?react'
+import { forwardRef, ReactElement } from 'react'
+import { Icon } from '~/src/components/Icon'
+import { Input, InputProps } from '~/src/components/Input'
 import './SelectFilterInput.scss'
 
 export interface SelectFilterInputProps extends InputProps {}
@@ -22,6 +22,7 @@ const SelectFilterInput = forwardRef<HTMLInputElement, SelectFilterInputProps>(
           size="small"
           placeholder="Найти"
           autoComplete="off"
+          disableFormContextValidation
           {...props}
         />
       </div>

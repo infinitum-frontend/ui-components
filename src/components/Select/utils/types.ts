@@ -62,14 +62,13 @@ export interface SelectProps<Multiple extends boolean = false>
   emptyMessage?: string
   /** Текст подсказки во всплывающем окне */
   dropdownHint?: string
-  // Нужны ли пропы ниже непонятно
+  // ==================================== Нужны ли пропы ниже непонятно
   /** Состояние валидности */
   status?: 'error'
-  autoFocus?: boolean
-  /** Кеширование асинхронно загруженных опций */
-  cacheOptions?: boolean
+  // autoFocus?: boolean  /** Кеширование асинхронно загруженных опций */
+  // cacheOptions?: boolean
   /** Показывать выбранные значения в начале списка */
-  selectedFirst?: boolean
+  // selectedFirst?: boolean
   // loadOptions?: (filterValue?: string) => Promise<SelectOptions>
   // cacheOptions?: boolean
   // filterOptions?: (options: SelectOptions) => SelectOptions

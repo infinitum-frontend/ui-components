@@ -47,7 +47,6 @@ const Select = <Multiple extends boolean = false>({
   popoverWidth,
   popoverPlacement = 'bottom-start',
   renderControl,
-  autoFocus,
   className,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
@@ -86,15 +85,6 @@ const Select = <Multiple extends boolean = false>({
     multiple,
     onClear
   })
-
-  // TODO: управление с клавиатуры
-  // const { handleKeyDown, activeItemIndex, setActiveItemIndex } =
-  //   useKeyboardNavigation({
-  //     options: filteredFlattenOptions,
-  //     onSelect: handleSelect,
-  //     isOpen,
-  //     setOpen
-  //   })
 
   // ============================= effects =============================
   useEffect(() => {
@@ -194,7 +184,6 @@ const Select = <Multiple extends boolean = false>({
         equalTriggerWidth={Boolean(!popoverWidth)}
         width={popoverWidth}
         data-selector={SELECT_DROPDOWN_SELECTOR}
-        // onKeyDown={handleKeyDown}
       >
         {filterable && filterPlacement === 'dropdown' && (
           <SelectFilterInput
@@ -226,9 +215,6 @@ const Select = <Multiple extends boolean = false>({
                   onSelect={() => {
                     handleOptionSelect(option)
                   }}
-                  // TODO: управление с клавиатуры
-                  // active={index === activeItemIndex}
-                  // onMouseOver={() => setActiveItemIndex(index)}
                 >
                   {option.label}
                 </SelectOption>
@@ -247,65 +233,3 @@ const Select = <Multiple extends boolean = false>({
 }
 
 export default Select
-
-// TODO:
-// Generic для SelectValue: string / number / еще что-то?
-// null если SelectValue отсутствует?
-// обработка пустых значений в компоненте потребителе при очистке значения по кнопке. onChange вернет null / пустой массив?
-// Лейблы групп портфелей сделать disabled? как в gravity ui
-// если filterable и не multiselect, то как работать с инпутом, если в нем будет лейбл выбранного значения?
-// изначальная загрузка асинхронная с бэка, но фильтрация на стороне клиента. Просто loading = true и передать options после загрузки?
-// синк выбранных значений и опций, если вдруг выбранных опций уже нет в options (см как решели в Hse Design system)
-// debounce при асинхронной фильтрации на стороне потребителя?
-// cacheOptions: boolean
-// управление клавиатурой
-// виртуализация
-// нативная валидация и нативный селект
-// onChange добавить второй аргумент возврата для value
-// defaultSelectItem
-// value как number - нужны ли сторис и тесты
-// forwardRef
-// Если у нас select clearable и не передали onClear, то срабатываем onChange - с каким аругментом? Там же option. возвращать null?
-// кейс когда есть выбранные опции, они сохраняются на бэке, но при первой загрузке селекта мы запрашиваем только часть опций с бэка, среди которых нет выбранных опций. Надо мержить на стороне потребителя или как то иначе?
-// Controlled filterValue: Должна быть возможность обработки колбэка очистки инпута фильтрации снаружи, редкий кейс когда может понадобиться хранить стейт filterValue снаружи, например, если фильтр установлен по умолчанию. прокидывание функции для кастомной логики фильтрации? (option: any, inputValue: string) => boolean
-// Асинхронная подгрузка + сортировка выбранных опций наверх
-// Плашка "Показано n элементов"
-// Кейс когда мы грузим изначальный список options, но при этом просто вешаем loading=true пока он не загрузился, без использования loadOptions
-// onInputChange для обработки асихнронной загрузки как в baseWeb?
-
-// const handlePopoverPressOutside = (e: MouseEvent): any => {
-// TODO:
-// if (formGroupContext) {
-//   return (
-//     (e.target as HTMLLabelElement)?.htmlFor !== formGroupContext?.id
-//   )
-// } else {
-//   return true
-// }
-// }
-
-// TODO: data-selector={SELECT_DROPDOWN_SELECTOR}
-
-// TODO:
-// {...getFloatingProps({
-//   onClick(e) {
-//     e.stopPropagation()
-//   }
-// })}
-
-// TODO:
-// {...getReferenceProps({
-//   onKeyDown: handleKeyDown,
-//   onClick(e) {
-//     e.stopPropagation()
-//     handleClick(e)
-//   }
-// })}
-
-// TODO: Popover width / height
-// style={{
-//   position: 'absolute',
-//   maxHeight: `${maxHeight}px`,
-//   top: y ?? 0,
-//   left: x ?? 0
-// }}

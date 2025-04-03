@@ -2,24 +2,16 @@
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import ArrowDownIcon from 'Icons/chevron-down.svg?react'
 import ArrowUpIcon from 'Icons/chevron-up.svg?react'
-import IconInfoCircle from 'Icons/info-circle.svg?react'
 import StarIcon from 'Icons/star.svg?react'
 import * as React from 'react'
 import { useState } from 'react'
-import { removeDuplicates } from 'Utils/helpers'
+import { debounce } from '~/src/utils/helpers'
 import { Button } from '../Button'
 import { Form } from '../Form'
 import { Icon } from '../Icon'
 import { Space } from '../Space'
 import { Text } from '../Text'
-import { Tooltip } from '../Tooltip'
-import {
-  Select,
-  selectDataFormatter,
-  SelectOption,
-  SelectOptions,
-  SelectValue
-} from './index'
+import { Select, SelectOption, SelectOptions, SelectValue } from './index'
 import {
   SelectBaseGroupedOptions,
   SelectBaseOptions,
@@ -73,7 +65,7 @@ const MultipleTemplate: StoryFn<typeof Select> = (args) => {
 
   // TODO: helper?
   const selectedOptionsLabels = SelectBaseOptions.filter((o) => {
-    return value.includes(o.value)
+    return value.includes(String(o.value))
   })
     .map((o) => o.label)
     .join(', ')
@@ -109,14 +101,6 @@ export const StatusError = {
   render: SingleTemplate,
   args: {
     status: 'error'
-  }
-}
-
-export const AutoFocus = {
-  render: SingleTemplate,
-
-  args: {
-    autoFocus: true
   }
 }
 
@@ -200,14 +184,6 @@ export const Loading = {
   }
 }
 
-export const LoadingDropdown = {
-  render: SingleTemplate,
-  args: {
-    loading: true,
-    loaderPlacement: 'dropdown'
-  }
-}
-
 export const FormValidation = {
   render: () => {
     const [singleValue, setSingleValue] = useState<SelectValue>()
@@ -234,6 +210,7 @@ export const FormValidation = {
         <Form.Group required>
           <Form.Label>Одиночный выбор</Form.Label>
           <Select
+            filterable
             value={singleValue}
             onChange={handleSingleChange}
             options={SelectBaseOptions}
@@ -386,16 +363,6 @@ const fetchAsyncData = async (filterValue?: string): Promise<any> => {
   })
 }
 
-const debounce = (callback: any, wait: any): any => {
-  let timeoutId: any = null
-  return (...args: any) => {
-    window.clearTimeout(timeoutId)
-    timeoutId = window.setTimeout(() => {
-      callback.apply(null, args)
-    }, wait)
-  }
-}
-
 export const ControlledAsyncOptions = {
   render: () => {
     const [selectedOption, setSelectedOption] = useState<SelectOption>()
@@ -444,69 +411,71 @@ export const ControlledAsyncOptions = {
   }
 }
 
-export const YoutrackIssueSelect = {
-  render: () => {
-    const [isLoading, setLoading] = useState(false)
-    // TODO: как будет работать типизация если с бэка будут прилетать группы опций
-    const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
-    const [options, setOptions] = useState<SelectOptions>([])
+// TODO:
+// export const YoutrackIssueSelect = {
+//   render: () => {
+//     const [isLoading, setLoading] = useState(false)
+//     // TODO: как будет работать типизация если с бэка будут прилетать группы опций
+//     const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
+//     const [options, setOptions] = useState<SelectOptions>([])
 
-    const fetchOptions = async (filterValue: string): Promise<void> => {
-      setLoading(true)
+//     const fetchOptions = async (filterValue: string): Promise<void> => {
+//       setLoading(true)
 
-      const responseOptions: SelectOption[] = await fetchAsyncData(filterValue)
-      const newOptions = removeDuplicates([
-        ...selectedOptions,
-        ...responseOptions
-      ]) as SelectOption[]
+//       const responseOptions: SelectOption[] = await fetchAsyncData(filterValue)
+//       const newOptions = removeDuplicates([
+//         ...selectedOptions,
+//         ...responseOptions
+//       ]) as SelectOption[]
 
-      setOptions(newOptions)
-      setLoading(false)
-    }
+//       setOptions(newOptions)
+//       setLoading(false)
+//     }
 
-    const handleChange = (options: SelectOption[]): void => {
-      console.log('handleChange', options)
-      setSelectedOptions(options)
-    }
+//     const handleChange = (options: SelectOption[]): void => {
+//       console.log('handleChange', options)
+//       setSelectedOptions(options)
+//     }
 
-    const handleFilterChange = debounce((filterValue: string): void => {
-      console.log('handleFilterChange', filterValue)
-      void fetchOptions(filterValue)
-    }, 300)
+//     const handleFilterChange = debounce((filterValue: string): void => {
+//       console.log('handleFilterChange', filterValue)
+//       void fetchOptions(filterValue)
+//     }, 300)
 
-    const selectedValues = selectedOptions.map((option) => option.value)
+//     const selectedValues = selectedOptions.map((option) => option.value)
 
-    return (
-      <Form>
-        <Form.Group required>
-          <Form.Label>Label</Form.Label>
-          <Select
-            loading={isLoading}
-            options={options}
-            value={selectedValues}
-            onChange={handleChange}
-            onFilterChange={handleFilterChange}
-            multiple
-            filterable
-            filterPlacement="inline"
-            clearable
-            placeholder="Введите идентификатор задачи"
-            popoverPlacement="top"
-            maxItemsCount={10}
-            prefix={
-              <Tooltip content="Введите идентификатор связанной задачи в формате RISK - ##### и нажмите кнопку Добавить. Вы можете добавить несколько связанных задач">
-                <Icon size="medium" color="primary">
-                  <IconInfoCircle />
-                </Icon>
-              </Tooltip>
-            }
-          />
-        </Form.Group>
-        <Button type="submit">Отправить</Button>
-      </Form>
-    )
-  }
-}
+//     return (
+//       <Form>
+//         <Form.Group required>
+//           <Form.Label>Label</Form.Label>
+//           <Select
+//             loading={isLoading}
+//             options={options}
+//             value={selectedValues}
+//             onChange={handleChange}
+//             onFilterChange={handleFilterChange}
+//             multiple
+//             filterable
+//             filterPlacement="inline"
+//             clearable
+//             placeholder="Введите идентификатор задачи"
+//             popoverPlacement="top"
+//             maxItemsCount={10}
+//             prefix={
+//               <Tooltip content="Введите идентификатор связанной задачи в формате RISK - ##### и нажмите кнопку Добавить. Вы можете добавить несколько связанных задач">
+//                 <Icon size="medium" color="primary">
+//                   <IconInfoCircle />
+//                 </Icon>
+//               </Tooltip>
+//             }
+//           />
+//         </Form.Group>
+//         <Button type="submit">Отправить</Button>
+//       </Form>
+//     )
+//   }
+// }
+
 // TODO:
 // export const ControlledAsyncOptionsMultiple = {
 //   render: () => {
@@ -605,81 +574,4 @@ export const CustomControl = {
       </Space>
     )
   }
-}
-
-const pageSizeOptions = [
-  {
-    value: 5,
-    label: '5'
-  },
-  {
-    value: 10,
-    label: '10'
-  },
-  {
-    value: 15,
-    label: '15'
-  }
-]
-
-export const TypescriptIncompatible = {
-  render: () => {
-    const [firstValue, setFirstValue] = useState<number>()
-
-    const formattedConnectionTypes = selectDataFormatter(
-      {
-        array: [],
-        value: 'id',
-        label: 'connectionName'
-      },
-      true
-    )
-
-    console.log('formattedConnectionTypes', formattedConnectionTypes)
-
-    return (
-      <>
-        <Select
-          value={firstValue}
-          onChange={(option) => {
-            setFirstValue(Number(option.value))
-          }}
-          placeholder="Количество записей"
-          options={pageSizeOptions}
-          aria-required="true"
-          aria-invalid="true"
-          id="test"
-        />
-      </>
-    )
-  }
-}
-
-export const Typescript = {
-  render: () => (
-    <>
-      {/* Одна строка */}
-      <Select
-        options={SelectBaseOptions}
-        value="one"
-        onChange={(value) => {}}
-      />
-      {/* Одно число */}
-      <Select options={SelectBaseOptions} value={1} onChange={(value) => {}} />
-      {/* Много строк */}
-      <Select
-        multiple
-        options={SelectBaseOptions}
-        value={['one', 'two', 'three']}
-        onChange={(value) => {}}
-      />
-      {/* Много чисел */}
-      <Select
-        multiple
-        options={SelectBaseOptions}
-        value={[1, 2, 3]}
-        onChange={(value) => {}}
-      />
-    </>
-  )
 }

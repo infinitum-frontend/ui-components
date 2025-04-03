@@ -90,6 +90,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
     const showFilterInput = filterable && opened
     const showClearButton = clearable
 
+    // TODO: возможно стоит вынести в компонент Select и рендерить renderControl вместе SelectButton, а не прокидывать в проп
     if (renderControl) {
       return renderControl({
         ref,
@@ -127,6 +128,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
         {(Boolean(selectedOptionsCount) || prefix) && (
           <div className="inf-select-button__before">
             {prefix}
+            {/* TODO: сделать слотом? */}
             {Boolean(selectedOptionsCount) && (
               <SelectCounter
                 size={size}
