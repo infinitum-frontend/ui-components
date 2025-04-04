@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import { TableRow as TableRowType } from 'Components/Table/types'
 import {
@@ -10,6 +10,7 @@ import { Virtualizer, notUndefined } from '@tanstack/react-virtual'
 import TableRow from '../TableRow'
 import TableEmpty from '../TableEmpty'
 import TableCell from '../TableCell'
+import useCheckSelection from '~/src/hooks/useCheckElementHasSelection'
 
 export interface TableBodyContentProps<TRowData extends Record<string, any>> {
   // тут для ряда используется внутренний тип танстака - это верно, не менять.
@@ -47,12 +48,13 @@ const TableBodyContent = <TRowData extends Record<string, any>>({
   totalColumnsCount,
   emptyMessage
 }: TableBodyContentProps<TRowData>): ReactElement => {
+  const checkSelection = useCheckSelection()
   const handleRowClick = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
     row: Row<any>
   ): void => {
-    // клик на ряд срабатывает только в случае, если клик был на элемент внутри ячейки таблицы
-    if (!(e.target as HTMLElement).closest('td')) {
+    // клик на ряд срабатывает только в случае, если клик был на элемент внутри ячейки таблицы и НЕ было селекции(копирования строки)
+    if (!(e.target as HTMLElement).closest('td') || checkSelection('td')) {
       return
     }
 

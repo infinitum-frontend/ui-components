@@ -89,4 +89,38 @@ describe('Table selected row', () => {
       rowData: selectedPortfolio
     })
   })
+
+  it('should call onClick when text is selected outside the table row', async () => {
+    const selectedPortfolioName = TABLE_DATA[2].portfolio
+    const rowClickHandler = vi.fn()
+    renderComponent(
+      <div>
+        <p>Selectable text outside the table</p>
+        <Table
+          rows={TABLE_DATA}
+          columns={TABLE_COLUMNS}
+          selectedRow={(row) => row.rowData.portfolio === selectedPortfolioName}
+          onRowClick={rowClickHandler}
+        />
+      </div>
+    )
+
+    // Симулируем выделение текста вне таблицы
+    const textOutsideTable = screen.getByText(
+      'Selectable text outside the table'
+    )
+    const range = document.createRange()
+    range.selectNodeContents(textOutsideTable)
+    const selection = window.getSelection() as Selection
+    selection.removeAllRanges()
+    selection.addRange(range)
+
+    const user = userEvent.setup()
+
+    const rows = screen.queryAllByRole('row')
+    // Поскольку клик по факту происходит на td, обрабатываем его
+    await user.click(rows[3].children[0])
+
+    expect(rowClickHandler).toHaveBeenCalledTimes(1)
+  })
 })
