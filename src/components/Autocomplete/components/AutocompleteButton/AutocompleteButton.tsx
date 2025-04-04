@@ -1,5 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
+import cn from 'classnames'
+import { useAutocompleteContext } from 'Components/Autocomplete/context'
+import FormGroupContext from 'Components/Form/context/group'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import SelectButton from 'Components/SelectOld/components/SelectButton'
+import {
   ComponentPropsWithoutRef,
   FocusEventHandler,
   ReactElement,
@@ -9,12 +14,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import './AutocompleteButton.scss'
-import SelectButton from 'Components/Select/components/SelectButton'
-import cn from 'classnames'
-import FormGroupContext from 'Components/Form/context/group'
-import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 export interface AutocompleteButtonProps
   extends ComponentPropsWithoutRef<'button'> {

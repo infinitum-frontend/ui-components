@@ -1,8 +1,8 @@
-import { FormEventHandler, forwardRef, ReactElement } from 'react'
+import { useAutocompleteContext } from 'Components/Autocomplete/context'
 import SearchInput, {
   SearchInputProps
 } from 'Components/Input/components/SearchInput'
-import { useAutocompleteContext } from 'Components/Autocomplete/context'
+import { FormEventHandler, forwardRef, ReactElement } from 'react'
 
 export interface AutocompleteInputProps extends SearchInputProps {}
 
@@ -21,6 +21,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
         onSubmit={handleSubmit}
         data-selector="inf-autocomplete-input"
         autoComplete="off"
+        disableFormContextValidation
         {...props}
         ref={ref}
       />

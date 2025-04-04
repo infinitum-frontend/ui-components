@@ -90,7 +90,7 @@ export const Sizes: StoryObj<typeof Loader> = {
             padding: '18px'
           }}
         >
-          <code>Compact(17.5x17.5)</code>
+          <code>Compact</code>
           <Loader size="compact" />
         </div>
         <div
@@ -102,7 +102,7 @@ export const Sizes: StoryObj<typeof Loader> = {
             padding: '18px'
           }}
         >
-          <code>Regular(30x30)</code>
+          <code>Regular</code>
           <Loader />
         </div>
         <div
@@ -114,7 +114,7 @@ export const Sizes: StoryObj<typeof Loader> = {
             padding: '18px'
           }}
         >
-          <code>Large(70x70)</code>
+          <code>Large</code>
           <Loader size="large" />
         </div>
       </div>

@@ -1,6 +1,20 @@
-import Select, { defaultSelectItem } from './Select'
-import selectDataFormatter from './helpers/formatter'
-import { SelectProps, SelectDataFormatterOptions, SelectOption } from './types'
+import Select from './Select'
+import { defaultSelectItem } from './utils/constants'
+import selectDataFormatter from './utils/formatter'
 
-export { Select, selectDataFormatter, defaultSelectItem }
-export type { SelectProps, SelectDataFormatterOptions, SelectOption }
+import {
+  SelectDataFormatterOptions,
+  SelectOption,
+  SelectOptions,
+  SelectProps,
+  SelectValue
+} from './utils/types'
+
+export { defaultSelectItem, Select, selectDataFormatter }
+export type {
+  SelectDataFormatterOptions,
+  SelectOption,
+  SelectOptions,
+  SelectProps,
+  SelectValue
+}

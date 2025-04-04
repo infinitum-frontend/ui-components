@@ -41,6 +41,7 @@
   }
 
   &__clear-button {
+    display: none;
     cursor: pointer;
     transition: color 0.2s;
     color: var(--inf-color-icon-primary);
@@ -52,6 +53,12 @@
     svg {
       width: 20px;
       height: 20px;
+    }
+  }
+
+  @include hover {
+    .inf-input-wrapper__clear-button {
+      display: inline-block;
     }
   }
 

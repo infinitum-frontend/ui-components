@@ -1,3 +1,5 @@
+import React, { isValidElement } from 'react'
+
 export function omitKeyFromObject<
   T extends Record<any, any>,
   K extends keyof T
@@ -25,5 +27,47 @@ export function checkIsValueExists(value?: any): boolean {
     return Number.isFinite(value)
   } else {
     return Boolean(value)
+  }
+}
+
+export function reactNodeToString(reactNode: React.ReactNode): string {
+  let string = ''
+  if (typeof reactNode === 'string') {
+    string = reactNode
+  } else if (typeof reactNode === 'number') {
+    string = reactNode.toString()
+  } else if (reactNode instanceof Array) {
+    reactNode.forEach(function (child) {
+      string += reactNodeToString(child)
+    })
+  } else if (isValidElement(reactNode)) {
+    string += reactNodeToString(reactNode.props.children)
+  }
+  return string
+}
+
+export function removeDuplicates(arr: object[]): object[] {
+  const uniqueItems = new Set<string>()
+  const result: object[] = []
+
+  arr.forEach((item) => {
+    const itemString = JSON.stringify(item)
+
+    if (!uniqueItems.has(itemString)) {
+      uniqueItems.add(itemString)
+      result.push(item)
+    }
+  })
+
+  return result
+}
+
+export function debounce(callback: any, wait: any): any {
+  let timeoutId: any = null
+  return (...args: any) => {
+    window.clearTimeout(timeoutId)
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args)
+    }, wait)
   }
 }
