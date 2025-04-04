@@ -36,7 +36,7 @@ const Select = <Multiple extends boolean = false>({
   required = false,
   loading,
   loaderPlacement = 'inline',
-  placeholder,
+  placeholder = 'Выберите значение',
   size,
   filterPlacement = 'dropdown',
   emptyMessage = 'Ничего не найдено',
@@ -124,8 +124,9 @@ const Select = <Multiple extends boolean = false>({
   const isRequired = formGroupContext?.required || required
   // высота элемента, паддинг и границы
   const maxHeight = maxItemsCount * 36 + 4 + 2
-  const popoverFocus =
-    filterable && isOpen && filterPlacement === 'inline' ? -1 : 0
+  const showInlineFilterInput =
+    filterable && isOpen && filterPlacement === 'inline'
+  const popoverFocus = showInlineFilterInput ? -1 : 0 // TODO: непонятно что тут происходит
 
   const showDropdownLoader = loading && loaderPlacement === 'dropdown'
 
@@ -189,7 +190,6 @@ const Select = <Multiple extends boolean = false>({
           <SelectFilterInput
             value={filterValue}
             onChange={handleFilterChange}
-            allowClear={true}
             onClear={() => {
               handleFilterChange('')
             }}

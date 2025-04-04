@@ -183,7 +183,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )
 
       return (
-        <span onClick={handleClear} className="inf-input-wrapper__clear-button">
+        <span
+          onClick={handleClear}
+          className="inf-input-wrapper__clear-button"
+          title="Очистить поле"
+        >
           {iconNode}
         </span>
       )

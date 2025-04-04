@@ -23,6 +23,7 @@ const SelectFilterInput = forwardRef<HTMLInputElement, SelectFilterInputProps>(
           placeholder="Найти"
           autoComplete="off"
           disableFormContextValidation
+          allowClear={true}
           {...props}
         />
       </div>

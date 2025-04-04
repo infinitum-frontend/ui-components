@@ -22,7 +22,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(
         data-selector="inf-autocomplete-input"
         autoComplete="off"
         disableFormContextValidation
-        // {...props}
+        {...props}
         ref={ref}
       />
     )
