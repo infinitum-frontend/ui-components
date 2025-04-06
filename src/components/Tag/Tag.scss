@@ -38,9 +38,8 @@
   &__icon {
     display: inline-flex;
     color: var(--inf-color-icon-primary);
-    padding: 4px;
-    margin: -8px;
-    margin-left: -4px;
+    padding: var(--inf-space-xxsmall);
+    margin: calc(var(--inf-space-xsmall) * -1);
 
     svg {
       width: 16px;
@@ -52,9 +51,9 @@
     display: flex;
     color: var(--inf-color-icon-primary);
     cursor: pointer;
-    padding: 4px;
-    margin: -8px;
-    margin-left: -4px;
+    padding: var(--inf-space-xxsmall);
+    margin: calc(var(--inf-space-xsmall) * -1);
+    margin-left: calc(var(--inf-space-xxsmall) * -1);
     transition: color 0.2s;
 
     &:disabled {
@@ -64,7 +63,7 @@
     @include hover {
       color: var(--inf-color-icon-primary-hover);
       background-color: var(--inf-color-background-tertiary-hover);
-      border-radius: 8px;
+      border-radius: var(--inf-border-radius-small);
     }
 
     svg {
