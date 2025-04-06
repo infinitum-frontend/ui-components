@@ -56,6 +56,12 @@
     }
   }
 
+  @include hover {
+    .inf-input-wrapper__clear-button {
+      display: inline-block;
+    }
+  }
+
   &__visibility-button {
     cursor: pointer;
     transition: color 0.2s;

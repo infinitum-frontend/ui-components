@@ -30,6 +30,8 @@ export interface BaseInputProps
   status?: 'error'
   /** Отсутствие границ */
   noBorder?: boolean
+  /** костыль, чтобы инпут который используется в выпадающем списка Select не валидировался */
+  disableFormContextValidation?: boolean
 }
 
 export interface InputProps

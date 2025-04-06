@@ -1,13 +1,11 @@
 .inf-badge-sup {
-  border-radius: 16px;
-  font-size: 12px;
-  line-height: normal;
-  min-width: 16px;
-  height: 16px;
+  border-radius: var(--inf-border-radius-large);
+  min-width: 20px;
+  height: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1px 5px 0;
+  padding: var(--inf-space-xxsmall);
 
   position: absolute;
   right: 0;
@@ -35,5 +33,75 @@
   &--tone-secondary {
     background-color: var(--inf-color-background-tertiary);
     color: var(--inf-color-text-primary);
+  }
+
+  &--color-brand {
+    background-color: var(--inf-color-background-brand-primary);
+    color: var(--inf-color-text-on-color);
+  }
+
+  &--color-info {
+    background-color: var(--inf-color-background-info-primary);
+    color: var(--inf-color-text-on-color);
+  }
+
+  &--color-success {
+    background-color: var(--inf-color-background-success-primary);
+    color: var(--inf-color-text-on-color);
+  }
+
+  &--color-error {
+    background-color: var(--inf-color-background-error-primary);
+    color: var(--inf-color-text-on-color);
+  }
+
+  &--color-warning {
+    background-color: var(--inf-color-background-warning-primary);
+    color: var(--inf-color-text-on-color);
+  }
+
+  &--color-violet {
+    background-color: var(--inf-color-background-violet-primary);
+    color: var(--inf-color-text-on-color);
+  }
+
+  &--color-teal {
+    background-color: var(--inf-color-background-teal-primary);
+    color: var(--inf-color-text-on-color);
+  }
+
+  &--color-brand-secondary {
+    background-color: var(--inf-color-background-brand-secondary);
+    color: var(--inf-color-text-brand);
+  }
+
+  &--color-info-secondary {
+    background-color: var(--inf-color-background-info-secondary);
+    color: var(--inf-color-text-info);
+  }
+
+  &--color-success-secondary {
+    background-color: var(--inf-color-background-success-secondary);
+    color: var(--inf-color-text-success);
+  }
+
+  &--color-error-secondary {
+    background-color: var(--inf-color-background-error-secondary);
+    color: var(--inf-color-text-error);
+  }
+
+  &--color-warning-secondary {
+    background-color: var(--inf-color-background-warning-secondary);
+    color: var(--inf-color-text-warning);
+  }
+
+  &--color-violet-secondary {
+    background-color: var(--inf-color-background-violet-secondary);
+    color: var(--inf-color-text-violet);
+  }
+
+  &--color-teal-secondary {
+    background-color: var(--inf-color-background-teal-secondary);
+    color: var(--inf-color-text-teal);
   }
 }

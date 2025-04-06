@@ -1,27 +1,27 @@
+import classNames from 'classnames'
+import ClearIcon from 'Icons/cancel-circle.svg?react'
+import CloseEyeIcon from 'Icons/hide-eye.svg?react'
+import OpenEyeIcon from 'Icons/open-eye.svg?react'
 import React, {
+  ChangeEventHandler,
   FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
   ReactElement,
   ReactNode,
-  useState,
-  useRef,
-  MouseEventHandler,
-  KeyboardEventHandler,
   useContext,
-  ChangeEventHandler
+  useRef,
+  useState
 } from 'react'
-import classNames from 'classnames'
 import './Input.scss'
 import { InputProps } from './types'
-import ClearIcon from 'Icons/cancel-circle.svg?react'
-import OpenEyeIcon from 'Icons/open-eye.svg?react'
-import CloseEyeIcon from 'Icons/hide-eye.svg?react'
 // eslint-disable-next-line import/no-named-default
+import FormContext from 'Components/Form/context/form'
+import FormGroupContext from 'Components/Form/context/group'
+import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 import BaseInput from 'Components/Input/components/BaseInput/BaseInput'
 import { mergeRefs } from 'react-merge-refs'
 import { TextFieldClasses } from '~/src/utils/textFieldClasses'
-import FormGroupContext from 'Components/Form/context/group'
-import FormContext from 'Components/Form/context/form'
-import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 
 /** Компонент пользовательского ввода */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -57,6 +57,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       showPasswordToggle = false,
       'aria-required': ariaRequired,
       'aria-invalid': ariaInvalid,
+      disableFormContextValidation,
       ...restProps
     },
     ref
@@ -77,7 +78,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const formContext = useContext(FormContext)
     const { onControlInvalid, onControlChange } = useFormControlHandlers()
     const disabled = disabledProp || formContext?.disabled
-    const hasError = status === 'error' || formGroupContext?.invalid
+    // TODO: disableFormValidationContext - костыль, чтобы инпут который используется в выпадающем списка Select не валидировался
+    const hasError =
+      status === 'error' ||
+      (formGroupContext?.invalid && !disableFormContextValidation)
 
     // обработка событий
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -179,13 +183,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )
 
       return (
-        <span onClick={handleClear} className="inf-input-wrapper__clear-button">
+        <span
+          onClick={handleClear}
+          className="inf-input-wrapper__clear-button"
+          title="Очистить поле"
+        >
           {iconNode}
         </span>
       )
     }
 
-    const isRequired = required || formGroupContext?.required
+    const isRequired =
+      required || (formGroupContext?.required && !disableFormContextValidation)
 
     const controlledValue =
       defaultValue !== undefined ? undefined : getFormattedValue(value)
@@ -224,8 +233,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onInvalid={onControlInvalid}
           required={isRequired}
           ref={mergedRef}
-          aria-invalid={formGroupContext?.invalid || ariaInvalid}
-          aria-required={formGroupContext?.required || ariaRequired}
+          aria-invalid={
+            (formGroupContext?.invalid && !disableFormContextValidation) ||
+            ariaInvalid
+          }
+          aria-required={
+            (formGroupContext?.required && !disableFormContextValidation) ||
+            ariaRequired
+          }
           {...restProps}
           type={nativeType}
         />

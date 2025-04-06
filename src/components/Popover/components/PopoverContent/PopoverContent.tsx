@@ -19,6 +19,7 @@ export interface PopoverContentProps extends ComponentPropsWithoutRef<'div'> {
   hasPadding?: boolean
   hasArrow?: boolean
   width?: CSSProperties['width']
+  equalTriggerWidth?: boolean
 }
 
 const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
@@ -28,6 +29,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
       hasPadding = true,
       hasArrow = true,
       width = 'max-content',
+      equalTriggerWidth,
       children,
       style,
       className,
@@ -38,6 +40,14 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
   ) {
     const { context: floatingContext, ...context } = usePopoverContext()
     const ref = useMergeRefs([context.refs.setFloating, propRef])
+
+    const triggerWidth =
+      context.elements.reference?.getBoundingClientRect().width
+
+    let popoverWidth = width
+    if (equalTriggerWidth && triggerWidth) {
+      popoverWidth = `${String(triggerWidth)}px`
+    }
 
     return (
       <FloatingPortal>
@@ -56,7 +66,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
                 position: context.strategy,
                 top: context.y ?? 0,
                 left: context.x ?? 0,
-                width,
+                width: popoverWidth,
                 ...style
               }}
               className={cn(

@@ -12,7 +12,7 @@
     font: var(--inf-font-body-1);
 
     &--hovered {
-      background-color: var(--inf-color-background-primary-hover);
+      background-color: var(--inf-color-background-float-hover);
       border-radius: 0;
 
       @include hover {
@@ -29,7 +29,7 @@
       background-color: #fef2f2; // TODO: токен
 
       @include hover {
-        background-color: var(--inf-color-background-primary-hover);
+        background-color: var(--inf-color-background-float-hover);
       }
     }
   }
@@ -49,12 +49,12 @@
 
     &--hoverable {
       @include hover {
-        background-color: var(--inf-color-background-primary-hover);
+        background-color: var(--inf-color-background-float-hover);
       }
     }
 
     &--hovered {
-      background-color: var(--inf-color-background-primary-hover);
+      background-color: var(--inf-color-background-float-hover);
       border-radius: 0;
 
       @include hover {

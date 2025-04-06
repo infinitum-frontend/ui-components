@@ -1,8 +1,8 @@
 import { produce } from 'immer'
 import {
-  SelectOption,
   DefaultSelectOption,
-  SelectDataFormatterOptions
+  SelectDataFormatterOptions,
+  SelectOption
 } from '../types'
 
 type ResultElement<T> = DefaultSelectOption | SelectOption<T>
