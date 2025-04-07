@@ -83,6 +83,8 @@ const DatePicker = ({
     useDismiss(context)
   ])
 
+  // ============================= handlers =============================
+
   const handleClear = (): void => {
     if (onClear) {
       onClear()
