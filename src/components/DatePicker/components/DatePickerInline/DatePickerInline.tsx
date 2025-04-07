@@ -1,9 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
-  ComponentPropsWithoutRef,
-  ReactElement,
-  useContext
-} from 'react'
+import { ComponentPropsWithoutRef, ReactElement, useContext } from 'react'
 import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
 import MaskedInput from 'Components/Input/components/MaskedInput'
 import { DateCalendar } from 'Components/DateCalendar'
@@ -30,6 +26,8 @@ export interface DatePickerInlineProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
+  /** Показывать кнопку "Сегодня" */
+  withTodayButton?: boolean
 }
 
 const DatePickerInline = ({
@@ -42,6 +40,7 @@ const DatePickerInline = ({
   required: requiredProp,
   min,
   max,
+  withTodayButton = false,
   ...props
 }: DatePickerInlineProps): ReactElement => {
   const formGroupContext = useContext(FormGroupContext)
@@ -95,6 +94,7 @@ const DatePickerInline = ({
           onChange={(date) => {
             onChange?.(formatDateToISO(date))
           }}
+          withTodayButton={withTodayButton}
         />
       </Space>
     </>
