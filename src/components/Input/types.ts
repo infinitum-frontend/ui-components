@@ -45,11 +45,14 @@ export interface InputProps
   postfixClass?: string
   /** Обработчик клика на префикс */
   onPostfixClick?: (value?: string) => void
-  /** Наличие кнопки для сброса значения */
-  allowClear?: boolean | { icon: ReactNode }
   /**
+   * Наличие кнопки для сброса значения
    * @deprecated
-   */
+   * */
+  allowClear?: boolean | { icon: ReactNode }
+  /** Отображение кнопки очистки выбранного значения. При нажатии на кнопку вызывается обработчик onClear, а если он не был передан, то onChange. */
+  clearable?: boolean
+  /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
   onClear?: () => void
   /**
    * Функция, применяющаяся для форматирования значения
@@ -59,7 +62,7 @@ export interface InputProps
   formatter?: (value: string) => string
   onFocus?: FocusEventHandler<HTMLInputElement>
   onInput?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
-  onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (value: string, e?: ChangeEvent<HTMLInputElement>) => void
   onBlur?: FocusEventHandler<HTMLInputElement>
   /** Показываем кнопку с иконкой переключения видимости пароля */
   showPasswordToggle?: boolean
