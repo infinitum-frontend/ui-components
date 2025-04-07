@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
+import {
   ComponentPropsWithoutRef,
   ReactElement,
   useState,
@@ -44,6 +44,8 @@ export interface DatePickerProps
    * @default medium
    */
   size?: 'medium' | 'small'
+  /** Показывать кнопку "Сегодня" */
+  withTodayButton?: boolean
 }
 
 const DatePicker = ({
@@ -57,6 +59,7 @@ const DatePicker = ({
   min,
   max,
   size = 'medium',
+  withTodayButton = false,
   ...props
 }: DatePickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -133,6 +136,7 @@ const DatePicker = ({
             returnFocus={false}
           >
             <DateCalendar
+              withTodayButton={withTodayButton}
               style={{
                 position: 'absolute',
                 overflowX: 'hidden',
