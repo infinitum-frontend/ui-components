@@ -9,7 +9,7 @@ export interface ClearButtonProps {
   className?: string
 }
 
-// TODO: нужно ли сохоранить опцию пробррса кастомной иконки. Пример есть в Input allowClear
+// TODO: нужно ли сохранить опцию проброса кастомной иконки. Пример есть в Input allowClear
 
 function BaseComponent<C extends ElementType = 'button'>(
   props: PolymorphicComponent<C, ClearButtonProps>,

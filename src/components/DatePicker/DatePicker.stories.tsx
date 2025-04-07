@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useState } from 'react'
-import { StoryFn, Meta } from '@storybook/react'
-import { NativeDatePicker, DatePicker, DatePickerInline } from './index'
-import { Form } from '../Form'
+import { Meta, StoryFn } from '@storybook/react'
+import { useState } from 'react'
 import { Button } from '../Button'
+import { Form } from '../Form'
 import { Space } from '../Space'
+import { DatePicker, DatePickerInline, NativeDatePicker } from './index'
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Form/DatePicker',
@@ -151,6 +151,30 @@ export const InlineView: StoryFn<typeof DatePicker> = {
 
         <Button type="submit">Click me</Button>
       </Form>
+    )
+  }
+}
+
+export const Clearable = {
+  render: () => {
+    const [value1, setValue1] = useState('2020-04-20')
+    const [value2, setValue2] = useState('2020-04-20')
+
+    return (
+      <Space>
+        <DatePicker clearable value={value1} onChange={setValue1} />
+        <Space gap="xsmall">
+          Передан проп onClear
+          <DatePicker
+            clearable
+            value={value2}
+            onChange={setValue2}
+            onClear={() => {
+              alert('Будет вызван onClear, но не onChange')
+            }}
+          />
+        </Space>
+      </Space>
     )
   }
 }
