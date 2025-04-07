@@ -54,34 +54,35 @@ function BaseBleed<C extends ElementType = 'div'>(
     })
   }
 
-  const styles: CSSProperties = {
-    margin: offset
-      ? `calc(-1 * var(--inf-space-${offset as string}))`
-      : undefined,
-    marginInline: offsetX
-      ? `calc(-1 * var(--inf-space-${offsetX as string}))`
-      : undefined,
-    marginBlock: offsetY
-      ? `calc(-1 * var(--inf-space-${offsetY as string}))`
-      : undefined,
-    marginTop: offsetTop
-      ? `calc(-1 * var(--inf-space-${offsetTop as string}))`
-      : undefined,
-    marginBottom: offsetBottom
-      ? `calc(-1 * var(--inf-space-${offsetBottom as string}))`
-      : undefined,
-    marginLeft: offsetLeft
-      ? `calc(-1 * var(--inf-space-${offsetLeft as string}))`
-      : undefined,
-    marginRight: offsetRight
-      ? `calc(-1 * var(--inf-space-${offsetRight as string}))`
-      : undefined
+  const getNegativeMargin = (
+    value: SpaceVariants | undefined
+  ): string | undefined => {
+    if (!value) return undefined
+    return `calc(-1 * var(--inf-space-${value as string}))`
   }
+
+  const styles: CSSProperties = {
+    margin: getNegativeMargin(offset),
+    marginLeft: getNegativeMargin(offsetLeft ?? offsetX ?? offset),
+    marginRight: getNegativeMargin(offsetRight ?? offsetX ?? offset),
+    marginTop: getNegativeMargin(offsetTop ?? offsetY ?? offset),
+    marginBottom: getNegativeMargin(offsetBottom ?? offsetY ?? offset),
+    ...style
+  }
+
+  const cleanedStyle = Object.fromEntries(
+    Object.entries(styles).filter(([key, value]) => value !== undefined)
+  )
 
   const Component = as
 
   return (
-    <Component ref={ref} className={getClassNames()} style={styles} {...rest}>
+    <Component
+      ref={ref}
+      className={getClassNames()}
+      style={cleanedStyle}
+      {...rest}
+    >
       {children}
     </Component>
   )
