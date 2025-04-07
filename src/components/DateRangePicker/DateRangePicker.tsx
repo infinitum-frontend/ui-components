@@ -149,7 +149,6 @@ const DateRangePicker = ({
               {showClearButton && (
                 <ClearButton
                   as="button"
-                  aria-label="Очистить значение"
                   className="inf-select-button__clear-button"
                   title="Очистить значение"
                   onClick={(e) => {

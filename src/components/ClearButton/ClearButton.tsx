@@ -21,7 +21,6 @@ function BaseComponent<C extends ElementType = 'button'>(
 
   return (
     <Component
-      role="button"
       className={cn('inf-clear-button', className)}
       ref={ref}
       {...rest}
