@@ -1,10 +1,10 @@
-import { describe, expect, it, vi } from 'vitest'
-import { Input } from '../index'
-import { renderComponent } from '../../../../testSetup'
 import { act, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+import { renderComponent } from '../../../../testSetup'
 import { TextFieldClasses } from '../../../utils/textFieldClasses'
 import { Form } from '../../Form'
+import { Input } from '../index'
 
 describe('input', () => {
   const user = userEvent.setup({})
@@ -252,6 +252,7 @@ describe('input', () => {
 
   describe('clear button', () => {
     it('should be visible when prop is passed', async () => {
+      // TODO: доработать тест, так как теперь кнопку очистки показываем только при ховере
       const { el } = renderComponent(<Input allowClear={true} />)
       const clearButton = el.querySelector(
         '.inf-input-wrapper__clear-button'

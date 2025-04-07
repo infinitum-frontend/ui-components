@@ -100,6 +100,7 @@ export interface TableProps<TRowData extends Record<string, any>>
    * Экспериментальное свойство
    */
   withCollapsibleHeaderCellActions?: true // TODO: вместо этого надо задавать minWidth / width / maxWidth в columnDef и прокидывать стили на th или вложенный div
+  meta?: Record<string, any>
 }
 
 // ФИЛЬТРАЦИЯ

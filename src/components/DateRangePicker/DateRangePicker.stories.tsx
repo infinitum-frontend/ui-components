@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as React from 'react'
-import { StoryFn, Meta } from '@storybook/react'
-import { DateRangePicker, DateRangePickerValue } from './index'
+import { Meta, StoryFn } from '@storybook/react'
 import { useState } from 'react'
-import { Form } from '../Form'
-import { Button } from '../Button'
 import { addYears, formatDateToISO } from '../../utils/date'
+import { Button } from '../Button'
+import { Form } from '../Form'
+import { Space } from '../Space'
+import { DateRangePicker, DateRangePickerValue } from './index'
 
 const meta: Meta<typeof DateRangePicker> = {
   title: 'Form/DateRangePicker',
@@ -58,6 +58,7 @@ export const WeekPicker: StoryFn<typeof DateRangePicker> = {
             {...args}
             weekPick
             value={value}
+            clearable
             onChange={(v) => {
               setValue(v)
             }}
@@ -66,6 +67,36 @@ export const WeekPicker: StoryFn<typeof DateRangePicker> = {
 
         <Button type="submit">Submit</Button>
       </Form>
+    )
+  }
+}
+
+export const Clearable = {
+  render: () => {
+    const [value1, setValue1] = useState<DateRangePickerValue>([
+      '2020-04-20',
+      '2020-04-21'
+    ])
+    const [value2, setValue2] = useState<DateRangePickerValue>([
+      '2020-04-20',
+      '2020-04-21'
+    ])
+
+    return (
+      <Space>
+        <DateRangePicker clearable value={value1} onChange={setValue1} />
+        <Space gap="xsmall">
+          Передан проп onClear
+          <DateRangePicker
+            clearable
+            value={value2}
+            onChange={setValue2}
+            onClear={() => {
+              alert('Будет вызван onClear, но не onChange')
+            }}
+          />
+        </Space>
+      </Space>
     )
   }
 }

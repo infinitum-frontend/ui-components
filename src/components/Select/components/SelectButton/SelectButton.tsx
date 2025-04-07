@@ -184,8 +184,9 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>(
               {showClearButton && (
                 // Кнопка очистки выбранного значения
                 <ClearButton
-                  as="div"
                   className="inf-select-button__clear-button"
+                  as="div"
+                  role="button"
                   title="Очистить значение"
                   onClick={(e) => {
                     e.stopPropagation()
