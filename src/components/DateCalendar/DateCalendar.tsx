@@ -114,7 +114,7 @@ const DateCalendar = forwardRef<HTMLDivElement, DateCalendarProps>(
           />
         )}
 
-        {withTodayButton && (
+        {withTodayButton && selectedView === 'day' && (
           <Button
             className="inf-date-calendar__today__button"
             block
