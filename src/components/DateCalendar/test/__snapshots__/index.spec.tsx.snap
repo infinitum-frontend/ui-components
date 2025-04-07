@@ -42,7 +42,7 @@ exports[`day view > should match snapshot 1`] = `
       <span
         class="inf-calendar-header__control"
       >
-        Март
+        Апрель
       </span>
       <span
         class="inf-calendar-header__control"
@@ -114,18 +114,6 @@ exports[`day view > should match snapshot 1`] = `
         class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
       />
       <span
-        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
-      />
-      <span
         class="inf-calendar-item"
       >
         1
@@ -135,10 +123,6 @@ exports[`day view > should match snapshot 1`] = `
       >
         2
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
@@ -159,8 +143,12 @@ exports[`day view > should match snapshot 1`] = `
       >
         6
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
-        class="inf-calendar-item"
+        class="inf-calendar-item inf-calendar-item--selected"
       >
         7
       </span>
@@ -174,10 +162,6 @@ exports[`day view > should match snapshot 1`] = `
       >
         9
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
@@ -198,6 +182,10 @@ exports[`day view > should match snapshot 1`] = `
       >
         13
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
@@ -213,10 +201,6 @@ exports[`day view > should match snapshot 1`] = `
       >
         16
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
@@ -237,6 +221,10 @@ exports[`day view > should match snapshot 1`] = `
       >
         20
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
@@ -252,12 +240,8 @@ exports[`day view > should match snapshot 1`] = `
       >
         23
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
-        class="inf-calendar-item inf-calendar-item--selected"
+        class="inf-calendar-item"
       >
         24
       </span>
@@ -276,6 +260,10 @@ exports[`day view > should match snapshot 1`] = `
       >
         27
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
@@ -291,21 +279,6 @@ exports[`day view > should match snapshot 1`] = `
       >
         30
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
-      <span
-        class="inf-calendar-item"
-      >
-        31
-      </span>
-      <span
-        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
-      />
-      <span
-        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
-      />
       <span
         class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
       />
@@ -365,7 +338,7 @@ exports[`month view > should match snapshot > monthView 1`] = `
       <span
         class="inf-calendar-header__control inf-calendar-header__control--selected"
       >
-        Март
+        Апрель
       </span>
       <span
         class="inf-calendar-header__control"
@@ -416,12 +389,12 @@ exports[`month view > should match snapshot > monthView 1`] = `
       февраль
     </span>
     <span
-      class="inf-calendar-item inf-calendar-item--selected"
+      class="inf-calendar-item"
     >
       март
     </span>
     <span
-      class="inf-calendar-item"
+      class="inf-calendar-item inf-calendar-item--selected"
     >
       апрель
     </span>
@@ -511,7 +484,7 @@ exports[`year view > should match snapshot > yearView 1`] = `
       <span
         class="inf-calendar-header__control"
       >
-        Март
+        Апрель
       </span>
       <span
         class="inf-calendar-header__control inf-calendar-header__control--selected"

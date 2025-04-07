@@ -4,4 +4,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--inf-space-xsmall) 0;
+
+  &__today__button {
+    align-self: center;
+  }
 }

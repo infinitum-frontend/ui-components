@@ -16,6 +16,7 @@ import DateCalendarMonths from './DateCalendarMonths'
 import DateCalendarDays from './DateCalendarDays'
 import DateCalendarHeader from './DateCalendarHeader'
 import './DateCalendar.scss'
+import { Button } from '../Button'
 
 export interface DateCalendarProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
@@ -25,10 +26,15 @@ export interface DateCalendarProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
+  /** Показывать кнопку "Сегодня" */
+  withTodayButton?: boolean
 }
 
 const DateCalendar = forwardRef<HTMLDivElement, DateCalendarProps>(
-  ({ value, onChange, min, max, className, ...props }, ref) => {
+  (
+    { value, onChange, min, max, className, withTodayButton, ...props },
+    ref
+  ) => {
     const [localDate, setLocalDate] = useState(value)
     const [selectedView, setSelectedView] = useState<'day' | 'month' | 'year'>(
       'day'
@@ -106,6 +112,20 @@ const DateCalendar = forwardRef<HTMLDivElement, DateCalendarProps>(
             value={localDate.getFullYear()}
             onChange={handleYearClick}
           />
+        )}
+
+        {withTodayButton && selectedView === 'day' && (
+          <Button
+            className="inf-date-calendar__today__button"
+            block
+            size="small"
+            variant="ghost"
+            onClick={() => {
+              onChange?.(new Date())
+            }}
+          >
+            Сегодня
+          </Button>
         )}
       </div>
     )

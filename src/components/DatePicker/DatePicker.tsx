@@ -45,6 +45,8 @@ export interface DatePickerProps
    * @default medium
    */
   size?: 'medium' | 'small'
+  /** Показывать кнопку "Сегодня" */
+  withTodayButton?: boolean
   /** Отображение кнопки очистки выбранного значения. При нажатии на кнопку вызывается обработчик onClear, а если он не был передан, то onChange. */
   clearable?: boolean
   /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
@@ -62,6 +64,7 @@ const DatePicker = ({
   min,
   max,
   size = 'medium',
+  withTodayButton = false,
   clearable,
   onClear,
   ...props
@@ -168,6 +171,7 @@ const DatePicker = ({
             returnFocus={false}
           >
             <DateCalendar
+              withTodayButton={withTodayButton}
               style={{
                 position: 'absolute',
                 overflowX: 'hidden',
