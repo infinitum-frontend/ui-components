@@ -9,7 +9,7 @@ export interface ClearButtonProps {
   className?: string
 }
 
-// TODO: нужно ли сохоранить опцию пробррса кастомной иконки. Пример есть в Input allowClear
+// TODO: нужно ли сохранить опцию пробррса кастомной иконки. Пример есть в Input allowClear
 
 function BaseComponent<C extends ElementType = 'button'>(
   props: PolymorphicComponent<C, ClearButtonProps>,
@@ -21,6 +21,7 @@ function BaseComponent<C extends ElementType = 'button'>(
 
   return (
     <Component
+      role="button"
       className={cn('inf-clear-button', className)}
       ref={ref}
       {...rest}

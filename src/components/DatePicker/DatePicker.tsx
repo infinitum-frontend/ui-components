@@ -1,12 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
-  ComponentPropsWithoutRef,
-  ReactElement,
-  useState,
-  MouseEvent,
-  useContext
-} from 'react'
-import IconCalendar from 'Icons/calendar2.svg?react'
 import {
   flip,
   FloatingFocusManager,
@@ -16,14 +8,23 @@ import {
   useFloating,
   useInteractions
 } from '@floating-ui/react'
-import './DatePicker.scss'
-import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
-import MaskedInput from 'Components/Input/components/MaskedInput'
+import { ClearButton } from 'Components/ClearButton'
 import { DateCalendar } from 'Components/DateCalendar'
-import cn from 'classnames'
-import NativeDatePicker from './components/NaviteDatePicker/NativeDatePicker'
 import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import MaskedInput from 'Components/Input/components/MaskedInput'
+import IconCalendar from 'Icons/calendar2.svg?react'
+import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
+import cn from 'classnames'
+import {
+  ComponentPropsWithoutRef,
+  MouseEvent,
+  ReactElement,
+  useContext,
+  useState
+} from 'react'
+import './DatePicker.scss'
+import NativeDatePicker from './components/NaviteDatePicker/NativeDatePicker'
 
 export interface DatePickerProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
@@ -44,6 +45,10 @@ export interface DatePickerProps
    * @default medium
    */
   size?: 'medium' | 'small'
+  /** Отображение кнопки очистки выбранного значения. При нажатии на кнопку вызывается обработчик onClear, а если он не был передан, то onChange. */
+  clearable?: boolean
+  /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
+  onClear?: () => void
 }
 
 const DatePicker = ({
@@ -57,6 +62,8 @@ const DatePicker = ({
   min,
   max,
   size = 'medium',
+  clearable,
+  onClear,
   ...props
 }: DatePickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
@@ -76,9 +83,19 @@ const DatePicker = ({
     useDismiss(context)
   ])
 
+  const handleClear = (): void => {
+    if (onClear) {
+      onClear()
+    } else {
+      onChange?.('')
+    }
+  }
+
   // ============================= render =============================
   const displayValue = value ? createDate(value).toLocaleDateString('ru') : ''
   const displayValueForHiddenInput = value ? createDate(value) : ''
+  const showClearButton = clearable && Boolean(value)
+
   return (
     <>
       <div
@@ -110,7 +127,23 @@ const DatePicker = ({
               onChange?.(value)
             }
           }}
-          postfix={<IconCalendar className="inf-datepicker__calendar-icon" />}
+          postfix={
+            <div className="inf-datepicker__postfix">
+              {showClearButton && (
+                <ClearButton
+                  as="button"
+                  aria-label="Очистить значение"
+                  className="inf-select-button__clear-button"
+                  title="Очистить значение"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleClear()
+                  }}
+                />
+              )}
+              <IconCalendar className="inf-datepicker__calendar-icon" />
+            </div>
+          }
           value={displayValue}
           onPostfixClick={() => setOpened((prev) => !prev)}
           disabled={disabled}

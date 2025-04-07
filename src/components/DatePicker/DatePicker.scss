@@ -28,4 +28,20 @@
       color: var(--inf-color-icon-primary-hover);
     }
   }
+
+  &__postfix {
+    display: flex;
+    align-items: center;
+    gap: var(--inf-space-xsmall);
+  }
+
+  &__clear-button {
+    display: none;
+  }
+
+  @include hover {
+    .inf-select-button__clear-button {
+      display: inline-flex;
+    }
+  }
 }
