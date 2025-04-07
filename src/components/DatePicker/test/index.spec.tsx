@@ -26,7 +26,7 @@ describe('Clear', () => {
     await user.hover(el)
 
     const clearButton = screen.queryByTitle('Очистить значение')
-    expect(clearButton).toBeNull()
+    expect(clearButton).not.toBeInTheDocument()
   })
 
   it('should not have clear button in DOM when clearable prop is not provided', async () => {
@@ -36,6 +36,6 @@ describe('Clear', () => {
     await user.hover(el)
 
     const clearButton = screen.queryByTitle('Очистить значение')
-    expect(clearButton).toBeNull()
+    expect(clearButton).not.toBeInTheDocument()
   })
 })
