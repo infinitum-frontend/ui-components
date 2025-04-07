@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 
 import {
   Column,
@@ -65,6 +65,7 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
   emptyMessage,
   withFiltersTags,
   withCollapsibleHeaderCellActions,
+  meta,
   ...props
 }: TableProps<TRowData>): ReactElement => {
   // ==================== Простая таблица ====================
@@ -160,6 +161,7 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
 
       return String(index)
     },
+    meta,
     state: {
       rowSelection: tanstackSelectionState,
       sorting: sortingState,

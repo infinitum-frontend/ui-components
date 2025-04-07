@@ -1,8 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as React from 'react'
 import { StoryObj, Meta } from '@storybook/react'
 import { Table, TableRow, TableColumnFiltersState } from './index'
-import { SortingState } from '@tanstack/react-table'
+import { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Text } from '../Text'
 import {
@@ -15,6 +14,7 @@ import { Button } from '../Button'
 import { Space } from '../Space'
 import { Checkbox } from '../Checkbox'
 import { Input } from '../Input'
+import { Form } from '../Form'
 
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
@@ -541,6 +541,48 @@ export const HeaderTextOverflow: StoryObj<typeof Table> = {
           tableLayout="fixed"
         />
       </div>
+    )
+  }
+}
+
+interface CustomTableMeta {
+  groupId: string
+}
+
+const columnsWithUsingMeta: Array<ColumnDef<Portfolio>> = [
+  {
+    header: 'Портфель',
+    cell: (cell) => {
+      const meta = cell.table.options.meta as CustomTableMeta
+      return (
+        <Text>
+          {meta.groupId} {cell.row.original.portfolio}
+        </Text>
+      )
+    }
+  }
+]
+export const WithMeta: StoryObj<typeof Table> = {
+  render: (args) => {
+    const [groupId, setGroupId] = useState('')
+    return (
+      <Space>
+        <Space direction="horizontal" align="center">
+          <Form.Label>
+            Изменить номер группы. Контекст будет передан во все ячейки таблицы
+          </Form.Label>
+          <Input value={groupId} onChange={setGroupId} />
+        </Space>
+
+        <Table
+          {...args}
+          columns={columnsWithUsingMeta}
+          rows={TABLE_DATA}
+          meta={{
+            groupId
+          }}
+        />
+      </Space>
     )
   }
 }
