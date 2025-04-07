@@ -38,7 +38,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       disabled: disabledProp = false,
       status,
       readOnly,
-      onClear,
       onInput,
       onChange,
       onFocus,
@@ -51,6 +50,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       postfixClass = '',
       onPostfixClick, // не покрыто тестами
       allowClear = false,
+      clearable,
+      onClear,
       noBorder = false,
       id,
       required = false,
@@ -134,11 +135,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const handleClear: () => void = () => {
-      if (inputRef.current) {
-        inputRef.current.value = ''
-        inputRef.current.focus()
+      if (onClear) {
+        onClear()
+      } else {
+        onChange?.('')
+
+        if (inputRef.current) {
+          inputRef.current.value = ''
+          inputRef.current.focus()
+        }
       }
-      onClear?.()
     }
 
     const getFormattedValue: (val?: string) => string | undefined = (val) => {
@@ -171,7 +177,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const getClearIcon: () => ReactNode = () => {
-      if (!allowClear) {
+      if (!allowClear && !clearable) {
         return null
       }
 
@@ -201,7 +207,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     // для controlled input показываем кнопка очистки только если поле не пустое, для uncontrolled нет возможности определить пустое ли поле
     const showClearButton =
-      allowClear && value !== undefined ? controlledValue : true
+      (allowClear || clearable) && value !== undefined ? controlledValue : true
 
     return (
       <span
@@ -264,6 +270,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
           </button>
         )}
+
         {postfix && (
           <span
             onClick={handlePostfixClick}

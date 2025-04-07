@@ -66,6 +66,7 @@
     cursor: pointer;
     transition: color 0.2s;
     color: var(--inf-color-icon-primary);
+    margin-left: var(--inf-space-xxsmall);
 
     @include hover {
       color: var(--inf-color-icon-primary-hover);

@@ -1,16 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useState } from 'react'
-import { StoryObj, Meta, StoryFn } from '@storybook/react'
-import { Input, MaskedInput } from './index'
 import { action } from '@storybook/addon-actions'
-import { Space } from '../Space'
-import { Loader } from '../Loader'
-import { Button } from '../Button'
-import { Text } from '../Text'
-import { Icon } from '../Icon'
-import { Form } from '../Form'
-// @ts-expect-error
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import SearchIcon from 'Icons/search.svg?react'
+import { useState } from 'react'
+import { Button } from '../Button'
+import { Form } from '../Form'
+import { Icon } from '../Icon'
+import { Loader } from '../Loader'
+import { Space } from '../Space'
+import { Text } from '../Text'
+import { Input, MaskedInput } from './index'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 
 const meta: Meta<typeof Input> = {
@@ -60,7 +59,6 @@ const Template: StoryFn<typeof Input> = ({ value, ...args }) => {
         action('change')
         setVal(v)
       }}
-      onClear={() => setVal('')}
     />
   )
 }
@@ -211,11 +209,28 @@ export const WithPostfix = {
 }
 
 export const WithClearButton = {
-  render: Template,
+  render: () => {
+    const [val1, setVal1] = useState('Инфинитум')
+    const [val2, setVal2] = useState('Инфинитум')
 
-  args: {
-    value: 'Инфинитум',
-    allowClear: true
+    return (
+      <>
+        <Space>
+          <Input clearable value={val1} onChange={setVal1} />
+          <Space gap="xsmall">
+            Передан проп onClear
+            <Input
+              clearable
+              value={val2}
+              onChange={setVal2}
+              onClear={() => {
+                alert('Будет вызван onClear, но не onChange')
+              }}
+            />
+          </Space>
+        </Space>
+      </>
+    )
   }
 }
 
@@ -247,7 +262,20 @@ export const Formatter: StoryObj<typeof Input> = {
       setValue(value)
     }
 
-    return <Input formatter={formatter} value={value} onChange={handleChange} />
+    return (
+      <Space>
+        <Text>Введенное значение приводится к upperCase</Text>
+        <Form.Group>
+          <Form.Label>Controlled</Form.Label>
+          <Input formatter={formatter} value={value} onChange={handleChange} />
+          Значение: {value}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Uncontrolled с defaultValue</Form.Label>
+          <Input formatter={formatter} defaultValue={'инфинитум'} />
+        </Form.Group>
+      </Space>
+    )
   }
 }
 
