@@ -146,10 +146,11 @@ const DateRangePicker = ({
           value={displayValue}
           postfix={
             <div className="inf-datepicker__postfix">
+              {/* TODO: переписать на использование clearable в Input */}
               {showClearButton && (
                 <ClearButton
                   as="button"
-                  className="inf-select-button__clear-button"
+                  className="inf-datepicker__clear-button"
                   title="Очистить значение"
                   onClick={(e) => {
                     e.stopPropagation()

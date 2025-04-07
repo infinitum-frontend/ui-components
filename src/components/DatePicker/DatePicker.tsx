@@ -131,6 +131,7 @@ const DatePicker = ({
           }}
           postfix={
             <div className="inf-datepicker__postfix">
+              {/* TODO: переписать на использование clearable в Input */}
               {showClearButton && (
                 <ClearButton
                   as="button"
