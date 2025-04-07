@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Icon } from './index'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
-import { ReactComponent as IconUser } from 'Icons/user.svg'
+import IconUser from 'Icons/user.svg?react'
 import { Space } from '../Space'
 import { Tooltip } from '../Tooltip'
 
@@ -81,6 +81,12 @@ export const Colors: StoryObj<typeof Icon> = {
             <IconUser />
           </Icon>
         </div>
+        <Icon color="brand">
+          <IconUser />
+        </Icon>
+        <Icon color="brand-secondary">
+          <IconUser />
+        </Icon>
         <Icon color="error">
           <IconUser />
         </Icon>
@@ -128,5 +134,19 @@ export const WithTooltip: StoryObj<typeof Icon> = {
         </Icon>
       </Tooltip>
     )
+  }
+}
+
+export const PrimaryHoverable: StoryObj<typeof Icon> = {
+  render: (args) => {
+    return (
+      <Icon {...args}>
+        <IconUser width="80px" height="80px" />
+      </Icon>
+    )
+  },
+  args: {
+    color: 'primary',
+    hoverable: true
   }
 }

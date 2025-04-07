@@ -32,11 +32,14 @@
 
   /* Background */
   --inf-color-background-primary: #ffffff;
-  --inf-color-background-primary-hover: #f7f9fa; // TODO: не совпадает с дизайн системой
+  --inf-color-background-primary-hover: #f1f1f1;
   --inf-color-background-secondary: #fbfbfb;
-  --inf-color-background-secondary-hover: #fbfbfb;
-  --inf-color-background-tertiary: #f7f9fa; // TODO: не совпадает с дизайн системой
+  --inf-color-background-secondary-hover: #f1f1f1;
+  --inf-color-background-tertiary: #f1f1f1;
   --inf-color-background-tertiary-hover: #e3e3e3;
+  --inf-color-background-float: #ffffff;
+  --inf-color-background-float-hover: #f1f1f1;
+  --inf-color-background-generic: #949494;
   --inf-color-background-inverse: #171717;
   --inf-color-background-elevated: #ffffff;
   --inf-color-background-error-primary: #dc3053;
@@ -53,12 +56,13 @@
   --inf-color-background-violet-secondary: #f8eefc;
   --inf-color-background-teal-primary: #00a6a6;
   --inf-color-background-teal-secondary: #edf9f9;
-  --inf-color-background-neutral-primary: #a0a0a0;
 
   /* Border */
   --inf-color-border-primary: #d5d5d5;
   --inf-color-border-primary-hover: #171717;
+  --inf-color-border-secondary: #f1f1f1;
   --inf-color-border-inverse: #171717;
+  --inf-color-border-brand: #f64a4a;
   --inf-color-border-error: #dc3053;
   --inf-color-border-warning: #e5790d;
   --inf-color-border-success: #1f803d;
@@ -73,6 +77,8 @@
   --inf-color-icon-primary-disabled: #d5d5d5;
   --inf-color-icon-inverse: #ffffff;
   --inf-color-icon-on-color: #ffffff;
+  --inf-color-icon-brand: #f64a4a;
+  --inf-color-icon-brand-secondary: #fbaaaa;
   --inf-color-icon-error: #dc3053;
   --inf-color-icon-warning: #e5790d;
   --inf-color-icon-success: #1f803d;

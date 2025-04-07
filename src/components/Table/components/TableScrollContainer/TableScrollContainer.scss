@@ -1,0 +1,34 @@
+.inf-table-scroll-container {
+  // Для того, чтобы избежать проблем с border таблицы при фиксированной шапке и скролле,
+  // убираем внешние бордеры у элемента таблицы и задаем их контейнеру
+  border-radius: var(--inf-border-radius-small);
+  border: 1px solid var(--inf-color-border-primary);
+
+  .inf-table-header-cell {
+    border-top: none;
+
+    &:first-child,
+    &:last-child {
+      border-left: none;
+      border-right: none;
+    }
+  }
+
+  tbody {
+    .inf-table-cell {
+      &:first-child,
+      &:last-child {
+        border-left: none;
+        border-right: none;
+      }
+    }
+
+    .inf-table-row:last-child .inf-table-cell {
+      border-bottom: none;
+    }
+
+    .inf-table-row:first-child .inf-table-cell {
+      border-top: none;
+    }
+  }
+}

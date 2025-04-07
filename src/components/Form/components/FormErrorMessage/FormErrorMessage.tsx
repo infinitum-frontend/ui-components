@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { forwardRef, ReactElement, PropsWithChildren } from 'react'
 import cn from 'classnames'
-import { ReactComponent as IconAlertCircle } from 'Icons/alert-circle.svg'
+import IconAlertCircle from 'Icons/alert-circle.svg?react'
 import './FormErrorMessage.scss'
 
 export interface FormErrorMessageProps extends PropsWithChildren {

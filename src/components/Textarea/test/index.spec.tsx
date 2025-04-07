@@ -25,9 +25,9 @@ describe('Textarea', () => {
     })
 
     it('should support error status', () => {
-      const { el } = renderComponent(<Textarea status={'error'} />)
+      const { el } = renderComponent(<Textarea status="error" />)
       expect(el).toHaveClass(TextFieldClasses.status.error)
-      expect(el).toHaveStyle('border-color: var(--inf-color-primary);')
+      expect(el).toHaveStyle({ borderColor: 'var(--inf-color-border-error);' })
     })
 
     it('should support full width', () => {

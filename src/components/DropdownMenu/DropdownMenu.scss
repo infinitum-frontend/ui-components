@@ -1,6 +1,6 @@
 .inf-dropdown-menu-content {
   min-width: 220px;
-  background-color: var(--inf-color-background-elevated);
+  background-color: var(--inf-color-background-float);
   color: var(--inf-color-text-primary);
   border-radius: var(--inf-border-radius-small);
   padding: var(--inf-space-xsmall) 0;
@@ -41,7 +41,7 @@
   }
 
   &[data-highlighted] {
-    background-color: var(--inf-color-background-primary-hover);
+    background-color: var(--inf-color-background-float-hover);
   }
 }
 

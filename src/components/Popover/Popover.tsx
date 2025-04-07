@@ -1,24 +1,24 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useState, useMemo, ReactNode } from 'react'
+import { OffsetOptions } from '@floating-ui/core'
 import {
-  useFloating,
   autoUpdate,
-  offset,
   flip,
+  offset,
+  Placement,
+  safePolygon,
   shift,
   useClick,
   useDismiss,
-  useRole,
-  useInteractions,
-  Placement,
+  useFloating,
   useHover,
-  safePolygon
+  useInteractions,
+  useRole
 } from '@floating-ui/react'
-import { OffsetOptions } from '@floating-ui/core'
-import PopoverTrigger from './components/PopoverTrigger'
-import PopoverContent from './components/PopoverContent'
-import { PopoverContext } from './usePopoverContext'
 import { PopoverTriggerType, UsePopover } from 'Components/Popover/types'
+import React, { ReactNode, useMemo, useState } from 'react'
+import PopoverContent from './components/PopoverContent'
+import PopoverTrigger from './components/PopoverTrigger'
+import { PopoverContext } from './usePopoverContext'
 
 export interface PopoverProps {
   defaultOpen?: boolean
@@ -34,6 +34,7 @@ export interface PopoverProps {
   returnFocus?: boolean
   /** Куда нужно установить фокус при открытии */
   initialFocus?: number | React.MutableRefObject<HTMLElement | null>
+  onPressOutside?: boolean | ((event: MouseEvent) => boolean) | undefined
 }
 
 export function usePopover({
@@ -41,10 +42,11 @@ export function usePopover({
   open: controlledOpen,
   onOpenChange: setControlledOpen,
   placement = 'bottom',
-  offset: offsetProp = 6,
+  offset: offsetProp = 10,
   trigger = 'click',
   returnFocus = true,
-  initialFocus = 0
+  initialFocus = 0,
+  onPressOutside
 }: PopoverProps = {}): UsePopover {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const [labelId, setLabelId] = useState<string | undefined>()
@@ -72,7 +74,9 @@ export function usePopover({
   const click = useClick(context, {
     enabled: controlledOpen === undefined && trigger === 'click'
   })
-  const dismiss = useDismiss(context)
+  const dismiss = useDismiss(context, {
+    outsidePress: onPressOutside
+  })
   const role = useRole(context)
   const hover = useHover(context, {
     enabled: trigger === 'hover',

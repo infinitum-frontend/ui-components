@@ -4,7 +4,7 @@
   place-items: center;
   z-index: var(--inf-z-index-modal);
   transition-property: opacity;
-  padding: 18px 0;
+  padding: 40px 0;
 
   &[data-status='open'],
   &[data-status='close'] {
@@ -18,7 +18,7 @@
 }
 
 .inf-modal {
-  background-color: var(--inf-color-background-elevated);
+  background-color: var(--inf-color-background-float);
   border: 1px solid var(--inf-color-border-primary);
   border-radius: 10px;
   position: relative;

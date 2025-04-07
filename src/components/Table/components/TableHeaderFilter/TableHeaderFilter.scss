@@ -1,0 +1,46 @@
+.inf-table-header-filter {
+  &__button {
+    margin-left: 6px;
+    height: 100%;
+    width: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    // увеличиваем область клика
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -8px 0;
+    }
+
+    @include hover {
+      .inf-table-header-filter__icon {
+        &:not(.inf-table-header-filter__icon--active) {
+          color: var(--inf-color-icon-primary-hover);
+        }
+      }
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--inf-color-icon-primary);
+
+    &--active {
+      color: var(--inf-color-icon-info);
+    }
+  }
+
+  &__content {
+    &--search {
+      padding: var(--inf-space-small);
+    }
+
+    &--date {
+      padding: var(--inf-space-small);
+    }
+  }
+}

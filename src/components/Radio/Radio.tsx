@@ -72,11 +72,11 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
     ref
   ): ReactElement => {
     const groupData = useRadioGroup()
-    const formGroupData = useContext(FormGroupContext)
-    const formData = useContext(FormContext)
+    const formGroupContext = useContext(FormGroupContext)
+    const formContext = useContext(FormContext)
     const { onControlInvalid, onControlChange } = useFormControlHandlers()
 
-    const disabled = disabledProp || formData?.disabled
+    const disabled = disabledProp || formContext?.disabled
 
     if (groupData) {
       name = groupData.name
@@ -93,16 +93,22 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
     }
 
     return (
-      <label className={cn('inf-radio', className)} ref={ref} {...props}>
+      <label
+        className={cn('inf-radio', className, {
+          'inf-radio--disabled': disabled
+        })}
+        ref={ref}
+        {...props}
+      >
         <input
           type={'radio'}
           disabled={disabled}
           name={name}
           value={value}
-          id={id || formGroupData?.id}
-          required={formGroupData?.required || required}
-          aria-required={formGroupData?.required || required}
-          aria-invalid={formGroupData?.invalid || undefined}
+          id={id || formGroupContext?.id}
+          required={formGroupContext?.required || required}
+          aria-required={formGroupContext?.required || required}
+          aria-invalid={formGroupContext?.invalid || undefined}
           defaultChecked={checked !== undefined ? undefined : defaultChecked}
           checked={checked !== undefined ? checked : undefined}
           onInvalid={onControlInvalid}

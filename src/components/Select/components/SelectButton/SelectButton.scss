@@ -1,42 +1,68 @@
 .inf-select-button {
-  position: relative;
-  cursor: pointer;
-  user-select: none;
-  appearance: none;
-  text-align: left;
-  padding: 7px 28px 7px var(--inf-space-small);
-  line-height: 18px;
-  height: var(--inf-control-height-medium);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  &__arrow {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 10px;
-    color: var(--inf-color-icon-primary);
-
-    svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    &--active {
-      color: var(--inf-color-icon-primary);
-    }
-
-    &--disabled {
-      color: var(--inf-color-text-tertiary);
-    }
-  }
+  display: flex;
+  align-items: center;
+  gap: var(--inf-space-xsmall);
 
   &--loading {
     pointer-events: none;
     cursor: default;
+  }
+
+  &__content {
+    flex-grow: 1;
+    overflow: hidden;
+    line-height: 23px;
+  }
+
+  &__after {
+    display: flex;
+    align-items: center;
+    gap: var(--inf-space-xsmall);
+  }
+
+  &__before {
+    display: flex;
+    align-items: center;
+    gap: var(--inf-space-xsmall);
+  }
+
+  &__display-value,
+  &__placeholder {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
+
+  &__filter-input {
+    width: 100%;
+    color: inherit;
+    background: 0px center;
+    opacity: 1;
+    grid-area: 1 / 2;
+    font: inherit;
+    border: 0px;
+    margin: 0px;
+    outline: 0px;
+    padding: 0px;
+  }
+
+  &__loader {
+    &.inf-loader {
+      color: var(--inf-color-icon-primary);
+    }
+  }
+
+  &__clear-button {
+    display: none;
+  }
+
+  @include hover {
+    .inf-select-button__clear-button {
+      display: inline-flex;
+    }
   }
 }

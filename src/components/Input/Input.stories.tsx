@@ -9,7 +9,8 @@ import { Button } from '../Button'
 import { Text } from '../Text'
 import { Icon } from '../Icon'
 import { Form } from '../Form'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+// @ts-expect-error
+import SearchIcon from 'Icons/search.svg?react'
 // Посмотреть, как решат проблему https://github.com/storybookjs/storybook/issues/20367
 
 const meta: Meta<typeof Input> = {
@@ -142,6 +143,21 @@ export const Disabled = {
   }
 }
 
+export const FieldsetDisabled = {
+  render: () => {
+    return (
+      <Space>
+        <fieldset disabled={true}>
+          <Input value="fieldset disabled === true" />
+        </fieldset>
+        <fieldset disabled={false}>
+          <Input value="fieldset disabled === false" />
+        </fieldset>
+      </Space>
+    )
+  }
+}
+
 export const ReadOnly = {
   render: Template,
 
@@ -229,6 +245,16 @@ export const WithClearButton = {
         </Space>
       </>
     )
+  }
+}
+
+export const WithPasswordVisibilityButton = {
+  render: Template,
+
+  args: {
+    value: 'Инфинитум',
+    type: 'password',
+    showPasswordToggle: true
   }
 }
 

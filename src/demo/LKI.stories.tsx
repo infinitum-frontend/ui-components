@@ -16,7 +16,7 @@ import { Button } from '../components/Button'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { Label, LabelProps } from '../components/Label'
 import { Table, TableColumnDef, TableSortingState } from '../components/Table'
-import { ReactComponent as SearchIcon } from 'Icons/search.svg'
+import SearchIcon from 'Icons/search.svg?react'
 
 const ComponentMeta: Meta = {
   title: 'Demo/Личный кабинет инвестора',

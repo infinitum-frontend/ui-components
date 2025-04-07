@@ -24,8 +24,8 @@ import { Link } from '../components/Link'
 // import { Link } from '../components/Link'
 import { Box } from '../components/Box'
 // import { Modal } from '../components/Modal'
-import { ReactComponent as IconProfile } from 'Icons/user.svg'
-import { ReactComponent as IconQuit } from 'Icons/sign-out.svg'
+import IconProfile from 'Icons/user.svg?react'
+import IconQuit from 'Icons/sign-out.svg?react'
 import {
   useNotification,
   NotificationContainer,
@@ -447,7 +447,7 @@ const tableColumns: Array<ColumnDef<Portfolio, any>> = [
     // для фильтрации по тексту по вложенным реакт-элементам
     // filterFn: 'elIncludesString',
     meta: {
-      filterType: 'input'
+      filterType: 'search'
     }
   },
   {
@@ -461,7 +461,7 @@ const tableColumns: Array<ColumnDef<Portfolio, any>> = [
     accessorKey: 'type',
     meta: {
       filterType: 'select',
-      filterItems: TYPE_FILTER_ITEMS
+      filterOptions: TYPE_FILTER_ITEMS
     }
   },
   {

@@ -2,7 +2,8 @@
 import * as React from 'react'
 import { UploadButton } from './index'
 import { Meta, StoryFn } from '@storybook/react'
-import { ReactComponent as FileIcon } from 'Icons/file.svg'
+// @ts-expect-error
+import FileIcon from 'Icons/file.svg?react'
 
 const ComponentMeta: Meta<typeof UploadButton> = {
   title: 'Components/UploadButton',
@@ -48,5 +49,14 @@ export const Disabled = {
 
   args: {
     disabled: true
+  }
+}
+
+export const WithAcceptAttribute = {
+  render: Template,
+
+  args: {
+    accept:
+      '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
   }
 }

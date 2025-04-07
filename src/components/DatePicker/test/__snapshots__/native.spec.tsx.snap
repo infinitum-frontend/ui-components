@@ -2,6 +2,7 @@
 
 exports[`NativeDatePicker > should match snapshop 1`] = `
 <input
+  autocomplete="off"
   class="inf-native-datepicker inf-text-field inf-text-field--br-regular inf-text-field--size-medium"
   role="calendar"
   type="date"

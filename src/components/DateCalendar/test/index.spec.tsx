@@ -60,7 +60,7 @@ describe('month view', () => {
     )
 
     expect(el.querySelector('.inf-calendar-months')).toBeInTheDocument()
-  }, 10000)
+  })
 
   it('should match snapshot', async () => {
     const date = new Date()
@@ -95,7 +95,7 @@ describe('month view', () => {
     expect(el.querySelector('.inf-calendar-months')).not.toBeInTheDocument()
     expect(el.querySelector('.inf-calendar-days')).toBeInTheDocument()
     expect(screen.queryByText('Май')).toBeInTheDocument()
-  }, 10000)
+  })
 
   it('should select date with proper month', async () => {
     let calledWithValue = ''
@@ -119,7 +119,7 @@ describe('month view', () => {
 
     expect(onChange).toHaveBeenCalledOnce()
     expect(calledWithValue).toBe(date.toLocaleDateString())
-  }, 10000)
+  })
 })
 
 describe('year view', () => {
@@ -170,7 +170,7 @@ describe('year view', () => {
     expect(el.querySelector('.inf-calendar-years')).not.toBeInTheDocument()
     expect(el.querySelector('.inf-calendar-days')).toBeInTheDocument()
     expect(screen.queryByText('2022')).toBeInTheDocument()
-  }, 10000)
+  })
 
   it('should select date with proper year', async () => {
     let calledWithValue = ''
@@ -192,7 +192,7 @@ describe('year view', () => {
 
     expect(onChange).toHaveBeenCalledOnce()
     expect(calledWithValue).toBe(date.toLocaleDateString())
-  }, 10000)
+  })
 })
 
 describe('arrows', () => {
@@ -221,5 +221,5 @@ describe('arrows', () => {
     date.setMonth(7)
     date.setDate(12)
     expect(calledWithValue).toBe(date.toLocaleDateString())
-  }, 15000)
+  })
 })

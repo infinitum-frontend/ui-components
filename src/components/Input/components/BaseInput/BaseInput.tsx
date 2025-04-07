@@ -25,17 +25,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
     }: BaseInputProps,
     inputRef
   ): ReactElement => {
-    const classNames = cn(
-      'inf-input',
-      TextFieldClasses.size[size],
-      TextFieldClasses.main,
-      className,
-      {
-        [TextFieldClasses.noBorder]: noBorder,
-        [TextFieldClasses.status[status as 'error']]: status,
-        [TextFieldClasses.borderRadius[borderRadius]]: borderRadius
-      }
-    )
+    const classNames = cn('inf-input', TextFieldClasses.size[size], className)
     return (
       <input
         value={value}

@@ -1,36 +1,22 @@
 .inf-checkbox {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   position: relative;
   cursor: pointer;
 
-  &__check-icon,
-  &__indeterminate {
-    visibility: hidden;
-  }
-
   &--disabled {
-    color: var(--inf-color-text-tertiary);
     pointer-events: none;
-  }
-
-  &:hover {
-    &
-      input[type='checkbox']
-      ~ .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
-      border-color: var(--inf-color-border-primary-hover);
-    }
-
-    & input[type='checkbox']:checked ~ .inf-checkbox__box {
-      border-color: transparent;
-    }
   }
 
   &__label {
     user-select: none;
-    margin-left: 8px;
-    font-size: var(--inf-font-size-body-1);
-    line-height: 20px;
+    margin-left: var(--inf-space-xsmall);
+    font: var(--inf-font-body-1);
+    line-height: 19px;
+
+    &--disabled {
+      color: var(--inf-color-text-tertiary);
+    }
   }
 
   &__box {
@@ -42,14 +28,12 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    border: 1px solid var(--inf-color-border-primary);
+    border: 1px solid var(--inf-color-border-inverse);
     border-radius: var(--inf-border-radius-xsmall);
     position: relative;
-    top: 0.2em;
 
     &--disabled {
-      cursor: unset;
-      // border-color: var(--inf-color-text-tertiary);
+      border-color: var(--inf-color-border-primary);
       background-color: transparent;
 
       svg:not(.inf-checkbox input[type='checkbox']:checked) {
@@ -68,19 +52,23 @@
     }
   }
 
+  &__check-icon,
+  &__indeterminate {
+    visibility: hidden;
+  }
+
   input[type='checkbox'] {
     opacity: 0;
     outline: none;
     position: absolute;
     margin: 0;
     z-index: -1;
-    width: 20px;
-    height: 20px;
-    top: 0.2em;
+    width: 1px;
+    height: 1px;
 
     &:focus-visible {
       & ~ .inf-checkbox__box {
-        border-color: var(--inf-color-border-primary-hover);
+        border-color: var(--inf-color-border-brand);
       }
       &:checked ~ .inf-checkbox__box {
         background-color: var(--inf-color-background-button-primary-active);
@@ -113,6 +101,16 @@
       svg {
         visibility: visible;
       }
+    }
+  }
+
+  @include hover {
+    .inf-checkbox__box:not(.inf-checkbox__box--disabled) {
+      border-color: var(--inf-color-border-brand);
+    }
+
+    & input[type='checkbox']:checked ~ .inf-checkbox__box {
+      border-color: transparent;
     }
   }
 }

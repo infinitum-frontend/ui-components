@@ -47,7 +47,7 @@ exports[`day view > should match snapshot 1`] = `
       <span
         class="inf-calendar-header__control"
       >
-        2024
+        2025
       </span>
     </div>
     <button
@@ -123,6 +123,9 @@ exports[`day view > should match snapshot 1`] = `
         class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
       />
       <span
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
+      />
+      <span
         class="inf-calendar-item"
       >
         1
@@ -132,15 +135,15 @@ exports[`day view > should match snapshot 1`] = `
       >
         2
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
         3
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
@@ -171,15 +174,15 @@ exports[`day view > should match snapshot 1`] = `
       >
         9
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
         10
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
@@ -201,7 +204,7 @@ exports[`day view > should match snapshot 1`] = `
         14
       </span>
       <span
-        class="inf-calendar-item inf-calendar-item--selected"
+        class="inf-calendar-item"
       >
         15
       </span>
@@ -210,15 +213,15 @@ exports[`day view > should match snapshot 1`] = `
       >
         16
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
         17
       </span>
-    </div>
-    <div
-      class="inf-calendar-days__week"
-    >
       <span
         class="inf-calendar-item"
       >
@@ -249,15 +252,15 @@ exports[`day view > should match snapshot 1`] = `
       >
         23
       </span>
-      <span
-        class="inf-calendar-item"
-      >
-        24
-      </span>
     </div>
     <div
       class="inf-calendar-days__week"
     >
+      <span
+        class="inf-calendar-item inf-calendar-item--selected"
+      >
+        24
+      </span>
       <span
         class="inf-calendar-item"
       >
@@ -288,11 +291,33 @@ exports[`day view > should match snapshot 1`] = `
       >
         30
       </span>
+    </div>
+    <div
+      class="inf-calendar-days__week"
+    >
       <span
         class="inf-calendar-item"
       >
         31
       </span>
+      <span
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
+      />
+      <span
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
+      />
+      <span
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
+      />
+      <span
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
+      />
+      <span
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
+      />
+      <span
+        class="inf-calendar-item inf-calendar-item--empty inf-calendar-item--disabled"
+      />
     </div>
   </div>
 </div>
@@ -345,7 +370,7 @@ exports[`month view > should match snapshot > monthView 1`] = `
       <span
         class="inf-calendar-header__control"
       >
-        2024
+        2025
       </span>
     </div>
     <button
@@ -491,7 +516,7 @@ exports[`year view > should match snapshot > yearView 1`] = `
       <span
         class="inf-calendar-header__control inf-calendar-header__control--selected"
       >
-        2024
+        2025
       </span>
     </div>
     <button
@@ -1271,14 +1296,14 @@ exports[`year view > should match snapshot > yearView 1`] = `
       2023
     </span>
     <span
-      class="inf-calendar-item inf-calendar-item--selected"
-      data-selected-year="true"
+      class="inf-calendar-item"
+      data-selected-year="false"
     >
       2024
     </span>
     <span
-      class="inf-calendar-item"
-      data-selected-year="false"
+      class="inf-calendar-item inf-calendar-item--selected"
+      data-selected-year="true"
     >
       2025
     </span>

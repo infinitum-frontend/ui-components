@@ -1,3 +1,5 @@
+import React, { isValidElement } from 'react'
+
 export function omitKeyFromObject<
   T extends Record<any, any>,
   K extends keyof T
@@ -28,34 +30,44 @@ export function checkIsValueExists(value?: any): boolean {
   }
 }
 
-export const setInputValue = (
-  inputElement:
-    | HTMLInputElement
-    | HTMLTextAreaElement
-    | HTMLSelectElement
-    | null
-    | undefined,
-  value: string
-): void => {
-  if (!inputElement) {
-    return
+export function reactNodeToString(reactNode: React.ReactNode): string {
+  let string = ''
+  if (typeof reactNode === 'string') {
+    string = reactNode
+  } else if (typeof reactNode === 'number') {
+    string = reactNode.toString()
+  } else if (reactNode instanceof Array) {
+    reactNode.forEach(function (child) {
+      string += reactNodeToString(child)
+    })
+  } else if (isValidElement(reactNode)) {
+    string += reactNodeToString(reactNode.props.children)
   }
+  return string
+}
 
-  const valueSetter = Object?.getOwnPropertyDescriptor(
-    inputElement,
-    'value'
-  )?.set
-  const prototype = Object.getPrototypeOf(inputElement)
+export function removeDuplicates(arr: object[]): object[] {
+  const uniqueItems = new Set<string>()
+  const result: object[] = []
 
-  const prototypeValueSetter = Object.getOwnPropertyDescriptor(
-    prototype,
-    'value'
-  )?.set
+  arr.forEach((item) => {
+    const itemString = JSON.stringify(item)
 
-  if (prototypeValueSetter && valueSetter !== prototypeValueSetter) {
-    prototypeValueSetter.call(inputElement, value)
-  } else {
-    valueSetter?.call(inputElement, value)
+    if (!uniqueItems.has(itemString)) {
+      uniqueItems.add(itemString)
+      result.push(item)
+    }
+  })
+
+  return result
+}
+
+export function debounce(callback: any, wait: any): any {
+  let timeoutId: any = null
+  return (...args: any) => {
+    window.clearTimeout(timeoutId)
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args)
+    }, wait)
   }
-  inputElement.dispatchEvent(new Event('input', { bubbles: true }))
 }

@@ -34,13 +34,11 @@ export default defineConfig({
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
-      entry: [
-        resolve(__dirname, 'src/index.ts'),
-        resolve(__dirname, 'src/styles/global.scss')
-      ],
+      entry: [resolve(__dirname, 'src/index.ts')],
       name: 'ui-components',
-      formats: ['es', 'cjs'],
-      fileName: 'index'
+      formats: ['es'],
+      fileName: 'index',
+      cssFileName: 'style'
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

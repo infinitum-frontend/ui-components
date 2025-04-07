@@ -1,319 +1,235 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
-  KeyboardEventHandler,
-  forwardRef,
-  useEffect,
-  useState,
-  ReactElement,
-  useRef,
-  FocusEventHandler,
-  MouseEventHandler,
-  useContext,
-  useId
-} from 'react'
-import './Select.scss'
 import cn from 'classnames'
-import { SelectProps, SelectOption } from './types'
-import { mergeRefs } from 'react-merge-refs'
-import {
-  autoUpdate,
-  flip,
-  offset,
-  useFloating,
-  FloatingPortal,
-  useInteractions,
-  useDismiss,
-  size
-} from '@floating-ui/react'
-import SelectButton from './components/SelectButton'
-import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
+import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
+import {
+  MouseEventHandler,
+  ReactElement,
+  useContext,
+  useEffect,
+  useId,
+  useState
+} from 'react'
+import { Loader } from '../Loader'
+import { Menu } from '../Menu'
+import { Popover } from '../Popover'
+import SelectButton from './components/SelectButton'
+import SelectDropdownHint from './components/SelectDropdownHint'
+import SelectEmpty from './components/SelectEmpty'
+import SelectFilterInput from './components/SelectFilterInput'
+import SelectNativeElement from './components/SelectNativeElement'
+import SelectOption from './components/SelectOption'
+import useSelect from './hooks/useSelect'
+import useSelectOptions from './hooks/useSelectOptions'
+import './Select.scss'
+import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
+import { SelectOption as SelectOptionType, SelectProps } from './utils/types'
 
-export const defaultSelectItem: SelectOption = {
-  value: -1,
-  label: 'Не указано'
-}
+const Select = <Multiple extends boolean = false>({
+  options = [],
+  value,
+  onChange,
+  multiple,
+  filterable,
+  clearable,
+  disabled: disabledProp,
+  required = false,
+  loading,
+  loaderPlacement = 'inline',
+  placeholder = 'Выберите значение',
+  size,
+  filterPlacement = 'dropdown',
+  emptyMessage = 'Ничего не найдено',
+  dropdownHint,
+  onFilterChange,
+  onClear,
+  maxItemsCount = 12,
+  popoverWidth,
+  popoverPlacement = 'bottom-start',
+  renderControl,
+  className,
+  'aria-required': ariaRequired,
+  'aria-invalid': ariaInvalid,
+  ...props
+}: SelectProps<Multiple>): ReactElement => {
+  const [filterValue, setFilterValue] = useState('')
 
-const getIndexByValue = (
-  value: SelectOption['value'] | undefined,
-  items: SelectOption[]
-): number => {
-  return items.findIndex((item) => item.value === value)
-}
+  const prefix = useId()
 
-const getItemByValue = (
-  value: SelectOption['value'],
-  items: SelectOption[]
-): SelectOption | undefined => {
-  return items.find((item) => item.value === value)
-}
+  const formGroupContext = useContext(FormGroupContext)
+  const formContext = useContext(FormContext)
+  const { onControlInvalid, resetControlValidity } = useFormControlHandlers()
 
-/** Компонент для выбора значения из выпадающего списка */
-const Select = forwardRef<HTMLButtonElement, SelectProps>(
-  (
-    {
-      options = [],
-      className = '',
-      onChange,
-      autoFocus = false,
-      value,
-      disabled: disabledProp = false,
-      loading = false,
-      placeholder = defaultSelectItem.label as string,
-      required = false,
-      status,
-      maxItemsCount = 12,
-      'aria-required': ariaRequired,
-      'aria-invalid': ariaInvalid,
-      ...props
-    }: SelectProps,
-    ref
-  ): ReactElement => {
-    // ============================= state =============================
-    const [isOpened, setOpened] = useState(false)
-    const [isFocused, setFocused] = useState(false)
-    const [activeItem, setActiveItem] = useState(
-      value ? getIndexByValue(value, options) : 0
-    )
-
-    const prefix = useId()
-
-    const formGroupData = useContext(FormGroupContext)
-    const formData = useContext(FormContext)
-    const { onControlInvalid, resetControlValidity } = useFormControlHandlers()
-    const disabled = disabledProp || formData?.disabled
-
-    const displayRef = useRef<HTMLButtonElement>(null)
-    const selectRef = useRef<HTMLSelectElement>(null)
-
-    // ============================= effects =============================
-    useEffect(() => {
-      if (autoFocus) {
-        setOpened(true)
-        setFocused(true)
-      }
-    }, [autoFocus])
-
-    // ============================= handlers =============================
-    const handleClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
-      if (
-        displayRef.current?.contains(e.target as HTMLElement) &&
-        (e.target as HTMLElement).tagName !== 'SELECT'
-      ) {
-        setOpened((prev) => !prev)
-      }
-    }
-
-    // фокус, который поднимается от внутреннего нативного селекта
-    const handleFocus: FocusEventHandler = (e) => {
-      e.preventDefault()
-      setFocused(true)
-    }
-
-    // блюр, который поднимается от внутреннего нативного селекта. Если было нажатие на элементы выпадающего списка, фокус не скидывается
-    const handleBlur: FocusEventHandler = (e) => {
-      const target = e.relatedTarget
-      if (target?.getAttribute?.('data-selector') === 'inf-select-items') {
-        return
-      }
-
-      setFocused(false)
-    }
-
-    const handleKeyDown: KeyboardEventHandler = (e) => {
-      switch (e.key) {
-        case 'ArrowDown':
-          e.preventDefault()
-          setActiveItem((prevState) => {
-            if (prevState === options.length - 1) {
-              return 0
-            }
-
-            return prevState + 1
-          })
-          break
-        case 'ArrowUp':
-          e.preventDefault()
-          setActiveItem((prevState) => {
-            if (prevState === 0) {
-              return options.length - 1
-            }
-
-            return prevState - 1
-          })
-          break
-        case 'Escape':
-          e.preventDefault()
-          setActiveItem(0)
-          setOpened(false)
-          break
-        case ' ':
-          e.preventDefault()
-          setOpened(true)
-          break
-        case 'Enter':
-          e.preventDefault()
-          if (isOpened) {
-            submit(activeItem)
-          } else {
-            setOpened(true)
-          }
-          break
-        case 'Tab':
-          if (isOpened) {
-            setOpened(false)
-          }
-      }
-    }
-
-    const handleItemSelect = (id: number | string): void => {
-      const index = getIndexByValue(id, options)
-      setActiveItem(index)
-      // сохраняем состояния фокуса на элементе триггере при опции с помощью мышки
-      displayRef.current?.focus()
-      submit(index)
-    }
-
-    const handleItemMouseOver = (index: number): void => {
-      setActiveItem(index)
-    }
-
-    const submit = (index: number): void => {
-      if (index < 0) {
-        return
-      }
-
-      setOpened(false)
-      resetControlValidity()
-      onChange?.(options[index])
-    }
-
-    // ============================= floating =============================
-    const { x, y, refs, context } = useFloating({
-      open: isOpened,
-      onOpenChange: setOpened,
-      placement: 'bottom-start',
-      whileElementsMounted: autoUpdate,
-      middleware: [
-        offset(4),
-        flip(),
-        size({
-          apply({ rects, elements }) {
-            Object.assign(elements.floating.style, {
-              width: `${rects.reference.width}px`
-            })
-          }
-        })
-      ]
+  const { filteredFlattenOptions, flattenOptions, filteredOptions } =
+    useSelectOptions({
+      options,
+      filterValue,
+      filterable,
+      // если передан проп onFilterChange, то фильтрация options происходит снаружи
+      customFiltering: Boolean(onFilterChange)
     })
 
-    const { getReferenceProps, getFloatingProps } = useInteractions([
-      useDismiss(context, {
-        outsidePress: (e) => {
-          if (formGroupData) {
-            return (e.target as HTMLLabelElement)?.htmlFor !== formGroupData?.id
-          } else {
-            return true
-          }
-        }
-      })
-    ])
+  const {
+    handleSelect,
+    handleClear: handleClearState,
+    checkOptionSelection,
+    hasSelectedValue,
+    isOpen,
+    setOpen,
+    displayValue,
+    selectedOptions
+  } = useSelect({
+    options: flattenOptions,
+    value,
+    onChange,
+    multiple,
+    onClear
+  })
 
-    // ============================= render =============================
-    const isValueExists = Boolean(value) || Number.isInteger(value)
-    const displayValue = isValueExists
-      ? getItemByValue(value as string | number, options)?.label
-      : placeholder
-    // высота элемента, паддинг и границы
-    const maxHeight = maxItemsCount * 32 + 4 + 2
+  // ============================= effects =============================
+  useEffect(() => {
+    if (!isOpen) {
+      handleFilterChange('')
+    }
+  }, [isOpen])
 
-    return (
-      <>
+  // ============================= handlers =============================
+  const handleOpenToggle: MouseEventHandler = (e): void => {
+    setOpen(!isOpen)
+  }
+
+  const handleOptionSelect = (option: SelectOptionType): void => {
+    handleSelect(option)
+    resetControlValidity()
+  }
+
+  const handleFilterChange = (filterValue: string): void => {
+    setFilterValue(filterValue)
+    // поиск обрабатывается снаружи
+    if (onFilterChange) {
+      onFilterChange(filterValue)
+    }
+  }
+
+  const handleClear = (): void => {
+    if (onClear) {
+      onClear()
+    } else {
+      handleClearState()
+    }
+  }
+
+  // ============================= render =============================
+  const isDisabled = disabledProp || formContext?.disabled
+  const isRequired = formGroupContext?.required || required
+  // высота элемента, паддинг и границы
+  const maxHeight = maxItemsCount * 36 + 4 + 2
+  const showInlineFilterInput =
+    filterable && isOpen && filterPlacement === 'inline'
+  const popoverFocus = showInlineFilterInput ? -1 : 0 // TODO: непонятно что тут происходит
+
+  const showDropdownLoader = loading && loaderPlacement === 'dropdown'
+
+  return (
+    <Popover
+      open={isOpen}
+      onOpenChange={setOpen}
+      offset={{
+        mainAxis: 4
+      }}
+      initialFocus={popoverFocus}
+      placement={popoverPlacement}
+      // TODO: ломает закрытие по клику вне внутри Popover
+      // onPressOutside={handlePopoverPressOutside}
+    >
+      <Popover.Trigger>
         <SelectButton
           tabIndex={-1}
-          ref={mergeRefs([ref, refs.setReference, displayRef])}
-          disabled={disabled}
-          loading={loading}
-          selected={isValueExists}
-          focused={isFocused}
-          status={status}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          title={typeof displayValue === 'string' ? displayValue : ''}
           className={cn(className, 'inf-select')}
-          {...getReferenceProps({
-            onKeyDown: handleKeyDown,
-            onClick(e) {
-              e.stopPropagation()
-              handleClick(e as any)
-            }
-          })}
+          filterable={filterable && filterPlacement === 'inline'}
+          filterValue={filterValue}
+          onFilterChange={handleFilterChange}
+          displayValue={displayValue}
+          selectedOptionsCount={multiple && selectedOptions.length}
+          clearable={Boolean(clearable && hasSelectedValue && !multiple)}
+          onClear={handleClear}
+          disabled={Boolean(isDisabled)}
+          required={isRequired}
+          loading={Boolean(loading)}
+          placeholder={placeholder}
+          size={size}
+          opened={isOpen}
+          renderControl={renderControl}
+          nativeSelectSlot={
+            <SelectNativeElement
+              options={filteredOptions}
+              value={value}
+              id={formGroupContext?.id}
+              multiple={Boolean(multiple)}
+              required={isRequired}
+              disabled={Boolean(isDisabled || loading)}
+              ariaRequired={
+                formGroupContext?.required || required || ariaRequired
+              }
+              ariaInvalid={formGroupContext?.invalid || ariaInvalid}
+              onInvalid={onControlInvalid}
+            />
+          }
+          onClick={(e) => handleOpenToggle(e)}
           {...props}
-        >
-          {displayValue}
-          <select
-            ref={selectRef}
-            required={formGroupData?.required || required}
-            aria-required={formGroupData?.required || required || ariaRequired}
-            aria-invalid={formGroupData?.invalid || ariaInvalid}
-            disabled={disabled || loading}
-            id={formGroupData?.id}
-            value={value}
-            onInvalid={onControlInvalid}
-            onChange={() => {}}
+        />
+      </Popover.Trigger>
+
+      <Popover.Content
+        hasPadding={false}
+        equalTriggerWidth={Boolean(!popoverWidth)}
+        width={popoverWidth}
+        data-selector={SELECT_DROPDOWN_SELECTOR}
+      >
+        {filterable && filterPlacement === 'dropdown' && (
+          <SelectFilterInput
+            value={filterValue}
+            onChange={handleFilterChange}
+            onClear={() => {
+              handleFilterChange('')
+            }}
+          />
+        )}
+        {filteredFlattenOptions.length > 0 ? (
+          <Menu
+            as="div"
+            className="inf-select__options"
+            data-testid="list"
+            maxHeight={maxHeight}
           >
-            <option value={''} />
-            {options.map((option) => (
-              <option value={option.value} key={prefix + String(option.value)}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </SelectButton>
-
-        <FloatingPortal>
-          {isOpened && !disabled && !loading && (
-            <ul
-              style={{
-                position: 'absolute',
-                maxHeight: `${maxHeight}px`,
-                overflowX: 'hidden',
-                overflowY: 'auto',
-                top: y ?? 0,
-                left: x ?? 0
-              }}
-              ref={refs.setFloating}
-              className="inf-select__items"
-              data-selector="inf-select-items"
-              {...getFloatingProps({
-                onClick(e) {
-                  e.stopPropagation()
-                }
-              })}
-            >
-              {Boolean(options.length) &&
-                options.map((option, index) => (
-                  <li
-                    key={String(option.value) + prefix}
-                    title={typeof option.label === 'string' ? option.label : ''}
-                    onMouseOver={() => handleItemMouseOver(index)}
-                    onClick={() => handleItemSelect(option.value)}
-                    className={cn('inf-select__item', {
-                      'inf-select__item--active': index === activeItem
-                    })}
-                  >
-                    {option.label}
-                  </li>
-                ))}
-            </ul>
-          )}
-        </FloatingPortal>
-      </>
-    )
-  }
-)
-
-Select.displayName = 'Select'
+            {filteredFlattenOptions.map((option, index) => {
+              return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
+                <Menu.Label key={String(option.groupLabel) + prefix}>
+                  {option.groupLabel}
+                </Menu.Label>
+              ) : (
+                <SelectOption
+                  key={String(option.value) + prefix}
+                  selected={checkOptionSelection(option)}
+                  selectionIndicator={multiple ? 'checkbox' : 'tick'}
+                  onSelect={() => {
+                    handleOptionSelect(option)
+                  }}
+                >
+                  {option.label}
+                </SelectOption>
+              )
+            })}
+          </Menu>
+        ) : showDropdownLoader ? (
+          <Loader />
+        ) : (
+          <SelectEmpty>{emptyMessage}</SelectEmpty>
+        )}
+        {dropdownHint && <SelectDropdownHint hint={dropdownHint} />}
+      </Popover.Content>
+    </Popover>
+  )
+}
 
 export default Select

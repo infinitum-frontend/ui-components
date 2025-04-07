@@ -87,34 +87,47 @@ function BaseBox<C extends ElementType = 'div'>(
     overflowX: overflowX || overflow || undefined,
     overflowY: overflowY || overflow || undefined,
     cursor: cursor || undefined,
+    // TODO: Typescript не справляется c анализом кода. Отрефакторить
     paddingTop: paddingTop
       ? `var(--inf-space-${paddingTop as string})`
-      : undefined || paddingY
+      : // @ts-expect-error
+      undefined || paddingY
       ? `var(--inf-space-${paddingY as string})`
-      : undefined || padding
+      : // @ts-expect-error
+      undefined || padding
       ? `var(--inf-space-${padding as string})`
-      : undefined || undefined,
+      : // @ts-expect-error
+        undefined || undefined,
     paddingBottom: paddingBottom
       ? `var(--inf-space-${paddingBottom as string})`
-      : undefined || paddingY
+      : // @ts-expect-error
+      undefined || paddingY
       ? `var(--inf-space-${paddingY as string})`
-      : undefined || padding
+      : // @ts-expect-error
+      undefined || padding
       ? `var(--inf-space-${padding as string})`
-      : undefined || undefined,
+      : // @ts-expect-error
+        undefined || undefined,
     paddingLeft: paddingLeft
       ? `var(--inf-space-${paddingLeft as string})`
-      : undefined || paddingX
+      : // @ts-expect-error
+      undefined || paddingX
       ? `var(--inf-space-${paddingX as string})`
-      : undefined || padding
+      : // @ts-expect-error
+      undefined || padding
       ? `var(--inf-space-${padding as string})`
-      : undefined || undefined,
+      : // @ts-expect-error
+        undefined || undefined,
     paddingRight: paddingRight
       ? `var(--inf-space-${paddingRight as string})`
-      : undefined || paddingX
+      : // @ts-expect-error
+      undefined || paddingX
       ? `var(--inf-space-${paddingX as string})`
-      : undefined || padding
+      : // @ts-expect-error
+      undefined || padding
       ? `var(--inf-space-${padding as string})`
-      : undefined || undefined,
+      : // @ts-expect-error
+        undefined || undefined,
     width: width || undefined,
     height: height || undefined,
     maxWidth: maxWidth || undefined,

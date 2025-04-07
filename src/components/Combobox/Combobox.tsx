@@ -6,7 +6,7 @@ import { Space } from 'Components/Space'
 import { Tag } from 'Components/Tag'
 import { SelectOption } from 'Components/Select'
 import useUpdateEffect from 'Hooks/useUpdateEffect'
-import { ReactComponent as CrossIcon } from 'Icons/cross.svg'
+import CrossIcon from 'Icons/cross.svg?react'
 import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
 import './Combobox.scss'
 import { checkIsValueExists } from 'Utils/helpers'
@@ -87,9 +87,10 @@ const Combobox = ({
       disabled={disabled}
       selectedValue={checkedList[0]}
     >
-      <Autocomplete.Button placeholder={placeholder}>
-        {checkedCount > 0 ? (
-          <Space direction="horizontal" align="center">
+      <Autocomplete.Button
+        placeholder={placeholder}
+        before={
+          checkedCount > 0 && (
             <Text color="inverse" className="inf-combobox__counter">
               {checkedCount}
               <CrossIcon
@@ -100,11 +101,10 @@ const Combobox = ({
                 }}
               />
             </Text>
-            {displayValue && <Text variant="body-1">{displayValue}</Text>}
-          </Space>
-        ) : (
-          ''
-        )}
+          )
+        }
+      >
+        {displayValue && <Text variant="body-1">{displayValue}</Text>}
       </Autocomplete.Button>
 
       {showTags && Boolean(checkedOptions.length) && (
@@ -136,7 +136,7 @@ const Combobox = ({
             setFilteredOptions(filterFn(options, ''))
           }}
         />
-        <Menu maxHeight={maxHeight}>
+        <Menu className="inf-combobox__menu" maxHeight={maxHeight}>
           {filteredOptions.map((option) => (
             <Menu.Item as="label" key={option.value}>
               <Menu.Item.Icon>

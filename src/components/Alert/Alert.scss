@@ -29,8 +29,8 @@
   }
 
   &--variant-neutral {
-    color: #707273; // TODO: токен
-    background-color: #f7f9fa; // TODO: токен
+    color: var(--inf-color-text-secondary);
+    background-color: var(--inf-color-background-tertiary);
   }
 
   &--variant-violet {

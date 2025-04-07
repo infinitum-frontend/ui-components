@@ -23,6 +23,7 @@ import {
   useMergeRefs,
   FloatingPortal
 } from '@floating-ui/react'
+import { OffsetOptions } from '@floating-ui/core'
 import type { Placement } from '@floating-ui/react'
 import cn from 'classnames'
 import './Tooltip.scss'
@@ -42,6 +43,9 @@ export interface TooltipProps extends React.ComponentPropsWithoutRef<'div'> {
    */
   variant?: 'default' | 'inverted'
   width?: CSSProperties['width']
+  offset?: OffsetOptions
+  hasArrow?: boolean
+  size?: 'small' | 'medium'
 }
 
 /** Всплывающий контент с текстовой информацией */
@@ -53,8 +57,11 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       placement = 'top',
       defaultOpen = false,
       open: controlledOpen,
+      offset: offsetProp = 10,
       onOpenChange: setControlledOpen,
       width,
+      hasArrow = true,
+      size = 'medium',
       ...props
     },
     propRef
@@ -79,7 +86,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       onOpenChange: setOpen,
       whileElementsMounted: autoUpdate,
       middleware: [
-        offset(8),
+        offset(offsetProp),
         flip({
           fallbackAxisSideDirection: 'start',
           crossAxis: placement.includes('-')
@@ -94,7 +101,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     const hover = useHover(context, {
       delay: {
-        open: 200,
+        open: 300,
         close: 0
       },
       move: false,
@@ -136,7 +143,9 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         <FloatingPortal>
           {open && (
             <div
-              className="inf-tooltip"
+              className={cn('inf-tooltip', [
+                `inf-tooltip--size-${size as string}`
+              ])}
               ref={tooltipRef}
               style={{
                 position: strategy,
@@ -148,18 +157,20 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               }}
               {...getFloatingProps(props)}
             >
-              <div
-                className={cn(
-                  'inf-tooltip__arrow',
-                  `inf-tooltip__arrow--direction-${opposedSide as string}`
-                )}
-                ref={arrowRef}
-                style={{
-                  left: arrowX != null ? `${arrowX}px` : '',
-                  top: arrowY != null ? `${arrowY}px` : '',
-                  [opposedSide as string]: '-4px'
-                }}
-              />
+              {hasArrow && (
+                <div
+                  className={cn(
+                    'inf-tooltip__arrow',
+                    `inf-tooltip__arrow--direction-${opposedSide as string}`
+                  )}
+                  ref={arrowRef}
+                  style={{
+                    left: arrowX != null ? `${arrowX}px` : '',
+                    top: arrowY != null ? `${arrowY}px` : '',
+                    [opposedSide as string]: '-4px'
+                  }}
+                />
+              )}
               {content}
             </div>
           )}

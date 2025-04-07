@@ -4,7 +4,8 @@ import { StoryFn, Meta } from '@storybook/react'
 import { Label, LabelProps } from './index'
 import { Space } from '../Space'
 import { Grid } from '../Grid'
-import { ReactComponent as IconBxFilter } from 'Icons/bx-filter.svg'
+// @ts-expect-error
+import IconBxFilter from 'Icons/bx-filter.svg?react'
 
 const variants = [
   'info',
@@ -80,7 +81,7 @@ export const VariantsWithInitialIcons = {
   }
 }
 
-export const IconBefore = {
+export const IconOnly = {
   render: Template,
 
   args: {

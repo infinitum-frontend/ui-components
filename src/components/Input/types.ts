@@ -27,6 +27,8 @@ export interface BaseInputProps
   status?: 'error'
   /** Отсутствие границ */
   noBorder?: boolean
+  /** костыль, чтобы инпут который используется в выпадающем списка Select не валидировался */
+  disableFormContextValidation?: boolean
 }
 
 export interface InputProps
@@ -59,4 +61,6 @@ export interface InputProps
   onInput?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void
   onBlur?: FocusEventHandler<HTMLInputElement>
+  /** Показываем кнопку с иконкой переключения видимости пароля */
+  showPasswordToggle?: boolean
 }

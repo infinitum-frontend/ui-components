@@ -1,7 +1,7 @@
 @font-face {
   font-family: Circe;
   src: local(Circe), local('Circe-Regular'),
-    url('../assets/fonts/Circe-Regular.woff') format('woff');
+    url('/fonts/Circe-Regular.woff2') format('woff2');
 
   font-weight: normal;
   font-style: normal;
@@ -10,7 +10,7 @@
 @font-face {
   font-family: Circe;
   src: local('Circe ExtraLight'), local('Circe-ExtraLight'),
-    url('../assets/fonts/Circe-ExtraLight.woff') format('woff');
+    url('/fonts/Circe-ExtraLight.woff2') format('woff2');
 
   font-weight: 200;
   font-style: normal;
@@ -19,7 +19,7 @@
 @font-face {
   font-family: Circe;
   src: local('Circe Thin'), local('Circe-Thin'),
-    url('../assets/fonts/Circe-Thin.woff') format('woff');
+    url('/fonts/Circe-Thin.woff2') format('woff2');
 
   font-weight: 100;
   font-style: normal;
@@ -28,7 +28,7 @@
 @font-face {
   font-family: Circe;
   src: local('Circe Light'), local('Circe-Light'),
-    url('../assets/fonts/Circe-Light.woff') format('woff');
+    url('/fonts/Circe-Light.woff2') format('woff2');
 
   font-weight: 300;
   font-style: normal;
@@ -37,7 +37,7 @@
 @font-face {
   font-family: Circe;
   src: local('Circe Bold'), local('Circe-Bold'),
-    url('../assets/fonts/Circe-Bold.woff') format('woff');
+    url('/fonts/Circe-Bold.woff2') format('woff2');
 
   font-weight: bold;
   font-style: normal;
@@ -46,7 +46,7 @@
 @font-face {
   font-family: Circe;
   src: local('Circe ExtraBold'), local('Circe-ExtraBold'),
-    url('../assets/fonts/Circe-ExtraBold.woff') format('woff');
+    url('/fonts/Circe-ExtraBold.woff2') format('woff2');
 
   font-weight: 800;
   font-style: normal;

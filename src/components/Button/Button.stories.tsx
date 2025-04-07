@@ -3,8 +3,8 @@ import * as React from 'react'
 import { Button } from './index'
 import { Space } from '../Space'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
-import { ReactComponent as ArrowDownIcon } from 'Icons/chevron-down.svg'
-import { ReactComponent as DownloadIcon } from 'Icons/download.svg'
+import ArrowDownIcon from 'Icons/chevron-down.svg?react'
+import DownloadIcon from 'Icons/download.svg?react'
 
 const ComponentMeta: Meta<typeof Button> = {
   title: 'Components/Button',
