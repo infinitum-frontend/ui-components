@@ -41,6 +41,7 @@
   }
 
   &__clear-button {
+    display: none;
     margin-inline-start: var(--inf-space-xsmall);
     cursor: pointer;
     transition: color 0.2s;
