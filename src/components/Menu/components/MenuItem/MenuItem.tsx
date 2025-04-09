@@ -1,5 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
+import cn from 'classnames'
+import { Collapse } from 'Components/Collapse'
+import useMenuContext from 'Components/Menu/context/useMenuContext'
+import TriangleIcon from 'Icons/sort.svg?react'
+import {
   ElementType,
   MouseEventHandler,
   ReactElement,
@@ -7,14 +11,10 @@ import React, {
   useState
 } from 'react'
 import { PolymorphicComponent } from '~/src/utils/types'
-import './MenuItem.scss'
-import cn from 'classnames'
 import MenuItemButton from '../MenuItemButton'
-import MenuItemIcon from '../MenuItemIcon'
 import MenuItemContent from '../MenuItemContent'
-import { Collapse } from 'Components/Collapse'
-import TriangleIcon from 'Icons/sort.svg?react'
-import useMenuContext from 'Components/Menu/context/useMenuContext'
+import MenuItemIcon from '../MenuItemIcon'
+import './MenuItem.scss'
 
 export interface MenuItemProps {
   /** Состояние недоступности */
@@ -28,7 +28,7 @@ export interface MenuItemProps {
   /** Активное состояние */
   active?: boolean
   /** Активное состояние */
-  highlighted?: boolean // TODO: сделать active, а active переименовать в selected?
+  highlighted?: boolean // TODO: сделать active, а active переименовать в selected? или это одно и то же?
 }
 
 const MenuItem = <C extends ElementType = 'li'>({

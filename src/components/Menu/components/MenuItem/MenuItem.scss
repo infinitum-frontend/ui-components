@@ -6,6 +6,7 @@
   cursor: pointer;
   padding: var(--inf-space-xsmall) var(--inf-space-small);
   font: var(--inf-font-body-1);
+  outline: none; // TODO: продумать стили для выделения элементов при навигации с клавиатуры
 
   &__collapse-icon {
     display: flex;
@@ -37,7 +38,7 @@
   }
 
   &--active {
-    border-left: 2px solid var(--inf-color-background-brand-primary);
+    background-color: var(--inf-color-background-float-hover);
   }
 
   &--highlighted {

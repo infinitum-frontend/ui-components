@@ -25,7 +25,7 @@ const SelectOption = ({
   return (
     <Menu.Item
       as={isCheckbox ? 'label' : 'div'}
-      highlighted={active}
+      active={active}
       data-selected={selected}
       data-testid="option"
       onClick={() => {
