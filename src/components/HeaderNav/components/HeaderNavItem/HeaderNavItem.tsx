@@ -48,6 +48,9 @@ function BaseHeaderNavItem<C extends ElementType = 'a'>(
         open={isSubmenuOpen}
         onOpenChange={setSubmenuOpen}
         placement="bottom-start"
+        offset={{
+          mainAxis: 4
+        }}
       >
         <Popover.Trigger>
           <Component
