@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import cn from 'classnames'
 import { CSSProperties, ElementType, forwardRef, ReactElement } from 'react'
 import {
