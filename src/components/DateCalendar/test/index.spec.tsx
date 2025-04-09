@@ -223,3 +223,55 @@ describe('arrows', () => {
     expect(calledWithValue).toBe(date.toLocaleDateString())
   })
 })
+
+describe('today button', () => {
+  it('should not render today button if withTodayButton prop is not passed', () => {
+    const date = new Date()
+    const onChange = vi.fn()
+    renderComponent(
+      <DateCalendar title={title} value={date} onChange={onChange} />
+    )
+
+    expect(screen.queryByText('Сегодня')).not.toBeInTheDocument()
+  })
+
+  it('should render today button if withTodayButton prop is passed', () => {
+    const date = new Date()
+    const onChange = vi.fn()
+    renderComponent(
+      <DateCalendar
+        title={title}
+        value={date}
+        onChange={onChange}
+        withTodayButton={true}
+      />
+    )
+
+    expect(screen.queryByText('Сегодня')).toBeInTheDocument()
+  })
+
+  it('should call onChange with actual date when today button is clicked', async () => {
+    let calledWithValue = ''
+
+    const onChange = vi.fn((value) => {
+      calledWithValue = value.toLocaleDateString()
+    })
+
+    renderComponent(
+      <DateCalendar
+        title={title}
+        value={new Date(2020, 0, 1)}
+        onChange={onChange}
+        withTodayButton={true}
+      />
+    )
+
+    const todayButton = screen.queryByText('Сегодня') as HTMLElement
+    const user = userEvent.setup()
+    await user.click(todayButton)
+
+    expect(onChange).toHaveBeenCalledOnce()
+    const actualDate = new Date()
+    expect(calledWithValue).toBe(actualDate.toLocaleDateString())
+  })
+})
