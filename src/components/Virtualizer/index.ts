@@ -1,3 +1,4 @@
-import Virtualizer from './Virtualizer'
+import Virtualizer, { VirtualizerProps } from './Virtualizer'
 
-export default Virtualizer
+export { Virtualizer }
+export type { VirtualizerProps }

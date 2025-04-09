@@ -6,7 +6,7 @@ import {
 import { CSSProperties, ReactElement, useRef } from 'react'
 import ScrollArea from 'Components/ScrollArea'
 
-interface VirtualizerProps
+export interface VirtualizerProps
   extends Partial<VirtualizerOptions<HTMLElement, HTMLElement>> {
   maxHeight?: CSSProperties['maxHeight']
   renderRow: (virtualItem: VirtualItem) => ReactElement
@@ -53,21 +53,25 @@ const Virtualizer = ({
           position: 'relative'
         }}
       >
-        {items.map((virtualItem) => (
-          <div
-            key={virtualItem.key.toString()}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: `${virtualItem.size}px`,
-              transform: `translateY(${virtualItem.start}px)`
-            }}
-          >
-            {renderRow(virtualItem)}
-          </div>
-        ))}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            transform: `translateY(${items[0]?.start ?? 0}px)`
+          }}
+        >
+          {items.map((virtualItem) => (
+            <div
+              key={virtualItem.key.toString()}
+              data-index={virtualItem.index}
+              ref={virtualizer.measureElement}
+            >
+              {renderRow(virtualItem)}
+            </div>
+          ))}
+        </div>
       </div>
     </ScrollArea>
   )
