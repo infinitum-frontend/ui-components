@@ -1,7 +1,7 @@
+import cn from 'classnames'
 import React, { ComponentPropsWithoutRef } from 'react'
 import { HeaderNavItem } from './components/HeaderNavItem'
 import './HeaderNav.scss'
-import cn from 'classnames'
 
 export interface HeaderNavProps extends ComponentPropsWithoutRef<'nav'> {
   className?: string

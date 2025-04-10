@@ -101,3 +101,7 @@ textarea {
     color: var(--inf-color-text-tertiary);
   }
 }
+
+a:focus {
+  outline: none;
+}
