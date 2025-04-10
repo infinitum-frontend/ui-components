@@ -121,8 +121,11 @@ export const WithSubmenu: StoryObj<typeof HeaderNav> = {
               >
                 Второстепенная
               </HeaderNav.Item>
-              <HeaderNav.Item>Еще второстепенная</HeaderNav.Item>
+              <HeaderNav.Item onClick={() => alert('click on item')}>
+                Еще второстепенная
+              </HeaderNav.Item>
               <HeaderNav.Item
+                onClick={() => alert('click on item')}
                 submenu={({ close }) => (
                   <Menu maxHeight={200}>
                     <Menu.Item>Один</Menu.Item>

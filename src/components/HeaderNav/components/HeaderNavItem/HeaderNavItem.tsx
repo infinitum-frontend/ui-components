@@ -28,7 +28,6 @@ function BaseHeaderNavItem<C extends ElementType = 'a'>(
     as = 'a',
     active = false,
     submenu,
-    onClick,
     ...rest
   } = props
 
@@ -61,6 +60,7 @@ function BaseHeaderNavItem<C extends ElementType = 'a'>(
             {...rest}
             onClick={(e) => {
               setSubmenuOpen((prev) => !prev)
+              props.onClick?.()
             }}
           >
             {children}
