@@ -129,6 +129,18 @@ export const Scrollable = {
   }
 }
 
+export const Virtualized = {
+  render: SingleTemplate,
+  args: {
+    options: Array.from({ length: 5000 }, (_, i) => ({
+      value: `value-${i}`,
+      label: `Options-${i}`
+    })),
+    maxHeight: 200,
+    virtualized: true
+  }
+}
+
 export const PopoverPlacement: StoryObj<typeof Select> = {
   render: SingleTemplate,
   args: {

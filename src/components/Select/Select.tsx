@@ -48,6 +48,8 @@ const Select = <Multiple extends boolean = false>({
   popoverPlacement = 'bottom-start',
   renderControl,
   className,
+  maxHeight: maxHeightProp,
+  virtualized,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   ...props
@@ -123,7 +125,7 @@ const Select = <Multiple extends boolean = false>({
   const isDisabled = disabledProp || formContext?.disabled
   const isRequired = formGroupContext?.required || required
   // высота элемента, паддинг и границы
-  const maxHeight = maxItemsCount * 36 + 4 + 2
+  const maxHeight = maxHeightProp || maxItemsCount * 36 + 4 + 2
   const showInlineFilterInput =
     filterable && isOpen && filterPlacement === 'inline'
   const popoverFocus = showInlineFilterInput ? -1 : 0 // TODO: непонятно что тут происходит
