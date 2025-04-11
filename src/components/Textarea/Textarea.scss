@@ -1,27 +1,58 @@
 .inf-textarea {
   box-sizing: border-box;
-  outline: none;
   cursor: text;
-  display: block;
-  font: var(--inf-font-body-2);
-  padding: 7px 12px;
-  background-color: inherit;
   overflow: hidden;
-  resize: none;
+  display: flex;
 
-  &--block {
+  textarea {
+    border: none;
+    padding: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    background-color: inherit;
+    cursor: inherit;
     width: 100%;
+    height: 100%;
+    color: inherit;
+    resize: none;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 
-  &--resize-both {
-    resize: both;
+  &--status-error {
+    border-color: var(--inf-color-border-error);
   }
 
-  &--resize-horizontal {
-    resize: horizontal;
+  &--size-medium {
+    textarea {
+      padding: var(--inf-space-xsmall) var(--inf-space-small);
+    }
+
+    .inf-textarea__prefix {
+      padding-top: var(--inf-space-xsmall);
+      padding-left: var(--inf-space-small);
+      padding-bottom: var(--inf-space-xsmall);
+    }
   }
 
-  &--resize-vertical {
-    resize: vertical;
+  &--size-small {
+    textarea {
+      padding: var(--inf-space-xxsmall) var(--inf-space-small);
+    }
+
+    .inf-textarea__prefix {
+      padding-top: var(--inf-space-xxsmall);
+      padding-left: var(--inf-space-small);
+      padding-bottom: var(--inf-space-xxsmall);
+    }
+  }
+
+  &--resize {
+    textarea {
+      resize: vertical;
+    }
   }
 }
