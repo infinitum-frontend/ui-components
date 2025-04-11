@@ -13,6 +13,7 @@ import {
 import { Loader } from '../Loader'
 import { Menu } from '../Menu'
 import { Popover } from '../Popover'
+import { Virtualizer } from '../Virtualizer'
 import SelectButton from './components/SelectButton'
 import SelectDropdownHint from './components/SelectDropdownHint'
 import SelectEmpty from './components/SelectEmpty'
@@ -197,14 +198,20 @@ const Select = <Multiple extends boolean = false>({
             }}
           />
         )}
+
         {filteredFlattenOptions.length > 0 ? (
-          <Menu
-            as="div"
+          <Virtualizer
             className="inf-select__options"
+            enabled={virtualized}
             data-testid="list"
+            count={filteredFlattenOptions.length}
+            estimateSize={() => 100}
+            overscan={5}
             maxHeight={maxHeight}
-          >
-            {filteredFlattenOptions.map((option, index) => {
+            renderRow={(virtualItem) => {
+              const { index } = virtualItem
+              const option = filteredFlattenOptions[index]
+
               return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
                 <Menu.Label key={String(option.groupLabel) + prefix}>
                   {option.groupLabel}
@@ -221,8 +228,8 @@ const Select = <Multiple extends boolean = false>({
                   {option.label}
                 </SelectOption>
               )
-            })}
-          </Menu>
+            }}
+          />
         ) : showDropdownLoader ? (
           <Loader />
         ) : (
@@ -235,3 +242,5 @@ const Select = <Multiple extends boolean = false>({
 }
 
 export default Select
+
+// TODO: debounce на filterValue

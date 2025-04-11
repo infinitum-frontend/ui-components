@@ -26,33 +26,22 @@ export const getFilteredGroupedOptions = (
   options: SelectOptions,
   filterValue: string
 ): SelectOptions => {
-  const filtered: SelectOptions = []
-
-  options.forEach((item) => {
-    const isGroup = isGroupOption(item)
-
-    if (isGroup) {
-      // Фильтруем опции внутри группы
-      // @ts-expect-error
-      const filteredInGroup = item.options.filter((option) =>
+  return options.reduce<SelectOptions>((acc, item) => {
+    if ('options' in item) {
+      const filteredInGroup = item.options.filter((option: SelectOption) =>
         filterOptionsFn(option, filterValue)
       )
       if (filteredInGroup.length) {
-        filtered.push({
+        acc.push({
           label: item.label,
           options: filteredInGroup
         })
       }
-    } else {
-      // Фильтруем обычную опцию
-      // @ts-expect-error
-      if (filterOptionsFn(item, filterValue)) {
-        filtered.push(item)
-      }
+    } else if (filterOptionsFn(item, filterValue)) {
+      acc.push(item)
     }
-  })
-
-  return filtered
+    return acc
+  }, [])
 }
 
 const filterOptionsFn = (
@@ -63,30 +52,20 @@ const filterOptionsFn = (
     typeof option.label === 'string'
       ? option.label
       : reactNodeToString(option.label)
-  return label.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+
+  const searchStr = filterValue.toLocaleLowerCase()
+  const labelStr = label.toLocaleLowerCase()
+
+  return labelStr.includes(searchStr)
 }
 
 export const getFlattenOptions = (options: SelectOptions): FlattenOption[] => {
-  const flatList: FlattenOption[] = []
-
-  options.forEach((item) => {
-    const isGroup = 'options' in item
-
-    if (isGroup) {
-      flatList.push(
-        ...[
-          {
-            groupLabel: item.label
-          },
-          ...item.options
-        ]
-      )
-    } else {
-      flatList.push(item)
+  return options.flatMap((item) => {
+    if ('options' in item) {
+      return [{ groupLabel: item.label }, ...item.options]
     }
+    return item
   })
-
-  return flatList
 }
 
 export const isGroupLabel = (option: FlattenOption): boolean => {

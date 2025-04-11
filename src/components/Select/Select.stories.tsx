@@ -132,12 +132,14 @@ export const Scrollable = {
 export const Virtualized = {
   render: SingleTemplate,
   args: {
-    options: Array.from({ length: 5000 }, (_, i) => ({
+    options: Array.from({ length: 1000 }, (_, i) => ({
       value: `value-${i}`,
       label: `Options-${i}`
     })),
     maxHeight: 200,
-    virtualized: true
+    virtualized: true,
+    filterable: true,
+    filterPlacement: 'inline'
   }
 }
 
