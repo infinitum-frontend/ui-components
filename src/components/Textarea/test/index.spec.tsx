@@ -1,10 +1,10 @@
-import { it, describe, expect, vi } from 'vitest'
-import { Textarea } from '../index'
 import { renderComponent } from '@/testSetup'
 import { act, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Form } from '../../Form'
+import { describe, expect, it, vi } from 'vitest'
 import { TextFieldClasses } from '../../../utils/textFieldClasses'
+import { Form } from '../../Form'
+import { Textarea } from '../index'
 
 const user = userEvent.setup()
 
@@ -30,17 +30,12 @@ describe('Textarea', () => {
       expect(el).toHaveStyle({ borderColor: 'var(--inf-color-border-error);' })
     })
 
-    it('should support full width', () => {
-      const { el } = renderComponent(<Textarea block={true} />)
-      expect(el.className).toContain('inf-textarea--block')
-      expect(el).toHaveStyle('width: 100%')
-    })
-
     it('should support placeholder', () => {
-      const placeholder = 'Введите значение'
-      const { el } = renderComponent(<Textarea placeholder={placeholder} />)
-      expect(el).toHaveProperty('placeholder')
-      expect((el as HTMLTextAreaElement).placeholder).toBe(placeholder)
+      const placeholder = 'Введите длинное значение'
+      renderComponent(<Textarea placeholder={placeholder} />)
+      const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+      expect(textarea).toHaveProperty('placeholder')
+      expect(textarea.placeholder).toBe(placeholder)
     })
 
     it('should call onInput', async () => {
@@ -51,8 +46,9 @@ describe('Textarea', () => {
         eventType = e.type
       })
 
-      const { el } = renderComponent(<Textarea onInput={onInput} />)
-      await user.type(el, 'inf')
+      renderComponent(<Textarea onInput={onInput} />)
+      const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+      await user.type(textarea, 'inf')
 
       expect(onInput).toBeCalled()
       expect(onInput).toHaveBeenCalledTimes(3)
@@ -68,8 +64,9 @@ describe('Textarea', () => {
         eventType = e.type
       })
 
-      const { el } = renderComponent(<Textarea onChange={onChange} />)
-      await user.type(el, 'inf')
+      renderComponent(<Textarea onChange={onChange} />)
+      const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+      await user.type(textarea, 'inf')
 
       expect(onChange).toBeCalled()
       expect(onChange).toHaveBeenCalledTimes(3)
@@ -111,26 +108,16 @@ describe('Textarea', () => {
 
   describe('resize', () => {
     it('should not resize by default', () => {
-      const { el } = renderComponent(<Textarea />)
-      expect(el).toHaveStyle('resize: none')
-    })
-
-    it('should support horizontal', () => {
-      const { el } = renderComponent(<Textarea resize={'horizontal'} />)
-      expect(el).toHaveStyle('resize: horizontal')
-      expect(el.className).contains('inf-textarea--resize-horizontal')
+      renderComponent(<Textarea />)
+      const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+      expect(textarea).toHaveStyle('resize: none')
     })
 
     it('should support vertical', () => {
-      const { el } = renderComponent(<Textarea resize={'vertical'} />)
-      expect(el).toHaveStyle('resize: vertical')
-      expect(el.className).contains('inf-textarea--resize-vertical')
-    })
-
-    it('should support both', () => {
-      const { el } = renderComponent(<Textarea resize={'both'} />)
-      expect(el).toHaveStyle('resize: both')
-      expect(el.className).contains('inf-textarea--resize-both')
+      const { el } = renderComponent(<Textarea resize />)
+      const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+      expect(textarea).toHaveStyle('resize: vertical')
+      expect(el.className).contains('inf-textarea--resize')
     })
   })
 
