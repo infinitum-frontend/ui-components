@@ -46,8 +46,9 @@ describe('Textarea', () => {
         eventType = e.type
       })
 
-      const { el } = renderComponent(<Textarea onInput={onInput} />)
-      await user.type(el, 'inf')
+      renderComponent(<Textarea onInput={onInput} />)
+      const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+      await user.type(textarea, 'inf')
 
       expect(onInput).toBeCalled()
       expect(onInput).toHaveBeenCalledTimes(3)
@@ -63,8 +64,9 @@ describe('Textarea', () => {
         eventType = e.type
       })
 
-      const { el } = renderComponent(<Textarea onChange={onChange} />)
-      await user.type(el, 'inf')
+      renderComponent(<Textarea onChange={onChange} />)
+      const textarea = screen.queryByRole('textbox') as HTMLTextAreaElement
+      await user.type(textarea, 'inf')
 
       expect(onChange).toBeCalled()
       expect(onChange).toHaveBeenCalledTimes(3)
