@@ -6,6 +6,7 @@ import {
 import { CSSProperties, ReactElement, useRef } from 'react'
 import ScrollArea from 'Components/ScrollArea'
 
+/**  */
 export interface VirtualizerProps
   extends Partial<VirtualizerOptions<HTMLElement, HTMLElement>> {
   maxHeight?: CSSProperties['maxHeight']
@@ -41,7 +42,6 @@ const Virtualizer = ({
     <ScrollArea
       viewportStyle={{
         maxHeight: maxHeightStyle || undefined,
-        height: maxHeightStyle || undefined,
         overflowAnchor: 'none'
       }}
       viewportRef={ref}
