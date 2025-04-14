@@ -18,4 +18,14 @@
     color: var(--inf-color-text-primary);
     border-bottom-color: var(--inf-color-background-brand-primary);
   }
+
+  &__arrow {
+    display: inline-flex;
+    margin-left: var(--inf-space-xsmall);
+  }
+
+  &__submenu-dropdown {
+    padding-top: var(--inf-space-xxsmall);
+    padding-bottom: var(--inf-space-xxsmall);
+  }
 }

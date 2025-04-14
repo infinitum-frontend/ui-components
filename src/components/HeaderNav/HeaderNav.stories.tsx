@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as React from 'react'
-import { StoryObj, StoryFn, Meta } from '@storybook/react'
-import { HeaderNav } from './index'
-import { Layout } from 'Components/Layout'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { Container } from 'Components/Container'
 import { Logo } from 'Components/Logo'
 import { Space } from 'Components/Space'
+import { Menu } from '../Menu'
+import { PageLayout } from '../PageLayout'
+import { HeaderNav } from './index'
 
 const meta: Meta<typeof HeaderNav> = {
   title: 'Components/HeaderNav',
@@ -37,9 +37,9 @@ export const Playground = {
 export const InLayout: StoryObj<typeof HeaderNav> = {
   render: (args) => {
     return (
-      <Layout>
-        <Layout.Header>
-          <Space direction="horizontal" gap="xxlarge">
+      <PageLayout>
+        <PageLayout.Header>
+          <Space direction="horizontal" gap="xxlarge" align="center">
             <Logo style={{ width: '126px' }} />
             <HeaderNav>
               <HeaderNav.Item>Последующий контроль</HeaderNav.Item>
@@ -48,8 +48,8 @@ export const InLayout: StoryObj<typeof HeaderNav> = {
               <HeaderNav.Item>Портфели</HeaderNav.Item>
             </HeaderNav>
           </Space>
-        </Layout.Header>
-        <Layout.Body>
+        </PageLayout.Header>
+        <PageLayout.Body>
           <Container>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
             recusandae ab nisi, quasi atque perferendis ex itaque. Molestiae ut,
@@ -64,11 +64,91 @@ export const InLayout: StoryObj<typeof HeaderNav> = {
             modi enim temporibus facilis, distinctio dignissimos! Magnam,
             deserunt.
           </Container>
-        </Layout.Body>
-      </Layout>
+        </PageLayout.Body>
+      </PageLayout>
     )
   },
+  parameters: {
+    layout: 'fullscreen',
+    backgrounds: { default: 'light' }
+  }
+}
 
+export const WithSubmenu: StoryObj<typeof HeaderNav> = {
+  render: (args) => {
+    return (
+      <PageLayout>
+        <PageLayout.Header>
+          <Space direction="horizontal" gap="xxlarge" align="center">
+            <Logo style={{ width: '126px' }} />
+            <HeaderNav {...args}>
+              <HeaderNav.Item as="a" href="https://specdep.ru/" target="_blank">
+                Главная
+              </HeaderNav.Item>
+              <HeaderNav.Item
+                active
+                submenu={({ close }) => (
+                  <Menu>
+                    <Menu.Item
+                      active
+                      as="a"
+                      href="https://specdep.ru/"
+                      onClick={close}
+                    >
+                      Активная ссылка
+                    </Menu.Item>
+                    <Menu.Item
+                      as="a"
+                      href="https://specdep.ru/kontakty/"
+                      onClick={close}
+                      disabled
+                    >
+                      Заблокированный пункт
+                    </Menu.Item>
+                    <Menu.Item
+                      onClick={() => {
+                        close()
+                        alert('клик не по ссылке')
+                      }}
+                    >
+                      Не ссылка, а кнопка
+                    </Menu.Item>
+                    <Menu.Item>
+                      Очень очень очень очень очень очень длинный текст
+                    </Menu.Item>
+                  </Menu>
+                )}
+              >
+                Второстепенная
+              </HeaderNav.Item>
+              <HeaderNav.Item onClick={() => alert('click on item')}>
+                Еще второстепенная
+              </HeaderNav.Item>
+              <HeaderNav.Item
+                onClick={() => alert('click on item')}
+                submenu={({ close }) => (
+                  <Menu maxHeight={200}>
+                    <Menu.Item>Один</Menu.Item>
+                    <Menu.Item>Два</Menu.Item>
+                    <Menu.Item>Три</Menu.Item>
+                    <Menu.Item>Четыре</Menu.Item>
+                    <Menu.Item>Пять</Menu.Item>
+                    <Menu.Item>Шесть</Menu.Item>
+                    <Menu.Item>Семь</Menu.Item>
+                    <Menu.Item>Восемь</Menu.Item>
+                    <Menu.Item>Девять</Menu.Item>
+                    <Menu.Item>Десять</Menu.Item>
+                  </Menu>
+                )}
+              >
+                Много пунктов меню
+              </HeaderNav.Item>
+            </HeaderNav>
+          </Space>
+        </PageLayout.Header>
+      </PageLayout>
+    )
+  },
   parameters: {
     layout: 'fullscreen',
     backgrounds: { default: 'light' }

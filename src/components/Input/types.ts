@@ -20,6 +20,7 @@ export interface BaseInputProps
   /**
    * Размер скруглений
    * @default unset
+   * @deprecated
    */
   borderRadius?: 'unset' | 'regular'
   /** Состояние недоступности */
