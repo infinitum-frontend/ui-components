@@ -6,21 +6,21 @@ import {
 import { CSSProperties, ReactElement, useRef } from 'react'
 import ScrollArea from 'Components/ScrollArea'
 
-/**  */
+/** https://tanstack.com/virtual/latest/docs/api/virtualizer */
 export interface VirtualizerProps
   extends Partial<VirtualizerOptions<HTMLElement, HTMLElement>> {
   maxHeight?: CSSProperties['maxHeight']
   renderRow: (virtualItem: VirtualItem) => ReactElement
-  count: number
+  count: VirtualizerOptions<HTMLElement, HTMLElement>['count']
   estimateSize: VirtualizerOptions<HTMLElement, HTMLElement>['estimateSize']
 }
 
 const Virtualizer = ({
   count,
   estimateSize,
-  overscan,
   maxHeight,
-  renderRow
+  renderRow,
+  ...props
 }: VirtualizerProps): ReactElement => {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -28,7 +28,7 @@ const Virtualizer = ({
     count,
     getScrollElement: () => ref.current,
     estimateSize,
-    overscan
+    ...props
   })
 
   const maxHeightStyle =
