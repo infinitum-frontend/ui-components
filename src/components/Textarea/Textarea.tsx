@@ -113,6 +113,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         className,
         {
           'inf-textarea--resize': resize,
+          'inf-textarea--with-prefix': Boolean(prefix),
           [TextFieldClasses.disabled]: disabled,
           [TextFieldClasses.readonly]: readOnly,
           [TextFieldClasses.status.error]: hasError

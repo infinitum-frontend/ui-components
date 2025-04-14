@@ -29,8 +29,8 @@ const elements = Array.from({ length: 100 }, (_, i) => ({
             reiciendis pariatur quod aliquam iusto tenetur incidunt fugit
             exercitationem quos sed eius itaque laboriosam? Dolor nihil itaque
             iusto eum ad sapiente eligendi eos. ${i}`
-      : `Element ${i}`,
-  color: i % 2 === 0 ? 'success' : 'violet'
+      : `fugit eos quia cum quo necessitatibus voluptatibus ${i}`,
+  color: i % 2 === 0 ? 'success' : 'error'
 }))
 
 export const Playground: StoryObj<typeof Virtualizer> = {
@@ -40,14 +40,16 @@ export const Playground: StoryObj<typeof Virtualizer> = {
         count={elements.length}
         estimateSize={() => 100}
         overscan={5}
-        maxHeight="200px"
+        maxHeight="300px"
         renderRow={(virtualItem) => {
           const { index } = virtualItem
           return (
             <Text
               style={{
                 backgroundColor:
-                  elements[index].color === 'success' ? 'green' : 'purple'
+                  elements[index].color === 'success'
+                    ? 'var(--inf-color-background-tertiary)'
+                    : 'var(--inf-color-background-primary)'
               }}
             >
               {elements[index].name}

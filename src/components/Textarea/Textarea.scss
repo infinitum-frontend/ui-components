@@ -32,7 +32,9 @@
     }
 
     .inf-textarea__prefix {
-      padding-top: var(--inf-space-xsmall);
+      padding-top: calc(
+        var(--inf-space-xsmall) - 1px
+      ); // костыль правим паддинг, чтобы иконка была ровно с текстом
       padding-left: var(--inf-space-small);
       padding-bottom: var(--inf-space-xsmall);
     }
@@ -44,9 +46,17 @@
     }
 
     .inf-textarea__prefix {
-      padding-top: var(--inf-space-xxsmall);
+      padding-top: calc(
+        var(--inf-space-xxsmall) - 1px
+      ); // костыль правим паддинг, чтобы иконка была ровно с текстом
       padding-left: var(--inf-space-small);
       padding-bottom: var(--inf-space-xxsmall);
+    }
+  }
+
+  &--with-prefix {
+    textarea {
+      padding-left: var(--inf-space-xsmall);
     }
   }
 

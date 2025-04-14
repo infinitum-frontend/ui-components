@@ -38,6 +38,8 @@
   &__icon {
     display: inline-flex;
     color: var(--inf-color-icon-primary);
+    padding: var(--inf-space-xxsmall);
+    margin: calc(var(--inf-space-xsmall) * -1);
 
     svg {
       width: 16px;
@@ -49,8 +51,9 @@
     display: flex;
     color: var(--inf-color-icon-primary);
     cursor: pointer;
-    padding: 6px;
-    margin: -6px;
+    padding: var(--inf-space-xxsmall);
+    margin: calc(var(--inf-space-xsmall) * -1);
+    margin-left: calc(var(--inf-space-xxsmall) * -1);
     transition: color 0.2s;
 
     &:disabled {
@@ -59,6 +62,8 @@
 
     @include hover {
       color: var(--inf-color-icon-primary-hover);
+      background-color: var(--inf-color-background-tertiary-hover);
+      border-radius: var(--inf-border-radius-small);
     }
 
     svg {
