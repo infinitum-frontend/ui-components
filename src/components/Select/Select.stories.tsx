@@ -125,7 +125,7 @@ export const Scrollable = {
   render: SingleTemplate,
   args: {
     options: SelectLongOptions,
-    maxItemsCount: 5
+    maxHeight: 200
   }
 }
 
@@ -249,7 +249,7 @@ export const WithDropdownHint = {
   render: SingleTemplate,
   args: {
     options: SelectLongOptions,
-    maxItemsCount: 5,
+    maxHeight: 200,
     dropdownHint: 'Текст подсказки'
   }
 }

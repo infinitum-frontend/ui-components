@@ -56,13 +56,9 @@ export interface SelectProps<Multiple extends boolean = false>
   filterPlacement?: 'inline' | 'dropdown'
   /** Дополнительный className */
   className?: string
-  /** Максимальное количество отображаемых элементов, после которого начинается скролл
-   * @deprecated use maxHeight
-   */
+  /** Максимальное количество отображаемых элементов, после которого начинается скролл */
   maxItemsCount?: number
-  /**
-   * Максимальная высота контента, после которой начинается скролл
-   */
+  /** Максимальная высота контента, после которой начинается скролл */
   maxHeight?: number
   /** Виртуализация списка опций */
   virtualized?: boolean
