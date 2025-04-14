@@ -56,11 +56,10 @@ const SingleTemplate: StoryFn<typeof Select> = (args) => {
 }
 
 const MultipleTemplate: StoryFn<typeof Select> = (args) => {
-  const [value, setValue] = useState<string[]>([])
+  const [value, setValue] = useState<SelectValue[]>([])
 
   const handleChange = (selectedOptions: SelectOption[]): void => {
-    // TODO: избиваться от приведение типов number / string (generic на value?)
-    setValue(selectedOptions.map((option) => String(option.value)))
+    setValue(selectedOptions.map((option) => option.value))
   }
 
   // TODO: helper?
