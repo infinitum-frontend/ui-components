@@ -16,6 +16,7 @@ import './HeaderNavItem.scss'
 export interface HeaderNavItemProps {
   active?: boolean
   submenu?: ReactNode | ((props: { close: () => void }) => ReactNode)
+  submenuTriggerType?: 'hover' | 'click'
 }
 
 function BaseHeaderNavItem<C extends ElementType = 'a'>(
@@ -28,6 +29,7 @@ function BaseHeaderNavItem<C extends ElementType = 'a'>(
     as = 'a',
     active = false,
     submenu,
+    submenuTriggerType = 'click',
     ...rest
   } = props
 
@@ -50,6 +52,7 @@ function BaseHeaderNavItem<C extends ElementType = 'a'>(
         offset={{
           mainAxis: 4
         }}
+        trigger={submenuTriggerType}
       >
         <Popover.Trigger>
           <Component

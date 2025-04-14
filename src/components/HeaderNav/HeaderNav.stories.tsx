@@ -87,6 +87,7 @@ export const WithSubmenu: StoryObj<typeof HeaderNav> = {
               </HeaderNav.Item>
               <HeaderNav.Item
                 active
+                submenuTriggerType="hover"
                 submenu={({ close }) => (
                   <Menu>
                     <Menu.Item
@@ -119,7 +120,7 @@ export const WithSubmenu: StoryObj<typeof HeaderNav> = {
                   </Menu>
                 )}
               >
-                Второстепенная
+                Второстепенная (hover)
               </HeaderNav.Item>
               <HeaderNav.Item onClick={() => alert('click on item')}>
                 Еще второстепенная
@@ -141,7 +142,7 @@ export const WithSubmenu: StoryObj<typeof HeaderNav> = {
                   </Menu>
                 )}
               >
-                Много пунктов меню
+                Много пунктов меню (click)
               </HeaderNav.Item>
             </HeaderNav>
           </Space>
