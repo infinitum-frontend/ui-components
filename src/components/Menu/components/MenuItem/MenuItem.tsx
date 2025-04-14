@@ -5,12 +5,13 @@ import useMenuContext from 'Components/Menu/context/useMenuContext'
 import TriangleIcon from 'Icons/sort.svg?react'
 import {
   ElementType,
+  forwardRef,
   MouseEventHandler,
   ReactElement,
   ReactNode,
   useState
 } from 'react'
-import { PolymorphicComponent } from '~/src/utils/types'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import MenuItemButton from '../MenuItemButton'
 import MenuItemContent from '../MenuItemContent'
 import MenuItemIcon from '../MenuItemIcon'
@@ -31,18 +32,21 @@ export interface MenuItemProps {
   highlighted?: boolean // TODO: сделать active, а active переименовать в selected? или это одно и то же?
 }
 
-const MenuItem = <C extends ElementType = 'li'>({
-  children,
-  disabled = false,
-  collapsible = false,
-  active = false,
-  highlighted,
-  collapsedContent,
-  className,
-  onClick,
-  as,
-  ...props
-}: PolymorphicComponent<C, MenuItemProps>): ReactElement => {
+function BaseMenuItem<C extends ElementType = 'li'>(
+  {
+    children,
+    disabled = false,
+    collapsible = false,
+    active = false,
+    highlighted,
+    collapsedContent,
+    className,
+    onClick,
+    as,
+    ...props
+  }: PolymorphicComponent<C, MenuItemProps>,
+  ref: PolymorphicRef<C>
+): ReactElement {
   const [collapsed, setCollapsed] = useState(true)
   const Component = as || 'li'
 
@@ -56,6 +60,7 @@ const MenuItem = <C extends ElementType = 'li'>({
     return (
       <Component
         {...props}
+        ref={ref}
         className={cn('inf-menu-item', className, {
           'inf-menu-item--disabled': disabled,
           'inf-menu-item--active': active,
@@ -75,6 +80,7 @@ const MenuItem = <C extends ElementType = 'li'>({
     <div>
       <Component
         {...props}
+        ref={ref}
         className={cn('inf-menu-item', {
           'inf-menu-item--disabled': disabled,
           'inf-menu-item--nested': context?.nested
@@ -101,6 +107,8 @@ const MenuItem = <C extends ElementType = 'li'>({
     </div>
   )
 }
+
+const MenuItem = forwardRef(BaseMenuItem)
 
 export default Object.assign(MenuItem, {
   Icon: MenuItemIcon,

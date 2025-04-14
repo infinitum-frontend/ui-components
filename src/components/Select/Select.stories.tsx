@@ -200,14 +200,14 @@ export const Loading = {
 export const FormValidation = {
   render: () => {
     const [singleValue, setSingleValue] = useState<SelectValue>()
-    const [multipleValue, setMultipleValue] = useState<string[]>([])
+    const [multipleValue, setMultipleValue] = useState<SelectValue[]>([])
 
     const handleSingleChange = (selectedOption: SelectOption): void => {
       setSingleValue(selectedOption?.value)
     }
 
     const handleMultipleChange = (selectedOptions: SelectOption[]): void => {
-      setMultipleValue(selectedOptions.map((option) => String(option.value)))
+      setMultipleValue(selectedOptions.map((option) => option.value))
     }
 
     const handleSubmit = (): void => {
@@ -562,7 +562,7 @@ export const CustomControl = {
           options={SelectBaseOptions}
           value={value}
           onChange={handleChange}
-          popoverWidth="300"
+          popoverWidth="300px"
           renderControl={({
             isOpen,
             displayValue,

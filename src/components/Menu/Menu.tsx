@@ -1,11 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ElementType, ReactElement } from 'react'
-import { PolymorphicComponent } from '~/src/utils/types'
 import cn from 'classnames'
+import { ElementType, forwardRef, ReactElement } from 'react'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import './Menu.scss'
-import MenuContext from './context/MenuContext'
 import MenuItem from './components/MenuItem'
 import MenuLabel from './components/MenuLabel'
+import MenuContext from './context/MenuContext'
 
 export interface MenuProps {
   /** Является ли список вложенным в другой. Устанавливает дополнительные оступы элементам */
@@ -22,18 +21,21 @@ export interface MenuProps {
   gap?: 'unset' | 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 }
 
-const Menu = <C extends ElementType = 'ul'>({
-  as,
-  nested = false,
-  gap = 'unset',
-  disablePadding = false,
-  maxHeight,
-  style,
-  borderRadius = 'unset',
-  className,
-  children,
-  ...props
-}: PolymorphicComponent<C, MenuProps>): ReactElement => {
+function BaseMenu<C extends ElementType = 'ul'>(
+  {
+    as,
+    nested = false,
+    gap = 'unset',
+    disablePadding = false,
+    maxHeight,
+    style,
+    borderRadius = 'unset',
+    className,
+    children,
+    ...props
+  }: PolymorphicComponent<C, MenuProps>,
+  ref: PolymorphicRef<C>
+): ReactElement {
   const Component = as || 'ul'
   const context = { nested, borderRadius, disablePadding }
 
@@ -41,6 +43,7 @@ const Menu = <C extends ElementType = 'ul'>({
     <MenuContext.Provider value={context}>
       <Component
         {...props}
+        ref={ref}
         className={cn(className, 'inf-menu', `inf-menu--gap-${gap as string}`, {
           'inf-menu--scrollable': maxHeight
         })}
@@ -54,6 +57,8 @@ const Menu = <C extends ElementType = 'ul'>({
     </MenuContext.Provider>
   )
 }
+
+const Menu = forwardRef(BaseMenu)
 
 /** Список элементов меню */
 export default Object.assign(Menu, {

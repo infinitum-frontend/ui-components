@@ -1,3 +1,4 @@
+import { useVirtualizer } from '@tanstack/react-virtual'
 import cn from 'classnames'
 import FormContext from 'Components/Form/context/form'
 import FormGroupContext from 'Components/Form/context/group'
@@ -7,13 +8,12 @@ import {
   ReactElement,
   useContext,
   useEffect,
-  useId,
+  useRef,
   useState
 } from 'react'
 import { Loader } from '../Loader'
 import { Menu } from '../Menu'
 import { Popover } from '../Popover'
-import { Virtualizer } from '../Virtualizer'
 import SelectButton from './components/SelectButton'
 import SelectDropdownHint from './components/SelectDropdownHint'
 import SelectEmpty from './components/SelectEmpty'
@@ -23,7 +23,10 @@ import SelectOption from './components/SelectOption'
 import useSelect from './hooks/useSelect'
 import useSelectOptions from './hooks/useSelectOptions'
 import './Select.scss'
-import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
+import {
+  SELECT_DROPDOWN_SELECTOR,
+  SELECT_OPTION_HEIGHT
+} from './utils/constants'
 import { SelectOption as SelectOptionType, SelectProps } from './utils/types'
 
 const Select = <Multiple extends boolean = false>({
@@ -57,7 +60,7 @@ const Select = <Multiple extends boolean = false>({
 }: SelectProps<Multiple>): ReactElement => {
   const [filterValue, setFilterValue] = useState('')
 
-  const prefix = useId()
+  const listRef = useRef(null)
 
   const formGroupContext = useContext(FormGroupContext)
   const formContext = useContext(FormContext)
@@ -133,6 +136,17 @@ const Select = <Multiple extends boolean = false>({
 
   const showDropdownLoader = loading && loaderPlacement === 'dropdown'
 
+  const virtualizer = useVirtualizer({
+    count: filteredFlattenOptions.length,
+    getScrollElement: () => listRef.current,
+    estimateSize: () => SELECT_OPTION_HEIGHT,
+    enabled: virtualized,
+    overscan: 10
+  })
+  // TODO: нужно ли сбрасывать скролл до старта после закрытия всплывающего окна? Сейчас не сбрасывается
+  const virtualizedListTotalHeight = virtualizer.getTotalSize()
+  const virtualizedListItems = virtualizer.getVirtualItems()
+
   return (
     <Popover
       open={isOpen}
@@ -200,36 +214,60 @@ const Select = <Multiple extends boolean = false>({
         )}
 
         {filteredFlattenOptions.length > 0 ? (
-          <Virtualizer
+          <Menu
+            ref={listRef}
+            as="div"
             className="inf-select__options"
-            enabled={virtualized}
-            data-testid="list"
-            count={filteredFlattenOptions.length}
-            estimateSize={() => 100}
-            overscan={5}
             maxHeight={maxHeight}
-            renderRow={(virtualItem) => {
-              const { index } = virtualItem
-              const option = filteredFlattenOptions[index]
-
-              return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
-                <Menu.Label key={String(option.groupLabel) + prefix}>
-                  {option.groupLabel}
-                </Menu.Label>
-              ) : (
-                <SelectOption
-                  key={String(option.value) + prefix}
-                  selected={checkOptionSelection(option)}
-                  selectionIndicator={multiple ? 'checkbox' : 'tick'}
-                  onSelect={() => {
-                    handleOptionSelect(option)
-                  }}
-                >
-                  {option.label}
-                </SelectOption>
-              )
-            }}
-          />
+          >
+            <div
+              style={{
+                height: `${virtualizedListTotalHeight}px`,
+                width: '100%',
+                position: 'relative'
+              }}
+            >
+              <ul
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  transform: `translateY(${
+                    virtualizedListItems[0]?.start ?? 0
+                  }px)`
+                }}
+              >
+                {virtualizedListItems.map((virtualItem) => {
+                  const { index } = virtualItem
+                  const option = filteredFlattenOptions[index]
+                  const key = virtualItem.key.toString()
+                  return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
+                    <Menu.Label
+                      key={key}
+                      data-index={index}
+                      ref={virtualizer.measureElement}
+                    >
+                      {option.groupLabel}
+                    </Menu.Label>
+                  ) : (
+                    <SelectOption
+                      key={key}
+                      data-index={index}
+                      ref={virtualizer.measureElement}
+                      selected={checkOptionSelection(option)}
+                      selectionIndicator={multiple ? 'checkbox' : 'tick'}
+                      onSelect={() => {
+                        handleOptionSelect(option)
+                      }}
+                    >
+                      {option.label}
+                    </SelectOption>
+                  )
+                })}
+              </ul>
+            </div>
+          </Menu>
         ) : showDropdownLoader ? (
           <Loader />
         ) : (
