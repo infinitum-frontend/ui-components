@@ -13,9 +13,7 @@ export interface VirtualizerProps
   renderRow: (virtualItem: VirtualItem) => ReactElement
   count: VirtualizerOptions<HTMLElement, HTMLElement>['count']
   estimateSize: VirtualizerOptions<HTMLElement, HTMLElement>['estimateSize']
-  enabled?: boolean
   className?: string
-  'data-testid'?: string
 }
 
 const Virtualizer = ({
@@ -23,6 +21,7 @@ const Virtualizer = ({
   estimateSize,
   maxHeight,
   renderRow,
+  className,
   ...props
 }: VirtualizerProps): ReactElement => {
   const ref = useRef<HTMLDivElement>(null)
@@ -43,13 +42,12 @@ const Virtualizer = ({
 
   return (
     <ScrollArea
-      // className={className}
+      className={className}
       viewportStyle={{
         maxHeight: maxHeightStyle || undefined,
         overflowAnchor: 'none'
       }}
       viewportRef={ref}
-      // data-testid={dataTestid}
     >
       <div
         style={{
