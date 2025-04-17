@@ -41,6 +41,7 @@ const Select = <Multiple extends boolean = false>({
   loading,
   loaderPlacement = 'inline',
   placeholder = 'Выберите значение',
+  filterPlaceholder = 'Найти',
   size,
   filterPlacement = 'dropdown',
   emptyMessage = 'Ничего не найдено',
@@ -205,6 +206,7 @@ const Select = <Multiple extends boolean = false>({
       >
         {filterable && filterPlacement === 'dropdown' && (
           <SelectFilterInput
+            placeholder={filterPlaceholder}
             value={filterValue}
             onChange={handleFilterChange}
             onClear={() => {
@@ -281,4 +283,6 @@ const Select = <Multiple extends boolean = false>({
 
 export default Select
 
-// TODO: debounce на filterValue
+// TODO:
+// debounce на filterValue
+// нужен ли автофокус на поле фильтрации в dropdown?

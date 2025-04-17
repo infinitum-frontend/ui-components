@@ -4,11 +4,13 @@ import { Icon } from '~/src/components/Icon'
 import { Input, InputProps } from '~/src/components/Input'
 import './SelectFilterInput.scss'
 
-export interface SelectFilterInputProps extends InputProps {}
+export interface SelectFilterInputProps extends InputProps {
+  placeholder?: string
+}
 
 /** Поле ввода для фильтрации опций */
 const SelectFilterInput = forwardRef<HTMLInputElement, SelectFilterInputProps>(
-  ({ ...props }, ref): ReactElement => {
+  ({ placeholder, ...props }, ref): ReactElement => {
     return (
       <div className="select-filter-input-wrapper">
         <Input
@@ -20,7 +22,7 @@ const SelectFilterInput = forwardRef<HTMLInputElement, SelectFilterInputProps>(
           }
           ref={ref}
           size="small"
-          placeholder="Найти"
+          placeholder={placeholder}
           autoComplete="off"
           disableFormContextValidation
           allowClear={true}
