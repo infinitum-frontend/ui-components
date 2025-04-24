@@ -86,7 +86,7 @@ const useSelect = <Multiple extends boolean = false>({
   // let displayValue = defaultSelectItem.label
   let displayValue = ''
   if (!multiple && hasSelectedValue) {
-    displayValue = selectedOptions[0].label
+    displayValue = selectedOptions[0]?.label
   }
 
   // TODO: useMemo?
