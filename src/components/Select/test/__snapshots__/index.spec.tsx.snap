@@ -2,32 +2,49 @@
 
 exports[`select > render > should match snapshot 1`] = `
 <button
-  class="inf-select-button inf-text-field inf-text-field--br-regular inf-select-button--placeholder inf-select"
+  aria-expanded="false"
+  aria-haspopup="dialog"
+  class="inf-select-button inf-select inf-text-field inf-text-field--br-regular inf-text-field--size-medium"
+  data-popover-state="closed"
   tabindex="-1"
-  title="Не указано"
   type="button"
 >
-  <span
-    class="inf-select-button__arrow"
+  <div
+    class="inf-select-button__content"
   >
-    <svg
-      fill="none"
-      height="24"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      class="inf-select-button__placeholder"
+      title="Выберите значение"
     >
-      <path
-        d="M6 9L11.2929 14.2929C11.6262 14.6262 11.7929 14.7929 12 14.7929C12.2071 14.7929 12.3738 14.6262 12.7071 14.2929L18 9"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.5"
-      />
-    </svg>
-  </span>
-  Не указано
-  <select>
+      Выберите значение
+    </div>
+  </div>
+  <div
+    class="inf-select-button__after"
+  >
+    <span
+      class="inf-select-arrow"
+    >
+      <svg
+        fill="none"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 9L11.2929 14.2929C11.6262 14.6262 11.7929 14.7929 12 14.7929C12.2071 14.7929 12.3738 14.6262 12.7071 14.2929L18 9"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+      </svg>
+    </span>
+  </div>
+  <select
+    class="inf-select-native-element"
+  >
     <option
       value=""
     />
