@@ -6,3 +6,5 @@ export const defaultSelectItem: SelectOption = {
   value: -1, // TODO: null?
   label: 'Не указано'
 }
+
+export const SELECT_OPTION_HEIGHT = 36

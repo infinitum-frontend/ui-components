@@ -12,15 +12,15 @@ const useSelectOptions = ({
     return filterable && filterValue && !customFiltering
       ? getFilteredGroupedOptions(optionsProp, filterValue)
       : optionsProp
-  }, [filterValue, filterable, optionsProp])
+  }, [filterValue, filterable, optionsProp, customFiltering])
 
   const filteredFlatten = React.useMemo(() => {
     return getFlattenOptions(filtered)
-  }, [filterValue, filterable, filtered])
+  }, [filtered])
 
   const flatten = React.useMemo(() => {
     return getFlattenOptions(optionsProp)
-  }, [filterValue, filterable, optionsProp])
+  }, [optionsProp])
 
   return {
     filteredFlattenOptions: filteredFlatten,

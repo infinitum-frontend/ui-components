@@ -35,6 +35,8 @@ export interface SelectProps<Multiple extends boolean = false>
   loaderPlacement?: 'inline' | 'dropdown'
   /** Placeholder, если нет выбранного значения */
   placeholder?: string
+  /** Placeholder для поля фильтрации */
+  filterPlaceholder?: string
   /** Размер SelectButton */
   size?: InputProps['size']
   /** Слот для размещения элемента (иконки) слева */
@@ -58,6 +60,10 @@ export interface SelectProps<Multiple extends boolean = false>
   className?: string
   /** Максимальное количество отображаемых элементов, после которого начинается скролл */
   maxItemsCount?: number
+  /** Максимальная высота контента, после которой начинается скролл */
+  maxHeight?: number
+  /** Виртуализация списка опций */
+  virtualized?: boolean
   /** Текст сообщения, если нет опций */
   emptyMessage?: string
   /** Текст подсказки во всплывающем окне */
