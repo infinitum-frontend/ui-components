@@ -116,22 +116,24 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
       return [
         {
           id: 'checkbox',
-          size: 20,
+          size: 49,
           header: ({ table }) => {
             return (
-              <Checkbox
-                checked={Boolean(table.getIsAllRowsSelected())}
-                indeterminate={table.getIsSomeRowsSelected()}
-                onClick={(e) => e.stopPropagation()}
-                onChange={(value, e) =>
-                  table.getToggleAllRowsSelectedHandler().call({}, e)
-                }
-              />
+              <div className="inf-table__checkbox-cell-wrapper">
+                <Checkbox
+                  checked={Boolean(table.getIsAllRowsSelected())}
+                  indeterminate={table.getIsSomeRowsSelected()}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={(value, e) =>
+                    table.getToggleAllRowsSelectedHandler().call({}, e)
+                  }
+                />
+              </div>
             )
           },
           cell: ({ row }) => {
             return (
-              <div>
+              <div className="inf-table__checkbox-cell-wrapper">
                 <Checkbox
                   checked={row.getIsSelected()}
                   indeterminate={row.getIsSomeSelected()}
