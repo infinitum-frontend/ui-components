@@ -110,6 +110,9 @@ const Select = <Multiple extends boolean = false>({
   }
 
   const handleFilterChange = (filterValue: string): void => {
+    if (!filterable) {
+      return
+    }
     setFilterValue(filterValue)
     // поиск обрабатывается снаружи
     if (onFilterChange) {
@@ -140,9 +143,10 @@ const Select = <Multiple extends boolean = false>({
     count: filteredFlattenOptions.length,
     getScrollElement: () => listRef.current,
     estimateSize: () => SELECT_OPTION_HEIGHT,
-    enabled: virtualized,
+    enabled: virtualized && isOpen,
     overscan: 10
   })
+
   // TODO: нужно ли сбрасывать скролл до старта после закрытия всплывающего окна? Сейчас не сбрасывается
   const virtualizedListTotalHeight = virtualizer.getTotalSize()
   const virtualizedListItems = virtualizer.getVirtualItems()
