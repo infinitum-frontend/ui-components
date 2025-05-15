@@ -17,6 +17,10 @@
     }
   }
 
+  &__checkbox-cell-wrapper {
+    display: flex;
+  }
+
   $vertical-align-values: (
     'baseline',
     'bottom',
