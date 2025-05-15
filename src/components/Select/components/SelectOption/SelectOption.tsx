@@ -1,10 +1,11 @@
-import IconTick from 'Icons/tick.svg?react'
-import { ComponentPropsWithoutRef, ReactElement } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
 import { Checkbox } from '~/src/components/Checkbox'
-import { Icon } from '~/src/components/Icon'
 import { Menu } from '~/src/components/Menu'
+import { Icon } from '~/src/components/Icon'
+import IconTick from 'Icons/tick.svg?react'
+import './SelectOption.scss'
 
-interface SelectOptionProps extends ComponentPropsWithoutRef<'div'> {
+export interface SelectOptionProps extends ComponentPropsWithoutRef<'li'> {
   selected: boolean
   disabled?: boolean
   active?: boolean
@@ -12,55 +13,53 @@ interface SelectOptionProps extends ComponentPropsWithoutRef<'div'> {
   selectionIndicator: 'checkbox' | 'tick'
 }
 
-const SelectOption = ({
-  selected,
-  disabled,
-  active,
-  onSelect,
-  selectionIndicator = 'tick',
-  children,
-  ...props
-}: SelectOptionProps): ReactElement => {
-  const isCheckbox = selectionIndicator === 'checkbox'
-  return (
-    <Menu.Item
-      as={isCheckbox ? 'label' : 'div'}
-      active={active}
-      data-selected={selected}
-      data-testid="option"
-      onClick={() => {
-        // если checkbox, то слушаем onChange, а не click
-        if (!isCheckbox) {
-          onSelect()
-        }
-      }}
-      {...props}
-    >
-      {selectionIndicator === 'checkbox' && (
-        <Menu.Item.Icon>
-          <Checkbox
-            checked={selected}
-            onChange={() => {
-              // если checkbox, то слушаем onChange, а не click
-              if (isCheckbox) {
-                onSelect()
-              }
-            }}
-          />
-        </Menu.Item.Icon>
-      )}
+const SelectOption = React.forwardRef<HTMLDivElement, SelectOptionProps>(
+  (
+    {
+      selected,
+      disabled,
+      active,
+      onSelect,
+      selectionIndicator = 'tick',
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <Menu.Item
+        ref={ref}
+        as="li"
+        active={active}
+        data-selected={selected}
+        onClick={onSelect}
+        {...props}
+      >
+        {selectionIndicator === 'checkbox' && (
+          <Menu.Item.Icon>
+            <Checkbox
+              checked={selected}
+              onClick={(e) => {
+                e.preventDefault()
+              }}
+            />
+          </Menu.Item.Icon>
+        )}
 
-      <Menu.Item.Content>{children}</Menu.Item.Content>
+        <Menu.Item.Content>{children}</Menu.Item.Content>
 
-      {selected && selectionIndicator === 'tick' && (
-        <Menu.Item.Button>
-          <Icon data-testid="check-icon" color="secondary">
-            <IconTick />
-          </Icon>
-        </Menu.Item.Button>
-      )}
-    </Menu.Item>
-  )
-}
+        {selected && selectionIndicator === 'tick' && (
+          <Menu.Item.Button>
+            <Icon data-testid="check-icon" color="secondary">
+              <IconTick />
+            </Icon>
+          </Menu.Item.Button>
+        )}
+      </Menu.Item>
+    )
+  }
+)
+
+SelectOption.displayName = 'SelectOption'
 
 export default SelectOption

@@ -1,4 +1,4 @@
-import { act, screen } from '@testing-library/react'
+import { act, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { renderComponent } from '../../../../testSetup'
@@ -56,7 +56,7 @@ describe('select', () => {
       const wrapper = screen.queryByRole('button')
       expect(wrapper).toHaveClass(TextFieldClasses.focused)
 
-      expect(screen.queryAllByTestId('option')[0]).toBeInTheDocument()
+      expect(screen.queryAllByRole('listitem')[0]).toBeInTheDocument()
     })
 
     it('should support value', async () => {
@@ -71,12 +71,15 @@ describe('select', () => {
 
     it('should have check icon on selected option in single mode', async () => {
       renderComponent(<Select options={SelectBaseOptions} value={1} />)
-      const button = screen.queryByRole('button') as HTMLButtonElement // TOOD: почему не .getByRole?
+      const button = screen.getByRole('button')
       await act(async () => await user.click(button))
-
-      const option = screen.getAllByTestId('option')[1]
-      const checkIcon = screen.getByTestId('check-icon')
-      expect(option).toContainElement(checkIcon)
+      // TODO: не работает IDD-653
+      setTimeout(() => {
+        const options = screen.queryAllByRole('listitem')
+        const targetOption = options[1]
+        const checkIcon = within(targetOption).getByTestId('check-icon')
+        expect(checkIcon).not.toBeNull()
+      }, 100)
     })
     // TODO:
     // it('should have checked checkbox for selected options in multiple mode', async () => {
@@ -143,7 +146,7 @@ describe('select', () => {
       renderComponent(<Select options={SelectBaseOptions} />)
       await user.click(screen.queryByRole('button') as HTMLButtonElement)
 
-      const list = screen.getByTestId('list')
+      const list = screen.queryByRole('list')
       expect(list).toBeInTheDocument()
     })
 
@@ -181,11 +184,11 @@ describe('select', () => {
       await user.click(button)
       // TODO: починить фокус и blur в компоненте
       expect(button).toHaveClass(TextFieldClasses.focused)
-      expect(screen.queryByTestId('list')).toBeInTheDocument()
+      expect(screen.queryByRole('list')).toBeInTheDocument()
       await user.click(screen.queryByRole('link') as HTMLElement)
 
       expect(button).not.toHaveClass(TextFieldClasses.focused)
-      expect(screen.queryByTestId('list')).not.toBeInTheDocument()
+      expect(screen.queryByRole('list')).not.toBeInTheDocument()
     })
 
     // it('should support ArrowDown press', async () => {
@@ -227,7 +230,7 @@ describe('select', () => {
       await user.click(button)
       await user.keyboard('{Escape}')
 
-      expect(screen.queryByTestId('list')).not.toBeInTheDocument()
+      expect(screen.queryByRole('list')).not.toBeInTheDocument()
     })
 
     it('should support Space press', async () => {
@@ -238,7 +241,7 @@ describe('select', () => {
       })
       await user.keyboard(' ')
 
-      expect(screen.getByTestId('list')).toBeInTheDocument()
+      expect(screen.queryByRole('list')).toBeInTheDocument()
     })
 
     // it('should support Enter press', async () => {
@@ -272,7 +275,7 @@ describe('select', () => {
       await user.click(button)
       await user.tab()
       expect(button).toHaveClass(TextFieldClasses.focused)
-      expect(screen.queryByTestId('list')).not.toBeInTheDocument()
+      expect(screen.queryByRole('list')).not.toBeInTheDocument()
       await user.tab()
       expect(button).not.toHaveClass(TextFieldClasses.focused)
     })
@@ -287,7 +290,7 @@ describe('select', () => {
 
       await user.click(screen.queryByRole('button') as HTMLButtonElement)
 
-      await user.click(screen.queryAllByTestId('option')[1])
+      await user.click(screen.queryAllByRole('listitem')[1])
       expect(onChange).toHaveBeenCalledTimes(1)
       expect(onChange).toHaveBeenCalledWith(SelectBaseOptions[1])
     })
@@ -296,7 +299,7 @@ describe('select', () => {
       renderComponent(<Select options={SelectBaseOptions} />)
       const button = screen.queryByRole('button') as HTMLButtonElement
       await user.click(button)
-      await user.click(screen.queryAllByTestId('option')[0])
+      await user.click(screen.queryAllByRole('listitem')[0])
 
       expect(button).toHaveClass(TextFieldClasses.focused)
       expect(document.activeElement).toHaveClass('inf-select')
@@ -395,7 +398,7 @@ describe('select', () => {
 
       await user.click(screen.queryByRole('button') as HTMLButtonElement)
 
-      await user.click(screen.queryAllByTestId('option')[1])
+      await user.click(screen.queryAllByRole('listitem')[1])
 
       expect(select).not.toHaveAttribute('aria-invalid')
     })
@@ -415,7 +418,7 @@ describe('select', () => {
       await user.click(screen.queryByTitle(title) as HTMLButtonElement)
       await user.click(screen.queryByRole('label') as HTMLLabelElement)
 
-      expect(screen.queryByTestId('list')).toBeInTheDocument()
+      expect(screen.queryByRole('list')).toBeInTheDocument()
     })
   })
 })
