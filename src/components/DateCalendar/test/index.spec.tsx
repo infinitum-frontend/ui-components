@@ -99,7 +99,7 @@ describe('day view', () => {
   it('should have special style on today  ', () => {
     const date = new Date()
 
-    date.setDate(15)
+    date.setDate(14)
     renderComponent(
       <DateCalendar title={title} value={date} onChange={() => {}} />
     )
