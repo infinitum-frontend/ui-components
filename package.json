@@ -124,6 +124,8 @@
   "dependencies": {
     "@radix-ui/react-scroll-area": "^1.2.0",
     "@tanstack/react-virtual": "^3.10.8",
-    "immer": "^10.1.1"
+    "immer": "^10.1.1",
+    "@infinitum-ui/shared": "file:infinitum-ui-shared-1.0.0.tgz",
+    "@infinitum-ui/icons": "file:infinitum-ui-icons-1.0.1.tgz"
   }
 }

@@ -7,46 +7,7 @@
   padding: var(--inf-space-xxsmall) var(--inf-space-xsmall)
     var(--inf-space-xxsmall) var(--inf-space-xxsmall);
 
-  &__media {
-    width: 40px;
-    height: 40px;
-    background-color: var(
-      --inf-color-gray-200
-    ); // TODO: IDD-306 семантическую переменную
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: var(--inf-border-radius-small);
-  }
-
-  &__icon {
-    width: 24px;
-    height: 24px;
-    color: var(--inf-color-text-secondary); // TODO: IDD-306 icon token?
-  }
-
-  &__middle {
-    display: flex;
-    flex-direction: column;
-    gap: var(--inf-space-xxsmall);
-  }
-
-  &__title {
-    font: var(--inf-font-body-2);
-    color: var(--inf-color-text-primary);
-  }
-
-  &__caption {
-    font: var(--inf-font-body-3);
-    color: var(--inf-color-text-secondary);
-    text-transform: uppercase;
-  }
-
-  &__clip-icon {
-    color: var(--inf-color-secondary);
-  }
-
-  // TODO: IDD-306 сделать блок по всей ширине, чтобы крестики были на одном уровне?
+  // TODO: тут будет IconButton
   &__button {
     width: 32px;
     height: 32px;
@@ -54,21 +15,11 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 2px;
-    color: var(--inf-color-text-tertiary);
     transition: color 0.2s;
     margin-right: calc(var(--inf-space-xxsmall) * -1);
 
     @include hover-active {
       color: var(--inf-color-text-secondary);
     }
-  }
-
-  &__button-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  &__loader {
-    margin-right: var(--inf-space-xxsmall);
   }
 }
