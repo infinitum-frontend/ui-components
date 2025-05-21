@@ -6,7 +6,6 @@ import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers
 import {
   MouseEventHandler,
   ReactElement,
-  RefObject,
   useContext,
   useEffect,
   useId,
@@ -70,8 +69,6 @@ const Select = <Multiple extends boolean = false>({
   const [filterValue, setFilterValue] = useState('')
 
   const prefix = useId()
-
-  const optionsListRef = useRef(null)
 
   const formGroupContext = useContext(FormGroupContext)
   const formContext = useContext(FormContext)
@@ -218,24 +215,18 @@ const Select = <Multiple extends boolean = false>({
         )}
 
         {filteredFlattenOptions.length > 0 ? (
-          <Menu
-            ref={optionsListRef}
-            as="ul"
-            className="inf-select__options"
-            maxHeight={maxHeight}
-          >
-            {virtualized ? (
-              <VirtualizedOptions
-                options={filteredFlattenOptions}
-                maxHeight={maxHeight}
-                isOpen={isOpen}
-                multiple={Boolean(multiple)}
-                checkOptionSelection={checkOptionSelection}
-                handleOptionSelect={handleOptionSelect}
-                optionsListRef={optionsListRef}
-              />
-            ) : (
-              filteredFlattenOptions.map((option, index) => {
+          virtualized ? (
+            <VirtualizedOptions
+              options={filteredFlattenOptions}
+              isOpen={isOpen}
+              multiple={Boolean(multiple)}
+              checkOptionSelection={checkOptionSelection}
+              handleOptionSelect={handleOptionSelect}
+              maxHeight={maxHeight}
+            />
+          ) : (
+            <Menu as="ul" className="inf-select__options" maxHeight={maxHeight}>
+              {filteredFlattenOptions.map((option, index) => {
                 return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
                   <Menu.Label key={String(option.groupLabel) + prefix}>
                     {option.groupLabel}
@@ -252,9 +243,9 @@ const Select = <Multiple extends boolean = false>({
                     {option.label}
                   </SelectOption>
                 )
-              })
-            )}
-          </Menu>
+              })}
+            </Menu>
+          )
         ) : showDropdownLoader ? (
           <Loader />
         ) : (
@@ -272,8 +263,7 @@ const VirtualizedOptions = ({
   isOpen,
   multiple,
   checkOptionSelection,
-  handleOptionSelect,
-  optionsListRef
+  handleOptionSelect
 }: {
   options: FlattenOption[]
   maxHeight: number
@@ -281,7 +271,6 @@ const VirtualizedOptions = ({
   multiple: boolean
   checkOptionSelection: (option: SelectOptionType) => boolean
   handleOptionSelect: (option: SelectOptionType) => void
-  optionsListRef: RefObject<HTMLElement>
 }): ReactElement => {
   const listRef = useRef(null)
 
