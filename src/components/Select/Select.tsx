@@ -123,6 +123,9 @@ const Select = <Multiple extends boolean = false>({
     if (!filterable) {
       return
     }
+    if (!filterable) {
+      return
+    }
     setFilterValue(filterValue)
     // поиск обрабатывается снаружи
     if (onFilterChange) {
