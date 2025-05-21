@@ -1,3 +1,4 @@
+import { useVirtualizer } from '@tanstack/react-virtual'
 import cn from 'classnames'
 import FormContext from 'Components/Form/context/form'
 import FormGroupContext from 'Components/Form/context/group'
@@ -8,6 +9,7 @@ import {
   useContext,
   useEffect,
   useId,
+  useRef,
   useState
 } from 'react'
 import { Loader } from '../Loader'
@@ -22,8 +24,15 @@ import SelectOption from './components/SelectOption'
 import useSelect from './hooks/useSelect'
 import useSelectOptions from './hooks/useSelectOptions'
 import './Select.scss'
-import { SELECT_DROPDOWN_SELECTOR } from './utils/constants'
-import { SelectOption as SelectOptionType, SelectProps } from './utils/types'
+import {
+  SELECT_DROPDOWN_SELECTOR,
+  SELECT_OPTION_HEIGHT
+} from './utils/constants'
+import {
+  FlattenOption,
+  SelectOption as SelectOptionType,
+  SelectProps
+} from './utils/types'
 
 const Select = <Multiple extends boolean = false>({
   options = [],
@@ -48,6 +57,8 @@ const Select = <Multiple extends boolean = false>({
   popoverPlacement = 'bottom-start',
   renderControl,
   className,
+  maxHeight: maxHeightProp,
+  virtualized,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   ...props
@@ -104,6 +115,9 @@ const Select = <Multiple extends boolean = false>({
   }
 
   const handleFilterChange = (filterValue: string): void => {
+    if (!filterable) {
+      return
+    }
     setFilterValue(filterValue)
     // поиск обрабатывается снаружи
     if (onFilterChange) {
@@ -123,7 +137,7 @@ const Select = <Multiple extends boolean = false>({
   const isDisabled = disabledProp || formContext?.disabled
   const isRequired = formGroupContext?.required || required
   // высота элемента, паддинг и границы
-  const maxHeight = maxItemsCount * 36 + 4 + 2
+  const maxHeight = maxHeightProp || maxItemsCount * 36 + 4 + 2
   const showInlineFilterInput =
     filterable && isOpen && filterPlacement === 'inline'
   const popoverFocus = showInlineFilterInput ? -1 : 0 // TODO: непонятно что тут происходит
@@ -195,32 +209,39 @@ const Select = <Multiple extends boolean = false>({
             }}
           />
         )}
+
         {filteredFlattenOptions.length > 0 ? (
-          <Menu
-            as="div"
-            className="inf-select__options"
-            data-testid="list"
-            maxHeight={maxHeight}
-          >
-            {filteredFlattenOptions.map((option, index) => {
-              return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
-                <Menu.Label key={String(option.groupLabel) + prefix}>
-                  {option.groupLabel}
-                </Menu.Label>
-              ) : (
-                <SelectOption
-                  key={String(option.value) + prefix}
-                  selected={checkOptionSelection(option)}
-                  selectionIndicator={multiple ? 'checkbox' : 'tick'}
-                  onSelect={() => {
-                    handleOptionSelect(option)
-                  }}
-                >
-                  {option.label}
-                </SelectOption>
-              )
-            })}
-          </Menu>
+          virtualized ? (
+            <VirtualizedOptions
+              options={filteredFlattenOptions}
+              isOpen={isOpen}
+              multiple={Boolean(multiple)}
+              checkOptionSelection={checkOptionSelection}
+              handleOptionSelect={handleOptionSelect}
+              maxHeight={maxHeight}
+            />
+          ) : (
+            <Menu as="ul" className="inf-select__options" maxHeight={maxHeight}>
+              {filteredFlattenOptions.map((option, index) => {
+                return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
+                  <Menu.Label key={String(option.groupLabel) + prefix}>
+                    {option.groupLabel}
+                  </Menu.Label>
+                ) : (
+                  <SelectOption
+                    key={String(option.value) + prefix}
+                    selected={checkOptionSelection(option)}
+                    selectionIndicator={multiple ? 'checkbox' : 'tick'}
+                    onSelect={() => {
+                      handleOptionSelect(option)
+                    }}
+                  >
+                    {option.label}
+                  </SelectOption>
+                )
+              })}
+            </Menu>
+          )
         ) : showDropdownLoader ? (
           <Loader />
         ) : (
@@ -231,5 +252,92 @@ const Select = <Multiple extends boolean = false>({
     </Popover>
   )
 }
+// TODO: отрефакторить чтобы избавиться от дублирования шаблона
+const VirtualizedOptions = ({
+  options,
+  maxHeight,
+  isOpen,
+  multiple,
+  checkOptionSelection,
+  handleOptionSelect
+}: {
+  options: FlattenOption[]
+  maxHeight: number
+  isOpen: boolean
+  multiple: boolean
+  checkOptionSelection: (option: SelectOptionType) => boolean
+  handleOptionSelect: (option: SelectOptionType) => void
+}): ReactElement => {
+  const listRef = useRef(null)
+
+  const virtualizer = useVirtualizer({
+    count: options.length,
+    getScrollElement: () => listRef.current,
+    estimateSize: () => SELECT_OPTION_HEIGHT,
+    enabled: isOpen,
+    overscan: 10
+  })
+
+  // TODO: нужно ли сбрасывать скролл до старта после закрытия всплывающего окна? Сейчас не сбрасывается
+  const virtualizedListTotalHeight = virtualizer.getTotalSize()
+  const virtualizedListItems = virtualizer.getVirtualItems()
+
+  return (
+    <Menu
+      ref={listRef}
+      as="div"
+      className="inf-select__options"
+      maxHeight={maxHeight}
+    >
+      <div
+        style={{
+          height: `${virtualizedListTotalHeight}px`,
+          width: '100%',
+          position: 'relative'
+        }}
+      >
+        <ul
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            transform: `translateY(${virtualizedListItems[0]?.start ?? 0}px)`
+          }}
+        >
+          {virtualizedListItems.map((virtualItem) => {
+            const { index } = virtualItem
+            const option = options[index]
+            const key = virtualItem.key.toString()
+            return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
+              <Menu.Label
+                key={key}
+                data-index={index}
+                ref={virtualizer.measureElement}
+              >
+                {option.groupLabel}
+              </Menu.Label>
+            ) : (
+              <SelectOption
+                key={key}
+                data-index={index}
+                ref={virtualizer.measureElement}
+                selected={checkOptionSelection(option)}
+                selectionIndicator={multiple ? 'checkbox' : 'tick'}
+                onSelect={() => {
+                  handleOptionSelect(option)
+                }}
+              >
+                {option.label}
+              </SelectOption>
+            )
+          })}
+        </ul>
+      </div>
+    </Menu>
+  )
+}
 
 export default Select
+
+// TODO: debounce на filterValue

@@ -56,11 +56,10 @@ const SingleTemplate: StoryFn<typeof Select> = (args) => {
 }
 
 const MultipleTemplate: StoryFn<typeof Select> = (args) => {
-  const [value, setValue] = useState<string[]>([])
+  const [value, setValue] = useState<SelectValue[]>([])
 
   const handleChange = (selectedOptions: SelectOption[]): void => {
-    // TODO: избиваться от приведение типов number / string (generic на value?)
-    setValue(selectedOptions.map((option) => String(option.value)))
+    setValue(selectedOptions.map((option) => option.value))
   }
 
   // TODO: helper?
@@ -125,7 +124,21 @@ export const Scrollable = {
   render: SingleTemplate,
   args: {
     options: SelectLongOptions,
-    maxItemsCount: 5
+    maxHeight: 200
+  }
+}
+
+export const Virtualized = {
+  render: SingleTemplate,
+  args: {
+    options: Array.from({ length: 1000 }, (_, i) => ({
+      value: `value-${i}`,
+      label: `Options-${i}`
+    })),
+    maxHeight: 200,
+    virtualized: true,
+    filterable: true,
+    filterPlacement: 'inline'
   }
 }
 
@@ -187,14 +200,14 @@ export const Loading = {
 export const FormValidation = {
   render: () => {
     const [singleValue, setSingleValue] = useState<SelectValue>()
-    const [multipleValue, setMultipleValue] = useState<string[]>([])
+    const [multipleValue, setMultipleValue] = useState<SelectValue[]>([])
 
     const handleSingleChange = (selectedOption: SelectOption): void => {
       setSingleValue(selectedOption?.value)
     }
 
     const handleMultipleChange = (selectedOptions: SelectOption[]): void => {
-      setMultipleValue(selectedOptions.map((option) => String(option.value)))
+      setMultipleValue(selectedOptions.map((option) => option.value))
     }
 
     const handleSubmit = (): void => {
@@ -235,7 +248,7 @@ export const WithDropdownHint = {
   render: SingleTemplate,
   args: {
     options: SelectLongOptions,
-    maxItemsCount: 5,
+    maxHeight: 200,
     dropdownHint: 'Текст подсказки'
   }
 }
@@ -549,7 +562,7 @@ export const CustomControl = {
           options={SelectBaseOptions}
           value={value}
           onChange={handleChange}
-          popoverWidth="300"
+          popoverWidth="300px"
           renderControl={({
             isOpen,
             displayValue,
