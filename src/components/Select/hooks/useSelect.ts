@@ -40,8 +40,6 @@ const useSelect = <Multiple extends boolean = false>({
       // @ts-expect-error
       onChange(option)
     }
-
-    // toggleOpen(false);
   }
 
   const handleClear = (): void => {

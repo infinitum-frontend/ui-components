@@ -121,7 +121,6 @@ export interface UseSelectProps<Multiple extends boolean = false> {
   ) => void
   options: FlattenOption[]
   onClear?: SelectProps['onClear']
-  controlledDropdownOpen?: boolean
 }
 
 export interface UseSelectResult {

@@ -97,8 +97,7 @@ const Select = <Multiple extends boolean = false>({
     value,
     onChange,
     multiple,
-    onClear,
-    controlledDropdownOpen
+    onClear
   })
 
   // ============================= effects =============================
