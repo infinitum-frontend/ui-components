@@ -15,7 +15,7 @@ export interface SelectProps<Multiple extends boolean = false>
   value?: Multiple extends true ? SelectValue[] : SelectValue | undefined
   /** Controlled onChange */
   onChange?: (
-    value: Multiple extends true ? SelectOption[] : SelectOption
+    value: Multiple extends true ? SelectOption[] : SelectOption | undefined
   ) => void
   /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
   onClear?: () => void
@@ -35,8 +35,6 @@ export interface SelectProps<Multiple extends boolean = false>
   loaderPlacement?: 'inline' | 'dropdown'
   /** Placeholder, если нет выбранного значения */
   placeholder?: string
-  /** Placeholder для поля фильтрации */
-  filterPlaceholder?: string
   /** Размер SelectButton */
   size?: InputProps['size']
   /** Слот для размещения элемента (иконки) слева */
@@ -119,10 +117,11 @@ export interface UseSelectProps<Multiple extends boolean = false> {
   multiple?: Multiple
   value?: Multiple extends true ? SelectValue[] : SelectValue | undefined
   onChange?: (
-    value: Multiple extends true ? SelectOption[] : SelectOption
+    value: Multiple extends true ? SelectOption[] : SelectOption | undefined
   ) => void
   options: FlattenOption[]
   onClear?: SelectProps['onClear']
+  controlledDropdownOpen?: boolean
 }
 
 export interface UseSelectResult {
@@ -131,8 +130,6 @@ export interface UseSelectResult {
   handleClear: () => void
   checkOptionSelection: (option: SelectOption) => boolean
   hasSelectedValue: boolean
-  isOpen: boolean
-  setOpen: (value: boolean) => void
   displayValue: string
 }
 

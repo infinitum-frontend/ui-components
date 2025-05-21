@@ -32,7 +32,7 @@ export default meta
 const SingleTemplate: StoryFn<typeof Select> = (args) => {
   const [value, setValue] = useState<SelectValue>()
 
-  const handleChange = (selectedOption: SelectOption): void => {
+  const handleChange = (selectedOption?: SelectOption): void => {
     setValue(selectedOption?.value)
   }
 
@@ -45,6 +45,7 @@ const SingleTemplate: StoryFn<typeof Select> = (args) => {
       <Select
         style={{ maxWidth: '300px' }}
         {...args}
+        multiple={false}
         value={value}
         onChange={(newValue) => handleChange(newValue)}
       />
@@ -113,7 +114,7 @@ export const Overflow = {
         popoverWidth="200px"
         options={SelectBaseOptions}
         value={value}
-        onChange={(option: SelectOption) => setValue(option.value)}
+        onChange={(option?: SelectOption) => setValue(option?.value)}
         placeholder="Выберите значение"
       />
     )
@@ -202,7 +203,7 @@ export const FormValidation = {
     const [singleValue, setSingleValue] = useState<SelectValue>()
     const [multipleValue, setMultipleValue] = useState<SelectValue[]>([])
 
-    const handleSingleChange = (selectedOption: SelectOption): void => {
+    const handleSingleChange = (selectedOption?: SelectOption): void => {
       setSingleValue(selectedOption?.value)
     }
 
@@ -264,7 +265,7 @@ export const OnClearHandler = {
   render: () => {
     const [value, setValue] = useState<SelectValue>()
 
-    const handleChange = (selectedOption: SelectOption): void => {
+    const handleChange = (selectedOption?: SelectOption): void => {
       setValue(selectedOption?.value)
     }
 
@@ -382,7 +383,7 @@ export const ControlledAsyncOptions = {
     const [options, setOptions] = useState<SelectOptions>([])
     const [isLoading, setLoading] = useState(true)
 
-    const handleChange = (selectedOption: SelectOption): void => {
+    const handleChange = (selectedOption?: SelectOption): void => {
       setSelectedOption(selectedOption)
     }
 
@@ -552,7 +553,7 @@ export const CustomControl = {
   render: () => {
     const [value, setValue] = useState<SelectValue>('')
 
-    const handleChange = (selectedOption: SelectOption): void => {
+    const handleChange = (selectedOption?: SelectOption): void => {
       setValue(selectedOption ? selectedOption.value : '')
     }
 
@@ -581,6 +582,39 @@ export const CustomControl = {
               </Button>
             )
           }}
+        />
+
+        <Text>{value}</Text>
+      </Space>
+    )
+  }
+}
+
+export const ControlledOpen = {
+  render: () => {
+    const [value, setValue] = useState<SelectValue>('')
+    const [dropdownOpen, setDropdownOpen] = useState(false)
+
+    const handleChange = (selectedOption?: SelectOption): void => {
+      setValue(selectedOption ? selectedOption.value : '')
+    }
+
+    return (
+      <Space>
+        <Space direction="horizontal">
+          <Button onClick={() => setDropdownOpen(true)}>Открыть</Button>
+          <Button onClick={() => setDropdownOpen(false)}>Закрыть</Button>
+        </Space>
+
+        <Text>isDropdownOpen: {dropdownOpen ? 'true' : 'false'}</Text>
+
+        <Select
+          style={{ maxWidth: '300px' }}
+          dropdownOpen={dropdownOpen}
+          onDropdownOpenChange={setDropdownOpen}
+          options={SelectBaseOptions}
+          value={value}
+          onChange={handleChange}
         />
 
         <Text>{value}</Text>

@@ -4,7 +4,6 @@ import FormContext from 'Components/Form/context/form'
 import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 import {
-  MouseEventHandler,
   ReactElement,
   useContext,
   useEffect,
@@ -46,7 +45,6 @@ const Select = <Multiple extends boolean = false>({
   loading,
   loaderPlacement = 'inline',
   placeholder = 'Выберите значение',
-  filterPlaceholder = 'Найти',
   size,
   filterPlacement = 'dropdown',
   emptyMessage = 'Ничего не найдено',
@@ -60,13 +58,17 @@ const Select = <Multiple extends boolean = false>({
   className,
   maxHeight: maxHeightProp,
   virtualized,
-  dropdownOpen,
-  onDropdownOpenChange,
+  dropdownOpen: controlledDropdownOpen,
+  onDropdownOpenChange: controlledOnDropdownOpenChange,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   ...props
 }: SelectProps<Multiple>): ReactElement => {
   const [filterValue, setFilterValue] = useState('')
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
+
+  const isOpen = controlledDropdownOpen ?? uncontrolledOpen
+  const setOpen = controlledOnDropdownOpenChange ?? setUncontrolledOpen
 
   const prefix = useId()
 
@@ -88,8 +90,6 @@ const Select = <Multiple extends boolean = false>({
     handleClear: handleClearState,
     checkOptionSelection,
     hasSelectedValue,
-    isOpen,
-    setOpen,
     displayValue,
     selectedOptions
   } = useSelect({
@@ -97,7 +97,8 @@ const Select = <Multiple extends boolean = false>({
     value,
     onChange,
     multiple,
-    onClear
+    onClear,
+    controlledDropdownOpen
   })
 
   // ============================= effects =============================
@@ -108,13 +109,14 @@ const Select = <Multiple extends boolean = false>({
   }, [isOpen])
 
   // ============================= handlers =============================
-  const handleOpenToggle: MouseEventHandler = (e): void => {
-    setOpen(!isOpen)
-  }
 
   const handleOptionSelect = (option: SelectOptionType): void => {
     handleSelect(option)
     resetControlValidity()
+
+    if (!multiple) {
+      setOpen(false)
+    }
   }
 
   const handleFilterChange = (filterValue: string): void => {
@@ -192,7 +194,7 @@ const Select = <Multiple extends boolean = false>({
               onInvalid={onControlInvalid}
             />
           }
-          onClick={(e) => handleOpenToggle(e)}
+          onClick={(e) => setOpen(!isOpen)}
           {...props}
         />
       </Popover.Trigger>
@@ -205,7 +207,6 @@ const Select = <Multiple extends boolean = false>({
       >
         {filterable && filterPlacement === 'dropdown' && (
           <SelectFilterInput
-            placeholder={filterPlaceholder}
             value={filterValue}
             onChange={handleFilterChange}
             onClear={() => {
