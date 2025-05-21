@@ -122,9 +122,6 @@ const Select = <Multiple extends boolean = false>({
     if (!filterable) {
       return
     }
-    if (!filterable) {
-      return
-    }
     setFilterValue(filterValue)
     // поиск обрабатывается снаружи
     if (onFilterChange) {
@@ -196,7 +193,7 @@ const Select = <Multiple extends boolean = false>({
               onInvalid={onControlInvalid}
             />
           }
-          onClick={(e) => setOpen(!isOpen)}
+          onClick={() => setOpen(!isOpen)}
           {...props}
         />
       </Popover.Trigger>
