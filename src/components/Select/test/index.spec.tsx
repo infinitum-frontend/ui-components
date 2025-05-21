@@ -73,7 +73,7 @@ describe('select', () => {
       renderComponent(<Select options={SelectBaseOptions} value={1} />)
       const button = screen.getByRole('button')
       await act(async () => await user.click(button))
-      // TODO: не работает
+      // TODO: не работает IDD-653
       setTimeout(() => {
         const options = screen.queryAllByRole('listitem')
         const targetOption = options[1]

@@ -1,7 +1,8 @@
 import React, { ComponentPropsWithoutRef } from 'react'
-
 import { Checkbox } from '~/src/components/Checkbox'
 import { Menu } from '~/src/components/Menu'
+import { Icon } from '~/src/components/Icon'
+import IconTick from 'Icons/tick.svg?react'
 import './SelectOption.scss'
 
 export interface SelectOptionProps extends ComponentPropsWithoutRef<'li'> {
@@ -49,9 +50,9 @@ const SelectOption = React.forwardRef<HTMLDivElement, SelectOptionProps>(
 
         {selected && selectionIndicator === 'tick' && (
           <Menu.Item.Button>
-            {/* <Icon data-testid="check-icon" color="secondary">
+            <Icon data-testid="check-icon" color="secondary">
               <IconTick />
-            </Icon> */}
+            </Icon>
           </Menu.Item.Button>
         )}
       </Menu.Item>
