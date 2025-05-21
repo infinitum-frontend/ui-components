@@ -61,6 +61,8 @@ const Select = <Multiple extends boolean = false>({
   className,
   maxHeight: maxHeightProp,
   virtualized,
+  dropdownOpen,
+  onDropdownOpenChange,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   ...props

@@ -68,6 +68,10 @@ export interface SelectProps<Multiple extends boolean = false>
   emptyMessage?: string
   /** Текст подсказки во всплывающем окне */
   dropdownHint?: string
+  /** Контролируемое состояние открытия всплывающего окна */
+  dropdownOpen?: boolean
+  /** Событие изменения состояния открытия всплывающего окна */
+  onDropdownOpenChange?: (isOpen: boolean) => void
   // ==================================== Нужны ли пропы ниже непонятно
   /** Состояние валидности */
   status?: 'error'
