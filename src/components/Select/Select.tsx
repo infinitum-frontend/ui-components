@@ -4,7 +4,6 @@ import FormContext from 'Components/Form/context/form'
 import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 import {
-  MouseEventHandler,
   ReactElement,
   useContext,
   useEffect,
@@ -59,11 +58,17 @@ const Select = <Multiple extends boolean = false>({
   className,
   maxHeight: maxHeightProp,
   virtualized,
+  dropdownOpen: controlledDropdownOpen,
+  onDropdownOpenChange: controlledOnDropdownOpenChange,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   ...props
 }: SelectProps<Multiple>): ReactElement => {
   const [filterValue, setFilterValue] = useState('')
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
+
+  const isOpen = controlledDropdownOpen ?? uncontrolledOpen
+  const setOpen = controlledOnDropdownOpenChange ?? setUncontrolledOpen
 
   const prefix = useId()
 
@@ -85,8 +90,6 @@ const Select = <Multiple extends boolean = false>({
     handleClear: handleClearState,
     checkOptionSelection,
     hasSelectedValue,
-    isOpen,
-    setOpen,
     displayValue,
     selectedOptions
   } = useSelect({
@@ -105,13 +108,14 @@ const Select = <Multiple extends boolean = false>({
   }, [isOpen])
 
   // ============================= handlers =============================
-  const handleOpenToggle: MouseEventHandler = (e): void => {
-    setOpen(!isOpen)
-  }
 
   const handleOptionSelect = (option: SelectOptionType): void => {
     handleSelect(option)
     resetControlValidity()
+
+    if (!multiple) {
+      setOpen(false)
+    }
   }
 
   const handleFilterChange = (filterValue: string): void => {
@@ -189,7 +193,7 @@ const Select = <Multiple extends boolean = false>({
               onInvalid={onControlInvalid}
             />
           }
-          onClick={(e) => handleOpenToggle(e)}
+          onClick={() => setOpen(!isOpen)}
           {...props}
         />
       </Popover.Trigger>
@@ -340,4 +344,6 @@ const VirtualizedOptions = ({
 
 export default Select
 
-// TODO: debounce на filterValue
+// TODO:
+// debounce на filterValue
+// нужен ли автофокус на поле фильтрации в dropdown?

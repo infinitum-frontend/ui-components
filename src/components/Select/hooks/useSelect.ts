@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { SelectOption, UseSelectProps, UseSelectResult } from '../utils/types'
 
 // TODO: поправить типы, убрать @ts-expect-error
@@ -10,7 +9,6 @@ const useSelect = <Multiple extends boolean = false>({
   multiple,
   onClear
 }: UseSelectProps<Multiple>): UseSelectResult => {
-  const [isOpen, setOpen] = useState(false)
   // TODO: options вытащить из групп (хук useSelectOptions)?
   const options = optionsProp
 
@@ -19,7 +17,6 @@ const useSelect = <Multiple extends boolean = false>({
       handleMultipleSelection(option)
     } else {
       handleSingleSelection(option)
-      setOpen(false)
     }
   }
 
@@ -43,8 +40,6 @@ const useSelect = <Multiple extends boolean = false>({
       // @ts-expect-error
       onChange(option)
     }
-
-    // toggleOpen(false);
   }
 
   const handleClear = (): void => {
@@ -86,7 +81,7 @@ const useSelect = <Multiple extends boolean = false>({
   // let displayValue = defaultSelectItem.label
   let displayValue = ''
   if (!multiple && hasSelectedValue) {
-    displayValue = selectedOptions[0].label
+    displayValue = selectedOptions[0]?.label
   }
 
   // TODO: useMemo?
@@ -96,8 +91,6 @@ const useSelect = <Multiple extends boolean = false>({
     checkOptionSelection,
     hasSelectedValue,
     selectedOptions,
-    isOpen,
-    setOpen,
     displayValue
   }
 }
