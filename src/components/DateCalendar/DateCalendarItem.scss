@@ -4,10 +4,10 @@
   align-items: center;
   height: 100%;
   cursor: pointer;
-  border-radius: var(--inf-border-radius-medium);
+  border-radius: var(--inf-border-radius-small);
 
   @include hover {
-    background-color: var(--inf-color-background-float-hover);
+    background-color: var(--inf-color-background-tertiary);
   }
 
   &--selected {
@@ -21,7 +21,7 @@
 
   &--disabled {
     pointer-events: none;
-    opacity: 50%;
+    color: var(--inf-color-text-secondary);
   }
 
   &--empty {
@@ -31,5 +31,18 @@
     @include hover {
       background-color: transparent;
     }
+  }
+
+  &--prev-month,
+  &--next-month {
+    color: var(--inf-color-text-tertiary);
+
+    @include hover {
+      background-color: var(--inf-color-background-primary-hover);
+    }
+  }
+
+  &--today {
+    color: var(--inf-color-text-brand);
   }
 }

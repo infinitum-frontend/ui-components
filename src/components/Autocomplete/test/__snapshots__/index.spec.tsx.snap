@@ -5,12 +5,12 @@ exports[`Autocomplete > should match snapshot 1`] = `
   class="inf-autocomplete"
 >
   <button
-    class="inf-select-button inf-text-field inf-text-field--br-regular inf-select-button--placeholder inf-autocomplete-button"
+    class="inf-select-old-button inf-text-field inf-text-field--br-regular inf-select-old-button--placeholder inf-autocomplete-button"
     tabindex="-1"
     type="button"
   >
     <span
-      class="inf-select-button__arrow"
+      class="inf-select-old-button__arrow"
     >
       <svg
         fill="none"
@@ -60,13 +60,13 @@ exports[`Autocomplete Option > should match snapshot 1`] = `
 
 exports[`AutocompleteButton > should match snapshot > button 1`] = `
 <button
-  class="inf-select-button inf-text-field inf-text-field--br-regular inf-select-button--placeholder inf-autocomplete-button"
+  class="inf-select-old-button inf-text-field inf-text-field--br-regular inf-select-old-button--placeholder inf-autocomplete-button"
   tabindex="-1"
   title="title"
   type="button"
 >
   <span
-    class="inf-select-button__arrow"
+    class="inf-select-old-button__arrow"
   >
     <svg
       fill="none"

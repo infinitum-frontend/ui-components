@@ -1,3 +1,5 @@
+import { capitalize } from './helpers'
+
 export function getDaysInMonthCount(date: Date): number {
   const dateCopy = new Date(date)
   // берем следующий месяц, и сдвигаемся на день раньше, получая последний день нужного нам месяца
@@ -50,6 +52,8 @@ export interface DayMatrixInfo {
   day?: number
   date: Date
   disabled?: boolean
+  isPrevMonth?: boolean
+  isNextMonth?: boolean
 }
 // Получить по дате массив, состоящий из подмассивов с неделями, где элементами являются конкретные дни
 export function getDaysMatrix(
@@ -71,21 +75,41 @@ export function getDaysMatrix(
       currentDay++
 
       const date = new Date(activeYear, activeMonth, currentDay)
-      if (currentDay < 1 || currentDay > daysInMonthCount) {
+      const day = date.getDate()
+
+      if (isDayDisabled(date, min, max)) {
         matrix[week].push({
-          disabled: true,
-          date
+          day,
+          date,
+          disabled: true
         })
 
         continue
       }
 
-      const day = date.getDate()
+      if (currentDay < 1) {
+        matrix[week].push({
+          date,
+          day,
+          isPrevMonth: true
+        })
+
+        continue
+      }
+
+      if (currentDay > daysInMonthCount) {
+        matrix[week].push({
+          date,
+          day,
+          isNextMonth: true
+        })
+
+        continue
+      }
 
       matrix[week].push({
         day,
-        date,
-        disabled: isDayDisabled(date, min, max)
+        date
       })
     }
   }
@@ -98,7 +122,7 @@ export function getMonthsList(): Array<{ name: string; number: number }> {
   for (let i = 0; i < 12; i++) {
     const date = new Date(0, i)
     months.push({
-      name: date.toLocaleDateString('ru-Ru', { month: 'long' }),
+      name: capitalize(date.toLocaleDateString('ru-Ru', { month: 'long' })),
       number: date.getMonth()
     })
   }

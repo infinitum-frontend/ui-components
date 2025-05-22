@@ -4,6 +4,7 @@ import { act, screen } from '@testing-library/react'
 import { DateCalendar } from '../index'
 import userEvent from '@testing-library/user-event'
 import { capitalize } from '../../../utils/helpers'
+import { formatDateToISO } from '~/src/utils/date'
 
 const title = 'DateCalendar'
 
@@ -43,6 +44,69 @@ describe('day view', () => {
 
     expect(onChange).toHaveBeenCalledOnce()
     expect(calledWithValue).toBe(date.toLocaleDateString())
+  })
+
+  it('should display days of prev month', () => {
+    const date = new Date('2025-05-20')
+    renderComponent(
+      <DateCalendar title={title} value={date} onChange={() => {}} />
+    )
+
+    expect(screen.queryAllByText('29')).toHaveLength(2)
+    expect(screen.queryAllByText('30')).toHaveLength(2)
+
+    expect(screen.queryAllByText('29')[0]).toHaveClass(
+      'inf-calendar-item--prev-month'
+    )
+    expect(screen.queryAllByText('30')[0]).toHaveClass(
+      'inf-calendar-item--prev-month'
+    )
+  })
+
+  it('should display days of next month', () => {
+    const date = new Date('2025-05-20')
+    renderComponent(
+      <DateCalendar title={title} value={date} onChange={() => {}} />
+    )
+
+    expect(screen.queryAllByText('1')).toHaveLength(2)
+
+    expect(screen.queryAllByText('1')[1]).toHaveClass(
+      'inf-calendar-item--next-month'
+    )
+  })
+
+  it('should apply disabled style on disabled days', () => {
+    const date = new Date('2025-05-20')
+    renderComponent(
+      <DateCalendar
+        title={title}
+        value={date}
+        onChange={() => {}}
+        min={formatDateToISO(date)}
+      />
+    )
+
+    expect(screen.queryAllByText('30')[0]).toHaveClass(
+      'inf-calendar-item--disabled'
+    )
+
+    expect(screen.queryByText('21')).not.toHaveClass(
+      'inf-calendar-item--disabled'
+    )
+  })
+
+  it('should have special style on today  ', () => {
+    const date = new Date()
+
+    date.setDate(14)
+    renderComponent(
+      <DateCalendar title={title} value={date} onChange={() => {}} />
+    )
+
+    expect(screen.queryByText(new Date().getDate())).toHaveClass(
+      'inf-calendar-item--today'
+    )
   })
 })
 

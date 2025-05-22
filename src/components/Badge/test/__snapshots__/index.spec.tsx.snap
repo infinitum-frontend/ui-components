@@ -5,7 +5,7 @@ exports[`badge > should match snapshot 1`] = `
   class="inf-badge"
 >
   <sup
-    class="inf-badge-sup inf-badge-sup--tone-primary inf-badge-sup--standalone"
+    class="inf-text inf-badge-sup inf-badge-sup--tone-primary inf-badge-sup--color-brand inf-badge-sup--standalone inf-text--variant-subtitle-3"
     style="right: 0px; top: 0px;"
     title="5"
   >
