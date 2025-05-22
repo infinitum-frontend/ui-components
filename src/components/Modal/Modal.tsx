@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef, useEffect, useState } from 'react'
 import ModalBody from './components/ModalBody'
 import ModalHeader from './components/ModalHeader'
 import ModalFooter from './components/ModalFooter'
@@ -50,16 +50,17 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     },
     ref
   ) => {
-    function handleOpenChange(value: boolean): void {
-      if (!value) {
-        onClose()
-      }
-    }
+    const [frozenChildren, setFrozenChildren] = useState(children)
 
     const { refs, context } = useFloating({
       open: isOpen,
-      onOpenChange: handleOpenChange
+      onOpenChange: (value) => {
+        if (!value) {
+          onClose()
+        }
+      }
     })
+
     const dismiss = useDismiss(context, {
       escapeKey: closeOnEsc,
       outsidePress: (e) => {
@@ -74,6 +75,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       },
       outsidePressEvent: 'mousedown'
     })
+
     const role = useRole(context)
 
     const { getFloatingProps } = useInteractions([dismiss, role])
@@ -81,7 +83,19 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     const headingId = useId()
     const descriptionId = useId()
 
-    const { isMounted, status } = useTransitionStatus(context)
+    const { isMounted, status } = useTransitionStatus(context, {
+      duration: 250
+    })
+
+    useEffect(() => {
+      if (status === 'open') {
+        setFrozenChildren(children)
+      } else if (status === 'close') {
+        setFrozenChildren(frozenChildren || children)
+      } else if (status === undefined && !isOpen) {
+        setFrozenChildren(null)
+      }
+    }, [status, children, isOpen])
 
     return (
       <FloatingPortal>
@@ -119,7 +133,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                     />
                   </div>
                 )}
-                {children}
+                {frozenChildren}
               </div>
             </FloatingFocusManager>
           </FloatingOverlay>
