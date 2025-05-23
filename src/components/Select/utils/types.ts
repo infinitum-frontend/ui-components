@@ -2,21 +2,12 @@ import { InputProps } from 'Components/Input'
 import { PopoverContentProps, PopoverProps } from 'Components/Popover'
 import { ComponentPropsWithoutRef, ReactNode } from 'react'
 
-export interface SelectProps<Multiple extends boolean = false>
-  extends Omit<
-    ComponentPropsWithoutRef<'button'>,
-    'value' | 'prefix' | 'onChange'
-  > {
-  /** Активация множественного выбора */
-  multiple?: Multiple
+type CommonSelectProps = Omit<
+  ComponentPropsWithoutRef<'button'>,
+  'value' | 'prefix' | 'onChange'
+> & {
   /** Список опций. Может быть сгруппирован */
   options?: SelectOptions
-  /** Controlled value */
-  value?: Multiple extends true ? SelectValue[] : SelectValue | undefined
-  /** Controlled onChange */
-  onChange?: (
-    value: Multiple extends true ? SelectOption[] : SelectOption | undefined
-  ) => void
   /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
   onClear?: () => void
   /** Callback на изменение значения поля фильтрации. Если true, то дефолтная фильтрация не используется, ожидается, что снаружи будет передан отфильтрованный options */
@@ -70,17 +61,27 @@ export interface SelectProps<Multiple extends boolean = false>
   dropdownOpen?: boolean
   /** Событие изменения состояния открытия всплывающего окна */
   onDropdownOpenChange?: (isOpen: boolean) => void
-  // ==================================== Нужны ли пропы ниже непонятно
   /** Состояние валидности */
   status?: 'error'
-  // autoFocus?: boolean  /** Кеширование асинхронно загруженных опций */
-  // cacheOptions?: boolean
-  /** Показывать выбранные значения в начале списка */
-  // selectedFirst?: boolean
-  // loadOptions?: (filterValue?: string) => Promise<SelectOptions>
-  // cacheOptions?: boolean
-  // filterOptions?: (options: SelectOptions) => SelectOptions
 }
+
+interface SingleSelectProps extends CommonSelectProps {
+  multiple?: false
+  /** Controlled value */
+  value?: SelectValue
+  /** Controlled onChange */
+  onChange?: (value: SelectOption | undefined) => void
+}
+
+interface MultipleSelectProps extends CommonSelectProps {
+  multiple: true
+  /** Controlled value */
+  value?: SelectValue[]
+  /** Controlled onChange */
+  onChange?: (value: SelectOption[]) => void
+}
+
+export type SelectProps = SingleSelectProps | MultipleSelectProps
 
 export type SelectValue = string | number
 
@@ -96,11 +97,6 @@ type MappedObject<T> = {
 export type SelectOption<T = Record<string, any>> = DefaultSelectOption &
   MappedObject<T>
 
-// export interface SelectOption {
-//   value: SelectValue
-//   label: string
-// }
-
 export interface SelectOptionGroup {
   label: string
   options: SelectOption[]
@@ -113,12 +109,10 @@ export interface GroupLabelItem {
 }
 export type FlattenOption = SelectOption | GroupLabelItem
 
-export interface UseSelectProps<Multiple extends boolean = false> {
-  multiple?: Multiple
-  value?: Multiple extends true ? SelectValue[] : SelectValue | undefined
-  onChange?: (
-    value: Multiple extends true ? SelectOption[] : SelectOption | undefined
-  ) => void
+export interface UseSelectProps {
+  multiple?: boolean
+  value?: SelectProps['value']
+  onChange?: SelectProps['onChange']
   options: FlattenOption[]
   onClear?: SelectProps['onClear']
 }

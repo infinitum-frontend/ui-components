@@ -622,3 +622,63 @@ export const ControlledOpen = {
     )
   }
 }
+
+export const Typescript = {
+  render: () => (
+    <>
+      <Select
+        options={SelectBaseOptions}
+        value={undefined}
+        onChange={undefined}
+      />
+
+      <Select options={SelectBaseOptions} value={''} onChange={undefined} />
+
+      <Select options={SelectBaseOptions} value={50} onChange={undefined} />
+
+      <Select
+        multiple
+        options={SelectBaseOptions}
+        value={undefined}
+        onChange={undefined}
+      />
+
+      <Select
+        multiple
+        options={SelectBaseOptions}
+        value={['one', 'two', 'three']}
+        onChange={(option) => {}}
+      />
+
+      <Select
+        multiple
+        options={SelectBaseOptions}
+        value={[1, 2, 3]}
+        onChange={(option) => {}}
+      />
+
+      <Select
+        options={SelectBaseOptions}
+        value={[]}
+        onChange={(option) => {
+          option?.join()
+        }}
+      />
+
+      <Select
+        multiple
+        options={SelectBaseOptions}
+        value={''}
+        onChange={(option) => {}}
+      />
+
+      <Select
+        options={SelectBaseOptions}
+        value="one"
+        onChange={(value) => {}}
+      />
+
+      <Select options={SelectBaseOptions} value={1} onChange={(value) => {}} />
+    </>
+  )
+}
