@@ -101,6 +101,10 @@ export interface TableProps<TRowData extends Record<string, any>>
    */
   withCollapsibleHeaderCellActions?: true // TODO: вместо этого надо задавать minWidth / width / maxWidth в columnDef и прокидывать стили на th или вложенный div
   meta?: Record<string, any>
+  /**
+   * Событие скролла
+   */
+  onScroll?: (event: React.UIEvent<HTMLDivElement>) => void
 }
 
 // ФИЛЬТРАЦИЯ
