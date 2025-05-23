@@ -30,6 +30,7 @@ interface ScrollAreaProps
   orientation?: ScrollAreaPrimitive.ScrollAreaScrollbarProps['orientation']
   viewportRef?: Ref<HTMLDivElement>
   viewportStyle?: CSSProperties
+  onScroll?: (event: React.UIEvent<HTMLDivElement>) => void
 }
 const ScrollArea = forwardRef<
   ElementRef<typeof ScrollAreaPrimitive.Root>,
@@ -43,6 +44,7 @@ const ScrollArea = forwardRef<
       scrollbarStyle,
       viewportStyle,
       viewportRef,
+      onScroll,
       ...props
     },
     ref
@@ -57,6 +59,7 @@ const ScrollArea = forwardRef<
         ref={viewportRef}
         className="inf-scroll-area__viewport"
         style={viewportStyle}
+        onScroll={onScroll}
       >
         {children}
       </ScrollAreaPrimitive.Viewport>
