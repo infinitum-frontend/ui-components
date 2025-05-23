@@ -11,7 +11,13 @@ import { Form } from '../Form'
 import { Icon } from '../Icon'
 import { Space } from '../Space'
 import { Text } from '../Text'
-import { Select, SelectOption, SelectOptions, SelectValue } from './index'
+import {
+  Select,
+  selectDataFormatter,
+  SelectOption,
+  SelectOptions,
+  SelectValue
+} from './index'
 import {
   SelectBaseGroupedOptions,
   SelectBaseOptions,
@@ -623,6 +629,76 @@ export const ControlledOpen = {
   }
 }
 
+interface Asset {
+  id: number
+  title: string
+  additionalData: {
+    test: number
+  }
+}
+
+const assets: Asset[] = [
+  {
+    id: 1,
+    title: 'Asset 1',
+    additionalData: {
+      test: 111
+    }
+  },
+  {
+    id: 2,
+    title: 'Asset 2',
+    additionalData: {
+      test: 222
+    }
+  },
+  {
+    id: 3,
+    title: 'Asset 3',
+    additionalData: {
+      test: 333
+    }
+  }
+]
+
+export const OptionsWithAdditionalData = {
+  render: () => {
+    const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
+
+    const formattedAssets = selectDataFormatter(
+      {
+        array: assets || [],
+        value: 'id',
+        label: 'title'
+      },
+      true
+    )
+
+    console.log(formattedAssets)
+
+    return (
+      <Space>
+        <Select
+          options={formattedAssets}
+          value={selectedAsset?.id}
+          onChange={(option) => {
+            const typedOption = option as SelectOption<Asset>
+
+            setSelectedAsset({
+              id: typedOption.value as number,
+              title: typedOption.label,
+              additionalData: typedOption.data
+                ?.additionalData as Asset['additionalData']
+            })
+          }}
+        />
+
+        <Text>{selectedAsset?.title}</Text>
+      </Space>
+    )
+  }
+}
+
 export const Typescript = {
   render: () => (
     <>
@@ -659,17 +735,15 @@ export const Typescript = {
 
       <Select
         options={SelectBaseOptions}
-        value={[]}
-        onChange={(option) => {
-          option?.join()
-        }}
+        value={''}
+        onChange={(option) => {}}
       />
 
       <Select
         multiple
         options={SelectBaseOptions}
-        value={''}
-        onChange={(option) => {}}
+        value={[]}
+        onChange={(option) => option}
       />
 
       <Select

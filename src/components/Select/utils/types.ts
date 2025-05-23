@@ -94,8 +94,9 @@ type MappedObject<T> = {
   [Property in keyof T]: T[Property]
 }
 
-export type SelectOption<T = Record<string, any>> = DefaultSelectOption &
-  MappedObject<T>
+export type SelectOption<T = Record<string, any>> = DefaultSelectOption & {
+  data?: MappedObject<T>
+}
 
 export interface SelectOptionGroup {
   label: string
