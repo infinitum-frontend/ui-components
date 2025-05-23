@@ -2,13 +2,13 @@ import { SelectOption, UseSelectProps, UseSelectResult } from '../utils/types'
 
 // TODO: поправить типы, убрать @ts-expect-error
 
-const useSelect = <Multiple extends boolean = false>({
+const useSelect = ({
   value,
   onChange,
   options: optionsProp,
   multiple,
   onClear
-}: UseSelectProps<Multiple>): UseSelectResult => {
+}: UseSelectProps): UseSelectResult => {
   // TODO: options вытащить из групп (хук useSelectOptions)?
   const options = optionsProp
 
@@ -22,9 +22,9 @@ const useSelect = <Multiple extends boolean = false>({
 
   const handleMultipleSelection = (option: SelectOption): void => {
     // @ts-expect-error
-    const alreadySelected = value.includes(option.value) // TODO: типизация value и onChange - дженерик не подхватывается
+    const alreadySelected = value?.includes(option.value) // TODO: типизация value и onChange - дженерик не подхватывается
     // @ts-expect-error
-    const selectedOptions = options.filter((o) => value.includes(o.value))
+    const selectedOptions = options.filter((o) => value?.includes(o.value))
 
     const newSelectedOptions = alreadySelected
       ? // @ts-expect-error
@@ -56,7 +56,7 @@ const useSelect = <Multiple extends boolean = false>({
   const checkOptionSelection = (option: SelectOption): boolean => {
     if (multiple) {
       // @ts-expect-error
-      return value.includes(option.value)
+      return value?.includes(option.value) || false
     } else {
       return value === option.value
     }
@@ -64,14 +64,14 @@ const useSelect = <Multiple extends boolean = false>({
 
   const hasSelectedValue = multiple
     ? // @ts-expect-error
-      value.length > 0
+      value?.length > 0
     : Boolean(value) || Number.isInteger(value)
 
   // @ts-expect-error
   const selectedOptions: SelectOption[] = options.filter((option) => {
     if (multiple) {
       // @ts-expect-error
-      return value.includes(option.value)
+      return value?.includes(option.value)
     } else {
       // @ts-expect-error
       return option.value === value

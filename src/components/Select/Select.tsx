@@ -33,11 +33,11 @@ import {
   SelectProps
 } from './utils/types'
 
-const Select = <Multiple extends boolean = false>({
+const Select = ({
   options = [],
-  value,
   onChange,
   multiple,
+  value,
   filterable,
   clearable,
   disabled: disabledProp,
@@ -63,7 +63,7 @@ const Select = <Multiple extends boolean = false>({
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   ...props
-}: SelectProps<Multiple>): ReactElement => {
+}: SelectProps): ReactElement => {
   const [filterValue, setFilterValue] = useState('')
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
 
@@ -168,7 +168,7 @@ const Select = <Multiple extends boolean = false>({
           filterValue={filterValue}
           onFilterChange={handleFilterChange}
           displayValue={displayValue}
-          selectedOptionsCount={multiple && selectedOptions.length}
+          selectedOptionsCount={multiple ? selectedOptions.length : undefined}
           clearable={Boolean(clearable && hasSelectedValue && !multiple)}
           onClear={handleClear}
           disabled={Boolean(isDisabled)}

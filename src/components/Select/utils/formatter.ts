@@ -48,7 +48,9 @@ function selectDataFormatter<T extends Record<string, any>>(
         accumulator.push({
           value: currentValue[value],
           label: currentValue[label],
-          ...produce(currentValue, (draft) => draft)
+          data: {
+            ...produce(currentValue, (draft) => draft)
+          }
         })
       } else {
         accumulator.push({
