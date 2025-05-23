@@ -90,12 +90,8 @@ export interface DefaultSelectOption {
   label: string
 }
 
-type MappedObject<T> = {
-  [Property in keyof T]: T[Property]
-}
-
-export type SelectOption<T = Record<string, any>> = DefaultSelectOption & {
-  data?: MappedObject<T>
+export type SelectOption<TData = unknown> = DefaultSelectOption & {
+  data?: TData
 }
 
 export interface SelectOptionGroup {
