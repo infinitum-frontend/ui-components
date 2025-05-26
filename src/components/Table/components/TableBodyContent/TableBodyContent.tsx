@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { flexRender, Row } from '@tanstack/react-table'
 import { TableRow as TableRowType } from 'Components/Table/types'
 import {
@@ -20,8 +20,7 @@ export interface TableBodyContentProps<TRowData extends Record<string, any>> {
   virtualizer?: Virtualizer<HTMLDivElement, Element>
   totalColumnsCount: number
   emptyMessage?: string
-  // columns?: Array<ColumnDef<any>>
-  // grouping?: boolean
+  withGroupLabel?: boolean
 }
 
 const FillerRow = ({ height }: { height: number }): ReactElement => {
@@ -46,7 +45,8 @@ const TableBodyContent = <TRowData extends Record<string, any>>({
   onRowClick,
   virtualizer,
   totalColumnsCount,
-  emptyMessage
+  emptyMessage,
+  withGroupLabel
 }: TableBodyContentProps<TRowData>): ReactElement => {
   const checkSelection = useCheckSelection()
   const handleRowClick = (
@@ -67,30 +67,38 @@ const TableBodyContent = <TRowData extends Record<string, any>>({
     return <TableEmpty colSpan={totalColumnsCount} message={emptyMessage} />
   }
 
+  const checkIsRowGroupLabel = (row: Row<any>): boolean => {
+    return Boolean(withGroupLabel && row.getCanExpand())
+  }
+
   if (!virtualizer) {
     return (
       <>
-        {rows.map((row) => (
-          <TableRow
-            key={row.id}
-            selected={checkIsRowSelected(
-              mapRowToExternalFormat(row),
-              selectedRow
-            )}
-            interactive={isRowInteractive}
-            style={row.original.style}
-            onClick={(e) => handleRowClick(e, row)}
-          >
-            {row.getVisibleCells().map((cell) => (
-              <TableCell
-                key={cell.id}
-                visibleOnHover={cell.column.columnDef.meta?.visibleOnRowHover}
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
+        {rows.map((row) => {
+          const isGroupLabel = checkIsRowGroupLabel(row)
+          return (
+            <TableRow
+              withGroupLabel={isGroupLabel}
+              key={row.id}
+              selected={checkIsRowSelected(
+                mapRowToExternalFormat(row),
+                selectedRow
+              )}
+              interactive={isRowInteractive}
+              style={row.original.style}
+              onClick={(e) => handleRowClick(e, row)}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <TableCell
+                  key={cell.id}
+                  visibleOnHover={cell.column.columnDef.meta?.visibleOnRowHover}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          )
+        })}
       </>
     )
   }

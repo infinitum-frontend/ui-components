@@ -7,7 +7,10 @@ import { Text } from '../Text'
 import {
   Portfolio,
   TABLE_COLUMNS,
+  TABLE_COLUMNS_WITH_SUB_ROWS,
+  TABLE_COLUMNS_WITH_SUB_ROWS_COLLAPSIBLE,
   TABLE_DATA,
+  TABLE_DATA_WITH_SUB_ROWS,
   TYPE_FILTER_ITEMS
 } from './fixtures'
 import { Button } from '../Button'
@@ -583,6 +586,33 @@ export const WithMeta: StoryObj<typeof Table> = {
           }}
         />
       </Space>
+    )
+  }
+}
+
+export const WithSubRowsGroupLabel: StoryObj<typeof Table> = {
+  render: (args) => {
+    return (
+      <Table
+        {...args}
+        columns={TABLE_COLUMNS_WITH_SUB_ROWS}
+        rows={TABLE_DATA_WITH_SUB_ROWS}
+        withSubRows
+        expandAll
+      />
+    )
+  }
+}
+
+export const WithSubRowsCollapsible: StoryObj<typeof Table> = {
+  render: (args) => {
+    return (
+      <Table
+        {...args}
+        columns={TABLE_COLUMNS_WITH_SUB_ROWS_COLLAPSIBLE}
+        rows={TABLE_DATA_WITH_SUB_ROWS}
+        withSubRows
+      />
     )
   }
 }
