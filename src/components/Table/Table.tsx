@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo, useState, forwardRef } from 'react'
 
 import {
   Column,
@@ -38,286 +38,302 @@ import './Table.scss'
 import useSelectionState from './hooks/useSelectionState'
 
 /** Компонент многофункциональной таблицы */
-const Table = <TRowData extends Record<string, any> = Record<string, any>>({
-  columns = [],
-  rows = [],
-  className,
-  withSorting,
-  onSortingChange,
-  sortingState = [],
-  withFiltering,
-  onFiltersChange,
-  filtersState = [],
-  withRowSelection,
-  onChangeRowSelection,
-  selectionState = [],
-  getRowId,
-  selectedRow,
-  onRowClick,
-  resizeMode,
-  columnVisibility = {},
-  tableLayout,
-  // enableGrouping = false,
-  children,
-  virtualized,
-  height,
-  maxHeight,
-  stickyHeader,
-  estimateRowHeight = 100,
-  emptyMessage,
-  withFiltersTags,
-  withCollapsibleHeaderCellActions,
-  meta,
-  withSubRows,
-  expandAll,
-  getSubRows,
-  ...props
-}: TableProps<TRowData>): ReactElement => {
-  // ==================== Простая таблица ====================
-  if (children) {
-    // TODO: scrollable
-    return <TableBase {...props}>{children}</TableBase>
-  }
-
-  const [expanded, setExpanded] = useState<ExpandedState>(expandAll ? true : {})
-
-  // ==================== Сложная таблица ====================
-  const { tanstackSelectionState, handleRowSelection } = useSelectionState({
-    selectionState
-  })
-
-  // ==================== handlers ====================
-
-  const handleSortingChange = (column: Column<any>): void => {
-    if (canSort(column)) {
-      const newSortingState = getNextSorting(sortingState, column.id)
-      onSortingChange?.(newSortingState)
-    }
-  }
-
-  const handleFilterChange: (
-    value: TableColumnFilterValue,
-    filterType: ColumnMeta<any, any>['filterType'],
-    column: Column<any>
-  ) => void = (value, filterType, column) => {
-    const hasValue = Array.isArray(value) ? value.length !== 0 : Boolean(value)
-    const newState = [
-      ...filtersState?.filter((item) => item.id !== column.id),
-      hasValue ? { id: column.id, filterType, value } : undefined
-    ].filter((item) => Boolean(item)) as TableColumnFiltersState
-    onFiltersChange?.(newState)
-  }
-
-  const canSort = (column: Column<any>): boolean => {
-    return Boolean(withSorting) && Boolean(column.columnDef.enableSorting)
-  }
-
-  const canFilter = (column: Column<any>): boolean => {
-    return Boolean(withFiltering) && Boolean(column.columnDef.meta?.filterType)
-  }
-
-  // ==================== init ====================
-
-  const memoizedColumns = useMemo(() => {
-    if (withRowSelection) {
-      return [
-        {
-          id: 'checkbox',
-          size: 49,
-          header: ({ table }) => {
-            return (
-              <div className="inf-table__checkbox-cell-wrapper">
-                <Checkbox
-                  checked={Boolean(table.getIsAllRowsSelected())}
-                  indeterminate={table.getIsSomeRowsSelected()}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={(value, e) =>
-                    table.getToggleAllRowsSelectedHandler().call({}, e)
-                  }
-                />
-              </div>
-            )
-          },
-          cell: ({ row }) => {
-            return (
-              <div className="inf-table__checkbox-cell-wrapper">
-                <Checkbox
-                  checked={row.getIsSelected()}
-                  indeterminate={row.getIsSomeSelected()}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={row.getToggleSelectedHandler()}
-                />
-              </div>
-            )
-          }
-        },
-        ...columns
-      ] as Array<ColumnDef<any>>
+const Table = forwardRef(
+  <TRowData extends Record<string, any> = Record<string, any>>(
+    {
+      columns = [],
+      rows = [],
+      className,
+      withSorting,
+      onSortingChange,
+      sortingState = [],
+      withFiltering,
+      onFiltersChange,
+      filtersState = [],
+      withRowSelection,
+      onChangeRowSelection,
+      selectionState = [],
+      getRowId,
+      selectedRow,
+      onRowClick,
+      resizeMode,
+      columnVisibility = {},
+      tableLayout,
+      // enableGrouping = false,
+      children,
+      virtualized,
+      height,
+      maxHeight,
+      stickyHeader,
+      estimateRowHeight = 100,
+      emptyMessage,
+      withFiltersTags,
+      withCollapsibleHeaderCellActions,
+      meta,
+      onScroll,
+      withSubRows,
+      expandAll,
+      getSubRows,
+      ...props
+    }: TableProps<TRowData>,
+    ref: React.ForwardedRef<HTMLDivElement>
+  ): ReactElement => {
+    // ==================== Простая таблица ====================
+    if (children) {
+      // TODO: scrollable
+      return <TableBase {...props}>{children}</TableBase>
     }
 
-    return columns
-  }, [columns, withRowSelection])
+    const [expanded, setExpanded] = useState<ExpandedState>(
+      expandAll ? true : {}
+    )
 
-  const table = useReactTable({
-    data: rows,
-    columns: memoizedColumns,
-    columnResizeMode: resizeMode,
-    getCoreRowModel: getCoreRowModel(),
-    getRowId: (original, index, parent) => {
-      if (typeof getRowId === 'function') {
-        return getRowId(original)
+    // ==================== Сложная таблица ====================
+    const { tanstackSelectionState, handleRowSelection } = useSelectionState({
+      selectionState
+    })
+
+    // ==================== handlers ====================
+
+    const handleSortingChange = (column: Column<any>): void => {
+      if (canSort(column)) {
+        const newSortingState = getNextSorting(sortingState, column.id)
+        onSortingChange?.(newSortingState)
       }
+    }
 
-      if (parent?.id) {
-        return `${parent.id}.${index}`
-      }
+    const handleFilterChange: (
+      value: TableColumnFilterValue,
+      filterType: ColumnMeta<any, any>['filterType'],
+      column: Column<any>
+    ) => void = (value, filterType, column) => {
+      const hasValue = Array.isArray(value)
+        ? value.length !== 0
+        : Boolean(value)
+      const newState = [
+        ...filtersState?.filter((item) => item.id !== column.id),
+        hasValue ? { id: column.id, filterType, value } : undefined
+      ].filter((item) => Boolean(item)) as TableColumnFiltersState
+      onFiltersChange?.(newState)
+    }
 
-      return String(index)
-    },
-    meta,
-    state: {
-      rowSelection: tanstackSelectionState,
-      sorting: sortingState,
-      columnVisibility,
-      expanded: withSubRows ? expanded : undefined
-    },
-    manualFiltering: true,
-    // manualGrouping: enableGrouping,
-    onRowSelectionChange: (callback) => {
-      const nextTanstackSelectionState =
-        typeof callback === 'function' ? callback(tanstackSelectionState) : {}
+    const canSort = (column: Column<any>): boolean => {
+      return Boolean(withSorting) && Boolean(column.columnDef.enableSorting)
+    }
 
-      handleRowSelection(
-        nextTanstackSelectionState,
-        table,
-        onChangeRowSelection
+    const canFilter = (column: Column<any>): boolean => {
+      return (
+        Boolean(withFiltering) && Boolean(column.columnDef.meta?.filterType)
       )
-    },
-    onExpandedChange: setExpanded,
-    getSubRows: (row) => {
-      if (typeof getSubRows === 'function') {
-        return getSubRows(row)
+    }
+
+    // ==================== init ====================
+
+    const memoizedColumns = useMemo(() => {
+      if (withRowSelection) {
+        return [
+          {
+            id: 'checkbox',
+            size: 49,
+            header: ({ table }) => {
+              return (
+                <div className="inf-table__checkbox-cell-wrapper">
+                  <Checkbox
+                    checked={Boolean(table.getIsAllRowsSelected())}
+                    indeterminate={table.getIsSomeRowsSelected()}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={(value, e) =>
+                      table.getToggleAllRowsSelectedHandler().call({}, e)
+                    }
+                  />
+                </div>
+              )
+            },
+            cell: ({ row }) => {
+              return (
+                <div className="inf-table__checkbox-cell-wrapper">
+                  <Checkbox
+                    checked={row.getIsSelected()}
+                    indeterminate={row.getIsSomeSelected()}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={row.getToggleSelectedHandler()}
+                  />
+                </div>
+              )
+            }
+          },
+          ...columns
+        ] as Array<ColumnDef<any>>
       }
 
-      return row?.subRows
-    },
-    getExpandedRowModel: getExpandedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues()
-  })
+      return columns
+    }, [columns, withRowSelection])
 
-  // ==================== vars ====================
+    const table = useReactTable({
+      data: rows,
+      columns: memoizedColumns,
+      columnResizeMode: resizeMode,
+      getCoreRowModel: getCoreRowModel(),
+      getRowId: (original, index, parent) => {
+        if (typeof getRowId === 'function') {
+          return getRowId(original)
+        }
 
-  const tableRows = table.getRowModel().rows
+        if (parent?.id) {
+          return `${parent.id}.${index}`
+        }
 
-  const totalColumnsCount = memoizedColumns?.length
+        return String(index)
+      },
+      meta,
+      state: {
+        rowSelection: tanstackSelectionState,
+        sorting: sortingState,
+        columnVisibility,
+        expanded: withSubRows ? expanded : undefined
+      },
+      manualFiltering: true,
+      // manualGrouping: enableGrouping,
+      onRowSelectionChange: (callback) => {
+        const nextTanstackSelectionState =
+          typeof callback === 'function' ? callback(tanstackSelectionState) : {}
 
-  // если передан expandAll, значит мы хотим отображать группировку всегда(ряд-лейбл с названием группы)
-  const withGroupLabel = withSubRows && expandAll
+        handleRowSelection(
+          nextTanstackSelectionState,
+          table,
+          onChangeRowSelection
+        )
+      },
+      onExpandedChange: setExpanded,
+      getSubRows: (row) => {
+        if (typeof getSubRows === 'function') {
+          return getSubRows(row)
+        }
 
-  return (
-    <TableScrollContainer
-      height={height}
-      maxHeight={maxHeight}
-      stickyHeader={stickyHeader}
-      rowsCount={tableRows.length}
-      estimateRowHeight={estimateRowHeight}
-      enabled={virtualized}
-    >
-      {({ virtualizer }) => (
-        <table
-          className={cn(
-            'inf-table',
-            className,
-            {
-              [`inf-table--layout-${tableLayout as string}`]: tableLayout
-            },
-            {
-              'inf-table--collapsible-header-cell-actions':
-                withCollapsibleHeaderCellActions
-            }
-          )}
-          {...props}
-        >
-          {/* HEADER */}
-          <TableHeader sticky={stickyHeader}>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableHeaderRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHeaderCell
-                    interactive={canSort(header.column)}
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    style={{
-                      // обработка ширины столбцов
-                      width: header.getSize()
-                    }}
-                    onClick={() => handleSortingChange(header.column)}
-                    slotSortButton={
-                      canSort(header.column) ? (
-                        <TableHeaderSort
-                          active={
-                            sortingState.length !== 0 &&
-                            header.column.id === sortingState[0].id
-                          }
-                          desc={sortingState[0]?.desc}
-                        />
-                      ) : (
-                        <></>
-                      )
-                    }
-                    slotFilterButton={
-                      canFilter(header.column) && (
-                        <TableHeaderFilter
-                          column={header.column}
-                          filterState={filtersState.find(
-                            (filter) => filter.id === header.column.id
-                          )}
-                          onChange={handleFilterChange}
-                        />
-                      )
-                    }
-                  >
-                    {header.isPlaceholder ? null : (
-                      <>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </>
-                    )}
-                  </TableHeaderCell>
-                ))}
-              </TableHeaderRow>
-            ))}
-            {/* Теги фильтров */}
-            {withFiltersTags && filtersState?.length !== 0 && (
-              <TableFilterTags
-                totalColumnsCount={totalColumnsCount}
-                filtersState={filtersState}
-                onChange={onFiltersChange}
-                sticky={stickyHeader}
-              />
+        return row?.subRows
+      },
+      getExpandedRowModel: getExpandedRowModel(),
+      getFacetedUniqueValues: getFacetedUniqueValues()
+    })
+
+    // ==================== vars ====================
+
+    const tableRows = table.getRowModel().rows
+
+    const totalColumnsCount = memoizedColumns?.length
+
+    // если передан expandAll, значит мы хотим отображать группировку всегда(ряд-лейбл с названием группы)
+    const withGroupLabel = withSubRows && expandAll
+
+    return (
+      <TableScrollContainer
+        height={height}
+        maxHeight={maxHeight}
+        stickyHeader={stickyHeader}
+        rowsCount={tableRows.length}
+        estimateRowHeight={estimateRowHeight}
+        enabled={virtualized}
+        onScroll={(e) => onScroll?.(e)}
+        ref={ref}
+      >
+        {({ virtualizer }) => (
+          <table
+            className={cn(
+              'inf-table',
+              className,
+              {
+                [`inf-table--layout-${tableLayout as string}`]: tableLayout
+              },
+              {
+                'inf-table--collapsible-header-cell-actions':
+                  withCollapsibleHeaderCellActions
+              }
             )}
-          </TableHeader>
+            {...props}
+          >
+            {/* HEADER */}
+            <TableHeader sticky={stickyHeader}>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableHeaderRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHeaderCell
+                      interactive={canSort(header.column)}
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      style={{
+                        // обработка ширины столбцов
+                        width: header.getSize()
+                      }}
+                      onClick={() => handleSortingChange(header.column)}
+                      slotSortButton={
+                        canSort(header.column) ? (
+                          <TableHeaderSort
+                            active={
+                              sortingState.length !== 0 &&
+                              header.column.id === sortingState[0].id
+                            }
+                            desc={sortingState[0]?.desc}
+                          />
+                        ) : (
+                          <></>
+                        )
+                      }
+                      slotFilterButton={
+                        canFilter(header.column) && (
+                          <TableHeaderFilter
+                            column={header.column}
+                            filterState={filtersState.find(
+                              (filter) => filter.id === header.column.id
+                            )}
+                            onChange={handleFilterChange}
+                          />
+                        )
+                      }
+                    >
+                      {header.isPlaceholder ? null : (
+                        <>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        </>
+                      )}
+                    </TableHeaderCell>
+                  ))}
+                </TableHeaderRow>
+              ))}
+              {/* Теги фильтров */}
+              {withFiltersTags && filtersState?.length !== 0 && (
+                <TableFilterTags
+                  totalColumnsCount={totalColumnsCount}
+                  filtersState={filtersState}
+                  onChange={onFiltersChange}
+                  sticky={stickyHeader}
+                />
+              )}
+            </TableHeader>
 
-          {/* BODY */}
-          <TableBody>
-            <TableBodyContent
-              withGroupLabel={withGroupLabel}
-              rows={tableRows}
-              selectedRow={selectedRow}
-              onRowClick={onRowClick}
-              // grouping={enableGrouping}
-              virtualizer={virtualizer}
-              totalColumnsCount={totalColumnsCount}
-              emptyMessage={emptyMessage}
-            />
-          </TableBody>
-        </table>
-      )}
-    </TableScrollContainer>
-  )
-}
+            {/* BODY */}
+            <TableBody>
+              <TableBodyContent
+                withGroupLabel={withGroupLabel}
+                rows={tableRows}
+                selectedRow={selectedRow}
+                onRowClick={onRowClick}
+                // grouping={enableGrouping}
+                virtualizer={virtualizer}
+                totalColumnsCount={totalColumnsCount}
+                emptyMessage={emptyMessage}
+              />
+            </TableBody>
+          </table>
+        )}
+      </TableScrollContainer>
+    )
+  }
+)
+
+Table.displayName = 'Table'
 
 export default Table
 
