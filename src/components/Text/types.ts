@@ -56,6 +56,7 @@ type TextVariant =
   | 'body-2'
   | 'body-3'
   | 'overline'
+  | 'inherit'
 
 type FontWeight = 'light' | 'normal' | 'bold' | 'extrabold'
 
