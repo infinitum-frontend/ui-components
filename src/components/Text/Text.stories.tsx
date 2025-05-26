@@ -2,6 +2,7 @@
 import * as React from 'react'
 import { Text, TextProps } from './index'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
+import { Space } from '../Space'
 
 const ComponentMeta: Meta<typeof Text> = {
   title: 'Typography/Text',
@@ -147,21 +148,47 @@ export const Truncated = {
 
 export const Inherit = {
   render: () => (
-    <div
-      style={{
-        font: "20px 'Times New Roman', serif",
-        color: 'blue',
-        letterSpacing: '0.05em',
-        textTransform: 'uppercase',
-        fontWeight: 400,
-        textAlign: 'center'
-      }}
-    >
-      <Text variant="inherit">
-        Этот текст обёрнут в div с кастомными стилями, которые наследуются по
-        параметрам font и color. Остальные параметры приведены для примера и
-        наследуются по умолчанию.
-      </Text>
-    </div>
+    <Space>
+      <div
+        style={{
+          font: "20px 'Times New Roman', serif"
+        }}
+      >
+        <Text variant="inherit">
+          Этот текст обёрнут в div с кастомным стилем font &quot;20px Times New
+          Roman, serif&quot;, которые наследуются по параметру font.
+        </Text>
+      </div>
+      <div
+        style={{
+          fontSize: '25px'
+        }}
+      >
+        <Text variant="inherit">
+          Этот текст обёрнут в div с кастомным стилем fontSize 25px, который
+          наследуется по параметру font.
+        </Text>
+      </div>
+      <div
+        style={{
+          fontFamily: "'Times New Roman', serif"
+        }}
+      >
+        <Text variant="inherit">
+          Этот текст обёрнут в div с кастомным стилем fontFamily &quot;20px
+          Times New Roman, serif&quot;, который наследуется по параметру font.
+        </Text>
+      </div>
+      <div
+        style={{
+          color: 'blue'
+        }}
+      >
+        <Text color="inherit">
+          Этот текст обёрнут в div с кастомным стилем color blue, который
+          наследуется по параметру color.
+        </Text>
+      </div>
+    </Space>
   )
 }

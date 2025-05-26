@@ -49,7 +49,6 @@
 
   &--variant-inherit {
     font: inherit;
-    color: inherit;
   }
 
   &--uppercase {
@@ -133,5 +132,9 @@
 
   &--color-violet {
     color: var(--inf-color-text-violet);
+  }
+
+  &--color-inherit {
+    color: inherit;
   }
 }
