@@ -104,6 +104,9 @@ export interface TableProps<TRowData extends Record<string, any>>
 
   /**
    * Включение подстрок
+   * Ссылки на документацию и примеры использования
+   * https://tanstack.com/table/v8/docs/guide/expanding-rows
+   * https://tanstack.com/table/v8/docs/framework/react/examples/expanding
    */
   withSubRows?: boolean
   /**
