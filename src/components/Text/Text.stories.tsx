@@ -144,3 +144,24 @@ export const Truncated = {
     </div>
   )
 }
+
+export const Inherit = {
+  render: () => (
+    <div
+      style={{
+        font: "20px 'Times New Roman', serif",
+        color: 'blue',
+        letterSpacing: '0.05em',
+        textTransform: 'uppercase',
+        fontWeight: 400,
+        textAlign: 'center'
+      }}
+    >
+      <Text variant="inherit">
+        Этот текст обёрнут в div с кастомными стилями, которые наследуются по
+        параметрам font и color. Остальные параметры приведены для примера и
+        наследуются по умолчанию.
+      </Text>
+    </div>
+  )
+}
