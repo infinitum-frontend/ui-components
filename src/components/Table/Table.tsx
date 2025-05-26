@@ -1,12 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 
 import {
   Column,
   ColumnDef,
   ColumnMeta,
+  ExpandedState,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFacetedUniqueValues,
   useReactTable
 } from '@tanstack/react-table'
@@ -66,6 +68,9 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
   withFiltersTags,
   withCollapsibleHeaderCellActions,
   meta,
+  withSubRows,
+  expandAll,
+  getSubRows,
   ...props
 }: TableProps<TRowData>): ReactElement => {
   // ==================== Простая таблица ====================
@@ -73,6 +78,8 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     // TODO: scrollable
     return <TableBase {...props}>{children}</TableBase>
   }
+
+  const [expanded, setExpanded] = useState<ExpandedState>(expandAll ? true : {})
 
   // ==================== Сложная таблица ====================
   const { tanstackSelectionState, handleRowSelection } = useSelectionState({
@@ -156,9 +163,13 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     columns: memoizedColumns,
     columnResizeMode: resizeMode,
     getCoreRowModel: getCoreRowModel(),
-    getRowId: (original, index) => {
+    getRowId: (original, index, parent) => {
       if (typeof getRowId === 'function') {
         return getRowId(original)
+      }
+
+      if (parent?.id) {
+        return `${parent.id}.${index}`
       }
 
       return String(index)
@@ -167,7 +178,8 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     state: {
       rowSelection: tanstackSelectionState,
       sorting: sortingState,
-      columnVisibility
+      columnVisibility,
+      expanded: withSubRows ? expanded : undefined
     },
     manualFiltering: true,
     // manualGrouping: enableGrouping,
@@ -181,8 +193,16 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
         onChangeRowSelection
       )
     },
+    onExpandedChange: setExpanded,
+    getSubRows: (row) => {
+      if (typeof getSubRows === 'function') {
+        return getSubRows(row)
+      }
+
+      return row?.subRows
+    },
+    getExpandedRowModel: getExpandedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues()
-    // getSubRows: (row) => row?.subRows,
   })
 
   // ==================== vars ====================
@@ -190,6 +210,9 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
   const tableRows = table.getRowModel().rows
 
   const totalColumnsCount = memoizedColumns?.length
+
+  // если передан expandAll, значит мы хотим отображать группировку всегда(ряд-лейбл с названием группы)
+  const withGroupLabel = withSubRows && expandAll
 
   return (
     <TableScrollContainer
@@ -280,6 +303,7 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
           {/* BODY */}
           <TableBody>
             <TableBodyContent
+              withGroupLabel={withGroupLabel}
               rows={tableRows}
               selectedRow={selectedRow}
               onRowClick={onRowClick}
