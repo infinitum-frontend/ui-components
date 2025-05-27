@@ -356,19 +356,3 @@ export default Table as typeof BaseTable
 // если ряд выбран через selection, то он должен иметь стиль --selected
 // multiSelect value должен быть типа SelectOpion[]
 // filterType date и dateRange
-// TableEmpty - не отображается при использовании с scrollable
-// прокидывание ширины колонки как CSS property
-// fixed высота tablehead - при этом высота tr в head должна = высоте tr в body
-// verticalAlignHead
-// resizer
-// прокидывание style и className
-// virtualizer
-// вынести логики сортировки, фильтрации, селекции и пр. в хуки
-// если экспортировать TableWithVirtualRows, то будет ли с ним тащиться react-virtual, даже если мы его не будем использоваться
-// лагает в МПК НПФ сильнее чем прошлая версsия, особенно если ховерить на шапку предварительно
-// TODO: прокидывание размеров для вспылвающего окна filter height и width
-// borderless нужен ли вообще?
-// если применить scrollable без virtualized, то у таблицы пропадают бордеры --borderless
-// если ряд выбран через selection, то он должен иметь стиль --selected
-// multiSelect value должен быть типа SelectOpion[]
-// filterType date и dateRange
