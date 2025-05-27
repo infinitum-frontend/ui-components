@@ -92,7 +92,7 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
       console.log(row.rowData)
       setSelected(row.id)
     }
-    const ref = useRef(null)
+    const ref = useRef<HTMLDivElement>(null)
 
     return (
       <Space>

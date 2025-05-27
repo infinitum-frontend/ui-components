@@ -1,5 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ReactElement, useMemo, useState, forwardRef } from 'react'
+import {
+  ReactElement,
+  useMemo,
+  useState,
+  forwardRef,
+  ComponentPropsWithRef
+} from 'react'
 
 import {
   Column,
@@ -36,7 +42,6 @@ import cn from 'classnames'
 
 import './Table.scss'
 import useSelectionState from './hooks/useSelectionState'
-import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
 function BaseTable<TRowData extends Record<string, any>>(
   {
@@ -75,8 +80,8 @@ function BaseTable<TRowData extends Record<string, any>>(
     getSubRows,
     borderRadius,
     ...props
-  }: PolymorphicComponent<'table', TableProps<TRowData>>,
-  ref: PolymorphicRef<'div'>
+  }: TableProps<TRowData>,
+  ref: ComponentPropsWithRef<'div'>['ref']
 ): ReactElement {
   // ==================== Простая таблица ====================
   if (children) {
@@ -326,12 +331,13 @@ function BaseTable<TRowData extends Record<string, any>>(
   )
 }
 /** Компонент многофункциональной таблицы */
-const Table = forwardRef(BaseTable)
+const Table = forwardRef(BaseTable) as <T extends Record<string, any>>(
+  props: TableProps<T> & {
+    ref?: React.ForwardedRef<HTMLDivElement>
+  }
+) => React.ReactElement
 
-// https://github.com/storybookjs/storybook/issues/9511#issuecomment-575608291
-export { Table }
-
-export default Table as typeof BaseTable
+export default Table
 
 // TODO:
 // TableHeader => TableHead - его экспортировать как UI, а TableHeader оставить для обработки логики внутри
