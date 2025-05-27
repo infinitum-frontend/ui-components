@@ -1,11 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {
-  ReactElement,
-  useMemo,
-  useState,
-  forwardRef,
-  ForwardedRef
-} from 'react'
+import { ReactElement, useMemo, useState, forwardRef } from 'react'
 
 import {
   Column,
@@ -42,8 +36,9 @@ import cn from 'classnames'
 
 import './Table.scss'
 import useSelectionState from './hooks/useSelectionState'
+import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 
-function BaseTable<TRowData extends Record<string, any> = Record<string, any>>(
+function BaseTable<TRowData extends Record<string, any>>(
   {
     columns = [],
     rows = [],
@@ -78,9 +73,10 @@ function BaseTable<TRowData extends Record<string, any> = Record<string, any>>(
     withSubRows,
     expandAll,
     getSubRows,
+    borderRadius,
     ...props
-  }: TableProps<TRowData>,
-  ref: ForwardedRef<HTMLDivElement>
+  }: PolymorphicComponent<'table', TableProps<TRowData>>,
+  ref: PolymorphicRef<'div'>
 ): ReactElement {
   // ==================== Простая таблица ====================
   if (children) {
