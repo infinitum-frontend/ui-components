@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactElement } from 'react'
+import React, { ComponentPropsWithoutRef, ReactElement } from 'react'
 import cn from 'classnames'
 import './Alert.scss'
 import IconInfoCircle from 'Icons/info-circle.svg?react'
@@ -18,24 +18,36 @@ export interface AlertProps
     | 'teal'
 }
 
-const Alert = ({ children, variant = 'neutral' }: AlertProps): ReactElement => {
-  const getAlertIcon = (): ReactElement => {
-    switch (variant) {
-      case 'info':
-        return <IconInfoCircle />
-      case 'success':
-        return <IconCheckCircle />
-      default:
-        return <IconAlertCircle />
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  ({ className, children, variant = 'neutral', ...props }, ref) => {
+    const getAlertIcon = (): ReactElement => {
+      switch (variant) {
+        case 'info':
+          return <IconInfoCircle />
+        case 'success':
+          return <IconCheckCircle />
+        default:
+          return <IconAlertCircle />
+      }
     }
-  }
 
-  return (
-    <div className={cn('inf-alert', `inf-alert--variant-${variant as string}`)}>
-      <span className="inf-alert__before">{getAlertIcon()}</span>
-      {children}
-    </div>
-  )
-}
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'inf-alert',
+          `inf-alert--variant-${variant as string}`,
+          className
+        )}
+        {...props}
+      >
+        <span className="inf-alert__before">{getAlertIcon()}</span>
+        {children}
+      </div>
+    )
+  }
+)
+
+Alert.displayName = 'Alert'
 
 export default Alert
