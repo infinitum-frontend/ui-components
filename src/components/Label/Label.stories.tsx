@@ -6,6 +6,7 @@ import { Space } from '../Space'
 import { Grid } from '../Grid'
 // @ts-expect-error
 import IconBxFilter from 'Icons/bx-filter.svg?react'
+import { Tooltip } from '../Tooltip'
 
 const variants = [
   'info',
@@ -86,5 +87,17 @@ export const IconOnly = {
 
   args: {
     before: <IconBxFilter />
+  }
+}
+
+export const LabelWithTooltip = {
+  render: () => {
+    return (
+      <Tooltip content="А это подсказка">
+        <Label variant="success" withIcon>
+          Это лейбл
+        </Label>
+      </Tooltip>
+    )
   }
 }
