@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useState, ReactElement, useRef } from 'react'
+import React, { useState, ReactElement, useRef, useEffect } from 'react'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import { Tooltip, TooltipProps } from './index'
 import { Button } from '../Button'
@@ -159,6 +159,23 @@ export const CustomWidth: StoryFn<typeof Tooltip> = () => {
   return (
     <Tooltip content="Lorem ipsum dolor sit amet." width="500px">
       <Button>Trigger</Button>
+    </Tooltip>
+  )
+}
+
+export const ChildrenRefTest: StoryFn<typeof Tooltip> = () => {
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  console.log(buttonRef.current)
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      console.log('Children ref', buttonRef.current)
+    }
+  }, [])
+
+  return (
+    <Tooltip content="Check my ref" width="500px">
+      <Button ref={buttonRef}>Trigger</Button>
     </Tooltip>
   )
 }

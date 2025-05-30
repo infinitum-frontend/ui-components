@@ -130,7 +130,24 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     const tooltipRef = useMergeRefs([refs.setFloating, propRef])
 
     const triggerProps = {
-      ref: refs.setReference,
+      ref: (node: HTMLElement | null) => {
+        refs.setReference(node)
+
+        if (isValidElement(children)) {
+          if ('ref' in children) {
+            const childrenRef = children.ref
+            if (typeof childrenRef === 'function') {
+              childrenRef(node)
+            } else if (
+              childrenRef &&
+              typeof childrenRef === 'object' &&
+              'current' in childrenRef
+            ) {
+              childrenRef.current = node
+            }
+          }
+        }
+      },
       ...getReferenceProps(),
       'data-tooltip-state': open ? 'open' : 'closed'
     }
