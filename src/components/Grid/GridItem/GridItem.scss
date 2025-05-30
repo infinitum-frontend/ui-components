@@ -1,0 +1,6 @@
+.inf-grid-item {
+  min-width: 0;
+  min-height: 0;
+  /* Flash of Unstyled Content предотвращение*/
+  contain: layout style;
+}

@@ -3,7 +3,8 @@ import React, {
   CSSProperties,
   ElementType,
   forwardRef,
-  ReactElement
+  ReactElement,
+  ReactNode
 } from 'react'
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
@@ -54,9 +55,13 @@ export interface GridProps {
    */
   templateColumns?: CSSProperties['gridTemplateColumns']
   /**
-   * CSS свойство grid-template-columns
+   * CSS свойство grid-template-rows
    */
   templateRows?: CSSProperties['gridTemplateRows']
+  /**
+   * CSS свойство grid-template-areas
+   */
+  templateAreas?: CSSProperties['gridTemplateAreas']
   /**
    * CSS свойство align-items
    */
@@ -65,13 +70,16 @@ export interface GridProps {
    * CSS свойство justify-items
    */
   justifyItems?: CSSProperties['justifyItems']
+  /**
+   * Дочерние элементы
+   */
+  children?: ReactNode
 }
 
 function BaseGrid<C extends ElementType = 'div'>(
   props: PolymorphicComponent<C, GridProps>,
   ref: PolymorphicRef<C>
 ): ReactElement {
-  // пропы деструктурируем в теле компонента, тк в аргументах функции это ломает отображение таблицы пропов
   const {
     as = 'div',
     className,
@@ -82,9 +90,11 @@ function BaseGrid<C extends ElementType = 'div'>(
     columnGap,
     templateColumns,
     templateRows,
+    templateAreas,
     alignItems,
     justifyItems,
     children,
+    style,
     ...rest
   } = props
 
@@ -97,10 +107,8 @@ function BaseGrid<C extends ElementType = 'div'>(
         'inf-grid',
         className,
         {
-          [`
-        inf-grid--row-gap-${rowGap as string}`]: rowGap,
-          [`
-        inf-grid--column-gap-${columnGap as string}`]: columnGap
+          [`inf-grid--row-gap-${rowGap as string}`]: rowGap,
+          [`inf-grid--column-gap-${columnGap as string}`]: columnGap
         },
         `inf-grid--gap-${gap as string}`
       )}
@@ -109,8 +117,10 @@ function BaseGrid<C extends ElementType = 'div'>(
         '--row-fill-method': rowFillMethod,
         gridTemplateColumns: templateColumns || undefined,
         gridTemplateRows: templateRows || undefined,
+        gridTemplateAreas: templateAreas || undefined,
         alignItems: alignItems || undefined,
-        justifyItems: justifyItems || undefined
+        justifyItems: justifyItems || undefined,
+        ...style
       }}
       {...rest}
     >
@@ -121,7 +131,4 @@ function BaseGrid<C extends ElementType = 'div'>(
 
 const Grid = forwardRef(BaseGrid)
 
-// We use typecasting to force args table to show up in Storybook
-// Экспорт именнованный, тк с дефолтным пропы отказываются появляться(https://github.com/storybookjs/storybook/issues/9556)
-/** Компонент для раскладки элементов по сетке CSS Grid */
 export default Grid as typeof BaseGrid
