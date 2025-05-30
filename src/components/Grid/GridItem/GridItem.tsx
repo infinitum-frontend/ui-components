@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { CSSProperties, ReactElement, ReactNode } from 'react'
+import React, { CSSProperties, ReactElement, ReactNode, useMemo } from 'react'
 import cn from 'classnames'
 import './GridItem.scss'
 
@@ -74,6 +74,11 @@ const GridItem = ({
     }
   }
 
+  const gridPositioningStyles = useMemo(
+    () => getGridPositioningStyles(),
+    [area, placement]
+  )
+
   return (
     <div
       className={cn('inf-grid-item', className)}
@@ -90,7 +95,7 @@ const GridItem = ({
               ? 'auto'
               : `span ${rowSpan}`
             : undefined,
-        ...getGridPositioningStyles(),
+        ...gridPositioningStyles,
         alignSelf,
         justifySelf,
         ...style
