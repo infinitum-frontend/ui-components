@@ -7,8 +7,10 @@ import React, {
   useEffect
 } from 'react'
 
+export type ThemeVariant = 'light' | 'dark'
+
 interface ThemePickerContextType {
-  theme?: 'light' | 'dark'
+  theme?: ThemeVariant
   toggleTheme?: () => void
 }
 
@@ -25,8 +27,8 @@ export const ThemePickerProvider = ({
 }: {
   children: ReactNode
 }): ReactElement => {
-  const [theme, setTheme] = useState<'light' | 'dark'>(
-    (localStorage.getItem('inf-ui-theme') as 'light' | 'dark') || 'light'
+  const [theme, setTheme] = useState<ThemeVariant>(
+    (localStorage.getItem('inf-ui-theme') as ThemeVariant) || 'light'
   )
 
   useEffect(() => {

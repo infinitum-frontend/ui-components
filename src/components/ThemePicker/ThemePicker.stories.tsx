@@ -69,18 +69,22 @@ export const MeetingsList: StoryObj = {
     return (
       <InfinitumUIProvider>
         <PageLayout>
-          <PageLayout.Header containerWidth="medium">
+          <PageLayout.Header>
             <Space direction="horizontal" align="center" gap="xxlarge">
               <Logo prefix="ЛКИ" />
               <HeaderNav style={{ flex: 1 }}>
                 <HeaderNav.Item>Инвесторы</HeaderNav.Item>
                 <HeaderNav.Item active>Собрания</HeaderNav.Item>
               </HeaderNav>
-              <ThemePicker />
+              <ThemePicker
+                onChange={(theme) => {
+                  console.log('theme', theme)
+                }}
+              />
             </Space>
           </PageLayout.Header>
 
-          <PageLayout.Body containerWidth="medium">
+          <PageLayout.Body>
             <PageLayout.Content>
               <Box paddingTop="xxlarge">
                 <Space gap="large">
