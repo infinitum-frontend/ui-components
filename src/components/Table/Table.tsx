@@ -4,7 +4,7 @@ import {
   useMemo,
   useState,
   forwardRef,
-  ForwardedRef
+  ComponentPropsWithRef
 } from 'react'
 
 import {
@@ -43,7 +43,7 @@ import cn from 'classnames'
 import './Table.scss'
 import useSelectionState from './hooks/useSelectionState'
 
-function BaseTable<TRowData extends Record<string, any> = Record<string, any>>(
+function BaseTable<TRowData extends Record<string, any>>(
   {
     columns = [],
     rows = [],
@@ -78,9 +78,10 @@ function BaseTable<TRowData extends Record<string, any> = Record<string, any>>(
     withSubRows,
     expandAll,
     getSubRows,
+    borderRadius,
     ...props
   }: TableProps<TRowData>,
-  ref: ForwardedRef<HTMLDivElement>
+  ref: ComponentPropsWithRef<'div'>['ref']
 ): ReactElement {
   // ==================== Простая таблица ====================
   if (children) {
@@ -330,12 +331,13 @@ function BaseTable<TRowData extends Record<string, any> = Record<string, any>>(
   )
 }
 /** Компонент многофункциональной таблицы */
-const Table = forwardRef(BaseTable)
+const Table = forwardRef(BaseTable) as <T extends Record<string, any>>(
+  props: TableProps<T> & {
+    ref?: React.ForwardedRef<HTMLDivElement>
+  }
+) => React.ReactElement
 
-// https://github.com/storybookjs/storybook/issues/9511#issuecomment-575608291
-export { Table }
-
-export default Table as typeof BaseTable
+export default Table
 
 // TODO:
 // TableHeader => TableHead - его экспортировать как UI, а TableHeader оставить для обработки логики внутри
