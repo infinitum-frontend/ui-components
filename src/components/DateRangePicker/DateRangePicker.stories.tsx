@@ -19,7 +19,10 @@ const meta: Meta<typeof DateRangePicker> = {
 export default meta
 
 const Template: StoryFn<typeof DateRangePicker> = (args) => {
-  const [value, setValue] = useState<DateRangePickerValue>(['', ''])
+  const [value, setValue] = useState<DateRangePickerValue>([
+    '2025-06-01',
+    '2025-06-02'
+  ])
   return <DateRangePicker {...args} value={value} onChange={setValue} />
 }
 
