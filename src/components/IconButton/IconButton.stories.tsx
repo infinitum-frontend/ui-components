@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IconSetting02 } from '@infinitum-ui/icons'
-import IconButton from './index'
+import { IconButton } from './index'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { Space } from '../Space'
 

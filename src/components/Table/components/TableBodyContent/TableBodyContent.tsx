@@ -84,6 +84,7 @@ const TableBodyContent = <TRowData extends Record<string, any>>({
                 mapRowToExternalFormat(row),
                 selectedRow
               )}
+              className={row.original.className}
               interactive={isRowInteractive}
               style={row.original.style}
               onClick={(e) => handleRowClick(e, row)}
@@ -131,6 +132,7 @@ const TableBodyContent = <TRowData extends Record<string, any>>({
               mapRowToExternalFormat(row),
               selectedRow
             )}
+            className={row.original.className}
             interactive={isRowInteractive}
             style={row.original.style}
             onClick={(e) => handleRowClick(e, row)}
