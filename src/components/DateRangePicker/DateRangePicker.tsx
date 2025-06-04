@@ -99,9 +99,7 @@ const DateRangePicker = ({
         <MaskedInput
           placeholder="__.__.____—__.__.____"
           onComplete={(value) => {
-            // Форматируем с учетом min/max
             const formattedValue = formatterFn(value, minDate, maxDate)
-            // Валидируем
             const isValid = validateFn(formattedValue, minDate, maxDate)
 
             if (isValid) {
@@ -115,7 +113,6 @@ const DateRangePicker = ({
                   ) as [string, string]
               )
             } else {
-              // Если не валидно, сбрасываем значение
               onChange?.(['', ''])
             }
           }}
