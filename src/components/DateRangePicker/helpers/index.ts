@@ -1,8 +1,10 @@
 import { parseLocalDateString } from 'Utils/date'
 
 /**
- * Функция для валидации того, является ли дата ДО больше даты ОТ
+ * Функция для валидации диапазона дат с учетом min и max
  * @param value format [0-9]{2}.[0-9]{2}.[0-9]{4}—[0-9]{2}.[0-9]{2}.[0-9]{4}
+ * @param min минимальная допустимая дата
+ * @param max максимальная допустимая дата
  */
 export const validateFn = (value: string, min?: Date, max?: Date): boolean => {
   const dates = value?.split('—').map((val) => {
@@ -31,6 +33,12 @@ export const validateFn = (value: string, min?: Date, max?: Date): boolean => {
   return true
 }
 
+/**
+ * Форматирует дату с учетом ограничений min и max
+ * @param date строка с датами
+ * @param min минимальная дата
+ * @param max максимальная дата
+ */
 export const formatterFn = (date: string, min?: Date, max?: Date): string => {
   let [from, to] = date.split('—').map((val) => parseLocalDateString(val)) as [
     Date,
