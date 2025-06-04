@@ -63,6 +63,9 @@ const DateRangePicker = ({
   const formGroupContext = useContext(FormGroupContext)
   const required = requiredProp || formGroupContext?.required
 
+  const minDate = min ? createDate(min) : undefined
+  const maxDate = max ? createDate(max) : undefined
+
   // ============================= floating =============================
   const { x, y, refs, context } = useFloating({
     open: isOpened,
@@ -96,13 +99,25 @@ const DateRangePicker = ({
         <MaskedInput
           placeholder="__.__.____—__.__.____"
           onComplete={(value) => {
-            onChange?.(
-              value
-                .split('—')
-                .map((localDateString) =>
-                  formatDateToISO(parseLocalDateString(localDateString) as Date)
-                ) as [string, string]
-            )
+            // Форматируем с учетом min/max
+            const formattedValue = formatterFn(value, minDate, maxDate)
+            // Валидируем
+            const isValid = validateFn(formattedValue, minDate, maxDate)
+
+            if (isValid) {
+              onChange?.(
+                formattedValue
+                  .split('—')
+                  .map((localDateString) =>
+                    formatDateToISO(
+                      parseLocalDateString(localDateString) as Date
+                    )
+                  ) as [string, string]
+              )
+            } else {
+              // Если не валидно, сбрасываем значение
+              onChange?.(['', ''])
+            }
           }}
           pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}—[0-9]{2}.[0-9]{2}.[0-9]{4}'}
           required={required}
@@ -112,16 +127,13 @@ const DateRangePicker = ({
             }
           }}
           mask={{
-            // @ts-expect-error
-            mask: Date,
-            pattern: 'd{.}`m{.}`Y{—}`d{.}`m{.}`Y',
-            // @ts-expect-error
-            format: formatterFn,
-            // @ts-expect-error
+            mask: 'd{.}`m{.}`Y{—}`d{.}`m{.}`Y',
+            format: (value: string) => formatterFn(value, minDate, maxDate),
+
             parse: function (string) {
               return string
             },
-            validate: validateFn
+            validate: (value) => validateFn(value, minDate, maxDate)
           }}
           value={displayValue}
           postfix={<IconCalendar className="inf-datepicker__calendar-icon" />}
