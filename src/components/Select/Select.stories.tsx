@@ -22,8 +22,7 @@ const meta: Meta<typeof Select> = {
   title: 'Form/Select',
   component: Select,
   args: {
-    options: SelectBaseOptions,
-    placeholder: 'Выберите значение'
+    options: SelectBaseOptions
   }
 }
 
@@ -115,7 +114,6 @@ export const Overflow = {
         options={SelectBaseOptions}
         value={value}
         onChange={(option?: SelectOption) => setValue(option?.value)}
-        placeholder="Выберите значение"
       />
     )
   }

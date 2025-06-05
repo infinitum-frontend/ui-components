@@ -36,7 +36,7 @@ const filterFn = (options: SelectOption[], value: string): SelectOption[] =>
 
 const Combobox = ({
   options = [],
-  placeholder,
+  placeholder = 'Выбрать значение',
   checkedList = [],
   onChange,
   showTags,

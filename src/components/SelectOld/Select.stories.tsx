@@ -105,7 +105,7 @@ export const FormValidation = {
   render: () => {
     return (
       <Form onSubmit={() => {}} style={{ maxWidth: '500px' }}>
-        <Form.Group required customValidationMessage="Введите значение">
+        <Form.Group required customValidationMessage="Выберите значение">
           <Select options={SelectBaseOptions} />
         </Form.Group>
         <Button type="submit">Отправить</Button>

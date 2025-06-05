@@ -44,7 +44,7 @@ const Select = <Multiple extends boolean = false>({
   required = false,
   loading,
   loaderPlacement = 'inline',
-  placeholder = 'Выберите значение',
+  placeholder = 'Выбрать значение',
   size,
   filterPlacement = 'dropdown',
   emptyMessage = 'Ничего не найдено',
