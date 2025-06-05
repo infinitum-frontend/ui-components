@@ -31,7 +31,7 @@ import { SelectOption, SelectProps } from './types'
 
 export const defaultSelectItem: SelectOption = {
   value: -1,
-  label: 'Не указано'
+  label: 'Выбрать значение'
 }
 
 const getIndexByValue = (
