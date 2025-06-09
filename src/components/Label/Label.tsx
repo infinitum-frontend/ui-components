@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react'
 import cn from 'classnames'
 import './Label.scss'
 import IconInfoCircle from 'Icons/info-circle.svg?react'
@@ -35,29 +35,37 @@ const defaultIcon = {
   danger: <IconAlertCircle />
 }
 
-const Label = ({
-  children,
-  variant = 'neutral',
-  tone = 'heavy',
-  withIcon = false,
-  before,
-  className,
-  ...props
-}: LabelProps): ReactElement => {
-  return (
-    <span
-      className={cn(className, 'inf-label', `inf-label--variant-${variant}`, {
-        [`inf-label--tone-${tone as string}`]: tone
-      })}
-      {...props}
-    >
-      {withIcon && (
-        <span className="inf-label__before">{defaultIcon[variant]}</span>
-      )}
-      {before && <span className="inf-label__before">{before}</span>}
-      {children && <span className="inf-label__content">{children}</span>}
-    </span>
-  )
-}
+const Label = forwardRef<HTMLSpanElement, LabelProps>(
+  (
+    {
+      children,
+      variant = 'neutral',
+      tone = 'heavy',
+      withIcon = false,
+      before,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <span
+        ref={ref}
+        className={cn(className, 'inf-label', `inf-label--variant-${variant}`, {
+          [`inf-label--tone-${tone as string}`]: tone
+        })}
+        {...props}
+      >
+        {withIcon && (
+          <span className="inf-label__before">{defaultIcon[variant]}</span>
+        )}
+        {before && <span className="inf-label__before">{before}</span>}
+        {children && <span className="inf-label__content">{children}</span>}
+      </span>
+    )
+  }
+)
+
+Label.displayName = 'Label'
 
 export default Label
