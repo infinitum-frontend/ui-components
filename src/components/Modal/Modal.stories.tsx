@@ -204,3 +204,31 @@ export const ModalWithNotification: StoryObj<typeof Modal> = {
     )
   }
 }
+
+export const ContentFromState: StoryObj<typeof Modal> = {
+  render: (args) => {
+    const [content, setContent] = useState(
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam voluptas accusamus molestiae, esse optio nemo in minus velit, ea voluptatibus aliquid vel vero porro adipisci. Aperiam tempore ab hic eum laudantium porro accusamus, ex dolorum reprehenderit aspernatur eaque cupiditate, est ducimus libero optio ipsa laborum ullam. In incidunt ducimus reprehenderit ut blanditiis accusamus eius. Iste cupiditate quibusdam blanditiis reprehenderit doloremque omnis obcaecati, asperiores numquam modi nulla quisquam dicta molestias saepe eius neque cum vel quos officia natus accusamus itaque minus unde sequi? Voluptatibus quidem nulla, odit fugiat architecto enim illum repellat doloribus? Architecto, iure reprehenderit adipisci, consequatur repellendus in aperiam atque sint, saepe autem temporibus assumenda exercitationem labore. Id harum neque necessitatibus iste, consequuntur laboriosam numquam quidem ipsam obcaecati vero temporibus dolorum et. Sapiente voluptate temporibus odio consequatur suscipit ipsam asperiores impedit dolores sint laboriosam! Optio porro maiores repudiandae consequuntur. Beatae atque sapiente quia, minus voluptatibus iste'
+    )
+
+    return (
+      <>
+        <Button
+          onClick={() =>
+            setContent(
+              'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam voluptas accusamus molestiae, esse optio nemo in minus velit, ea voluptatibus aliquid vel vero porro adipisci. Aperiam tempore ab hic eum laudantium porro accusamus, ex dolorum reprehenderit aspernatur eaque cupiditate, est ducimus libero optio ipsa laborum ullam. In incidunt ducimus reprehenderit ut blanditiis accusamus eius. Iste cupiditate quibusdam blanditiis reprehenderit doloremque omnis obcaecati, asperiores numquam modi nulla quisquam dicta molestias saepe eius neque cum vel quos officia natus accusamus itaque minus unde sequi? Voluptatibus quidem nulla, odit fugiat architecto enim illum repellat doloribus? Architecto, iure reprehenderit adipisci, consequatur repellendus in aperiam atque sint, saepe autem temporibus assumenda exercitationem labore. Id harum neque necessitatibus iste, consequuntur laboriosam numquam quidem ipsam obcaecati vero temporibus dolorum et. Sapiente voluptate temporibus odio consequatur suscipit ipsam asperiores impedit dolores sint laboriosam! Optio porro maiores repudiandae consequuntur. Beatae atque sapiente quia, minus voluptatibus iste'
+            )
+          }
+        >
+          Открыть/закрыть
+        </Button>
+        <Modal {...args} open={Boolean(content)} onClose={() => setContent('')}>
+          <Modal.Header>
+            <Modal.Title>Изменение показателя</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{content}</Modal.Body>
+        </Modal>
+      </>
+    )
+  }
+}
