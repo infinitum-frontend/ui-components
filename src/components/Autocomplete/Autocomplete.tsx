@@ -64,7 +64,7 @@ const Autocomplete = ({
   onChange,
   disabled: disabledProp,
   required,
-  buttonPlaceholder = 'Выберите',
+  buttonPlaceholder = 'Выбрать значение',
   inputPlaceholder,
   selectedValue,
   filterFn,
