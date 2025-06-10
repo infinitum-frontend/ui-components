@@ -1,6 +1,5 @@
-import { Grid } from './Grid'
-import { GridItem } from './GridItem'
+import Grid, { GridProps } from './Grid'
+import { GridItemProps } from './GridItem'
 
-export { Grid, GridItem }
-export type { GridProps } from './Grid'
-export type { GridItemProps } from './GridItem'
+export { Grid }
+export type { GridProps, GridItemProps }

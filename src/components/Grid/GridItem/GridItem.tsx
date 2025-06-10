@@ -28,10 +28,10 @@ export interface GridItemProps {
    * Позиционирование элемента, не используем если есть area
    */
   placement?: {
-    columnStart?: number | string
-    columnEnd?: number | string
-    rowStart?: number | string
-    rowEnd?: number | string
+    columnStart?: CSSProperties['gridColumnStart']
+    columnEnd?: CSSProperties['gridColumnEnd']
+    rowStart?: CSSProperties['gridRowStart']
+    rowEnd?: CSSProperties['gridRowEnd']
   }
   /**
    * Дочерние элементы
@@ -60,24 +60,17 @@ const GridItem = ({
   ...rest
 }: GridItemProps): ReactElement => {
   // исключаем стили placement если есть area, потому что браузер видит их конфликтующими
-  const getGridPositioningStyles = (): CSSProperties => {
-    if (area) {
-      return { gridArea: area }
-    }
-
-    return {
-      gridColumnStart: placement?.columnStart ?? (colSpan ? 'auto' : undefined),
-      gridColumnEnd:
-        placement?.columnEnd ?? (colSpan ? `span ${colSpan}` : undefined),
-      gridRowStart: placement?.rowStart ?? (rowSpan ? 'auto' : undefined),
-      gridRowEnd: placement?.rowEnd ?? (rowSpan ? `span ${rowSpan}` : undefined)
-    }
-  }
-
-  const gridPositioningStyles = useMemo(
-    () => getGridPositioningStyles(),
-    [area, placement]
-  )
+  const gridPositioningStyles = area
+    ? { gridArea: area }
+    : {
+        gridColumnStart:
+          placement?.columnStart ?? (colSpan ? 'auto' : undefined),
+        gridColumnEnd:
+          placement?.columnEnd ?? (colSpan ? `span ${colSpan}` : undefined),
+        gridRowStart: placement?.rowStart ?? (rowSpan ? 'auto' : undefined),
+        gridRowEnd:
+          placement?.rowEnd ?? (rowSpan ? `span ${rowSpan}` : undefined)
+      }
 
   return (
     <div

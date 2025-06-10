@@ -9,6 +9,7 @@ import React, {
 import cn from 'classnames'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import './Grid.scss'
+import { GridItem } from './GridItem'
 
 export interface GridProps {
   /**
@@ -131,4 +132,6 @@ function BaseGrid<C extends ElementType = 'div'>(
 
 const Grid = forwardRef(BaseGrid)
 
-export default Grid as typeof BaseGrid
+export default Object.assign(Grid as typeof BaseGrid, {
+  Item: GridItem
+})

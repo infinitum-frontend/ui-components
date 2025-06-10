@@ -1,9 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from 'react'
-import { Grid } from './Grid/index'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { Box } from 'Components/Box'
-import { GridItem } from './GridItem'
+import Grid from './Grid'
 
 const ComponentMeta: Meta<typeof Grid> = {
   title: 'Layout/Grid',
@@ -56,7 +55,7 @@ export const WithTemplateAreas: StoryObj<typeof Grid> = {
           height: '400px'
         }}
       >
-        <GridItem
+        <Grid.Item
           area="header"
           style={{
             backgroundColor: 'teal',
@@ -64,18 +63,18 @@ export const WithTemplateAreas: StoryObj<typeof Grid> = {
           }}
         >
           Шапка (строка 1)
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           area="sidebar"
           style={{
             backgroundColor: 'orange'
           }}
         >
           Сайдбар (строка 2)
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           area="content"
           style={{
             backgroundColor: 'blue',
@@ -83,9 +82,9 @@ export const WithTemplateAreas: StoryObj<typeof Grid> = {
           }}
         >
           Контент (строка 2)
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           area="footer"
           style={{
             backgroundColor: 'purple',
@@ -93,7 +92,7 @@ export const WithTemplateAreas: StoryObj<typeof Grid> = {
           }}
         >
           Подвал (строка 3)
-        </GridItem>
+        </Grid.Item>
       </Grid>
     )
   }
@@ -107,7 +106,7 @@ export const WithGridItemsPlacement: StoryObj<typeof Grid> = {
         templateRows="repeat(3, 100px)"
         gap="small"
       >
-        <GridItem
+        <Grid.Item
           placement={{
             columnStart: 2,
             columnEnd: 4,
@@ -120,9 +119,9 @@ export const WithGridItemsPlacement: StoryObj<typeof Grid> = {
           }}
         >
           Элемент с явным позиционированием Блок 1 (колонка 2-4 × строка 1-3)
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           placement={{
             columnStart: 1,
             rowStart: 2,
@@ -134,9 +133,9 @@ export const WithGridItemsPlacement: StoryObj<typeof Grid> = {
         >
           Элемент с комбинированным позиционированием Блок 2 (авто ширина × 2
           строки)
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           placement={{
             columnStart: 'span 2',
             rowStart: 3
@@ -148,7 +147,7 @@ export const WithGridItemsPlacement: StoryObj<typeof Grid> = {
         >
           Элемент с относительным позиционированием Блок 3 (2 колонки × 1
           строка)
-        </GridItem>
+        </Grid.Item>
       </Grid>
     )
   }
@@ -162,40 +161,40 @@ export const WithGridItemsAlignment: StoryObj<typeof Grid> = {
         templateRows="repeat(3, 100px)"
         gap="small"
       >
-        <GridItem
+        <Grid.Item
           style={{ backgroundColor: 'teal' }}
           alignSelf="center"
           justifySelf="center"
         >
           Центр
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           style={{ backgroundColor: 'orange' }}
           justifySelf="end"
           alignSelf="end"
         >
           Правый низ
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           style={{ backgroundColor: 'purple', color: 'white' }}
           justifySelf="stretch"
         >
           Растянут по ширине
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem
+        <Grid.Item
           style={{ backgroundColor: 'red', color: 'white' }}
           justifySelf="start"
           alignSelf="start"
         >
           Левый верх
-        </GridItem>
+        </Grid.Item>
 
-        <GridItem style={{ backgroundColor: 'crimson', color: 'white' }}>
+        <Grid.Item style={{ backgroundColor: 'crimson', color: 'white' }}>
           Авто, по умолчанию
-        </GridItem>
+        </Grid.Item>
       </Grid>
     )
   }
