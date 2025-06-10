@@ -155,6 +155,12 @@ const MaskedInput = ({
         onAccept?.(result)
       },
       onComplete: (value, maskRef) => {
+        const isValueChanged = value !== valueProp
+
+        if (isFirstRender && !isValueChanged) {
+          return
+        }
+
         onComplete?.(maskRef.unmaskedValue)
       }
     }

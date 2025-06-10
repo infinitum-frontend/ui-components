@@ -2,12 +2,15 @@
 import { StoryObj, Meta } from '@storybook/react'
 import { Table, TableRow, TableColumnFiltersState } from './index'
 import { ColumnDef, SortingState } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Text } from '../Text'
 import {
   Portfolio,
   TABLE_COLUMNS,
+  TABLE_COLUMNS_WITH_SUB_ROWS,
+  TABLE_COLUMNS_WITH_SUB_ROWS_COLLAPSIBLE,
   TABLE_DATA,
+  TABLE_DATA_WITH_SUB_ROWS,
   TYPE_FILTER_ITEMS
 } from './fixtures'
 import { Button } from '../Button'
@@ -89,10 +92,12 @@ export const WithSelectedRow: StoryObj<typeof Table> = {
       console.log(row.rowData)
       setSelected(row.id)
     }
+    const ref = useRef<HTMLDivElement>(null)
 
     return (
       <Space>
         <Table<Portfolio>
+          ref={ref}
           columns={TABLE_COLUMNS}
           selectedRow={selected}
           onRowClick={(row) => {
@@ -276,6 +281,10 @@ export const Scrollable: StoryObj<typeof Table> = {
 }
 
 export const VirtualizedRows: StoryObj<typeof Table> = {
+  args: {
+    borderRadius: 'xsmall'
+  },
+
   render: (args) => {
     const [search, setSearch] = useState('')
 
@@ -583,6 +592,33 @@ export const WithMeta: StoryObj<typeof Table> = {
           }}
         />
       </Space>
+    )
+  }
+}
+
+export const WithSubRowsGroupLabel: StoryObj<typeof Table> = {
+  render: (args) => {
+    return (
+      <Table
+        {...args}
+        columns={TABLE_COLUMNS_WITH_SUB_ROWS}
+        rows={TABLE_DATA_WITH_SUB_ROWS}
+        withSubRows
+        expandAll
+      />
+    )
+  }
+}
+
+export const WithSubRowsCollapsible: StoryObj<typeof Table> = {
+  render: (args) => {
+    return (
+      <Table
+        {...args}
+        columns={TABLE_COLUMNS_WITH_SUB_ROWS_COLLAPSIBLE}
+        rows={TABLE_DATA_WITH_SUB_ROWS}
+        withSubRows
+      />
     )
   }
 }

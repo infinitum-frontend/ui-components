@@ -47,6 +47,10 @@
     letter-spacing: 0.04em;
   }
 
+  &--variant-inherit {
+    font: inherit;
+  }
+
   &--uppercase {
     text-transform: uppercase;
   }
@@ -128,5 +132,9 @@
 
   &--color-violet {
     color: var(--inf-color-text-violet);
+  }
+
+  &--color-inherit {
+    color: inherit;
   }
 }

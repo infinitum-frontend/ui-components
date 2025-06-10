@@ -85,6 +85,7 @@ function BaseGrid<C extends ElementType = 'div'>(
     alignItems,
     justifyItems,
     children,
+    style,
     ...rest
   } = props
 
@@ -110,7 +111,8 @@ function BaseGrid<C extends ElementType = 'div'>(
         gridTemplateColumns: templateColumns || undefined,
         gridTemplateRows: templateRows || undefined,
         alignItems: alignItems || undefined,
-        justifyItems: justifyItems || undefined
+        justifyItems: justifyItems || undefined,
+        ...style
       }}
       {...rest}
     >

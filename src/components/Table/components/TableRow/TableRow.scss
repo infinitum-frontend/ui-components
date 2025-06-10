@@ -11,6 +11,17 @@
     cursor: pointer;
   }
 
+  &--with-group-label {
+    background-color: var(--inf-color-background-primary);
+
+    .inf-table-cell {
+      padding-top: var(--inf-space-xxsmall);
+      padding-bottom: var(--inf-space-xxsmall);
+      color: var(--inf-color-text-secondary);
+      background-color: var(--inf-color-background-secondary);
+    }
+  }
+
   &--selected {
     background-color: var(--inf-color-background-tertiary);
   }

@@ -1,23 +1,22 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ReactElement, ReactNode } from 'react'
 import cn from 'classnames'
+import React, { ComponentPropsWithoutRef, ReactNode } from 'react'
 import './MenuLabel.scss'
 
-export interface MenuLabelProps {
+export interface MenuLabelProps extends ComponentPropsWithoutRef<'div'> {
   className?: string
   children?: ReactNode
 }
 
-const MenuLabel = ({
-  className,
-  children,
-  ...props
-}: MenuLabelProps): ReactElement => {
-  return (
-    <div className={cn('inf-menu-label', className)} {...props}>
-      {children}
-    </div>
-  )
-}
+const MenuLabel = React.forwardRef<HTMLDivElement, MenuLabelProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn('inf-menu-label', className)} {...props}>
+        {children}
+      </div>
+    )
+  }
+)
+
+MenuLabel.displayName = 'MenuLabel'
 
 export default MenuLabel

@@ -1,12 +1,20 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ReactElement, useMemo } from 'react'
+import {
+  ReactElement,
+  useMemo,
+  useState,
+  forwardRef,
+  ComponentPropsWithRef
+} from 'react'
 
 import {
   Column,
   ColumnDef,
   ColumnMeta,
+  ExpandedState,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFacetedUniqueValues,
   useReactTable
 } from '@tanstack/react-table'
@@ -35,44 +43,53 @@ import cn from 'classnames'
 import './Table.scss'
 import useSelectionState from './hooks/useSelectionState'
 
-/** Компонент многофункциональной таблицы */
-const Table = <TRowData extends Record<string, any> = Record<string, any>>({
-  columns = [],
-  rows = [],
-  className,
-  withSorting,
-  onSortingChange,
-  sortingState = [],
-  withFiltering,
-  onFiltersChange,
-  filtersState = [],
-  withRowSelection,
-  onChangeRowSelection,
-  selectionState = [],
-  getRowId,
-  selectedRow,
-  onRowClick,
-  resizeMode,
-  columnVisibility = {},
-  tableLayout,
-  // enableGrouping = false,
-  children,
-  virtualized,
-  height,
-  maxHeight,
-  stickyHeader,
-  estimateRowHeight = 100,
-  emptyMessage,
-  withFiltersTags,
-  withCollapsibleHeaderCellActions,
-  meta,
-  ...props
-}: TableProps<TRowData>): ReactElement => {
+function BaseTable<TRowData extends Record<string, any>>(
+  {
+    columns = [],
+    rows = [],
+    className,
+    withSorting,
+    onSortingChange,
+    sortingState = [],
+    withFiltering,
+    onFiltersChange,
+    filtersState = [],
+    withRowSelection,
+    onChangeRowSelection,
+    selectionState = [],
+    getRowId,
+    selectedRow,
+    onRowClick,
+    resizeMode,
+    columnVisibility = {},
+    tableLayout,
+    // enableGrouping = false,
+    children,
+    virtualized,
+    height,
+    maxHeight,
+    stickyHeader,
+    estimateRowHeight = 100,
+    emptyMessage,
+    withFiltersTags,
+    withCollapsibleHeaderCellActions,
+    meta,
+    onScroll,
+    withSubRows,
+    expandAll,
+    getSubRows,
+    borderRadius,
+    ...props
+  }: TableProps<TRowData>,
+  ref: ComponentPropsWithRef<'div'>['ref']
+): ReactElement {
   // ==================== Простая таблица ====================
   if (children) {
     // TODO: scrollable
     return <TableBase {...props}>{children}</TableBase>
   }
+
+  const [expanded, setExpanded] = useState<ExpandedState>(expandAll ? true : {})
 
   // ==================== Сложная таблица ====================
   const { tanstackSelectionState, handleRowSelection } = useSelectionState({
@@ -116,22 +133,24 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
       return [
         {
           id: 'checkbox',
-          size: 20,
+          size: 49,
           header: ({ table }) => {
             return (
-              <Checkbox
-                checked={Boolean(table.getIsAllRowsSelected())}
-                indeterminate={table.getIsSomeRowsSelected()}
-                onClick={(e) => e.stopPropagation()}
-                onChange={(value, e) =>
-                  table.getToggleAllRowsSelectedHandler().call({}, e)
-                }
-              />
+              <div className="inf-table__checkbox-cell-wrapper">
+                <Checkbox
+                  checked={Boolean(table.getIsAllRowsSelected())}
+                  indeterminate={table.getIsSomeRowsSelected()}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={(value, e) =>
+                    table.getToggleAllRowsSelectedHandler().call({}, e)
+                  }
+                />
+              </div>
             )
           },
           cell: ({ row }) => {
             return (
-              <div>
+              <div className="inf-table__checkbox-cell-wrapper">
                 <Checkbox
                   checked={row.getIsSelected()}
                   indeterminate={row.getIsSomeSelected()}
@@ -154,9 +173,13 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     columns: memoizedColumns,
     columnResizeMode: resizeMode,
     getCoreRowModel: getCoreRowModel(),
-    getRowId: (original, index) => {
+    getRowId: (original, index, parent) => {
       if (typeof getRowId === 'function') {
         return getRowId(original)
+      }
+
+      if (parent?.id) {
+        return `${parent.id}.${index}`
       }
 
       return String(index)
@@ -165,7 +188,8 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     state: {
       rowSelection: tanstackSelectionState,
       sorting: sortingState,
-      columnVisibility
+      columnVisibility,
+      expanded: withSubRows ? expanded : undefined
     },
     manualFiltering: true,
     // manualGrouping: enableGrouping,
@@ -179,8 +203,16 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
         onChangeRowSelection
       )
     },
+    onExpandedChange: setExpanded,
+    getSubRows: (row) => {
+      if (typeof getSubRows === 'function') {
+        return getSubRows(row)
+      }
+
+      return row?.subRows
+    },
+    getExpandedRowModel: getExpandedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues()
-    // getSubRows: (row) => row?.subRows,
   })
 
   // ==================== vars ====================
@@ -188,6 +220,9 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
   const tableRows = table.getRowModel().rows
 
   const totalColumnsCount = memoizedColumns?.length
+
+  // если передан expandAll, значит мы хотим отображать группировку всегда(ряд-лейбл с названием группы)
+  const withGroupLabel = withSubRows && expandAll
 
   return (
     <TableScrollContainer
@@ -197,6 +232,8 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
       rowsCount={tableRows.length}
       estimateRowHeight={estimateRowHeight}
       enabled={virtualized}
+      onScroll={(e) => onScroll?.(e)}
+      ref={ref}
     >
       {({ virtualizer }) => (
         <table
@@ -278,6 +315,7 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
           {/* BODY */}
           <TableBody>
             <TableBodyContent
+              withGroupLabel={withGroupLabel}
               rows={tableRows}
               selectedRow={selectedRow}
               onRowClick={onRowClick}
@@ -292,6 +330,12 @@ const Table = <TRowData extends Record<string, any> = Record<string, any>>({
     </TableScrollContainer>
   )
 }
+/** Компонент многофункциональной таблицы */
+const Table = forwardRef(BaseTable) as <T extends Record<string, any>>(
+  props: TableProps<T> & {
+    ref?: React.ForwardedRef<HTMLDivElement>
+  }
+) => React.ReactElement
 
 export default Table
 

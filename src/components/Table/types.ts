@@ -101,6 +101,26 @@ export interface TableProps<TRowData extends Record<string, any>>
    */
   withCollapsibleHeaderCellActions?: true // TODO: вместо этого надо задавать minWidth / width / maxWidth в columnDef и прокидывать стили на th или вложенный div
   meta?: Record<string, any>
+  /**
+   * Событие скролла
+   */
+  onScroll?: (event: React.UIEvent<HTMLDivElement>) => void
+
+  /**
+   * Включение подстрок
+   * Ссылки на документацию и примеры использования
+   * https://tanstack.com/table/v8/docs/guide/expanding-rows
+   * https://tanstack.com/table/v8/docs/framework/react/examples/expanding
+   */
+  withSubRows?: boolean
+  /**
+   * Раскрытие всех подстрок по умолчанию. Используется вместе с withSubRows
+   */
+  expandAll?: boolean
+  /**
+   * Функция для получения подстрок
+   */
+  getSubRows?: (row: TRowData) => TRowData[]
 }
 
 // ФИЛЬТРАЦИЯ

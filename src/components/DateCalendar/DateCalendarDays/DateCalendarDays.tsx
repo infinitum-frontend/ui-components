@@ -35,24 +35,34 @@ const DateCalendarDays = ({
 
       {days.map((week, index) => (
         <div key={index} className="inf-calendar-days__week">
-          {week.map((el) => (
-            <span
-              key={el.date.toDateString()}
-              className={cn('inf-calendar-item', {
-                'inf-calendar-item--selected':
-                  el.date.toLocaleDateString() === value?.toLocaleDateString(),
-                'inf-calendar-item--empty': !el.day,
-                'inf-calendar-item--disabled': el.disabled
-              })}
-              onClick={() => {
-                if (el.date) {
-                  onChange(el.date)
-                }
-              }}
-            >
-              {el.day}
-            </span>
-          ))}
+          {week.map((el) => {
+            const isDateSelected =
+              el.date.toLocaleDateString() === value?.toLocaleDateString()
+            return (
+              <span
+                key={el.date.toDateString()}
+                className={cn('inf-calendar-item', {
+                  'inf-calendar-item--selected': isDateSelected,
+                  'inf-calendar-item--empty': !el.day,
+                  'inf-calendar-item--today':
+                    el.date.toLocaleDateString() ===
+                      new Date().toLocaleDateString() && !isDateSelected,
+                  'inf-calendar-item--disabled': el.disabled,
+                  'inf-calendar-item--prev-month':
+                    el.isPrevMonth && !isDateSelected,
+                  'inf-calendar-item--next-month':
+                    el.isNextMonth && !isDateSelected
+                })}
+                onClick={() => {
+                  if (el.date) {
+                    onChange(el.date)
+                  }
+                }}
+              >
+                {el.day}
+              </span>
+            )
+          })}
         </div>
       ))}
     </div>
