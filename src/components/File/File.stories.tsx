@@ -35,6 +35,6 @@ export const Deletable = {
 export const Loading = {
   render: Template,
   args: {
-    loading: true
+    status: 'loading'
   }
 }

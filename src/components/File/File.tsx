@@ -7,9 +7,9 @@ import {
   IconDelete01,
   IconDownload04
 } from '@infinitum-ui/icons'
-import { Icon } from '../Icon'
 import { Space } from '../Space'
 import { Text } from '../Text'
+import { IconButton } from '../IconButton'
 
 export interface FileProps {
   name: string
@@ -19,27 +19,28 @@ export interface FileProps {
   onGetFile?: () => void
   onDeleteFile?: () => void
   deletable?: boolean
-  loading?: boolean
+  status?: 'loading' | 'error' | 'idle'
 }
 
 const File = ({
   onGetFile = () => {},
   onDeleteFile = () => {},
   deletable = false,
-  loading = false,
+  status = 'idle',
   name,
   extension,
   size
 }: FileProps): ReactElement => {
   return (
     <Space direction="horizontal" gap="xsmall" align="center">
-      {loading ? (
+      {status === 'loading' ? (
         <Loader className="file__loader" size="compact" variant="unset" />
       ) : (
-        <Icon color="info" size="medium">
+        <IconButton color="primary" onClick={onGetFile}>
           <IconAttachment02 />
-        </Icon>
+        </IconButton>
       )}
+
       <Text color="info" variant="body-1">
         {name}
       </Text>
@@ -48,31 +49,16 @@ const File = ({
         {size ? `, ${formatBytes(size)} ${getUnitBySize(size)}` : ''}
       </Text>
 
-      {deletable ? (
-        <button
-          type="button"
-          className="file__button"
-          onClick={() => {
-            onDeleteFile()
-          }}
-        >
-          <Icon size="medium" color="primary">
-            <IconDelete01 />
-          </Icon>
-        </button>
-      ) : (
-        // TODO: IconButton
-        <button
-          type="button"
-          className="file__button"
-          onClick={() => {
-            onGetFile()
-          }}
-        >
-          <Icon size="medium">
-            <IconDownload04 />
-          </Icon>
-        </button>
+      {onGetFile !== undefined && (
+        <IconButton color="primary" onClick={onGetFile}>
+          <IconDownload04 />
+        </IconButton>
+      )}
+
+      {deletable && (
+        <IconButton color="primary" onClick={onDeleteFile}>
+          <IconDelete01 />
+        </IconButton>
       )}
     </Space>
   )
