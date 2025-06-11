@@ -15,6 +15,11 @@ import { Icon } from '../Icon'
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LinkProps {
   /**
+   * Перенос на новую строку при переполнении
+   * @deprecated используется по умолчанию
+   */
+  multiline?: boolean
+  /**
    * Контент слева от текста
    */
   prefix?: boolean | ReactNode
