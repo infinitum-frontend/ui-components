@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, {
-  ComponentPropsWithoutRef,
   ElementType,
   forwardRef,
   isValidElement,
@@ -14,13 +13,7 @@ import { IconArrowUpRight01Sharp } from '@infinitum-ui/icons'
 import { Icon } from '../Icon'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface LinkProps
-  extends Omit<
-    ComponentPropsWithoutRef<'button'>,
-    'multiline' | 'prefix' | 'suffix'
-  > {
-  /** Поддержка многострочной ссылки */
-  multiline?: boolean
+export interface LinkProps {
   /**
    * Контент слева от текста
    */
@@ -35,21 +28,7 @@ function BaseLink<C extends ElementType = 'a'>(
   props: PolymorphicComponent<C, LinkProps>,
   ref: PolymorphicRef<C>
 ): ReactElement {
-  const {
-    as = 'a',
-    children,
-    className,
-    multiline,
-    prefix,
-    suffix,
-    ...rest
-  } = props
-
-  const getClassNames: () => string = () => {
-    return classNames('inf-link', className, {
-      'inf-link--multiline': multiline
-    })
-  }
+  const { as = 'a', children, className, prefix, suffix, ...rest } = props
 
   const Component = as
 
@@ -74,7 +53,11 @@ function BaseLink<C extends ElementType = 'a'>(
   }
 
   return (
-    <Component ref={ref} className={getClassNames()} {...rest}>
+    <Component
+      ref={ref}
+      className={classNames('inf-link', className)}
+      {...rest}
+    >
       {prefix && getDefaultIcon('prefix')}
       {children}
       {suffix && getDefaultIcon('suffix')}

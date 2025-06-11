@@ -50,14 +50,9 @@ export const InText: StoryObj<typeof Link> = {
 export const Long: StoryObj<typeof Link> = {
   render: (args) => {
     return (
-      <div style={{ width: '100px' }}>
-        <Link as="a" href="javascript:void(0);" multiline>
-          Lorem ipsum dolor sit amet consectetur , adipisicing elit. Fugiat
-          consectetur quisquam, perspiciatis asperiores iure assumenda! Nihil
-          necessitatibus quo doloremque similique deserunt iure eligendi
-          adipisci! Molestias iure aperiam pariatur voluptatibus, doloremque
-          voluptatum rem provident quidem quis et libero reprehenderit delectus
-          earum adipisci, tempore quod?
+      <div style={{ width: '100px', border: '1px solid blue' }}>
+        <Link as="a" href="javascript:void(0);">
+          LoremipsumdolorsitametconsecteturadipisicingelitFugiatconsecteturquisquamperspiciatiasperioresiureassumendaNihilnecessitatibusquodoloremquesimiliquedeseruntiureeligendi@mail.ru
         </Link>
       </div>
     )
