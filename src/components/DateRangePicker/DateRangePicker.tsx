@@ -24,7 +24,6 @@ import cn from 'classnames'
 import NativeDatePicker from '../DatePicker/components/NaviteDatePicker/NativeDatePicker'
 import FormGroupContext from 'Components/Form/context/group'
 import { formatterFn, validateFn } from 'Components/DateRangePicker/helpers'
-import { IMask } from 'react-imask'
 
 /** Строка в формате YYYY-MM-DD */
 export type DateRangePickerValue = [string | Date, string | Date]
@@ -125,28 +124,12 @@ const DateRangePicker = ({
             }
           }}
           mask={{
-            mask: 'd{.}`m{.}`Y{—}`d{.}`m{.}`Y',
-            blocks: {
-              d: {
-                mask: IMask.MaskedRange,
-                placeholderChar: '_',
-                from: 1,
-                to: 31
-              },
-              m: {
-                mask: IMask.MaskedRange,
-                placeholderChar: '_',
-                from: 1,
-                to: 12
-              },
-              Y: {
-                mask: IMask.MaskedRange,
-                placeholderChar: '_',
-                from: 1000,
-                to: 9999
-              }
-            },
+            // @ts-expect-error
+            mask: Date,
+            pattern: 'd{.}`m{.}`Y{—}`d{.}`m{.}`Y',
+            // @ts-expect-error
             format: (value: string) => formatterFn(value, minDate, maxDate),
+            // @ts-expect-error
             parse: (string) => string,
             validate: (value) => validateFn(value, minDate, maxDate)
           }}
