@@ -1,25 +1,16 @@
-.file {
-  display: inline-flex;
-  gap: var(--inf-space-small);
-  align-items: center;
-  border: 1px solid var(--inf-color-border-primary);
-  border-radius: var(--inf-border-radius-small);
-  padding: var(--inf-space-xxsmall) var(--inf-space-xsmall)
-    var(--inf-space-xxsmall) var(--inf-space-xxsmall);
+.inf-file {
+  width: 100%;
+  padding: var(--inf-space-xxsmall);
 
-  // TODO: тут будет IconButton
-  &__button {
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2px;
-    transition: color 0.2s;
-    margin-right: calc(var(--inf-space-xxsmall) * -1);
+  @include hover {
+    background-color: var(--inf-color-background-primary-hover);
+  }
 
-    @include hover-active {
-      color: var(--inf-color-text-secondary);
-    }
+  &__loader {
+    color: var(--inf-color-text-info);
+  }
+
+  &__name-wrapper {
+    cursor: pointer;
   }
 }

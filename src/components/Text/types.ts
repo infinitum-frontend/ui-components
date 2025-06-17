@@ -73,4 +73,5 @@ export type TextColor =
   | 'inverse'
   | 'violet'
   | 'info'
+  | 'info-disabled'
   | 'inherit'

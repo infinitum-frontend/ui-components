@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-import './File.scss'
 import { Loader } from 'Components/Loader'
 import { formatBytes, getUnitBySize } from '@infinitum-ui/shared'
 import {
@@ -10,6 +9,8 @@ import {
 import { Space } from '../Space'
 import { Text } from '../Text'
 import { IconButton } from '../IconButton'
+import { Icon } from '../Icon'
+import './File.scss'
 
 export interface FileProps {
   name: string
@@ -23,7 +24,7 @@ export interface FileProps {
 }
 
 const File = ({
-  onGetFile = () => {},
+  onGetFile,
   onDeleteFile = () => {},
   deletable = false,
   status = 'idle',
@@ -31,35 +32,109 @@ const File = ({
   extension,
   size
 }: FileProps): ReactElement => {
+  const isError = status === 'error'
+  const isLoading = status === 'loading'
+  const isIdle = status === 'idle'
+
+  const getSizeBlock = (): ReactElement => {
+    return (
+      <Text variant="body-1" color="tertiary" uppercase>
+        {size ? `(${formatBytes(size)} ${getUnitBySize(size)})` : ''}
+      </Text>
+    )
+  }
+
+  const getNameAndExtension = (): ReactElement => {
+    return (
+      <>
+        <Text variant="body-1" as="span">
+          {name}
+        </Text>
+        {extension && (
+          <Text variant="body-1" as="span">
+            .{extension}
+          </Text>
+        )}
+      </>
+    )
+  }
+
   return (
-    <Space direction="horizontal" gap="xsmall" align="center">
-      {status === 'loading' ? (
-        <Loader className="file__loader" size="compact" variant="unset" />
-      ) : (
-        <IconButton color="primary" onClick={onGetFile}>
-          <IconAttachment02 />
-        </IconButton>
-      )}
+    <Space
+      direction="horizontal"
+      gap="xsmall"
+      align="center"
+      className="inf-file"
+      justify="space-between"
+    >
+      <Space direction="horizontal" gap="xsmall" align="center">
+        {isError && (
+          <>
+            <Icon color="error">
+              <IconAttachment02 />
+            </Icon>
 
-      <Text color="info" variant="body-1">
-        {name}
-      </Text>
-      <Text variant="body-1" color="secondary" uppercase>
-        {extension}
-        {size ? `, ${formatBytes(size)} ${getUnitBySize(size)}` : ''}
-      </Text>
+            <span>{getNameAndExtension()}</span>
+            {getSizeBlock()}
+          </>
+        )}
 
-      {onGetFile !== undefined && (
-        <IconButton color="primary" onClick={onGetFile}>
-          <IconDownload04 />
-        </IconButton>
-      )}
+        {isLoading && (
+          <>
+            <Loader
+              size="compact"
+              variant="unset"
+              className="inf-file__loader"
+            />
 
-      {deletable && (
-        <IconButton color="primary" onClick={onDeleteFile}>
-          <IconDelete01 />
-        </IconButton>
-      )}
+            <span>
+              <Text variant="body-1" as="span">
+                {name}
+              </Text>
+              {extension && (
+                <Text variant="body-1" as="span">
+                  .{extension}
+                </Text>
+              )}
+            </span>
+            {getSizeBlock()}
+          </>
+        )}
+
+        {isIdle && (
+          <>
+            <Icon color="info" size="medium">
+              <IconAttachment02 />
+            </Icon>
+
+            <Text
+              onClick={onGetFile}
+              color="info"
+              className="inf-file__name-wrapper"
+            >
+              {getNameAndExtension()}
+            </Text>
+            {getSizeBlock()}
+          </>
+        )}
+      </Space>
+
+      <Space direction="horizontal" gap="xsmall" align="center">
+        {onGetFile !== undefined && (
+          <IconButton color="primary" onClick={onGetFile}>
+            <IconDownload04 />
+          </IconButton>
+        )}
+
+        {deletable && (
+          <IconButton
+            color={isError ? 'error' : 'primary'}
+            onClick={onDeleteFile}
+          >
+            <IconDelete01 />
+          </IconButton>
+        )}
+      </Space>
     </Space>
   )
 }

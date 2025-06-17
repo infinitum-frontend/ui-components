@@ -130,6 +130,10 @@
     color: var(--inf-color-text-info);
   }
 
+  &--color-info-disabled {
+    color: var(--inf-color-text-info-disabled);
+  }
+
   &--color-violet {
     color: var(--inf-color-text-violet);
   }

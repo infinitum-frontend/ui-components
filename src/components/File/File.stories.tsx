@@ -8,7 +8,10 @@ const meta: Meta<typeof File> = {
   args: {
     name: 'Средней важности документ',
     size: 3500,
-    extension: 'pdf'
+    extension: 'pdf',
+    onGetFile: () => {
+      alert('get file')
+    }
   }
 }
 
@@ -35,6 +38,15 @@ export const Deletable = {
 export const Loading = {
   render: Template,
   args: {
-    status: 'loading'
+    status: 'loading',
+    deletable: true
+  }
+}
+
+export const Error = {
+  render: Template,
+  args: {
+    status: 'error',
+    deletable: true
   }
 }
