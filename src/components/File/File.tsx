@@ -21,6 +21,7 @@ export interface FileProps {
   onDeleteFile?: () => void
   deletable?: boolean
   status?: 'loading' | 'error' | 'idle'
+  errorMessage?: string
 }
 
 const File = ({
@@ -30,7 +31,8 @@ const File = ({
   status = 'idle',
   name,
   extension,
-  size
+  size,
+  errorMessage
 }: FileProps): ReactElement => {
   const isError = status === 'error'
   const isLoading = status === 'loading'
@@ -47,14 +49,8 @@ const File = ({
   const getNameAndExtension = (): ReactElement => {
     return (
       <>
-        <Text variant="body-1" as="span">
-          {name}
-        </Text>
-        {extension && (
-          <Text variant="body-1" as="span">
-            .{extension}
-          </Text>
-        )}
+        <Text variant="body-1">{name}</Text>
+        {extension && <Text variant="body-1">.{extension}</Text>}
       </>
     )
   }
@@ -63,19 +59,31 @@ const File = ({
     <Space
       direction="horizontal"
       gap="xsmall"
-      align="center"
+      align="start"
       className="inf-file"
       justify="space-between"
     >
-      <Space direction="horizontal" gap="xsmall" align="center">
+      <Space direction="horizontal" gap="xsmall" align="start">
         {isError && (
           <>
             <Icon color="error">
               <IconAttachment02 />
             </Icon>
 
-            <span>{getNameAndExtension()}</span>
-            {getSizeBlock()}
+            <div>
+              <Space direction="horizontal" gap="xxsmall" align="start">
+                <div className="inf-file__name-wrapper">
+                  <Text variant="body-1">{name}</Text>
+                  {extension && <Text variant="body-1">.{extension}</Text>}
+                </div>
+                {getSizeBlock()}
+              </Space>
+              {errorMessage && (
+                <Text variant="body-2" color="error">
+                  {errorMessage}
+                </Text>
+              )}
+            </div>
           </>
         )}
 
@@ -87,16 +95,10 @@ const File = ({
               className="inf-file__loader"
             />
 
-            <span>
-              <Text variant="body-1" as="span">
-                {name}
-              </Text>
-              {extension && (
-                <Text variant="body-1" as="span">
-                  .{extension}
-                </Text>
-              )}
-            </span>
+            <div className="inf-file__name-wrapper">
+              <Text variant="body-1">{name}</Text>
+              {extension && <Text variant="body-1">.{extension}</Text>}
+            </div>
             {getSizeBlock()}
           </>
         )}

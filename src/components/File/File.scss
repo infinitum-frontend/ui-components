@@ -6,6 +6,12 @@
     background-color: var(--inf-color-background-primary-hover);
   }
 
+  &__name-wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
   &__loader {
     color: var(--inf-color-text-info);
   }

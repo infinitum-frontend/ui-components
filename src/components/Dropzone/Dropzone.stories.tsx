@@ -8,11 +8,7 @@ import { parseFilename } from '@infinitum-ui/shared'
 
 const meta: Meta<typeof Dropzone> = {
   title: 'Components/Dropzone',
-  component: Dropzone,
-  args: {
-    buttonText: 'Кликните',
-    description: 'или перетащите, чтобы загрузить файл'
-  }
+  component: Dropzone
 }
 
 export default meta

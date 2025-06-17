@@ -22,8 +22,8 @@ export interface DropzoneProps
 
 const Dropzone = ({
   onChange,
-  description,
-  buttonText,
+  description = 'или перетащите, чтобы загрузить файл',
+  buttonText = 'Кликните',
   hint,
   accept,
   disabled,

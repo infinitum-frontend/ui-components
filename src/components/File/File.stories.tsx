@@ -47,6 +47,7 @@ export const Error = {
   render: Template,
   args: {
     status: 'error',
+    errorMessage: 'Ошибка при загрузке файла',
     deletable: true
   }
 }
