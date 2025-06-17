@@ -68,7 +68,10 @@ const Dropzone = ({
         }}
       />
       <Space gap="small" align="center">
-        <Icon className="inf-dropzone__icon">
+        <Icon
+          className="inf-dropzone__icon"
+          color={disabled ? 'primary-disabled' : 'primary'}
+        >
           <IconFileAdd />
         </Icon>
         <Space gap="xsmall">
