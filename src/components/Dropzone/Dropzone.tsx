@@ -73,7 +73,6 @@ const Dropzone = ({
         </Icon>
         <Space gap="xsmall">
           <Text>
-            {/* TODO: у Text нет цвета --inf-color-text-info-disabled */}
             <Text as="span" color={disabled ? 'info-disabled' : 'info'}>
               {buttonText}
             </Text>
