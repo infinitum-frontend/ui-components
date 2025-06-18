@@ -1,9 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { ComponentPropsWithoutRef, ReactElement } from 'react'
+import { ComponentPropsWithoutRef, ReactElement } from 'react'
 import ArrowUpDownIcon from 'Icons/arrow-up-down-sharp.svg?react'
 import ArrowDownIcon from 'Icons/arrow-down-sharp.svg?react'
 import ArrowUpIcon from 'Icons/arrow-up-sharp.svg?react'
 import TableHeaderCellButton from '../TableHeaderCellButton'
+import { TableTestAttributes } from '../../constants/testAttributes'
 
 export interface TableHeaderSortProps
   extends ComponentPropsWithoutRef<'button'> {
@@ -19,15 +20,21 @@ const TableHeaderSort = ({
   ...restProps
 }: TableHeaderSortProps): ReactElement => {
   return (
-    <TableHeaderCellButton active={active} {...restProps}>
+    <TableHeaderCellButton
+      active={active}
+      {...restProps}
+      data-testid={TableTestAttributes.headerSortButton}
+    >
       {active ? (
         desc ? (
-          <ArrowDownIcon />
+          <ArrowDownIcon data-testid={TableTestAttributes.sortIsDescIcon} />
         ) : (
-          <ArrowUpIcon />
+          <ArrowUpIcon data-testid={TableTestAttributes.sortIsAscIcon} />
         )
       ) : (
-        <ArrowUpDownIcon />
+        <ArrowUpDownIcon
+          data-testid={TableTestAttributes.sortIsNotSelectedIcon}
+        />
       )}
     </TableHeaderCellButton>
   )
