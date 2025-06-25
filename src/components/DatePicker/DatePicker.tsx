@@ -125,7 +125,6 @@ const DatePicker = ({
           max={max}
           required={required}
           onComplete={(val) => {
-            resetControlValidity()
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
           }}
           onAccept={(value) => {
@@ -164,6 +163,7 @@ const DatePicker = ({
               className="inf-datepicker__dropdown"
               value={value ? createDate(value) : new Date()}
               onChange={(date) => {
+                resetControlValidity()
                 onChange?.(formatDateToISO(date))
                 setOpened(false)
               }}

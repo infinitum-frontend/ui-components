@@ -133,7 +133,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
     }
 
-    const handleClear: () => void = () => {
+    const handleClear: (e: React.MouseEvent<HTMLSpanElement>) => void = (e) => {
       if (inputRef.current) {
         inputRef.current.value = ''
         inputRef.current.focus()

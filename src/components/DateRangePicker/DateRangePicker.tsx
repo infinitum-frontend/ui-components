@@ -26,6 +26,7 @@ import { IconCalendar04 } from '@infinitum-ui/icons'
 import { Icon } from '../Icon'
 import { Space } from '../Space'
 import './DateRangePicker.scss'
+import useFormControlHandlers from '../Form/hooks/useFormControlHandlers'
 
 /** Строка в формате YYYY-MM-DD */
 export type DateRangePickerValue = [string | Date, string | Date]
@@ -47,8 +48,6 @@ export interface DateRangePickerProps
   size?: 'medium' | 'small'
   /** Отображение кнопки очистки выбранного значения. При нажатии на кнопку вызывается обработчик onClear, а если он не был передан, то onChange. */
   clearable?: boolean
-  /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
-  onClear?: () => void
   placeholder?: string
 }
 
@@ -62,7 +61,6 @@ const DateRangePicker = ({
   max,
   size = 'medium',
   clearable,
-  onClear,
   placeholder = '__.__.____',
   ...props
 }: DateRangePickerProps): ReactElement => {
@@ -72,6 +70,8 @@ const DateRangePicker = ({
     to: value?.[1]
   })
 
+  const { resetControlValidity } = useFormControlHandlers()
+
   useEffect(() => {
     setLocalValue({
       from: value?.[0],
@@ -79,10 +79,11 @@ const DateRangePicker = ({
     })
   }, [value])
 
+  // Имитация onClear
   useEffect(() => {
     if (
-      localValue.from &&
-      localValue.to &&
+      localValue.from === '' &&
+      localValue.to === '' &&
       localValue.from !== value?.[0] &&
       localValue.to !== value?.[1]
     ) {
@@ -104,16 +105,6 @@ const DateRangePicker = ({
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useDismiss(context)
   ])
-
-  // ============================= handlers =============================
-
-  // const handleClear = (): void => {
-  //   if (onClear) {
-  //     onClear()
-  //   } else {
-  //     onChange?.(['', ''])
-  //   }
-  // }
 
   return (
     <>
@@ -212,6 +203,7 @@ const DateRangePicker = ({
                     string
                   ]
                 )
+                resetControlValidity()
                 setOpened(false)
               }}
               ref={refs.setFloating}
