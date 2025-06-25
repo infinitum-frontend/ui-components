@@ -8,23 +8,24 @@ import {
   useFloating,
   useInteractions
 } from '@floating-ui/react'
-import { ClearButton } from 'Components/ClearButton'
 import DateRangeCalendar, {
   DateRangeCalendarValue
 } from 'Components/DateRangeCalendar/DateRangeCalendar'
-import { formatterFn, validateFn } from 'Components/DateRangePicker/helpers'
 import FormGroupContext from 'Components/Form/context/group'
-import MaskedInput from 'Components/Input/components/MaskedInput'
-import IconCalendar from 'Icons/calendar2.svg?react'
 import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
 import cn from 'classnames'
 import {
   ComponentPropsWithoutRef,
   ReactElement,
   useContext,
+  useEffect,
   useState
 } from 'react'
-import NativeDatePicker from '../DatePicker/components/NaviteDatePicker/NativeDatePicker'
+import DateInput from '../DateInput'
+import { IconCalendar04 } from '@infinitum-ui/icons'
+import { Icon } from '../Icon'
+import { Space } from '../Space'
+import './DateRangePicker.scss'
 
 /** Строка в формате YYYY-MM-DD */
 export type DateRangePickerValue = [string | Date, string | Date]
@@ -39,8 +40,6 @@ export interface DateRangePickerProps
   min?: string
   /** Строка в формате YYYY-MM-DD */
   max?: string
-  /** Режим выбора по неделям с понедельника до воскресенья */
-  weekPick?: boolean
   /**
    * Размер
    * @default medium
@@ -50,6 +49,7 @@ export interface DateRangePickerProps
   clearable?: boolean
   /** Обработчик нажатия на кнопку очистки значения, которая отображается при clearable. Можно определить в нём произвольную логику. Если его не передать, то будет вызван onChange */
   onClear?: () => void
+  placeholder?: string
 }
 
 const DateRangePicker = ({
@@ -61,12 +61,35 @@ const DateRangePicker = ({
   min,
   max,
   size = 'medium',
-  weekPick,
   clearable,
   onClear,
+  placeholder = '__.__.____',
   ...props
 }: DateRangePickerProps): ReactElement => {
   const [isOpened, setOpened] = useState(false)
+  const [localValue, setLocalValue] = useState({
+    from: value?.[0],
+    to: value?.[1]
+  })
+
+  useEffect(() => {
+    setLocalValue({
+      from: value?.[0],
+      to: value?.[1]
+    })
+  }, [value])
+
+  useEffect(() => {
+    if (
+      localValue.from &&
+      localValue.to &&
+      localValue.from !== value?.[0] &&
+      localValue.to !== value?.[1]
+    ) {
+      onChange?.([localValue.from, localValue.to] as [string, string])
+    }
+  }, [localValue])
+
   const formGroupContext = useContext(FormGroupContext)
   const required = requiredProp || formGroupContext?.required
 
@@ -84,104 +107,81 @@ const DateRangePicker = ({
 
   // ============================= handlers =============================
 
-  const handleClear = (): void => {
-    if (onClear) {
-      onClear()
-    } else {
-      onChange?.(['', ''])
-    }
-  }
-
-  // ============================= render =============================
-  const displayValue = value
-    .map((v) => (v ? createDate(v).toLocaleDateString('ru') : ''))
-    .join('—')
-  const hiddenInputDateFrom = value?.[0] ? createDate(value[0]) : ''
-  const hiddenInputDateTo = value?.[1] ? createDate(value[1]) : ''
-  const hasValue = Boolean(value?.[0]) && Boolean(value?.[1])
-  const showClearButton = clearable && hasValue
+  // const handleClear = (): void => {
+  //   if (onClear) {
+  //     onClear()
+  //   } else {
+  //     onChange?.(['', ''])
+  //   }
+  // }
 
   return (
     <>
-      <div
+      <Space
+        gap="xsmall"
+        direction="horizontal"
+        align="center"
         ref={refs.setReference}
         {...getReferenceProps({
           onClick(e) {
             e.stopPropagation()
           }
         })}
-        className={cn('inf-datepicker', className)}
+        className={cn('inf-date-range-picker', className)}
         {...props}
       >
-        <MaskedInput
-          placeholder="__.__.____—__.__.____"
-          onComplete={(value) => {
-            onChange?.(
-              value
-                .split('—')
-                .map((localDateString) =>
-                  formatDateToISO(parseLocalDateString(localDateString) as Date)
-                ) as [string, string]
-            )
-          }}
-          pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}—[0-9]{2}.[0-9]{2}.[0-9]{4}'}
+        <DateInput
+          placeholder={placeholder}
+          min={min}
+          max={max}
           required={required}
-          onAccept={(value) => {
-            if (!value) {
-              onChange?.(['', ''])
+          clearable={clearable}
+          value={localValue.from}
+          onClear={() => setLocalValue({ ...localValue, from: '' })}
+          prefix={
+            <Icon hoverable size="small">
+              <IconCalendar04 />
+            </Icon>
+          }
+          onComplete={(date) => {
+            const parsedDate = parseLocalDateString(date)
+            if (parsedDate) {
+              setLocalValue({
+                ...localValue,
+                from: formatDateToISO(parsedDate)
+              })
             }
           }}
-          mask={{
-            // @ts-expect-error
-            mask: Date,
-            pattern: 'd{.}`m{.}`Y{—}`d{.}`m{.}`Y',
-            // @ts-expect-error
-            format: formatterFn,
-            // @ts-expect-error
-            parse: function (string) {
-              return string
-            },
-            validate: validateFn
-          }}
-          value={displayValue}
-          postfix={
-            <div className="inf-datepicker__postfix">
-              {/* TODO: переписать на использование clearable в Input */}
-              {showClearButton && (
-                <ClearButton
-                  as="button"
-                  className="inf-datepicker__clear-button"
-                  title="Очистить значение"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleClear()
-                  }}
-                />
-              )}
-              <IconCalendar className="inf-datepicker__calendar-icon" />
-            </div>
-          }
-          size={size}
-          onPostfixClick={() => setOpened((prev) => !prev)}
+          onPrefixClick={() => setOpened((prev) => !prev)}
           onFocus={() => setOpened(true)}
         />
-        {/* Скрытый нативный датапикер, необходимый для корректной работы валидации */}
-        <NativeDatePicker
-          className={'inf-datepicker__hidden-input'}
+        -
+        <DateInput
+          placeholder={placeholder}
           min={min}
-          max={hiddenInputDateTo}
-          value={hiddenInputDateFrom}
-          required={required}
-        />
-        {/* Скрытый нативный датапикер, необходимый для корректной работы валидации */}
-        <NativeDatePicker
-          className={'inf-datepicker__hidden-input'}
           max={max}
-          min={hiddenInputDateFrom}
-          value={hiddenInputDateTo}
           required={required}
+          value={localValue.to}
+          clearable={clearable}
+          onClear={() => setLocalValue({ ...localValue, to: '' })}
+          onComplete={(date) => {
+            const parsedDate = parseLocalDateString(date)
+            if (parsedDate) {
+              setLocalValue({
+                ...localValue,
+                to: formatDateToISO(parsedDate)
+              })
+            }
+          }}
+          prefix={
+            <Icon hoverable size="small">
+              <IconCalendar04 />
+            </Icon>
+          }
+          onPrefixClick={() => setOpened((prev) => !prev)}
+          onFocus={() => setOpened(true)}
         />
-      </div>
+      </Space>
       <FloatingPortal>
         {isOpened && !disabled && (
           <FloatingFocusManager
@@ -199,8 +199,7 @@ const DateRangePicker = ({
               }}
               min={min}
               max={max}
-              weekPick={weekPick}
-              className="inf-datepicker__dropdown"
+              className="inf-date-range-picker__dropdown"
               value={
                 value.map((el) =>
                   el ? createDate(el) : undefined

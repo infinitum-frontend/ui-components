@@ -1,10 +1,22 @@
-.inf-date-range-calendar-days {
+.inf-week-picker {
   &__week {
     display: grid;
-    align-items: center;
-    grid-template-columns: repeat(7, 32px);
+    grid-template-columns: repeat(7, 1fr);
     grid-template-rows: 32px;
-    gap: 4px 0;
+    row-gap: var(--inf-space-xxsmall);
+    align-items: center;
+  }
+
+  &__dropdown {
+    width: 240px;
+    background-color: var(--inf-color-background-float);
+    box-shadow: var(--inf-box-shadow-medium);
+    z-index: var(--inf-z-index-dropdown);
+    border-radius: var(--inf-border-radius-small);
+    padding: var(--inf-space-xsmall);
+  }
+
+  &__week {
     font: var(--inf-font-body-1);
 
     &--hovered {
@@ -17,12 +29,8 @@
     }
 
     &--picked {
-      background-color: white;
-      outline-style: solid;
-      outline-width: 1px;
-      outline-color: var(--inf-color-background-brand-primary);
+      background-color: var(--inf-color-background-float-hover);
       border-radius: var(--inf-border-radius-small);
-      background-color: #fef2f2; // TODO: токен
 
       @include hover {
         background-color: var(--inf-color-background-float-hover);
@@ -37,19 +45,19 @@
     height: 100%;
     cursor: pointer;
 
-    &--hoverable {
+    &--empty {
+      cursor: unset;
+      pointer-events: none;
+      background-color: transparent;
+
       @include hover {
-        background-color: var(--inf-color-background-float-hover);
+        background-color: transparent;
       }
     }
 
-    &--hovered {
-      background-color: var(--inf-color-background-float-hover);
-      border-radius: 0;
-
-      @include hover {
-        border-radius: 0;
-      }
+    &--disabled {
+      pointer-events: none;
+      opacity: 50%;
     }
 
     &--from {
@@ -72,30 +80,6 @@
       @include hover {
         background-color: var(--inf-color-background-brand-primary);
       }
-    }
-
-    &--one-day-interval {
-      background-color: var(--inf-color-background-brand-primary);
-      border-radius: var(--inf-border-radius-small);
-    }
-
-    &--empty {
-      cursor: unset;
-      pointer-events: none;
-      background-color: transparent;
-
-      @include hover {
-        background-color: transparent;
-      }
-
-      &.inf-date-range-calendar-days__item--hovered {
-        background-color: transparent;
-      }
-    }
-
-    &--disabled {
-      pointer-events: none;
-      opacity: 50%;
     }
   }
 }
