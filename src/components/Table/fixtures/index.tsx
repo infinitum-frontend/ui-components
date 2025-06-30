@@ -108,6 +108,14 @@ export const TABLE_COLUMNS: Array<ColumnDef<Portfolio, any>> = [
     meta: {
       filterType: 'date'
     }
+  },
+  {
+    header: 'Период',
+    id: 'dateRange',
+    accessorKey: 'dateRange',
+    meta: {
+      filterType: 'dateRange'
+    }
   }
 ]
 
