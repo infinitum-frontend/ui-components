@@ -1,3 +1,3 @@
 import WeekPicker from './WeekPicker'
 
-export default WeekPicker
+export { WeekPicker }

@@ -59,6 +59,29 @@ const DateRangeCalendarDays = ({
     return from < currentDate && currentDate < hoveredItem
   }
 
+  const classNames = (el: DayMatrixInfo): string => {
+    return cn(
+      'inf-date-range-calendar-days__item',
+      'inf-date-range-calendar-days__item--hoverable',
+      {
+        'inf-date-range-calendar-days__item--hovered': getDayHovered(el),
+        'inf-date-range-calendar-days__item--from':
+          el.date.toLocaleDateString() === value[0]?.toLocaleDateString() &&
+          !(el.isNextMonth || el.isPrevMonth),
+        'inf-date-range-calendar-days__item--to':
+          el.date.toLocaleDateString() === value[1]?.toLocaleDateString() &&
+          !(el.isNextMonth || el.isPrevMonth),
+        'inf-date-range-calendar-days__item--one-day-interval':
+          el.date.toLocaleDateString() === value[0]?.toLocaleDateString() &&
+          el.date.toLocaleDateString() === value[1]?.toLocaleDateString(),
+        'inf-date-range-calendar-days__item--prev-month': el.isPrevMonth,
+        'inf-date-range-calendar-days__item--next-month': el.isNextMonth,
+        'inf-date-range-calendar-days__item--empty': !el.day,
+        'inf-date-range-calendar-days__item--disabled': el.disabled
+      }
+    )
+  }
+
   return (
     <Space direction="horizontal" gap="small">
       <div>
@@ -71,28 +94,7 @@ const DateRangeCalendarDays = ({
                 {week.map((el) => (
                   <span
                     key={el.date.toDateString()}
-                    className={cn(
-                      'inf-date-range-calendar-days__item',
-                      'inf-date-range-calendar-days__item--hoverable',
-                      {
-                        'inf-date-range-calendar-days__item--from':
-                          el.date.toLocaleDateString() ===
-                          value[0]?.toLocaleDateString(),
-                        'inf-date-range-calendar-days__item--to':
-                          el.date.toLocaleDateString() ===
-                          value[1]?.toLocaleDateString(),
-                        'inf-date-range-calendar-days__item--one-day-interval':
-                          el.date.toLocaleDateString() ===
-                            value[0]?.toLocaleDateString() &&
-                          el.date.toLocaleDateString() ===
-                            value[1]?.toLocaleDateString(),
-                        'inf-date-range-calendar-days__item--hovered':
-                          getDayHovered(el),
-                        'inf-date-range-calendar-days__item--empty': !el.day,
-                        'inf-date-range-calendar-days__item--disabled':
-                          el.disabled
-                      }
-                    )}
+                    className={classNames(el)}
                     onMouseEnter={() => {
                       if (!el.disabled) {
                         setHoveredDate(el.date)
@@ -124,28 +126,7 @@ const DateRangeCalendarDays = ({
                 {week.map((el) => (
                   <span
                     key={el.date.toDateString()}
-                    className={cn(
-                      'inf-date-range-calendar-days__item',
-                      'inf-date-range-calendar-days__item--hoverable',
-                      {
-                        'inf-date-range-calendar-days__item--from':
-                          el.date.toLocaleDateString() ===
-                          value[0]?.toLocaleDateString(),
-                        'inf-date-range-calendar-days__item--to':
-                          el.date.toLocaleDateString() ===
-                          value[1]?.toLocaleDateString(),
-                        'inf-date-range-calendar-days__item--hovered':
-                          getDayHovered(el),
-                        'inf-date-range-calendar-days__item--empty': !el.day,
-                        'inf-date-range-calendar-days__item--disabled':
-                          el.disabled,
-                        'inf-date-range-calendar-days__item--one-day-interval':
-                          el.date.toLocaleDateString() ===
-                            value[0]?.toLocaleDateString() &&
-                          el.date.toLocaleDateString() ===
-                            value[1]?.toLocaleDateString()
-                      }
-                    )}
+                    className={classNames(el)}
                     onMouseEnter={() => {
                       if (!el.disabled) {
                         setHoveredDate(el.date)

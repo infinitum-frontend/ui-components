@@ -17,14 +17,14 @@
     height: 100%;
     cursor: pointer;
     padding: 7px;
-    border-radius: var(--inf-border-radius-medium);
+    border-radius: var(--inf-border-radius-small);
 
     @include hover {
-      background-color: var(--inf-color-gray-200);
+      background-color: var(--inf-color-background-primary-hover);
     }
 
     &--selected {
-      background-color: var(--inf-color-gray-200);
+      background-color: var(--inf-color-background-primary-hover);
     }
   }
 

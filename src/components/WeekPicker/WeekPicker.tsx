@@ -1,6 +1,11 @@
 import { formatDateToISO } from '@infinitum-ui/shared'
 import classNames from 'classnames'
-import { ComponentPropsWithoutRef, ReactElement, useState } from 'react'
+import {
+  ComponentPropsWithoutRef,
+  ReactElement,
+  useContext,
+  useState
+} from 'react'
 import {
   createDate,
   DayMatrixInfo,
@@ -10,7 +15,6 @@ import {
   oneMonthAhead,
   oneYearAhead
 } from '~/src/utils/date'
-import DateInput from '../DateInput'
 import {
   useFloating,
   useInteractions,
@@ -20,7 +24,6 @@ import {
   FloatingPortal,
   FloatingFocusManager
 } from '@floating-ui/react'
-import './WeekPicker.scss'
 import {
   DateCalendarHeader,
   DateCalendarMonths,
@@ -29,6 +32,14 @@ import {
 } from '../DateCalendar'
 import { IconCalendar04 } from '@infinitum-ui/icons'
 import { Icon } from '../Icon'
+import { TextFieldClasses } from '~/src/utils/textFieldClasses'
+import { InputProps } from '../Input'
+import FormGroupContext from '../Form/context/group'
+import FormContext from '../Form/context/form'
+import { ClearButton } from '../ClearButton'
+import './WeekPicker.scss'
+import useFormControlHandlers from '../Form/hooks/useFormControlHandlers'
+import { Space } from '../Space'
 
 export type WeekPickerValue = [string | Date, string | Date]
 export interface WeekPickerProps
@@ -40,6 +51,9 @@ export interface WeekPickerProps
   /** Максимальная дата в формате YYYY-MM-DD */
   max?: string
   onChange: (date: WeekPickerValue) => void
+  size?: InputProps['size']
+  disabled?: boolean
+  required?: boolean
 }
 
 const WeekPicker = ({
@@ -47,6 +61,10 @@ const WeekPicker = ({
   min,
   max,
   onChange,
+  className,
+  size = 'medium',
+  required: requiredProp,
+  disabled: disabledProp,
   ...props
 }: WeekPickerProps): ReactElement => {
   const [selectedView, setSelectedView] = useState<'day' | 'month' | 'year'>(
@@ -56,6 +74,13 @@ const WeekPicker = ({
   const [isOpened, setOpened] = useState(false)
   const [from, to] = value.map((el) => (el ? createDate(el) : undefined))
   const [localDate, setLocalDate] = useState(from || new Date())
+
+  const formGroupContext = useContext(FormGroupContext)
+  const formContext = useContext(FormContext)
+  const { onControlInvalid, resetControlValidity } = useFormControlHandlers()
+
+  const required = requiredProp || formGroupContext?.required
+  const disabled = disabledProp || formContext?.disabled
 
   const daysMatrix = getDaysMatrix(localDate, min, max)
 
@@ -101,6 +126,8 @@ const WeekPicker = ({
       return
     }
 
+    setOpened(false)
+    resetControlValidity()
     onChange?.([formatDateToISO(start), formatDateToISO(end)])
   }
 
@@ -136,24 +163,79 @@ const WeekPicker = ({
     }
   }
 
+  const hasValue = value[0] && value[1]
+
   return (
     <div
       {...props}
       ref={refs.setReference}
+      className={classNames('inf-week-picker', className)}
       {...getReferenceProps({
         onClick(e) {
           e.stopPropagation()
         }
       })}
     >
-      <DateInput
-        onFocus={() => setOpened(true)}
-        prefix={
-          <Icon hoverable size="small">
+      <button
+        type="button"
+        className={classNames(
+          'inf-week-picker__button',
+          TextFieldClasses.main,
+          TextFieldClasses.borderRadius.regular,
+          TextFieldClasses.size[size],
+          {
+            [TextFieldClasses.status[status as 'error']]: status,
+            [TextFieldClasses.disabled]: disabled,
+            [TextFieldClasses.focused]: isOpened && !disabled,
+            [TextFieldClasses.filled]: value.length
+          }
+        )}
+        onClick={() => setOpened((prev) => !prev)}
+      >
+        <Space direction="horizontal" gap="xsmall" align="center">
+          <Icon hoverable size="small" color="primary">
             <IconCalendar04 />
           </Icon>
+
+          {hasValue ? (
+            <span className="inf-week-picker__display-value">
+              {new Date(value[0]).toLocaleDateString('ru-Ru')} -
+              {new Date(value[1]).toLocaleDateString('ru-Ru')}
+            </span>
+          ) : (
+            <span className="inf-week-picker__placeholder">
+              Выберите период
+            </span>
+          )}
+        </Space>
+
+        {hasValue && (
+          <ClearButton
+            className="inf-week-picker__clear-button"
+            as="div"
+            role="button"
+            title="Очистить значение"
+            onClick={(e) => {
+              e.stopPropagation()
+              resetControlValidity()
+              onChange(['', ''])
+            }}
+          />
+        )}
+      </button>
+
+      <input
+        className="inf-week-picker__input"
+        id={formGroupContext?.id}
+        defaultValue={
+          hasValue
+            ? `${value
+                .map((el) => new Date(el).toLocaleDateString('ru-Ru'))
+                .join(' - ')}`
+            : ''
         }
-        onPrefixClick={() => setOpened((prev) => !prev)}
+        onInvalid={onControlInvalid}
+        required={required}
       />
 
       <FloatingPortal>

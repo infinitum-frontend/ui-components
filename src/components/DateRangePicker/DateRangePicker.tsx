@@ -130,7 +130,7 @@ const DateRangePicker = ({
           value={localValue.from}
           onClear={() => setLocalValue({ ...localValue, from: '' })}
           prefix={
-            <Icon hoverable size="small">
+            <Icon hoverable size="small" color="primary">
               <IconCalendar04 />
             </Icon>
           }
@@ -165,7 +165,7 @@ const DateRangePicker = ({
             }
           }}
           prefix={
-            <Icon hoverable size="small">
+            <Icon hoverable size="small" color="primary">
               <IconCalendar04 />
             </Icon>
           }

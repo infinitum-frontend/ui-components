@@ -1,10 +1,39 @@
 .inf-week-picker {
+  width: 100%;
+
   &__week {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: 32px;
     row-gap: var(--inf-space-xxsmall);
     align-items: center;
+  }
+
+  &__placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--inf-space-xsmall);
+  }
+
+  &__input {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+  }
+
+  &__display-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__dropdown {
@@ -80,6 +109,16 @@
       @include hover {
         background-color: var(--inf-color-background-brand-primary);
       }
+    }
+  }
+
+  &__clear-button {
+    display: none;
+  }
+
+  @include hover {
+    .inf-week-picker__clear-button {
+      display: inline-flex;
     }
   }
 }

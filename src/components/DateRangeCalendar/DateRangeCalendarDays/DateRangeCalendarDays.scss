@@ -39,6 +39,7 @@
 
     &--hoverable {
       @include hover {
+        border-radius: var(--inf-border-radius-small);
         background-color: var(--inf-color-background-float-hover);
       }
     }
@@ -49,6 +50,15 @@
 
       @include hover {
         border-radius: 0;
+      }
+    }
+
+    &--prev-month,
+    &--next-month {
+      color: var(--inf-color-text-secondary);
+
+      @include hover {
+        background-color: var(--inf-color-background-primary-hover);
       }
     }
 

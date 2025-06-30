@@ -21,7 +21,7 @@
 
   &--disabled {
     pointer-events: none;
-    color: var(--inf-color-text-secondary);
+    color: var(--inf-color-text-tertiary);
   }
 
   &--empty {
@@ -35,7 +35,7 @@
 
   &--prev-month,
   &--next-month {
-    color: var(--inf-color-text-tertiary);
+    color: var(--inf-color-text-secondary);
 
     @include hover {
       background-color: var(--inf-color-background-primary-hover);

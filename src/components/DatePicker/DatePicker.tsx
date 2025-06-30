@@ -133,7 +133,7 @@ const DatePicker = ({
             }
           }}
           prefix={
-            <Icon hoverable size="small">
+            <Icon hoverable size="small" color="primary">
               <IconCalendar04 />
             </Icon>
           }
