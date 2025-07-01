@@ -130,9 +130,10 @@ export const WithSorting: StoryObj<typeof Table> = {
           [...TABLE_DATA].sort((a, b) => {
             const { id, desc } = state[0]
 
-            const compareResult = a[id as keyof Portfolio].localeCompare(
-              b[id as keyof Portfolio]
-            )
+            const compareResult =
+              a[id as keyof Portfolio]?.localeCompare(
+                b[id as keyof Portfolio] ?? ''
+              ) ?? 0
             return desc ? -compareResult : compareResult
           })
         )
@@ -188,9 +189,10 @@ export const Filtering: StoryObj<typeof Table> = {
           [...TABLE_DATA].sort((a, b) => {
             const { id, desc } = state[0]
 
-            const compareResult = a[id as keyof Portfolio].localeCompare(
-              b[id as keyof Portfolio]
-            )
+            const compareResult =
+              a[id as keyof Portfolio]?.localeCompare(
+                b[id as keyof Portfolio] ?? ''
+              ) ?? 0
             return desc ? -compareResult : compareResult
           })
         )
@@ -204,9 +206,9 @@ export const Filtering: StoryObj<typeof Table> = {
 
       state.forEach((filter) => {
         result = result.filter((item) => {
-          const value = item[filter.id]
+          const value = item[filter.id as keyof Portfolio]
           if (filter.id === 'portfolio' && filter.filterType === 'search') {
-            return value.toLowerCase().match(filter.value.toLowerCase())
+            return value?.toLowerCase().match(filter.value?.toLowerCase())
           }
           if (filter.id === 'type' && filter.filterType === 'select') {
             return filter.value.value === '-1'

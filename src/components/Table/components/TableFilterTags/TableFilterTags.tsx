@@ -86,11 +86,25 @@ const TableFilterTags = ({
           value: currentFilter.value,
           filterType: currentFilter.filterType
         })
-      } else {
+      } else if (currentFilter.filterType === 'search') {
         filtersAccumulator.push({
           filterId: currentFilter.id,
           label: currentFilter.value,
           value: currentFilter.value,
+          filterType: currentFilter.filterType
+        })
+      } else if (currentFilter.filterType === 'dateRange') {
+        const { from, to } = currentFilter.value
+        const fromLabel = from ? createDate(from).toLocaleDateString('ru') : ''
+        const toLabel = to ? createDate(to).toLocaleDateString('ru') : ''
+        filtersAccumulator.push({
+          filterId: currentFilter.id,
+          label: (
+            <span>
+              {fromLabel} - {toLabel}
+            </span>
+          ),
+          value: (from || '').toString() + (to || '').toString(),
           filterType: currentFilter.filterType
         })
       }

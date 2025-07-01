@@ -5,13 +5,16 @@ import { Button } from '../Button'
 import { Form } from '../Form'
 import { Space } from '../Space'
 import { DatePicker, DatePickerInline, NativeDatePicker } from './index'
+import { formatDateToISO } from '~/src/utils/date'
+import { getNDaysAfter } from '@infinitum-ui/shared'
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Form/DatePicker',
   component: DatePicker,
   args: {
     disabled: false,
-    min: '2020-04-20'
+    min: formatDateToISO(new Date()),
+    max: formatDateToISO(getNDaysAfter(5, new Date()))
   }
 }
 
@@ -78,6 +81,7 @@ export const MinMax: StoryFn<typeof DatePicker> = {
         <Form.Group required>
           <Form.Label>Дата от (должна быть не позже даты до)</Form.Label>
           <DatePicker
+            min={formatDateToISO(new Date())}
             value={firstValue}
             onChange={setFirstValue}
             max={secondValue}

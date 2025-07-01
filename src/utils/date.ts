@@ -87,7 +87,9 @@ export function getDaysMatrix(
         continue
       }
 
-      if (currentDay < 1) {
+      const isPrevMonth = currentDay < 1
+
+      if (isPrevMonth) {
         matrix[week].push({
           date,
           day,
@@ -97,7 +99,9 @@ export function getDaysMatrix(
         continue
       }
 
-      if (currentDay > daysInMonthCount) {
+      const isNextMonth = currentDay > daysInMonthCount
+
+      if (isNextMonth) {
         matrix[week].push({
           date,
           day,

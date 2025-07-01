@@ -1,8 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { CSSProperties, ReactElement, useState } from 'react'
+import { CSSProperties, ReactElement, useState } from 'react'
 import { Column } from '@tanstack/react-table'
 import {
   TableColumnFilter,
+  TableFilterDateOption,
   TableFilterType,
   TableSelectOption
 } from 'Components/Table/types'
@@ -18,6 +19,7 @@ import TableHeaderFilterMultiSelect from './filters/TableHeaderFilterMultiSelect
 import TableHeaderFilterDate from './filters/TableHeaderFilterDate'
 import { defaultSelectItem } from '~/src/components/Select'
 import './TableHeaderFilter.scss'
+import TableHeaderFilterDateRange from './filters/TableHeaderFilterDateRange'
 
 // TODO: filter default value
 const getInitialValue = (
@@ -36,6 +38,8 @@ const getInitialValue = (
       return defaultSelectItem
     case 'multiSelect':
       return []
+    case 'dateRange':
+      return { from: '', to: '' }
   }
 }
 
@@ -119,14 +123,16 @@ const TableHeaderFilter = ({
     search: 'search',
     date: 'date',
     select: 'filter',
-    multiSelect: 'filter'
+    multiSelect: 'filter',
+    dateRange: 'date'
   }
 
   const defaultPopoverWidth: Record<TableFilterType, CSSProperties['width']> = {
     search: '300px',
     date: '264px',
     select: '300px',
-    multiSelect: '300px'
+    multiSelect: '300px',
+    dateRange: '500px'
   }
 
   return (
@@ -183,21 +189,14 @@ const TableHeaderFilter = ({
             />
           )}
 
-          {/* TODO: дата от-до */}
-          {/* {filterType === 'dateRange' && (
-            <>
-              <NativeDatePicker
-                value={dateFrom}
-                onChange={(value) => setDateFilter(value, 'from')}
-                max={dateTo}
-              />
-              <NativeDatePicker
-                value={dateTo}
-                onChange={(value) => setDateFilter(value, 'to')}
-                min={dateFrom}
-              />
-            </>
-          )} */}
+          {/* дата от-до */}
+          {filterType === 'dateRange' && (
+            <TableHeaderFilterDateRange
+              value={filterValue as TableFilterDateOption}
+              onChange={(value) => setFilterValue(value)}
+              onReset={applyReset}
+            />
+          )}
         </Form>
       </div>
     </TableFilterPopover>

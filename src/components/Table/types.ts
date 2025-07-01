@@ -131,13 +131,19 @@ export interface TableFilterDateOption {
   to?: Date | string
 }
 
-export type TableFilterType = 'search' | 'select' | 'date' | 'multiSelect'
+export type TableFilterType =
+  | 'search'
+  | 'select'
+  | 'date'
+  | 'multiSelect'
+  | 'dateRange'
 
 export interface TableColumnFilterValues {
   search: string
   select: TableSelectOption
   multiSelect: TableSelectOption[]
   date: string
+  dateRange: TableFilterDateOption
 }
 
 export type TableColumnFilterValue =
@@ -165,7 +171,11 @@ export type TableColumnFilter =
       filterType: 'date'
       value: string
     }
-
+  | {
+      id: string
+      filterType: 'dateRange'
+      value: TableFilterDateOption
+    }
 export type TableColumnFiltersState = TableColumnFilter[]
 
 // РЯДЫ
@@ -203,7 +213,7 @@ export type TableFiltersOptions = Array<
 declare module '@tanstack/table-core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterType?: 'search' | 'select' | 'date' | 'multiSelect'
+    filterType?: TableFilterType
     filterOptions?: TableFiltersOptions
     filterPopoverWidth?: CSSProperties['width']
     visibleOnRowHover?: boolean

@@ -8,12 +8,9 @@ import {
   useFloating,
   useInteractions
 } from '@floating-ui/react'
-import { ClearButton } from 'Components/ClearButton'
 import { DateCalendar } from 'Components/DateCalendar'
 import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
-import MaskedInput from 'Components/Input/components/MaskedInput'
-import IconCalendar from 'Icons/calendar2.svg?react'
 import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
 import cn from 'classnames'
 import {
@@ -24,10 +21,15 @@ import {
   useState
 } from 'react'
 import './DatePicker.scss'
-import NativeDatePicker from './components/NaviteDatePicker/NativeDatePicker'
+import DateInput from '../DateInput'
+import { Icon } from '~/src'
+import { IconCalendar04 } from '@infinitum-ui/icons'
 
 export interface DatePickerProps
-  extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
+  extends Omit<
+    ComponentPropsWithoutRef<'div'>,
+    'value' | 'onChange' | 'onInput'
+  > {
   disabled?: boolean
   /** Дата или строка в формате YYYY-MM-DD */
   value?: string | Date
@@ -74,9 +76,6 @@ const DatePicker = ({
   const { resetControlValidity } = useFormControlHandlers()
   const required = requiredProp || formGroupContext?.required
 
-  const minDate = min ? new Date(min) : undefined
-  const maxDate = max ? new Date(max) : undefined
-
   // ============================= floating =============================
   const { x, y, refs, context } = useFloating({
     open: isOpened,
@@ -100,8 +99,6 @@ const DatePicker = ({
   }
 
   // ============================= render =============================
-  const displayValue = value ? createDate(value).toLocaleDateString('ru') : ''
-  const displayValueForHiddenInput = value ? createDate(value) : ''
   const showClearButton = clearable && Boolean(value)
 
   return (
@@ -118,18 +115,16 @@ const DatePicker = ({
           }
         })}
       >
-        <MaskedInput
-          autoComplete="off"
+        <DateInput
+          clearable={showClearButton}
+          onClear={handleClear}
+          value={value}
           size={size}
           placeholder={placeholder}
-          mask={{
-            mask: Date,
-            min: minDate,
-            max: maxDate
-          }}
-          pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
+          min={min}
+          max={max}
+          required={required}
           onComplete={(val) => {
-            resetControlValidity()
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
           }}
           onAccept={(value) => {
@@ -137,37 +132,16 @@ const DatePicker = ({
               onChange?.(value)
             }
           }}
-          postfix={
-            <div className="inf-datepicker__postfix">
-              {/* TODO: переписать на использование clearable в Input */}
-              {showClearButton && (
-                <ClearButton
-                  as="button"
-                  className="inf-datepicker__clear-button"
-                  title="Очистить значение"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleClear()
-                  }}
-                />
-              )}
-              <IconCalendar className="inf-datepicker__calendar-icon" />
-            </div>
+          prefix={
+            <Icon hoverable size="small" color="primary">
+              <IconCalendar04 />
+            </Icon>
           }
-          value={displayValue}
-          onPostfixClick={() => setOpened((prev) => !prev)}
-          disabled={disabled}
+          onPrefixClick={() => setOpened((prev) => !prev)}
           onFocus={() => setOpened(true)}
         />
-        {/* Скрытый нативный датапикер, необходимый для корректной работы валидации */}
-        <NativeDatePicker
-          className={'inf-datepicker__hidden-input'}
-          min={min}
-          max={max}
-          value={displayValueForHiddenInput}
-          required={required}
-        />
       </div>
+
       <FloatingPortal>
         {isOpened && !disabled && (
           <FloatingFocusManager
@@ -189,6 +163,7 @@ const DatePicker = ({
               className="inf-datepicker__dropdown"
               value={value ? createDate(value) : new Date()}
               onChange={(date) => {
+                resetControlValidity()
                 onChange?.(formatDateToISO(date))
                 setOpened(false)
               }}
