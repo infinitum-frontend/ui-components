@@ -32,9 +32,18 @@ export default function useSelectionState({
     onSelectionChange?: (selectionState: Array<TableRow<any>>) => void
   ): void => {
     const rowSelectionState: Array<TableRow<any>> = []
+
     Object.keys(nextSelectionState).forEach((key) => {
-      const row = mapRowToExternalFormat(table.getRow(key))
-      rowSelectionState.push(row)
+      try {
+        const row = mapRowToExternalFormat(table.getRow(key))
+        rowSelectionState.push(row)
+      } catch (error) {
+        // Попадаем сюда в случае, если в результате внешней фильтрации в текущей таблице отсутствует ряд, который является выбранным
+        const row = selectionState.find((row) => row.id === key)
+        if (row) {
+          rowSelectionState.push(row)
+        }
+      }
     })
     onSelectionChange?.(rowSelectionState)
   }

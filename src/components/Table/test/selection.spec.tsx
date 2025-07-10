@@ -190,4 +190,60 @@ describe('Table Row Selection', () => {
     // ожидаем, что после фильтрации выбранный чекбокс остался в таком же состоянии, т.к. благодаря getRowId селекция привязана не к индексу ряда, а к значению поля portfolio
     expect(checkboxesAfterFiltering[1]).toBeChecked()
   })
+
+  it('should keep correct state when rows change', async () => {
+    const preselectedRowIndex = 3
+
+    const selectedElement = TABLE_DATA[preselectedRowIndex]
+    const initialSelectionState: TableSelectionState<Portfolio> = [
+      {
+        id: selectedElement.portfolio,
+        rowData: selectedElement
+      }
+    ]
+
+    let handlerPayload: TableSelectionState<Portfolio> = []
+    const mockChangeHandler = vi.fn((payload) => {
+      console.log('payload', payload)
+      handlerPayload = payload
+    })
+
+    const { rerender } = renderComponent(
+      <Table
+        rows={TABLE_DATA}
+        columns={TABLE_COLUMNS}
+        getRowId={(row) => row.portfolio}
+        selectionState={initialSelectionState}
+        withRowSelection
+        onChangeRowSelection={mockChangeHandler}
+      />
+    )
+
+    // после фильтрации из данных удаляется выбранный ряд, но состояние чекбокса должно остаться выбранным (хоть и не отображается)
+    rerender(
+      <Table
+        rows={TABLE_DATA.filter(
+          (row) => row.portfolio !== selectedElement.portfolio
+        )}
+        columns={TABLE_COLUMNS}
+        getRowId={(row) => row.portfolio}
+        selectionState={initialSelectionState}
+        onChangeRowSelection={mockChangeHandler}
+        withRowSelection
+      />
+    )
+
+    const checkboxes = screen.queryAllByRole('checkbox')
+
+    const user = userEvent.setup()
+    await user.click(checkboxes[0])
+
+    expect(mockChangeHandler).toBeCalledWith(handlerPayload)
+
+    const initialPortfolio = handlerPayload.find(
+      (p) => p.id === selectedElement.portfolio
+    )
+
+    expect(initialPortfolio).toBeDefined()
+  })
 })
