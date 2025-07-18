@@ -31,19 +31,25 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-      width: 7px;
-      background: var(--inf-scrollbar-track-color-background);
-      border-radius: 5px;
+      width: 8px;
     }
 
     &::-webkit-scrollbar-track {
-      border-radius: 5px;
+      border-top-right-radius: var(--inf-border-radius-small);
+      border-bottom-right-radius: var(--inf-border-radius-small);
+      background: var(--inf-scrollbar-track-color-background);
+      &:hover {
+        background: var(--inf-scrollbar-track-color-background-hover);
+      }
     }
 
     &::-webkit-scrollbar-thumb {
-      border-radius: 5px;
-      width: 7px;
+      border-radius: var(--inf-border-radius-xsmall);
+      border: 2px solid var(--inf-scrollbar-track-color-background);
       background-color: var(--inf-scrollbar-thumb-color-background);
+      &:hover {
+        border-color: var(--inf-scrollbar-track-color-background-hover);
+      }
     }
   }
 }
