@@ -37,26 +37,26 @@ import { InputProps } from '../Input'
 import FormGroupContext from '../Form/context/group'
 import FormContext from '../Form/context/form'
 import { ClearButton } from '../ClearButton'
-import './WeekPicker.scss'
+import './DateWeekPicker.scss'
 import useFormControlHandlers from '../Form/hooks/useFormControlHandlers'
 import { Space } from '../Space'
 
-export type WeekPickerValue = [string | Date, string | Date]
-export interface WeekPickerProps
+export type DateWeekPickerValue = [string | Date, string | Date]
+export interface DateWeekPickerProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange' | 'value'> {
   /** Дата в формате YYYY-MM-DD */
-  value: WeekPickerValue
+  value: DateWeekPickerValue
   /** Минимальная дата в формате YYYY-MM-DD */
   min?: string
   /** Максимальная дата в формате YYYY-MM-DD */
   max?: string
-  onChange: (date: WeekPickerValue) => void
+  onChange: (date: DateWeekPickerValue) => void
   size?: InputProps['size']
   disabled?: boolean
   required?: boolean
 }
 
-const WeekPicker = ({
+const DateWeekPicker = ({
   value,
   min,
   max,
@@ -66,7 +66,7 @@ const WeekPicker = ({
   required: requiredProp,
   disabled: disabledProp,
   ...props
-}: WeekPickerProps): ReactElement => {
+}: DateWeekPickerProps): ReactElement => {
   const [selectedView, setSelectedView] = useState<'day' | 'month' | 'year'>(
     'day'
   )
@@ -338,4 +338,4 @@ const WeekPicker = ({
   )
 }
 
-export default WeekPicker
+export default DateWeekPicker

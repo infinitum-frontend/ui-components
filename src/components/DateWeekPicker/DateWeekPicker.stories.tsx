@@ -2,13 +2,13 @@
 import { Meta, StoryFn } from '@storybook/react'
 import { useState } from 'react'
 import { formatDateToISO, addYears } from '~/src/utils/date'
-import WeekPicker, { WeekPickerValue } from './WeekPicker'
+import DateWeekPicker, { DateWeekPickerValue } from './DateWeekPicker'
 import { Form } from '../Form'
 import { Button } from '../Button'
 
-const meta: Meta<typeof WeekPicker> = {
-  title: 'Form/WeekPicker',
-  component: WeekPicker,
+const meta: Meta<typeof DateWeekPicker> = {
+  title: 'Form/DateWeekPicker',
+  component: DateWeekPicker,
   args: {
     min: formatDateToISO(new Date()),
     max: formatDateToISO(addYears(new Date(), 1))
@@ -17,10 +17,10 @@ const meta: Meta<typeof WeekPicker> = {
 
 export default meta
 
-const Template: StoryFn<typeof WeekPicker> = (args) => {
-  const [value, setValue] = useState<WeekPickerValue>(['', ''])
+const Template: StoryFn<typeof DateWeekPicker> = (args) => {
+  const [value, setValue] = useState<DateWeekPickerValue>(['', ''])
   return (
-    <WeekPicker
+    <DateWeekPicker
       {...args}
       value={value}
       onChange={setValue}
@@ -39,7 +39,7 @@ export const Playground = {
 
 export const InForm = {
   render: () => {
-    const [value, setValue] = useState<WeekPickerValue>(['', ''])
+    const [value, setValue] = useState<DateWeekPickerValue>(['', ''])
     return (
       <Form
         onSubmit={() => {
@@ -47,8 +47,8 @@ export const InForm = {
         }}
       >
         <Form.Group required>
-          <Form.Label>WeekPicker</Form.Label>
-          <WeekPicker value={value} onChange={setValue} />
+          <Form.Label>DateWeekPicker</Form.Label>
+          <DateWeekPicker value={value} onChange={setValue} />
         </Form.Group>
 
         <Button type="submit">Submit</Button>

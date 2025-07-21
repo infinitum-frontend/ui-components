@@ -64,25 +64,10 @@ export const Clearable = {
       '2020-04-20',
       '2020-04-21'
     ])
-    const [value2, setValue2] = useState<DateRangePickerValue>([
-      '2020-04-20',
-      '2020-04-21'
-    ])
 
     return (
       <Space>
         <DateRangePicker clearable value={value1} onChange={setValue1} />
-        <Space gap="xsmall">
-          Передан проп onClear
-          <DateRangePicker
-            clearable
-            value={value2}
-            onChange={setValue2}
-            onClear={() => {
-              alert('Будет вызван onClear, но не onChange')
-            }}
-          />
-        </Space>
       </Space>
     )
   }

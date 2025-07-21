@@ -46,7 +46,7 @@ export interface DateRangePickerProps
    * @default medium
    */
   size?: 'medium' | 'small'
-  /** Отображение кнопки очистки выбранного значения. При нажатии на кнопку вызывается обработчик onClear, а если он не был передан, то onChange. */
+  /** Отображение кнопки очистки выбранного значения. При полной очистке обоих календарей будет вызван onChange. */
   clearable?: boolean
   placeholder?: string
 }
@@ -79,9 +79,10 @@ const DateRangePicker = ({
     })
   }, [value])
 
-  // Имитация onClear
+  // Если оба календаря пустые, то вызываем onChange (поскольку явного способа отследить очистку календаря нет)
   useEffect(() => {
     if (
+      clearable &&
       localValue.from === '' &&
       localValue.to === '' &&
       localValue.from !== value?.[0] &&
