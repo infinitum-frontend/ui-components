@@ -1,6 +1,7 @@
 .inf-file {
   width: 100%;
   padding: var(--inf-space-xxsmall);
+  border-radius: var(--inf-border-radius-small);
 
   @include hover {
     background-color: var(--inf-color-background-primary-hover);

@@ -18,7 +18,11 @@ const meta: Meta<typeof File> = {
 export default meta
 
 const Template: StoryFn<typeof File> = (args) => {
-  return <File {...args} />
+  return (
+    <div style={{ width: '450px' }}>
+      <File {...args} />
+    </div>
+  )
 }
 
 export const Playground = {
