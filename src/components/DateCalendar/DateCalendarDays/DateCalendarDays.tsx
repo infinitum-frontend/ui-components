@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { getDaysMatrix } from 'Utils/date'
 import './DateCalendarDays.scss'
 import '../DateCalendarItem.scss'
+import DateCalendarWeekdays from '../DateCalendarWeekdays'
 
 export interface CalendarDaysProps {
   displayValue: Date
@@ -23,15 +24,7 @@ const DateCalendarDays = ({
 
   return (
     <div className="inf-calendar-days">
-      <div className="inf-calendar-days__weekdays">
-        <span>Пн</span>
-        <span>Вт</span>
-        <span>Ср</span>
-        <span>Чт</span>
-        <span>Пт</span>
-        <span>Сб</span>
-        <span>Вс</span>
-      </div>
+      <DateCalendarWeekdays />
 
       {days.map((week, index) => (
         <div key={index} className="inf-calendar-days__week">

@@ -1,0 +1,10 @@
+.inf-date-calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: var(--inf-space-xxsmall);
+  align-items: center;
+
+  font: var(--inf-font-body-1);
+  color: var(--inf-color-text-secondary);
+  text-align: center;
+}
