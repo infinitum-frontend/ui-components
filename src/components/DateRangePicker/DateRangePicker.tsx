@@ -96,9 +96,11 @@ const DateRangePicker = ({
   }
 
   // ============================= render =============================
-  const displayValue = value
-    .map((v) => (v ? createDate(v).toLocaleDateString('ru') : ''))
-    .join('—')
+  const displayValue = value.every((v) => !v)
+    ? ''
+    : value
+        .map((v) => (v ? createDate(v).toLocaleDateString('ru') : ''))
+        .join('—')
   const hiddenInputDateFrom = value?.[0] ? createDate(value[0]) : ''
   const hiddenInputDateTo = value?.[1] ? createDate(value[1]) : ''
   const hasValue = Boolean(value?.[0]) && Boolean(value?.[1])
