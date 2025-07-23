@@ -1,5 +1,6 @@
 :root {
   /* Scrollbar */
-  --inf-scrollbar-thumb-color-background: #c9c9c9;
-  --inf-scrollbar-track-color-background: #e7e7e7;
+  --inf-scrollbar-thumb-color-background: var(--inf-color-border-primary);
+  --inf-scrollbar-track-color-background: var(--inf-color-background-primary);
+  --inf-scrollbar-track-color-background-hover: var(--inf-color-border-secondary);
 }
