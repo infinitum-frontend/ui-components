@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useRef, useState, forwardRef } from 'react'
-import ScrollArea from 'Components/ScrollArea'
+import { ScrollArea } from 'Components/ScrollArea'
 import cn from 'classnames'
 import { TableProps } from '../../types'
 import './TableScrollContainer.scss'

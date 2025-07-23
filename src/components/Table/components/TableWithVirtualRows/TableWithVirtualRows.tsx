@@ -2,7 +2,7 @@ import { ReactElement, useRef } from 'react'
 import { useVirtualizer, Virtualizer } from '@tanstack/react-virtual'
 import cn from 'classnames'
 import './TableWithVirtualRows.scss'
-import ScrollArea from 'Components/ScrollArea'
+import { ScrollArea } from 'Components/ScrollArea'
 
 interface RenderProps {
   virtualizer?: Virtualizer<HTMLDivElement, Element>

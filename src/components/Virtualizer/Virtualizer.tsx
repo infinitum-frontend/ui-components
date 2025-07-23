@@ -3,7 +3,7 @@ import {
   VirtualItem,
   VirtualizerOptions
 } from '@tanstack/react-virtual'
-import ScrollArea from 'Components/ScrollArea'
+import { ScrollArea } from 'Components/ScrollArea'
 import { CSSProperties, ReactElement, useRef } from 'react'
 
 /** https://tanstack.com/virtual/latest/docs/api/virtualizer */
