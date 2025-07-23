@@ -70,6 +70,9 @@ const DateRangePicker = ({
   const formGroupContext = useContext(FormGroupContext)
   const required = requiredProp || formGroupContext?.required
 
+  const minDate = min ? createDate(min) : undefined
+  const maxDate = max ? createDate(max) : undefined
+
   // ============================= floating =============================
   const { x, y, refs, context } = useFloating({
     open: isOpened,
@@ -116,13 +119,22 @@ const DateRangePicker = ({
         <MaskedInput
           placeholder="__.__.____—__.__.____"
           onComplete={(value) => {
-            onChange?.(
-              value
-                .split('—')
-                .map((localDateString) =>
-                  formatDateToISO(parseLocalDateString(localDateString) as Date)
-                ) as [string, string]
-            )
+            const formattedValue = formatterFn(value, minDate, maxDate)
+            const isValid = validateFn(formattedValue, minDate, maxDate)
+
+            if (isValid) {
+              onChange?.(
+                formattedValue
+                  .split('—')
+                  .map((localDateString) =>
+                    formatDateToISO(
+                      parseLocalDateString(localDateString) as Date
+                    )
+                  ) as [string, string]
+              )
+            } else {
+              onChange?.(['', ''])
+            }
           }}
           pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}—[0-9]{2}.[0-9]{2}.[0-9]{4}'}
           required={required}
@@ -136,12 +148,10 @@ const DateRangePicker = ({
             mask: Date,
             pattern: 'd{.}`m{.}`Y{—}`d{.}`m{.}`Y',
             // @ts-expect-error
-            format: formatterFn,
+            format: (value: string) => formatterFn(value, minDate, maxDate),
             // @ts-expect-error
-            parse: function (string) {
-              return string
-            },
-            validate: validateFn
+            parse: (string) => string,
+            validate: (value) => validateFn(value, minDate, maxDate)
           }}
           value={displayValue}
           postfix={
