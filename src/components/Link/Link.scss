@@ -1,19 +1,36 @@
 .inf-link {
-  display: inline-block;
+  display: inline-flex;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
   color: var(--inf-color-text-link);
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
-  width: max-content;
-  line-height: 1;
+  line-height: unset;
 
   @include hover {
     color: var(--inf-color-text-link-hover);
   }
 
+  &:visited {
+    color: var(--inf-color-text-link-visited);
+  }
+
   @include focus-styles;
 
-  &--multiline {
-    display: inline;
+  &--prefix {
+    padding-right: var(--inf-space-small);
+  }
+
+  &--suffix {
+    padding-left: var(--inf-space-small);
+  }
+
+  &__default-icon {
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
   }
 }
