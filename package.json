@@ -121,7 +121,6 @@
     "vitest": "^3.0.4"
   },
   "dependencies": {
-    "@infinitum-ui/icons": "file:infinitum-ui-icons-1.0.1.tgz",
     "@radix-ui/react-scroll-area": "^1.2.0",
     "@tanstack/react-virtual": "^3.10.8",
     "immer": "^10.1.1",
