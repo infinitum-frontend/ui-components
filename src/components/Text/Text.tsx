@@ -30,6 +30,7 @@ function BaseText<C extends ElementType = 'div'>(
     color,
     truncated = false,
     uppercase = false,
+    nowrap = false,
     as = 'div',
     ...rest
   } = props
@@ -46,6 +47,7 @@ function BaseText<C extends ElementType = 'div'>(
       {
         'inf-text--uppercase': uppercase,
         'inf-text--truncated': truncated,
+        'inf-text--nowrap': nowrap,
         [`inf-text--color-${composedColor as string}`]: composedColor,
         [`inf-text--weight-${weight as string}`]: weight,
         [`inf-text--alignment-${alignment as string}`]: alignment !== 'left'

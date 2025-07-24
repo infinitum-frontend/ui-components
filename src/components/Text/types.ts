@@ -40,6 +40,10 @@ export type TextProps<C extends ElementType = 'div'> =
      * В верхнем регистре
      */
     uppercase?: boolean
+    /**
+     * Запретить перенос строки
+     */
+    nowrap?: boolean
   }
 
 type Size = 'xsmall' | 'small' | 'medium' | 'large'
