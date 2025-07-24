@@ -1,3 +1,4 @@
-import ScrollArea from 'Components/ScrollArea/ScrollArea'
+import ScrollArea, { ScrollAreaProps } from './ScrollArea'
 
-export default ScrollArea
+export { ScrollArea }
+export type { ScrollAreaProps }

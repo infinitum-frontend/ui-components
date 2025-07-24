@@ -1,34 +1,19 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ComponentPropsWithoutRef, ReactElement, useContext } from 'react'
 import { createDate, formatDateToISO, parseLocalDateString } from 'Utils/date'
-import MaskedInput from 'Components/Input/components/MaskedInput'
 import { DateCalendar } from 'Components/DateCalendar'
-import cn from 'classnames'
-import NativeDatePicker from '../NaviteDatePicker/NativeDatePicker'
 import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 import { Space } from 'Components/Space'
-import './DatePickerInline.scss'
-
-// TODO: отрефакторить DatePicker, чтобы убрать дублирование инпута, например, не используется проп size из DatePicker
+import { DatePickerProps } from '~/src'
+import DateInput from '~/src/components/DateInput'
 
 export interface DatePickerInlineProps
-  extends Omit<ComponentPropsWithoutRef<'div'>, 'value' | 'onChange'> {
-  disabled?: boolean
-  /** Дата или строка в формате YYYY-MM-DD */
-  value?: string | Date
-  required?: boolean
-  /** Плейсхолдер для внутреннего инпута */
-  placeholder?: string
-  /** Строка в формате YYYY-MM-DD */
-  onChange?: (date: string) => void
-  /** Строка в формате YYYY-MM-DD */
-  min?: string
-  /** Строка в формате YYYY-MM-DD */
-  max?: string
-  /** Показывать кнопку "Сегодня" */
-  withTodayButton?: boolean
-}
+  extends Omit<
+      ComponentPropsWithoutRef<'div'>,
+      'value' | 'onChange' | 'onInput'
+    >,
+    DatePickerProps {}
 
 const DatePickerInline = ({
   disabled,
@@ -41,30 +26,25 @@ const DatePickerInline = ({
   min,
   max,
   withTodayButton = false,
+  clearable,
+  onClear,
   ...props
 }: DatePickerInlineProps): ReactElement => {
   const formGroupContext = useContext(FormGroupContext)
   const { resetControlValidity } = useFormControlHandlers()
   const required = requiredProp || formGroupContext?.required
 
-  // ============================= render =============================
-  const displayValue = value ? createDate(value).toLocaleDateString('ru') : ''
-  const displayValueForHiddenInput = value ? createDate(value) : ''
-
   return (
     <>
-      <Space
-        className={cn('inf-datepicker-inline', className)}
-        gap="small"
-        {...props}
-      >
-        <MaskedInput
-          autoComplete="off"
+      <Space className={className} gap="small" {...props}>
+        <DateInput
           placeholder={placeholder}
-          mask={{
-            mask: Date
-          }}
-          pattern={'[0-9]{2}.[0-9]{2}.[0-9]{4}'}
+          min={min}
+          max={max}
+          required={required}
+          onChange={onChange}
+          disabled={disabled}
+          value={value}
           onComplete={(val) => {
             resetControlValidity()
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
@@ -74,22 +54,13 @@ const DatePickerInline = ({
               onChange?.(value)
             }
           }}
-          value={displayValue}
-          disabled={disabled}
-        />
-        {/* Скрытый нативный датапикер, необходимый для корректной работы валидации */}
-        <NativeDatePicker
-          className={'inf-datepicker-inline__hidden-input'}
-          min={min}
-          max={max}
-          value={displayValueForHiddenInput}
-          required={required}
+          clearable={clearable}
+          onClear={onClear}
         />
 
         <DateCalendar
           min={min}
           max={max}
-          className="inf-datepicker-inline__calendar"
           value={value ? createDate(value) : new Date()}
           onChange={(date) => {
             onChange?.(formatDateToISO(date))

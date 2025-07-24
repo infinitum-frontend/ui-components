@@ -1,20 +1,10 @@
 .inf-calendar-days {
-  &__week,
-  &__weekdays {
+  &__week {
     display: grid;
     align-items: center;
     grid-template-columns: repeat(7, 32px);
     grid-template-rows: 32px;
     gap: 4px 0;
-  }
-
-  &__week {
     font: var(--inf-font-body-1);
-  }
-
-  &__weekdays {
-    font: var(--inf-font-subtitle-2);
-    color: var(--inf-color-text-secondary);
-    text-align: center;
   }
 }

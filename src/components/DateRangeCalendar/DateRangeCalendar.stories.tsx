@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { DateRangeCalendar } from './index'
 import { useState } from 'react'
@@ -23,17 +22,4 @@ const Template: StoryFn<typeof DateRangeCalendar> = (args) => {
 
 export const Playground = {
   render: Template
-}
-
-export const WeekPicker: StoryFn<typeof DateRangeCalendar> = {
-  render: (args) => {
-    const [value, setValue] = useState<DateRangeCalendarValue>([
-      undefined,
-      undefined
-    ])
-
-    return (
-      <DateRangeCalendar {...args} weekPick value={value} onChange={setValue} />
-    )
-  }
 }

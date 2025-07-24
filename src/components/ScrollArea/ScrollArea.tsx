@@ -24,7 +24,7 @@ const ScrollBar = forwardRef<
 ))
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName
 
-interface ScrollAreaProps
+export interface ScrollAreaProps
   extends ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> {
   scrollbarStyle?: CSSProperties
   orientation?: ScrollAreaPrimitive.ScrollAreaScrollbarProps['orientation']
