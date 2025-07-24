@@ -14,6 +14,7 @@ import FormGroupContext from 'Components/Form/context/group'
 import FormContext from 'Components/Form/context/form'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
 import { formatDateToISO } from '~/src/utils/date'
+import './NativeDatePicker.scss'
 
 export interface NativeDatePickerProps
   extends Omit<
