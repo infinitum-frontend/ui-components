@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { File } from './index'
 
@@ -8,16 +7,22 @@ const meta: Meta<typeof File> = {
   component: File,
   args: {
     name: 'Средней важности документ',
-    size: 3.4,
+    size: 3500,
     extension: 'pdf',
-    unit: 'mb'
+    onGetFile: () => {
+      alert('get file')
+    }
   }
 }
 
 export default meta
 
 const Template: StoryFn<typeof File> = (args) => {
-  return <File {...args} />
+  return (
+    <div style={{ width: '450px' }}>
+      <File {...args} />
+    </div>
+  )
 }
 
 export const Playground = {
@@ -37,6 +42,16 @@ export const Deletable = {
 export const Loading = {
   render: Template,
   args: {
-    loading: true
+    status: 'loading',
+    deletable: true
+  }
+}
+
+export const Error = {
+  render: Template,
+  args: {
+    status: 'error',
+    errorMessage: 'Ошибка при загрузке файла',
+    deletable: true
   }
 }
