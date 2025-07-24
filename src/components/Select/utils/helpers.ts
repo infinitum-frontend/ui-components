@@ -1,6 +1,7 @@
 import { reactNodeToString } from '~/src/utils/helpers'
 import {
   FlattenOption,
+  GroupLabelItem,
   SelectOption,
   SelectOptionGroup,
   SelectOptions
@@ -12,12 +13,10 @@ export const getFilteredFlattenOptions = (
   options: FlattenOption[],
   filterValue: string
 ): SelectOption[] => {
-  // @ts-expect-error
-  return options.filter((option) => {
+  return options.filter((option): option is SelectOption => {
     if (isGroupLabel(option)) {
       return false
     }
-    // @ts-expect-error
     return filterOptionsFn(option, filterValue)
   })
 }
@@ -68,12 +67,20 @@ export const getFlattenOptions = (options: SelectOptions): FlattenOption[] => {
   })
 }
 
-export const isGroupLabel = (option: FlattenOption): boolean => {
+export const isGroupLabel = (
+  option: FlattenOption
+): option is GroupLabelItem => {
   return 'groupLabel' in option
+}
+
+export const isSelectOption = (
+  option: FlattenOption
+): option is SelectOption => {
+  return !isGroupLabel(option)
 }
 
 export const isGroupOption = (
   option: SelectOption | SelectOptionGroup
-): boolean => {
+): option is SelectOptionGroup => {
   return 'options' in option
 }
