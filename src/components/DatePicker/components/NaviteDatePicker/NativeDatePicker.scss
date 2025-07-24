@@ -1,0 +1,26 @@
+.inf-native-datepicker {
+  color: inherit;
+  background-color: inherit;
+
+  &::-webkit-calendar-picker-indicator {
+    .inf-ui-theme-dark & {
+      filter: invert(1);
+    }
+  }
+
+  &::placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
+
+  &::-webkit-input-placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
+
+  &::-moz-placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
+
+  &:-ms-input-placeholder {
+    color: var(--inf-color-text-tertiary);
+  }
+}
