@@ -217,6 +217,9 @@ declare module '@tanstack/table-core' {
     filterOptions?: TableFiltersOptions
     filterPopoverWidth?: CSSProperties['width']
     visibleOnRowHover?: boolean
+    width?: CSSProperties['width']
+    maxWidth?: CSSProperties['maxWidth']
+    minWidth?: CSSProperties['minWidth']
   }
 
   // interface FilterFns {
