@@ -261,7 +261,12 @@ function BaseTable<TRowData extends Record<string, any>>(
                     colSpan={header.colSpan}
                     style={{
                       // обработка ширины столбцов
-                      width: header.getSize()
+                      width:
+                        header.column.columnDef.meta?.width || header.getSize(),
+                      maxWidth:
+                        header.column.columnDef.meta?.maxWidth || undefined,
+                      minWidth:
+                        header.column.columnDef.meta?.minWidth || undefined
                     }}
                     onClick={() => handleSortingChange(header.column)}
                     slotSortButton={
