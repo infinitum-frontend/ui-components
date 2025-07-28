@@ -44,7 +44,7 @@ const SelectNativeElement = React.forwardRef<
     },
     ref
   ) => {
-    const prefix = useId()
+    const postfix = useId()
 
     const valueAttr = Array.isArray(value) ? value.map((v) => String(v)) : value
 
@@ -63,20 +63,28 @@ const SelectNativeElement = React.forwardRef<
         aria-invalid={ariaInvalid}
       >
         <option value={''} />
-        {options?.map((item) => {
+        {options?.map((item, index) => {
           return 'options' in item ? (
-            <optgroup key={prefix} label={item.label}>
-              {item.options.map((option: SelectOption) => (
+            <optgroup
+              key={`group-${String(item.label)}-${index}-${postfix}`}
+              label={item.label}
+            >
+              {item.options.map((option: SelectOption, optionIndex: number) => (
                 <option
                   value={option.value}
-                  key={prefix + String(option.value)}
+                  key={`option-${String(
+                    option.value
+                  )}-${optionIndex}-${postfix}`}
                 >
                   {option.label}
                 </option>
               ))}
             </optgroup>
           ) : (
-            <option value={item.value} key={prefix + String(item.value)}>
+            <option
+              value={item.value}
+              key={`option-${String(item.value)}-${index}-${postfix}`}
+            >
               {item.label}
             </option>
           )
