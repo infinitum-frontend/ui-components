@@ -61,6 +61,10 @@
     overflow: hidden;
   }
 
+  &--nowrap {
+    white-space: nowrap;
+  }
+
   &--alignment-center {
     text-align: center;
   }
