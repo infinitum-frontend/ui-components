@@ -239,6 +239,7 @@ function BaseTable<TRowData extends Record<string, any>>(
         <table
           className={cn(
             'inf-table',
+            'inf-table--vertical-align-top',
             className,
             {
               [`inf-table--layout-${tableLayout as string}`]: tableLayout
