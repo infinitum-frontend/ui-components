@@ -47,6 +47,20 @@ export const Loading = {
   }
 }
 
+export const WithOverflow = {
+  render: ({ ...args }) => {
+    return (
+      <div style={{ width: '200px' }}>
+        <File
+          size={252554}
+          name="Заявление с очень длинным названием которое, как часто бывает в реальных примерах, не помещается в контейнер"
+          extension="PDF"
+        />
+      </div>
+    )
+  }
+}
+
 export const Error = {
   render: Template,
   args: {

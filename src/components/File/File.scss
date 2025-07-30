@@ -3,14 +3,12 @@
   padding: var(--inf-space-xxsmall);
   border-radius: var(--inf-border-radius-small);
 
-  @include hover {
-    background-color: var(--inf-color-background-primary-hover);
+  svg {
+    flex-shrink: 0;
   }
 
-  &__name-wrapper {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: row;
+  @include hover {
+    background-color: var(--inf-color-background-primary-hover);
   }
 
   &__loader {
