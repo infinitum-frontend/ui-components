@@ -11,7 +11,7 @@ const meta: Meta<typeof DateRangePicker> = {
   title: 'Form/DateRangePicker',
   component: DateRangePicker,
   args: {
-    min: formatDateToISO(new Date()),
+    // min: formatDateToISO(new Date()),
     max: formatDateToISO(addYears(new Date(), 1))
   }
 }
@@ -24,12 +24,16 @@ const Template: StoryFn<typeof DateRangePicker> = (args) => {
     formatDateToISO(addYears(new Date(), 1))
   ])
   return (
-    <DateRangePicker
-      {...args}
-      value={value}
-      onChange={setValue}
-      style={{ width: '400px' }}
-    />
+    <>
+      <DateRangePicker
+        {...args}
+        value={value}
+        onChange={setValue}
+        style={{ width: '400px' }}
+      />
+
+      <div>{value.join(' - ')}</div>
+    </>
   )
 }
 

@@ -79,6 +79,16 @@ const DateRangePicker = ({
     })
   }, [value])
 
+  useEffect(() => {
+    if (
+      localValue.from &&
+      localValue.to &&
+      (localValue.from !== value?.[0] || localValue.to !== value?.[1])
+    ) {
+      onChange?.([localValue.from, localValue.to] as [string, string])
+    }
+  }, [localValue])
+
   // Если оба календаря пустые, то вызываем onChange (поскольку явного способа отследить очистку календаря нет)
   useEffect(() => {
     if (
