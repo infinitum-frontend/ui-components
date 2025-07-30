@@ -92,7 +92,7 @@ const File = ({
         direction="horizontal"
         gap="xsmall"
         align="start"
-        style={{ width: '100%' }}
+        className="inf-file__content-wrapper"
       >
         {isError && (
           <>

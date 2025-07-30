@@ -11,6 +11,10 @@
     background-color: var(--inf-color-background-primary-hover);
   }
 
+  &__content-wrapper {
+    width: 100%;
+  }
+
   &__loader {
     color: var(--inf-color-text-info);
   }
