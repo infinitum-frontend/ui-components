@@ -157,8 +157,8 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         {isValidElement(children) &&
           cloneElement(children as ReactElement<any>, triggerProps)}
 
-        <FloatingPortal>
-          {open && (
+        {open && (
+          <FloatingPortal>
             <div
               className={cn('inf-tooltip', [
                 `inf-tooltip--size-${size as string}`
@@ -190,8 +190,8 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               )}
               {content}
             </div>
-          )}
-        </FloatingPortal>
+          </FloatingPortal>
+        )}
       </>
     )
   }
