@@ -1,5 +1,5 @@
 .inf-table-header-cell-button {
-  height: 20px;
+  height: 18px;
   width: 20px;
   display: inline-flex;
   align-items: center;
@@ -7,8 +7,12 @@
   position: relative;
   color: var(--inf-color-icon-primary);
 
+  &:not(:first-child) {
+    margin-left: var(--inf-space-xxsmall);
+  }
+
   &:not(.inf-table-header-cell-button--active) {
-    visibility: hidden;
+    display: none;
   }
 
   // увеличиваем область клика

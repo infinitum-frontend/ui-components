@@ -9,7 +9,7 @@
 
   @include hover {
     .inf-table-header-cell-button {
-      visibility: visible;
+      display: inline-flex;
       width: auto;
     }
   }
@@ -62,7 +62,6 @@
   &__buttons {
     display: flex;
     align-items: center;
-    gap: var(--inf-space-xxsmall);
     margin-left: var(--inf-space-xxsmall);
   }
 }

@@ -317,7 +317,6 @@ function BaseTable<TRowData extends Record<string, any>>(
               />
             )}
           </TableHeader>
-
           {/* BODY */}
           <TableBody>
             <TableBodyContent

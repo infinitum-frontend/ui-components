@@ -78,7 +78,7 @@ export interface TableProps<TRowData extends Record<string, any>>
   height?: number | CSSProperties['height'] // TODO: сделать через style + scrollable?
   /** */
   stickyHeader?: boolean
-  /** Ориентировочная высота ряда. Использовать вместе с пропом scrollable */
+  /** Ориентировочная высота ряда. Использовать вместе с пропом virtualized */
   estimateRowHeight?: number
   /** Включение виртуализации для оптимизации рендеринга большего числа рядов */
   virtualized?: boolean

@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useRef, useState, forwardRef } from 'react'
-import { ScrollArea } from 'Components/ScrollArea'
+// import { ScrollArea } from 'Components/ScrollArea'
 import cn from 'classnames'
 import { TableProps } from '../../types'
 import './TableScrollContainer.scss'
@@ -91,15 +91,16 @@ const TableScrollContainer = forwardRef<
     const minHeight = tableHeaderHeight + TABLE_EMPTY_MESSAGE_HEIGHT
 
     return (
-      <ScrollArea
+      <div
         className={cn('inf-table-scroll-container', className)}
-        viewportStyle={{
+        style={{
           height: heightStyle || undefined,
           maxHeight: maxHeightStyle || undefined,
-          overflowAnchor: 'none'
+          overflowAnchor: 'none',
+          overflow: 'scroll'
         }}
-        viewportRef={mergedRef}
-        scrollbarStyle={{ top: `${tableHeaderHeight}px`, right: '0px' }}
+        ref={mergedRef}
+        // scrollbarStyle={{ top: `${tableHeaderHeight}px`, right: '0px' }}
         onScroll={onScroll}
       >
         {enabled ? (
@@ -113,7 +114,7 @@ const TableScrollContainer = forwardRef<
         ) : (
           children?.({ virtualizer: undefined })
         )}
-      </ScrollArea>
+      </div>
     )
   }
 )

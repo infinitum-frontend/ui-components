@@ -4,9 +4,9 @@ import { StoryFn, Meta } from '@storybook/react'
 import { Label, LabelProps } from './index'
 import { Space } from '../Space'
 import { Grid } from '../Grid'
-// @ts-expect-error
 import IconBxFilter from 'Icons/bx-filter.svg?react'
 import { Tooltip } from '../Tooltip'
+import { Card } from '../Card'
 
 const variants = [
   'info',
@@ -98,6 +98,28 @@ export const LabelWithTooltip = {
           Это лейбл
         </Label>
       </Tooltip>
+    )
+  }
+}
+
+export const Overflow = {
+  render: () => {
+    return (
+      <Space>
+        <Card size="small" style={{ width: '400px' }}>
+          <Label variant="success">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+            aperiam deleniti eius quasi sint numquam cumque quos, in
+            necessitatibus consequatur!
+          </Label>
+        </Card>
+
+        <Label variant="success">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+          aperiam deleniti eius quasi sint numquam cumque quos, in
+          necessitatibus consequatur!
+        </Label>
+      </Space>
     )
   }
 }

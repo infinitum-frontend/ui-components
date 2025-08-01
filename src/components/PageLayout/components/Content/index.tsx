@@ -39,7 +39,8 @@ const PageLayoutContent = React.forwardRef<HTMLElement, PageLayoutContentProps>(
       collapsePaddingBottom,
       centerContent,
       paddingTop = 'xxlarge',
-      paddingBottom = 'xxlarge'
+      paddingBottom = 'xxlarge',
+      style
     },
     ref
   ) => {
@@ -54,6 +55,7 @@ const PageLayoutContent = React.forwardRef<HTMLElement, PageLayoutContentProps>(
         })}
         paddingTop={collapsePaddingTop ? undefined : paddingTop}
         paddingBottom={collapsePaddingBottom ? undefined : paddingBottom}
+        style={style}
       >
         {children}
       </Box>

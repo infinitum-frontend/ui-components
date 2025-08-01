@@ -6,6 +6,7 @@
   border-radius: var(--inf-border-radius-medium);
   font: var(--inf-font-subtitle-2);
   padding: var(--inf-space-xxsmall);
+  max-width: 100%;
 
   &--tone-heavy {
     color: var(--inf-color-text-on-color);
@@ -106,5 +107,8 @@
   &__content {
     margin-left: var(--inf-space-xxsmall);
     margin-right: var(--inf-space-xxsmall);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
