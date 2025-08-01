@@ -1,5 +1,6 @@
 .inf-alert {
   display: flex;
+  justify-content: space-between;
   border-radius: var(--inf-border-radius-small);
   padding: var(--inf-space-small);
 
@@ -45,6 +46,14 @@
 
   &__before {
     display: flex;
-    margin-right: var(--inf-space-xxsmall);
+    align-items: center;
+  }
+
+  &__after {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 }

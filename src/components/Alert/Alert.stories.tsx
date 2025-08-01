@@ -44,3 +44,21 @@ export const Variants = {
     )
   }
 }
+
+export const Closable = {
+  render: () => {
+    const handleClose = (): void => {
+      console.log('Alert closed!')
+    }
+
+    return (
+      <Space>
+        {variants.map((variant, index) => (
+          <Alert variant={variant} key={index} onClose={handleClose}>
+            Alert {variant}
+          </Alert>
+        ))}
+      </Space>
+    )
+  }
+}
