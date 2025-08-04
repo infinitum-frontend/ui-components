@@ -3,14 +3,7 @@ import cn from 'classnames'
 import FormContext from 'Components/Form/context/form'
 import FormGroupContext from 'Components/Form/context/group'
 import useFormControlHandlers from 'Components/Form/hooks/useFormControlHandlers'
-import {
-  ReactElement,
-  useContext,
-  useEffect,
-  useId,
-  useRef,
-  useState
-} from 'react'
+import { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import { Loader } from '../Loader'
 import { Menu } from '../Menu'
 import { Popover } from '../Popover'
@@ -32,6 +25,7 @@ import {
   SelectOption as SelectOptionType,
   SelectProps
 } from './utils/types'
+import { isGroupLabel } from './utils/helpers'
 
 const Select = <Multiple extends boolean = false>({
   options = [],
@@ -69,8 +63,6 @@ const Select = <Multiple extends boolean = false>({
 
   const isOpen = controlledDropdownOpen ?? uncontrolledOpen
   const setOpen = controlledOnDropdownOpenChange ?? setUncontrolledOpen
-
-  const prefix = useId()
 
   const formGroupContext = useContext(FormGroupContext)
   const formContext = useContext(FormContext)
@@ -227,13 +219,15 @@ const Select = <Multiple extends boolean = false>({
           ) : (
             <Menu as="ul" className="inf-select__options" maxHeight={maxHeight}>
               {filteredFlattenOptions.map((option, index) => {
-                return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
-                  <Menu.Label key={String(option.groupLabel) + prefix}>
+                return isGroupLabel(option) ? (
+                  <Menu.Label
+                    key={`group-${String(option.groupLabel)}-${index}`}
+                  >
                     {option.groupLabel}
                   </Menu.Label>
                 ) : (
                   <SelectOption
-                    key={String(option.value) + prefix}
+                    key={`option-${String(option.value)}-${index}`}
                     selected={checkOptionSelection(option)}
                     selectionIndicator={multiple ? 'checkbox' : 'tick'}
                     onSelect={() => {
@@ -312,10 +306,9 @@ const VirtualizedOptions = ({
           {virtualizedListItems.map((virtualItem) => {
             const { index } = virtualItem
             const option = options[index]
-            const key = virtualItem.key.toString()
-            return 'groupLabel' in option ? ( // TODO : использовать хелпер isGroupLabel
+            return isGroupLabel(option) ? (
               <Menu.Label
-                key={key}
+                key={`group-${String(option.groupLabel)}-${index}`}
                 data-index={index}
                 ref={virtualizer.measureElement}
               >
@@ -323,7 +316,7 @@ const VirtualizedOptions = ({
               </Menu.Label>
             ) : (
               <SelectOption
-                key={key}
+                key={`option-${String(option.value)}-${index}`}
                 data-index={index}
                 ref={virtualizer.measureElement}
                 selected={checkOptionSelection(option)}
