@@ -11,6 +11,8 @@ import { Text } from '../Text'
 import { IconButton } from '../IconButton'
 import { Icon } from '../Icon'
 import './File.scss'
+import { Tooltip } from '../Tooltip'
+import useTextOverflowTooltip from '~/src/hooks/useTextOverflowTooltip'
 
 export interface FileProps {
   name: string
@@ -34,24 +36,47 @@ const File = ({
   size,
   errorMessage
 }: FileProps): ReactElement => {
+  const {
+    isOpen: isTooltipOpen,
+    onOpenChange: setTooltipOpen,
+    handleMouseEnter,
+    handleMouseLeave
+  } = useTextOverflowTooltip()
   const isError = status === 'error'
   const isLoading = status === 'loading'
   const isIdle = status === 'idle'
 
   const getSizeBlock = (): ReactElement => {
     return (
-      <Text variant="body-1" color="tertiary" uppercase>
+      <Text variant="body-1" color="tertiary" uppercase nowrap>
         {size ? `(${formatBytes(size)} ${getUnitBySize(size)})` : ''}
       </Text>
     )
   }
 
-  const getNameAndExtension = (): ReactElement => {
-    return (
+  const getNameAndExtension = (isInteractive?: boolean): ReactElement => {
+    const content = (
       <>
-        <Text variant="body-1">{name}</Text>
-        {extension && <Text variant="body-1">.{extension}</Text>}
+        {name}
+        {extension && `.${extension}`}
       </>
+    )
+    return (
+      <Tooltip
+        open={isTooltipOpen}
+        onOpenChange={setTooltipOpen}
+        content={content}
+      >
+        <Text
+          onClick={onGetFile}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          color={isInteractive ? 'info' : 'primary'}
+          truncated
+        >
+          {content}
+        </Text>
+      </Tooltip>
     )
   }
 
@@ -63,7 +88,12 @@ const File = ({
       className="inf-file"
       justify="space-between"
     >
-      <Space direction="horizontal" gap="xsmall" align="start">
+      <Space
+        direction="horizontal"
+        gap="xsmall"
+        align="start"
+        className="inf-file__content-wrapper"
+      >
         {isError && (
           <>
             <Icon color="error">
@@ -72,10 +102,7 @@ const File = ({
 
             <div>
               <Space direction="horizontal" gap="xxsmall" align="start">
-                <div className="inf-file__name-wrapper">
-                  <Text variant="body-1">{name}</Text>
-                  {extension && <Text variant="body-1">.{extension}</Text>}
-                </div>
+                {getNameAndExtension()}
                 {getSizeBlock()}
               </Space>
               {errorMessage && (
@@ -94,11 +121,7 @@ const File = ({
               variant="unset"
               className="inf-file__loader"
             />
-
-            <div className="inf-file__name-wrapper">
-              <Text variant="body-1">{name}</Text>
-              {extension && <Text variant="body-1">.{extension}</Text>}
-            </div>
+            {getNameAndExtension()}
             {getSizeBlock()}
           </>
         )}
@@ -109,13 +132,7 @@ const File = ({
               <IconAttachment02 />
             </Icon>
 
-            <Text
-              onClick={onGetFile}
-              color="info"
-              className="inf-file__name-wrapper"
-            >
-              {getNameAndExtension()}
-            </Text>
+            {getNameAndExtension(true)}
             {getSizeBlock()}
           </>
         )}

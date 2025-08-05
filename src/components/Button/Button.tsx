@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, {
+import {
   ElementType,
   forwardRef,
   ReactElement,
@@ -11,6 +11,7 @@ import { Loader } from '../Loader'
 import './Button.scss'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import FormContext from 'Components/Form/context/form'
+import { reactNodeToString } from '~/src/utils/helpers'
 
 export interface ButtonProps {
   /**
@@ -105,7 +106,13 @@ function BaseButton<C extends ElementType = 'button'>(
         ) : (
           <>
             {before && <span className="inf-button__before">{before}</span>}
-            <span className="inf-button__text">{children}</span>
+
+            <span
+              className="inf-button__text"
+              title={reactNodeToString(children)}
+            >
+              {children}
+            </span>
             {after && <span className="inf-button__after">{after}</span>}
           </>
         )}
