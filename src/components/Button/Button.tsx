@@ -11,8 +11,7 @@ import { Loader } from '../Loader'
 import './Button.scss'
 import { PolymorphicComponent, PolymorphicRef } from '~/src/utils/types'
 import FormContext from 'Components/Form/context/form'
-import { Tooltip } from '../Tooltip'
-import useTextOverflowTooltip from '~/src/hooks/useTextOverflowTooltip'
+import { reactNodeToString } from '~/src/utils/helpers'
 
 export interface ButtonProps {
   /**
@@ -80,9 +79,6 @@ function BaseButton<C extends ElementType = 'button'>(
 
   const formContext = useContext(FormContext)
   const disabled = disabledProp || formContext?.disabled
-
-  const { isOpen, onOpenChange, handleMouseEnter, handleMouseLeave } =
-    useTextOverflowTooltip()
   const Component = as
 
   return (
@@ -110,19 +106,13 @@ function BaseButton<C extends ElementType = 'button'>(
         ) : (
           <>
             {before && <span className="inf-button__before">{before}</span>}
-            <Tooltip
-              content={children}
-              open={isOpen}
-              onOpenChange={onOpenChange}
+
+            <span
+              className="inf-button__text"
+              title={reactNodeToString(children)}
             >
-              <span
-                className="inf-button__text"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                {children}
-              </span>
-            </Tooltip>
+              {children}
+            </span>
             {after && <span className="inf-button__after">{after}</span>}
           </>
         )}

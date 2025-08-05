@@ -11,7 +11,7 @@ const meta: Meta<typeof DateRangePicker> = {
   title: 'Form/DateRangePicker',
   component: DateRangePicker,
   args: {
-    // min: formatDateToISO(new Date()),
+    min: formatDateToISO(new Date()),
     max: formatDateToISO(addYears(new Date(), 1))
   }
 }
