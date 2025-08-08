@@ -1,22 +1,21 @@
 .inf-pagination {
   display: flex;
   align-items: center;
-  gap: var(--inf-space-xsmall);
+  gap: var(--inf-space-xxsmall);
 
   &__button {
     @include button-reset;
     height: var(--inf-control-height-small);
-    // background-color: var(--inf-color-background-primary);
-    border: 1px solid var(--inf-color-border-primary);
     border-radius: var(--inf-border-radius-small);
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--inf-color-text-primary);
+    color: var(--inf-color-text-info);
     font-size: var(--inf-font-size-body-1);
     font-weight: var(--inf-font-weight-bold);
     padding: var(--inf-space-small);
     transition: 0.2s;
+    min-width: var(--inf-control-height-small);
 
     @include hover-active {
       &:not(.inf-pagination__button--active) {
@@ -25,7 +24,7 @@
     }
 
     &--active {
-      background-color: var(--inf-color-background-button-secondary-active);
+      color: var(--inf-color-icon-info-disabled);
     }
 
     &--square {
@@ -37,8 +36,15 @@
     }
   }
 
-  &__text {
-    color: var(--inf-color-text-secondary);
-    font: var(--inf-font-body-1);
+  &__dropdown {
+    min-width: 70px !important;
+  }
+
+  &__dropdown-item {
+    padding: var(--inf-space-xsmall) var(--inf-space-small) !important;
+
+    &--active {
+      color: var(--inf-color-icon-info-disabled) !important;
+    }
   }
 }

@@ -12,80 +12,57 @@ const range = (start: number, end: number): number[] => {
 
 type UsePaginationProps = Pick<
   PaginationProps,
-  'totalCount' | 'pageSize' | 'siblingCount' | 'currentPage'
+  'totalCount' | 'pageSize' | 'currentPage'
 >
 
 export const usePagination = ({
   totalCount,
   pageSize,
-  siblingCount = 1,
   currentPage
-}: UsePaginationProps): Array<number | string> => {
-  const paginationRange = useMemo(() => {
+}: UsePaginationProps): {
+  paginationRangeToShow: Array<number | string>
+  paginationRangeOverflow: number[]
+} => {
+  const paginationRangeToShow = useMemo(() => {
     const totalPageCount = Math.ceil(totalCount / pageSize)
 
-    // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
-    const totalPageNumbers = siblingCount + 5
-
-    /*
-      Case 1:
-      If the number of pages is less than the page numbers we want to show in our
-      paginationComponent, we return the range [1..totalPageCount]
-    */
-    if (totalPageNumbers >= totalPageCount) {
+    // Если страниц 5 или меньше, показываем все страницы без DOTS
+    if (totalPageCount <= 5) {
       return range(1, totalPageCount)
     }
 
-    /*
-    	Calculate left and right sibling index and make sure they are within range 1 and totalPageCount
-    */
-    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1)
-    const rightSiblingIndex = Math.min(
-      currentPage + siblingCount,
-      totalPageCount
-    )
-
-    /*
-      We do not show dots just when there is just one page number to be inserted between the extremes of sibling and the page limits i.e 1 and totalPageCount. Hence we are using leftSiblingIndex > 2 and rightSiblingIndex < totalPageCount - 2
-    */
-    const shouldShowLeftDots = leftSiblingIndex > 2
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2
-
+    // Если страниц больше 5, показываем первую, вторую, DOTS, предпоследнюю и последнюю страницы
     const firstPageIndex = 1
+    const secondPageIndex = 2
     const lastPageIndex = totalPageCount
+    const secondLastPageIndex = totalPageCount - 1
 
-    /*
-    	Case 2: No left dots to show, but rights dots to be shown
-    */
-    if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 3 + 2 * siblingCount
-      const leftRange = range(1, leftItemCount)
+    return [
+      firstPageIndex,
+      secondPageIndex,
+      DOTS,
+      secondLastPageIndex,
+      lastPageIndex
+    ]
+  }, [totalCount, pageSize, currentPage])
 
-      return [...leftRange, DOTS, totalPageCount]
+  const getPageRange = useMemo((): number[] => {
+    const totalPageCount = Math.ceil(totalCount / pageSize)
+    const startPage = 3
+    const endPage = totalPageCount - 2
+
+    if (startPage > endPage) {
+      return []
     }
 
-    /*
-    	Case 3: No right dots to show, but left dots to be shown
-    */
-    if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 3 + 2 * siblingCount
-      const rightRange = range(
-        totalPageCount - rightItemCount + 1,
-        totalPageCount
-      )
-      return [firstPageIndex, DOTS, ...rightRange]
-    }
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
+    )
+  }, [totalCount, pageSize])
 
-    /*
-    	Case 4: Both left and right dots to be shown
-    */
-    if (shouldShowLeftDots && shouldShowRightDots) {
-      const middleRange = range(leftSiblingIndex, rightSiblingIndex)
-      return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
-    }
-
-    return []
-  }, [totalCount, pageSize, siblingCount, currentPage])
-
-  return paginationRange
+  return {
+    paginationRangeToShow,
+    paginationRangeOverflow: getPageRange
+  }
 }

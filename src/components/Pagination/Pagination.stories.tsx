@@ -42,6 +42,26 @@ export const FewPages = {
   }
 }
 
+export const ShowFirstLast = {
+  render: Template,
+
+  args: {
+    totalCount: 30,
+    pageSize: 10,
+    showFirstLast: true
+  }
+}
+
+export const ManyPages = {
+  render: Template,
+
+  args: {
+    totalCount: 1000,
+    pageSize: 10,
+    showFirstLast: true
+  }
+}
+
 export const Disabled = {
   render: Template,
 
@@ -52,12 +72,42 @@ export const Disabled = {
   }
 }
 
-export const PrevNextVariant = {
+export const ItemsRange = {
   render: Template,
 
   args: {
-    totalCount: 50,
+    totalCount: 1000,
     pageSize: 10,
-    variant: 'prev-next'
+    showFirstLast: true,
+    showOverflowDots: true,
+    showItemsRange: true
+  }
+}
+
+export const CustomPageSizeOptions = {
+  render: () => {
+    const PAGE_SIZE = 10
+    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPageSize, setCurrentPageSize] = useState(PAGE_SIZE)
+
+    return (
+      <>
+        <Pagination
+          totalCount={1000}
+          pageSize={currentPageSize}
+          showFirstLast={true}
+          showItemsRange={true}
+          pageSizeOptions={[10, 20, 50, 100, 500]}
+          onPageSizeChange={(newPageSize: number) => {
+            setCurrentPage(1)
+            setCurrentPageSize(newPageSize)
+            console.log('Page size changed to:', newPageSize)
+          }}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+        <div style={{ marginTop: '8px' }}>Page: {currentPage}</div>
+      </>
+    )
   }
 }
