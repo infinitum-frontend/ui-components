@@ -139,6 +139,7 @@ const DateRangePicker = ({
           size={size}
           required={required}
           clearable={clearable}
+          disabled={disabled}
           value={localValue.from}
           onClear={() => setLocalValue({ ...localValue, from: '' })}
           prefix={
@@ -165,6 +166,7 @@ const DateRangePicker = ({
           max={max}
           size={size}
           required={required}
+          disabled={disabled}
           value={localValue.to}
           clearable={clearable}
           onClear={() => setLocalValue({ ...localValue, to: '' })}

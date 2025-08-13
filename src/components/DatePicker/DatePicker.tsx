@@ -124,6 +124,7 @@ const DatePicker = ({
           min={min}
           max={max}
           required={required}
+          disabled={disabled}
           onComplete={(val) => {
             onChange?.(formatDateToISO(parseLocalDateString(val) as Date))
           }}
