@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as React from 'react'
 import { Button } from './index'
 import { Space } from '../Space'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
@@ -35,6 +34,18 @@ export const Secondary = {
 
   args: {
     variant: 'secondary'
+  }
+}
+
+export const WithOverflow = {
+  render: ({ ...args }) => {
+    return (
+      <div style={{ width: '200px' }}>
+        <Button after={<DownloadIcon />}>
+          Я кнопка с очень длинным текстом, Я кнопка с очень длинным текстом
+        </Button>
+      </div>
+    )
   }
 }
 

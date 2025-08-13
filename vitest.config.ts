@@ -36,6 +36,11 @@ export default defineConfig({
     include: ['**/*.spec.tsx'],
     coverage: {
       provider: 'v8'
+    },
+    server: {
+      deps: {
+        inline: ['@infinitum-ui/icons'] // Иконки это чисто ESM пакет, поэтому нода не может его обработать
+      }
     }
   }
 })

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { Button } from '../Button'
 import { Form } from '../Form'
@@ -48,7 +48,7 @@ export const NativeDatepicker = {
   }
 }
 
-export const InForm: StoryFn<typeof DatePicker> = {
+export const InForm: StoryObj<typeof DatePicker> = {
   render: (args) => {
     const [value, setValue] = useState('')
     return (
@@ -67,7 +67,7 @@ export const InForm: StoryFn<typeof DatePicker> = {
   }
 }
 
-export const MinMax: StoryFn<typeof DatePicker> = {
+export const MinMax: StoryObj<typeof DatePicker> = {
   render: () => {
     const [firstValue, setFirstValue] = useState('')
     const [secondValue, setSecondValue] = useState('')
@@ -102,7 +102,7 @@ export const MinMax: StoryFn<typeof DatePicker> = {
   }
 }
 
-export const NativeDatePickerOtherTypes: StoryFn<typeof DatePicker> = {
+export const NativeDatePickerOtherTypes: StoryObj<typeof DatePicker> = {
   render: () => {
     const [value1, setValue1] = useState('')
     const [value2, setValue2] = useState('')
@@ -140,7 +140,7 @@ export const NativeDatePickerOtherTypes: StoryFn<typeof DatePicker> = {
   }
 }
 
-export const InlineView: StoryFn<typeof DatePicker> = {
+export const InlineView: StoryObj<typeof DatePicker> = {
   render: (args) => {
     const [value, setValue] = useState('')
     return (
@@ -156,6 +156,14 @@ export const InlineView: StoryFn<typeof DatePicker> = {
         <Button type="submit">Click me</Button>
       </Form>
     )
+  }
+}
+
+export const Disabled: StoryObj<typeof DatePicker> = {
+  render: Template,
+
+  args: {
+    disabled: true
   }
 }
 
